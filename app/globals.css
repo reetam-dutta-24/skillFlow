@@ -8,8 +8,63 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-geist-sans), "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* SkillFlow design system — semantic colors. Values are theme-dependent;
+     see the :root/.dark and .light blocks below. */
+  --color-bg-app: var(--bg-app);
+  --color-bg-sidebar: var(--bg-sidebar);
+  --color-bg-sunken: var(--bg-sunken);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-surface-card: var(--surface-card);
+  --color-surface-card-accent: var(--surface-card-accent);
+  --color-surface-hover: var(--surface-hover);
+  --color-surface-active: var(--surface-active);
+  --color-surface-lock: var(--surface-lock);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-faint: var(--text-faint);
+  --color-text-on-accent: var(--text-on-accent);
+  --color-text-accent: var(--text-accent);
+  --color-text-link: var(--text-link);
+  --color-text-link-hover: var(--text-link-hover);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-default: var(--border-default);
+  --color-border-strong: var(--border-strong);
+  --color-border-accent: var(--border-accent);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-quiet: var(--accent-quiet);
+  --color-state-pass: var(--state-pass);
+  --color-state-pass-bg: var(--state-pass-bg);
+  --color-state-warn: var(--state-warn);
+  --color-state-warn-bg: var(--state-warn-bg);
+  --color-state-fail: var(--state-fail);
+  --color-state-fail-bg: var(--state-fail-bg);
+  --color-state-lock: var(--state-lock);
+  --color-chart-grid: var(--chart-grid);
+  --color-chart-axis: var(--chart-axis);
+  --color-chart-track: var(--chart-track);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-skeleton-base: var(--skeleton-base);
+  --color-skeleton-sheen: var(--skeleton-sheen);
+
+  /* SkillFlow design system — radius (theme-invariant, defined directly here) */
+  --radius-btn: 10px;
+  --radius-btn-sm: 8px;
+  --radius-card: 24px;
+  --radius-card-md: 25px;
+  --radius-poster: 26.4px;
+  --radius-card-xl: 32px;
+  --radius-chip: 25px;
+  --radius-panel: 16px;
+  --radius-tile: 18px;
+  --radius-full: 9999px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,4 +78,320 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ==========================================================================
+   SkillFlow design system tokens
+   Merged from the Claude Design export's tokens/*.css. Semantic colors use
+   .dark/.light classes on the root element (dark is the default when neither
+   is present) instead of the source's [data-theme] attribute, so theming
+   works via a class toggle. Colors are re-exposed as Tailwind theme colors
+   above (--color-*); everything else here is consumed via var() directly in
+   component inline styles, matching how the components were authored.
+   ========================================================================== */
+
+/* Brand ramp — cyan to blue. Internal palette; components consume the
+   semantic aliases below, not these directly. */
+:root {
+  --cyan-300: #67e8f9;
+  --cyan-400: #22d3ee;
+  --cyan-500: #06b6d4;
+  --sky-500: #0ea5e9;
+  --blue-500: #2563eb;
+  --blue-600: #1d4ed8;
+  --blue-700: #1e40af;
+
+  --brand-cyan: #22d3ee;
+  --brand-sky: #0ea5e9;
+  --brand-blue: #2563eb;
+  --brand-deep: #1d4ed8;
+  --brand-soft: #a5e9f7;
+
+  --violet-950: #120826;
+  --violet-975: #0a0618;
+  --violet-990: #0a0416;
+  --ink-900: #1a0d2e;
+  --black: #000000;
+  --white: #ffffff;
+
+  --paper-0: #ffffff;
+  --paper-50: #f8fafc;
+  --paper-100: #f1f5f9;
+  --paper-200: #e2e8f0;
+  --paper-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-900: #0f172a;
+
+  --pass-500: #10b981;
+  --pass-400: #34d399;
+  --warn-500: #f59e0b;
+  --warn-400: #fbbf24;
+  --fail-500: #ef4444;
+  --fail-400: #f87171;
+  --lock-500: #64748b;
+
+  --gradient-brand: linear-gradient(to left, #2563eb 0%, #0ea5e9 49.5%, #22d3ee 100%);
+  --gradient-brand-v: linear-gradient(180deg, #22d3ee 0%, #2563eb 100%);
+  --gradient-brand-quiet: linear-gradient(90deg, rgba(34, 211, 238, .16) 0%, rgba(37, 99, 235, .16) 100%);
+
+  --glass-cyan: rgba(34, 211, 238, .14);
+  --glass-blue: rgba(37, 99, 235, .16);
+  --glass-neutral: rgba(255, 255, 255, .05);
+}
+
+/* Type scale */
+:root {
+  --text-display: 4rem;      --text-display-lh: 0.93;
+  --text-title: 2rem;        --text-title-lh: 1.2;
+  --text-heading: 1.5rem;    --text-heading-lh: 1.3;
+  --text-subtitle: 1rem;     --text-subtitle-lh: 1.5;
+  --text-body: 0.875rem;     --text-body-lh: 1.55;
+  --text-sm: 0.8125rem;      --text-sm-lh: 1.5;
+  --text-xs: 0.75rem;        --text-xs-lh: 1.45;
+  --text-2xs: 0.6875rem;     --text-2xs-lh: 1.35;
+  --text-3xs: 0.625rem;      --text-3xs-lh: 1.2;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  --tracking-tight: -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.02em;
+}
+
+/* 4px base rhythm + layout constants */
+:root {
+  --space-0: 0px;
+  --space-1: 4px;
+  --space-1-5: 6px;
+  --space-2: 8px;
+  --space-2-5: 10px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  --sidebar-w: 168px;
+  --sidebar-w-mobile: min(280px, 85vw);
+  --topbar-h: 72px;
+  --topbar-h-mobile: 56px;
+  --page-pad-x: 32px;
+  --page-pad-x-sm: 24px;
+  --page-pad-x-xs: 16px;
+  --card-slot-w: 160px;
+  --content-max: 1100px;
+}
+
+/* Easing/duration */
+:root {
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-in-out: ease-in-out;
+
+  --dur-fast: 200ms;
+  --dur-base: 300ms;
+  --dur-slow: 500ms;
+  --dur-slower: 700ms;
+}
+
+/* Semantic aliases — dark is the default (:root, .dark); .light overrides.
+   Elevation tokens (shadows/rings/glows/blur) are folded in here since
+   they're dark-tuned and .light already overrides the ones that need it,
+   matching the source tokens' stacking order. */
+:root,
+.dark {
+  --bg-app: #120826;
+  --bg-sidebar: #0a0618;
+  --bg-sunken: #0a0416;
+  --bg-elevated: #1a0d2e;
+  --surface-card: rgba(255, 255, 255, .05);
+  --surface-card-accent: rgba(34, 211, 238, .10);
+  --surface-hover: rgba(255, 255, 255, .10);
+  --surface-active: rgba(255, 255, 255, .15);
+  --surface-lock: rgba(255, 255, 255, .035);
+
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, .72);
+  --text-muted: rgba(255, 255, 255, .55);
+  --text-faint: rgba(255, 255, 255, .38);
+  --text-on-accent: #ffffff;
+  --text-accent: #67e8f9;
+  --text-link: #67e8f9;
+  --text-link-hover: #a5e9f7;
+
+  --border-subtle: rgba(255, 255, 255, .08);
+  --border-default: rgba(255, 255, 255, .14);
+  --border-strong: rgba(255, 255, 255, .28);
+  --border-accent: #22d3ee;
+
+  --accent: #22d3ee;
+  --accent-strong: #2563eb;
+  --accent-quiet: rgba(34, 211, 238, .14);
+  --accent-fill: var(--gradient-brand);
+
+  --state-pass: #34d399;
+  --state-pass-bg: rgba(16, 185, 129, .14);
+  --state-warn: #fbbf24;
+  --state-warn-bg: rgba(245, 158, 11, .14);
+  --state-fail: #f87171;
+  --state-fail-bg: rgba(239, 68, 68, .14);
+  --state-lock: rgba(255, 255, 255, .45);
+
+  --chart-grid: rgba(248, 250, 252, .12);
+  --chart-axis: rgba(248, 250, 252, .65);
+  --chart-track: rgba(255, 255, 255, .10);
+  --chart-1: #22d3ee;
+  --chart-2: #2563eb;
+  --chart-3: #67e8f9;
+  --chart-4: #94a3b8;
+
+  --skeleton-base: rgba(255, 255, 255, .06);
+  --skeleton-sheen: rgba(255, 255, 255, .12);
+
+  --shadow-card-inner: inset -1px 1px 50px 0 rgba(0, 0, 0, .5);
+  --shadow-card-lift: 0 12px 36px rgba(0, 0, 0, .5), 0 4px 14px rgba(0, 0, 0, .35);
+  --shadow-section-dim: 0 16px 48px -12px rgba(0, 0, 0, .65), 0 8px 24px -4px rgba(0, 0, 0, .45);
+  --shadow-panel: 0 20px 80px rgba(0, 0, 0, .6);
+  --shadow-menu: 0 16px 48px rgba(0, 0, 0, .55);
+
+  --ring-accent: 0 0 0 1px rgba(34, 211, 238, .45);
+  --ring-accent-soft: 0 0 0 1px rgba(34, 211, 238, .22);
+  --glow-accent-soft: 0 0 18px 2px rgba(34, 211, 238, .22);
+  --glow-pass-soft: 0 0 18px 2px rgba(16, 185, 129, .20);
+  --glow-warn-soft: 0 0 18px 2px rgba(245, 158, 11, .20);
+
+  --blur-panel: blur(16px);
+  --blur-lock: blur(7px);
+}
+
+.light {
+  --bg-app: #ffffff;
+  --bg-sidebar: #f8fafc;
+  --bg-sunken: #f1f5f9;
+  --bg-elevated: #ffffff;
+  --surface-card: #f8fafc;
+  --surface-card-accent: rgba(34, 211, 238, .10);
+  --surface-hover: rgba(15, 23, 42, .05);
+  --surface-active: rgba(15, 23, 42, .09);
+  --surface-lock: #f1f5f9;
+
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --text-faint: #94a3b8;
+  --text-on-accent: #ffffff;
+  --text-accent: #0e7490;
+  --text-link: #1d4ed8;
+  --text-link-hover: #2563eb;
+
+  --border-subtle: rgba(15, 23, 42, .07);
+  --border-default: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --border-accent: #06b6d4;
+
+  --accent: #06b6d4;
+  --accent-strong: #2563eb;
+  --accent-quiet: rgba(6, 182, 212, .10);
+  --accent-fill: var(--gradient-brand);
+
+  --state-pass: #059669;
+  --state-pass-bg: rgba(16, 185, 129, .10);
+  --state-warn: #b45309;
+  --state-warn-bg: rgba(245, 158, 11, .12);
+  --state-fail: #dc2626;
+  --state-fail-bg: rgba(239, 68, 68, .09);
+  --state-lock: #94a3b8;
+
+  --chart-grid: rgba(15, 23, 42, .09);
+  --chart-axis: rgba(15, 23, 42, .55);
+  --chart-track: rgba(15, 23, 42, .07);
+  --chart-1: #06b6d4;
+  --chart-2: #2563eb;
+  --chart-3: #0ea5e9;
+  --chart-4: #94a3b8;
+
+  --skeleton-base: rgba(15, 23, 42, .06);
+  --skeleton-sheen: rgba(15, 23, 42, .03);
+
+  --shadow-card-inner: none;
+  --shadow-card-lift: 0 8px 24px rgba(15, 23, 42, .08), 0 2px 6px rgba(15, 23, 42, .05);
+  --shadow-panel: 0 20px 60px rgba(15, 23, 42, .12);
+  --shadow-menu: 0 16px 40px rgba(15, 23, 42, .14);
+  --shadow-section-dim: 0 12px 32px -12px rgba(15, 23, 42, .14);
+}
+
+/* Global resets — the only non-token rules in this closure. Scoped to
+   elements/pseudo-elements so they don't fight the CNA body{} rule above;
+   this one wins for actual painted background/color since it's declared
+   later with the same specificity. */
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background: var(--bg-app);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: var(--text-body-lh);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100dvh;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+a {
+  color: var(--text-link);
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease-in-out);
+}
+a:hover {
+  color: var(--text-link-hover);
+}
+::selection {
+  background: var(--accent);
+  color: #04212b;
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-default);
+  border-radius: 9999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-strong);
+  background-clip: content-box;
+}
+@keyframes sf-sheen {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes sf-fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes sf-spin {
+  to { transform: rotate(360deg); }
 }

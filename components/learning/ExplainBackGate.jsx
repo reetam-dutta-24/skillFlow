@@ -44,7 +44,7 @@ export function ExplainBackGate({
     <section style={{ display: "flex", flexDirection: "column", gap: 24, width: "100%", maxWidth: 680, ...style }} {...rest}>
       <header style={{ display: "flex", flexDirection: "column", gap: 6 }}>
         <Label>{stage} · Explain-back check</Label>
-        <h1 style={{ margin: 0, fontSize: "var(--text-title)", lineHeight: "var(--text-title-lh)", fontWeight: "var(--weight-bold)", letterSpacing: "var(--tracking-tight)", color: "var(--text-primary)" }}>{concept}</h1>
+        <h2 style={{ margin: 0, fontSize: "var(--text-title)", lineHeight: "var(--text-title-lh)", fontWeight: "var(--weight-bold)", letterSpacing: "var(--tracking-tight)", color: "var(--text-primary)" }}>{concept}</h2>
         {prompt ? <p style={{ margin: 0, fontSize: "var(--text-subtitle)", lineHeight: "var(--text-subtitle-lh)", color: "var(--text-muted)", textWrap: "pretty" }}>{prompt}</p> : null}
       </header>
 
@@ -77,7 +77,7 @@ export function ExplainBackGate({
       ) : null}
 
       {result ? (
-        <div style={{ display: "flex", flexDirection: "column", gap: 14, padding: "20px 22px", borderRadius: "var(--radius-card)", background: tone.bg, border: "1px solid " + tone.fg }}>
+        <div role="status" aria-live="polite" style={{ display: "flex", flexDirection: "column", gap: 14, padding: "20px 22px", borderRadius: "var(--radius-card)", background: tone.bg, border: "1px solid " + tone.fg }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <Icon name={tone.icon} size={18} color={tone.fg} />
             <p style={{ margin: 0, fontSize: "var(--text-subtitle)", fontWeight: "var(--weight-semibold)", color: tone.fg }}>{tone.title}</p>

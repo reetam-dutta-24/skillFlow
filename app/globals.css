@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+/* Explicit source paths — this project's Tailwind utilities (added for
+   responsive layout) live in app/ and components/, alongside components/
+   authored entirely as inline styles. Automatic content detection wasn't
+   picking them up under this Turbopack + @tailwindcss/postcss setup, so
+   they're declared explicitly rather than relying on the heuristic. */
+@source "../app";
+@source "../components";
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -394,4 +402,56 @@ a:hover {
 }
 @keyframes sf-spin {
   to { transform: rotate(360deg); }
+}
+@keyframes sf-slide-in {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+/* Link-rendered button look-alike (components/marketing/LinkButton.tsx) —
+   real <a> tags for the marketing/auth pages' CTAs, kept as Server
+   Components. Mirrors core/Button.jsx's gradient/outline variants; :hover
+   here since inline styles can't express it without client-side JS. */
+.sf-link-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  white-space: nowrap;
+  font-family: var(--font-sans);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background var(--dur-base) var(--ease-in-out), border-color var(--dur-base) var(--ease-in-out), color var(--dur-base) var(--ease-in-out);
+}
+.sf-link-btn-gradient {
+  background-image: var(--gradient-brand);
+  color: var(--text-on-accent);
+}
+.sf-link-btn-gradient:hover {
+  background-image: none;
+  background: transparent;
+  border-color: var(--border-accent);
+  color: var(--text-accent);
+}
+.sf-link-btn-outline {
+  background: transparent;
+  border-color: var(--border-accent);
+  color: var(--text-primary);
+}
+.sf-link-btn-outline:hover {
+  background: var(--accent-quiet);
+}
+/* Outline button placed on top of the gradient CTA banner — needs its own
+   contrast, since --border-accent/--text-primary read as near-invisible
+   against a cyan-to-blue background. */
+.sf-cta-on-gradient {
+  border-color: rgba(255, 255, 255, 0.7) !important;
+  color: #fff !important;
+}
+.sf-cta-on-gradient:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-color: #fff !important;
 }

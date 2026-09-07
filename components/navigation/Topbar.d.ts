@@ -15,5 +15,7 @@ export interface TopbarProps extends React.HTMLAttributes<HTMLElement> {
   onNotificationsClick?: () => void;
   searchValue?: string;
   onSearchChange?: (value: string) => void;
+  /** Renders a leading hamburger button, visible only below the `md` breakpoint, for a mobile nav drawer. */
+  onMenuClick?: () => void;
 }
 export function Topbar(props: TopbarProps): React.JSX.Element;

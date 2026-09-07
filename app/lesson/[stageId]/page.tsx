@@ -1,49 +1,23 @@
-"use client";
-
-import React, { useState } from "react";
-import { useParams, useRouter } from "next/navigation";
-import { AppShell } from "@/components/shell/AppShell";
-import { LessonPlayer } from "@/components/learning/LessonPlayer.jsx";
-import { EmptyState } from "@/components/feedback/EmptyState.jsx";
-import { Skeleton } from "@/components/feedback/Skeleton.jsx";
-import { Button } from "@/components/core/Button.jsx";
-import { useMockLoading } from "@/lib/use-mock-loading";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { LessonView } from "./lesson-view";
 import { getStageById, getSkillForStage } from "@/lib/mock-data";
 
-export default function LessonPage() {
-  const router = useRouter();
-  const params = useParams<{ stageId: string }>();
-  const loading = useMockLoading();
-  const stage = getStageById(params.stageId);
-  const skill = getSkillForStage(params.stageId);
-  const [watched, setWatched] = useState(stage?.status === "done");
+type Params = Promise<{ stageId: string }>;
 
-  return (
-    <AppShell title={stage ? stage.lesson.title : "Lesson"} active="roadmaps">
-      {loading ? (
-        <>
-          <Skeleton height={20} width={280} />
-          <Skeleton height={340} radius="var(--radius-card)" />
-        </>
-      ) : !stage || !skill ? (
-        <EmptyState
-          icon="video-off"
-          title="Lesson not found"
-          description="This lesson doesn't exist yet."
-          action={<Button variant="outline" onClick={() => router.push("/dashboard")}>Back to dashboard</Button>}
-        />
-      ) : (
-        <LessonPlayer
-          title={stage.lesson.title}
-          skill={skill.name}
-          stage={`Stage ${stage.order} · ${stage.title}`}
-          duration={stage.lesson.duration}
-          watched={watched}
-          resource={stage.resource}
-          onToggleWatched={() => setWatched((w) => !w)}
-          onContinue={() => router.push(`/quiz/${stage.id}`)}
-        />
-      )}
-    </AppShell>
-  );
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+  const { stageId } = await params;
+  const stage = getStageById(stageId);
+  return {
+    title: stage ? stage.lesson.title : "Lesson",
+    description: stage?.description,
+    robots: { index: false, follow: false },
+  };
+}
+
+export default async function LessonPage({ params }: { params: Params }) {
+  const { stageId } = await params;
+  if (!getStageById(stageId) || !getSkillForStage(stageId)) notFound();
+
+  return <LessonView stageId={stageId} />;
 }

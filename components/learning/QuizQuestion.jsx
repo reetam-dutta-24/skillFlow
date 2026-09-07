@@ -55,7 +55,7 @@ export function QuizQuestion({ index = 1, total = 5, question, options = [], cor
         })}
       </div>
       {answered && !correct && explanation ? (
-        <div style={{ display: "flex", gap: 12, padding: "16px 18px", borderRadius: "var(--radius-panel)", background: "var(--surface-card)", borderLeft: "none", border: "1px solid var(--border-default)" }}>
+        <div role="status" aria-live="polite" style={{ display: "flex", gap: 12, padding: "16px 18px", borderRadius: "var(--radius-panel)", background: "var(--surface-card)", borderLeft: "none", border: "1px solid var(--border-default)" }}>
           <Icon name="sparkles" size={16} color="var(--accent)" />
           <div>
             <p style={{ margin: 0, fontSize: "var(--text-2xs)", fontWeight: "var(--weight-semibold)", letterSpacing: "var(--tracking-wide)", textTransform: "uppercase", color: "var(--text-faint)" }}>From this lesson</p>

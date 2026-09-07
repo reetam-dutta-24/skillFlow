@@ -9,7 +9,7 @@ import { stats } from "@/lib/mock-data";
 export function StatsGrid({ loading = false }: { loading?: boolean }) {
   if (loading) {
     return (
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 16 }}>
         {Array.from({ length: 4 }).map((_, i) => (
           <Skeleton key={i} height={90} radius="var(--radius-card)" />
         ))}
@@ -18,7 +18,7 @@ export function StatsGrid({ loading = false }: { loading?: boolean }) {
   }
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 16 }}>
       <StatCard
         label="Current streak"
         value={stats.currentStreak}

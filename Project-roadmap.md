@@ -57,6 +57,14 @@ silently dropped:
 - [x] Repo created (`reetam-dutta-24/skillFlow`), Next.js 16 scaffolded
 - [x] Git initialized, conventional commit style adopted
 - [x] Dependencies installed (Prisma, next-auth, ioredis, etc.)
+**What & why:** Next.js 16 with the App Router gives file-system-based routing and
+server-first rendering by default (data-fetching logic stays server-side, never
+shipped to the browser unless explicitly marked `"use client"`). TypeScript end-to-end
+means the Prisma schema, backend, and frontend all share real types — a bug like
+passing a string where a number's expected gets caught at compile time, not in
+production. Docker was chosen for local dev specifically for reproducibility — the
+same environment regardless of machine, no "works on my machine" drift.
+
 
 ## PHASE 1 — UI/UX Design
 **Status: ✅ COMPLETE**
@@ -69,15 +77,51 @@ silently dropped:
 - [x] Output reviewed via rendered screenshots (Home, Roadmap View, Explain-Back Gate, Progress, Library) — matched spec, calm non-gamified tone confirmed
 - [x] Components + tokens integrated into real repo via Claude Code (Tailwind v4 fixes, `lucide-react` swap, `dark`/`light` class toggle)
 - [x] Build verified (`tsc --noEmit`, `npm run build` passing)
+**What & why:** Design tokens (CSS custom properties + Tailwind's `@theme` block)
+centralize every color/spacing/type decision in one place, so the dark/light toggle
+is a single class swap instead of a rewrite of every component. Claude Design was
+grounded in the AniVerse repo specifically so the new component library inherited a
+real, already-battle-tested structure rather than starting from a blank template —
+real design-system reuse, not a redo.
 
 ## PHASE 2 — Data Model, Auth & System Architecture
-**Status: ⬜ NOT STARTED**
+**Status: 🔶 IN PROGRESS**
 
-**Database:**
-- [ ] Full Prisma schema written (Auth models, Skill → RoadmapStage → Resource, Quiz/QuizQuestion/QuizAttempt, ExplainBackPrompt/ExplainBackAttempt, UserSkillProgress/StageCompletion)
-- [ ] Docker Compose Postgres container running locally
-- [ ] `DATABASE_URL` configured in `.env`
-- [ ] Migration run (`prisma migrate dev`), verified live in Prisma Studio
+**Database (done):**
+- [x] Full Prisma schema written (Auth models incl. `UserRole` enum, Skill → RoadmapStage → Resource, ResourceSubmission, Quiz/QuizQuestion/QuizAttempt, ExplainBackPrompt/ExplainBackAttempt, UserSkillProgress/StageCompletion)
+- [x] Docker Compose Postgres container running locally
+- [x] `DATABASE_URL` configured in `.env`
+- [x] `prisma.config.ts` env loading fixed (`dotenv/config` import)
+- [x] Migration run (`prisma migrate dev`), verified live in Prisma Studio
+
+**What & why — Docker:** Docker packages Postgres and all its dependencies into an
+isolated, reproducible container, so the exact same database environment runs
+identically on any machine — this is what "works on my machine" problems actually
+get solved by. `docker-compose.yml` declares the container's config (user, password,
+port, persistent volume) as code, checked into the repo, not manual clicking.
+
+**What & why — Prisma migrations:** `prisma migrate dev` does two things: generates
+a versioned SQL file recording exactly how the schema changed (a permanent, auditable
+history — unlike `db push`, which syncs state but leaves no trace of *how* it got
+there), and regenerates the type-safe Prisma Client used throughout the app.
+
+**What & why — the schema design itself:** `Skill → RoadmapStage → Resource` is a
+one-to-many relational hierarchy — a stage is meaningless without its parent skill
+and order, so it's modeled as related tables with foreign keys and a composite
+unique constraint (`@@unique([skillId, order])`), not nested JSON. `Resource` stores
+a full content snapshot (title, description, transcript) at ingestion time — this
+solves two problems at once: graceful degradation if a source URL dies, and it's
+the actual grounding context passed to the AI for quiz/explain-back generation.
+`ResourceSubmission` is a staging table, separate from the live `Resource` table —
+standard CMS pattern: nothing a user submits becomes visible until an `ADMIN`-role
+account approves it, which creates the real `Resource` row.
+
+**Real bug hit & fixed (good interview story):** Prisma 6's `prisma.config.ts`
+stopped auto-loading `.env` — required an explicit `import 'dotenv/config'`. Also
+hit a classic Docker gotcha: named volumes only apply `POSTGRES_USER`/`PASSWORD` on
+first initialization — changing credentials in `docker-compose.yml` after the volume
+already exists does nothing until you `docker compose down -v` to wipe it clean.
+
 
 **Auth:**
 - [ ] `@auth/prisma-adapter` installed
@@ -103,6 +147,10 @@ silently dropped:
 - [ ] Roadmap CRUD (admin-side; v1 roadmaps are manually curated, not AI-generated)
 - [ ] Resource ingestion: YouTube embed/iframe (never scraped), doc/course links, full metadata snapshot captured at ingestion (title, description, key points, transcript — for graceful degradation + AI grounding)
 - [ ] Segmented feed query logic (per-skill, never blended)
+- [ ] User resource submission endpoint (`USER` role — creates `ResourceSubmission`, status `PENDING`)
+- [ ] Admin review queue UI + endpoint (`ADMIN` role only — approve/reject)
+- [ ] Approval logic: promotes a `ResourceSubmission` into a real `Resource` with full content snapshot; rejection stores review notes, notifies submitter
+- [ ] Admin-only route protection (role check, not just auth check)
 - [ ] Zod validation on all API inputs
 - [ ] Service-layer separation maintained (no business logic directly in route handlers)
 - [ ] Integration tests on roadmap/resource retrieval

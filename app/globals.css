@@ -1,14 +1,13 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Class on <html> drives tokens and Tailwind `dark:` utilities. Not the OS preference. */
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans), "Segoe UI", system-ui, -apple-system, sans-serif;
+  /* AniVerse's Figma face is Segoe UI; Geist is the loaded fallback. */
+  --font-sans: "Segoe UI", var(--font-geist-sans), system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
   /* SkillFlow design system — semantic colors. Values are theme-dependent;
@@ -67,19 +66,6 @@
   --radius-full: 9999px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 /* ==========================================================================
    SkillFlow design system tokens
    Merged from the Claude Design export's tokens/*.css. Semantic colors use
@@ -133,9 +119,11 @@ body {
   --fail-400: #f87171;
   --lock-500: #64748b;
 
-  --gradient-brand: linear-gradient(to left, #2563eb 0%, #0ea5e9 49.5%, #22d3ee 100%);
-  --gradient-brand-v: linear-gradient(180deg, #22d3ee 0%, #2563eb 100%);
+  /* Fill stops stay deep enough for white label text. Bright cyan is the glow, not the fill. */
+  --gradient-brand: linear-gradient(to left, #1d4ed8 0%, #0369a1 49.5%, #0e7490 100%);
+  --gradient-brand-v: linear-gradient(180deg, #0e7490 0%, #1d4ed8 100%);
   --gradient-brand-quiet: linear-gradient(90deg, rgba(34, 211, 238, .16) 0%, rgba(37, 99, 235, .16) 100%);
+  --selection-fg: #04212b;
 
   --glass-cyan: rgba(34, 211, 238, .14);
   --glass-blue: rgba(37, 99, 235, .16);
@@ -209,6 +197,9 @@ body {
    matching the source tokens' stacking order. */
 :root,
 .dark {
+  color-scheme: dark;
+  --background: var(--bg-app);
+  --foreground: var(--text-primary);
   --bg-app: #120826;
   --bg-sidebar: #0a0618;
   --bg-sunken: #0a0416;
@@ -265,7 +256,7 @@ body {
 
   --ring-accent: 0 0 0 1px rgba(34, 211, 238, .45);
   --ring-accent-soft: 0 0 0 1px rgba(34, 211, 238, .22);
-  --glow-accent-soft: 0 0 18px 2px rgba(34, 211, 238, .22);
+  --glow-accent-soft: 0 0 22px 3px rgba(34, 211, 238, .4);
   --glow-pass-soft: 0 0 18px 2px rgba(16, 185, 129, .20);
   --glow-warn-soft: 0 0 18px 2px rgba(245, 158, 11, .20);
 
@@ -273,7 +264,14 @@ body {
   --blur-lock: blur(7px);
 }
 
+@utility bg-gradient-brand {
+  background-image: var(--gradient-brand);
+}
+
 .light {
+  color-scheme: light;
+  --background: var(--bg-app);
+  --foreground: var(--text-primary);
   --bg-app: #ffffff;
   --bg-sidebar: #f8fafc;
   --bg-sunken: #f1f5f9;
@@ -329,10 +327,8 @@ body {
   --shadow-section-dim: 0 12px 32px -12px rgba(15, 23, 42, .14);
 }
 
-/* Global resets — the only non-token rules in this closure. Scoped to
-   elements/pseudo-elements so they don't fight the CNA body{} rule above;
-   this one wins for actual painted background/color since it's declared
-   later with the same specificity. */
+/* Global resets. Link color sits in the base layer so a utility class on an
+   anchor (a gradient CTA, for example) can override it. */
 html {
   scroll-behavior: smooth;
 }
@@ -351,17 +347,23 @@ body {
 *::after {
   box-sizing: border-box;
 }
-a {
-  color: var(--text-link);
-  text-decoration: none;
-  transition: color var(--dur-fast) var(--ease-in-out);
-}
-a:hover {
-  color: var(--text-link-hover);
+@layer base {
+  a {
+    color: var(--text-link);
+    text-decoration: none;
+    transition: color var(--dur-fast) var(--ease-in-out);
+  }
+  a:hover {
+    color: var(--text-link-hover);
+  }
 }
 ::selection {
   background: var(--accent);
-  color: #04212b;
+  color: var(--selection-fg);
+}
+:focus-visible {
+  outline: 2px solid var(--border-accent);
+  outline-offset: 2px;
 }
 * {
   scrollbar-width: thin;

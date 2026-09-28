@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { AboutSection } from "@/components/landing/AboutSection.jsx";
 import { ClosingCta } from "@/components/landing/ClosingCta.jsx";
+import { ComparisonSection } from "@/components/landing/ComparisonSection.jsx";
 import { ExplainBackPreview } from "@/components/landing/ExplainBackPreview.jsx";
 import { FeatureGrid } from "@/components/landing/FeatureGrid.jsx";
 import { HowItWorks } from "@/components/landing/HowItWorks.jsx";
@@ -53,16 +54,23 @@ export default async function Home() {
           features={content.features}
         />
         <SkillsSection title={content.skillsTitle} skills={content.skillCards} upcoming={content.upcomingSkills} />
-        <AboutSection
-          title={content.aboutTitle}
-          subtitle={content.aboutSubtitle}
-          body={content.aboutBody}
-          skills={content.aboutSkills}
+        <ComparisonSection
+          title={content.compareTitle}
+          typical={content.compareTypical}
+          skillflow={content.compareSkillflow}
+          rows={content.compareRows}
         />
         <PracticeSlider
           title={content.reviewsTitle}
           subtitle={content.reviewsSubtitle}
           reviews={content.reviews}
+        />
+        <AboutSection
+          title={content.aboutTitle}
+          body={content.aboutBody}
+          stack={content.aboutStack}
+          githubLabel={content.aboutGithubLabel}
+          githubUrl={content.aboutGithubUrl}
         />
         <ClosingCta
           title={content.closingTitle}

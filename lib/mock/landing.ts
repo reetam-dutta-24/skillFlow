@@ -45,6 +45,12 @@ export type LandingSkill = {
   body: string;
 };
 
+export type LandingCompareRow = {
+  label: string;
+  typical: string;
+  skillflow: string;
+};
+
 export type LandingSkillCard = {
   title: string;
   body: string;
@@ -104,9 +110,15 @@ export type LandingContent = {
   skillsTitle: string;
   skillCards: LandingSkillCard[];
   upcomingSkills: LandingSkillCard[];
+  compareTitle: string;
+  compareTypical: string;
+  compareSkillflow: string;
+  compareRows: LandingCompareRow[];
   aboutTitle: string;
-  aboutSubtitle: string;
   aboutBody: string;
+  aboutStack: string;
+  aboutGithubLabel: string;
+  aboutGithubUrl: string;
   aboutSkills: LandingSkill[];
   reviewsTitle: string;
   reviewsSubtitle: string;
@@ -288,10 +300,42 @@ export function getLandingContent(): LandingContent {
       { title: "Photography", body: "", available: false, image: "/skills/photo.jpg" },
       { title: "Music Production", body: "", available: false, image: "/skills/music.jpg" },
     ],
-    aboutTitle: "About SkillFlow",
-    aboutSubtitle: "A single system for learning that can be checked.",
+    compareTitle: "Built differently, on purpose.",
+    compareTypical: "Typical video and course platforms",
+    compareSkillflow: "SkillFlow",
+    compareRows: [
+      {
+        label: "Progress unlocks by",
+        typical: "Watch time or a multiple-choice quiz",
+        skillflow: "A quiz plus an explain-back check",
+      },
+      {
+        label: "Your feed",
+        typical: "One blended stream",
+        skillflow: "A separate lane per skill",
+      },
+      {
+        label: "Social layer",
+        typical: "Comments and likes",
+        skillflow: "None",
+      },
+      {
+        label: "Content",
+        typical: "Locked inside one platform",
+        skillflow: "The best existing resources, organized",
+      },
+      {
+        label: "Success measured by",
+        typical: "Hours watched",
+        skillflow: "Verified mastery",
+      },
+    ],
+    aboutTitle: "Why SkillFlow exists.",
     aboutBody:
-      "Lessons usually live across videos, docs, and posts, and none of them ask whether the idea actually landed. SkillFlow lines a skill into one roadmap, checks the resource with a quiz, and then reviews your explanation before the next stage opens. The skills that are ready were chosen because their fundamentals can be tested.",
+      "SkillFlow is an independent project built by [Your Name], a computer science student, around one belief: watching something is not the same as understanding it. It doesn't replace YouTube, documentation, or courses. It organizes them into a clear path and checks that the learning stuck.",
+    aboutStack: "Built with Next.js, TypeScript, PostgreSQL, and Prisma.",
+    aboutGithubLabel: "View the project on GitHub",
+    aboutGithubUrl: "[GitHub URL]",
     aboutSkills: [
       {
         title: "Full-stack web development",

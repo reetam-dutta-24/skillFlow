@@ -78,10 +78,19 @@ export function goalLine(id: string) {
   return isGoalId(id) ? GOAL_LINES[id] : GOAL_LINES.curiosity;
 }
 
+/** How many stages are open before any are finished. Focused starts one stage further along. */
+export function openCount(pace: string) {
+  return pace === "focused" ? 2 : 1;
+}
+
+/** The furthest open stage: the pace window, or further if progress has moved on. */
+export function openThrough(pace: string, currentStageOrder = 1) {
+  return Math.max(openCount(pace), currentStageOrder);
+}
+
 /** The feed stays on the chosen skill. Pace only decides how much of that path to open first. */
 export function startingStages<T>(stages: T[], pace: string): T[] {
-  if (pace === "focused") return stages.slice(0, 2);
-  return stages.slice(0, 1);
+  return stages.slice(0, openCount(pace));
 }
 
 export function stageTag(pace: string, index: number) {

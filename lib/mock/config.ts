@@ -1,0 +1,14 @@
+/** Placeholder until the real pass mark is decided. 0.8 means 4 of 5. */
+export const QUIZ_PASS_THRESHOLD = 0.8;
+
+/** Pass this stage id to the quiz data function to review the generation-failure state. */
+export const QUIZ_GENERATION_FAILURE_STAGE_ID = "__quiz_generation_failed__";
+
+/** Pass this URL to the bring-your-own-resource mock to review the unsupported-link error. */
+export const BYOR_UNSUPPORTED_URL = "https://example.com/unsupported";
+
+/** Shown on the upgrade screen. Not a real price. */
+export const PREMIUM_PRICE_LABEL = "Placeholder";
+
+/** Video resources use this id. Nothing is embedded until a person presses play. */
+export const YOUTUBE_PLACEHOLDER_ID = "skillflow-placeholder";

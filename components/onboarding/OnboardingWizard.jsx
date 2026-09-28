@@ -16,6 +16,9 @@ const STEPS = ["skill", "pace", "goal", "accent", "ready"];
 const EASE = [0.22, 1, 0.36, 1];
 const WELCOME_MS = 2800;
 
+/**
+ * @param {{ name?: string, initial?: { skillSlug: string, pace: string, goal: string, accent: string } | null }} props
+ */
 export function OnboardingWizard({ name = "", initial = null }) {
   const router = useRouter();
   const reduce = useReducedMotion();

@@ -14,5 +14,7 @@ export interface ThemeToggleProps extends React.HTMLAttributes<HTMLDivElement> {
   target?: HTMLElement | null;
   /** Icons only, no labels — for the topbar. */
   compact?: boolean;
+  /** Hides the segmented track chrome. Already implemented on the component. */
+  quiet?: boolean;
 }
 export function ThemeToggle(props: ThemeToggleProps): React.JSX.Element;

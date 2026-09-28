@@ -34,12 +34,14 @@ export function ForYou({ name, skill, pace, goal, stages }) {
         <ol className="sf-reco-stages">
           {stages.map((stage, index) => (
             <li key={stage.id}>
-              <span>{String(stage.order).padStart(2, "0")}</span>
-              <div>
-                <p>{stageTag(pace, index)}</p>
-                <h3>{stage.title}</h3>
-                {stage.description ? <p>{stage.description}</p> : null}
-              </div>
+              <Link href={`/dashboard/path/${stage.order}`}>
+                <span>{String(stage.order).padStart(2, "0")}</span>
+                <span>
+                  <span className="sf-reco-tag">{stageTag(pace, index)}</span>
+                  <span className="sf-reco-stage-title">{stage.title}</span>
+                  {stage.description ? <span className="sf-reco-stage-desc">{stage.description}</span> : null}
+                </span>
+              </Link>
             </li>
           ))}
         </ol>
@@ -51,6 +53,7 @@ export function ForYou({ name, skill, pace, goal, stages }) {
         />
       )}
       <p className="sf-dash-edit">
+        <Link href="/dashboard/path">Full path</Link>
         <Link href="/onboarding?edit=1">Update preferences</Link>
       </p>
     </section>

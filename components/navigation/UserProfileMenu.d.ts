@@ -1,7 +1,7 @@
 import * as React from "react";
 
 /** Account avatar and dropdown, carried over from the AniVerse shell. */
-export interface UserProfileMenuItem { label: string; icon: string; danger?: boolean }
+export interface UserProfileMenuItem { label: string; icon: string; danger?: boolean; href?: string }
 export interface UserProfileMenuProps extends React.HTMLAttributes<HTMLDivElement> {
   name: string;
   handle?: string;

@@ -7,12 +7,14 @@ import * as React from "react";
  *
  * @startingPoint section="Navigation" subtitle="App navigation rail" viewport="700x400"
  */
-export interface SidebarItem { id: string; label: string; icon: string }
+export interface SidebarItem { id: string; label: string; icon: string; href?: string }
 export interface SidebarProps extends React.HTMLAttributes<HTMLElement> {
   items?: SidebarItem[];
   active?: string;
   onNavigate?: (id: string) => void;
   brand?: React.ReactNode;
+  /** Accessible name for the nav landmark. */
+  navLabel?: string;
   /** Bottom slot — normally `UserProfileMenu`. */
   footer?: React.ReactNode;
 }

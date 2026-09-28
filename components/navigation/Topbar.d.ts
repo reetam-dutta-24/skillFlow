@@ -15,5 +15,15 @@ export interface TopbarProps extends React.HTMLAttributes<HTMLElement> {
   onNotificationsClick?: () => void;
   searchValue?: string;
   onSearchChange?: (value: string) => void;
+  /** Search is off unless a screen has a real search requirement. */
+  showSearch?: boolean;
+  /** Slot before the title, used for the mobile menu button. */
+  leading?: React.ReactNode;
+  /** Replaces the bell when the shell supplies its own menu. */
+  notificationSlot?: React.ReactNode;
+  /** Page content owns the h1. The shell title is then plain text. */
+  titleAs?: "h1" | "p";
+  menuItems?: { label: string; icon: string; danger?: boolean; href?: string }[];
+  onMenuSelect?: (label: string) => void;
 }
 export function Topbar(props: TopbarProps): React.JSX.Element;

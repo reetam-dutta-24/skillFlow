@@ -1,29 +1,36 @@
-import { SectionHeader } from "../core/SectionHeader.jsx";
+import Image from "next/image";
 
-/** Why the project exists. The name and GitHub address stay as placeholders until they are filled in. */
-export function AboutSection({ title, body, stack, githubLabel, githubUrl }) {
+/** Why the project exists. Copy sits on the left; skill photos sit on the right. */
+export function AboutSection({ title, body, stack, githubLabel, githubUrl, visuals }) {
   const linked = typeof githubUrl === "string" && githubUrl.startsWith("http");
 
   return (
     <section id="about" className="sf-section sf-band-base" aria-labelledby="landing-about-title">
-      <SectionHeader
-        align="center"
-        className="sf-section-head"
-        title={title}
-        titleId="landing-about-title"
-        titleSize="var(--text-section)"
-      />
-      <p className="sf-about-body">{body}</p>
-      <p className="sf-about-stack">{stack}</p>
-      {linked ? (
-        <p className="sf-about-link">
-          <a href={githubUrl}>{githubLabel}</a>
-        </p>
-      ) : (
-        <p className="sf-about-link">
-          {githubLabel} · {githubUrl}
-        </p>
-      )}
+      <div className="sf-about">
+        <div className="sf-about-copy">
+          <h2 id="landing-about-title">{title}</h2>
+          <p className="sf-about-body">{body}</p>
+          <p className="sf-about-stack">{stack}</p>
+          {linked ? (
+            <p className="sf-about-link">
+              <a href={githubUrl}>{githubLabel}</a>
+            </p>
+          ) : (
+            <p className="sf-about-link">
+              {githubLabel} · {githubUrl}
+            </p>
+          )}
+        </div>
+        <ul className="sf-about-visual">
+          {visuals.map((item) => (
+            <li key={item.title}>
+              <Image src={item.image} alt="" fill sizes="(min-width: 960px) 24vw, 50vw" />
+              <span className="sf-about-veil" aria-hidden="true" />
+              <span className="sf-about-caption">{item.title}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 }

@@ -45,12 +45,6 @@ export type LandingSkill = {
   body: string;
 };
 
-export type LandingCompareRow = {
-  label: string;
-  typical: string;
-  skillflow: string;
-};
-
 export type LandingSkillCard = {
   title: string;
   body: string;
@@ -110,10 +104,6 @@ export type LandingContent = {
   skillsTitle: string;
   skillCards: LandingSkillCard[];
   upcomingSkills: LandingSkillCard[];
-  compareTitle: string;
-  compareTypical: string;
-  compareSkillflow: string;
-  compareRows: LandingCompareRow[];
   aboutTitle: string;
   aboutBody: string;
   aboutStack: string;
@@ -299,36 +289,6 @@ export function getLandingContent(): LandingContent {
     upcomingSkills: [
       { title: "Photography", body: "", available: false, image: "/skills/photo.jpg" },
       { title: "Music Production", body: "", available: false, image: "/skills/music.jpg" },
-    ],
-    compareTitle: "Built differently, on purpose.",
-    compareTypical: "Typical video and course platforms",
-    compareSkillflow: "SkillFlow",
-    compareRows: [
-      {
-        label: "Progress unlocks by",
-        typical: "Watch time or a multiple-choice quiz",
-        skillflow: "A quiz plus an explain-back check",
-      },
-      {
-        label: "Your feed",
-        typical: "One blended stream",
-        skillflow: "A separate lane per skill",
-      },
-      {
-        label: "Social layer",
-        typical: "Comments and likes",
-        skillflow: "None",
-      },
-      {
-        label: "Content",
-        typical: "Locked inside one platform",
-        skillflow: "The best existing resources, organized",
-      },
-      {
-        label: "Success measured by",
-        typical: "Hours watched",
-        skillflow: "Verified mastery",
-      },
     ],
     aboutTitle: "Why SkillFlow exists.",
     aboutBody:

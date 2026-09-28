@@ -63,12 +63,15 @@ export type LandingCheck = {
 };
 
 export type LandingReview = {
-  id: string;
-  title: string;
   quote: string;
   name: string;
-  skill: string;
-  rating: number;
+  role: string;
+  consentGiven: boolean;
+};
+
+export type LandingFaq = {
+  question: string;
+  answer: string;
 };
 
 export type LandingContent = {
@@ -111,8 +114,9 @@ export type LandingContent = {
   aboutGithubUrl: string;
   aboutSkills: LandingSkill[];
   reviewsTitle: string;
-  reviewsSubtitle: string;
   reviews: LandingReview[];
+  faqTitle: string;
+  faq: LandingFaq[];
   closingTitle: string;
   closingBody: string;
   footerBlurb: string;
@@ -310,56 +314,34 @@ export function getLandingContent(): LandingContent {
         body: "Editing, platform mechanics, camera and audio, and analytics. The craft, kept separate from the feed.",
       },
     ],
-    reviewsTitle: "What learners say",
-    reviewsSubtitle: "Notes from people working through a roadmap. The row advances on its own.",
-    reviews: [
+    reviewsTitle: "Reviews",
+    reviews: [],
+    faqTitle: "FAQ",
+    faq: [
       {
-        id: "web",
-        title: "It waited until I could explain it",
-        quote: "The foreign-key stage stayed closed until I could say what happens on delete. That was the first time the next lesson waited for me.",
-        name: "A. Rahman",
-        skill: "Full-stack web development",
-        rating: 5,
+        question: "Is SkillFlow free?",
+        answer: "Core learning features (roadmaps, quizzes, and explain-back checks) are free to start.",
       },
       {
-        id: "paint",
-        title: "The follow-up was specific",
-        quote: "I wrote that a shadow is just darker. The question asked where the color of the light showed up. I had skipped that part.",
-        name: "Elena Voss",
-        skill: "Painting fundamentals",
-        rating: 5,
+        question: "How is this different from YouTube or Udemy?",
+        answer:
+          "It doesn't replace them. It organizes the best of them into one ordered path and verifies understanding at each milestone.",
       },
       {
-        id: "content",
-        title: "The quiz stayed on the lesson",
-        quote: "It asked which part of the edit was the hook and which part was retention. Not whether the video performed.",
-        name: "Jonah Adeyemi",
-        skill: "Content technique",
-        rating: 4,
+        question: "What happens if I don't pass an explain-back check?",
+        answer: "Specific feedback on what was missing; try again; no penalty.",
       },
       {
-        id: "rows",
-        title: "The skills stay separate",
-        quote: "Painting never got mixed into the web roadmap. Each skill has its own row, and I can see what is still locked.",
-        name: "Priya Nair",
-        skill: "Painting fundamentals",
-        rating: 5,
+        question: "Where do the quiz questions come from?",
+        answer: "Generated from the lesson just studied, not general knowledge.",
       },
       {
-        id: "pass",
-        title: "A pass felt like a real check",
-        quote: "I did not get a score to chase. I got a note on what was missing, and the stage opened once the explanation held.",
-        name: "Chris Lang",
-        skill: "Full-stack web development",
-        rating: 5,
+        question: "Can I suggest resources?",
+        answer: "Yes. Admin reviews them before they appear on a roadmap.",
       },
       {
-        id: "voice",
-        title: "I could say it out loud",
-        quote: "Typing the first explanation was stiff. Speaking the follow-up was closer to how I actually understood the idea.",
-        name: "Maya Ortiz",
-        skill: "Content technique",
-        rating: 4,
+        question: "Is my account secure?",
+        answer: "Passwords are hashed before storage and never kept in plain text.",
       },
     ],
     closingTitle: "Start with one skill.",

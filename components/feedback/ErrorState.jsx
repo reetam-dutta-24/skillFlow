@@ -4,7 +4,8 @@ import React from "react";
 import { Icon } from "../core/Icon.jsx";
 
 /** Recoverable-failure panel with a retry action. */
-export function ErrorState({ title = "Something didn't load", description, onRetry, retryLabel = "Try again", detail, compact = false, style, ...rest }) {
+export function ErrorState({ title = "Something didn't load", titleAs = "h3", description, onRetry, retryLabel = "Try again", detail, compact = false, style, ...rest }) {
+  const Title = titleAs;
   return (
     <div
       style={{
@@ -23,7 +24,7 @@ export function ErrorState({ title = "Something didn't load", description, onRet
       {...rest}
     >
       <Icon name="circle-alert" size={20} color="var(--state-fail)" />
-      <h3 style={{ margin: 0, fontSize: "var(--text-subtitle)", fontWeight: "var(--weight-semibold)", color: "var(--text-primary)" }}>{title}</h3>
+      <Title style={{ margin: 0, fontSize: "var(--text-subtitle)", fontWeight: "var(--weight-semibold)", color: "var(--text-primary)" }}>{title}</Title>
       {description ? <p style={{ margin: 0, maxWidth: 400, fontSize: "var(--text-sm)", color: "var(--text-secondary)", textWrap: "pretty" }}>{description}</p> : null}
       {detail ? <code style={{ fontFamily: "var(--font-mono)", fontSize: "var(--text-2xs)", color: "var(--text-faint)" }}>{detail}</code> : null}
       {onRetry ? (

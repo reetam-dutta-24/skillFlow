@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
+"use client";
+
 import { Geist, Geist_Mono } from "next/font/google";
 import { PUBLIC_ACCENT, accentBootScript } from "@/lib/accent";
 import { DEFAULT_THEME, themeBootScript } from "@/lib/theme";
-import { throwGlobalErrorInDev } from "@/lib/dev/global-error";
+import { RecoverableError } from "@/components/feedback/RecoverableError";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,18 +16,13 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: "SkillFlow",
-    template: "%s · SkillFlow",
-  },
-  description:
-    "A mastery-first learning system with curated roadmaps, grounded quizzes, and a Socratic explain-back gate.",
-};
-
-/** Static shell. Request data stays out of this layout so pages can be prerendered. */
-export default function RootLayout({ children }: LayoutProps<"/">) {
-  throwGlobalErrorInDev();
+export default function GlobalError({
+  error,
+  retry,
+}: {
+  error: Error & { digest?: string };
+  retry: () => void;
+}) {
   return (
     <html
       lang="en"
@@ -35,10 +31,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
     >
       <head>
+        <title>Something went wrong · SkillFlow</title>
         <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
         <script dangerouslySetInnerHTML={{ __html: accentBootScript }} />
       </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full">
+        <RecoverableError error={error} retry={retry} />
+      </body>
     </html>
   );
 }

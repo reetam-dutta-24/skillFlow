@@ -2587,6 +2587,53 @@ a.sf-path-card:hover {
     padding-inline: var(--page-pad-x-xs);
   }
 }
+.sf-boundary,
+.sf-boundary-inset {
+  display: grid;
+  place-items: center;
+  width: 100%;
+}
+.sf-boundary {
+  min-height: 100svh;
+  padding: var(--space-8) var(--page-pad-x);
+}
+.sf-boundary-inset {
+  min-height: 24rem;
+  padding-block: var(--space-8);
+}
+.sf-boundary-card {
+  display: grid;
+  gap: var(--space-4);
+  width: min(100%, 28rem);
+}
+.sf-boundary-card:focus {
+  outline: none;
+}
+.sf-boundary-card:focus-visible {
+  outline: 2px solid var(--border-accent);
+  outline-offset: 4px;
+}
+.sf-boundary-home {
+  margin: 0;
+  text-align: center;
+}
+.sf-boundary-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 var(--space-5);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-btn);
+  background: transparent;
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  text-decoration: none;
+}
+.sf-boundary-link:hover {
+  background: var(--accent-quiet);
+}
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

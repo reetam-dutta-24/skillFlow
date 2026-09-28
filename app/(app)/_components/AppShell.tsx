@@ -30,6 +30,7 @@ type ShellUser = {
 };
 
 function activeId(pathname: string) {
+  if (pathname.startsWith("/dev")) return "";
   if (pathname.startsWith("/admin")) return "admin";
   if (pathname.startsWith("/roadmap")) return "roadmaps";
   if (pathname.startsWith("/progress")) return "progress";
@@ -44,6 +45,8 @@ function titleFor(pathname: string) {
   if (pathname.startsWith("/progress")) return "Progress";
   if (pathname.startsWith("/settings")) return "Settings";
   if (pathname.startsWith("/submit")) return "Submit a resource";
+  if (pathname === "/dev/missing") return "Page not found";
+  if (pathname === "/dev/error") return "Something went wrong";
   if (pathname.startsWith("/lesson")) return "Lesson";
   if (pathname.startsWith("/quiz")) return "Quiz";
   if (pathname.startsWith("/milestone")) return "Explain-back";
@@ -56,14 +59,19 @@ export function AppShell({ user, notifications, children }: { user: ShellUser; n
   const triggerRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const titleId = useId();
+  const wasOpen = useRef(false);
   const items = user.role === "ADMIN" ? [...NAV, ADMIN_ITEM] : NAV;
   const active = activeId(pathname);
   const open = openPath === pathname;
 
   function closeMenu() {
     setOpenPath(null);
-    triggerRef.current?.focus();
   }
+
+  useEffect(() => {
+    if (wasOpen.current && !open) triggerRef.current?.focus();
+    wasOpen.current = open;
+  }, [open]);
 
   useEffect(() => {
     const media = window.matchMedia("(min-width: 960px)");
@@ -85,7 +93,6 @@ export function AppShell({ user, notifications, children }: { user: ShellUser; n
       if (event.key === "Escape") {
         event.preventDefault();
         setOpenPath(null);
-        triggerRef.current?.focus();
         return;
       }
       if (event.key !== "Tab") return;

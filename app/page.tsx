@@ -43,12 +43,12 @@ export default async function Home() {
         <LandingHero content={content} />
         <LandingFacts caption={content.factsCaption} facts={content.facts} />
         <ProblemSection title={content.problemTitle} body={content.problemBody} points={content.problemPoints} />
+        <HowItWorks title={content.stepsTitle} subtitle={content.stepsSubtitle} steps={content.steps} />
         <FeatureGrid
           title={content.featuresTitle}
           subtitle={content.featuresSubtitle}
           features={content.features}
         />
-        <HowItWorks title={content.stepsTitle} subtitle={content.stepsSubtitle} steps={content.steps} />
         <AboutSection
           title={content.aboutTitle}
           subtitle={content.aboutSubtitle}

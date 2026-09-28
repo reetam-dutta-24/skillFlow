@@ -22,11 +22,13 @@ export function FeatureGrid({ title, subtitle, features }) {
             <div className="sf-feature-copy">
               <h3>{feature.title}</h3>
               <p>{feature.body}</p>
-              <ul>
-                {feature.points.map((point) => (
-                  <li key={point}>{point}</li>
-                ))}
-              </ul>
+              {feature.points.length > 0 ? (
+                <ul>
+                  {feature.points.map((point) => (
+                    <li key={point}>{point}</li>
+                  ))}
+                </ul>
+              ) : null}
             </div>
           </article>
         ))}

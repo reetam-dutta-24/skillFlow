@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 
 const protectedRoutes = [
   "/dashboard",
+  "/clips",
   "/onboarding",
   "/roadmap",
   "/lesson",
@@ -27,6 +28,8 @@ export const config = {
   matcher: [
     "/dashboard",
     "/dashboard/:path*",
+    "/clips",
+    "/clips/:path*",
     "/onboarding",
     "/onboarding/:path*",
     "/roadmap",

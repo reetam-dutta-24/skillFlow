@@ -6,6 +6,7 @@ import type {
   QuizView,
   ResourceView,
   RoadmapStageView,
+  SkillStatus,
   SkillView,
   SubmissionView,
   WeakTopicView,
@@ -38,6 +39,34 @@ export type DashboardData = {
   nextLesson: { title: string; skillName: string; href: string } | null;
   followed: DashboardSkillRow[];
   catalog: SkillView[];
+};
+
+export type ClipFormat = "short" | "video";
+
+export type ClipFeedSkill = {
+  slug: string;
+  name: string;
+  status: SkillStatus;
+  followed: boolean;
+  order: number;
+};
+
+export type ClipItem = {
+  id: string;
+  skillSlug: string;
+  skillName: string;
+  stageTitle: string;
+  title: string;
+  description: string | null;
+  keyPoints: string | null;
+  url: string;
+  format: ClipFormat;
+  lessonHref: string;
+};
+
+export type ClipFeedData = {
+  skills: ClipFeedSkill[];
+  clips: ClipItem[];
 };
 
 export type RoadmapIndexCard = {

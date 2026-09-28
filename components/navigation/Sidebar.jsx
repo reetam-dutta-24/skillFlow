@@ -6,6 +6,7 @@ import { Icon } from "../core/Icon.jsx";
 
 export const SKILLFLOW_NAV = [
   { id: "home", label: "Home", icon: "house", href: "/dashboard" },
+  { id: "clips", label: "Clips", icon: "clapperboard", href: "/clips" },
   { id: "roadmaps", label: "Roadmaps", icon: "route", href: "/roadmap" },
   { id: "progress", label: "Progress", icon: "chart-line", href: "/progress" },
   { id: "submit", label: "Submit a resource", icon: "file-plus", href: "/submit" },

@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { cookies } from "next/headers";
 import { PUBLIC_ACCENT } from "@/lib/accent";
-import { resolveTheme, THEME_STORAGE_KEY } from "@/lib/theme";
+import { DEFAULT_THEME, themeBootScript } from "@/lib/theme";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -24,17 +23,18 @@ export const metadata: Metadata = {
     "A mastery-first learning system with curated roadmaps, grounded quizzes, and a Socratic explain-back gate.",
 };
 
-export default async function RootLayout({ children }: LayoutProps<"/">) {
-  const cookieStore = await cookies();
-  const theme = resolveTheme(cookieStore.get(THEME_STORAGE_KEY)?.value);
-
+/** Static shell. Request data stays out of this layout so pages can be prerendered. */
+export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
       data-accent={PUBLIC_ACCENT}
-      className={`${geistSans.variable} ${geistMono.variable} ${theme} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${DEFAULT_THEME} h-full antialiased`}
       suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
+      </head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

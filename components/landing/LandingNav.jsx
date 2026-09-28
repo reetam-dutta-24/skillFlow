@@ -6,7 +6,7 @@ import { Icon } from "../core/Icon.jsx";
 import { CtaLink } from "./CtaLink.jsx";
 
 /** Sticky landing bar. Accent choice is not on this page. */
-export function LandingNav({ wordmark, links, loginCta, startCta, defaultTheme }) {
+export function LandingNav({ wordmark, links, loginCta, startCta }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -27,7 +27,7 @@ export function LandingNav({ wordmark, links, loginCta, startCta, defaultTheme }
           </ul>
         </nav>
         <div className="sf-nav-actions">
-          <ThemeToggle defaultTheme={defaultTheme} quiet />
+          <ThemeToggle quiet />
           <CtaLink href={loginCta.href} variant="ghost" size="sm">
             {loginCta.label}
           </CtaLink>

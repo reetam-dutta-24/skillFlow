@@ -5,7 +5,7 @@ function isLiveHref(href) {
 }
 
 /** Brand, four link columns, and a bar with the credit and theme control. */
-export function LandingFooter({ wordmark, blurb, columns, credit, defaultTheme }) {
+export function LandingFooter({ wordmark, blurb, columns, credit }) {
   return (
     <footer className="sf-footer">
       <div className="sf-footer-inner">
@@ -36,7 +36,7 @@ export function LandingFooter({ wordmark, blurb, columns, credit, defaultTheme }
         <p>
           © 2026 SkillFlow. {credit}
         </p>
-        <ThemeToggle defaultTheme={defaultTheme} quiet />
+        <ThemeToggle quiet />
       </div>
     </footer>
   );

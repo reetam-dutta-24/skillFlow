@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
 import { AboutSection } from "@/components/landing/AboutSection.jsx";
 import { ClosingCta } from "@/components/landing/ClosingCta.jsx";
 import { ExplainBackPreview } from "@/components/landing/ExplainBackPreview.jsx";
@@ -14,7 +13,6 @@ import { PracticeSlider } from "@/components/landing/PracticeSlider.jsx";
 import { SkillsSection } from "@/components/landing/SkillsSection.jsx";
 import { ProblemSection } from "@/components/landing/ProblemSection.jsx";
 import { getLandingContent } from "@/lib/mock/landing";
-import { resolveTheme, THEME_STORAGE_KEY } from "@/lib/theme";
 
 const description =
   "Structured roadmaps, grounded quizzes, and a check that asks you to explain concepts in your own words. Full-Stack Web Development, Art & Painting, and Content Creation.";
@@ -28,9 +26,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Home() {
-  const cookieStore = await cookies();
-  const theme = resolveTheme(cookieStore.get(THEME_STORAGE_KEY)?.value);
+export default function Home() {
   const content = getLandingContent();
 
   return (
@@ -40,7 +36,6 @@ export default async function Home() {
         links={content.nav}
         loginCta={content.loginCta}
         startCta={content.startCta}
-        defaultTheme={theme}
       />
       <main className="sf-landing">
         <LandingHero content={content} />
@@ -75,7 +70,6 @@ export default async function Home() {
         blurb={content.footerBlurb}
         columns={content.footerColumns}
         credit={content.footerCredit}
-        defaultTheme={theme}
       />
     </>
   );

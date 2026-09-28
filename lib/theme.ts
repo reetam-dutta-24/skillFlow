@@ -28,3 +28,9 @@ export function readTheme(): ThemeMode {
   if (typeof document === "undefined") return DEFAULT_THEME;
   return document.documentElement.classList.contains("light") ? "light" : "dark";
 }
+
+/**
+ * Runs before paint. Reads the theme cookie and sets the class on `<html>`
+ * so the layout can stay static instead of calling `cookies()` on the server.
+ */
+export const themeBootScript = `(function(){try{var m=document.cookie.match(/(?:^|; )${THEME_STORAGE_KEY}=([^;]*)/);var t=m?decodeURIComponent(m[1]):"";if(t==="light"||t==="dark"){var root=document.documentElement;root.classList.remove("light","dark");root.classList.add(t);}}catch(e){}})();`;

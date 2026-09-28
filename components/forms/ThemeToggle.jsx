@@ -28,6 +28,8 @@ export function ThemeToggle({
 
   React.useEffect(() => {
     if (themeProp !== undefined) return undefined;
+    const applied = document.documentElement.classList.contains("light") ? "light" : "dark";
+    setUncontrolledTheme(applied);
     function sync(event) {
       const next = event?.detail;
       if (next === "light" || next === "dark") setUncontrolledTheme(next);

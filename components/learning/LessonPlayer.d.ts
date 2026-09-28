@@ -17,8 +17,12 @@ export interface LessonPlayerProps extends React.HTMLAttributes<HTMLElement> {
   watched?: boolean;
   /** The linked full resource — always labelled as external. */
   resource?: LessonResource;
+  /** Short clip. The frame stays a poster until play, then embeds this URL. */
+  clipUrl?: string;
   onToggleWatched?: () => void;
   onContinue?: () => void;
+  /** Continues to the quiz. Locked and kit previews keep `onContinue`. */
+  continueHref?: string;
   poster?: string;
 }
 export function LessonPlayer(props: LessonPlayerProps): React.JSX.Element;

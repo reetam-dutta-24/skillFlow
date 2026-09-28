@@ -1,11 +1,23 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { Icon } from "../core/Icon.jsx";
 import { Chip } from "../core/Chip.jsx";
 
+function playableSrc(url) {
+  try {
+    const next = new URL(url);
+    next.searchParams.set("autoplay", "1");
+    return next.toString();
+  } catch {
+    return url;
+  }
+}
+
 /** Lesson screen: hook clip on top, external full resource below, then actions. */
-export function LessonPlayer({ title, skill, stage, duration, watched = false, resource, onToggleWatched, onContinue, poster, style, ...rest }) {
+export function LessonPlayer({ title, skill, stage, duration, watched = false, resource, clipUrl, onToggleWatched, onContinue, continueHref, poster, style, ...rest }) {
+  const [playing, setPlaying] = React.useState(false);
   return (
     <section style={{ display: "flex", flexDirection: "column", gap: 20, width: "100%", maxWidth: 820, ...style }} {...rest}>
       <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
@@ -18,12 +30,32 @@ export function LessonPlayer({ title, skill, stage, duration, watched = false, r
       </div>
 
       <div style={{ position: "relative", aspectRatio: "16 / 9", overflow: "hidden", borderRadius: "var(--radius-card)", background: "var(--bg-sunken)", border: "1px solid var(--border-subtle)" }}>
-        {poster ? <img src={poster} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.6 }} /> : null}
-        <span style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 60, height: 60, borderRadius: "var(--radius-full)", backgroundImage: "var(--gradient-brand)" }}>
-            <Icon name="play" size={22} color="#fff" />
-          </span>
-        </span>
+        {playing && clipUrl ? (
+          <iframe
+            src={playableSrc(clipUrl)}
+            title="Hook clip"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+            style={{ width: "100%", height: "100%", border: 0 }}
+          />
+        ) : (
+          <>
+            {poster ? <img src={poster} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.6 }} /> : null}
+            {clipUrl ? (
+              <button type="button" aria-label="Play hook clip" onClick={() => setPlaying(true)} style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", border: 0, padding: 0, background: "transparent", cursor: "pointer" }}>
+                <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 60, height: 60, borderRadius: "var(--radius-full)", backgroundImage: "var(--gradient-brand)" }}>
+                  <Icon name="play" size={22} color="var(--text-on-accent)" />
+                </span>
+              </button>
+            ) : (
+              <span style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 60, height: 60, borderRadius: "var(--radius-full)", backgroundImage: "var(--gradient-brand)" }}>
+                  <Icon name="play" size={22} color="var(--text-on-accent)" />
+                </span>
+              </span>
+            )}
+          </>
+        )}
       </div>
 
       {resource ? (
@@ -42,10 +74,17 @@ export function LessonPlayer({ title, skill, stage, duration, watched = false, r
           <Icon name={watched ? "circle-check" : "circle"} size={15} color={watched ? "var(--state-pass)" : "var(--text-muted)"} />
           {watched ? "Marked as watched" : "Mark as watched"}
         </button>
-        <button type="button" onClick={onContinue} style={{ display: "inline-flex", alignItems: "center", gap: 7, height: 44, padding: "0 24px", border: "none", cursor: "pointer", borderRadius: "var(--radius-btn)", backgroundImage: "var(--gradient-brand)", color: "#fff", fontFamily: "var(--font-sans)", fontSize: "var(--text-sm)", fontWeight: "var(--weight-semibold)" }}>
-          Continue to quiz
-          <Icon name="arrow-right" size={15} color="#fff" />
-        </button>
+        {continueHref ? (
+          <Link href={continueHref} style={{ display: "inline-flex", alignItems: "center", gap: 7, height: 44, padding: "0 24px", border: "none", cursor: "pointer", borderRadius: "var(--radius-btn)", backgroundImage: "var(--gradient-brand)", color: "var(--text-on-accent)", fontFamily: "var(--font-sans)", fontSize: "var(--text-sm)", fontWeight: "var(--weight-semibold)", textDecoration: "none" }}>
+            Continue to quiz
+            <Icon name="arrow-right" size={15} color="var(--text-on-accent)" />
+          </Link>
+        ) : (
+          <button type="button" onClick={onContinue} style={{ display: "inline-flex", alignItems: "center", gap: 7, height: 44, padding: "0 24px", border: "none", cursor: "pointer", borderRadius: "var(--radius-btn)", backgroundImage: "var(--gradient-brand)", color: "var(--text-on-accent)", fontFamily: "var(--font-sans)", fontSize: "var(--text-sm)", fontWeight: "var(--weight-semibold)" }}>
+            Continue to quiz
+            <Icon name="arrow-right" size={15} color="var(--text-on-accent)" />
+          </button>
+        )}
       </div>
     </section>
   );

@@ -32,7 +32,7 @@ type ShellUser = {
 function activeId(pathname: string) {
   if (pathname.startsWith("/dev")) return "";
   if (pathname.startsWith("/admin")) return "admin";
-  if (pathname.startsWith("/roadmap")) return "roadmaps";
+  if (pathname.startsWith("/roadmap") || pathname.startsWith("/lesson") || pathname.startsWith("/quiz") || pathname.startsWith("/milestone")) return "roadmaps";
   if (pathname.startsWith("/progress")) return "progress";
   if (pathname.startsWith("/settings")) return "settings";
   if (pathname.startsWith("/submit")) return "submit";

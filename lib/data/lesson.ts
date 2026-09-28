@@ -1,9 +1,10 @@
 import "server-only";
+import { cache } from "react";
 import { devDelay } from "@/lib/mock/delay";
 import { findStage, listResources } from "@/lib/mock/catalog";
 import type { LessonData } from "@/lib/types/pages";
 
-export async function getLesson(stageId: string): Promise<LessonData | null> {
+export const getLesson = cache(async (stageId: string): Promise<LessonData | null> => {
   await devDelay();
   const found = findStage(stageId);
   if (!found) return null;
@@ -13,6 +14,7 @@ export async function getLesson(stageId: string): Promise<LessonData | null> {
       kind: "locked",
       skillSlug: skill.slug,
       skillName: skill.name,
+      stageTitle: stage.title,
       previousStageTitle: stage.previousStageTitle,
     };
   }
@@ -23,4 +25,4 @@ export async function getLesson(stageId: string): Promise<LessonData | null> {
     resources: listResources(stage.id),
     quizHref: `/quiz/${stage.id}`,
   };
-}
+});

@@ -63,6 +63,7 @@ export type LessonData =
       kind: "locked";
       skillSlug: string;
       skillName: string;
+      stageTitle: string;
       previousStageTitle: string | null;
     }
   | {

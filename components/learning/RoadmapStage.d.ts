@@ -19,6 +19,8 @@ export interface RoadmapStageProps extends React.LiHTMLAttributes<HTMLLIElement>
   unlockHint?: React.ReactNode;
   /** Hides the connector line on the last stage. */
   last?: boolean;
+  /** Opens the stage. Locked stages ignore this and stay plain text. */
+  href?: string;
   onOpen?: () => void;
 }
 export function RoadmapStage(props: RoadmapStageProps): React.JSX.Element;

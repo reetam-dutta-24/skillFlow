@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { Icon } from "../core/Icon.jsx";
 import { Chip } from "../core/Chip.jsx";
 
@@ -12,10 +13,46 @@ const STATUS = {
 };
 
 /** One stage in a skill roadmap. Locked stages blur the preview and explain why. */
-export function RoadmapStage({ index, title, description, status = "todo", mastery, meta, unlockHint, last = false, onOpen, style, ...rest }) {
+export function RoadmapStage({ index, title, description, status = "todo", mastery, meta, unlockHint, last = false, href, onOpen, style, ...rest }) {
   const [hover, setHover] = React.useState(false);
   const s = STATUS[status] || STATUS.todo;
   const locked = status === "locked";
+  const open = Boolean(href) && !locked;
+  const panelStyle = {
+    position: "relative",
+    flex: 1,
+    minWidth: 0,
+    marginBottom: 16,
+    padding: "18px 20px",
+    overflow: "hidden",
+    cursor: locked || (!open && !onOpen) ? "default" : "pointer",
+    borderRadius: "var(--radius-card)",
+    background: locked ? "var(--surface-lock)" : "var(--surface-card)",
+    border: "1px solid " + (!locked && hover ? "var(--border-accent)" : "var(--border-subtle)"),
+    transition: "border-color var(--dur-base) var(--ease-in-out)",
+    textDecoration: "none",
+    color: "inherit",
+  };
+  const panel = (
+    <>
+      <div style={{ filter: locked ? "var(--blur-lock)" : "none", opacity: locked ? 0.5 : 1, userSelect: locked ? "none" : "auto" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
+          <span style={{ fontSize: "var(--text-2xs)", fontWeight: "var(--weight-semibold)", letterSpacing: "var(--tracking-wide)", textTransform: "uppercase", color: "var(--text-faint)" }}>Stage {index}</span>
+          {mastery != null && !locked ? <Chip tone="accent">{mastery}% mastery</Chip> : null}
+          {!locked ? <Chip tone={s.chip}>{s.label}</Chip> : null}
+        </div>
+        <h3 style={{ margin: 0, fontSize: "var(--text-subtitle)", fontWeight: "var(--weight-semibold)", color: "var(--text-primary)" }}>{title}</h3>
+        {description ? <p style={{ margin: "5px 0 0", fontSize: "var(--text-sm)", color: "var(--text-muted)", textWrap: "pretty" }}>{description}</p> : null}
+        {meta ? <p style={{ margin: "8px 0 0", fontSize: "var(--text-2xs)", color: "var(--text-faint)" }}>{meta}</p> : null}
+      </div>
+      {locked ? (
+        <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8, padding: 20, textAlign: "center" }}>
+          <Icon name="lock" size={18} color="var(--state-lock)" />
+          <p style={{ margin: 0, maxWidth: 380, fontSize: "var(--text-xs)", color: "var(--text-secondary)", textWrap: "pretty" }}>{unlockHint}</p>
+        </div>
+      ) : null}
+    </>
+  );
   return (
     <li style={{ display: "flex", gap: 16, listStyle: "none", ...style }} {...rest}>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0, paddingTop: 20 }}>
@@ -24,41 +61,15 @@ export function RoadmapStage({ index, title, description, status = "todo", maste
         </span>
         {!last ? <span style={{ flex: 1, width: 1, minHeight: 24, marginTop: 6, background: status === "done" ? "var(--state-pass)" : "var(--border-default)", opacity: status === "done" ? 0.5 : 1 }} /> : null}
       </div>
-      <div
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-        onClick={() => !locked && onOpen && onOpen()}
-        style={{
-          position: "relative",
-          flex: 1,
-          minWidth: 0,
-          marginBottom: 16,
-          padding: "18px 20px",
-          overflow: "hidden",
-          cursor: locked ? "default" : "pointer",
-          borderRadius: "var(--radius-card)",
-          background: locked ? "var(--surface-lock)" : "var(--surface-card)",
-          border: "1px solid " + (!locked && hover ? "var(--border-accent)" : "var(--border-subtle)"),
-          transition: "border-color var(--dur-base) var(--ease-in-out)",
-        }}
-      >
-        <div style={{ filter: locked ? "var(--blur-lock)" : "none", opacity: locked ? 0.5 : 1, userSelect: locked ? "none" : "auto" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
-            <span style={{ fontSize: "var(--text-2xs)", fontWeight: "var(--weight-semibold)", letterSpacing: "var(--tracking-wide)", textTransform: "uppercase", color: "var(--text-faint)" }}>Stage {index}</span>
-            {mastery != null && !locked ? <Chip tone="accent">{mastery}% mastery</Chip> : null}
-            {!locked ? <Chip tone={s.chip}>{s.label}</Chip> : null}
-          </div>
-          <h3 style={{ margin: 0, fontSize: "var(--text-subtitle)", fontWeight: "var(--weight-semibold)", color: "var(--text-primary)" }}>{title}</h3>
-          {description ? <p style={{ margin: "5px 0 0", fontSize: "var(--text-sm)", color: "var(--text-muted)", textWrap: "pretty" }}>{description}</p> : null}
-          {meta ? <p style={{ margin: "8px 0 0", fontSize: "var(--text-2xs)", color: "var(--text-faint)" }}>{meta}</p> : null}
+      {open ? (
+        <Link href={href} className="sf-roadmap-open" style={panelStyle} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+          {panel}
+        </Link>
+      ) : (
+        <div style={panelStyle} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} onClick={() => !locked && onOpen && onOpen()}>
+          {panel}
         </div>
-        {locked ? (
-          <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8, padding: 20, textAlign: "center" }}>
-            <Icon name="lock" size={18} color="var(--state-lock)" />
-            <p style={{ margin: 0, maxWidth: 380, fontSize: "var(--text-xs)", color: "var(--text-secondary)", textWrap: "pretty" }}>{unlockHint}</p>
-          </div>
-        ) : null}
-      </div>
+      )}
     </li>
   );
 }

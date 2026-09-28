@@ -12,10 +12,16 @@ import { PracticeSlider } from "@/components/landing/PracticeSlider.jsx";
 import { getLandingContent } from "@/lib/mock/landing";
 import { resolveTheme, THEME_STORAGE_KEY } from "@/lib/theme";
 
+const description =
+  "Structured roadmaps, grounded quizzes, and a check that asks you to explain concepts in your own words. Full-Stack Web Development, Art & Painting, and Content Creation.";
+
 export const metadata: Metadata = {
-  title: "One place to learn a skill · SkillFlow",
-  description:
-    "SkillFlow is a mastery-first system for full-stack web development, painting fundamentals, and content technique.",
+  title: { absolute: "SkillFlow: Learn by proving you understood it" },
+  description,
+  openGraph: {
+    title: "SkillFlow: Learn by proving you understood it",
+    description,
+  },
 };
 
 export default async function Home() {
@@ -28,8 +34,8 @@ export default async function Home() {
       <LandingNav
         wordmark={content.wordmark}
         links={content.nav}
-        primaryCta={content.primaryCta}
-        secondaryCta={content.secondaryCta}
+        loginCta={content.loginCta}
+        startCta={content.startCta}
         defaultTheme={theme}
       />
       <main className="sf-landing">

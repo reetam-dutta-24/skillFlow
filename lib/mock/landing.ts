@@ -52,6 +52,10 @@ export type LandingReview = {
 export type LandingContent = {
   wordmark: string;
   nav: LandingLink[];
+  loginCta: LandingCta;
+  startCta: LandingCta;
+  heroSecondary: LandingCta;
+  heroNote: string;
   eyebrow: string;
   headline: string;
   lead: string;
@@ -89,32 +93,38 @@ export function getLandingContent(): LandingContent {
   return {
     wordmark: "SkillFlow",
     nav: [
+      { href: "#home", label: "Home" },
+      { href: "#how-it-works", label: "How it works" },
       { href: "#features", label: "Features" },
-      { href: "#how", label: "How it works" },
-      { href: "#about", label: "About" },
+      { href: "#skills", label: "Skills" },
       { href: "#reviews", label: "Reviews" },
+      { href: "#about", label: "About" },
+      { href: "#faq", label: "FAQ" },
     ],
-    eyebrow: "Explain-back gate",
-    headline: "One place to learn a skill.",
-    lead: "Web development, painting, and content technique, each on its own roadmap.",
+    loginCta: { href: "/login", label: "Log in" },
+    startCta: { href: "/signup", label: "Get started" },
+    heroSecondary: { href: "#how-it-works", label: "See how it works" },
+    heroNote: "Free to start. No credit card required.",
+    eyebrow: "Mastery-first learning",
+    headline: "Prove you understood it, not just that you watched it.",
+    lead: "SkillFlow turns scattered tutorials into one structured roadmap, checks your understanding with quizzes built from the lesson you just studied, and unlocks each stage only when you can explain the concept in your own words.",
     primaryCta: { href: "/signup", label: "Create an account" },
     secondaryCta: { href: "/login", label: "Sign in" },
-    skillsNote:
-      "Three skills are ready: full-stack web development, painting fundamentals, and content technique.",
+    skillsNote: "Full-Stack Web Development · Art & Painting · Content Creation",
     preview: {
-      skill: "Painting fundamentals",
-      caption: "Perspective stays closed until the color-theory explanation holds.",
+      skill: "Full-Stack Web Development",
+      caption: "Illustrative",
       stages: [
         {
-          index: "02",
-          title: "Color relationships",
-          status: "Explain-back open",
+          index: "01",
+          title: "React fundamentals",
+          status: "Active",
           locked: false,
         },
         {
-          index: "03",
-          title: "Perspective",
-          status: "Opens after you explain color relationships",
+          index: "02",
+          title: "Auth and databases",
+          status: "Locked",
           locked: true,
         },
       ],

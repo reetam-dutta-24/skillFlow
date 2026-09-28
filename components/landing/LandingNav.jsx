@@ -5,14 +5,14 @@ import { ThemeToggle } from "../forms/ThemeToggle.jsx";
 import { Icon } from "../core/Icon.jsx";
 import { CtaLink } from "./CtaLink.jsx";
 
-/** Landing bar. Light and dark sit with the account actions. Accent choice is not on this page. */
-export function LandingNav({ wordmark, links, primaryCta, secondaryCta, defaultTheme }) {
+/** Sticky landing bar. Accent choice is not on this page. */
+export function LandingNav({ wordmark, links, loginCta, startCta, defaultTheme }) {
   const [open, setOpen] = useState(false);
 
   return (
     <header className="sf-nav">
       <div className="sf-nav-inner">
-        <a className="sf-wordmark" href="#welcome">
+        <a className="sf-wordmark" href="#home">
           {wordmark}
         </a>
         <nav id="landing-menu" className={open ? "sf-nav-panel is-open" : "sf-nav-panel"} aria-label="On this page">
@@ -28,11 +28,11 @@ export function LandingNav({ wordmark, links, primaryCta, secondaryCta, defaultT
         </nav>
         <div className="sf-nav-actions">
           <ThemeToggle defaultTheme={defaultTheme} quiet />
-          <CtaLink href={secondaryCta.href} variant="outline" size="sm">
-            {secondaryCta.label}
+          <CtaLink href={loginCta.href} variant="ghost" size="sm">
+            {loginCta.label}
           </CtaLink>
-          <CtaLink href={primaryCta.href} size="sm">
-            {primaryCta.label}
+          <CtaLink href={startCta.href} size="sm">
+            {startCta.label}
           </CtaLink>
         </div>
         <button

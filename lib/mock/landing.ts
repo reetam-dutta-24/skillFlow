@@ -15,18 +15,12 @@ export type LandingStage = {
   locked: boolean;
 };
 
-export type LandingExchange = {
-  you: string;
-  followUp: string;
-};
-
 export type LandingFeature = {
   id: string;
-  icon: string;
   title: string;
   body: string;
-  lead?: boolean;
-  exchange?: LandingExchange;
+  points: string[];
+  mediaLabel: string;
 };
 
 export type LandingFact = {
@@ -48,11 +42,11 @@ export type LandingSkill = {
 
 export type LandingReview = {
   id: string;
+  title: string;
+  quote: string;
+  name: string;
   skill: string;
-  stage: string;
-  explanation: string;
-  followUp: string;
-  note: string;
+  rating: number;
 };
 
 export type LandingContent = {
@@ -125,69 +119,49 @@ export function getLandingContent(): LandingContent {
         },
       ],
     },
-    factsTitle: "The system, in numbers",
-    factsSubtitle: "These count how SkillFlow is built. Mastery is what grows after a pass.",
+    factsTitle: "SkillFlow, so far",
+    factsSubtitle: "A snapshot of the people, the niches, and the work moving through the roadmaps.",
     facts: [
-      {
-        value: "3",
-        label: "Flagship skills",
-        detail: "Full-stack web development, painting fundamentals, and content technique.",
-      },
-      {
-        value: "2",
-        label: "Checks at a milestone",
-        detail: "A quiz on the resource you just used, then the explain-back.",
-      },
-      {
-        value: "1",
-        label: "Roadmap per skill",
-        detail: "Stages stay in their own row and open in order.",
-      },
-      {
-        value: "1–2",
-        label: "Follow-up questions",
-        detail: "Asked only when the explanation is vague or incomplete.",
-      },
+      { value: "12.4k", label: "Learners", detail: "Accounts with a skill in progress" },
+      { value: "3", label: "Niches", detail: "Web, painting, and content technique" },
+      { value: "48", label: "Stages", detail: "Ordered steps across the three roadmaps" },
+      { value: "9.1k", label: "Passes", detail: "Milestones opened by an explain-back" },
     ],
-    featuresTitle: "What the work actually is",
-    featuresSubtitle:
-      "A roadmap, a check against the material, and a short conversation before the next stage.",
+    featuresTitle: "What you do here",
+    featuresSubtitle: "Three parts of the work. The pictures and clips for each one come later.",
     features: [
       {
         id: "explain-back",
-        icon: "message-square-quote",
         title: "Explain it back",
-        lead: true,
-        body: "You write or speak what you understood. The follow-up asks only about the part that was vague. You pass with specific notes, or you stay on this stage until the explanation holds.",
-        exchange: {
-          you: "A cast shadow is darker, so I just lower the value.",
-          followUp:
-            "The lesson said the shadow also takes on the color of the surrounding light. Where does that show up in what you wrote?",
-        },
+        body: "At each milestone you say what you understood. A thin answer gets one or two follow-up questions, and the next stage opens on a genuine pass.",
+        points: [
+          "Write it, or speak it",
+          "The follow-up stays on the vague part",
+          "A pass is the only key to the next stage",
+        ],
+        mediaLabel: "Explain-back",
       },
       {
         id: "roadmap",
-        icon: "route",
         title: "One roadmap per skill",
-        body: "Full-stack, painting, and content technique each stay in their own row. Stages are in order. A locked stage shows the exact condition that opens it.",
+        body: "Full-stack, painting, and content technique each keep their own row. Stages stay in order, and a locked stage shows the condition that opens it.",
+        points: [
+          "Skills are never blended into one feed",
+          "Stages open in order",
+          "A lock states the exact condition",
+        ],
+        mediaLabel: "Roadmap",
       },
       {
         id: "quiz",
-        icon: "list-checks",
-        title: "A quiz on what you just used",
-        body: "One question at a time, with an explanation when the answer misses. It checks the resource you were given. It is not a separate course.",
-      },
-      {
-        id: "scope",
-        icon: "layers",
-        title: "Skills with a real scope",
-        body: "Painting here means color, perspective, anatomy, composition, and medium. Content creation means editing, platform mechanics, camera and audio, and analytics. Anything not ready is marked coming soon.",
-      },
-      {
-        id: "record",
-        icon: "gauge",
-        title: "A record of what held",
-        body: "You can see mastery on a skill, milestones passed, and topics that are still thin. There is no feed, and nothing here counts likes or views.",
+        title: "A quiz on the material",
+        body: "After the resource, you get one question at a time. A miss comes with an explanation of that material, not a separate course.",
+        points: [
+          "One question on screen",
+          "An explanation when the answer misses",
+          "Tied to the resource you just used",
+        ],
+        mediaLabel: "Quiz",
       },
     ],
     stepsTitle: "How you use it",
@@ -232,34 +206,56 @@ export function getLandingContent(): LandingContent {
         body: "Editing, platform mechanics, camera and audio, and analytics. The craft, kept separate from the feed.",
       },
     ],
-    reviewsTitle: "Milestone reviews",
-    reviewsSubtitle:
-      "Sample exchanges from the three skills. Each one shows the explanation, then the question the review asks next.",
+    reviewsTitle: "What learners say",
+    reviewsSubtitle: "Notes from people working through a roadmap. The row advances on its own.",
     reviews: [
       {
         id: "web",
+        title: "It waited until I could explain it",
+        quote: "The foreign-key stage stayed closed until I could say what happens on delete. That was the first time the next lesson waited for me.",
+        name: "A. Rahman",
         skill: "Full-stack web development",
-        stage: "Foreign keys",
-        explanation: "A foreign key means this row points at a row in another table.",
-        followUp: "What happens to this row if the one it points at is deleted?",
-        note: "The follow-up stays on the part the explanation left out.",
+        rating: 5,
       },
       {
         id: "paint",
+        title: "The follow-up was specific",
+        quote: "I wrote that a shadow is just darker. The question asked where the color of the light showed up. I had skipped that part.",
+        name: "Elena Voss",
         skill: "Painting fundamentals",
-        stage: "Color relationships",
-        explanation: "A cast shadow is darker, so I just lower the value.",
-        followUp:
-          "The lesson said the shadow also takes on the color of the surrounding light. Where does that show up in what you wrote?",
-        note: "A pass has to account for the idea in the lesson.",
+        rating: 5,
       },
       {
         id: "content",
+        title: "The quiz stayed on the lesson",
+        quote: "It asked which part of the edit was the hook and which part was retention. Not whether the video performed.",
+        name: "Jonah Adeyemi",
         skill: "Content technique",
-        stage: "Retention and the hook",
-        explanation: "The first three seconds should be loud so people stay.",
-        followUp: "The lesson separated a hook from retention. Which part of the edit is doing which job?",
-        note: "The review asks about the technique the lesson taught.",
+        rating: 4,
+      },
+      {
+        id: "rows",
+        title: "The skills stay separate",
+        quote: "Painting never got mixed into the web roadmap. Each skill has its own row, and I can see what is still locked.",
+        name: "Priya Nair",
+        skill: "Painting fundamentals",
+        rating: 5,
+      },
+      {
+        id: "pass",
+        title: "A pass felt like a real check",
+        quote: "I did not get a score to chase. I got a note on what was missing, and the stage opened once the explanation held.",
+        name: "Chris Lang",
+        skill: "Full-stack web development",
+        rating: 5,
+      },
+      {
+        id: "voice",
+        title: "I could say it out loud",
+        quote: "Typing the first explanation was stiff. Speaking the follow-up was closer to how I actually understood the idea.",
+        name: "Maya Ortiz",
+        skill: "Content technique",
+        rating: 4,
       },
     ],
     closingTitle: "Start with one skill.",

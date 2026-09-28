@@ -8,7 +8,7 @@ export function ClosingCta({ title, body, primaryCta, secondaryCta }) {
       <GlassCard
         tint="accent"
         style={{
-          padding: "var(--space-8) var(--space-6)",
+          padding: "clamp(3rem, 6vh, 4.5rem) clamp(1.5rem, 4vw, 3rem)",
           textAlign: "center",
           borderColor: "var(--border-accent)",
         }}

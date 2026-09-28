@@ -1,32 +1,77 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Chip } from "../core/Chip.jsx";
-import { GlassCard } from "../core/GlassCard.jsx";
 import { Icon } from "../core/Icon.jsx";
 import { SectionHeader } from "../core/SectionHeader.jsx";
-import { PaginationDots } from "../navigation/PaginationDots.jsx";
 
-const INTERVAL_MS = 6500;
+const DELAY_MS = 5500;
 
-/** Auto-advancing milestone reviews. Pauses while hovered, focused, or when motion is reduced. */
+function visibleCount() {
+  if (window.matchMedia("(min-width: 1100px)").matches) return 3;
+  if (window.matchMedia("(min-width: 760px)").matches) return 2;
+  return 1;
+}
+
+function Stars({ rating }) {
+  return (
+    <p className="sf-stars" aria-label={`${rating} out of 5`}>
+      {"★".repeat(rating)}
+      <span aria-hidden="true">{"☆".repeat(5 - rating)}</span>
+    </p>
+  );
+}
+
+/** Review row. A timeout advances one card at a time, and the track eases across. */
 export function PracticeSlider({ title, subtitle, reviews }) {
   const [current, setCurrent] = useState(0);
+  const [visible, setVisible] = useState(1);
   const [paused, setPaused] = useState(false);
-  const total = reviews.length;
-  const review = reviews[current];
+  const [instant, setInstant] = useState(false);
+  const max = Math.max(reviews.length - visible, 0);
 
   useEffect(() => {
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (media.matches || paused || total < 2) return undefined;
-    const timer = window.setInterval(() => {
-      setCurrent((value) => (value + 1) % total);
-    }, INTERVAL_MS);
-    return () => window.clearInterval(timer);
-  }, [paused, total]);
+    function apply() {
+      setVisible(visibleCount());
+    }
+    apply();
+    window.addEventListener("resize", apply);
+    return () => window.removeEventListener("resize", apply);
+  }, []);
+
+  useEffect(() => {
+    setCurrent((value) => Math.min(value, max));
+  }, [max]);
+
+  useEffect(() => {
+    if (!instant) return undefined;
+    const frame = window.requestAnimationFrame(() => setInstant(false));
+    return () => window.cancelAnimationFrame(frame);
+  }, [instant]);
+
+  useEffect(() => {
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (motion.matches || paused || max < 1) return undefined;
+    const timer = window.setTimeout(() => {
+      const wrap = current >= max;
+      setInstant(wrap);
+      setCurrent(wrap ? 0 : current + 1);
+    }, DELAY_MS);
+    return () => window.clearTimeout(timer);
+  }, [current, paused, max]);
 
   function go(next) {
-    setCurrent((next + total) % total);
+    if (next > max) {
+      setInstant(true);
+      setCurrent(0);
+      return;
+    }
+    if (next < 0) {
+      setInstant(true);
+      setCurrent(max);
+      return;
+    }
+    setInstant(false);
+    setCurrent(next);
   }
 
   return (
@@ -34,7 +79,7 @@ export function PracticeSlider({ title, subtitle, reviews }) {
       id="reviews"
       className="sf-section sf-band-sink"
       aria-roledescription="carousel"
-      aria-label="Milestone reviews"
+      aria-label="Learner reviews"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
@@ -42,45 +87,45 @@ export function PracticeSlider({ title, subtitle, reviews }) {
         if (!event.currentTarget.contains(event.relatedTarget)) setPaused(false);
       }}
     >
-      <SectionHeader title={title} subtitle={subtitle} titleId="landing-reviews-title" titleSize="var(--text-section)" subtitleSize="var(--text-section-sub)" />
-      <GlassCard
-        tint="accent"
-        className="sf-lead-shadow"
-        style={{
-          marginTop: "var(--space-6)",
-          padding: "var(--space-6)",
-          borderColor: "var(--border-accent)",
-          boxShadow: "var(--sf-lead-shadow)",
-          overflow: "visible",
-        }}
-      >
-        <div aria-live="polite">
-          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "var(--space-3)" }}>
-            <Chip tone="accent">{review.skill}</Chip>
-            <p style={{ margin: 0, fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>
-              Example {current + 1} of {total}
-            </p>
-          </div>
-          <h3 className="sf-review-stage">{review.stage}</h3>
-          <div className="sf-review-grid">
-            <div className="sf-review-block">
-              <p className="sf-kicker">Explanation</p>
-              <p className="sf-review-copy">{review.explanation}</p>
-            </div>
-            <div className="sf-review-block sf-review-follow">
-              <p className="sf-kicker">Follow-up</p>
-              <p className="sf-review-copy">{review.followUp}</p>
-            </div>
-          </div>
-          <p className="sf-review-note">{review.note}</p>
-        </div>
-      </GlassCard>
-      <div className="sf-slider-controls">
-        <button type="button" className="sf-slider-btn" aria-label="Previous review" onClick={() => go(current - 1)}>
+      <SectionHeader
+        align="center"
+        className="sf-section-head"
+        title={title}
+        subtitle={subtitle}
+        titleId="landing-reviews-title"
+        titleSize="var(--text-section)"
+        subtitleSize="var(--text-section-sub)"
+      />
+      <div className="sf-review-shell">
+        <button type="button" className="sf-slider-btn sf-slider-prev" aria-label="Previous review" onClick={() => go(current - 1)}>
           <Icon name="chevron-left" size={18} />
         </button>
-        <PaginationDots total={total} current={current} onChange={setCurrent} />
-        <button type="button" className="sf-slider-btn" aria-label="Next review" onClick={() => go(current + 1)}>
+        <div className="sf-review-viewport">
+          <div
+            className={instant ? "sf-review-track is-instant" : "sf-review-track"}
+            style={{ transform: `translateX(calc(${current} * -100% / ${visible}))` }}
+          >
+            {reviews.map((review) => (
+              <article key={review.id} className="sf-review-slide">
+                <div className="sf-review-card">
+                  <h3>{review.title}</h3>
+                  <p>{review.quote}</p>
+                  <footer>
+                    <span className="sf-review-avatar" aria-hidden="true">
+                      {review.name.slice(0, 1)}
+                    </span>
+                    <span>
+                      <span className="sf-review-name">{review.name}</span>
+                      <span className="sf-review-skill">{review.skill}</span>
+                      <Stars rating={review.rating} />
+                    </span>
+                  </footer>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+        <button type="button" className="sf-slider-btn sf-slider-next" aria-label="Next review" onClick={() => go(current + 1)}>
           <Icon name="chevron-right" size={18} />
         </button>
       </div>

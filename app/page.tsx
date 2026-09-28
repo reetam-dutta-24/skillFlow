@@ -65,6 +65,7 @@ export default async function Home() {
         links={content.nav}
         primaryCta={content.primaryCta}
         secondaryCta={content.secondaryCta}
+        skills={content.aboutSkills.map((skill) => skill.title)}
       />
     </>
   );

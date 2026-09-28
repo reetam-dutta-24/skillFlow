@@ -5,12 +5,12 @@ import { SectionHeader } from "../core/SectionHeader.jsx";
 export function AboutSection({ title, subtitle, body, skills }) {
   return (
     <section id="about" className="sf-section sf-band-base" aria-labelledby="landing-about-title">
-      <SectionHeader title={title} subtitle={subtitle} titleId="landing-about-title" titleSize="var(--text-section)" subtitleSize="var(--text-section-sub)" />
+      <SectionHeader align="center" className="sf-section-head" title={title} subtitle={subtitle} titleId="landing-about-title" titleSize="var(--text-section)" subtitleSize="var(--text-section-sub)" />
       <p className="sf-about-body">{body}</p>
       <ul className="sf-about-skills">
         {skills.map((skill) => (
           <li key={skill.title}>
-            <GlassCard tint="accent" style={{ height: "100%", padding: "var(--space-5)" }}>
+            <GlassCard tint="accent" style={{ height: "100%", padding: "var(--space-8)" }}>
               <h3 className="sf-step-title">{skill.title}</h3>
               <p className="sf-step-body">{skill.body}</p>
             </GlassCard>

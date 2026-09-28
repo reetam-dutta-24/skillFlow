@@ -1,9 +1,9 @@
-/** Landing footer. Section links repeat the navbar; account links repeat the auth actions. */
-export function LandingFooter({ wordmark, blurb, links, primaryCta, secondaryCta }) {
+/** Landing footer. Page links, account links, and the three niches. */
+export function LandingFooter({ wordmark, blurb, links, primaryCta, secondaryCta, skills }) {
   return (
     <footer className="sf-footer">
       <div className="sf-footer-inner">
-        <div>
+        <div className="sf-footer-brand">
           <p className="sf-wordmark">{wordmark}</p>
           <p className="sf-footer-blurb">{blurb}</p>
         </div>
@@ -13,6 +13,16 @@ export function LandingFooter({ wordmark, blurb, links, primaryCta, secondaryCta
             {links.map((link) => (
               <li key={link.href}>
                 <a href={link.href}>{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <nav aria-label="Niches">
+          <p className="sf-kicker">Niches</p>
+          <ul className="sf-footer-links">
+            {skills.map((skill) => (
+              <li key={skill}>
+                <a href="#about">{skill}</a>
               </li>
             ))}
           </ul>
@@ -28,7 +38,10 @@ export function LandingFooter({ wordmark, blurb, links, primaryCta, secondaryCta
             </li>
           </ul>
         </nav>
-        <p className="sf-footer-meta">© 2026 SkillFlow</p>
+      </div>
+      <div className="sf-footer-bar">
+        <p>© 2026 SkillFlow</p>
+        <p>Mastery-first roadmaps. A quiz, then an explain-back, before the next stage.</p>
       </div>
     </footer>
   );

@@ -1,69 +1,66 @@
-import Image from "next/image";
+import type { Metadata } from "next";
+import { AboutSection } from "@/components/landing/AboutSection.jsx";
+import { ClosingCta } from "@/components/landing/ClosingCta.jsx";
+import { FeatureGrid } from "@/components/landing/FeatureGrid.jsx";
+import { HowItWorks } from "@/components/landing/HowItWorks.jsx";
+import { LandingFacts } from "@/components/landing/LandingFacts.jsx";
+import { LandingFooter } from "@/components/landing/LandingFooter.jsx";
+import { LandingHero } from "@/components/landing/LandingHero.jsx";
+import { LandingNav } from "@/components/landing/LandingNav.jsx";
+import { PracticeSlider } from "@/components/landing/PracticeSlider.jsx";
+import { getLandingContent } from "@/lib/mock/landing";
+
+export const metadata: Metadata = {
+  title: "Explain it, then continue · SkillFlow",
+  description:
+    "SkillFlow keeps the next stage closed until you can explain the last one. Curated roadmaps, a quiz on the material, and a Socratic explain-back at every milestone.",
+};
 
 export default function Home() {
+  const content = getLandingContent();
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-bg-app font-sans text-text-primary">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between border border-border-subtle bg-bg-elevated py-32 px-16 sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <>
+      <LandingNav
+        wordmark={content.wordmark}
+        links={content.nav}
+        primaryCta={content.primaryCta}
+        secondaryCta={content.secondaryCta}
+      />
+      <main className="sf-landing">
+        <LandingHero content={content} />
+        <LandingFacts title={content.factsTitle} subtitle={content.factsSubtitle} facts={content.facts} />
+        <FeatureGrid
+          title={content.featuresTitle}
+          subtitle={content.featuresSubtitle}
+          features={content.features}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-text-primary">
-            To get started, edit the{" "}
-            <code className="rounded bg-surface-card px-1.5 py-0.5 font-mono text-[0.9em] text-text-primary">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-text-secondary">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-text-link"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-text-link"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-gradient-brand px-5 text-text-on-accent md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="h-[14px] w-4 invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-border-default px-5 text-text-primary md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+        <HowItWorks title={content.stepsTitle} subtitle={content.stepsSubtitle} steps={content.steps} />
+        <AboutSection
+          title={content.aboutTitle}
+          subtitle={content.aboutSubtitle}
+          body={content.aboutBody}
+          skills={content.aboutSkills}
+        />
+        <PracticeSlider
+          title={content.reviewsTitle}
+          subtitle={content.reviewsSubtitle}
+          reviews={content.reviews}
+        />
+        <ClosingCta
+          title={content.closingTitle}
+          body={content.closingBody}
+          primaryCta={content.primaryCta}
+          secondaryCta={content.secondaryCta}
+        />
       </main>
-    </div>
+      <LandingFooter
+        wordmark={content.wordmark}
+        blurb={content.footerBlurb}
+        links={content.nav}
+        primaryCta={content.primaryCta}
+        secondaryCta={content.secondaryCta}
+      />
+    </>
   );
 }

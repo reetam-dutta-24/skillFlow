@@ -18,6 +18,19 @@ export default function DashboardLoading() {
           <Skeleton height={96} radius="var(--radius-panel)" />
         </div>
       </div>
+      <div className="sf-dash-block">
+        <Skeleton width="8rem" height={20} />
+        <Skeleton height={168} radius="var(--radius-card)" />
+        <Skeleton height={168} radius="var(--radius-card)" />
+      </div>
+      <div className="sf-dash-block">
+        <Skeleton width="6rem" height={20} />
+        <div className="sf-explore">
+          <Skeleton height={220} radius="var(--radius-panel)" />
+          <Skeleton height={220} radius="var(--radius-panel)" />
+          <Skeleton height={220} radius="var(--radius-panel)" />
+        </div>
+      </div>
     </div>
   );
 }

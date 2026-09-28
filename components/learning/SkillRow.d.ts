@@ -9,6 +9,10 @@ export interface SkillRowProps extends React.HTMLAttributes<HTMLElement> {
   title: React.ReactNode;
   subtitle?: React.ReactNode;
   mastery?: number;
+  /** Route for the roadmap control. Used instead of `onOpenRoadmap` when the destination is a page. */
+  roadmapHref?: string;
+  /** Hide the scroll arrows when the row has nothing to scroll. */
+  scrollable?: boolean;
   onOpenRoadmap?: () => void;
 }
 export function SkillRow(props: SkillRowProps): React.JSX.Element;

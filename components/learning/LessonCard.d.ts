@@ -17,6 +17,8 @@ export interface LessonCardProps extends React.HTMLAttributes<HTMLElement> {
   mastery?: number;
   kind?: "lesson" | "quiz" | "gate";
   thumbnail?: string;
+  /** Opens the lesson, quiz, or roadmap. Locked cards ignore it. */
+  href?: string;
   onOpen?: () => void;
 }
 export function LessonCard(props: LessonCardProps): React.JSX.Element;

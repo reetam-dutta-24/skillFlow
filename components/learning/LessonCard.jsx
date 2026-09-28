@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { Icon } from "../core/Icon.jsx";
 import { Chip } from "../core/Chip.jsx";
 import { MasteryChip } from "../core/MasteryChip.jsx";
@@ -13,32 +14,30 @@ const STATUS = {
 };
 
 /** Carousel/grid card for a lesson or stage. 160px slot, per AniVerse. */
-export function LessonCard({ title, skill, meta, status = "todo", mastery, kind = "lesson", thumbnail, onOpen, style, ...rest }) {
+export function LessonCard({ title, skill, meta, status = "todo", mastery, kind = "lesson", thumbnail, href, onOpen, style, ...rest }) {
   const [hover, setHover] = React.useState(false);
   const s = STATUS[status] || STATUS.todo;
   const locked = status === "locked";
-  return (
-    <article
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      onClick={() => !locked && onOpen && onOpen()}
-      style={{
-        width: "var(--card-slot-w)",
-        flexShrink: 0,
-        display: "flex",
-        flexDirection: "column",
-        overflow: "hidden",
-        cursor: locked ? "default" : "pointer",
-        borderRadius: "var(--radius-tile)",
-        background: "var(--surface-card)",
-        border: "1px solid " + (hover && !locked ? "var(--border-accent)" : "var(--border-subtle)"),
-        boxShadow: hover && !locked ? "var(--shadow-card-lift)" : "none",
-        transform: hover && !locked ? "translateY(-2px)" : "none",
-        transition: "transform var(--dur-base) var(--ease-out-expo), border-color var(--dur-base) var(--ease-in-out), box-shadow var(--dur-base) var(--ease-in-out)",
-        ...style,
-      }}
-      {...rest}
-    >
+  const open = Boolean(href) && !locked;
+  const cardStyle = {
+    width: "var(--card-slot-w)",
+    flexShrink: 0,
+    display: "flex",
+    flexDirection: "column",
+    overflow: "hidden",
+    cursor: locked || (!open && !onOpen) ? "default" : "pointer",
+    borderRadius: "var(--radius-tile)",
+    background: "var(--surface-card)",
+    border: "1px solid " + (hover && !locked ? "var(--border-accent)" : "var(--border-subtle)"),
+    boxShadow: hover && !locked ? "var(--shadow-card-lift)" : "none",
+    transform: hover && !locked ? "translateY(-2px)" : "none",
+    transition: "transform var(--dur-base) var(--ease-out-expo), border-color var(--dur-base) var(--ease-in-out), box-shadow var(--dur-base) var(--ease-in-out)",
+    textDecoration: "none",
+    color: "inherit",
+    ...style,
+  };
+  const body = (
+    <>
       <div style={{ position: "relative", height: 90, background: "var(--bg-sunken)", overflow: "hidden" }}>
         {thumbnail ? (
           <img src={thumbnail} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", filter: locked ? "var(--blur-lock)" : "none" }} />
@@ -49,6 +48,7 @@ export function LessonCard({ title, skill, meta, status = "todo", mastery, kind 
         )}
         <span style={{ position: "absolute", top: 8, left: 8, display: "inline-flex", alignItems: "center", justifyContent: "center", width: 22, height: 22, borderRadius: "var(--radius-full)", background: "rgba(0,0,0,.55)" }}>
           <Icon name={s.icon} size={13} color={s.color} />
+          <span className="sf-sr">{s.label}</span>
         </span>
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 6, padding: "10px 12px 12px" }}>
@@ -59,6 +59,27 @@ export function LessonCard({ title, skill, meta, status = "todo", mastery, kind 
           {meta ? <Chip tone={locked ? "lock" : "neutral"}>{meta}</Chip> : null}
         </div>
       </div>
+    </>
+  );
+  const hoverProps = {
+    onMouseEnter: () => setHover(true),
+    onMouseLeave: () => setHover(false),
+  };
+  if (open) {
+    return (
+      <Link href={href} style={cardStyle} {...hoverProps} {...rest}>
+        {body}
+      </Link>
+    );
+  }
+  return (
+    <article
+      onClick={() => !locked && onOpen && onOpen()}
+      style={cardStyle}
+      {...hoverProps}
+      {...rest}
+    >
+      {body}
     </article>
   );
 }

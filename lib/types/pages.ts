@@ -18,6 +18,7 @@ export type LessonLaneItem = {
   title: string;
   status: LessonLaneStatus;
   href: string;
+  mastery?: number;
 };
 
 export type DashboardSkillRow = {

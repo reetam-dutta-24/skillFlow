@@ -15,11 +15,7 @@ export default async function ClipsPage() {
   const data = await getClipFeed();
 
   return (
-    <div className="sf-dash">
-      <header className="sf-page-head">
-        <h1>Clips</h1>
-        <p>Pick one skill, then short clips or videos. The feed shows only that skill.</p>
-      </header>
+    <div className="sf-clips-page">
       <ClipFeed skills={data.skills} clips={data.clips} />
     </div>
   );

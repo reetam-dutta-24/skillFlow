@@ -45,6 +45,22 @@ export type LandingSkill = {
   body: string;
 };
 
+export type LandingSkillCard = {
+  title: string;
+  body: string;
+  available: boolean;
+};
+
+export type LandingCheck = {
+  label: string;
+  title: string;
+  question: string;
+  answer: string;
+  followUp: string;
+  result: string;
+  caption: string;
+};
+
 export type LandingReview = {
   id: string;
   title: string;
@@ -83,6 +99,10 @@ export type LandingContent = {
   stepsTitle: string;
   stepsSubtitle: string;
   steps: LandingStep[];
+  check: LandingCheck;
+  skillsTitle: string;
+  skillCards: LandingSkillCard[];
+  upcomingSkills: LandingSkillCard[];
   aboutTitle: string;
   aboutSubtitle: string;
   aboutBody: string;
@@ -232,6 +252,37 @@ export function getLandingContent(): LandingContent {
         title: "Track real mastery",
         body: "Progress reflects verified understanding, not hours watched. Weak topics are flagged so you can revisit them.",
       },
+    ],
+    check: {
+      label: "Illustrative example.",
+      title: "See the check that makes SkillFlow different.",
+      question: "Why does useEffect need a dependency array?",
+      answer: "It controls when the effect runs.",
+      followUp: "You mentioned it controls when the effect runs. What happens if the array is empty?",
+      result: "Passed. You covered when effects re-run and the empty-array case.",
+      caption: "There's no timer and no score. It's a check-in.",
+    },
+    skillsTitle: "Start with a skill worth mastering.",
+    skillCards: [
+      {
+        title: "Full-Stack Web Development",
+        body: "From React fundamentals to auth and databases.",
+        available: true,
+      },
+      {
+        title: "Art & Painting",
+        body: "Color theory, perspective, anatomy, composition, and medium technique.",
+        available: false,
+      },
+      {
+        title: "Content Creation",
+        body: "Editing technique, platform mechanics, camera and audio settings, and analytics.",
+        available: false,
+      },
+    ],
+    upcomingSkills: [
+      { title: "Photography", body: "", available: false },
+      { title: "Music Production", body: "", available: false },
     ],
     aboutTitle: "About SkillFlow",
     aboutSubtitle: "A single system for learning that can be checked.",

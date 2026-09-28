@@ -105,7 +105,7 @@ export type LessonData =
 
 export type QuizData =
   | { kind: "unavailable" }
-  | { kind: "locked"; skillSlug: string }
+  | { kind: "locked"; skillSlug: string; skillName: string; stageTitle: string; previousStageTitle: string | null }
   | { kind: "ready"; skill: SkillView; stage: RoadmapStageView; quiz: QuizView };
 
 export type MilestoneData =

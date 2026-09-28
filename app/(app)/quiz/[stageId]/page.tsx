@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
-import { getQuiz } from "@/lib/data/quiz";
+import { getQuiz, QUIZ_PASS_THRESHOLD } from "@/lib/data/quiz";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
 import { QuizFailure } from "./_components/QuizFailure";
 import { QuizFlow } from "./_components/QuizFlow";
@@ -64,6 +64,9 @@ export default async function QuizPage({ params }: PageProps) {
         <h1>{data.stage.title}</h1>
       </header>
       <QuizFlow
+        passThreshold={QUIZ_PASS_THRESHOLD}
+        lessonHref={`/lesson/${data.stage.id}`}
+        explainHref={`/milestone/${data.stage.id}`}
         questions={data.quiz.questions.map((question) => ({
           id: question.id,
           prompt: question.prompt,

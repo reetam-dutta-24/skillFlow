@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/core/Button.jsx";
 import { Icon } from "@/components/core/Icon.jsx";
 import { ProgressBar } from "@/components/core/ProgressBar.jsx";
+import { QuizResults, type QuizAnswer } from "./QuizResults";
 
 export type QuizFlowQuestion = {
   id: string;
@@ -16,13 +17,26 @@ export type QuizFlowQuestion = {
 
 const CHECK_DELAY_MS = 700;
 
-export function QuizFlow({ questions }: { questions: QuizFlowQuestion[] }) {
+export function QuizFlow({
+  questions,
+  passThreshold,
+  lessonHref,
+  explainHref,
+}: {
+  questions: QuizFlowQuestion[];
+  passThreshold: number;
+  lessonHref: string;
+  explainHref: string;
+}) {
   const [index, setIndex] = useState(0);
   const [choice, setChoice] = useState<string | null>(null);
   const [checked, setChecked] = useState(false);
   const [pending, setPending] = useState(false);
+  const [answers, setAnswers] = useState<QuizAnswer[]>([]);
+  const [showResults, setShowResults] = useState(false);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const skipFocus = useRef(true);
   const question = questions[index];
   const total = questions.length;
   const correct = question ? checked && choice === question.correctOptionId : false;
@@ -34,16 +48,22 @@ export function QuizFlow({ questions }: { questions: QuizFlowQuestion[] }) {
   }, []);
 
   useEffect(() => {
-    if (index === 0) return;
-    headingRef.current?.focus();
-  }, [index]);
+    if (skipFocus.current) {
+      skipFocus.current = false;
+      return;
+    }
+    if (!showResults) headingRef.current?.focus();
+  }, [index, showResults]);
 
   function checkAnswer() {
-    if (!choice || pending || checked) return;
+    if (!choice || !question || pending || checked) return;
+    const optionId = choice;
+    const questionId = question.id;
     setPending(true);
     timer.current = setTimeout(() => {
       setPending(false);
       setChecked(true);
+      setAnswers((current) => [...current.filter((item) => item.questionId !== questionId), { questionId, optionId }]);
     }, CHECK_DELAY_MS);
   }
 
@@ -53,6 +73,29 @@ export function QuizFlow({ questions }: { questions: QuizFlowQuestion[] }) {
     setChoice(null);
     setChecked(false);
     setPending(false);
+  }
+
+  function retry() {
+    if (timer.current) clearTimeout(timer.current);
+    setAnswers([]);
+    setIndex(0);
+    setChoice(null);
+    setChecked(false);
+    setPending(false);
+    setShowResults(false);
+  }
+
+  if (showResults) {
+    return (
+      <QuizResults
+        questions={questions}
+        answers={answers}
+        passThreshold={passThreshold}
+        lessonHref={lessonHref}
+        explainHref={explainHref}
+        onRetry={retry}
+      />
+    );
   }
 
   if (!question) return null;
@@ -104,7 +147,11 @@ export function QuizFlow({ questions }: { questions: QuizFlowQuestion[] }) {
             Next question
             <Icon name="arrow-right" size={15} color="var(--text-on-accent)" />
           </Button>
-        ) : null
+        ) : (
+          <Button variant="gradient" size="lg" onClick={() => setShowResults(true)}>
+            See results
+          </Button>
+        )
       ) : (
         <Button variant="gradient" size="lg" disabled={!choice || pending} aria-busy={pending || undefined} onClick={checkAnswer}>
           {pending ? "Checking…" : "Check answer"}

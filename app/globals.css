@@ -2918,11 +2918,105 @@ a.sf-path-card:hover {
   text-transform: uppercase;
   color: var(--text-faint);
 }
-.sf-quiz-miss p:last-child {
+.sf-quiz-miss p:last-child,
+.sf-quiz-missed li p:last-child {
   font-size: var(--text-sm);
   line-height: 1.55;
   color: var(--text-secondary);
   text-wrap: pretty;
+}
+.sf-quiz-results {
+  display: grid;
+  gap: var(--space-4);
+  min-width: 0;
+}
+.sf-quiz-score {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+.sf-quiz-results h2 {
+  margin: 0;
+  font-size: var(--text-title);
+  line-height: var(--text-title-lh);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-primary);
+}
+.sf-quiz-results h2:focus {
+  outline: none;
+}
+.sf-quiz-mark,
+.sf-quiz-clear,
+.sf-quiz-status {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: var(--text-sm-lh);
+  color: var(--text-secondary);
+}
+.sf-quiz-missed h3 {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-body);
+  line-height: var(--text-body-lh);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+}
+.sf-quiz-missed ul {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sf-quiz-missed li {
+  display: grid;
+  gap: 6px;
+  padding: 16px 18px;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-panel);
+  background: var(--surface-card);
+}
+.sf-quiz-missed-prompt {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: var(--text-sm-lh);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+}
+.sf-quiz-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+.sf-quiz-cta,
+.sf-quiz-review {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 44px;
+  padding: 0 24px;
+  border-radius: var(--radius-btn);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  text-decoration: none;
+}
+.sf-quiz-cta {
+  background-image: var(--gradient-brand);
+  color: var(--text-on-accent);
+}
+.sf-quiz-cta:hover {
+  filter: brightness(1.08);
+  color: var(--text-on-accent);
+}
+.sf-quiz-review {
+  border: 1px solid var(--border-accent);
+  color: var(--text-primary);
+}
+.sf-quiz-review:hover {
+  background: var(--accent-quiet);
+  color: var(--text-primary);
 }
 .sf-lesson-notes p {
   margin: 0;

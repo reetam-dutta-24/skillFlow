@@ -14,11 +14,13 @@ import { PaginationDots } from "../navigation/PaginationDots.jsx";
 
 const STEPS = ["skill", "pace", "goal", "accent", "ready"];
 const EASE = [0.22, 1, 0.36, 1];
+const WELCOME_MS = 2800;
 
 export function OnboardingWizard({ name = "", initial = null }) {
   const router = useRouter();
   const reduce = useReducedMotion();
   const titleRef = useRef(null);
+  const [phase, setPhase] = useState(initial ? "wizard" : "welcome");
   const [step, setStep] = useState(0);
   const [direction, setDirection] = useState(1);
   const [skillSlug, setSkillSlug] = useState(initial?.skillSlug ?? "");
@@ -33,8 +35,19 @@ export function OnboardingWizard({ name = "", initial = null }) {
   }, [accent]);
 
   useEffect(() => {
+    if (phase !== "welcome") return;
+    if (reduce) {
+      setPhase("wizard");
+      return;
+    }
+    const id = window.setTimeout(() => setPhase("wizard"), WELCOME_MS);
+    return () => window.clearTimeout(id);
+  }, [phase, reduce]);
+
+  useEffect(() => {
+    if (phase !== "wizard") return;
     titleRef.current?.focus();
-  }, [step]);
+  }, [step, phase]);
 
   const ready = step === STEPS.length - 1;
   const canContinue =
@@ -71,6 +84,15 @@ export function OnboardingWizard({ name = "", initial = null }) {
         transition: { duration: 0.34, ease: EASE },
       };
 
+  const handoff = reduce
+    ? { initial: false, animate: { opacity: 1, y: 0 }, exit: { opacity: 1, y: 0 }, transition: { duration: 0 } }
+    : {
+        initial: { opacity: 0, y: 36 },
+        animate: { opacity: 1, y: 0 },
+        exit: { opacity: 0, y: -48 },
+        transition: { duration: 0.55, ease: EASE },
+      };
+
   return (
     <div className="sf-wizard">
       <div className="sf-wizard-bar">
@@ -79,7 +101,96 @@ export function OnboardingWizard({ name = "", initial = null }) {
         </a>
         <ThemeToggle quiet />
       </div>
-      <div className="sf-wizard-card">
+      <div className="sf-wizard-slot">
+        <AnimatePresence mode="wait">
+          {phase === "welcome" ? (
+            <WelcomeCard key="welcome" name={name} reduce={reduce} motionProps={handoff} />
+          ) : (
+            <WizardCard
+              key="wizard"
+              motionProps={handoff}
+              step={step}
+              reduce={reduce}
+              titleRef={titleRef}
+              motionStep={motionProps}
+              skillSlug={skillSlug}
+              setSkillSlug={setSkillSlug}
+              pace={pace}
+              setPace={setPace}
+              goal={goal}
+              setGoal={setGoal}
+              accent={accent}
+              setAccent={setAccent}
+              name={name}
+              error={error}
+              pending={pending}
+              ready={ready}
+              canContinue={canContinue}
+              go={go}
+              finish={finish}
+            />
+          )}
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+}
+
+function WelcomeCard({ name, reduce, motionProps }) {
+  const first = name.trim().split(/\s+/)[0];
+  return (
+    <motion.div className="sf-wizard-card sf-welcome" role="status" {...motionProps}>
+      <div className="sf-welcome-photos" aria-hidden="true">
+        {SKILL_CHOICES.map((skill, index) => (
+          <motion.span
+            key={skill.slug}
+            className="sf-welcome-photo"
+            initial={reduce ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0, rotate: (index - 2) * 7 }}
+            transition={reduce ? { duration: 0 } : { duration: 0.45, delay: 0.08 + index * 0.06, ease: EASE }}
+            style={{ zIndex: index }}
+          >
+            <Image src={skill.image} alt="" fill sizes="72px" />
+          </motion.span>
+        ))}
+      </div>
+      <h1>{first ? `Welcome, ${first}` : "Welcome"}</h1>
+      <p>A few choices, then your path.</p>
+      <div className="sf-welcome-timer" aria-hidden="true">
+        <motion.span
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={reduce ? { duration: 0 } : { duration: WELCOME_MS / 1000, ease: "linear" }}
+        />
+      </div>
+    </motion.div>
+  );
+}
+
+function WizardCard({
+  motionProps,
+  step,
+  reduce,
+  titleRef,
+  motionStep,
+  skillSlug,
+  setSkillSlug,
+  pace,
+  setPace,
+  goal,
+  setGoal,
+  accent,
+  setAccent,
+  name,
+  error,
+  pending,
+  ready,
+  canContinue,
+  go,
+  finish,
+}) {
+  return (
+    <motion.div className="sf-wizard-card" {...motionProps}>
         <div className="sf-wizard-track" aria-hidden="true">
           <motion.span
             className="sf-wizard-fill"
@@ -91,7 +202,7 @@ export function OnboardingWizard({ name = "", initial = null }) {
         <PaginationDots total={STEPS.length} current={step} onChange={(index) => index < step && go(index)} />
         <div className="sf-wizard-stage">
           <AnimatePresence mode="wait" initial={false}>
-            <motion.div key={STEPS[step]} className="sf-wizard-step" {...motionProps}>
+            <motion.div key={STEPS[step]} className="sf-wizard-step" {...motionStep}>
               <h1 ref={titleRef} tabIndex={-1}>
                 {stepTitle(step)}
               </h1>
@@ -119,8 +230,7 @@ export function OnboardingWizard({ name = "", initial = null }) {
         <p className="sf-wizard-live" aria-live="polite">
           Step {step + 1} of {STEPS.length}. {stepTitle(step)}
         </p>
-      </div>
-    </div>
+      </motion.div>
   );
 }
 

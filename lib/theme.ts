@@ -20,6 +20,7 @@ export function applyTheme(theme: ThemeMode, target?: HTMLElement | null) {
 
   if (root === document.documentElement) {
     document.cookie = `${THEME_STORAGE_KEY}=${theme}; Path=/; Max-Age=31536000; SameSite=Lax`;
+    window.dispatchEvent(new CustomEvent("skillflow-theme", { detail: theme }));
   }
 }
 

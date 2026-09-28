@@ -10,7 +10,7 @@ import { LandingFacts } from "@/components/landing/LandingFacts.jsx";
 import { LandingFooter } from "@/components/landing/LandingFooter.jsx";
 import { LandingHero } from "@/components/landing/LandingHero.jsx";
 import { LandingNav } from "@/components/landing/LandingNav.jsx";
-import { ReviewsSection } from "@/components/landing/ReviewsSection.jsx";
+import { PracticeSlider } from "@/components/landing/PracticeSlider.jsx";
 import { SkillsSection } from "@/components/landing/SkillsSection.jsx";
 import { ProblemSection } from "@/components/landing/ProblemSection.jsx";
 import { getLandingContent } from "@/lib/mock/landing";
@@ -32,15 +32,12 @@ export default async function Home() {
   const cookieStore = await cookies();
   const theme = resolveTheme(cookieStore.get(THEME_STORAGE_KEY)?.value);
   const content = getLandingContent();
-  const consentedReviews = content.reviews.filter((review) => review.consentGiven);
-  const showReviews = consentedReviews.length >= 3;
-  const links = content.nav.filter((link) => showReviews || link.href !== "#reviews");
 
   return (
     <>
       <LandingNav
         wordmark={content.wordmark}
-        links={links}
+        links={content.nav}
         loginCta={content.loginCta}
         startCta={content.startCta}
         defaultTheme={theme}
@@ -57,7 +54,11 @@ export default async function Home() {
           features={content.features}
         />
         <SkillsSection title={content.skillsTitle} skills={content.skillCards} upcoming={content.upcomingSkills} />
-        {showReviews ? <ReviewsSection title={content.reviewsTitle} reviews={consentedReviews} /> : null}
+        <PracticeSlider
+          title={content.reviewsTitle}
+          subtitle={content.reviewsSubtitle}
+          reviews={content.reviews}
+        />
         <AboutSection
           title={content.aboutTitle}
           body={content.aboutBody}
@@ -67,20 +68,14 @@ export default async function Home() {
           visuals={content.skillCards}
         />
         <FaqSection title={content.faqTitle} items={content.faq} />
-        <ClosingCta
-          title={content.closingTitle}
-          body={content.closingBody}
-          primaryCta={content.primaryCta}
-          secondaryCta={content.secondaryCta}
-        />
+        <ClosingCta title={content.closingTitle} note={content.closingNote} cta={content.startCta} />
       </main>
       <LandingFooter
         wordmark={content.wordmark}
         blurb={content.footerBlurb}
-        links={links}
-        primaryCta={content.primaryCta}
-        secondaryCta={content.secondaryCta}
-        skills={content.aboutSkills.map((skill) => skill.title)}
+        columns={content.footerColumns}
+        credit={content.footerCredit}
+        defaultTheme={theme}
       />
     </>
   );

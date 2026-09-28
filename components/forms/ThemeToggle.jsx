@@ -26,6 +26,16 @@ export function ThemeToggle({
   const [uncontrolledTheme, setUncontrolledTheme] = React.useState(defaultTheme);
   const theme = themeProp ?? uncontrolledTheme;
 
+  React.useEffect(() => {
+    if (themeProp !== undefined) return undefined;
+    function sync(event) {
+      const next = event?.detail;
+      if (next === "light" || next === "dark") setUncontrolledTheme(next);
+    }
+    window.addEventListener("skillflow-theme", sync);
+    return () => window.removeEventListener("skillflow-theme", sync);
+  }, [themeProp]);
+
   function pick(id) {
     applyTheme(id, target);
     if (themeProp === undefined) setUncontrolledTheme(id);

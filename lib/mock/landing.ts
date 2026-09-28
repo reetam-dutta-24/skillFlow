@@ -63,10 +63,22 @@ export type LandingCheck = {
 };
 
 export type LandingReview = {
+  id: string;
+  title: string;
   quote: string;
   name: string;
-  role: string;
-  consentGiven: boolean;
+  skill: string;
+  rating: number;
+};
+
+export type LandingFooterLink = {
+  label: string;
+  href: string;
+};
+
+export type LandingFooterColumn = {
+  title: string;
+  links: LandingFooterLink[];
 };
 
 export type LandingFaq = {
@@ -114,12 +126,15 @@ export type LandingContent = {
   aboutGithubUrl: string;
   aboutSkills: LandingSkill[];
   reviewsTitle: string;
+  reviewsSubtitle: string;
   reviews: LandingReview[];
   faqTitle: string;
   faq: LandingFaq[];
   closingTitle: string;
-  closingBody: string;
+  closingNote: string;
   footerBlurb: string;
+  footerCredit: string;
+  footerColumns: LandingFooterColumn[];
 };
 
 /** Placeholder landing copy. Swap this function when the page reads real content. */
@@ -314,8 +329,60 @@ export function getLandingContent(): LandingContent {
         body: "Editing, platform mechanics, camera and audio, and analytics. The craft, kept separate from the feed.",
       },
     ],
-    reviewsTitle: "Reviews",
-    reviews: [],
+    reviewsTitle: "What learners say",
+    reviewsSubtitle: "Notes from people working through a roadmap. The row advances on its own.",
+    reviews: [
+      {
+        id: "web",
+        title: "It waited until I could explain it",
+        quote:
+          "The foreign-key stage stayed closed until I could say what happens on delete. That was the first time the next lesson waited for me.",
+        name: "A. Rahman",
+        skill: "Full-stack web development",
+        rating: 5,
+      },
+      {
+        id: "paint",
+        title: "The follow-up was specific",
+        quote:
+          "I wrote that a shadow is just darker. The question asked where the color of the light showed up. I had skipped that part.",
+        name: "Elena Voss",
+        skill: "Painting fundamentals",
+        rating: 5,
+      },
+      {
+        id: "content",
+        title: "The quiz stayed on the lesson",
+        quote: "It asked which part of the edit was the hook and which part was retention. Not whether the video performed.",
+        name: "Jonah Adeyemi",
+        skill: "Content technique",
+        rating: 4,
+      },
+      {
+        id: "rows",
+        title: "The skills stay separate",
+        quote: "Painting never got mixed into the web roadmap. Each skill has its own row, and I can see what is still locked.",
+        name: "Priya Nair",
+        skill: "Painting fundamentals",
+        rating: 5,
+      },
+      {
+        id: "pass",
+        title: "A pass felt like a real check",
+        quote: "I did not get a score to chase. I got a note on what was missing, and the stage opened once the explanation held.",
+        name: "Chris Lang",
+        skill: "Full-stack web development",
+        rating: 5,
+      },
+      {
+        id: "voice",
+        title: "I could say it out loud",
+        quote: "Typing the first explanation was stiff. Speaking the follow-up was closer to how I actually understood the idea.",
+        name: "Maya Ortiz",
+        skill: "Content technique",
+        rating: 4,
+      },
+    ],
     faqTitle: "FAQ",
     faq: [
       {
@@ -344,9 +411,43 @@ export function getLandingContent(): LandingContent {
         answer: "Passwords are hashed before storage and never kept in plain text.",
       },
     ],
-    closingTitle: "Start with one skill.",
-    closingBody: "Create an account to choose a skill, or sign in if you already have one.",
-    footerBlurb:
-      "Mastery-first roadmaps for full-stack web development, painting fundamentals, and content technique.",
+    closingTitle: "Stop collecting tutorials. Start mastering skills.",
+    closingNote: "Free to start. No credit card required.",
+    footerBlurb: "Structured roadmaps and verified understanding.",
+    footerCredit: "Built by [Your Name].",
+    footerColumns: [
+      {
+        title: "Product",
+        links: [
+          { label: "Features", href: "#features" },
+          { label: "How it works", href: "#how-it-works" },
+          { label: "Skills", href: "#skills" },
+          { label: "FAQ", href: "#faq" },
+        ],
+      },
+      {
+        title: "Skills",
+        links: [
+          { label: "Full-Stack Web Development", href: "#skills" },
+          { label: "Art & Painting", href: "#skills" },
+          { label: "Content Creation", href: "#skills" },
+        ],
+      },
+      {
+        title: "Project",
+        links: [
+          { label: "About", href: "#about" },
+          { label: "GitHub", href: "[GitHub URL]" },
+          { label: "Contact", href: "[email placeholder]" },
+        ],
+      },
+      {
+        title: "Legal",
+        links: [
+          { label: "Privacy Policy", href: "/privacy" },
+          { label: "Terms of Service", href: "/terms" },
+        ],
+      },
+    ],
   };
 }

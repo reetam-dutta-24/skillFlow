@@ -1,5 +1,11 @@
-/** Landing footer. Page links, account links, and the three niches. */
-export function LandingFooter({ wordmark, blurb, links, primaryCta, secondaryCta, skills }) {
+import { ThemeToggle } from "../forms/ThemeToggle.jsx";
+
+function isLiveHref(href) {
+  return href.startsWith("/") || href.startsWith("#") || href.startsWith("http");
+}
+
+/** Brand, four link columns, and a bar with the credit and theme control. */
+export function LandingFooter({ wordmark, blurb, columns, credit, defaultTheme }) {
   return (
     <footer className="sf-footer">
       <div className="sf-footer-inner">
@@ -7,41 +13,30 @@ export function LandingFooter({ wordmark, blurb, links, primaryCta, secondaryCta
           <p className="sf-wordmark">{wordmark}</p>
           <p className="sf-footer-blurb">{blurb}</p>
         </div>
-        <nav aria-label="Footer">
-          <p className="sf-kicker">On this page</p>
-          <ul className="sf-footer-links">
-            {links.map((link) => (
-              <li key={link.href}>
-                <a href={link.href}>{link.label}</a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-        <nav aria-label="Niches">
-          <p className="sf-kicker">Niches</p>
-          <ul className="sf-footer-links">
-            {skills.map((skill) => (
-              <li key={skill}>
-                <a href="#about">{skill}</a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-        <nav aria-label="Account">
-          <p className="sf-kicker">Account</p>
-          <ul className="sf-footer-links">
-            <li>
-              <a href={secondaryCta.href}>{secondaryCta.label}</a>
-            </li>
-            <li>
-              <a href={primaryCta.href}>{primaryCta.label}</a>
-            </li>
-          </ul>
-        </nav>
+        {columns.map((column) => (
+          <nav key={column.title} aria-label={column.title}>
+            <p className="sf-kicker">{column.title}</p>
+            <ul className="sf-footer-links">
+              {column.links.map((link) => (
+                <li key={link.label}>
+                  {isLiveHref(link.href) ? (
+                    <a href={link.href}>{link.label}</a>
+                  ) : (
+                    <span className="sf-footer-placeholder">
+                      {link.label} · {link.href}
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))}
       </div>
       <div className="sf-footer-bar">
-        <p>© 2026 SkillFlow</p>
-        <p>Mastery-first roadmaps. A quiz, then an explain-back, before the next stage.</p>
+        <p>
+          © 2026 SkillFlow. {credit}
+        </p>
+        <ThemeToggle defaultTheme={defaultTheme} quiet />
       </div>
     </footer>
   );

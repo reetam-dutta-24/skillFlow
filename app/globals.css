@@ -119,15 +119,224 @@
   --fail-400: #f87171;
   --lock-500: #64748b;
 
-  /* Fill stops stay deep enough for white label text. Bright cyan is the glow, not the fill. */
-  --gradient-brand: linear-gradient(to left, #1d4ed8 0%, #0369a1 49.5%, #0e7490 100%);
-  --gradient-brand-v: linear-gradient(180deg, #0e7490 0%, #1d4ed8 100%);
-  --gradient-brand-quiet: linear-gradient(90deg, rgba(34, 211, 238, .16) 0%, rgba(37, 99, 235, .16) 100%);
+  /* Neon accents. data-accent swaps the glow, the fill, and the tinted surfaces. */
+  --preset-tide: linear-gradient(to left, #1d4ed8 0%, #0369a1 49.5%, #0e7490 100%);
+  --preset-iris: linear-gradient(to left, #4c1d95 0%, #6d28d9 49.5%, #5b21b6 100%);
+  --preset-grove: linear-gradient(to left, #065f46 0%, #047857 49.5%, #0f766e 100%);
+  --preset-ember: linear-gradient(to left, #9a3412 0%, #c2410c 49.5%, #9f1239 100%);
+  --preset-dusk: linear-gradient(to left, #1e3a8a 0%, #3730a3 49.5%, #312e81 100%);
+  --preset-bloom: linear-gradient(to left, #9d174d 0%, #a21caf 49.5%, #6b21a8 100%);
+  --preset-pulse: linear-gradient(to left, #9d174d 0%, #be185d 49.5%, #831843 100%);
+  --preset-volt: linear-gradient(to left, #365314 0%, #3f6212 49.5%, #4d7c0f 100%);
+  --preset-ion: linear-gradient(to left, #1e3a8a 0%, #1d4ed8 49.5%, #1e40af 100%);
+  --preset-nova: linear-gradient(to left, #6b21a8 0%, #a21caf 49.5%, #86198f 100%);
+
+  --preset-gradient: var(--preset-tide);
+  --preset-gradient-v: linear-gradient(180deg, #0e7490 0%, #1d4ed8 100%);
+  --preset-bright: #5ef6ff;
+  --preset-soft: #b8fbff;
+  --preset-mid: #22e7ff;
+  --preset-deep: #0e7490;
+  --preset-strong: #1d4ed8;
+  --hue-app: #04141c;
+  --hue-sidebar: #020d14;
+  --hue-sunken: #01080e;
+  --hue-elevated: #0a2430;
+  --hue-app-light: #f0fbff;
+  --hue-sidebar-light: #e4f6fc;
+  --hue-sunken-light: #d7f1f8;
+  --hue-elevated-light: #f7fdff;
+  --hue-card-light: #f4fbfe;
+
+  --gradient-brand: var(--preset-gradient);
+  --gradient-brand-v: var(--preset-gradient-v);
+  --gradient-brand-quiet: linear-gradient(90deg, rgb(from var(--preset-bright) r g b / 0.16), rgb(from var(--preset-strong) r g b / 0.16));
   --selection-fg: #04212b;
 
   --glass-cyan: rgba(34, 211, 238, .14);
   --glass-blue: rgba(37, 99, 235, .16);
   --glass-neutral: rgba(255, 255, 255, .05);
+}
+
+html[data-accent="tide"] {
+  --preset-gradient: var(--preset-tide);
+  --preset-gradient-v: linear-gradient(180deg, #0e7490 0%, #1d4ed8 100%);
+  --preset-bright: #5ef6ff;
+  --preset-soft: #b8fbff;
+  --preset-mid: #22e7ff;
+  --preset-deep: #0e7490;
+  --preset-strong: #1d4ed8;
+  --hue-app: #04141c;
+  --hue-sidebar: #020d14;
+  --hue-sunken: #01080e;
+  --hue-elevated: #0a2430;
+  --hue-app-light: #f0fbff;
+  --hue-sidebar-light: #e4f6fc;
+  --hue-sunken-light: #d7f1f8;
+  --hue-elevated-light: #f7fdff;
+  --hue-card-light: #f4fbfe;
+}
+html[data-accent="iris"] {
+  --preset-gradient: var(--preset-iris);
+  --preset-gradient-v: linear-gradient(180deg, #5b21b6 0%, #4c1d95 100%);
+  --preset-bright: #d7b4ff;
+  --preset-soft: #ead9ff;
+  --preset-mid: #b07cff;
+  --preset-deep: #6d28d9;
+  --preset-strong: #5b21b6;
+  --hue-app: #12081f;
+  --hue-sidebar: #0c0616;
+  --hue-sunken: #080410;
+  --hue-elevated: #1c1033;
+  --hue-app-light: #f7f4ff;
+  --hue-sidebar-light: #efeaff;
+  --hue-sunken-light: #e6e0fb;
+  --hue-elevated-light: #fcfbff;
+  --hue-card-light: #f6f3ff;
+}
+html[data-accent="grove"] {
+  --preset-gradient: var(--preset-grove);
+  --preset-gradient-v: linear-gradient(180deg, #0f766e 0%, #065f46 100%);
+  --preset-bright: #5dffc0;
+  --preset-soft: #b8ffe0;
+  --preset-mid: #2ee59a;
+  --preset-deep: #047857;
+  --preset-strong: #065f46;
+  --hue-app: #041510;
+  --hue-sidebar: #02100c;
+  --hue-sunken: #010a08;
+  --hue-elevated: #0a2820;
+  --hue-app-light: #f1fdf6;
+  --hue-sidebar-light: #e5f8ee;
+  --hue-sunken-light: #d8f3e4;
+  --hue-elevated-light: #f8fffb;
+  --hue-card-light: #f3fcf7;
+}
+html[data-accent="ember"] {
+  --preset-gradient: var(--preset-ember);
+  --preset-gradient-v: linear-gradient(180deg, #c2410c 0%, #9a3412 100%);
+  --preset-bright: #ffc14d;
+  --preset-soft: #ffe0a3;
+  --preset-mid: #ff8a1f;
+  --preset-deep: #c2410c;
+  --preset-strong: #9a3412;
+  --hue-app: #1a0c08;
+  --hue-sidebar: #120806;
+  --hue-sunken: #0c0504;
+  --hue-elevated: #2a1610;
+  --hue-app-light: #fff6f1;
+  --hue-sidebar-light: #ffeee6;
+  --hue-sunken-light: #ffe4d8;
+  --hue-elevated-light: #fffbf8;
+  --hue-card-light: #fff5f0;
+}
+html[data-accent="dusk"] {
+  --preset-gradient: var(--preset-dusk);
+  --preset-gradient-v: linear-gradient(180deg, #312e81 0%, #1e3a8a 100%);
+  --preset-bright: #a8b8ff;
+  --preset-soft: #d5dcff;
+  --preset-mid: #7a8cff;
+  --preset-deep: #4338ca;
+  --preset-strong: #1e3a8a;
+  --hue-app: #0a0c1c;
+  --hue-sidebar: #070814;
+  --hue-sunken: #04050e;
+  --hue-elevated: #14182e;
+  --hue-app-light: #f4f6ff;
+  --hue-sidebar-light: #e8ecff;
+  --hue-sunken-light: #dde3fb;
+  --hue-elevated-light: #fafbff;
+  --hue-card-light: #f3f5ff;
+}
+html[data-accent="bloom"] {
+  --preset-gradient: var(--preset-bloom);
+  --preset-gradient-v: linear-gradient(180deg, #a21caf 0%, #6b21a8 100%);
+  --preset-bright: #ff6ee0;
+  --preset-soft: #ffc2f0;
+  --preset-mid: #ff4fd8;
+  --preset-deep: #a21caf;
+  --preset-strong: #6b21a8;
+  --hue-app: #1a0814;
+  --hue-sidebar: #12060e;
+  --hue-sunken: #0c040a;
+  --hue-elevated: #2a1020;
+  --hue-app-light: #fff2f8;
+  --hue-sidebar-light: #ffe6f2;
+  --hue-sunken-light: #ffd9ec;
+  --hue-elevated-light: #fffafc;
+  --hue-card-light: #fff5f9;
+}
+html[data-accent="pulse"] {
+  --preset-gradient: var(--preset-pulse);
+  --preset-gradient-v: linear-gradient(180deg, #be185d 0%, #9d174d 100%);
+  --preset-bright: #ff8ec8;
+  --preset-soft: #ffd0e8;
+  --preset-mid: #ff4d9a;
+  --preset-deep: #be185d;
+  --preset-strong: #9d174d;
+  --hue-app: #1a0610;
+  --hue-sidebar: #12040c;
+  --hue-sunken: #0c0308;
+  --hue-elevated: #2c0c1c;
+  --hue-app-light: #fff0f6;
+  --hue-sidebar-light: #ffe3ef;
+  --hue-sunken-light: #ffd4e6;
+  --hue-elevated-light: #fffafc;
+  --hue-card-light: #fff4f8;
+}
+html[data-accent="volt"] {
+  --preset-gradient: var(--preset-volt);
+  --preset-gradient-v: linear-gradient(180deg, #4d7c0f 0%, #365314 100%);
+  --preset-bright: #d6ff4a;
+  --preset-soft: #e8ff9a;
+  --preset-mid: #c8ff3d;
+  --preset-deep: #3f6212;
+  --preset-strong: #365314;
+  --hue-app: #0c1406;
+  --hue-sidebar: #080e04;
+  --hue-sunken: #050a02;
+  --hue-elevated: #18240c;
+  --hue-app-light: #f6ffe8;
+  --hue-sidebar-light: #eefcd4;
+  --hue-sunken-light: #e4f8c0;
+  --hue-elevated-light: #fbfff4;
+  --hue-card-light: #f4fee6;
+}
+html[data-accent="ion"] {
+  --preset-gradient: var(--preset-ion);
+  --preset-gradient-v: linear-gradient(180deg, #1d4ed8 0%, #1e3a8a 100%);
+  --preset-bright: #8ec8ff;
+  --preset-soft: #c5e4ff;
+  --preset-mid: #3d8bff;
+  --preset-deep: #1d4ed8;
+  --preset-strong: #1e3a8a;
+  --hue-app: #06101c;
+  --hue-sidebar: #040c16;
+  --hue-sunken: #020810;
+  --hue-elevated: #0c1c32;
+  --hue-app-light: #f0f7ff;
+  --hue-sidebar-light: #e3f0ff;
+  --hue-sunken-light: #d4e7ff;
+  --hue-elevated-light: #f8fbff;
+  --hue-card-light: #f3f8ff;
+}
+html[data-accent="nova"] {
+  --preset-gradient: var(--preset-nova);
+  --preset-gradient-v: linear-gradient(180deg, #a21caf 0%, #6b21a8 100%);
+  --preset-bright: #ff8ef6;
+  --preset-soft: #ffd0fb;
+  --preset-mid: #e879f9;
+  --preset-deep: #a21caf;
+  --preset-strong: #6b21a8;
+  --hue-app: #160818;
+  --hue-sidebar: #100510;
+  --hue-sunken: #0a030c;
+  --hue-elevated: #261028;
+  --hue-app-light: #fdf0ff;
+  --hue-sidebar-light: #f8e2ff;
+  --hue-sunken-light: #f3d4ff;
+  --hue-elevated-light: #fef9ff;
+  --hue-card-light: #fcf4ff;
 }
 
 /* Type scale */
@@ -200,12 +409,15 @@
   color-scheme: dark;
   --background: var(--bg-app);
   --foreground: var(--text-primary);
-  --bg-app: #120826;
-  --bg-sidebar: #0a0618;
-  --bg-sunken: #0a0416;
-  --bg-elevated: #1a0d2e;
+  --bg-app: var(--hue-app);
+  --bg-sidebar: var(--hue-sidebar);
+  --bg-sunken: var(--hue-sunken);
+  --bg-elevated: var(--hue-elevated);
+  --app-atmosphere:
+    radial-gradient(980px 560px at 0% -12%, rgb(from var(--preset-bright) r g b / 0.34), transparent 58%),
+    radial-gradient(820px 540px at 100% 0%, rgb(from var(--preset-mid) r g b / 0.24), transparent 55%);
   --surface-card: rgba(255, 255, 255, .05);
-  --surface-card-accent: rgba(34, 211, 238, .10);
+  --surface-card-accent: rgb(from var(--preset-mid) r g b / 0.10);
   --surface-hover: rgba(255, 255, 255, .10);
   --surface-active: rgba(255, 255, 255, .15);
   --surface-lock: rgba(255, 255, 255, .035);
@@ -215,18 +427,18 @@
   --text-muted: rgba(255, 255, 255, .55);
   --text-faint: rgba(255, 255, 255, .38);
   --text-on-accent: #ffffff;
-  --text-accent: #67e8f9;
-  --text-link: #67e8f9;
-  --text-link-hover: #a5e9f7;
+  --text-accent: var(--preset-bright);
+  --text-link: var(--preset-bright);
+  --text-link-hover: var(--preset-soft);
 
-  --border-subtle: rgba(255, 255, 255, .08);
-  --border-default: rgba(255, 255, 255, .14);
-  --border-strong: rgba(255, 255, 255, .28);
-  --border-accent: #22d3ee;
+  --border-subtle: rgb(from var(--preset-mid) r g b / 0.2);
+  --border-default: rgb(from var(--preset-mid) r g b / 0.32);
+  --border-strong: rgb(from var(--preset-bright) r g b / 0.46);
+  --border-accent: var(--preset-mid);
 
-  --accent: #22d3ee;
-  --accent-strong: #2563eb;
-  --accent-quiet: rgba(34, 211, 238, .14);
+  --accent: var(--preset-mid);
+  --accent-strong: var(--preset-strong);
+  --accent-quiet: rgb(from var(--preset-mid) r g b / 0.14);
   --accent-fill: var(--gradient-brand);
 
   --state-pass: #34d399;
@@ -240,9 +452,9 @@
   --chart-grid: rgba(248, 250, 252, .12);
   --chart-axis: rgba(248, 250, 252, .65);
   --chart-track: rgba(255, 255, 255, .10);
-  --chart-1: #22d3ee;
-  --chart-2: #2563eb;
-  --chart-3: #67e8f9;
+  --chart-1: var(--preset-mid);
+  --chart-2: var(--preset-strong);
+  --chart-3: var(--preset-bright);
   --chart-4: #94a3b8;
 
   --skeleton-base: rgba(255, 255, 255, .06);
@@ -254,9 +466,9 @@
   --shadow-panel: 0 20px 80px rgba(0, 0, 0, .6);
   --shadow-menu: 0 16px 48px rgba(0, 0, 0, .55);
 
-  --ring-accent: 0 0 0 1px rgba(34, 211, 238, .45);
-  --ring-accent-soft: 0 0 0 1px rgba(34, 211, 238, .22);
-  --glow-accent-soft: 0 0 22px 3px rgba(34, 211, 238, .4);
+  --ring-accent: 0 0 0 1px rgb(from var(--preset-mid) r g b / 0.45);
+  --ring-accent-soft: 0 0 0 1px rgb(from var(--preset-mid) r g b / 0.22);
+  --glow-accent-soft: 0 0 16px 1px rgb(from var(--preset-bright) r g b / 0.9), 0 0 40px 8px rgb(from var(--preset-mid) r g b / 0.5);
   --glow-pass-soft: 0 0 18px 2px rgba(16, 185, 129, .20);
   --glow-warn-soft: 0 0 18px 2px rgba(245, 158, 11, .20);
 
@@ -268,37 +480,52 @@
   background-image: var(--gradient-brand);
 }
 
+[data-accent-swatch="tide"] { background-image: var(--preset-tide); }
+[data-accent-swatch="iris"] { background-image: var(--preset-iris); }
+[data-accent-swatch="grove"] { background-image: var(--preset-grove); }
+[data-accent-swatch="ember"] { background-image: var(--preset-ember); }
+[data-accent-swatch="dusk"] { background-image: var(--preset-dusk); }
+[data-accent-swatch="bloom"] { background-image: var(--preset-bloom); }
+[data-accent-swatch="pulse"] { background-image: var(--preset-pulse); }
+[data-accent-swatch="volt"] { background-image: var(--preset-volt); }
+[data-accent-swatch="ion"] { background-image: var(--preset-ion); }
+[data-accent-swatch="nova"] { background-image: var(--preset-nova); }
+
 .light {
   color-scheme: light;
   --background: var(--bg-app);
   --foreground: var(--text-primary);
-  --bg-app: #ffffff;
-  --bg-sidebar: #f8fafc;
-  --bg-sunken: #f1f5f9;
-  --bg-elevated: #ffffff;
-  --surface-card: #f8fafc;
-  --surface-card-accent: rgba(34, 211, 238, .10);
+  --bg-app: var(--hue-app-light);
+  --bg-sidebar: var(--hue-sidebar-light);
+  --bg-sunken: var(--hue-sunken-light);
+  --bg-elevated: var(--hue-elevated-light);
+  --surface-card: var(--hue-card-light);
+  --app-atmosphere:
+    radial-gradient(980px 560px at 0% -12%, rgb(from var(--preset-mid) r g b / 0.42), transparent 60%),
+    radial-gradient(820px 540px at 100% 0%, rgb(from var(--preset-bright) r g b / 0.34), transparent 58%);
+  --surface-card-accent: rgb(from var(--preset-deep) r g b / 0.10);
   --surface-hover: rgba(15, 23, 42, .05);
   --surface-active: rgba(15, 23, 42, .09);
-  --surface-lock: #f1f5f9;
 
   --text-primary: #0f172a;
   --text-secondary: #334155;
   --text-muted: #64748b;
   --text-faint: #94a3b8;
   --text-on-accent: #ffffff;
-  --text-accent: #0e7490;
-  --text-link: #1d4ed8;
-  --text-link-hover: #2563eb;
+  --text-accent: var(--preset-deep);
+  --text-link: var(--preset-strong);
+  --text-link-hover: var(--preset-deep);
 
-  --border-subtle: rgba(15, 23, 42, .07);
-  --border-default: #e2e8f0;
-  --border-strong: #cbd5e1;
-  --border-accent: #06b6d4;
+  --border-subtle: color-mix(in srgb, var(--preset-mid) 24%, #e2e8f0);
+  --border-default: color-mix(in srgb, var(--preset-mid) 38%, #e2e8f0);
+  --border-strong: color-mix(in srgb, var(--preset-deep) 45%, #cbd5e1);
+  --surface-lock: var(--hue-sunken-light);
+  --border-accent: var(--preset-deep);
 
-  --accent: #06b6d4;
-  --accent-strong: #2563eb;
-  --accent-quiet: rgba(6, 182, 212, .10);
+  --accent: var(--preset-deep);
+  --accent-strong: var(--preset-strong);
+  --accent-quiet: rgb(from var(--preset-deep) r g b / 0.10);
+  --selection-fg: #ffffff;
   --accent-fill: var(--gradient-brand);
 
   --state-pass: #059669;
@@ -312,9 +539,9 @@
   --chart-grid: rgba(15, 23, 42, .09);
   --chart-axis: rgba(15, 23, 42, .55);
   --chart-track: rgba(15, 23, 42, .07);
-  --chart-1: #06b6d4;
-  --chart-2: #2563eb;
-  --chart-3: #0ea5e9;
+  --chart-1: var(--preset-deep);
+  --chart-2: var(--preset-strong);
+  --chart-3: var(--preset-deep);
   --chart-4: #94a3b8;
 
   --skeleton-base: rgba(15, 23, 42, .06);
@@ -334,7 +561,9 @@ html {
 }
 body {
   margin: 0;
-  background: var(--bg-app);
+  background-color: var(--bg-app);
+  background-image: var(--app-atmosphere);
+  background-attachment: fixed;
   color: var(--text-primary);
   font-family: var(--font-sans);
   font-size: var(--text-body);
@@ -346,6 +575,12 @@ body {
 *::before,
 *::after {
   box-sizing: border-box;
+}
+.bg-bg-app,
+.bg-bg-elevated,
+.bg-bg-sidebar {
+  background-image: var(--app-atmosphere);
+  background-attachment: fixed;
 }
 @layer base {
   a {

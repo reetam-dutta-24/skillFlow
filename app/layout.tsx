@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { cookies } from "next/headers";
+import { AccentPicker } from "@/components/forms/AccentPicker.jsx";
 import { ThemeToggle } from "@/components/forms/ThemeToggle.jsx";
+import { ACCENT_STORAGE_KEY, resolveAccent } from "@/lib/accent";
 import { resolveTheme, THEME_STORAGE_KEY } from "@/lib/theme";
 import "./globals.css";
 
@@ -27,10 +29,12 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children }: LayoutProps<"/">) {
   const cookieStore = await cookies();
   const theme = resolveTheme(cookieStore.get(THEME_STORAGE_KEY)?.value);
+  const accent = resolveAccent(cookieStore.get(ACCENT_STORAGE_KEY)?.value);
 
   return (
     <html
       lang="en"
+      data-accent={accent}
       className={`${geistSans.variable} ${geistMono.variable} ${theme} h-full antialiased`}
       suppressHydrationWarning
     >
@@ -38,10 +42,14 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         <div
           style={{
             display: "flex",
-            justifyContent: "flex-end",
+            flexWrap: "wrap",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "var(--space-3)",
             padding: "var(--space-4) var(--space-4) 0",
           }}
         >
+          <AccentPicker defaultAccent={accent} />
           <ThemeToggle defaultTheme={theme} />
         </div>
         {children}

@@ -49,6 +49,7 @@ export type LandingSkillCard = {
   title: string;
   body: string;
   available: boolean;
+  image: string;
 };
 
 export type LandingCheck = {
@@ -268,21 +269,24 @@ export function getLandingContent(): LandingContent {
         title: "Full-Stack Web Development",
         body: "From React fundamentals to auth and databases.",
         available: true,
+        image: "/skills/web.jpg",
       },
       {
         title: "Art & Painting",
         body: "Color theory, perspective, anatomy, composition, and medium technique.",
         available: false,
+        image: "/skills/art.jpg",
       },
       {
         title: "Content Creation",
         body: "Editing technique, platform mechanics, camera and audio settings, and analytics.",
         available: false,
+        image: "/skills/content.jpg",
       },
     ],
     upcomingSkills: [
-      { title: "Photography", body: "", available: false },
-      { title: "Music Production", body: "", available: false },
+      { title: "Photography", body: "", available: false, image: "/skills/photo.jpg" },
+      { title: "Music Production", body: "", available: false, image: "/skills/music.jpg" },
     ],
     aboutTitle: "About SkillFlow",
     aboutSubtitle: "A single system for learning that can be checked.",

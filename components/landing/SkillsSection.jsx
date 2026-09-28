@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Chip } from "../core/Chip.jsx";
 import { GlassCard } from "../core/GlassCard.jsx";
 import { SectionHeader } from "../core/SectionHeader.jsx";
@@ -33,12 +34,18 @@ export function SkillsSection({ title, skills, upcoming }) {
 
 function SkillCard({ skill, muted = false }) {
   return (
-    <GlassCard style={{ height: "100%", padding: "var(--space-8)", opacity: muted ? 0.55 : 1 }}>
-      <div className="sf-skill-head">
-        <h3 className="sf-step-title">{skill.title}</h3>
-        <Chip tone={skill.available ? "pass" : "lock"}>{skill.available ? "Available" : "Coming soon"}</Chip>
+    <GlassCard className={muted ? "sf-skill-card is-soon" : "sf-skill-card"} style={{ height: "100%", padding: 0 }}>
+      <div className="sf-skill-media" aria-hidden="true">
+        <Image src={skill.image} alt="" fill sizes="(min-width: 960px) 30vw, 100vw" />
       </div>
-      {skill.body ? <p className="sf-step-body">{skill.body}</p> : null}
+      <div className="sf-skill-vignette" aria-hidden="true" />
+      <div className="sf-skill-copy">
+        <div className="sf-skill-head">
+          <h3 className="sf-step-title">{skill.title}</h3>
+          <Chip tone={skill.available ? "pass" : "lock"}>{skill.available ? "Available" : "Coming soon"}</Chip>
+        </div>
+        {skill.body ? <p className="sf-step-body">{skill.body}</p> : null}
+      </div>
     </GlassCard>
   );
 }

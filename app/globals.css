@@ -3018,6 +3018,107 @@ a.sf-path-card:hover {
   background: var(--accent-quiet);
   color: var(--text-primary);
 }
+.sf-milestone {
+  display: grid;
+  gap: var(--space-5);
+  width: 100%;
+  max-width: 680px;
+  min-width: 0;
+}
+.sf-milestone > .sf-quiz-cta {
+  justify-self: start;
+}
+.sf-explain-checkin,
+.sf-explain-hint,
+.sf-voice-note {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: var(--text-sm-lh);
+  color: var(--text-muted);
+}
+.sf-explain-saved {
+  display: grid;
+  gap: var(--space-3);
+  padding: 20px 22px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  background: var(--surface-card);
+}
+.sf-explain-saved h2 {
+  margin: 0;
+  font-size: var(--text-subtitle);
+  line-height: var(--text-subtitle-lh);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+}
+.sf-explain-saved p {
+  margin: 0;
+  font-size: var(--text-body);
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+.sf-voice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+.sf-voice-toggle {
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  background: var(--surface-card);
+}
+.sf-voice-toggle button,
+.sf-voice-start,
+.sf-voice-status button {
+  border: 0;
+  background: transparent;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+}
+.sf-voice-toggle button {
+  height: 32px;
+  padding: 0 14px;
+  border-radius: var(--radius-full);
+}
+.sf-voice-toggle button[aria-pressed="true"] {
+  background: var(--accent-quiet);
+  color: var(--text-accent);
+}
+.sf-voice-start,
+.sf-voice-status button {
+  height: 32px;
+  padding: 0 14px;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+}
+.sf-voice-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+.sf-voice-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--state-fail);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sf-voice-dot {
+    animation: sf-voice-pulse 1.4s var(--ease-in-out) infinite;
+  }
+}
+@keyframes sf-voice-pulse {
+  50% { opacity: 0.35; }
+}
 .sf-lesson-notes p {
   margin: 0;
   max-width: 40rem;

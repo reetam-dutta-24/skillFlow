@@ -4,6 +4,9 @@ export const QUIZ_PASS_THRESHOLD = 0.8;
 /** Pass this stage id to the quiz data function to review the generation-failure state. */
 export const QUIZ_GENERATION_FAILURE_STAGE_ID = "__quiz_generation_failed__";
 
+/** Pass this stage id to the explain-back page to review the writing step. The real stage still waits on the quiz. */
+export const EXPLAIN_INPUT_PREVIEW_STAGE_ID = "__explain_input__";
+
 /** Pass this URL to the bring-your-own-resource mock to review the unsupported-link error. */
 export const BYOR_UNSUPPORTED_URL = "https://example.com/unsupported";
 

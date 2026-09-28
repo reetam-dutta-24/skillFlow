@@ -30,5 +30,14 @@ export interface ExplainBackGateProps extends React.HTMLAttributes<HTMLElement> 
   onRetry?: () => void;
   voiceEnabled?: boolean;
   onVoice?: () => void;
+  /** Soft length guidance under the explanation field. */
+  hint?: React.ReactNode;
+  /** When set, a Text / Voice toggle replaces the inner speak button. */
+  voiceMode?: "text" | "voice";
+  onVoiceModeChange?: (mode: "text" | "voice") => void;
+  voicePhase?: "idle" | "recording" | "transcribing";
+  onStartVoice?: () => void;
+  onStopVoice?: () => void;
+  voiceNote?: React.ReactNode;
 }
 export function ExplainBackGate(props: ExplainBackGateProps): React.JSX.Element;

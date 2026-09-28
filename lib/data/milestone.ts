@@ -1,10 +1,30 @@
 import "server-only";
+import { cache } from "react";
+import { EXPLAIN_INPUT_PREVIEW_STAGE_ID } from "@/lib/mock/config";
 import { devDelay } from "@/lib/mock/delay";
 import { acceptedExplanations, explainNeedsWork, explainSamples, findExplainPrompt, findStage, listStages } from "@/lib/mock/catalog";
 import type { MilestoneData } from "@/lib/types/pages";
 
-export async function getMilestone(stageId: string): Promise<MilestoneData | null> {
+function openMilestone(stageId: string): MilestoneData | null {
+  const found = findStage(stageId);
+  const prompt = findExplainPrompt(stageId);
+  if (!found || !prompt) return null;
+  const sample = explainSamples[stageId];
+  return {
+    kind: "open",
+    skill: found.skill,
+    stage: found.stage,
+    prompt,
+    passedSampleFeedback: sample?.feedback ?? "",
+    needsWorkFeedback: explainNeedsWork.feedback,
+    followUpQuestion: sample?.followUpQuestion ?? explainNeedsWork.followUpQuestion,
+    followUpQuote: sample?.followUpQuote ?? explainNeedsWork.followUpQuote,
+  };
+}
+
+export const getMilestone = cache(async (stageId: string): Promise<MilestoneData | null> => {
   await devDelay();
+  if (stageId === EXPLAIN_INPUT_PREVIEW_STAGE_ID) return openMilestone("stage_fs_2");
   const found = findStage(stageId);
   if (!found) return null;
   const { skill, stage } = found;
@@ -26,15 +46,5 @@ export async function getMilestone(stageId: string): Promise<MilestoneData | nul
       continueHref: next ? `/lesson/${next.id}` : `/roadmap/${skill.slug}`,
     };
   }
-  const sample = explainSamples[stage.id];
-  return {
-    kind: "open",
-    skill,
-    stage,
-    prompt,
-    passedSampleFeedback: sample?.feedback ?? "",
-    needsWorkFeedback: explainNeedsWork.feedback,
-    followUpQuestion: sample?.followUpQuestion ?? explainNeedsWork.followUpQuestion,
-    followUpQuote: sample?.followUpQuote ?? explainNeedsWork.followUpQuote,
-  };
-}
+  return openMilestone(stage.id);
+});

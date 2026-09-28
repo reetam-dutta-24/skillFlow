@@ -3,14 +3,17 @@
 import React from "react";
 import { Icon } from "../core/Icon.jsx";
 
-function Label({ children }) {
-  return <p style={{ margin: 0, fontSize: "var(--text-2xs)", fontWeight: "var(--weight-semibold)", letterSpacing: "var(--tracking-wide)", textTransform: "uppercase", color: "var(--text-faint)" }}>{children}</p>;
+function Label({ children, htmlFor }) {
+  const style = { margin: 0, fontSize: "var(--text-2xs)", fontWeight: "var(--weight-semibold)", letterSpacing: "var(--tracking-wide)", textTransform: "uppercase", color: "var(--text-faint)" };
+  if (htmlFor) return <label htmlFor={htmlFor} style={style}>{children}</label>;
+  return <p style={style}>{children}</p>;
 }
 
-function Field({ value, onChange, placeholder, voice, onVoice, rows = 5, disabled }) {
+function Field({ id, value, onChange, placeholder, voice, onVoice, rows = 5, disabled }) {
   return (
     <div style={{ position: "relative" }}>
       <textarea
+        id={id}
         value={value}
         onChange={(e) => onChange && onChange(e.target.value)}
         placeholder={placeholder}
@@ -34,7 +37,8 @@ export function ExplainBackGate({
   answer = "", onAnswerChange, onSubmitAnswer,
   followUp, followUpAnswer = "", onFollowUpChange, onSubmitFollowUp,
   result, resultFeedback, onContinue, onRetry,
-  voiceEnabled = true, onVoice,
+  voiceEnabled = true, onVoice, hint,
+  voiceMode = "text", onVoiceModeChange, voicePhase = "idle", onStartVoice, onStopVoice, voiceNote,
   style, ...rest
 }) {
   const passed = result === "pass";
@@ -49,9 +53,32 @@ export function ExplainBackGate({
       </header>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-        <Label>Your explanation</Label>
-        <Field value={answer} onChange={onAnswerChange} placeholder="Explain it as if to someone who hasn't seen the lesson." voice={voiceEnabled} onVoice={onVoice} disabled={!!followUp} />
-        {!followUp ? (
+        <Label htmlFor="explain-answer">Your explanation</Label>
+        {onVoiceModeChange ? (
+          <div className="sf-voice">
+            <div className="sf-voice-toggle" role="group" aria-label="How to answer">
+              <button type="button" aria-pressed={voiceMode !== "voice"} onClick={() => onVoiceModeChange("text")}>Text</button>
+              <button type="button" aria-pressed={voiceMode === "voice"} onClick={() => onVoiceModeChange("voice")}>Voice</button>
+            </div>
+            {voiceMode === "voice" && voicePhase === "idle" ? (
+              <button type="button" className="sf-voice-start" onClick={onStartVoice}>Start recording</button>
+            ) : null}
+            {voiceMode === "voice" && voicePhase === "recording" ? (
+              <div className="sf-voice-status" aria-live="polite">
+                <span className="sf-voice-dot" aria-hidden="true" />
+                Recording
+                <button type="button" onClick={onStopVoice}>Stop</button>
+              </div>
+            ) : null}
+            {voiceMode === "voice" && voicePhase === "transcribing" ? (
+              <p className="sf-voice-status" aria-live="polite">Turning your recording into text...</p>
+            ) : null}
+          </div>
+        ) : null}
+        {voiceNote ? <p className="sf-voice-note" role="status">{voiceNote}</p> : null}
+        <Field id="explain-answer" value={answer} onChange={onAnswerChange} placeholder="Explain it as if to someone who hasn't seen the lesson." voice={voiceEnabled && !onVoiceModeChange} onVoice={onVoice} disabled={!!followUp || voicePhase === "recording" || voicePhase === "transcribing"} />
+        {hint ? <p className="sf-explain-hint">{hint}</p> : null}
+        {!followUp && onSubmitAnswer ? (
           <button type="button" onClick={onSubmitAnswer} style={{ alignSelf: "flex-start", height: 44, padding: "0 24px", border: "none", cursor: "pointer", borderRadius: "var(--radius-btn)", backgroundImage: "var(--gradient-brand)", color: "#fff", fontFamily: "var(--font-sans)", fontSize: "var(--text-sm)", fontWeight: "var(--weight-semibold)" }}>Submit explanation</button>
         ) : null}
       </div>
@@ -69,7 +96,7 @@ export function ExplainBackGate({
       {followUp ? (
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
           <Label>Your response</Label>
-          <Field value={followUpAnswer} onChange={onFollowUpChange} placeholder="Answer the follow-up in your own words." rows={4} voice={voiceEnabled} onVoice={onVoice} disabled={!!result} />
+          <Field value={followUpAnswer} onChange={onFollowUpChange} placeholder="Answer the follow-up in your own words." rows={4} voice={voiceEnabled && !onVoiceModeChange} onVoice={onVoice} disabled={!!result} />
           {!result ? (
             <button type="button" onClick={onSubmitFollowUp} style={{ alignSelf: "flex-start", height: 44, padding: "0 24px", border: "none", cursor: "pointer", borderRadius: "var(--radius-btn)", backgroundImage: "var(--gradient-brand)", color: "#fff", fontFamily: "var(--font-sans)", fontSize: "var(--text-sm)", fontWeight: "var(--weight-semibold)" }}>Submit response</button>
           ) : null}

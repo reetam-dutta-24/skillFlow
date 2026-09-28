@@ -26,7 +26,12 @@ export type LandingFeature = {
 export type LandingFact = {
   value: string;
   label: string;
-  detail: string;
+};
+
+export type LandingProblemPoint = {
+  icon: string;
+  title: string;
+  body: string;
 };
 
 export type LandingStep = {
@@ -67,9 +72,11 @@ export type LandingContent = {
     caption: string;
     stages: LandingStage[];
   };
-  factsTitle: string;
-  factsSubtitle: string;
+  factsCaption: string;
   facts: LandingFact[];
+  problemTitle: string;
+  problemBody: string;
+  problemPoints: LandingProblemPoint[];
   featuresTitle: string;
   featuresSubtitle: string;
   features: LandingFeature[];
@@ -129,13 +136,32 @@ export function getLandingContent(): LandingContent {
         },
       ],
     },
-    factsTitle: "SkillFlow, so far",
-    factsSubtitle: "A snapshot of the people, the niches, and the work moving through the roadmaps.",
+    factsCaption: "How SkillFlow is built, not how many people use it.",
     facts: [
-      { value: "12.4k", label: "Learners", detail: "Accounts with a skill in progress" },
-      { value: "3", label: "Niches", detail: "Web, painting, and content technique" },
-      { value: "48", label: "Stages", detail: "Ordered steps across the three roadmaps" },
-      { value: "9.1k", label: "Passes", detail: "Milestones opened by an explain-back" },
+      { value: "3", label: "Flagship skills at launch" },
+      { value: "2", label: "Checks per milestone: a quiz and an explain-back" },
+      { value: "100%", label: "Of quiz questions built from the lesson you just studied" },
+      { value: "0", label: "Comments, likes, or trending counters" },
+    ],
+    problemTitle: "Watching a tutorial is not the same as learning it.",
+    problemBody:
+      "Learning a skill today means jumping between video sites, documentation, and random blogs, with no clear order, no check that anything stuck, and feeds designed to keep you watching rather than learning. SkillFlow replaces that with one path, one order, and proof that you understood each step.",
+    problemPoints: [
+      {
+        icon: "route",
+        title: "No structure",
+        body: "nobody tells you what comes next.",
+      },
+      {
+        icon: "video-off",
+        title: "No verification",
+        body: "finishing a video proves nothing.",
+      },
+      {
+        icon: "focus",
+        title: "No focus",
+        body: "engagement-driven feeds pull you off course.",
+      },
     ],
     featuresTitle: "What you do here",
     featuresSubtitle: "Three parts of the work. The pictures and clips for each one come later.",

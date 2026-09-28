@@ -9,6 +9,7 @@ import { LandingFooter } from "@/components/landing/LandingFooter.jsx";
 import { LandingHero } from "@/components/landing/LandingHero.jsx";
 import { LandingNav } from "@/components/landing/LandingNav.jsx";
 import { PracticeSlider } from "@/components/landing/PracticeSlider.jsx";
+import { ProblemSection } from "@/components/landing/ProblemSection.jsx";
 import { getLandingContent } from "@/lib/mock/landing";
 import { resolveTheme, THEME_STORAGE_KEY } from "@/lib/theme";
 
@@ -40,7 +41,8 @@ export default async function Home() {
       />
       <main className="sf-landing">
         <LandingHero content={content} />
-        <LandingFacts title={content.factsTitle} subtitle={content.factsSubtitle} facts={content.facts} />
+        <LandingFacts caption={content.factsCaption} facts={content.facts} />
+        <ProblemSection title={content.problemTitle} body={content.problemBody} points={content.problemPoints} />
         <FeatureGrid
           title={content.featuresTitle}
           subtitle={content.featuresSubtitle}

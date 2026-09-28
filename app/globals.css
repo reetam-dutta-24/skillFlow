@@ -1015,32 +1015,91 @@ body {
   gap: var(--space-2);
   margin-left: auto;
 }
+.sf-facts-band {
+  padding-top: clamp(2.75rem, 6vh, 4rem);
+  padding-bottom: clamp(2.75rem, 6vh, 4rem);
+}
 .sf-facts {
   display: grid;
-  gap: var(--space-10) var(--space-8);
+  gap: var(--space-5);
   margin: 0;
   text-align: center;
 }
 .sf-fact {
-  padding: var(--space-4) var(--space-3);
-}
-.sf-fact dt {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  min-height: 148px;
   margin: 0;
+  padding: var(--space-6) var(--space-5);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border-accent);
+  background: var(--surface-card-accent);
 }
 .sf-fact-value {
-  display: block;
-  font-size: 2.5rem;
+  margin: 0;
+  font-size: clamp(2rem, 3vw, 2.75rem);
   line-height: 1.1;
   font-weight: var(--weight-bold);
   letter-spacing: var(--tracking-tight);
   color: var(--text-accent);
 }
-.sf-fact-label {
+.sf-fact .sf-fact-label {
   display: block;
-  margin-top: var(--space-1);
-  font-size: var(--text-subtitle);
+  margin: var(--space-3) 0 0;
+  font-size: var(--text-sm);
+  line-height: 1.5;
   font-weight: var(--weight-semibold);
   color: var(--text-primary);
+}
+.sf-facts-caption {
+  max-width: 36rem;
+  margin: var(--space-6) auto 0;
+  text-align: center;
+  font-size: var(--text-sm);
+  line-height: var(--text-sm-lh);
+  color: var(--text-muted);
+}
+.sf-problem .sf-section-head {
+  margin-bottom: var(--space-6);
+}
+.sf-problem-body {
+  max-width: 46rem;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+.sf-problem-points {
+  display: grid;
+  gap: var(--space-6);
+  margin: var(--space-10) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.sf-problem-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background: var(--accent-quiet);
+  color: var(--text-accent);
+}
+.sf-problem-points h3 {
+  margin: var(--space-5) 0 0;
+  font-size: 1.125rem;
+  line-height: 1.45;
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-primary);
+}
+.sf-problem-rest {
+  font-weight: var(--weight-medium);
+  color: var(--text-secondary);
 }
 .sf-fact dd,
 .sf-step-body,
@@ -1273,6 +1332,9 @@ body {
   }
   .sf-facts {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .sf-problem-points {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   .sf-about-skills {
     grid-template-columns: repeat(3, minmax(0, 1fr));

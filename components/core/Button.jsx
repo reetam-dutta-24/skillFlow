@@ -38,15 +38,15 @@ export function Button({
     cursor: disabled ? "not-allowed" : "pointer",
     opacity: disabled ? 0.5 : 1,
     width: full ? "100%" : undefined,
-    transition: "background var(--dur-base) var(--ease-in-out), border-color var(--dur-base) var(--ease-in-out), color var(--dur-base) var(--ease-in-out)",
+    transition: "background var(--dur-base) var(--ease-in-out), border-color var(--dur-base) var(--ease-in-out), color var(--dur-base) var(--ease-in-out), filter var(--dur-base) var(--ease-in-out)",
     border: "1px solid transparent",
   };
   const variants = {
     gradient: {
-      backgroundImage: hover && !disabled ? "none" : "var(--gradient-brand)",
-      background: hover && !disabled ? "transparent" : undefined,
-      borderColor: hover && !disabled ? "var(--border-accent)" : "transparent",
-      color: hover && !disabled ? "var(--text-accent)" : "var(--text-on-accent)",
+      backgroundImage: "var(--gradient-brand)",
+      borderColor: "transparent",
+      color: "var(--text-on-accent)",
+      filter: hover && !disabled ? "brightness(1.08)" : "none",
     },
     outline: {
       background: hover && !disabled ? "var(--accent-quiet)" : "transparent",

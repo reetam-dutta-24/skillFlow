@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 import { signUp } from "./actions";
 import { AuthShell } from "@/components/feedback/AuthShell.jsx";
 import { AuthInput } from "@/components/forms/AuthInput.jsx";
@@ -15,13 +16,20 @@ export function SignUpForm() {
   async function handleSubmit(formData: FormData) {
     setPending(true);
     setError(null);
+    const email = String(formData.get("email") ?? "");
+    const password = String(formData.get("password") ?? "");
     const result = await signUp(formData);
     if (result.error) {
       setError(result.error);
       setPending(false);
       return;
     }
-    router.push("/login?registered=true");
+    const signedIn = await signIn("credentials", { email, password, redirect: false });
+    if (signedIn?.error) {
+      router.push("/login?registered=true");
+      return;
+    }
+    router.push("/onboarding");
   }
 
   return (

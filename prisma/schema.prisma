@@ -38,7 +38,20 @@ model User {
   submittedResources ResourceSubmission[] @relation("Submitter")
   reviewedResources  ResourceSubmission[] @relation("Reviewer")
 
+  learnerProfile LearnerProfile?
+}
 
+model LearnerProfile {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  skillSlug String
+  pace      String
+  goal      String
+  accent    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Account {

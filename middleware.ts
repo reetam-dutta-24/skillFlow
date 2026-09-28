@@ -4,6 +4,7 @@ import { NextResponse } from "next/server"
 
 const protectedRoutes = [
   "/dashboard",
+  "/onboarding",
   "/roadmap",
   "/quiz",
   "/milestone",
@@ -23,5 +24,15 @@ export default auth((req) => {
 })
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/roadmap/:path*", "/quiz/:path*", "/milestone/:path*", "/progress/:path*", "/settings/:path*"],
+  matcher: [
+    "/dashboard",
+    "/dashboard/:path*",
+    "/onboarding",
+    "/onboarding/:path*",
+    "/roadmap/:path*",
+    "/quiz/:path*",
+    "/milestone/:path*",
+    "/progress/:path*",
+    "/settings/:path*",
+  ],
 }

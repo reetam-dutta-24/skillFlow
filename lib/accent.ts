@@ -17,7 +17,7 @@ export type AccentId = (typeof ACCENTS)[number]["id"];
 
 export const DEFAULT_ACCENT: AccentId = "tide";
 
-/** Landing, auth, and onboarding stay on Dusk. A chosen accent is applied later, from onboarding and from settings. */
+/** Public pages stay on Dusk. A chosen accent is applied from onboarding onward. */
 export const PUBLIC_ACCENT: AccentId = "dusk";
 
 export function isAccentId(value: string | null | undefined): value is AccentId {
@@ -27,6 +27,12 @@ export function isAccentId(value: string | null | undefined): value is AccentId 
 export function resolveAccent(value: string | null | undefined): AccentId {
   return isAccentId(value) ? value : DEFAULT_ACCENT;
 }
+
+/**
+ * Runs before paint on signed-in routes. Public pages keep Dusk.
+ * The cookie is read here so the root layout can stay static.
+ */
+export const accentBootScript = `(function(){try{var p=location.pathname;if(p==="/"||p.indexOf("/login")===0||p.indexOf("/signup")===0||p.indexOf("/privacy")===0||p.indexOf("/terms")===0)return;var m=document.cookie.match(/(?:^|; )${ACCENT_STORAGE_KEY}=([^;]*)/);if(!m)return;var a=decodeURIComponent(m[1]);var ok=${JSON.stringify(ACCENTS.map((item) => item.id))};if(ok.indexOf(a)!==-1)document.documentElement.setAttribute("data-accent",a);}catch(e){}})();`;
 
 /** Swap the accent preset and persist it for the next request. */
 export function applyAccent(accent: AccentId, target?: HTMLElement | null) {

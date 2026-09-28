@@ -1,11 +1,30 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { Icon } from "../core/Icon.jsx";
+
+const continueStyle = {
+  display: "inline-flex",
+  alignItems: "center",
+  gap: 6,
+  height: 40,
+  padding: "0 20px",
+  flexShrink: 0,
+  border: "none",
+  cursor: "pointer",
+  borderRadius: "var(--radius-btn)",
+  backgroundImage: "var(--gradient-brand)",
+  color: "var(--text-on-accent)",
+  fontFamily: "var(--font-sans)",
+  fontSize: "var(--text-sm)",
+  fontWeight: "var(--weight-semibold)",
+  textDecoration: "none",
+};
 
 /** Home banner. AniVerse ran a gradient greeting with emoji FOMO lines;
  *  SkillFlow states the streak and the single next action. */
-export function StreakBanner({ streak = 0, nextLabel, nextSkill, onContinue, style, ...rest }) {
+export function StreakBanner({ streak = 0, nextLabel, nextSkill, continueHref, onContinue, style, ...rest }) {
   return (
     <section
       style={{
@@ -21,7 +40,7 @@ export function StreakBanner({ streak = 0, nextLabel, nextSkill, onContinue, sty
       {...rest}
     >
       <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 52, height: 52, flexShrink: 0, borderRadius: "var(--radius-full)", backgroundImage: "var(--gradient-brand)" }}>
-        <Icon name="flame" size={24} color="#fff" />
+        <Icon name="flame" size={24} color="var(--text-on-accent)" />
       </span>
       <div style={{ flex: 1, minWidth: 0 }}>
         <p style={{ margin: 0, fontSize: "var(--text-heading)", lineHeight: "var(--text-heading-lh)", fontWeight: "var(--weight-bold)", color: "var(--text-primary)" }}>
@@ -33,10 +52,15 @@ export function StreakBanner({ streak = 0, nextLabel, nextSkill, onContinue, sty
           </p>
         ) : null}
       </div>
-      {onContinue ? (
-        <button type="button" onClick={onContinue} style={{ display: "inline-flex", alignItems: "center", gap: 6, height: 40, padding: "0 20px", flexShrink: 0, border: "none", cursor: "pointer", borderRadius: "var(--radius-btn)", backgroundImage: "var(--gradient-brand)", color: "#fff", fontFamily: "var(--font-sans)", fontSize: "var(--text-sm)", fontWeight: "var(--weight-semibold)" }}>
+      {continueHref ? (
+        <Link href={continueHref} style={continueStyle}>
           Continue
-          <Icon name="arrow-right" size={15} color="#fff" />
+          <Icon name="arrow-right" size={15} color="var(--text-on-accent)" />
+        </Link>
+      ) : onContinue ? (
+        <button type="button" onClick={onContinue} style={continueStyle}>
+          Continue
+          <Icon name="arrow-right" size={15} color="var(--text-on-accent)" />
         </button>
       ) : null}
     </section>

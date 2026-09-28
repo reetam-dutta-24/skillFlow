@@ -11,6 +11,8 @@ export interface StreakBannerProps extends React.HTMLAttributes<HTMLElement> {
   /** The lesson or stage the user resumes into. */
   nextLabel?: React.ReactNode;
   nextSkill?: React.ReactNode;
+  /** Link for the resume action. Used instead of `onContinue` when the destination is a route. */
+  continueHref?: string;
   onContinue?: () => void;
 }
 export function StreakBanner(props: StreakBannerProps): React.JSX.Element;

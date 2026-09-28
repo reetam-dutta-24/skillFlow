@@ -1,9 +1,10 @@
 import React from "react";
 
 /** Loading placeholder. Match the shape of what's arriving. */
-export function Skeleton({ width = "100%", height = 14, radius = "var(--radius-btn-sm)", style, ...rest }) {
+export function Skeleton({ width = "100%", height = 14, radius = "var(--radius-btn-sm)", className, style, ...rest }) {
   return (
     <span
+      className={["sf-skeleton", className].filter(Boolean).join(" ")}
       aria-hidden="true"
       style={{
         display: "block",

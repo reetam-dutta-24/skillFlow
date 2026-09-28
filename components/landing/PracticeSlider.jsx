@@ -32,7 +32,7 @@ export function PracticeSlider({ title, subtitle, reviews }) {
   return (
     <section
       id="reviews"
-      className="sf-section"
+      className="sf-section sf-band-sink"
       aria-roledescription="carousel"
       aria-label="Milestone reviews"
       onMouseEnter={() => setPaused(true)}
@@ -42,7 +42,7 @@ export function PracticeSlider({ title, subtitle, reviews }) {
         if (!event.currentTarget.contains(event.relatedTarget)) setPaused(false);
       }}
     >
-      <SectionHeader title={title} subtitle={subtitle} titleId="landing-reviews-title" />
+      <SectionHeader title={title} subtitle={subtitle} titleId="landing-reviews-title" titleSize="var(--text-section)" subtitleSize="var(--text-section-sub)" />
       <GlassCard
         tint="accent"
         className="sf-lead-shadow"

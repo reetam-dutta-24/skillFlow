@@ -4,7 +4,7 @@ import { CtaLink } from "./CtaLink.jsx";
 /** Last prompt before the footer. Same two account actions as the navbar and the hero. */
 export function ClosingCta({ title, body, primaryCta, secondaryCta }) {
   return (
-    <section id="start" className="sf-section" aria-labelledby="landing-closing-title">
+    <section id="start" className="sf-section sf-band-raise" aria-labelledby="landing-closing-title">
       <GlassCard
         tint="accent"
         style={{

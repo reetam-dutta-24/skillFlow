@@ -17,6 +17,9 @@ export type AccentId = (typeof ACCENTS)[number]["id"];
 
 export const DEFAULT_ACCENT: AccentId = "tide";
 
+/** Landing, auth, and onboarding stay on Dusk. A chosen accent is applied later, from onboarding and from settings. */
+export const PUBLIC_ACCENT: AccentId = "dusk";
+
 export function isAccentId(value: string | null | undefined): value is AccentId {
   return ACCENTS.some((accent) => accent.id === value);
 }

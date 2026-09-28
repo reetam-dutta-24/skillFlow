@@ -101,8 +101,8 @@ export function getLandingContent(): LandingContent {
       { href: "#reviews", label: "Reviews" },
     ],
     eyebrow: "Explain-back gate",
-    headline: "Nothing moves on until you can explain it.",
-    lead: "SkillFlow puts real lessons on one roadmap and checks them with a short quiz. At each milestone you explain the idea in your own words. A thin answer gets one or two follow-up questions. The next stage opens only after a genuine pass.",
+    headline: "One place to learn a skill.",
+    lead: "Web development, painting, and content technique, each on its own roadmap.",
     primaryCta: { href: "/signup", label: "Create an account" },
     secondaryCta: { href: "/login", label: "Sign in" },
     skillsNote:

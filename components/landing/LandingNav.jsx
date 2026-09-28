@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { ThemeToggle } from "../forms/ThemeToggle.jsx";
 import { Icon } from "../core/Icon.jsx";
 import { CtaLink } from "./CtaLink.jsx";
 
-/** Section navbar. Auth actions stay visible; section links collapse on a narrow screen. */
-export function LandingNav({ wordmark, links, primaryCta, secondaryCta }) {
+/** Landing bar. Light and dark sit with the account actions. Accent choice is not on this page. */
+export function LandingNav({ wordmark, links, primaryCta, secondaryCta, defaultTheme }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -25,7 +26,8 @@ export function LandingNav({ wordmark, links, primaryCta, secondaryCta }) {
             ))}
           </ul>
         </nav>
-        <div className="sf-nav-auth">
+        <div className="sf-nav-actions">
+          <ThemeToggle defaultTheme={defaultTheme} quiet />
           <CtaLink href={secondaryCta.href} variant="outline" size="sm">
             {secondaryCta.label}
           </CtaLink>

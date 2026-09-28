@@ -19,6 +19,7 @@ export function ThemeToggle({
   onChange,
   target,
   compact = false,
+  quiet = false,
   style,
   ...rest
 }) {
@@ -70,7 +71,7 @@ export function ThemeToggle({
               color: active ? "var(--text-on-accent)" : "var(--text-muted)",
               backgroundImage: active ? "var(--gradient-brand)" : "none",
               backgroundColor: "transparent",
-              boxShadow: active ? "var(--glow-accent-soft)" : "none",
+              boxShadow: active && !quiet ? "var(--glow-accent-soft)" : "none",
               transition:
                 "color var(--dur-fast) var(--ease-in-out), box-shadow var(--dur-base) var(--ease-in-out)",
             }}

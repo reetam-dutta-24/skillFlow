@@ -142,8 +142,8 @@ function FeatureCard({ feature }) {
 /** Feature grid. The explain-back card is the one that spans the lead cell. */
 export function FeatureGrid({ title, subtitle, features }) {
   return (
-    <section id="features" className="sf-features sf-section" aria-labelledby="landing-features-title">
-      <SectionHeader title={title} subtitle={subtitle} titleId="landing-features-title" />
+    <section id="features" className="sf-features sf-section sf-band-sink" aria-labelledby="landing-features-title">
+      <SectionHeader title={title} subtitle={subtitle} titleId="landing-features-title" titleSize="var(--text-section)" subtitleSize="var(--text-section-sub)" />
       <div className="sf-feature-grid">
         {features.map((feature) => (
           <FeatureCard key={feature.id} feature={feature} />

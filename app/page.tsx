@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import { AboutSection } from "@/components/landing/AboutSection.jsx";
 import { ClosingCta } from "@/components/landing/ClosingCta.jsx";
 import { FeatureGrid } from "@/components/landing/FeatureGrid.jsx";
@@ -9,14 +10,17 @@ import { LandingHero } from "@/components/landing/LandingHero.jsx";
 import { LandingNav } from "@/components/landing/LandingNav.jsx";
 import { PracticeSlider } from "@/components/landing/PracticeSlider.jsx";
 import { getLandingContent } from "@/lib/mock/landing";
+import { resolveTheme, THEME_STORAGE_KEY } from "@/lib/theme";
 
 export const metadata: Metadata = {
-  title: "Explain it, then continue · SkillFlow",
+  title: "One place to learn a skill · SkillFlow",
   description:
-    "SkillFlow keeps the next stage closed until you can explain the last one. Curated roadmaps, a quiz on the material, and a Socratic explain-back at every milestone.",
+    "SkillFlow is a mastery-first system for full-stack web development, painting fundamentals, and content technique.",
 };
 
-export default function Home() {
+export default async function Home() {
+  const cookieStore = await cookies();
+  const theme = resolveTheme(cookieStore.get(THEME_STORAGE_KEY)?.value);
   const content = getLandingContent();
 
   return (
@@ -26,6 +30,7 @@ export default function Home() {
         links={content.nav}
         primaryCta={content.primaryCta}
         secondaryCta={content.secondaryCta}
+        defaultTheme={theme}
       />
       <main className="sf-landing">
         <LandingHero content={content} />

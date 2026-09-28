@@ -4,8 +4,8 @@ import { SectionHeader } from "../core/SectionHeader.jsx";
 /** What SkillFlow is for, and the three skills that have a finished scope. */
 export function AboutSection({ title, subtitle, body, skills }) {
   return (
-    <section id="about" className="sf-section" aria-labelledby="landing-about-title">
-      <SectionHeader title={title} subtitle={subtitle} titleId="landing-about-title" />
+    <section id="about" className="sf-section sf-band-base" aria-labelledby="landing-about-title">
+      <SectionHeader title={title} subtitle={subtitle} titleId="landing-about-title" titleSize="var(--text-section)" subtitleSize="var(--text-section-sub)" />
       <p className="sf-about-body">{body}</p>
       <ul className="sf-about-skills">
         {skills.map((skill) => (

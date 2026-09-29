@@ -3905,7 +3905,8 @@ a.sf-source:hover {
   padding: 22px;
   border: 1px solid var(--border-default);
   border-radius: var(--radius-card);
-  background: var(--surface-card);
+  background: var(--bg-elevated);
+  box-shadow: var(--shadow-panel);
   color: var(--text-primary);
 }
 .sf-dialog h2 {
@@ -3955,6 +3956,21 @@ a.sf-source:hover {
 .sf-admin-tabs a[aria-current="page"] {
   background: var(--surface-active);
   color: var(--text-primary);
+}
+.sf-admin-table .sf-row-title {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text-accent);
+  font: inherit;
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  text-align: left;
+}
+.sf-review-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 .sf-catalog {
   display: grid;

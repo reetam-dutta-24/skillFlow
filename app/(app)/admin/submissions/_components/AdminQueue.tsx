@@ -3,6 +3,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Chip } from "@/components/core/Chip.jsx";
+import { Button } from "@/components/core/Button.jsx";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
 import { reviewSubmission } from "../actions";
 import type { SubmissionStatus, SubmissionView } from "@/lib/types/domain";
@@ -35,6 +36,13 @@ export function AdminQueue({ initial }: { initial: SubmissionView[] }) {
     return () => document.removeEventListener("keydown", onKey);
   }, [open]);
 
+  function openReview(item: SubmissionView) {
+    setOpenId(item.id);
+    setNotes(item.reviewNotes ?? "");
+    setError("");
+    setConfirmApprove(false);
+  }
+
   async function decide(decision: "approve" | "reject") {
     if (!open) return;
     setPending(decision);
@@ -63,11 +71,13 @@ export function AdminQueue({ initial }: { initial: SubmissionView[] }) {
           </button>
         ))}
       </div>
+      <p>Choose Review on a row to approve or reject that suggestion.</p>
       {visible.length ? (
         <table className="sf-admin-table">
           <caption>Resource suggestions</caption>
           <thead>
             <tr>
+              <th scope="col">Review</th>
               <th scope="col">Resource</th>
               <th scope="col">Link</th>
               <th scope="col">Type</th>
@@ -80,7 +90,12 @@ export function AdminQueue({ initial }: { initial: SubmissionView[] }) {
           <tbody>
             {visible.map((item) => (
               <tr key={item.id}>
-                <td><button type="button" onClick={() => { setOpenId(item.id); setNotes(item.reviewNotes ?? ""); setError(""); setConfirmApprove(false); }}>{item.title}</button></td>
+                <td>
+                  <Button type="button" variant="outline" size="sm" onClick={() => openReview(item)}>
+                    {item.status === "PENDING" ? "Review" : "View"}
+                  </Button>
+                </td>
+                <td><button type="button" className="sf-row-title" onClick={() => openReview(item)}>{item.title}</button></td>
                 <td><a href={item.url} target="_blank" rel="noopener noreferrer">Open link, opens in a new tab</a></td>
                 <td>{item.type === "DOC_LINK" ? "Doc" : item.type === "EMBEDDED_VIDEO" ? "Video" : item.type === "COURSE_LINK" ? "Course" : "Clip"}</td>
                 <td>{item.skillName} · {item.stageTitle}</td>
@@ -107,13 +122,17 @@ export function AdminQueue({ initial }: { initial: SubmissionView[] }) {
             </label>
             {error ? <p role="alert">{error}</p> : null}
             {confirmApprove ? <p>This publishes the resource to the roadmap.</p> : null}
-            <div>
-              {confirmApprove ? (
-                <button type="button" disabled={pending !== ""} onClick={() => void decide("approve")}>{pending === "approve" ? "Approving..." : "Confirm approval"}</button>
-              ) : (
-                <button type="button" disabled={pending !== ""} onClick={() => setConfirmApprove(true)}>Approve</button>
-              )}
-              <button type="button" disabled={pending !== ""} onClick={() => void decide("reject")}>{pending === "reject" ? "Rejecting..." : "Reject"}</button>
+            <div className="sf-review-actions">
+              {open.status === "PENDING" && confirmApprove ? (
+                <Button type="button" variant="gradient" size="sm" disabled={pending !== ""} onClick={() => void decide("approve")}>{pending === "approve" ? "Approving..." : "Confirm approval"}</Button>
+              ) : null}
+              {open.status === "PENDING" && !confirmApprove ? (
+                <Button type="button" variant="gradient" size="sm" disabled={pending !== ""} onClick={() => setConfirmApprove(true)}>Approve</Button>
+              ) : null}
+              {open.status === "PENDING" ? (
+                <Button type="button" variant="outline" size="sm" disabled={pending !== ""} onClick={() => void decide("reject")}>{pending === "reject" ? "Rejecting..." : "Reject"}</Button>
+              ) : null}
+              <Button type="button" variant="quiet" size="sm" onClick={() => setOpenId(null)}>Close</Button>
             </div>
             <p>A rejection needs a note, and the learner sees it.</p>
           </div>

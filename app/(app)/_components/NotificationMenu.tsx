@@ -4,13 +4,12 @@ import { useEffect, useId, useRef, useState } from "react";
 import { Button } from "@/components/core/Button.jsx";
 import { NotificationBell } from "@/components/navigation/NotificationBell.jsx";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
-import { devActionDelay } from "@/lib/mock/delay";
 import type { NotificationView } from "@/lib/types/domain";
 
 export function NotificationMenu({ items }: { items: NotificationView[] }) {
-  const [list, setList] = useState(items);
+  const [readIds, setReadIds] = useState<string[]>([]);
   const [open, setOpen] = useState(false);
-  const [pending, setPending] = useState(false);
+  const list = items.map((item) => ({ ...item, read: item.read || readIds.includes(item.id) }));
   const rootRef = useRef<HTMLDivElement>(null);
   const titleId = useId();
   const unread = list.some((item) => !item.read);
@@ -33,11 +32,8 @@ export function NotificationMenu({ items }: { items: NotificationView[] }) {
     };
   }, [open]);
 
-  async function markAll() {
-    setPending(true);
-    await devActionDelay();
-    setList((current) => current.map((item) => ({ ...item, read: true })));
-    setPending(false);
+  function markAll() {
+    setReadIds(items.map((item) => item.id));
   }
 
   return (
@@ -47,8 +43,8 @@ export function NotificationMenu({ items }: { items: NotificationView[] }) {
         <div className="sf-app-pop-panel" id={titleId} role="region" aria-label="Notifications">
           <div className="sf-app-pop-head">
             <p>Notifications</p>
-            <Button type="button" variant="quiet" size="sm" disabled={pending || !unread} onClick={markAll}>
-              {pending ? "Marking as read..." : "Mark all as read"}
+            <Button type="button" variant="quiet" size="sm" disabled={!unread} onClick={markAll}>
+              Mark all as read
             </Button>
           </div>
           {list.length ? (

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Chip } from "@/components/core/Chip.jsx";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
 import { reviewSubmission } from "../actions";
@@ -10,6 +11,7 @@ const TABS: SubmissionStatus[] = ["PENDING", "APPROVED", "REJECTED"];
 const LABEL = { PENDING: "Pending", APPROVED: "Approved", REJECTED: "Rejected" } as const;
 
 export function AdminQueue({ initial }: { initial: SubmissionView[] }) {
+  const router = useRouter();
   const [items, setItems] = useState(initial);
   const [tab, setTab] = useState<SubmissionStatus>("PENDING");
   const [openId, setOpenId] = useState<string | null>(null);
@@ -45,9 +47,10 @@ export function AdminQueue({ initial }: { initial: SubmissionView[] }) {
     }
     const status: SubmissionStatus = decision === "approve" ? "APPROVED" : "REJECTED";
     setItems((current) => current.map((item) => (item.id === open.id ? { ...item, status, reviewNotes: notes || null } : item)));
-    setMessage(decision === "approve" ? "Approved. It can appear on the roadmap." : "Rejected. The learner can read the note.");
+    setMessage(decision === "approve" ? "Approved. It is on the lesson." : "Rejected. The learner can read the note.");
     setOpenId(null);
     setNotes("");
+    router.refresh();
   }
 
   return (

@@ -1,13 +1,14 @@
 "use client";
 
 import { useMemo, useState, type FormEvent } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/core/Button.jsx";
 import { submitResource } from "../actions";
 
 type SkillOption = { id: string; name: string; stages: { id: string; title: string }[] };
 
 export function SubmitForm({ skills }: { skills: SkillOption[] }) {
+  const router = useRouter();
   const params = useSearchParams();
   const preset = params.get("stageId") ?? "";
   const presetSkill = skills.find((skill) => skill.stages.some((stage) => stage.id === preset))?.id ?? skills[0]?.id ?? "";
@@ -34,12 +35,13 @@ export function SubmitForm({ skills }: { skills: SkillOption[] }) {
     if (Object.keys(next).length) return;
     setPending(true);
     setError("");
-    const result = await submitResource({ url, title });
+    const result = await submitResource({ stageId, type, url, title, description });
     setPending(false);
     if (!result.ok) {
       setError(result.error);
       return;
     }
+    router.refresh();
     setDone(true);
   }
 

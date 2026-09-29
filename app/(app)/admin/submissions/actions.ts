@@ -1,17 +1,23 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/require-admin";
-
-const SAVE_MS = 600;
+import { reviewSubmissionRecord } from "@/lib/data/admin";
 
 export async function reviewSubmission(input: { id: string; decision: "approve" | "reject"; notes: string }) {
-  await requireAdmin();
-  await new Promise((resolve) => setTimeout(resolve, SAVE_MS));
-  if (input.notes.trim().toLowerCase() === "fail this review") {
-    return { ok: false as const, error: "The review could not be saved. Try again." };
+  const session = await requireAdmin();
+  const result = await reviewSubmissionRecord({
+    id: input.id,
+    reviewerId: session.user.id,
+    decision: input.decision,
+    notes: input.notes,
+  });
+  if (result.ok) {
+    revalidatePath("/admin/submissions");
+    revalidatePath("/submit");
+    revalidatePath("/roadmap");
+    revalidatePath(result.roadmapHref);
+    revalidatePath(result.lessonHref);
   }
-  if (input.decision === "reject" && !input.notes.trim()) {
-    return { ok: false as const, error: "Add a note the learner can read." };
-  }
-  return { ok: true as const };
+  return result;
 }

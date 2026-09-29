@@ -1,12 +1,23 @@
 "use server";
 
-const SAVE_MS = 600;
+import { revalidatePath } from "next/cache";
+import { auth } from "@/lib/auth";
+import { createSubmission } from "@/lib/data/submissions";
 
-export async function submitResource(input: { url: string; title: string }) {
-  await new Promise((resolve) => setTimeout(resolve, SAVE_MS));
-  if (input.title.trim().toLowerCase() === "fail this submit") {
-    return { ok: false as const, error: "The suggestion could not be sent. Try again." };
+export async function submitResource(input: {
+  stageId: string;
+  type: string;
+  url: string;
+  title: string;
+  description: string;
+}) {
+  const session = await auth();
+  if (!session?.user?.id) return { ok: false as const, error: "Sign in to continue." };
+
+  const result = await createSubmission(session.user.id, input);
+  if (result.ok) {
+    revalidatePath("/submit");
+    revalidatePath("/admin/submissions");
   }
-  if (!input.url.startsWith("https://")) return { ok: false as const, error: "Use an https link." };
-  return { ok: true as const };
+  return result;
 }

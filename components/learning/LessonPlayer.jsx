@@ -79,12 +79,12 @@ export function LessonPlayer({ title, skill, stage, duration, watched = false, r
             Continue to quiz
             <Icon name="arrow-right" size={15} color="var(--text-on-accent)" />
           </Link>
-        ) : (
+        ) : onContinue ? (
           <button type="button" onClick={onContinue} style={{ display: "inline-flex", alignItems: "center", gap: 7, height: 44, padding: "0 24px", border: "none", cursor: "pointer", borderRadius: "var(--radius-btn)", backgroundImage: "var(--gradient-brand)", color: "var(--text-on-accent)", fontFamily: "var(--font-sans)", fontSize: "var(--text-sm)", fontWeight: "var(--weight-semibold)" }}>
             Continue to quiz
             <Icon name="arrow-right" size={15} color="var(--text-on-accent)" />
           </button>
-        )}
+        ) : null}
       </div>
     </section>
   );

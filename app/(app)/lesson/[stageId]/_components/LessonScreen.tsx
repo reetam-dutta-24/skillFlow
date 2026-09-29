@@ -25,7 +25,7 @@ export function LessonScreen({
   clipUrl?: string;
   poster?: string;
   resource?: FeaturedResource;
-  continueHref: string;
+  continueHref?: string;
 }) {
   const [watched, setWatched] = useState(false);
 

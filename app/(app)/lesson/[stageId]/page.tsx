@@ -74,6 +74,24 @@ export default async function LessonPage({ params }: PageProps) {
     );
   }
 
+  if (data.resources.length === 0) {
+    return (
+      <div className="sf-lesson">
+        <p>
+          <Link className="sf-roadmap-link" href={`/roadmap/${data.skill.slug}`}>
+            Back to the path
+          </Link>
+        </p>
+        <EmptyState
+          icon="book-open"
+          titleAs="h1"
+          title={data.stage.title}
+          description={`${data.skill.name}. No resources have been added to this stage yet.`}
+        />
+      </div>
+    );
+  }
+
   const clip = pickClip(data.resources);
   const featured = pickFeatured(data.resources, clip?.id ?? null);
   const sources = data.resources.filter((item) => item.id !== clip?.id && item.id !== featured?.id);
@@ -93,7 +111,7 @@ export default async function LessonPage({ params }: PageProps) {
         clipUrl={clip?.url}
         poster={poster}
         resource={featured ? { title: featured.title, url: featured.url, source: hostLabel(featured.url) } : undefined}
-        continueHref={data.quizHref}
+        continueHref={data.quizHref ?? undefined}
       />
       {clip && (clip.description || clip.keyPoints) ? (
         <section className="sf-lesson-notes" aria-label="What the clip covers">

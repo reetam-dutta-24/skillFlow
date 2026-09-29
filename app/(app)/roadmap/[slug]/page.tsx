@@ -18,7 +18,8 @@ function stageStatus(status: StageStatus) {
 }
 
 function stageMeta(stage: RoadmapStageView) {
-  const lessons = stage.lessonCount === 1 ? "1 lesson" : `${stage.lessonCount} lessons`;
+  const lessons =
+    stage.lessonCount === 0 ? "No lessons yet" : stage.lessonCount === 1 ? "1 lesson" : `${stage.lessonCount} lessons`;
   const parts = [lessons];
   if (stage.hasQuiz) parts.push("quiz");
   if (stage.hasExplainBack) parts.push("explain-back");
@@ -78,7 +79,7 @@ export default async function RoadmapDetailPage({ params }: PageProps) {
                 title={stage.title}
                 description={stage.description}
                 status={status}
-                mastery={stage.masteryPercent}
+                mastery={stage.masteryPercent > 0 ? stage.masteryPercent : undefined}
                 meta={stageMeta(stage)}
                 unlockHint={status === "locked" ? unlockHint(stage) : undefined}
                 last={index === data.stages.length - 1}

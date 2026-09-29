@@ -1,28 +1,29 @@
 import "server-only";
 import { cache } from "react";
-import { devDelay } from "@/lib/mock/delay";
-import { findStage, listResources } from "@/lib/mock/catalog";
+import { loadCatalog, loadStageResources } from "@/lib/data/catalog";
 import type { LessonData } from "@/lib/types/pages";
 
 export const getLesson = cache(async (stageId: string): Promise<LessonData | null> => {
-  await devDelay();
-  const found = findStage(stageId);
-  if (!found) return null;
-  const { skill, stage } = found;
+  const catalog = await loadCatalog();
+  const entry = catalog.find((item) => item.stages.some((stage) => stage.id === stageId));
+  const stage = entry?.stages.find((item) => item.id === stageId);
+  if (!entry || !stage) return null;
+
   if (stage.status === "locked") {
     return {
       kind: "locked",
-      skillSlug: skill.slug,
-      skillName: skill.name,
+      skillSlug: entry.skill.slug,
+      skillName: entry.skill.name,
       stageTitle: stage.title,
       previousStageTitle: stage.previousStageTitle,
     };
   }
+
   return {
     kind: "open",
-    skill,
+    skill: entry.skill,
     stage,
-    resources: listResources(stage.id),
-    quizHref: `/quiz/${stage.id}`,
+    resources: await loadStageResources(stage.id),
+    quizHref: stage.hasQuiz ? `/quiz/${stage.id}` : null,
   };
 });

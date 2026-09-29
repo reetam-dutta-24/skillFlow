@@ -100,7 +100,8 @@ export type LessonData =
       skill: SkillView;
       stage: RoadmapStageView;
       resources: ResourceView[];
-      quizHref: string;
+      /** Null when this stage has no quiz row yet. */
+      quizHref: string | null;
     };
 
 export type QuizData =

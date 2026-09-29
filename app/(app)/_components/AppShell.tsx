@@ -12,6 +12,7 @@ const NAV: SidebarItem[] = [
   { id: "clips", label: "Clips", icon: "clapperboard", href: "/clips" },
   { id: "roadmaps", label: "Roadmaps", icon: "route", href: "/roadmap" },
   { id: "progress", label: "Progress", icon: "chart-line", href: "/progress" },
+  { id: "analytics", label: "Analytics", icon: "chart-pie", href: "/analytics" },
   { id: "submit", label: "Submit a resource", icon: "file-plus", href: "/submit" },
   { id: "settings", label: "Settings", icon: "settings", href: "/settings" },
 ];
@@ -35,9 +36,18 @@ function activeId(pathname: string) {
   if (pathname.startsWith("/admin")) return "admin";
   if (pathname.startsWith("/clips")) return "clips";
   if (pathname.startsWith("/roadmap") || pathname.startsWith("/lesson") || pathname.startsWith("/quiz") || pathname.startsWith("/milestone")) return "roadmaps";
+  if (pathname.startsWith("/analytics")) return "analytics";
   if (pathname.startsWith("/progress")) return "progress";
   if (pathname.startsWith("/settings")) return "settings";
   if (pathname.startsWith("/submit")) return "submit";
+  if (
+    pathname.startsWith("/upgrade") ||
+    pathname.startsWith("/leaderboard") ||
+    pathname.startsWith("/notes") ||
+    pathname.startsWith("/creator") ||
+    pathname.startsWith("/projects") ||
+    pathname.startsWith("/transcript")
+  ) return "";
   return "home";
 }
 
@@ -45,9 +55,18 @@ function titleFor(pathname: string) {
   if (pathname.startsWith("/admin")) return "Admin";
   if (pathname.startsWith("/clips")) return "Clips";
   if (pathname.startsWith("/roadmap")) return "Roadmaps";
+  if (pathname.startsWith("/analytics")) return "Analytics";
   if (pathname.startsWith("/progress")) return "Progress";
+  if (pathname.startsWith("/upgrade")) return "Upgrade";
+  if (pathname.startsWith("/leaderboard")) return "Leaderboard";
+  if (pathname.startsWith("/notes")) return "Notes";
+  if (pathname.startsWith("/creator")) return "Creator";
+  if (pathname.startsWith("/projects")) return "Project review";
+  if (pathname.startsWith("/transcript")) return "Transcript";
   if (pathname.startsWith("/settings")) return "Settings";
+  if (pathname.startsWith("/submit/byor")) return "Bring your own resource";
   if (pathname.startsWith("/submit")) return "Submit a resource";
+  if (pathname === "/dev/routes") return "Routes";
   if (pathname === "/dev/missing") return "Page not found";
   if (pathname === "/dev/error") return "Something went wrong";
   if (pathname.startsWith("/lesson")) return "Lesson";

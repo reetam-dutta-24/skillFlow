@@ -1,60 +1,40 @@
 import "server-only";
-import { BYOR_UNSUPPORTED_URL, PREMIUM_PRICE_LABEL } from "@/lib/mock/config";
+import { cache } from "react";
 import { devDelay } from "@/lib/mock/delay";
-import { findSkill, leaderboardWithViewer, noteSeeds, passedMilestone } from "@/lib/mock/catalog";
-import type { SessionViewer } from "@/lib/types/domain";
-import type { ByorData, CreatorData, LeaderboardData, NotesData, ProjectReviewData, TranscriptData, UpgradeData } from "@/lib/types/pages";
+import { PREMIUM_PRICE_LABEL } from "@/lib/mock/config";
+import { findSkill, leaderboardWithViewer, listStages, noteSeeds, passedMilestone } from "@/lib/mock/catalog";
 
-export async function getUpgradeData(): Promise<UpgradeData> {
+export async function getUpgrade() {
   await devDelay();
-  return { priceLabel: PREMIUM_PRICE_LABEL, isPremium: false };
+  return { priceLabel: PREMIUM_PRICE_LABEL };
 }
 
-export async function getLeaderboardData(viewer: SessionViewer): Promise<LeaderboardData> {
+export async function getLeaderboard(name: string | null) {
   await devDelay();
-  return { rows: leaderboardWithViewer(viewer), optedOut: false };
+  return leaderboardWithViewer({ name });
 }
 
-export async function getTranscriptData(userId: string, skillSlug: string, viewer: SessionViewer): Promise<TranscriptData | null> {
+export const getTranscript = cache(async (skillSlug: string) => {
   await devDelay();
-  if (userId !== viewer.id) return null;
   const skill = findSkill(skillSlug);
-  if (!skill || skill.slug !== passedMilestone.skillSlug) return null;
+  if (!skill) return null;
+  const passed = listStages(skill.id).filter((stage) => stage.explainBackPassed);
   return {
-    learnerName: viewer.name?.trim() || "You",
     skill,
-    milestones: [
-      {
-        stageId: passedMilestone.stageId,
-        title: passedMilestone.title,
-        quizPassedOn: passedMilestone.quizPassedOn,
-        explainBackPassedOn: passedMilestone.explainBackPassedOn,
-      },
-    ],
+    milestones: passed.map((stage) => ({
+      title: stage.title,
+      quizPassedOn: stage.id === passedMilestone.stageId ? passedMilestone.quizPassedOn : "2026-08-02",
+      explainBackPassedOn: stage.id === passedMilestone.stageId ? passedMilestone.explainBackPassedOn : "2026-08-04",
+    })),
   };
+});
+
+export async function getNotes() {
+  await devDelay();
+  return noteSeeds.map((note) => ({ ...note }));
 }
 
-export async function getNotesData(): Promise<NotesData> {
+export async function getProjectReview(stageId: string) {
   await devDelay();
-  return { notes: noteSeeds.map((note) => ({ ...note })) };
-}
-
-export async function getProjectReviewData(stageId: string): Promise<ProjectReviewData | null> {
-  await devDelay();
-  if (stageId !== "stage_fs_2" && stageId !== "stage_art_1") return null;
-  return {
-    stageTitle: stageId === "stage_fs_2" ? "Hooks & State" : "Value & Form",
-    skillName: stageId === "stage_fs_2" ? "Full-Stack Web Development" : "Art & Painting",
-    waitingForPeer: true,
-  };
-}
-
-export async function getCreatorData(): Promise<CreatorData> {
-  await devDelay();
-  return { status: "not_applied" };
-}
-
-export async function getByorData(): Promise<ByorData> {
-  await devDelay();
-  return { unsupportedUrl: BYOR_UNSUPPORTED_URL };
+  return { stageId, waiting: stageId === "stage_fs_5" };
 }

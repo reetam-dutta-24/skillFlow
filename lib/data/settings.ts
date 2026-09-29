@@ -1,18 +1,22 @@
 import "server-only";
 import { devDelay } from "@/lib/mock/delay";
 import { listSkills } from "@/lib/mock/catalog";
-import type { SessionViewer } from "@/lib/types/domain";
-import type { SettingsData } from "@/lib/types/pages";
+import type { SkillStatus } from "@/lib/types/domain";
 
-export async function getSettingsData(viewer: SessionViewer): Promise<SettingsData> {
+export type SettingsSkill = { id: string; name: string; status: SkillStatus; followed: boolean };
+
+export async function getSettingsProfile(user: { name: string | null; email: string | null }) {
   await devDelay();
-  const skills = listSkills();
   return {
-    name: viewer.name,
-    email: viewer.email,
-    image: viewer.image,
-    followed: skills.filter((skill) => skill.followed),
-    availableToAdd: skills.filter((skill) => !skill.followed),
+    name: user.name ?? "",
+    email: user.email ?? "",
+    initial: (user.name ?? "?").trim().charAt(0).toUpperCase() || "?",
+    skills: listSkills().map((skill) => ({
+      id: skill.id,
+      name: skill.name,
+      status: skill.status,
+      followed: skill.followed,
+    })),
     streakReminder: true,
   };
 }

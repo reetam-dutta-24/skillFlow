@@ -26,6 +26,23 @@ export const learnerStats = {
   skillsInProgress: 2,
 };
 
+/** Check-ins for the current week. Wednesday is the gap; Saturday is the busy day. */
+export const habitWeek = [
+  { day: "Mon", checks: 1 },
+  { day: "Tue", checks: 2 },
+  { day: "Wed", checks: 0 },
+  { day: "Thu", checks: 1 },
+  { day: "Fri", checks: 2 },
+  { day: "Sat", checks: 3 },
+  { day: "Sun", checks: 2 },
+];
+
+/** 22 + 6 = quizzesCompleted. Passed means the quiz threshold was met. */
+export const quizOutcomes = { passed: 22, needsAnotherLook: 6 };
+
+/** Explain-back outcomes. Retries are not penalties. */
+export const explainOutcomes = { passed: 9, retried: 3 };
+
 export const nextLesson = {
   stageId: "stage_fs_2",
   stageTitle: "Hooks & State",
@@ -472,6 +489,16 @@ export function listMasteryHistory() {
 
 export function listNotifications() {
   return notifications.map((item) => ({ ...item }));
+}
+
+const adminNames = ["Avery Lang", "Mina Cho", "Jules Ortega", "Samir Adeyemi", "Priya Nair", "Leo Marin", "Hana Sato"];
+
+export function listAdminQueue(): SubmissionView[] {
+  return submissionSeeds.map((item, index) => ({
+    ...item,
+    submittedById: `learner_${index}`,
+    submitterName: adminNames[index] ?? "Learner",
+  }));
 }
 
 export function listSubmissions(viewer: { id: string; name: string | null }): SubmissionView[] {

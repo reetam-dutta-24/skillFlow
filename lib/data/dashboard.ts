@@ -1,58 +1,92 @@
 import "server-only";
-import { devDelay } from "@/lib/mock/delay";
-import { findStage, learnerStats, listSkills, listStages, nextLesson } from "@/lib/mock/catalog";
-import type { DashboardData, LessonLaneItem } from "@/lib/types/pages";
+import { auth } from "@/lib/auth";
+import { loadCatalog } from "@/lib/data/catalog";
+import { prisma } from "@/lib/prisma";
+import type { RoadmapStageView } from "@/lib/types/domain";
+import type { DashboardData, LessonLaneItem, LessonLaneStatus } from "@/lib/types/pages";
 
-function laneFor(skillId: string): LessonLaneItem[] {
-  if (skillId === "skill_fs") {
-    return [
-      { id: "lane_fs_1", title: "React Fundamentals", status: "done", href: "/lesson/stage_fs_1", mastery: 100 },
-      { id: "lane_fs_2", title: "Hooks & State", status: "current", href: "/lesson/stage_fs_2", mastery: 48 },
-      { id: "lane_fs_quiz", title: "Hooks & State quiz", status: "quiz", href: "/quiz/stage_fs_2" },
-      { id: "lane_fs_check", title: "Explain-back check", status: "milestone_check", href: "/milestone/stage_fs_2" },
-      { id: "lane_fs_3", title: "Server Actions", status: "locked", href: "/roadmap/full-stack-web-dev" },
-    ];
-  }
-  if (skillId === "skill_art") {
-    return [
-      { id: "lane_art_1", title: "Value & Form", status: "current", href: "/lesson/stage_art_1", mastery: 28 },
-      { id: "lane_art_quiz", title: "Value & Form quiz", status: "quiz", href: "/quiz/stage_art_1" },
-      { id: "lane_art_check", title: "Explain-back check", status: "milestone_check", href: "/milestone/stage_art_1" },
-      { id: "lane_art_2", title: "Color Theory", status: "locked", href: "/roadmap/art-painting" },
-    ];
-  }
-  return [];
+function laneStatus(stage: RoadmapStageView): LessonLaneStatus {
+  if (stage.status === "passed") return "done";
+  if (stage.status === "in_progress") return "current";
+  return "locked";
+}
+
+function laneFor(skillSlug: string, stages: RoadmapStageView[]): LessonLaneItem[] {
+  return stages.map((stage) => {
+    const status = laneStatus(stage);
+    return {
+      id: stage.id,
+      title: stage.title,
+      status,
+      href: status === "locked" ? `/roadmap/${skillSlug}` : `/lesson/${stage.id}`,
+      mastery: stage.masteryPercent > 0 ? stage.masteryPercent : undefined,
+    };
+  });
+}
+
+function weekAgo() {
+  const start = new Date();
+  start.setDate(start.getDate() - 7);
+  return start;
 }
 
 export async function getDashboardData(): Promise<DashboardData> {
-  await devDelay();
-  const skills = listSkills();
-  const followed = skills.filter((skill) => skill.followed).map((skill) => {
-    const stages = listStages(skill.id);
-    const current = stages.find((stage) => stage.status === "in_progress") ?? stages[0];
+  const session = await auth();
+  const userId = session?.user?.id;
+  const catalog = await loadCatalog();
+  const followedEntries = catalog.filter((entry) => entry.skill.followed);
+
+  const followed = followedEntries.map((entry) => {
+    const current =
+      entry.stages.find((stage) => stage.status === "in_progress") ??
+      entry.stages.find((stage) => stage.status !== "locked");
     return {
-      skill,
-      stagePosition: current ? `Stage ${current.order} of ${stages.length}` : "Not started",
-      stageTitle: current?.title ?? "Not started",
-      roadmapHref: `/roadmap/${skill.slug}`,
-      lane: laneFor(skill.id),
+      skill: entry.skill,
+      stagePosition:
+        entry.stages.length === 0
+          ? "No stages yet"
+          : current
+            ? `Stage ${current.order} of ${entry.stages.length}`
+            : `${entry.stages.length} stages`,
+      stageTitle: current?.title ?? "",
+      roadmapHref: `/roadmap/${entry.skill.slug}`,
+      lane: laneFor(entry.skill.slug, entry.stages),
     };
   });
 
+  const nextStage = followedEntries
+    .map((entry) => {
+      const stage = entry.stages.find((item) => item.status === "in_progress");
+      return stage ? { stage, skillName: entry.skill.name } : null;
+    })
+    .find((item) => item !== null);
+
+  const user = userId
+    ? await prisma.user.findUnique({
+        where: { id: userId },
+        select: { currentStreak: true, longestStreak: true },
+      })
+    : null;
+
+  const [quizzesCompleted, milestonesPassedThisWeek] = userId
+    ? await Promise.all([
+        prisma.quizAttempt.count({ where: { userId, passed: true } }),
+        prisma.stageCompletion.count({
+          where: { userId, explainBackPassed: true, completedAt: { gte: weekAgo() } },
+        }),
+      ])
+    : [0, 0];
+
   return {
-    currentStreak: learnerStats.currentStreak,
-    longestStreak: learnerStats.longestStreak,
-    skillsInProgress: learnerStats.skillsInProgress,
-    milestonesPassedThisWeek: learnerStats.milestonesPassedThisWeek,
-    quizzesCompleted: learnerStats.quizzesCompleted,
-    nextLesson: findStage(nextLesson.stageId)
-      ? {
-          title: nextLesson.stageTitle,
-          skillName: nextLesson.skillName,
-          href: `/lesson/${nextLesson.stageId}`,
-        }
+    currentStreak: user?.currentStreak ?? 0,
+    longestStreak: user?.longestStreak ?? 0,
+    skillsInProgress: followed.length,
+    milestonesPassedThisWeek,
+    quizzesCompleted,
+    nextLesson: nextStage
+      ? { title: nextStage.stage.title, skillName: nextStage.skillName, href: `/lesson/${nextStage.stage.id}` }
       : null,
     followed,
-    catalog: skills,
+    catalog: catalog.map((entry) => entry.skill),
   };
 }

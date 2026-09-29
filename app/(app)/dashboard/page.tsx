@@ -86,7 +86,14 @@ export default async function DashboardPage() {
       </section>
       <section className="sf-dash-block" aria-labelledby="dash-skills">
         <h2 id="dash-skills">Your skills</h2>
-        {data.followed.map((row) => (
+        {data.followed.length === 0 ? (
+          <EmptyState
+            icon="route"
+            title="No skill followed yet"
+            description="Pick a skill during onboarding to open its path."
+          />
+        ) : (
+          data.followed.map((row) => (
           <SkillRow
             key={row.skill.id}
             title={row.skill.name}
@@ -117,7 +124,8 @@ export default async function DashboardPage() {
               />
             )}
           </SkillRow>
-        ))}
+          ))
+        )}
       </section>
       <section className="sf-dash-block" aria-labelledby="dash-explore">
         <h2 id="dash-explore">Explore</h2>

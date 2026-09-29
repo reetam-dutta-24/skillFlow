@@ -128,7 +128,15 @@ export type MilestoneData =
       needsWorkFeedback: string;
       followUpQuestion: string;
       followUpQuote: string;
+      continueHref: string;
+      continueLabel: string;
     };
+
+export type ExplainReview =
+  | { ok: true; kind: "follow-up"; question: string; quote: string }
+  | { ok: true; kind: "pass"; feedback: string }
+  | { ok: true; kind: "needs-improvement"; feedback: string }
+  | { ok: false; error: "unavailable" | "empty" };
 
 export type ProgressData = {
   currentStreak: number;

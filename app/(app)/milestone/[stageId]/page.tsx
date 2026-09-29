@@ -78,7 +78,13 @@ export default async function MilestonePage({ params }: PageProps) {
           Back to the path
         </Link>
       </p>
-      <ExplainBackForm stageLabel={`${data.skill.name} · ${data.stage.title}`} question={data.prompt.question} />
+      <ExplainBackForm
+        stageId={data.stage.id}
+        stageLabel={`${data.skill.name} · ${data.stage.title}`}
+        question={data.prompt.question}
+        continueHref={data.continueHref}
+        continueLabel={data.continueLabel}
+      />
     </div>
   );
 }

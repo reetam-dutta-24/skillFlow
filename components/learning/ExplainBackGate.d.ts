@@ -27,7 +27,13 @@ export interface ExplainBackGateProps extends React.HTMLAttributes<HTMLElement> 
   /** Specific written feedback — required whenever `result` is set. */
   resultFeedback?: React.ReactNode;
   onContinue?: () => void;
+  /** Replaces the pass button text. Defaults to "Continue to next stage". */
+  continueLabel?: React.ReactNode;
   onRetry?: () => void;
+  /** Replaces the retry button text. Defaults to "Try the explanation again". */
+  retryLabel?: React.ReactNode;
+  /** Disables the inputs and shows "Reviewing your explanation...". */
+  reviewing?: boolean;
   voiceEnabled?: boolean;
   onVoice?: () => void;
   /** Soft length guidance under the explanation field. */

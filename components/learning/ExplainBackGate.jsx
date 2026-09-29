@@ -39,13 +39,15 @@ export function ExplainBackGate({
   result, resultFeedback, onContinue, onRetry,
   voiceEnabled = true, onVoice, hint,
   voiceMode = "text", onVoiceModeChange, voicePhase = "idle", onStartVoice, onStopVoice, voiceNote,
+  reviewing = false, continueLabel = "Continue to next stage", retryLabel = "Try the explanation again",
   style, ...rest
 }) {
+  const voiceBusy = voicePhase === "recording" || voicePhase === "transcribing";
   const passed = result === "pass";
   const tone = passed ? { fg: "var(--state-pass)", bg: "var(--state-pass-bg)", icon: "circle-check", title: "Milestone passed" }
                       : { fg: "var(--state-warn)", bg: "var(--state-warn-bg)", icon: "circle-alert", title: "Not quite yet" };
   return (
-    <section style={{ display: "flex", flexDirection: "column", gap: 24, width: "100%", maxWidth: 680, ...style }} {...rest}>
+    <section {...rest} aria-busy={reviewing || undefined} style={{ display: "flex", flexDirection: "column", gap: 24, width: "100%", maxWidth: 680, ...style }}>
       <header style={{ display: "flex", flexDirection: "column", gap: 6 }}>
         <Label>{stage} · Explain-back check</Label>
         <h1 style={{ margin: 0, fontSize: "var(--text-title)", lineHeight: "var(--text-title-lh)", fontWeight: "var(--weight-bold)", letterSpacing: "var(--tracking-tight)", color: "var(--text-primary)" }}>{concept}</h1>
@@ -57,11 +59,11 @@ export function ExplainBackGate({
         {onVoiceModeChange ? (
           <div className="sf-voice">
             <div className="sf-voice-toggle" role="group" aria-label="How to answer">
-              <button type="button" aria-pressed={voiceMode !== "voice"} onClick={() => onVoiceModeChange("text")}>Text</button>
-              <button type="button" aria-pressed={voiceMode === "voice"} onClick={() => onVoiceModeChange("voice")}>Voice</button>
+              <button type="button" aria-pressed={voiceMode !== "voice"} disabled={reviewing} onClick={() => onVoiceModeChange("text")}>Text</button>
+              <button type="button" aria-pressed={voiceMode === "voice"} disabled={reviewing} onClick={() => onVoiceModeChange("voice")}>Voice</button>
             </div>
             {voiceMode === "voice" && voicePhase === "idle" ? (
-              <button type="button" className="sf-voice-start" onClick={onStartVoice}>Start recording</button>
+              <button type="button" className="sf-voice-start" disabled={reviewing} onClick={onStartVoice}>Start recording</button>
             ) : null}
             {voiceMode === "voice" && voicePhase === "recording" ? (
               <div className="sf-voice-status" aria-live="polite">
@@ -76,10 +78,16 @@ export function ExplainBackGate({
           </div>
         ) : null}
         {voiceNote ? <p className="sf-voice-note" role="status">{voiceNote}</p> : null}
-        <Field id="explain-answer" value={answer} onChange={onAnswerChange} placeholder="Explain it as if to someone who hasn't seen the lesson." voice={voiceEnabled && !onVoiceModeChange} onVoice={onVoice} disabled={!!followUp || voicePhase === "recording" || voicePhase === "transcribing"} />
+        <Field id="explain-answer" value={answer} onChange={onAnswerChange} placeholder="Explain it as if to someone who hasn't seen the lesson." voice={voiceEnabled && !onVoiceModeChange} onVoice={onVoice} disabled={!!followUp || voiceBusy || reviewing} />
         {hint ? <p className="sf-explain-hint">{hint}</p> : null}
-        {!followUp && onSubmitAnswer ? (
-          <button type="button" onClick={onSubmitAnswer} style={{ alignSelf: "flex-start", height: 44, padding: "0 24px", border: "none", cursor: "pointer", borderRadius: "var(--radius-btn)", backgroundImage: "var(--gradient-brand)", color: "#fff", fontFamily: "var(--font-sans)", fontSize: "var(--text-sm)", fontWeight: "var(--weight-semibold)" }}>Submit explanation</button>
+        {!followUp && reviewing ? (
+          <p className="sf-reviewing">
+            <span className="sf-reviewing-spin" aria-hidden="true" />
+            Reviewing your explanation...
+          </p>
+        ) : null}
+        {!followUp && onSubmitAnswer && !reviewing && !voiceBusy ? (
+          <button type="button" onClick={onSubmitAnswer} disabled={!answer.trim()} style={{ alignSelf: "flex-start", height: 44, padding: "0 24px", border: "none", cursor: answer.trim() ? "pointer" : "not-allowed", opacity: answer.trim() ? 1 : 0.55, borderRadius: "var(--radius-btn)", backgroundImage: "var(--gradient-brand)", color: "#fff", fontFamily: "var(--font-sans)", fontSize: "var(--text-sm)", fontWeight: "var(--weight-semibold)" }}>Submit explanation</button>
         ) : null}
       </div>
 
@@ -95,16 +103,22 @@ export function ExplainBackGate({
 
       {followUp ? (
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          <Label>Your response</Label>
-          <Field value={followUpAnswer} onChange={onFollowUpChange} placeholder="Answer the follow-up in your own words." rows={4} voice={voiceEnabled && !onVoiceModeChange} onVoice={onVoice} disabled={!!result} />
-          {!result ? (
-            <button type="button" onClick={onSubmitFollowUp} style={{ alignSelf: "flex-start", height: 44, padding: "0 24px", border: "none", cursor: "pointer", borderRadius: "var(--radius-btn)", backgroundImage: "var(--gradient-brand)", color: "#fff", fontFamily: "var(--font-sans)", fontSize: "var(--text-sm)", fontWeight: "var(--weight-semibold)" }}>Submit response</button>
+          <Label htmlFor="explain-follow-up">Your response</Label>
+          <Field id="explain-follow-up" value={followUpAnswer} onChange={onFollowUpChange} placeholder="Answer the follow-up in your own words." rows={4} voice={voiceEnabled && !onVoiceModeChange} onVoice={onVoice} disabled={!!result || reviewing} />
+          {reviewing ? (
+            <p className="sf-reviewing">
+              <span className="sf-reviewing-spin" aria-hidden="true" />
+              Reviewing your explanation...
+            </p>
+          ) : null}
+          {!result && onSubmitFollowUp && !reviewing ? (
+            <button type="button" onClick={onSubmitFollowUp} disabled={!followUpAnswer.trim()} style={{ alignSelf: "flex-start", height: 44, padding: "0 24px", border: "none", cursor: followUpAnswer.trim() ? "pointer" : "not-allowed", opacity: followUpAnswer.trim() ? 1 : 0.55, borderRadius: "var(--radius-btn)", backgroundImage: "var(--gradient-brand)", color: "#fff", fontFamily: "var(--font-sans)", fontSize: "var(--text-sm)", fontWeight: "var(--weight-semibold)" }}>Submit response</button>
           ) : null}
         </div>
       ) : null}
 
       {result ? (
-        <div style={{ display: "flex", flexDirection: "column", gap: 14, padding: "20px 22px", borderRadius: "var(--radius-card)", background: tone.bg, border: "1px solid " + tone.fg }}>
+        <div id="explain-result" tabIndex={-1} style={{ display: "flex", flexDirection: "column", gap: 14, padding: "20px 22px", borderRadius: "var(--radius-card)", background: tone.bg, border: "1px solid " + tone.fg }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <Icon name={tone.icon} size={18} color={tone.fg} />
             <p style={{ margin: 0, fontSize: "var(--text-subtitle)", fontWeight: "var(--weight-semibold)", color: tone.fg }}>{tone.title}</p>
@@ -113,11 +127,11 @@ export function ExplainBackGate({
           <div style={{ display: "flex", gap: 10 }}>
             {passed ? (
               <button type="button" onClick={onContinue} style={{ display: "inline-flex", alignItems: "center", gap: 6, height: 44, padding: "0 24px", border: "none", cursor: "pointer", borderRadius: "var(--radius-btn)", backgroundImage: "var(--gradient-brand)", color: "#fff", fontFamily: "var(--font-sans)", fontSize: "var(--text-sm)", fontWeight: "var(--weight-semibold)" }}>
-                Continue to next stage
+                {continueLabel}
                 <Icon name="arrow-right" size={15} color="#fff" />
               </button>
             ) : (
-              <button type="button" onClick={onRetry} style={{ height: 44, padding: "0 24px", cursor: "pointer", borderRadius: "var(--radius-btn)", background: "transparent", border: "1px solid var(--border-strong)", color: "var(--text-primary)", fontFamily: "var(--font-sans)", fontSize: "var(--text-sm)", fontWeight: "var(--weight-semibold)" }}>Try the explanation again</button>
+              <button type="button" onClick={onRetry} style={{ height: 44, padding: "0 24px", cursor: "pointer", borderRadius: "var(--radius-btn)", background: "transparent", border: "1px solid var(--border-strong)", color: "var(--text-primary)", fontFamily: "var(--font-sans)", fontSize: "var(--text-sm)", fontWeight: "var(--weight-semibold)" }}>{retryLabel}</button>
             )}
           </div>
         </div>

@@ -1,14 +1,7 @@
 import "server-only";
-import { devDelay } from "@/lib/mock/delay";
-import {
-  explainOutcomes,
-  habitWeek,
-  learnerStats,
-  listMasteryHistory,
-  listSkills,
-  listWeakTopics,
-  quizOutcomes,
-} from "@/lib/mock/catalog";
+import { auth } from "@/lib/auth";
+import { loadCatalog } from "@/lib/data/catalog";
+import { prisma } from "@/lib/prisma";
 
 export type AnalyticsPoint = { month: string; fullStack: number; art: number };
 
@@ -24,61 +17,84 @@ export type AnalyticsData = {
   reviewHref: string | null;
 };
 
+function days(count: number) {
+  return count === 1 ? "day" : "days";
+}
+
 export async function getAnalytics(): Promise<AnalyticsData> {
-  await devDelay();
-  const skills = listSkills()
-    .filter((skill) => skill.followed)
-    .map((skill) => ({ name: skill.name, mastery: skill.masteryPercent }));
-  const historyRows = listMasteryHistory();
-  const fullStack = historyRows.find((row) => row.skillSlug === "full-stack-web-dev");
-  const art = historyRows.find((row) => row.skillSlug === "art-painting");
-  const history = (fullStack?.points ?? []).map((point, index) => ({
-    month: point.month,
-    fullStack: point.value,
-    art: art?.points[index]?.value ?? 0,
-  }));
-  const week = habitWeek.map((day) => ({ ...day }));
-  const busiest = [...week].sort((a, b) => b.checks - a.checks)[0];
-  const quiet = [...week].sort((a, b) => a.checks - b.checks)[0];
-  const leader = [...skills].sort((a, b) => b.mastery - a.mastery)[0];
-  const trailer = [...skills].sort((a, b) => a.mastery - b.mastery)[0];
-  const weak = listWeakTopics().sort((a, b) => a.accuracy - b.accuracy)[0];
-  const last = history[history.length - 1];
-  const first = history[0];
-  const gained = last && first ? last.fullStack - first.fullStack : 0;
+  const session = await auth();
+  const userId = session?.user?.id;
+  const catalog = await loadCatalog();
+  const skills = catalog
+    .filter((entry) => entry.skill.followed)
+    .map((entry) => ({ name: entry.skill.name, mastery: entry.skill.masteryPercent }));
+
+  const user = userId
+    ? await prisma.user.findUnique({
+        where: { id: userId },
+        select: { currentStreak: true, longestStreak: true },
+      })
+    : null;
+
+  const streak = user?.currentStreak ?? 0;
+  const longest = user?.longestStreak ?? 0;
+
+  const [quizPassed, quizMissed, explainPassed, explainNeeds] = userId
+    ? await Promise.all([
+        prisma.quizAttempt.count({ where: { userId, passed: true } }),
+        prisma.quizAttempt.count({ where: { userId, passed: false } }),
+        prisma.explainBackAttempt.count({ where: { userId, verdict: "PASSED" } }),
+        prisma.explainBackAttempt.count({ where: { userId, verdict: "NEEDS_IMPROVEMENT" } }),
+      ])
+    : [0, 0, 0, 0];
+
+  const ranked = [...skills].sort((a, b) => b.mastery - a.mastery);
+  const leader = ranked[0];
+  const trailer = ranked[ranked.length - 1];
+
+  const skillInsight = !leader
+    ? {
+        title: "No skill followed yet",
+        body: "Follow a skill to see how verified mastery splits.",
+      }
+    : leader.mastery === 0
+      ? {
+          title: "Mastery has not started",
+          body: `${skills.map((skill) => `${skill.name} is at 0%`).join(". ")}. A stage counts after the quiz and the explain-back both pass.`,
+        }
+      : {
+          title: `${leader.name.split(" ")[0]} is ahead`,
+          body:
+            trailer && trailer.name !== leader.name
+              ? `${leader.name} is at ${leader.mastery}%. ${trailer.name} is at ${trailer.mastery}%. The gap is verified mastery, not time watched.`
+              : `${leader.name} is at ${leader.mastery}%. That is verified mastery, not time watched.`,
+        };
 
   return {
-    streak: learnerStats.currentStreak,
-    longest: learnerStats.longestStreak,
+    streak,
+    longest,
     skills,
-    history,
-    week,
+    history: [],
+    week: [],
     quizzes: [
-      { name: "Passed", count: quizOutcomes.passed },
-      { name: "Needs another look", count: quizOutcomes.needsAnotherLook },
+      { name: "Passed", count: quizPassed },
+      { name: "Needs another look", count: quizMissed },
     ],
     explain: [
-      { name: "Passed", count: explainOutcomes.passed },
-      { name: "Tried again", count: explainOutcomes.retried },
+      { name: "Passed", count: explainPassed },
+      { name: "Needs another look", count: explainNeeds },
     ],
     insights: [
       {
-        title: busiest && quiet ? `${busiest.day} is your busy day` : "This week",
-        body: quiet?.checks === 0
-          ? `You checked in ${busiest?.checks ?? 0} times on ${busiest?.day}. ${quiet.day} had none. A short session that day would keep the streak even.`
-          : `Most check-ins landed on ${busiest?.day}.`,
+        title: streak === 0 ? "No streak yet" : `${streak} ${days(streak)} in a row`,
+        body: `The longest streak on this account is ${longest} ${days(longest)}.`,
       },
+      skillInsight,
       {
-        title: leader ? `${leader.name.split(" ")[0]} is ahead` : "Skills",
-        body: leader && trailer
-          ? `${leader.name} is at ${leader.mastery}%. ${trailer.name} is at ${trailer.mastery}%. The gap is verified mastery, not time watched.`
-          : "Follow a skill to see how mastery splits.",
-      },
-      {
-        title: gained > 0 ? `Full-Stack rose ${gained} points since April` : "Growth",
-        body: `The current streak is ${learnerStats.currentStreak} days. The longest was ${learnerStats.longestStreak}. ${weak ? `${weak.topic} is the topic to review: ${weak.reason}.` : "No weak topic is flagged."}`,
+        title: "Quizzes and explain-backs",
+        body: `${quizPassed} ${quizPassed === 1 ? "quiz" : "quizzes"} passed, and ${quizMissed} ${quizMissed === 1 ? "needs" : "need"} another look. ${explainPassed} explain-back${explainPassed === 1 ? "" : "s"} passed, and ${explainNeeds} ${explainNeeds === 1 ? "needs" : "need"} another look.`,
       },
     ],
-    reviewHref: weak ? `/lesson/${weak.stageId}` : null,
+    reviewHref: null,
   };
 }

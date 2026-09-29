@@ -3944,4 +3944,56 @@ a.sf-source:hover {
     grid-template-columns: 1fr;
   }
 }
+.sf-admin-tabs a {
+  padding: 8px 12px;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+.sf-admin-tabs a[aria-current="page"] {
+  background: var(--surface-active);
+  color: var(--text-primary);
+}
+.sf-catalog {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 20px;
+  align-items: start;
+}
+.sf-catalog h2 {
+  margin: 0;
+  font-size: var(--text-subtitle);
+  letter-spacing: var(--tracking-tight);
+}
+.sf-catalog-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+.sf-catalog-list button {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-card);
+  background: var(--surface-card);
+  color: var(--text-primary);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.sf-catalog-list button[aria-current="true"] {
+  border-color: var(--border-accent);
+}
+@media (max-width: 960px) {
+  .sf-catalog {
+    grid-template-columns: 1fr;
+  }
+}
 

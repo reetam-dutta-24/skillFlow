@@ -24,6 +24,7 @@ const ROUTES = [
   ["/submit/byor", "Bring your own resource"],
   ["/settings", "Settings"],
   ["/admin/submissions", "Admin submissions"],
+  ["/admin/catalog", "Admin catalog"],
   ["/upgrade", "Upgrade"],
   ["/upgrade?plan=premium", "Manage subscription"],
   ["/leaderboard", "Leaderboard"],

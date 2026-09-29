@@ -113,6 +113,12 @@ export default async function LessonPage({ params }: PageProps) {
         resource={featured ? { title: featured.title, url: featured.url, source: hostLabel(featured.url) } : undefined}
         continueHref={data.quizHref ?? undefined}
       />
+      {featured && (featured.description || featured.keyPoints) ? (
+        <section className="sf-lesson-notes" aria-label="About this resource">
+          {featured.description ? <p>{featured.description}</p> : null}
+          {featured.keyPoints ? <p>{featured.keyPoints}</p> : null}
+        </section>
+      ) : null}
       {clip && (clip.description || clip.keyPoints) ? (
         <section className="sf-lesson-notes" aria-label="What the clip covers">
           {clip.description ? <p>{clip.description}</p> : null}

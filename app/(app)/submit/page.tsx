@@ -19,7 +19,7 @@ export default async function SubmitPage() {
     <div className="sf-submit-page">
       <header className="sf-page-head">
         <h1>Submit a resource</h1>
-        <p>Suggest a lesson for a stage. It stays off the roadmap until an admin approves it.</p>
+        <p>A few steps, then an admin reviews the suggestion. It stays off the roadmap until it is approved.</p>
       </header>
       {skills.length === 0 ? (
         <EmptyState icon="file-plus" title="No stages to suggest for yet" description="A suggestion needs a stage that already exists." />

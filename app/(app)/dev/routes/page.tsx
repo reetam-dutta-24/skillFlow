@@ -14,6 +14,7 @@ const ROUTES = [
   ["/dashboard", "Home"],
   ["/clips", "Clips"],
   ["/roadmap", "Roadmaps"],
+  ["/skills", "Niches"],
   ["/roadmap/full-stack-web-dev", "Roadmap detail"],
   ["/lesson/stage_fs_2", "Lesson"],
   ["/quiz/stage_fs_2", "Quiz"],

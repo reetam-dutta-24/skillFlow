@@ -9,6 +9,7 @@ import { Topbar } from "@/components/navigation/Topbar.jsx";
 
 const NAV: SidebarItem[] = [
   { id: "home", label: "Home", icon: "house", href: "/dashboard" },
+  { id: "niches", label: "Niches", icon: "library", href: "/skills" },
   { id: "clips", label: "Clips", icon: "clapperboard", href: "/clips" },
   { id: "roadmaps", label: "Roadmaps", icon: "route", href: "/roadmap" },
   { id: "progress", label: "Progress", icon: "chart-line", href: "/progress" },
@@ -34,6 +35,7 @@ type ShellUser = {
 function activeId(pathname: string) {
   if (pathname.startsWith("/dev")) return "";
   if (pathname.startsWith("/admin")) return "admin";
+  if (pathname.startsWith("/skills")) return "niches";
   if (pathname.startsWith("/clips")) return "clips";
   if (pathname.startsWith("/roadmap") || pathname.startsWith("/lesson") || pathname.startsWith("/quiz") || pathname.startsWith("/milestone")) return "roadmaps";
   if (pathname.startsWith("/analytics")) return "analytics";
@@ -53,6 +55,7 @@ function activeId(pathname: string) {
 
 function titleFor(pathname: string) {
   if (pathname.startsWith("/admin")) return "Admin";
+  if (pathname.startsWith("/skills")) return "Niches";
   if (pathname.startsWith("/clips")) return "Clips";
   if (pathname.startsWith("/roadmap")) return "Roadmaps";
   if (pathname.startsWith("/analytics")) return "Analytics";

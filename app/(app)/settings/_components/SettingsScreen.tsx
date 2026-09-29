@@ -8,6 +8,7 @@ import { SettingsSection } from "@/components/forms/SettingsSection.jsx";
 import { SettingsToggle } from "@/components/forms/SettingsToggle.jsx";
 import { ThemeToggle } from "@/components/forms/ThemeToggle.jsx";
 import { Button } from "@/components/core/Button.jsx";
+import { Chip } from "@/components/core/Chip.jsx";
 import { UsageCutoffDialog } from "@/components/feedback/UsageCutoffDialog";
 import { followSkill, saveSettings, unfollowSkill } from "../actions";
 import type { SettingsSkill } from "@/lib/data/settings";
@@ -36,6 +37,8 @@ export function SettingsScreen({
   const [error, setError] = useState("");
   const [confirmId, setConfirmId] = useState<string | null>(null);
   const [cutoff, setCutoff] = useState(false);
+  const shownInitial = profileName.trim().charAt(0).toUpperCase() || initial;
+  const status = error || notice;
 
   async function save(label: string) {
     setPending(label);
@@ -84,42 +87,58 @@ export function SettingsScreen({
 
   return (
     <div className="sf-settings">
-      <p className="sf-review-live" aria-live="polite">{error || notice}</p>
-      <SettingsSection title="Profile" subtitle="Email stays with the account.">
+      <p className={status ? `sf-settings-banner${error ? " is-error" : ""}` : "sf-review-live"} aria-live="polite" role={error ? "alert" : "status"}>
+        {status}
+      </p>
+      <SettingsSection title="Profile" subtitle="The name is what the app calls you. Email stays with the account.">
         <div className="sf-settings-profile">
-          <span aria-hidden="true">{initial}</span>
-          <label>
+          <div className="sf-settings-identity">
+            <span className="sf-settings-avatar" aria-hidden="true">{shownInitial}</span>
+            <div>
+              <strong>{profileName.trim() || "Account"}</strong>
+              <p>{email || "No email on this session."}</p>
+            </div>
+          </div>
+          <label className="sf-settings-fields">
             Name
             <input value={profileName} onChange={(event) => setProfileName(event.target.value)} autoComplete="name" />
           </label>
-          <p>Email: {email || "No email on this session."}</p>
-          <Button type="button" variant="gradient" disabled={pending === "profile"} onClick={() => void save("profile")}>
-            {pending === "profile" ? "Saving..." : "Save profile"}
-          </Button>
+          <div className="sf-settings-bar">
+            <Button type="button" variant="gradient" disabled={pending === "profile"} onClick={() => void save("profile")}>
+              {pending === "profile" ? "Saving..." : "Save profile"}
+            </Button>
+          </div>
         </div>
       </SettingsSection>
-      <SettingsSection title="Skills" subtitle="Removing a skill hides it from the feed. Quiz and explain-back results stay.">
+      <SettingsSection title="Skills" subtitle="Add a skill to show it on Home. Removing one hides it from the feed. Quiz and explain-back results stay.">
         <ul className="sf-settings-skills">
           {rows.map((skill) => (
             <li key={skill.id}>
-              <span>{skill.name}</span>
-              {skill.status === "coming_soon" ? <em>Coming soon</em> : null}
+              <div className="sf-settings-skill">
+                <strong>{skill.name}</strong>
+                {skill.followed ? <Chip tone="accent">On your feed</Chip> : null}
+                {skill.status === "coming_soon" ? <Chip tone="lock">Coming soon</Chip> : null}
+              </div>
               {skill.followed ? (
                 confirmId === skill.id ? (
-                  <span>
-                    Quiz results stay.{" "}
-                    <button type="button" disabled={pending === skill.id} onClick={() => void removeSkill(skill.id)}>
+                  <div className="sf-settings-skill-actions">
+                    <p>Quiz results stay on the account.</p>
+                    <Button type="button" size="sm" variant="outline" disabled={pending === skill.id} onClick={() => void removeSkill(skill.id)}>
                       {pending === skill.id ? "Removing..." : "Remove"}
-                    </button>
-                    <button type="button" onClick={() => setConfirmId(null)}>Cancel</button>
-                  </span>
+                    </Button>
+                    <Button type="button" size="sm" variant="quiet" onClick={() => setConfirmId(null)}>Cancel</Button>
+                  </div>
                 ) : (
-                  <button type="button" onClick={() => setConfirmId(skill.id)}>Remove</button>
+                  <div className="sf-settings-skill-actions">
+                    <Button type="button" size="sm" variant="quiet" onClick={() => setConfirmId(skill.id)}>Remove</Button>
+                  </div>
                 )
               ) : skill.status === "available" ? (
-                <button type="button" disabled={pending === skill.id} onClick={() => void addSkill(skill.id)}>
-                  {pending === skill.id ? "Adding..." : "Add"}
-                </button>
+                <div className="sf-settings-skill-actions">
+                  <Button type="button" size="sm" variant="outline" disabled={pending === skill.id} onClick={() => void addSkill(skill.id)}>
+                    {pending === skill.id ? "Adding..." : "Add"}
+                  </Button>
+                </div>
               ) : null}
             </li>
           ))}
@@ -127,30 +146,40 @@ export function SettingsScreen({
       </SettingsSection>
       <SettingsSection title="Notifications" subtitle="One reminder. No badges and no counts.">
         <SettingsToggle label="Daily streak reminder" description="A quiet note if the streak is still open." checked={reminder} onChange={setReminder} />
-        <Button
-          type="button"
-          variant="gradient"
-          onClick={() => {
-            setError("");
-            setNotice("The daily reminder stays on this screen. It is not stored on the account yet.");
-          }}
-        >
-          Save notifications
-        </Button>
+        <p className="sf-settings-note">This reminder stays on this screen. It is not stored on the account yet.</p>
       </SettingsSection>
-      <SettingsSection title="Appearance" subtitle="Theme and accent apply immediately.">
-        <ThemeToggle />
-        <AccentPicker />
+      <SettingsSection title="Appearance" subtitle="Theme and accent apply as soon as you choose them.">
+        <div className="sf-settings-row">
+          <div>
+            <h3>Theme</h3>
+            <p>Light or dark.</p>
+          </div>
+          <ThemeToggle />
+        </div>
+        <div className="sf-settings-row">
+          <div>
+            <h3>Accent</h3>
+            <p>Color on buttons and highlights.</p>
+          </div>
+          <AccentPicker />
+        </div>
       </SettingsSection>
       <SettingsSection title="Account">
-        <Button type="button" variant="outline" onClick={() => void signOut({ callbackUrl: "/" })}>Log out</Button>
+        <div className="sf-settings-row">
+          <div>
+            <h3>Log out</h3>
+            <p>Ends this session on this device.</p>
+          </div>
+          <Button type="button" variant="outline" onClick={() => void signOut({ callbackUrl: "/" })}>Log out</Button>
+        </div>
       </SettingsSection>
       {showPreview ? (
         <SettingsSection title="Developer previews" subtitle="Hidden in production.">
-          <Button type="button" variant="outline" onClick={() => setCutoff(true)}>Open the usage cutoff</Button>
+          <div className="sf-settings-bar">
+            <Button type="button" variant="outline" onClick={() => setCutoff(true)}>Open the usage cutoff</Button>
+          </div>
         </SettingsSection>
       ) : null}
-      {error ? <p role="alert">{error}</p> : null}
       <UsageCutoffDialog open={cutoff} onClose={() => setCutoff(false)} />
     </div>
   );

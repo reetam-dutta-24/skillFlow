@@ -65,7 +65,7 @@ export function QuizResults({
             {missed.map((question) => (
               <li key={question.id}>
                 <p className="sf-quiz-missed-prompt">{question.prompt}</p>
-                <p className="sf-quiz-miss-kicker">From {question.sourceTitle}</p>
+                {question.sourceTitle ? <p className="sf-quiz-miss-kicker">From {question.sourceTitle}</p> : null}
                 <p>{question.explanation}</p>
               </li>
             ))}

@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const data = await getQuiz(stageId);
   if (!data) return { title: "Page not found" };
   if (data.kind === "unavailable") return { title: "Quiz" };
-  if (data.kind === "locked") return { title: data.stageTitle };
+  if (data.kind === "locked" || data.kind === "empty") return { title: data.stageTitle };
   return { title: data.stage.title };
 }
 
@@ -32,6 +32,24 @@ export default async function QuizPage({ params }: PageProps) {
     return (
       <div className="sf-quiz">
         <QuizFailure />
+      </div>
+    );
+  }
+
+  if (data.kind === "empty") {
+    return (
+      <div className="sf-quiz">
+        <p>
+          <Link className="sf-roadmap-link" href={`/roadmap/${data.skillSlug}`}>
+            Back to the path
+          </Link>
+        </p>
+        <EmptyState
+          icon="circle-help"
+          titleAs="h1"
+          title={data.stageTitle}
+          description={`${data.skillName}. No quiz has been added to this stage yet.`}
+        />
       </div>
     );
   }

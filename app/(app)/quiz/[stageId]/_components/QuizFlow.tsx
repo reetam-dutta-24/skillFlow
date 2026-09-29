@@ -136,7 +136,7 @@ export function QuizFlow({
         {checked && correct ? <p className="sf-quiz-ok">Correct.</p> : null}
         {checked && !correct ? (
           <div className="sf-quiz-miss">
-            <p className="sf-quiz-miss-kicker">From {question.sourceTitle}</p>
+            {question.sourceTitle ? <p className="sf-quiz-miss-kicker">From {question.sourceTitle}</p> : null}
             <p>{question.explanation}</p>
           </div>
         ) : null}

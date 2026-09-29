@@ -1,7 +1,10 @@
 // prisma/seed.ts
+import bcrypt from "bcryptjs"
 import { PrismaClient } from "@prisma/client"
 
 const prisma = new PrismaClient()
+
+const ADMIN_PASSWORD = "admin123"
 
 async function main() {
   const skills = [
@@ -43,6 +46,22 @@ async function main() {
   }
 
   console.log("Roadmap stages seeded.")
+
+  const adminPassword = await bcrypt.hash(ADMIN_PASSWORD, 10)
+  const admins = [
+    { name: "admin1", email: "admin1.skillflow@gmail.com" },
+    { name: "admin2", email: "admin2.skillflow@gmail.com" },
+  ]
+
+  for (const admin of admins) {
+    await prisma.user.upsert({
+      where: { email: admin.email },
+      update: { name: admin.name, role: "ADMIN", password: adminPassword },
+      create: { ...admin, role: "ADMIN", password: adminPassword },
+    })
+  }
+
+  console.log("Admin accounts seeded.")
 }
 
 main()

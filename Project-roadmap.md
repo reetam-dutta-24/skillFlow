@@ -1,361 +1,411 @@
 # SkillFlow — Master Project Roadmap
 
-**This is the single source of truth for build order.** Tick items as completed. Do not
-start a phase's items until the previous phase's checklist is fully ticked, and do not
-touch anything under "Phase 2+ / Post-MVP" until every box under Phase 0–10 is checked.
+This file is two things at once:
 
-Scope = the locked MVP: 3 flagship niches (Full-Stack Web Development, Art/Painting,
-Content Creation), one-niche-first sequencing (Full-Stack Web Dev built and fully working
-end-to-end before the other two are added).
+1. **Revision notes** for explaining the project in a pitch or a technical interview.
+2. **The build order** for what is still left.
 
-**This document has two versions. Version 1 is what you are building right now. Version 2
-does not get touched — not one line of code — until every box in Version 1 is ticked.**
+Tick a box only when that exact piece is really finished. A screen that looks done on mock data is not the same as the backend for that feature.
 
----
+**How to talk about it.** Say what is live, then say what is still a designed screen on sample data. The product idea, the database, sign-in, and onboarding are real. Lessons, quizzes, explain-back grading, streaks, and the charts are a complete front end on mock data. The AI calls, Stripe, and the leaderboard score are not running yet.
 
-## Guiding Principles & Industry Standards Applied Throughout
-
-These aren't a separate phase — they're checked against *every* phase below, and worth
-naming explicitly so nothing is applied accidentally or inconsistently:
-
-- [ ] **Twelve-Factor App methodology** — config via env vars, stateless processes, explicit dependency declaration, dev/prod parity
-- [ ] **REST maturity / resource-based API design** — nouns not verbs in routes, correct HTTP status codes, consistent response shapes
-- [ ] **Separation of concerns** — service layer between routes and Prisma; presentation logic never tightly coupled to data-fetching logic
-- [ ] **DRY within reason** — centralized design tokens, shared components, no copy-pasted logic across routes
-- [ ] **Idempotency on all mutating operations that can be retried** (quiz submission, webhook processing)
-- [ ] **Semantic versioning awareness** on any package/schema versioning decisions (e.g. `Quiz.version`, `ExplainBackPrompt.version`)
-- [ ] **Conventional commits** (`feat:`, `fix:`, `chore:`, `docs:`) — clean, readable git history
-- [ ] **OWASP-basics security hygiene** — no secrets committed, input validation server-side (never trust the client), signed/httpOnly cookies
-- [ ] **Accessibility basics (WCAG-adjacent)** — semantic HTML, sufficient color contrast in both themes, keyboard-navigable forms
-- [ ] **Testing pyramid** — more unit tests than integration, more integration than e2e
-- [ ] **Documentation as a deliverable, not an afterthought** — README, architecture decisions, case study
-
-## Non-Functional Requirements (NFRs) Tracked Across the Build
-
-Functional requirements are "what it does" (covered phase by phase below). These are
-"how well it does it" — checked at the relevant phase, called out here so they're never
-silently dropped:
-
-- [ ] **Scalability** — stateless design confirmed; scaling architecture documented even if not run live at scale
-- [ ] **Security** — auth correctly implemented, secrets never exposed, validated inputs, signed sessions
-- [ ] **Performance** — no N+1 queries, indexed foreign keys, Redis caching where it matters
-- [ ] **Reliability / graceful degradation** — resource snapshot fallback if a source URL dies; AI call failures don't crash the core loop
-- [ ] **Maintainability** — centralized design tokens, service-layer separation, typed schema (Prisma + TypeScript end to end)
-- [ ] **Observability** — error monitoring (Sentry) wired before shipping, not after something breaks
-- [ ] **Usability / accessibility** — both themes tested, empty/loading/error states designed for every screen, keyboard navigation works
+Scope of the MVP: three flagship skills (Full-Stack Web Development, Art & Painting, Content Creation). Full-Stack is the only skill with roadmap stages in the database. The other skills exist as names. One person follows one skill at a time. The feed does not mix niches.
 
 ---
 
-# VERSION 1 — MVP (build this now)
+## Where the project stands
 
-## PHASE 0 — Setup & Foundation
+| Area | State | What that means in a sentence |
+| --- | --- | --- |
+| Product shape, tokens, component kit | Done | Dark/light theme, accent presets, shared buttons, cards, charts |
+| Public pages | Done | Landing, login, signup, privacy, terms |
+| Database schema and local Postgres | Done | Prisma models, three migrations, seed of skills and Full-Stack stages |
+| Auth | Done for email/password | Auth.js, bcrypt passwords, JWT session, route protection. Google is configured in code. The login screen people use is email and password |
+| Onboarding | Done and saved | Skill, pace, goal, and accent are written to Postgres |
+| Signed-in screens | Built, mostly mock | Home, clips, roadmaps, lesson, quiz, explain-back, progress, analytics, settings, submit, admin |
+| Version 2 screens | UI preview only | Upgrade, leaderboard, transcript, notes, project review, creator, bring-your-own-resource, usage cutoff. Not in the main sidebar. No Stripe, no real score, no real AI |
+| Quiz and explain-back AI | Not started | The screens walk through a scripted result. Nothing is graded by a model, and a pass is not saved |
+| Tests, deploy, monitoring | Not started | No test suite, no production host, no Sentry |
+
+The old note at the bottom of this file said the repo had been reset and Phase 2 had not started. That is no longer true. Ignore that story.
+
+---
+
+## Revision: explain the product first
+
+SkillFlow is a learning app that checks whether someone understood a lesson, instead of counting how long they watched.
+
+The loop, as designed:
+
+1. Pick one skill.
+2. Follow that skill's stages in order.
+3. Open a lesson made of real external resources (a short clip, a doc, a course link).
+4. Take a short quiz grounded in that lesson.
+5. Explain the idea in your own words. The product asks one follow-up on the weak part of the answer.
+6. Only a real pass opens the next stage.
+
+What the product refuses: comments, likes, view counts, trending, prize leaderboards, and guilt copy when a streak breaks. Progress is verified understanding, not time spent.
+
+Three flagship skills are named in the product: Full-Stack Web Development, Art & Painting, and Content Creation. Photography and Music Production are shown as coming soon so the taxonomy is honest about what is not ready.
+
+Two roles exist in the schema and on the session: `USER` and `ADMIN`. An admin is the only person who can open the submission queue. Everyone else gets a not-found page, so the URL does not advertise that the tool exists.
+
+---
+
+## Revision: stack, and why each piece is there
+
+- **Next.js 16 App Router.** Pages are Server Components by default. Data loading stays on the server. A file is `"use client"` only when it needs a click, a form, or a chart.
+- **TypeScript.** The page, the mock data, and the Prisma models share shapes. A wrong field fails at compile time.
+- **Tailwind v4 and CSS variables.** Colors, type, and spacing live in `app/globals.css`. Dark and light are a class on `<html>`. The accent is a `data-accent` value. Public pages stay on the Dusk accent. Inside the app, the person can pick another preset and it is stored.
+- **PostgreSQL in Docker, Prisma 6.** Local database is the same on every machine. Migrations are SQL files in `prisma/migrations`, so the history of the schema is in git. `prisma.config.ts` loads `.env` with `dotenv/config` because Prisma 6 stopped doing that by itself.
+- **Auth.js (NextAuth v5).** Email and password today. Passwords are bcrypt hashes on `User.password`. Sessions are JWTs. The Credentials provider in Auth.js needs the JWT strategy, so this app does not use database sessions. The JWT callback copies `id` and `role` onto the token. The session callback copies them onto `session.user`.
+- **`lib/prisma.ts`.** One Prisma Client for the process, stored on `globalThis` in development, so hot reload does not open a new database connection every save.
+- **`proxy.ts`.** Next.js 16's middleware file. If there is no session, a visit to a signed-in URL redirects to `/login` with no callback URL. The matcher lists each path on its own. Role checks are not done here. Admin pages call `requireAdmin()` themselves.
+- **Mock data in `lib/mock`, read through `lib/data`.** Each data file starts with `import "server-only"`. Pages do not import the mock catalog. Later, swapping a screen onto Prisma is a change inside `lib/data` only. In development those loaders wait 800ms so the skeleton can be seen.
+
+---
+
+## Revision: the database, table by table
+
+Auth.js tables: `User`, `Account`, `Session`, `VerificationToken`. `User` also has `role` (`USER` or `ADMIN`), `password`, `currentStreak`, `longestStreak`, and `lastActivityDate`.
+
+`LearnerProfile` is one row per user: `skillSlug`, `pace`, `goal`, `accent`. Added in migration `20260928092404_add_learner_profile`. This is the source of truth for which skill they follow. The password column was added in `20260925094514_add_paddword_field` (the migration folder name has that spelling). The first migration is `20260923010253_init`.
+
+Content tables, ready but mostly empty:
+
+- `Skill` → `RoadmapStage` → `Resource`. A stage belongs to one skill. `@@unique([skillId, order])` stops two stages sharing the same position. A resource stores a snapshot (`title`, `description`, `keyPoints`, `transcript`) so a dead URL can still show what the lesson covered, and so a future quiz can be written from that text instead of from a live scrape.
+- `ResourceSubmission` is the waiting room. A suggestion stays here until an admin approves it. Approval is supposed to create a real `Resource`. That promotion is not built yet. The admin screen is a mock.
+- `Quiz`, `QuizQuestion`, `QuizAttempt`. `Quiz.version` is there so a later prompt change can be compared with older attempts.
+- `ExplainBackPrompt`, `ExplainBackAttempt`. The attempt stores the first explanation, the follow-up, the verdict (`PASSED` or `NEEDS_IMPROVEMENT`), and the feedback.
+- `UserSkillProgress` is one row per user per skill: `masteryPercent`, `currentStageOrder`.
+- `StageCompletion` is one row per user per stage: `quizPassed`, `explainBackPassed`, `completedAt`. Both flags are meant to be true before the next stage opens. The screens do not write this row yet.
+
+Seed today: five skills, and five Full-Stack stages (React Fundamentals, Hooks & State, Server Actions, Auth & Sessions, Database & Prisma). No resources, quizzes, or explain-back prompts are in the database yet. The rich lesson content lives in `lib/mock/catalog.ts`.
+
+---
+
+## Revision: what a person can do in the app today
+
+**Account.** Sign up with name, email, and password. Log in with email and password. Log out from the account menu. After signup the app sends them to onboarding, then home.
+
+**Onboarding.** Pick a skill, a pace (steady, focused, or deep), a goal, and an accent. Save writes `LearnerProfile` and, when that skill exists in the database, a `UserSkillProgress` row. Focused pace is defined as opening the first two stages. Any other pace opens the first stage. The home feed still reads the mock catalog, so that pace rule is not what the home screen uses yet.
+
+**Shell.** Every signed-in page sits in `app/(app)`. The URL does not contain `(app)`. Desktop shows a fixed sidebar from 960px up. Below that, the sidebar is a dialog drawer. The top bar has the page title, theme toggle, a quiet notification dot (not a number), and the account menu. There is no search box. Main nav: Home, Clips, Roadmaps, Progress, Analytics, Submit a resource, Settings. Admin appears only when `role === ADMIN`.
+
+**Home.** Streak banner, four stats, one horizontal row per followed skill, and an explore area for skills they have not followed. The numbers on this page are the mock learner (streak 12, longest 21, 3 milestones this week, 28 quizzes, 2 skills). They are not read from `User.currentStreak`.
+
+**Clips.** A separate sidebar section for short-form video, filtered by niche, without comments. Added because the product needed a designated clip feed. It is mock content.
+
+**Roadmaps, lesson, quiz, explain-back.** Full-Stack stages match the seed names. Stage 1 is shown as passed. Stage 2 (Hooks & State) is in progress, with a 5-question quiz. Pass mark is `QUIZ_PASS_THRESHOLD = 0.8` (4 of 5), stored as a placeholder constant. A miss shows a written explanation. Explain-back asks why `useEffect` needs a dependency array, then one follow-up, then a pass or a retry. Voice input is a mock transcript, not a real microphone upload. A locked stage does not include its resources. One Hooks & State resource is marked unavailable so the lesson can show the saved snapshot instead of a broken embed. Videos use a click-to-play facade and the id `skillflow-placeholder`. Nothing is embedded until play is pressed. A pass on the quiz or the explain-back is not written to the database, so a refresh returns to the mock state.
+
+**Progress.** Same stat idea as home, a mastery ring per followed skill, a six-month line, a table alternative, and a weak-topic list (useEffect cleanup, colour temperature) with a review link.
+
+**Analytics.** Extra sidebar page, built with Recharts. It shows the week's check-ins (Wednesday empty, Saturday busiest), mastery split, growth since April, quiz outcomes, and explain-back outcomes, plus short sentences about what those numbers mean. The series are mock, consistent with the 28 quizzes.
+
+**Settings.** Name can be saved in the browser session of that page. Email is read-only. Skills can be added or removed with a note that progress is kept. Daily streak reminder toggle. Theme and accent apply immediately. Log out uses the real `signOut`. In development, a button opens the usage-cutoff dialog. These skill and reminder changes are not written to Postgres. Refreshing brings back the mock list.
+
+**Submit and admin.** The suggestion form checks for an https link, a title, a skill, and a stage. `?stageId=` can prefill the stage. The person's own list shows pending, approved, and rejected, including a rejection note. The admin table is denser, with status tabs and a review dialog. Approve asks for confirmation that it would publish to the roadmap. Reject requires a note. Typing the notes `fail this review` shows the error state. None of this inserts a `ResourceSubmission` or a `Resource`. A non-admin who opens `/admin/submissions` gets not-found, from `requireAdmin()` on the page and on the review action.
+
+**Version 2 previews, not linked from the main nav.** Each one is labeled "Version 2 preview".
+
+- `/upgrade` — one premium tier, free versus premium, price text is the word Placeholder. The Stripe button only describes what Checkout would do. No card fields.
+- `/leaderboard` — Global, Country, and City in the URL. Rank, name, city, score. The signed-in row is highlighted. Score is described as verified mastery. No prizes.
+- `/transcript/[userId]/[skillSlug]` — shareable page, `noindex`. Milestones with quiz and explain-back dates. The owner (`me` or their user id) can copy a link or pretend to download a PDF.
+- `/notes` — one sample note, search, and a mock "Summarize with AI".
+- `/projects/[stageId]/review` — submit a project, or score a peer on a 1–4 rubric. No comment thread. Stage `stage_fs_5` shows "waiting for a peer".
+- `/creator` — apply, or preview pending and verified with `?status=`. The verified view shows quiz success rate, not view counts.
+- `/submit/byor` — paste an https link and get a mock 5-question preview. The URL `https://example.com/unsupported` is the error case.
+- Usage-cutoff dialog — "You have done a solid session today." Take a break, or continue anyway. It is a soft cutoff.
+- `/dev/routes` — a list of the screens, for review. It 404s when `NODE_ENV` is production.
+
+**Errors and empty screens.** Root `app/not-found.tsx` and `app/error.tsx` are themed. `app/global-error.tsx` is the last resort. Inside the app, `app/(app)/error.tsx` and `app/(app)/not-found.tsx` keep the shell. Dev-only routes can throw those states on purpose: `/dev/error`, `/dev/missing`, `/dev/root-error`, `/dev/root-missing`. There is no root `app/loading.tsx` yet. Each main signed-in route has its own `loading.tsx`.
+
+---
+
+## Revision: decisions worth saying out loud
+
+- **JWT sessions, not database sessions.** Auth.js Credentials does not support database sessions. The session cookie is a signed JWT. Role is read from that token. Tradeoff: revoking one session means changing the secret or waiting for expiry, not deleting a `Session` row.
+- **Google is in `lib/auth.ts`. The login form does not show a Google button.** Sign-in on the page is `signIn("credentials")`. Do not describe Google sign-in as a finished user flow.
+- **Proxy is not the admin check.** The proxy only asks "is someone signed in?". `requireAdmin()` asks "is this person an admin?" and calls `notFound()` otherwise.
+- **Public pages stay static.** `/`, `/login`, `/signup`, `/privacy`, and `/terms` do not call `auth()` or read cookies in the root layout. Signed-in routes are dynamic on purpose.
+- **One skill in the feed.** The mock home shows the two followed skills from the sample learner (Full-Stack and Art). The saved profile is a single `skillSlug`. Those two facts are not connected yet. When the feed is wired, home should show the profile skill only.
+- **Mock today, Prisma tomorrow, same page components.** That split is why `lib/data` exists.
+- **AniVerse was a structural reference.** Sidebar, cards, charts, and spacing were reused as patterns. The magenta palette, likes, and follower counts were not.
+
+---
+
+## Do not claim these in an interview yet
+
+- A model writes or grades quizzes and explanations.
+- Passing a quiz or an explain-back unlocks the next stage in the database.
+- Streaks update overnight.
+- Mastery percent is calculated from attempts.
+- An admin approval creates a live resource.
+- Stripe charges anyone, or a leaderboard score is computed.
+- The app is deployed, monitored, or covered by tests.
+- Every accent and a 375px phone width were fully audited. Dark, light, and more than one accent were checked on the main learning screens. A full phone-width pass was not.
+
+---
+
+# VERSION 1 — MVP (build order)
+
+Do not start a later phase's backend until the previous phase's open boxes are done. The presentation screens above are allowed to exist early. They do not count as the phase being finished.
+
+## Guiding principles
+
+Checked when the related phase is real, not when a screen merely looks right.
+
+- [ ] **Twelve-factor** — config in env vars, stateless processes, dependencies declared. Env vars and a stateless JWT are in place. This stays open until deploy and prod parity exist.
+- [ ] **Resource-shaped server API** — the app uses Server Actions and server loaders, not a separate REST API. Validation with a shared schema (Zod) is not in place.
+- [x] **Separation of page and data** — pages call `lib/data`. They do not embed the mock arrays. The data functions still return mocks, except onboarding, which writes Prisma.
+- [x] **Shared tokens and components** — colors and type come from `globals.css`. Screens reuse the component kit.
+- [ ] **Idempotent writes** — not relevant until quiz submit and webhooks save.
+- [x] **Version fields on quiz and explain-back** — `version` columns exist on `Quiz` and `ExplainBackPrompt`. No second version has been stored.
+- [x] **Conventional commits** — history uses `feat`, `fix`, and `chore` style messages.
+- [ ] **OWASP baseline** — passwords are hashed, secrets stay in `.env`, admin routes check role. Server-side validation of every input is not done. Https checks on submit are client-side.
+- [ ] **Accessibility** — semantic headings, labels, focus, and live regions are designed in. A full keyboard and contrast pass across every accent is not done.
+- [ ] **Tests** — none yet.
+- [ ] **README, case study, diagram** — README exists and is short. It still says the project is in Phase 3, which is ahead of the real backend. The case study is not written.
+
+## Non-functional requirements
+
+- [ ] Scalability documented for a real deploy
+- [ ] Security: auth works for email/password; input validation and a threat pass are still open
+- [ ] Performance: foreign keys exist in the schema; feed queries and caching are not built
+- [x] Reliability of a dead link, on the mock lesson only — one resource renders its saved snapshot instead of a blank embed
+- [x] Maintainability of the UI layer — tokens, typed view models, `lib/data` boundary
+- [ ] Observability (Sentry or equivalent)
+- [ ] Usability signed off on every screen in both themes
+
+---
+
+## PHASE 0 — Setup and foundation
 **Status: ✅ COMPLETE**
 
-- [x] Feature list finalized
-- [x] 3 flagship niches locked: Full-Stack Web Development, Art/Painting, Content Creation
-- [x] Skill taxonomy drafted
-- [x] Repo created (`reetam-dutta-24/skillFlow`), Next.js 16 scaffolded
-- [x] Git initialized, conventional commit style adopted
-- [x] Dependencies installed (Prisma, next-auth, ioredis, etc.)
-**What & why:** Next.js 16 with the App Router gives file-system-based routing and
-server-first rendering by default (data-fetching logic stays server-side, never
-shipped to the browser unless explicitly marked `"use client"`). TypeScript end-to-end
-means the Prisma schema, backend, and frontend all share real types — a bug like
-passing a string where a number's expected gets caught at compile time, not in
-production. Docker was chosen for local dev specifically for reproducibility — the
-same environment regardless of machine, no "works on my machine" drift.
+- [x] Feature list and three flagship skills locked
+- [x] Repo `reetam-dutta-24/skillFlow`, Next.js 16, TypeScript, git
+- [x] Dependencies: Prisma, Auth.js, bcrypt, Tailwind, and later Recharts for the analytics page
 
+**What was done.** The app is a Next.js App Router project. Server Components are the default. TypeScript is strict. Docker Compose runs Postgres for local development so the database is not "whatever is installed on the laptop."
 
-## PHASE 1 — UI/UX Design
-**Status: ✅ COMPLETE**
+## PHASE 1 — UI foundation
+**Status: ✅ COMPLETE for the design system. The signed-in product screens came later and are listed under Phase 6's presentation notes.**
 
-- [x] Core user flow mapped screen by screen
-- [x] AniVerse design system reviewed for reuse (structure/components reused, palette changed)
-- [x] Palette shifted: magenta-pink → cyan-blue, dark violet base retained, light mode added
-- [x] Design tokens defined as CSS custom properties + Tailwind v4 `@theme`
-- [x] Claude Design used to generate full component library + tokens, grounded in AniVerse repo/Figma
-- [x] Output reviewed via rendered screenshots (Home, Roadmap View, Explain-Back Gate, Progress, Library) — matched spec, calm non-gamified tone confirmed
-- [x] Components + tokens integrated into real repo via Claude Code (Tailwind v4 fixes, `lucide-react` swap, `dark`/`light` class toggle)
-- [x] Build verified (`tsc --noEmit`, `npm run build` passing)
-**What & why:** Design tokens (CSS custom properties + Tailwind's `@theme` block)
-centralize every color/spacing/type decision in one place, so the dark/light toggle
-is a single class swap instead of a rewrite of every component. Claude Design was
-grounded in the AniVerse repo specifically so the new component library inherited a
-real, already-battle-tested structure rather than starting from a blank template —
-real design-system reuse, not a redo.
+- [x] Tokens in `app/globals.css` (Tailwind v4 `@theme`)
+- [x] Dark and light, class on `<html>`, cookie `skillflow-theme`. Default is dark
+- [x] Accent presets (tide, iris, grove, ember, dusk, bloom, pulse, volt, ion, nova). Public pages force Dusk. The signed-in app uses the saved accent
+- [x] Component kit: buttons, chips, stat cards, skill rows, lesson cards, roadmap stages, lesson player, quiz question, explain-back gate, donut and line charts, empty and error states, settings controls, sidebar and top bar
+- [x] Landing, login, and signup are real pages. Landing stays on the public accent. Login and signup use a split layout. The left side is a coverflow of skill images
 
-## PHASE 2 — Data Model, Auth & System Architecture
-**Status: 🔶 IN PROGRESS**
+**What was done.** The first UI pass reused AniVerse's structure and replaced the palette. Later, the signed-in screens were rebuilt on that kit, on mock data, screen by screen: shell, home, roadmaps, lesson, quiz, explain-back, progress, settings, submit, admin, then the version 2 previews, clips, and analytics.
+
+**Button detail worth remembering.** Primary buttons keep their gradient on hover and get slightly brighter. They do not turn into an empty outline.
+
+## PHASE 2 — Data model, auth, and architecture
+**Status: 🔶 IN PROGRESS — database and email/password auth are done. GitHub login and database sessions were the original plan and were not what got built.**
 
 **Database (done):**
-- [x] Full Prisma schema written (Auth models incl. `UserRole` enum, Skill → RoadmapStage → Resource, ResourceSubmission, Quiz/QuizQuestion/QuizAttempt, ExplainBackPrompt/ExplainBackAttempt, UserSkillProgress/StageCompletion)
-- [x] Docker Compose Postgres container running locally
-- [x] `DATABASE_URL` configured in `.env`
-- [x] `prisma.config.ts` env loading fixed (`dotenv/config` import)
-- [x] Migration run (`prisma migrate dev`), verified live in Prisma Studio
 
-**What & why — Docker:** Docker packages Postgres and all its dependencies into an
-isolated, reproducible container, so the exact same database environment runs
-identically on any machine — this is what "works on my machine" problems actually
-get solved by. `docker-compose.yml` declares the container's config (user, password,
-port, persistent volume) as code, checked into the repo, not manual clicking.
+- [x] Prisma schema for auth, skills, stages, resources, submissions, quizzes, explain-back, progress, and `LearnerProfile`
+- [x] Docker Compose Postgres
+- [x] `DATABASE_URL` in `.env`
+- [x] `prisma.config.ts` imports `dotenv/config`
+- [x] Migrations applied: init, password column, learner profile
+- [x] Seed: five skills, five Full-Stack stages
 
-**What & why — Prisma migrations:** `prisma migrate dev` does two things: generates
-a versioned SQL file recording exactly how the schema changed (a permanent, auditable
-history — unlike `db push`, which syncs state but leaves no trace of *how* it got
-there), and regenerates the type-safe Prisma Client used throughout the app.
+**What to say about the schema.** A stage is its own row, not JSON inside a skill, because it has order, resources, a quiz, and completions. Submissions are a separate table so a learner's link cannot appear on a roadmap by itself. The resource snapshot is how a dead URL still teaches, and how a future model would be grounded.
 
-**What & why — the schema design itself:** `Skill → RoadmapStage → Resource` is a
-one-to-many relational hierarchy — a stage is meaningless without its parent skill
-and order, so it's modeled as related tables with foreign keys and a composite
-unique constraint (`@@unique([skillId, order])`), not nested JSON. `Resource` stores
-a full content snapshot (title, description, transcript) at ingestion time — this
-solves two problems at once: graceful degradation if a source URL dies, and it's
-the actual grounding context passed to the AI for quiz/explain-back generation.
-`ResourceSubmission` is a staging table, separate from the live `Resource` table —
-standard CMS pattern: nothing a user submits becomes visible until an `ADMIN`-role
-account approves it, which creates the real `Resource` row.
+**Interview bugs already hit.** Prisma 6 does not auto-load `.env`; the config file imports dotenv. Docker named volumes keep the first Postgres password forever; changing `docker-compose.yml` later does nothing until the volume is removed.
 
-**Real bug hit & fixed (good interview story):** Prisma 6's `prisma.config.ts`
-stopped auto-loading `.env` — required an explicit `import 'dotenv/config'`. Also
-hit a classic Docker gotcha: named volumes only apply `POSTGRES_USER`/`PASSWORD` on
-first initialization — changing credentials in `docker-compose.yml` after the volume
-already exists does nothing until you `docker compose down -v` to wipe it clean.
+**Auth (done, with two plan changes):**
 
+- [x] `@auth/prisma-adapter` installed and passed into Auth.js
+- [x] `lib/auth.ts` — Credentials provider plus a Google provider in config
+- [x] `lib/prisma.ts` singleton
+- [x] `AUTH_SECRET` is what signs the JWT (the app cannot sign in without it)
+- [x] `app/api/auth/[...nextauth]/route.ts` exports the Auth.js handlers
+- [x] Email/password sign-in and sign-up work end to end
+- [x] `proxy.ts` redirects anonymous visitors to `/login`
+- [x] `(app)` layout also calls `auth()` and redirects if the session is missing
+- [ ] GitHub OAuth app, `AUTH_GITHUB_ID`, `AUTH_GITHUB_SECRET` — not built. Google is the OAuth provider in code, and the login form does not offer it yet
+- [ ] Database session strategy — not used. JWT is required for Credentials. Do not describe this app as using database sessions
 
-**Auth:**
-- [ ] `@auth/prisma-adapter` installed
-- [ ] `auth.ts` created (NextAuth config, GitHub provider)
-- [ ] `lib/prisma.ts` singleton created
-- [ ] GitHub OAuth app registered, callback URL set
-- [ ] `AUTH_GITHUB_ID` / `AUTH_GITHUB_SECRET` in `.env`
-- [ ] `AUTH_SECRET` generated
-- [ ] API route handler created (`app/api/auth/[...nextauth]/route.ts`)
-- [ ] Database session strategy confirmed working (not JWT)
-- [ ] Basic sign-in test page built and verified end to end
-- [ ] Protected-route check implemented (`await auth()`)
+**System design:**
 
-**System design checkpoints for this phase:**
-- [ ] Stateless session strategy confirmed (database sessions, no in-memory state)
-- [ ] Prisma Client singleton pattern verified (no connection exhaustion on hot reload)
-- [ ] Why database sessions over JWT documented/understood (contrast with AniVerse's JWT approach)
+- [x] Prisma singleton, so dev reload does not exhaust connections
+- [x] Session strategy is explicit: JWT, because of Credentials
+- [ ] A written comparison with database sessions can live in the case study. The reason is already in this file
 
-## PHASE 3 — Core Backend: Content & Roadmap System
-**Status: ⬜ NOT STARTED**
+## PHASE 3 — Core backend: content and roadmap
+**Status: ⬜ NOT STARTED, except the two pieces below**
 
-- [ ] Skill selection / onboarding API built
-- [ ] Roadmap CRUD (admin-side; v1 roadmaps are manually curated, not AI-generated)
-- [ ] Resource ingestion: YouTube embed/iframe (never scraped), doc/course links, full metadata snapshot captured at ingestion (title, description, key points, transcript — for graceful degradation + AI grounding)
-- [ ] Segmented feed query logic (per-skill, never blended)
-- [ ] User resource submission endpoint (`USER` role — creates `ResourceSubmission`, status `PENDING`)
-- [ ] Admin review queue UI + endpoint (`ADMIN` role only — approve/reject)
-- [ ] Approval logic: promotes a `ResourceSubmission` into a real `Resource` with full content snapshot; rejection stores review notes, notifies submitter
-- [ ] Admin-only route protection (role check, not just auth check)
-- [ ] Zod validation on all API inputs
-- [ ] Service-layer separation maintained (no business logic directly in route handlers)
-- [ ] Integration tests on roadmap/resource retrieval
+- [x] Onboarding save is a Server Action: validates skill, pace, goal, and accent, upserts `LearnerProfile`, upserts `UserSkillProgress` when the skill row exists
+- [x] `requireAdmin()` — no session redirects to login; a signed-in non-admin gets `notFound()`
+- [ ] Roadmap CRUD for a real admin (stages are seeded, not edited in the app)
+- [ ] Resource ingestion and snapshots written from a real submit
+- [ ] Home and roadmap queries that read the signed-in profile and `StageCompletion` (the screens still call the mock catalog)
+- [ ] `ResourceSubmission` create, and approval that inserts a `Resource` plus a review note
+- [ ] Zod (or equivalent) on those writes
+- [ ] Tests for roadmap and resource reads
 
-**NFR checkpoints:** indexed foreign keys confirmed · no N+1 queries in feed/roadmap fetches
+The submit page and the admin queue are the right UI for this phase. They do not touch those tables yet.
 
-## PHASE 4 — AI Quiz Engine + Socratic Explain-Back Gate
-**Status: ⬜ NOT STARTED — hardest phase, do not rush**
+## PHASE 4 — AI quiz and explain-back
+**Status: ⬜ NOT STARTED as a backend. The screens and the scripted states are built.**
 
-**Quiz engine:**
-- [ ] Pipeline: lesson content → Anthropic/OpenAI call → structured JSON quiz
-- [ ] Quizzes versioned and stored for eval tracking
-- [ ] Mistake-explanation flow (wrong answer → grounded AI explanation)
-- [ ] Manual eval set built, prompts tested and iterated, results logged
-- [ ] Graceful failure handling (API timeout/malformed output doesn't crash the loop)
+**Already on screen, mock only:**
 
-**Explain-back Socratic gate (headline differentiator):**
-- [ ] Milestone boundaries defined per roadmap (stage-level, not per-lesson)
-- [ ] Text input flow built
-- [ ] Voice input flow built (transcription), added *after* text-based grading is proven, not simultaneously
-- [ ] Grading rubric designed per milestone, grounded in actual lesson content
-- [ ] Multi-turn exchange built: explanation → AI identifies gap → targeted follow-up → response → full-exchange evaluation
-- [ ] Own eval set built for explain-back grading (real + intentionally-shallow sample answers, manually judged)
-- [ ] Tuned for both failure directions (too lenient / too strict), changes logged
-- [ ] Stage-unlock logic gated on both quiz pass AND explain-back pass
+- Milestone is the stage, not each resource
+- Quiz is one question at a time, with a check, a written miss explanation, and a result of "4 of 5" against the 0.8 threshold
+- Explain-back has text, a mocked voice path, a grading wait, one follow-up, pass, retry with the answer kept, and an error if the text is `review failed`
+- A stage stays locked in the mock until the sample data says both checks passed
 
-**NFR checkpoints:** rate-limit/retry handling on AI API calls · reliability under AI provider failure
+**Still open:**
 
-## PHASE 5 — Mastery Tracking, Streaks, Progress
-**Status: ⬜ NOT STARTED**
+- [ ] Lesson text → model → stored quiz JSON
+- [ ] `Quiz.version` used for real evals
+- [ ] Miss explanation generated, not copied from the mock
+- [ ] Timeout and bad JSON handled without breaking the lesson
+- [ ] Rubric per milestone, stored on `ExplainBackPrompt`
+- [ ] Multi-turn grading that writes `ExplainBackAttempt`
+- [ ] An eval set of good and thin answers
+- [ ] Unlock that updates `StageCompletion` and `currentStageOrder`
 
-- [ ] Mastery % calculation defined (quiz accuracy + completion weighting, explainable formula)
-- [ ] Weak-topic flagging (derived at read time from low-scoring attempts, not a redundant stored table)
-- [ ] Streak logic as a background job (daily activity check, reset rules)
-- [ ] Progress dashboard data layer built
+## PHASE 5 — Mastery, streaks, progress data
+**Status: ⬜ NOT STARTED. Progress and Analytics show the mock series.**
 
-## PHASE 6 — Frontend Build-Out (Real Data)
-**Status: ⬜ NOT STARTED — UI shells already exist on mock data, this phase wires real data in**
+- [ ] A formula for mastery percent that can be explained (quiz accuracy and completed stages, not minutes watched)
+- [ ] Weak topics computed from attempts at read time
+- [ ] Streak job from `lastActivityDate`
+- [ ] Progress page reading `User` and `UserSkillProgress`
 
-- [ ] Onboarding + skill selection wired to real backend
-- [ ] Dashboard segmented feed wired to real data
-- [ ] Roadmap view wired (locked/unlocked states from real `StageCompletion` data)
-- [ ] Lesson player wired
-- [ ] Quiz UI wired
-- [ ] Explain-back gate UI wired to real grading pipeline
-- [ ] Progress/mastery screens wired
-- [ ] Responsive pass (mobile web)
-- [ ] Micro-interaction polish pass (after functionality confirmed, not before)
+## PHASE 6 — Frontend on real data
+**Status: 🔶 PRESENTATION DONE. WIRING NOT DONE, except onboarding.**
 
-**NFR checkpoints:** accessibility pass (contrast, semantic HTML, keyboard nav) · both themes verified on every wired screen
+**Presentation already built (mock data):**
 
-## PHASE 7 — Content Seeding
-**Status: ⬜ NOT STARTED**
+- [x] App shell, home, clips, roadmaps, lesson, quiz, explain-back, progress, analytics, settings, submit, admin
+- [x] Loading skeletons on those routes
+- [x] Empty, locked, and error states on the learning screens
+- [x] Version 2 preview routes, labeled, and kept out of the main sidebar
+- [x] Usage-cutoff dialog
+- [x] `/dev/routes` in development
 
-- [ ] Full-Stack Web Development fully seeded (15–20+ real items, complete roadmap) — **this niche must be 100% done before starting the other two**
-- [ ] Art/Painting seeded (scoped to testable technical subset only)
-- [ ] Content Creation seeded (scoped to testable technique/mechanics subset only)
-- [ ] Every explain-back/quiz item spot-checked against scope rules (no subjective/unscoreable content slipped in)
-- [ ] Remaining taxonomy skills present with minimal placeholder content, honestly labeled
+**Wiring still open:**
+
+- [x] Onboarding and skill choice saved in Postgres
+- [ ] Home feed from the profile, one skill, pace deciding the open stages
+- [ ] Roadmap locks from `StageCompletion`
+- [ ] Lesson player from `Resource` rows
+- [ ] Quiz UI calling the real quiz pipeline
+- [ ] Explain-back UI calling the real grader
+- [ ] Progress and analytics from real attempts
+- [ ] A full responsive pass, including 375px
+- [ ] Polish after the data is real, not before
+
+## PHASE 7 — Content seeding
+**Status: ⬜ NOT STARTED beyond the name seed**
+
+- [x] Skill names and five Full-Stack stage titles in `prisma/seed.ts`
+- [ ] Full-Stack filled out with real resources (the target is a full path, on the order of 15–20 items) before Art or Content Creation get the same treatment
+- [ ] Art and Content Creation limited to knowledge that can be checked
+- [ ] Quizzes and explain-back prompts reviewed against that rule
+- [ ] Photography and Music Production stay visibly "coming soon" until they have that content
+
+The mock catalog already has sample resources and one Hooks & State quiz, for the UI. That file is not the seed.
 
 ## PHASE 8 — Testing
 **Status: ⬜ NOT STARTED**
 
-- [ ] Unit tests: mastery calculation, streak logic, quiz/explain-back error handling
-- [ ] Integration tests: roadmap/resource/quiz API layer
-- [ ] End-to-end test of full core loop (signup → skill → lesson → quiz → explain-back → progress update)
-- [ ] Manual QA on empty/error/loading states
-- [ ] External AI API calls mocked in test suite (fast, deterministic tests)
+- [ ] Unit tests for mastery, streaks, and the quiz/explain-back failure paths
+- [ ] Integration tests for roadmap, resource, and quiz reads
+- [ ] One end-to-end pass: signup → onboarding → lesson → quiz → explain-back → progress
+- [ ] Manual pass of empty, error, and loading
+- [ ] Model calls mocked in tests
 
-## PHASE 9 — DevOps & Deployment
+## PHASE 9 — Deploy
 **Status: ⬜ NOT STARTED**
 
-- [ ] Dockerized app
-- [ ] CI/CD pipeline (GitHub Actions: lint → test → build → deploy)
-- [ ] Deployed: Vercel (app) + real hosted Postgres (AWS RDS or Neon/Supabase — separate decision from local Docker DB)
-- [ ] Sentry or equivalent error monitoring wired
-- [ ] Environment configs separated (dev/staging/prod), no secrets committed
-- [ ] Migrations run as an explicit deploy step
+- [ ] App container
+- [ ] GitHub Actions: lint, test, build
+- [ ] Hosted app and hosted Postgres
+- [ ] Error monitoring
+- [ ] Separate env files, no secrets in git
+- [ ] Migrate as a deploy step
 
-**NFR checkpoints:** scaling architecture documented (even if not run live) · observability confirmed working in deployed environment
+## PHASE 10 — Documentation and case study
+**Status: ⬜ NOT STARTED. This roadmap file is the revision draft. The public README is still the short version.**
 
-## PHASE 10 — Documentation & Case Study
-**Status: ⬜ NOT STARTED**
-
-- [ ] README: what it does, stack, architecture decisions and why, how to run it
-- [ ] Case study: problem, real competitive research (Nibble/Headway/Class Central/Zigazoo/roadmap.sh), design decisions made in response, what's next
-- [ ] Short demo video/GIF of the core loop
-- [ ] Codebase cleaned for public viewing
-- [ ] Architecture diagram included
+- [ ] README aligned with this file: what is real, what is mock, how to run it
+- [ ] Case study: the problem, what existing products optimize for, and what SkillFlow refused to copy
+- [ ] A short recording of the loop
+- [ ] A diagram of browser → Server Component → `lib/data` → Prisma, with the mock path drawn beside it
 
 ---
 
-# VERSION 2 — POST-MVP (do not start until every Version 1 box above is ticked)
+# VERSION 2 — after Version 1
 
-Full specs for each feature below live in `SkillFlow-Product-Description.md`'s "Full
-Product Vision" section — this tracks build order and concrete tasks, not the full
-rationale for each. Order below is suggested priority, not a hard dependency chain
-(V2 Phase 1 and V2 Phase 2 can be reordered relative to each other; V2 Phase 3 depends
-on V2's explain-back-driven data existing at real scale, so it belongs later regardless).
+Do not build the backend for these until Version 1 phases 0–10 are done. The UI previews already exist so the product can be shown. They are not these phases.
 
-## V2 PHASE 1 — Premium Tier & Stripe Integration
-**Status: ⬜ NOT STARTED**
+## V2 PHASE 1 — Premium and Stripe
+**Status: ⬜ NOT STARTED. `/upgrade` is a mock page. Price label is "Placeholder".**
 
-- [ ] Stripe account + test-mode API keys configured
-- [ ] `tier` field added to `User` model (`FREE` / `PREMIUM` enum), plus `stripeCustomerId` / `stripeSubscriptionId`
-- [ ] Migration run for the schema change
-- [ ] Stripe Checkout session creation endpoint built
-- [ ] Checkout redirect flow wired into the Settings/upgrade UI
-- [ ] Webhook endpoint built (`/api/webhooks/stripe`)
-- [ ] Webhook signature verification implemented
-- [ ] `checkout.session.completed` handler — upgrades user to Premium
-- [ ] `customer.subscription.deleted` handler — downgrades user to Free
-- [ ] Idempotency check on webhook processing (same event ID doesn't double-apply)
-- [ ] Premium-gated features identified and gated server-side (AI Mentor deeper explanations, advanced analytics, premium roadmaps)
-- [ ] Manual end-to-end test with Stripe test cards
+- [ ] Stripe test keys, `tier` on `User`, customer and subscription ids
+- [ ] Checkout session, webhook with signature check, idempotent upgrades and downgrades
+- [ ] Premium features gated on the server
+- [ ] No card fields on our origin
 
-**NFR checkpoints:** no card data ever touches your own servers (Checkout is hosted) · webhook idempotency verified with a manually resent test event
+## V2 PHASE 2 — Score and leaderboard
+**Status: ⬜ NOT STARTED. `/leaderboard` is sample rows. Score is not calculated.**
 
-## V2 PHASE 2 — Mastery Score & Leaderboard
-**Status: ⬜ NOT STARTED**
+- [ ] Formula from verified actions only
+- [ ] Optional self-reported city, not geolocation
+- [ ] Score updated when a stage is completed, not in the browser
+- [ ] Global, country, and city queries
+- [ ] No prizes
 
-- [ ] Scoring formula finalized (weighted quiz accuracy + stages completed — mastery-verified actions only, never raw activity/time)
-- [ ] `city` field added to user profile (self-reported, optional, never geolocated)
-- [ ] Score calculation as a background job, triggered on quiz/stage completion (not real-time client-side)
-- [ ] Leaderboard query: global
-- [ ] Leaderboard query: per-country
-- [ ] Leaderboard query: per-city
-- [ ] User's own rank/position displayed on Home dashboard
-- [ ] No prize/gift/unlock logic attached to rank anywhere (status-only, verified in code review)
-- [ ] Ship v1 as global-only; monitor engagement/drop-off by rank tier before deciding on matched-cohort fallback
+## V2 PHASE 3 — Explanations reused as lessons
+**Status: ⬜ NOT STARTED. Needs real explain-back volume.**
 
-## V2 PHASE 3 — Verified-Explanation Content Flywheel
-**Status: ⬜ NOT STARTED — depends on real explain-back attempt volume existing**
+- [ ] A bar for "strong enough to show someone else"
+- [ ] Consent, moderation, and credit or anonymous
 
-- [ ] Define "strong" threshold for an explain-back attempt to qualify for surfacing (e.g. passed on first attempt, no follow-up needed)
-- [ ] Opt-in flow: user consents to their explanation being surfaced (anonymized or credited, their choice)
-- [ ] Storage: link a qualifying `ExplainBackAttempt` as an alternate resource for that milestone
-- [ ] Surface logic: show alternate explanations to learners who fail/retry that same milestone
-- [ ] Moderation pass on surfaced explanations (still subject to the same on-topic/no-political scope rules)
-- [ ] Attribution display (credited name or "Anonymous learner")
+## V2 PHASE 4 — Transcript
+**Status: ⬜ NOT STARTED as data. The page exists and is `noindex`.**
 
-## V2 PHASE 4 — Verifiable Mastery Transcript
-**Status: ⬜ NOT STARTED**
+- [ ] Built from real milestone rows
+- [ ] PDF and a privacy switch that is stored
 
-- [ ] Transcript data model: per-skill summary of milestones passed, quiz accuracy, explain-back pass rate
-- [ ] Shareable public transcript page (`/transcript/[userId]/[skillSlug]`)
-- [ ] PDF/image export option
-- [ ] "Share to LinkedIn" formatted link/preview
-- [ ] Privacy control: user chooses what's public vs private
+## V2 PHASE 5 — Notes
+**Status: ⬜ NOT STARTED. One mock note is on `/notes`.**
 
-## V2 PHASE 5 — Smart Notes
-**Status: ⬜ NOT STARTED**
+- [ ] `Note` model, editor on the lesson, search, export
 
-- [ ] `Note` model added (linked to `User` + `RoadmapStage`)
-- [ ] Manual note-taking UI on the Lesson Player screen
-- [ ] AI-summarized note generation option (from lesson content)
-- [ ] Notes organized/filterable by skill and stage
-- [ ] Full-text search across a user's own notes
-- [ ] Export (Markdown / PDF)
+## V2 PHASE 6 — Peer project review
+**Status: ⬜ NOT STARTED. `/projects/[stageId]/review` is a rubric UI.**
 
-## V2 PHASE 6 — Peer-Verified Project Reviews
-**Status: ⬜ NOT STARTED**
+- [ ] Matching two people at the same stage
+- [ ] Rubric only, plus a report path. No comment thread
 
-- [ ] Identify which roadmap milestones support a project submission (not all will)
-- [ ] Project submission model + upload/link flow
-- [ ] Matching logic: pair two learners at a similar stage for review exchange
-- [ ] Structured review rubric (not freeform comments)
-- [ ] Review submission + notification flow
-- [ ] Basic reporting/flagging for abuse, since this is the first genuinely open-ended user-to-user text in the product
+## V2 PHASE 7 — Creators
+**Status: ⬜ NOT STARTED. `/creator` is an application preview.**
 
-**NFR checkpoints:** this is the one V2 feature that reopens user-to-user free text — apply the same moderation discipline as the core product's "no comments" philosophy, scoped narrowly
+- [ ] Verification, then quality measured by learner quiz success, not views
 
-## V2 PHASE 7 — Creator Platform
-**Status: ⬜ NOT STARTED — largest V2 feature, expect it to take longer than others**
+## V2 PHASE 8 — Generated roadmaps
+**Status: ⬜ NOT STARTED. Needs real outcome data first. Hand-written paths stay the default.**
 
-- [ ] Creator verification/application flow
-- [ ] Creator-authored roadmap/lesson/quiz submission tools
-- [ ] Same moderation standard applied to creator content as curated content
-- [ ] Creator track record tracked by downstream quiz-success correlation, not view counts
-- [ ] Creator-authored content surfaced distinctly from founder-curated content (clear labeling)
-- [ ] Revenue-share consideration if tied to Premium tier (design decision, not committed yet)
+## V2 PHASE 9 — More niches
+**Status: ⬜ NOT STARTED. Photography and Music Production are labeled coming soon.**
 
-## V2 PHASE 8 — Dynamic AI-Generated Roadmaps
-**Status: ⬜ NOT STARTED — depends on real usage data existing**
+## V2 PHASE 10 — Smaller extras
+**Status: 🔶 UI ONLY for two of these**
 
-- [ ] Collect enough usage data first (which lesson sequences correlate with quiz/explain-back success)
-- [ ] Design the roadmap-generation prompt/pipeline
-- [ ] A/B or shadow-test AI-generated roadmaps against the manually curated ones before replacing them
-- [ ] Fallback to manual roadmap if AI generation produces a low-confidence result
-
-## V2 PHASE 9 — Additional Niches Beyond the 3 Flagship Skills
-**Status: ⬜ NOT STARTED**
-
-- [ ] New niche selection filtered through the same testability rule (real checkable knowledge, not purely experiential)
-- [ ] Content fully seeded (15–20+ items) before the niche is enabled for users — never launch a thin/empty niche
-- [ ] Roadmap + quiz + explain-back rubrics built for the new niche
-
-## V2 PHASE 10 — Smaller Stretch Features
-**Status: ⬜ NOT STARTED**
-
-- [ ] "You've learned enough today" soft usage-cutoff screen
-- [ ] Spaced repetition scheduling (SM-2 style) on quiz content
-- [ ] Bring-your-own-resource (user pastes a link, gets a quiz generated + added to personal library)
-- [ ] Shareable mastery certificate/summary per skill (lighter version of V2 Phase 4's transcript)
+- [x] Usage-cutoff dialog (soft: take a break, or continue)
+- [x] Bring-your-own-resource page that pretends to generate five questions
+- [ ] Spaced repetition
+- [ ] A certificate that is lighter than the transcript
 
 ---
 
-**Right now:** Version 1, Phase 0 and 1 complete. Repo was reset (`git reset --hard`) back to commit `0f01162c595b3112d40e017e38ada0fa02533f83` — Version 1 Phase 2 is NOT STARTED at this commit (database and auth both to be done from scratch). Nothing in Version 1 Phase 3 onward starts until every Version 1 Phase 2 box is ticked. Version 2 does not start until all of Version 1 (Phases 0–10) is complete.
+**Right now.** Version 1 Phases 0 and 1 are complete. Phase 2's database and email/password auth are complete; GitHub login was not built. Phase 3 has onboarding persistence and the admin guard only. Phases 4 through 10 are not done as backend. The signed-in product, including Version 2, can be clicked through on mock data. Next backend step, when you choose to start it, is Phase 3: make home and the roadmap read the saved profile and the stage rows, and make a submission write a real `ResourceSubmission`.

@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: "Settings" };
 export default async function SettingsPage() {
   const session = await auth();
   if (!session?.user?.id) redirect("/login");
-  const profile = await getSettingsProfile({ name: session.user.name ?? null, email: session.user.email ?? null });
+  const profile = await getSettingsProfile();
 
   return (
     <div className="sf-settings-page">

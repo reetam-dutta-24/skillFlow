@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { AccentPicker } from "@/components/forms/AccentPicker.jsx";
 import { SettingsSection } from "@/components/forms/SettingsSection.jsx";
@@ -8,7 +9,7 @@ import { SettingsToggle } from "@/components/forms/SettingsToggle.jsx";
 import { ThemeToggle } from "@/components/forms/ThemeToggle.jsx";
 import { Button } from "@/components/core/Button.jsx";
 import { UsageCutoffDialog } from "@/components/feedback/UsageCutoffDialog";
-import { saveSettings } from "../actions";
+import { followSkill, saveSettings, unfollowSkill } from "../actions";
 import type { SettingsSkill } from "@/lib/data/settings";
 
 export function SettingsScreen({
@@ -26,6 +27,7 @@ export function SettingsScreen({
   streakReminder: boolean;
   showPreview: boolean;
 }) {
+  const router = useRouter();
   const [profileName, setProfileName] = useState(name);
   const [reminder, setReminder] = useState(streakReminder);
   const [rows, setRows] = useState(skills);
@@ -39,24 +41,45 @@ export function SettingsScreen({
     setPending(label);
     setNotice("");
     setError("");
-    const result = await saveSettings({ name: profileName, streakReminder: reminder });
+    const result = await saveSettings({ name: profileName });
     setPending("");
     if (!result.ok) {
       setError(result.error);
       return;
     }
     setNotice("Saved.");
+    router.refresh();
   }
 
-  function addSkill(id: string) {
+  async function addSkill(id: string) {
+    setPending(id);
+    setNotice("");
+    setError("");
+    const result = await followSkill(id);
+    setPending("");
+    if (!result.ok) {
+      setError(result.error);
+      return;
+    }
     setRows((current) => current.map((skill) => (skill.id === id ? { ...skill, followed: true } : skill)));
     setNotice("Skill added. Your feed will use it on the next visit.");
+    router.refresh();
   }
 
-  function removeSkill(id: string) {
+  async function removeSkill(id: string) {
+    setPending(id);
+    setNotice("");
+    setError("");
+    const result = await unfollowSkill(id);
+    setPending("");
+    if (!result.ok) {
+      setError(result.error);
+      return;
+    }
     setRows((current) => current.map((skill) => (skill.id === id ? { ...skill, followed: false } : skill)));
     setConfirmId(null);
-    setNotice("Skill removed from the feed. Progress is kept.");
+    setNotice("Skill removed from the feed. Quiz and explain-back results stay on the account.");
+    router.refresh();
   }
 
   return (
@@ -75,7 +98,7 @@ export function SettingsScreen({
           </Button>
         </div>
       </SettingsSection>
-      <SettingsSection title="Skills" subtitle="Removing a skill hides it from the feed. Progress stays.">
+      <SettingsSection title="Skills" subtitle="Removing a skill hides it from the feed. Quiz and explain-back results stay.">
         <ul className="sf-settings-skills">
           {rows.map((skill) => (
             <li key={skill.id}>
@@ -84,15 +107,19 @@ export function SettingsScreen({
               {skill.followed ? (
                 confirmId === skill.id ? (
                   <span>
-                    Progress is kept.{" "}
-                    <button type="button" onClick={() => removeSkill(skill.id)}>Remove</button>
+                    Quiz results stay.{" "}
+                    <button type="button" disabled={pending === skill.id} onClick={() => void removeSkill(skill.id)}>
+                      {pending === skill.id ? "Removing..." : "Remove"}
+                    </button>
                     <button type="button" onClick={() => setConfirmId(null)}>Cancel</button>
                   </span>
                 ) : (
                   <button type="button" onClick={() => setConfirmId(skill.id)}>Remove</button>
                 )
               ) : skill.status === "available" ? (
-                <button type="button" onClick={() => addSkill(skill.id)}>Add</button>
+                <button type="button" disabled={pending === skill.id} onClick={() => void addSkill(skill.id)}>
+                  {pending === skill.id ? "Adding..." : "Add"}
+                </button>
               ) : null}
             </li>
           ))}
@@ -100,8 +127,15 @@ export function SettingsScreen({
       </SettingsSection>
       <SettingsSection title="Notifications" subtitle="One reminder. No badges and no counts.">
         <SettingsToggle label="Daily streak reminder" description="A quiet note if the streak is still open." checked={reminder} onChange={setReminder} />
-        <Button type="button" variant="gradient" disabled={pending === "notes"} onClick={() => void save("notes")}>
-          {pending === "notes" ? "Saving..." : "Save notifications"}
+        <Button
+          type="button"
+          variant="gradient"
+          onClick={() => {
+            setError("");
+            setNotice("The daily reminder stays on this screen. It is not stored on the account yet.");
+          }}
+        >
+          Save notifications
         </Button>
       </SettingsSection>
       <SettingsSection title="Appearance" subtitle="Theme and accent apply immediately.">

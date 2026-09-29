@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { auth } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
 import { getNotifications } from "@/lib/data/notifications";
 import { NotificationBell } from "@/components/navigation/NotificationBell.jsx";
 import { AppShell } from "./_components/AppShell";
@@ -29,13 +30,17 @@ export default async function AppGroupLayout({ children }: { children: ReactNode
   if (!session?.user?.id) redirect("/login");
 
   const role = session.user.role === "ADMIN" ? "ADMIN" : "USER";
+  const account = await prisma.user.findUnique({
+    where: { id: session.user.id },
+    select: { name: true, email: true, image: true },
+  });
 
   return (
     <AppShell
       user={{
-        name: session.user.name?.trim() || "Account",
-        email: session.user.email ?? null,
-        image: session.user.image ?? null,
+        name: (account?.name ?? session.user.name)?.trim() || "Account",
+        email: account?.email ?? session.user.email ?? null,
+        image: account?.image ?? session.user.image ?? null,
         role,
       }}
       notifications={

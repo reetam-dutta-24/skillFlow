@@ -35,7 +35,7 @@ export type MergedCard = {
   stage: { order: number; title: string } | null;
 };
 
-export type FeedCard = MergedCard & { skill: { slug: string; name: string } };
+export type FeedCard = MergedCard & { skill: { slug: string; name: string; image: string | null } };
 
 export type MergedQuery = {
   skillId: string;
@@ -248,7 +248,7 @@ export async function loadMergedFeed(query: { skillIds: string; sort: string; cu
       mergedAt: true,
       author: { select: { id: true, name: true, image: true } },
       stage: { select: { order: true, title: true } },
-      skill: { select: { slug: true, name: true } },
+      skill: { select: { slug: true, name: true, image: true } },
     },
   });
 

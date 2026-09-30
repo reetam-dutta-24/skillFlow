@@ -16,7 +16,7 @@ The niche list shows 32 cards a page. Home and roadmaps show the first 12, a blu
 
 Signed-in learners can keep a preset accent or build their own gradient from a color palette, a hex value, or RGB. Public pages stay on Dusk.
 
-Open Source is a signed-in contribution feed for the skills a learner follows. The side panel can narrow that set or open any other niche. The niche tabs and a contribution page are in place. The contribution form is not.
+Open Source is a signed-in contribution feed for the skills a learner follows. The side panel can narrow that set or open any other niche. The niche tabs, a contribution page, and the contribute form are in place. A new post stays open until a reviewer merges it.
 
 A dead stored link can be marked unavailable. The lesson keeps the saved title, description, and key points.
 

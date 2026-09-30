@@ -3,12 +3,14 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/core/Button.jsx";
+import { SkillImage } from "@/components/core/SkillImage";
 import { joinCommunityAction, leaveCommunityAction } from "../actions";
 
 export type RailNiche = {
   id: string;
   slug: string;
   name: string;
+  image: string | null;
   status: "available" | "coming_soon";
   followed: boolean;
   joined: boolean;
@@ -46,21 +48,14 @@ export function NicheRail({
   const selectedSet = new Set(selected);
   const waiting = niches.filter((niche) => niche.followed && !selectedSet.has(niche.slug));
   const matches = query.trim()
-    ? niches
-        .filter((niche) => niche.name.toLowerCase().includes(query.trim().toLowerCase()))
-        .slice(0, 8)
+    ? niches.filter((niche) => niche.name.toLowerCase().includes(query.trim().toLowerCase())).slice(0, 8)
     : [];
 
   return (
     <div className="sf-os-picker">
       <label className="sf-os-search">
         Search any niche
-        <input
-          type="search"
-          value={query}
-          placeholder="A niche you follow, or any other"
-          onChange={(event) => setQuery(event.target.value)}
-        />
+        <input type="search" value={query} placeholder="A niche you follow, or any other" onChange={(event) => setQuery(event.target.value)} />
       </label>
 
       {custom ? (
@@ -75,7 +70,7 @@ export function NicheRail({
           <ul className="sf-os-niche-list">
             {matches.map((niche) => (
               <NicheRow
-                key={niche.slug}
+                key={`search-${niche.slug}`}
                 niche={niche}
                 inFeed={selectedSet.has(niche.slug)}
                 href={feedHref(selectedSet.has(niche.slug) ? selected.filter((slug) => slug !== niche.slug) : [...selected, niche.slug], sort, type)}
@@ -92,12 +87,7 @@ export function NicheRail({
         ) : (
           <ul className="sf-os-niche-list">
             {selectedNiches.map((niche) => (
-              <NicheRow
-                key={niche.slug}
-                niche={niche}
-                inFeed
-                href={feedHref(selected.filter((slug) => slug !== niche.slug), sort, type)}
-              />
+              <NicheRow key={niche.slug} niche={niche} inFeed href={feedHref(selected.filter((slug) => slug !== niche.slug), sort, type)} />
             ))}
           </ul>
         )}
@@ -120,17 +110,21 @@ export function NicheRail({
 function NicheRow({ niche, inFeed, href }: { niche: RailNiche; inFeed: boolean; href: string }) {
   return (
     <li className="sf-os-niche-row">
-      <Link href={href} aria-pressed={inFeed}>
-        <strong>{niche.name}</strong>
+      <Link className="sf-os-niche-id" href={`/open-source/${niche.slug}`}>
+        {niche.image ? <SkillImage src={niche.image} alt="" width={44} height={44} /> : <span className="sf-os-thumb-fallback" aria-hidden="true" />}
         <span>
-          {inFeed ? "Showing" : "Add to feed"}
-          {niche.status === "coming_soon" ? " · Coming soon" : ""}
-          {niche.followed ? " · Followed" : ""}
-          {niche.news > 0 ? ` · ${niche.news} new` : ""}
+          <strong>{niche.name}</strong>
+          <span>
+            {niche.status === "coming_soon" ? "Coming soon" : "Available"}
+            {niche.followed ? " · Followed" : ""}
+            {niche.news > 0 ? ` · ${niche.news} new` : ""}
+          </span>
         </span>
       </Link>
       <span className="sf-os-niche-actions">
-        <Link href={`/open-source/${niche.slug}`}>Open</Link>
+        <Link className={inFeed ? "sf-os-toggle is-remove" : "sf-os-toggle"} href={href}>
+          {inFeed ? "Remove" : "Add"}
+        </Link>
         <form action={niche.joined ? leaveCommunityAction : joinCommunityAction}>
           <input type="hidden" name="skillId" value={niche.id} />
           <Button type="submit" size="sm" variant={niche.joined ? "outline" : "gradient"}>

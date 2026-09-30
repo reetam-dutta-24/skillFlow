@@ -7,7 +7,9 @@ import { EmptyState } from "@/components/feedback/EmptyState.jsx";
 import { auth } from "@/lib/auth";
 import { COMMUNITY_LABEL, contributionTypeLabel, disclosureLabel, formatWhen } from "@/lib/community-copy";
 import { loadCommunityNiches, loadMergedFeed, myCommunityNews, myFollowedSkillIds, myUsefulMarks } from "@/lib/data/community";
+import { SkillImage } from "@/components/core/SkillImage";
 import { joinCommunityAction, leaveCommunityAction } from "./actions";
+import { ContributeMenu } from "./_components/ContributeMenu";
 import { NicheRail } from "./_components/NicheRail";
 
 export const metadata: Metadata = { title: "Open Source" };
@@ -87,29 +89,20 @@ export default async function OpenSourcePage({
         <p className="sf-community-label">{COMMUNITY_LABEL}</p>
         <p>Public contributions from the skills you follow. Narrow the list, or search for any other niche.</p>
         <div className="sf-community-actions">
+          <ContributeMenu
+            niches={selected.map((niche) => ({
+              slug: niche.slug,
+              name: niche.name,
+              image: niche.image,
+            }))}
+          />
           {selected.length === 1 ? (
-            <>
-              <Link className="sf-os-primary" href={`/open-source/${selected[0].slug}/contribute`}>
-                Add a contribution
-              </Link>
-              <form action={newsBySkill.has(selected[0].id) ? leaveCommunityAction : joinCommunityAction}>
-                <input type="hidden" name="skillId" value={selected[0].id} />
-                <Button type="submit" size="sm" variant={newsBySkill.has(selected[0].id) ? "outline" : "gradient"}>
-                  {newsBySkill.has(selected[0].id) ? "Leave community" : "Join community"}
-                </Button>
-              </form>
-            </>
-          ) : selected.length > 1 ? (
-            <details className="sf-os-contribute">
-              <summary>Add a contribution</summary>
-              <ul>
-                {selected.map((niche) => (
-                  <li key={niche.id}>
-                    <Link href={`/open-source/${niche.slug}/contribute`}>{niche.name}</Link>
-                  </li>
-                ))}
-              </ul>
-            </details>
+            <form action={newsBySkill.has(selected[0].id) ? leaveCommunityAction : joinCommunityAction}>
+              <input type="hidden" name="skillId" value={selected[0].id} />
+              <Button type="submit" size="sm" variant={newsBySkill.has(selected[0].id) ? "outline" : "gradient"}>
+                {newsBySkill.has(selected[0].id) ? "Leave community" : "Join community"}
+              </Button>
+            </form>
           ) : null}
         </div>
       </header>
@@ -142,7 +135,7 @@ export default async function OpenSourcePage({
               description={
                 followedSlugs.length === 0
                   ? "Choose a skill from Niches, or search the panel for a community you have not followed yet."
-                  : "Turn a niche back on, or show the niches you follow."
+                  : "Add a niche from the panel, or show the niches you follow."
               }
               action={
                 followedSlugs.length === 0 ? (
@@ -168,7 +161,13 @@ export default async function OpenSourcePage({
                 const disclosure = disclosureLabel(item.disclosure);
                 return (
                   <li key={item.id}>
-                    <Link className="sf-community-card" href={`/open-source/${item.skill.slug}/c/${item.id}`}>
+                    <Link className="sf-community-card sf-os-feed-card" href={`/open-source/${item.skill.slug}/c/${item.id}`}>
+                      {item.skill.image ? (
+                        <SkillImage className="sf-os-feed-photo" src={item.skill.image} alt="" width={72} height={72} />
+                      ) : (
+                        <span className="sf-os-thumb-fallback sf-os-feed-photo" aria-hidden="true" />
+                      )}
+                      <span className="sf-os-feed-copy">
                       <span className="sf-community-chips">
                         <Chip tone="accent">{item.skill.name}</Chip>
                         <Chip tone="neutral">{contributionTypeLabel(item.type)}</Chip>
@@ -185,6 +184,7 @@ export default async function OpenSourcePage({
                         Found useful by {item.usefulCount} {item.usefulCount === 1 ? "learner" : "learners"}
                         {marked.has(item.id) ? " · You found this useful" : ""}
                       </p>
+                      </span>
                     </Link>
                   </li>
                 );
@@ -225,6 +225,7 @@ export default async function OpenSourcePage({
               id: niche.id,
               slug: niche.slug,
               name: niche.name,
+              image: niche.image,
               status: niche.status,
               followed: followed.has(niche.id),
               joined: newsBySkill.has(niche.id),

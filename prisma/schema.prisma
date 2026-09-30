@@ -92,14 +92,26 @@ model VerificationToken {
 
 // ── SKILL TAXONOMY ──────────────────────
 
+enum SkillStatus {
+  AVAILABLE
+  COMING_SOON
+}
+
+enum StageLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
 model Skill {
-  id          String  @id @default(cuid())
-  slug        String  @unique
+  id          String      @id @default(cuid())
+  slug        String      @unique
   name        String
   description String?
   image       String
-  isFlagship  Boolean @default(false)
-  order       Int     @default(0)
+  status      SkillStatus @default(COMING_SOON)
+  isFlagship  Boolean     @default(false)
+  order       Int         @default(0)
 
   stages       RoadmapStage[]
   userProgress UserSkillProgress[]
@@ -108,11 +120,13 @@ model Skill {
 }
 
 model RoadmapStage {
-  id          String  @id @default(cuid())
-  skillId     String
-  title       String
-  description String?
-  order       Int
+  id                  String     @id @default(cuid())
+  skillId             String
+  title               String
+  description         String?
+  order               Int
+  level               StageLevel @default(BEGINNER)
+  learningObjectives  String[]   @default([])
 
   skill Skill @relation(fields: [skillId], references: [id], onDelete: Cascade)
 
@@ -134,6 +148,11 @@ enum ResourceType {
   COURSE_LINK
 }
 
+enum SourceStatus {
+  ACTIVE
+  UNAVAILABLE
+}
+
 model Resource {
   id      String       @id @default(cuid())
   stageId String
@@ -141,14 +160,23 @@ model Resource {
   url     String
   order   Int
 
-  title       String
-  description String? @db.Text
-  keyPoints   String? @db.Text
-  transcript  String? @db.Text
+  title          String
+  description    String?      @db.Text
+  keyPoints      String[]     @default([])
+  transcript     String?      @db.Text
+  provider       String       @default("")
+  author         String?
+  videoId        String?
+  isFree         Boolean      @default(true)
+  language       String       @default("en")
+  sourceStatus   SourceStatus @default(ACTIVE)
+  lastVerifiedAt DateTime?
+  needsReview    Boolean      @default(false)
 
   stage RoadmapStage @relation(fields: [stageId], references: [id], onDelete: Cascade)
 
   @@unique([stageId, order])
+  @@unique([stageId, url])
 }
 
 // ── USER-SUBMITTED CONTENT (moderated before publishing) ──────────────────────
@@ -227,8 +255,8 @@ model ExplainBackPrompt {
   stageId String @unique
   version Int    @default(1)
 
-  question String @db.Text
-  rubric   String @db.Text
+  question String   @db.Text
+  rubric   String[] @default([])
 
   stage    RoadmapStage         @relation(fields: [stageId], references: [id], onDelete: Cascade)
   attempts ExplainBackAttempt[]

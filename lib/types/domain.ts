@@ -42,7 +42,7 @@ export type ResourceView = {
   order: number;
   title: string;
   description: string | null;
-  keyPoints: string | null;
+  keyPoints: string[];
   transcript: string | null;
   /** Not stored on Resource. Set when the source is gone and only the snapshot remains. */
   unavailable: boolean;
@@ -93,7 +93,7 @@ export type ExplainBackPromptView = {
   stageId: string;
   version: number;
   question: string;
-  rubric: string;
+  rubric: string[];
 };
 
 export type ExplainBackSample = {

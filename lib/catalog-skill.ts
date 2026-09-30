@@ -90,6 +90,7 @@ export async function createCatalogSkill(input: CatalogSkillInput): Promise<Cata
       description: description || null,
       image,
       isFlagship: input.open,
+      status: input.open ? "AVAILABLE" : "COMING_SOON",
       order: (last?.order ?? 0) + 1,
     },
     select: { id: true, slug: true },

@@ -69,35 +69,17 @@ async function main() {
         description: skill.description,
         image: skill.image,
         isFlagship: skill.isFlagship,
+        status: skill.isFlagship ? "AVAILABLE" : "COMING_SOON",
         order: skill.order,
       },
-      create: skill,
+      create: {
+        ...skill,
+        status: skill.isFlagship ? "AVAILABLE" : "COMING_SOON",
+      },
     })
   }
 
   console.log("Skills seeded.")
-
-  const fullStackWebDev = await prisma.skill.findUniqueOrThrow({
-    where: { slug: "full-stack-web-dev" },
-  })
-
-  const stages = [
-    { title: "React Fundamentals", description: "Components, props, and the render model.", order: 1 },
-    { title: "Hooks & State", description: "State, effects, and the dependency array.", order: 2 },
-    { title: "Server Actions", description: "Mutating data without writing API routes.", order: 3 },
-    { title: "Auth & Sessions", description: "Protecting routes and managing identity.", order: 4 },
-    { title: "Database & Prisma", description: "Modeling and querying relational data.", order: 5 },
-  ]
-
-  for (const stage of stages) {
-    await prisma.roadmapStage.upsert({
-      where: { skillId_order: { skillId: fullStackWebDev.id, order: stage.order } },
-      update: {},
-      create: { ...stage, skillId: fullStackWebDev.id },
-    })
-  }
-
-  console.log("Roadmap stages seeded.")
 
   const adminPassword = await bcrypt.hash(ADMIN_PASSWORD, 10)
   const admins = [

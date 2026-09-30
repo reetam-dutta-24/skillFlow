@@ -113,16 +113,16 @@ export default async function LessonPage({ params }: PageProps) {
         resource={featured ? { title: featured.title, url: featured.url, source: hostLabel(featured.url) } : undefined}
         continueHref={data.quizHref ?? undefined}
       />
-      {featured && (featured.description || featured.keyPoints) ? (
+      {featured && (featured.description || featured.keyPoints.length) ? (
         <section className="sf-lesson-notes" aria-label="About this resource">
           {featured.description ? <p>{featured.description}</p> : null}
-          {featured.keyPoints ? <p>{featured.keyPoints}</p> : null}
+          {featured.keyPoints.length ? <p>{featured.keyPoints.join(" ")}</p> : null}
         </section>
       ) : null}
-      {clip && (clip.description || clip.keyPoints) ? (
+      {clip && (clip.description || clip.keyPoints.length) ? (
         <section className="sf-lesson-notes" aria-label="What the clip covers">
           {clip.description ? <p>{clip.description}</p> : null}
-          {clip.keyPoints ? <p>{clip.keyPoints}</p> : null}
+          {clip.keyPoints.length ? <p>{clip.keyPoints.join(" ")}</p> : null}
         </section>
       ) : null}
       {sources.length > 0 ? (
@@ -136,7 +136,7 @@ export default async function LessonPage({ params }: PageProps) {
                     <p className="sf-source-kind">{kindLabel(item.type)} · Source unavailable</p>
                     <h3>{item.title}</h3>
                     {item.description ? <p>{item.description}</p> : null}
-                    {item.keyPoints ? <p>{item.keyPoints}</p> : null}
+                    {item.keyPoints.length ? <p>{item.keyPoints.join(" ")}</p> : null}
                   </article>
                 </li>
               ) : (

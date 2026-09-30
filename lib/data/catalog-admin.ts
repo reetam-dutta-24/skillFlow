@@ -49,6 +49,13 @@ function parseType(value: string): ResourceType | null {
   return RESOURCE_TYPES.has(value) ? (value as ResourceType) : null;
 }
 
+function pointsFromText(value: string) {
+  return value
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0);
+}
+
 function blankToNull(value: string) {
   const trimmed = value.trim();
   return trimmed ? trimmed : null;
@@ -83,7 +90,7 @@ export async function getCatalogEditor(): Promise<CatalogEditorSkill[]> {
           url: resource.url,
           title: resource.title,
           description: resource.description ?? "",
-          keyPoints: resource.keyPoints ?? "",
+          keyPoints: resource.keyPoints.join("\n"),
           order: resource.order,
         })),
       })),
@@ -112,7 +119,7 @@ export async function saveCatalogResource(input: CatalogSaveInput): Promise<Cata
   const saved = { lessonHref: `/lesson/${stage.id}`, roadmapHref: `/roadmap/${stage.skill.slug}` };
 
   const description = blankToNull(input.description);
-  const keyPoints = blankToNull(input.keyPoints);
+  const keyPoints = pointsFromText(input.keyPoints);
   const resourceId = input.id?.trim() ?? "";
 
   if (resourceId) {

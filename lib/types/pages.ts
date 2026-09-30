@@ -59,7 +59,7 @@ export type ClipItem = {
   stageTitle: string;
   title: string;
   description: string | null;
-  keyPoints: string | null;
+  keyPoints: string[];
   url: string;
   format: ClipFormat;
   lessonHref: string;

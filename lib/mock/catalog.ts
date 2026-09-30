@@ -162,7 +162,7 @@ function resource(
     order,
     title,
     description,
-    keyPoints,
+    keyPoints: keyPoints.trim() ? [keyPoints] : [],
     transcript: null,
     unavailable,
   };
@@ -314,14 +314,14 @@ const explainPrompts: ExplainBackPromptView[] = [
     stageId: "stage_fs_1",
     version: 1,
     question: "In your own words, what is a render?",
-    rubric: "A complete answer says a render is React calling the component to read the current props and state and describe the UI. It is not the same as painting pixels.",
+    rubric: ["A complete answer says a render is React calling the component to read the current props and state and describe the UI. It is not the same as painting pixels."],
   },
   {
     id: "exp_fs_2",
     stageId: "stage_fs_2",
     version: 1,
     question: "Why does useEffect need a dependency array?",
-    rubric: "A complete answer says the array tells React which values the effect closes over, so React can skip the effect when those values have not changed and re-run it when they have. An empty array runs after the first paint only. Omitting the array runs after every paint.",
+    rubric: ["A complete answer says the array tells React which values the effect closes over, so React can skip the effect when those values have not changed and re-run it when they have. An empty array runs after the first paint only. Omitting the array runs after every paint."],
   },
 ];
 

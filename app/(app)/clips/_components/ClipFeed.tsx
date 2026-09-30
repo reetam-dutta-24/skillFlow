@@ -128,7 +128,7 @@ export function ClipFeed({ skills, clips }: { skills: ClipFeedSkill[]; clips: Cl
                           {clip.skillName} · {clip.stageTitle}
                         </p>
                         <h2>{clip.title}</h2>
-                        {clip.keyPoints ? <p>{clip.keyPoints}</p> : clip.description ? <p>{clip.description}</p> : null}
+                        {clip.keyPoints.length ? <p>{clip.keyPoints.join(" ")}</p> : clip.description ? <p>{clip.description}</p> : null}
                         <Link href={clip.lessonHref}>Open lesson</Link>
                       </div>
                     </div>

@@ -1,11 +1,12 @@
 import * as React from "react";
 
-/** Curated accent gradient picker. Sets `data-accent` and persists the choice. */
+/** Preset dots plus a custom gradient. Sets `data-accent` and persists the choice. */
 export interface AccentPickerProps extends React.HTMLAttributes<HTMLDivElement> {
-  accent?: "tide" | "iris" | "grove" | "ember" | "dusk" | "bloom" | "pulse" | "volt" | "ion" | "nova";
-  /** Initial preset when `accent` is omitted. Server layouts pass the stored value. */
-  defaultAccent?: "tide" | "iris" | "grove" | "ember" | "dusk" | "bloom" | "pulse" | "volt" | "ion" | "nova";
-  onChange?: (accent: "tide" | "iris" | "grove" | "ember" | "dusk" | "bloom" | "pulse" | "volt" | "ion" | "nova") => void;
+  /** Controlled preset id or `custom:#start:#end`. */
+  accent?: string;
+  /** Initial value when `accent` is omitted. A saved profile accent is fine. */
+  defaultAccent?: string;
+  onChange?: (accent: string) => void;
   /** Element that receives the data-accent attribute. */
   target?: HTMLElement | null;
 }

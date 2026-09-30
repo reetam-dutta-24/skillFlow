@@ -81,7 +81,7 @@ Wired to Postgres:
 - A niche card links to `/roadmap/[slug]` only when the skill is available and has stages. Coming-soon cards are articles.
 - Admin catalog (`/admin/catalog`) edits skills that already have stages, and lists every niche. Needs-review filter is `#catalog-review-only`.
 - Submit writes `ResourceSubmission`. Admin approval creates a `Resource`. Reject stores a note.
-- Profile name saves. Email does not.
+- Profile name saves. Email does not. Theme and accent apply immediately. The ten presets stay. A custom gradient is `custom:#start:#end` on `LearnerProfile.accent` and the `skillflow-accent` cookie. The palette, hex, and RGB fields live on Settings and onboarding. That choice is personal: it is not part of the catalog cache, and saving it does not call `invalidateCatalog()`.
 - Explain-back questions and rubrics are stored on each imported stage. No quiz questions are stored. `/quiz/[stageId]` reads Prisma and shows an empty state.
 - Progress, analytics, and home stats read real attempt counts. With no attempts, those numbers are zero. The charts are not a mock learner with a streak of 12.
 

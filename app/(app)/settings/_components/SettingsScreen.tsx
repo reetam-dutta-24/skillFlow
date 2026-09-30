@@ -18,6 +18,7 @@ export function SettingsScreen({
   email,
   initial,
   skills,
+  accent,
   streakReminder,
   showPreview,
 }: {
@@ -25,6 +26,7 @@ export function SettingsScreen({
   email: string;
   initial: string;
   skills: SettingsSkill[];
+  accent: string;
   streakReminder: boolean;
   showPreview: boolean;
 }) {
@@ -157,12 +159,12 @@ export function SettingsScreen({
           </div>
           <ThemeToggle />
         </div>
-        <div className="sf-settings-row">
+        <div className="sf-settings-row sf-settings-accent">
           <div>
             <h3>Accent</h3>
-            <p>Color on buttons and highlights.</p>
+            <p>A preset, or your own gradient from the palette, a hex value, or RGB.</p>
           </div>
-          <AccentPicker />
+          <AccentPicker defaultAccent={accent} />
         </div>
       </SettingsSection>
       <SettingsSection title="Account">

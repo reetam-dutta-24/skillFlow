@@ -14,6 +14,8 @@ On each free path the last three stages stay visible and locked. Art & Painting 
 
 The niche list shows 32 cards a page. Home and roadmaps show the first 12, a blurred peek of the next row, and a link to the full list.
 
+Signed-in learners can keep a preset accent or build their own gradient from a color palette, a hex value, or RGB. Public pages stay on Dusk.
+
 A dead stored link can be marked unavailable. The lesson keeps the saved title, description, and key points.
 
 ## Tech stack

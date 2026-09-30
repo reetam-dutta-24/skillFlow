@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect } from "react";
-import { applyAccent, isAccentId } from "@/lib/accent";
+import { applyStoredAccent, isStoredAccent } from "@/lib/accent";
 
-/** Applies the saved accent from the learner profile. */
+/** Applies a saved preset or custom gradient from the learner profile. */
 export function AccentSync({ accent }) {
   useEffect(() => {
-    if (isAccentId(accent)) applyAccent(accent);
+    if (isStoredAccent(accent)) applyStoredAccent(accent);
   }, [accent]);
   return null;
 }

@@ -4,7 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { SkillImage } from "@/components/core/SkillImage";
-import { ACCENTS, applyAccent, isAccentId } from "@/lib/accent";
+import { customThemeVars, parseCustomAccent } from "@/lib/accent-color";
+import { ACCENTS, applyStoredAccent, isAccentId, isStoredAccent } from "@/lib/accent";
+import { CustomAccentForm } from "@/components/forms/CustomAccentForm.jsx";
 import { GOAL_CHOICES, PACE_CHOICES, SKILL_CHOICES, goalById, paceById, skillBySlug } from "@/lib/learner";
 import { saveLearnerProfile } from "@/app/onboarding/actions";
 import { ThemeToggle } from "../forms/ThemeToggle.jsx";
@@ -29,12 +31,12 @@ export function OnboardingWizard({ name = "", initial = null }) {
   const [skillSlug, setSkillSlug] = useState(initial?.skillSlug ?? "");
   const [pace, setPace] = useState(initial?.pace ?? "");
   const [goal, setGoal] = useState(initial?.goal ?? "");
-  const [accent, setAccent] = useState(isAccentId(initial?.accent) ? initial.accent : "dusk");
+  const [accent, setAccent] = useState(isStoredAccent(initial?.accent) ? initial.accent : "dusk");
   const [error, setError] = useState(null);
   const [pending, setPending] = useState(false);
 
   useEffect(() => {
-    if (isAccentId(accent)) applyAccent(accent);
+    if (isStoredAccent(accent)) applyStoredAccent(accent);
   }, [accent]);
 
   useEffect(() => {
@@ -283,26 +285,41 @@ function ChoiceStep({ options, value, onChange, reduce }) {
 }
 
 function AccentStep({ value, onChange, reduce }) {
+  const custom = parseCustomAccent(value);
   return (
-    <div className="sf-swatch-grid">
-      {ACCENTS.map((option, index) => (
-        <motion.button
-          key={option.id}
+    <div className="sf-accent-step">
+      <div className="sf-swatch-grid">
+        {ACCENTS.map((option, index) => (
+          <motion.button
+            key={option.id}
+            type="button"
+            className={value === option.id ? "sf-swatch is-on" : "sf-swatch"}
+            data-accent-swatch={option.id}
+            aria-pressed={value === option.id}
+            aria-label={option.label}
+            onClick={() => onChange(option.id)}
+            initial={reduce ? false : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={reduce ? { duration: 0 } : { duration: 0.28, delay: index * 0.03, ease: EASE }}
+            whileHover={reduce ? undefined : { y: -3 }}
+            whileTap={reduce ? undefined : { scale: 0.96 }}
+          >
+            <span>{option.label}</span>
+          </motion.button>
+        ))}
+        <button
           type="button"
-          className={value === option.id ? "sf-swatch is-on" : "sf-swatch"}
-          data-accent-swatch={option.id}
-          aria-pressed={value === option.id}
-          aria-label={option.label}
-          onClick={() => onChange(option.id)}
-          initial={reduce ? false : { opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={reduce ? { duration: 0 } : { duration: 0.28, delay: index * 0.03, ease: EASE }}
-          whileHover={reduce ? undefined : { y: -3 }}
-          whileTap={reduce ? undefined : { scale: 0.96 }}
+          className={custom ? "sf-swatch sf-swatch-custom is-on" : "sf-swatch sf-swatch-custom"}
+          aria-pressed={Boolean(custom)}
+          style={custom ? { backgroundImage: `linear-gradient(135deg, ${custom.start}, ${custom.end})` } : undefined}
+          onClick={() => {
+            if (!custom) onChange("custom:#6d28d9:#2563eb");
+          }}
         >
-          <span>{option.label}</span>
-        </motion.button>
-      ))}
+          <span>Custom</span>
+        </button>
+      </div>
+      {custom ? <CustomAccentForm start={custom.start} end={custom.end} onChange={onChange} /> : null}
     </div>
   );
 }
@@ -312,6 +329,8 @@ function ReadyStep({ name, skillSlug, pace, goal, accent }) {
   const paceChoice = paceById(pace);
   const goalChoice = goalById(goal);
   const accentChoice = ACCENTS.find((item) => item.id === accent);
+  const customAccent = parseCustomAccent(accent);
+  const customPreview = customAccent ? customThemeVars(customAccent.start, customAccent.end) : null;
   if (!skill) return null;
   return (
     <div className="sf-ready">
@@ -331,8 +350,12 @@ function ReadyStep({ name, skillSlug, pace, goal, accent }) {
             {goalChoice.label}
           </li>
           <li>
-            <span className="sf-ready-dot" data-accent-swatch={accent} />
-            {accentChoice?.label}
+            <span
+              className="sf-ready-dot"
+              data-accent-swatch={isAccentId(accent) ? accent : undefined}
+              style={customPreview ? { backgroundImage: customPreview["--preset-gradient"] } : undefined}
+            />
+            {accentChoice?.label ?? "Custom"}
           </li>
         </ul>
       </div>

@@ -1,5 +1,6 @@
 import "server-only";
 import { Prisma } from "@prisma/client";
+import { isStoredAccent } from "@/lib/accent";
 import { auth } from "@/lib/auth";
 import { loadCatalog } from "@/lib/data/catalog";
 import { prisma } from "@/lib/prisma";
@@ -15,11 +16,16 @@ export async function getSettingsProfile() {
   const [catalog, user] = await Promise.all([
     loadCatalog(),
     userId
-      ? prisma.user.findUnique({ where: { id: userId }, select: { name: true, email: true } })
+      ? prisma.user.findUnique({
+          where: { id: userId },
+          select: { name: true, email: true, learnerProfile: { select: { accent: true } } },
+        })
       : Promise.resolve(null),
   ]);
   const name = (user?.name ?? session?.user?.name ?? "").trim();
   const email = user?.email ?? session?.user?.email ?? "";
+
+  const storedAccent = user?.learnerProfile?.accent;
 
   return {
     name,
@@ -32,6 +38,7 @@ export async function getSettingsProfile() {
       offer: entry.skill.offer,
       followed: entry.skill.followed,
     })),
+    accent: isStoredAccent(storedAccent) ? storedAccent : "tide",
     streakReminder: true,
   };
 }

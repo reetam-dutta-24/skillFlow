@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 import { auth } from "@/lib/auth";
-import { ACCENT_STORAGE_KEY, isAccentId } from "@/lib/accent";
+import { ACCENT_STORAGE_KEY, isStoredAccent } from "@/lib/accent";
 import { isGoalId, isPaceId, isSkillSlug } from "@/lib/learner";
 import { prisma } from "@/lib/prisma";
 
@@ -15,7 +15,7 @@ export async function saveLearnerProfile(input: {
   const session = await auth();
   if (!session?.user?.id) return { error: "Sign in to continue." };
 
-  if (!isSkillSlug(input.skillSlug) || !isPaceId(input.pace) || !isGoalId(input.goal) || !isAccentId(input.accent)) {
+  if (!isSkillSlug(input.skillSlug) || !isPaceId(input.pace) || !isGoalId(input.goal) || !isStoredAccent(input.accent)) {
     return { error: "Choose a skill, a pace, and a goal to continue." };
   }
 

@@ -5,7 +5,7 @@ import { SkillImage } from "@/components/core/SkillImage";
 
 const NICHES = [
   { title: "Full-Stack Web Development", image: "/skills/web.jpg" },
-  { title: "Art & Painting", image: "/skills/art.jpg" },
+  { title: "Travel Vlogging", image: "/skills/travel-vlogging.jpg" },
   { title: "Content Creation", image: "/skills/content.jpg" },
   { title: "Photography", image: "/skills/photo.jpg" },
   { title: "Music Production", image: "/skills/music.jpg" },

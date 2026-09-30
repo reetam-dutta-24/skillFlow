@@ -15,7 +15,7 @@ import { ProblemSection } from "@/components/landing/ProblemSection.jsx";
 import { getLandingContent } from "@/lib/mock/landing";
 
 const description =
-  "Structured roadmaps, grounded quizzes, and a check that asks you to explain concepts in your own words. Full-Stack Web Development, Art & Painting, and Content Creation.";
+  "Structured roadmaps, grounded quizzes, and a check that asks you to explain concepts in your own words. Full-Stack Web Development, Travel Vlogging, and Content Creation.";
 
 export const metadata: Metadata = {
   title: { absolute: "SkillFlow: Learn by proving you understood it" },

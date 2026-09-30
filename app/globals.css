@@ -2455,6 +2455,49 @@ a.sf-path-card:hover {
 .sf-skip:focus {
   transform: none;
 }
+.sf-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  height: var(--topbar-h);
+  padding: 0 16px;
+  background: var(--bg-app);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.sf-topbar-title {
+  margin: 0;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--text-heading);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-primary);
+}
+.sf-topbar-tools {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+.sf-topbar-search {
+  width: min(300px, 40vw);
+}
+@media (min-width: 640px) {
+  .sf-topbar {
+    gap: 16px;
+    padding-inline: 32px;
+  }
+  .sf-topbar-tools {
+    gap: 12px;
+  }
+}
 .sf-app-menu-btn {
   display: inline-flex;
   align-items: center;
@@ -3581,15 +3624,13 @@ a.sf-source:hover {
   .sf-stat-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .sf-explore,
-  .sf-browse-grid {
+  .sf-explore {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 @media (max-width: 640px) {
   .sf-stat-grid,
-  .sf-explore,
-  .sf-browse-grid {
+  .sf-explore {
     grid-template-columns: 1fr;
   }
   .sf-roadmap-card {
@@ -4395,12 +4436,14 @@ html:has(.sf-browse) {
   color: var(--text-primary);
   font-size: var(--text-subtitle);
   letter-spacing: var(--tracking-tight);
+  overflow-wrap: anywhere;
 }
 .sf-skill-tile-copy span,
 .sf-skill-tile-kicker {
   color: var(--text-secondary);
   font-size: var(--text-xs);
   line-height: 1.45;
+  overflow-wrap: anywhere;
 }
 .sf-skill-tile-kicker {
   color: var(--text-accent);
@@ -4620,6 +4663,26 @@ html:has(.sf-browse) {
   .sf-settings-bar,
   .sf-settings-skill-actions {
     justify-content: flex-start;
+  }
+}
+
+/* After the base .sf-browse-grid rule. An earlier media query loses to a later 4-column rule. */
+@media (max-width: 960px) {
+  .sf-browse-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .sf-browse-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sf-browse-grid > li,
+  .sf-skill-tile {
+    min-height: 220px;
+  }
+  .sf-topbar {
+    padding-inline: 12px;
+    gap: 8px;
   }
 }
 

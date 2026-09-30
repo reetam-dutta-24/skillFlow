@@ -5,9 +5,9 @@ export const SKILL_CHOICES = [
     image: "/skills/web.jpg",
   },
   {
-    slug: "art-painting",
-    title: "Art & Painting",
-    image: "/skills/art.jpg",
+    slug: "travel-vlogging",
+    title: "Travel Vlogging",
+    image: "/skills/travel-vlogging.jpg",
   },
   {
     slug: "content-creation",

@@ -20,7 +20,7 @@ Last aligned with the working tree on 30 September 2026.
 | Area | State | What that means in a sentence |
 | --- | --- | --- |
 | Product shape, tokens, component kit | Done | Dark/light theme, accent presets, shared buttons, cards, charts |
-| Public pages | Done | Landing, login, signup, privacy, terms. Landing still names Art as a launch niche |
+| Public pages | Done | Landing, login, signup, privacy, terms. Landing names Travel Vlogging with the other two free paths |
 | Database schema and local Postgres | Done | Prisma models and nine migrations, through stage images |
 | Auth | Done for email/password | Auth.js, bcrypt passwords, JWT session, route protection. Google is configured in code. The login screen is email and password |
 | Onboarding | Done and saved | Skill, pace, goal, and accent are written to Postgres |
@@ -62,7 +62,7 @@ What the product refuses: comments, likes, view counts, trending, prize leaderbo
 
 Two roles exist: `USER` and `ADMIN`. An admin is the only person who can open the catalog and the submission queue. Everyone else gets a not-found page.
 
-Landing, the auth carousel, and onboarding still list Art as a launch niche. That copy was left in place when Travel took the third free slot.
+Landing, the auth carousel, and onboarding name Travel Vlogging with Full-Stack and Content Creation. The unwired milestone mock in `lib/mock/catalog.ts` still uses Art.
 
 ---
 
@@ -130,7 +130,7 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 
 **Account.** Sign up with name, email, and password. Log in with email and password. Log out from the account menu. After signup the app sends them to onboarding, then home.
 
-**Onboarding.** Pick a skill, a pace, a goal, and an accent. Save writes `LearnerProfile` and a `UserSkillProgress` row when that skill exists. Pace does not decide which stages are open. The last-three lock does. The skill choices on this screen still include Art.
+**Onboarding.** Pick a skill, a pace, a goal, and an accent. Save writes `LearnerProfile` and a `UserSkillProgress` row when that skill exists. Pace does not decide which stages are open. The last-three lock does. The skill choices are Full-Stack, Travel Vlogging, Content Creation, Photography, and Music Production.
 
 **Shell.** Every signed-in page sits in `app/(app)`. The URL does not contain `(app)`. Desktop shows a fixed sidebar from 960px up. Below that, the sidebar is a dialog drawer. Main nav includes Home, Clips, Roadmaps, Progress, Analytics, Submit a resource, and Settings. Admin appears only when `role === ADMIN`.
 
@@ -347,7 +347,7 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 - [ ] Explain-back UI calling a real grader
 - [x] Home and roadmap no longer show a preview Add. Explore links to the niche list. Follow stays on Settings
 - [ ] A full responsive pass, including 375px
-- [ ] Landing, auth carousel, and onboarding updated if Art should stop being named as a launch niche
+- [x] Landing, auth carousel, and onboarding name Travel Vlogging instead of Art
 
 ## PHASE 7 — Content seeding
 **Status: ✅ COMPLETE for the three Version 1 paths. Art is intentionally empty.**

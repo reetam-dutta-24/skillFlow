@@ -159,7 +159,7 @@ export function getLandingContent(): LandingContent {
     lead: "SkillFlow turns scattered tutorials into one structured roadmap, checks your understanding with quizzes built from the lesson you just studied, and unlocks each stage only when you can explain the concept in your own words.",
     primaryCta: { href: "/signup", label: "Create an account" },
     secondaryCta: { href: "/login", label: "Sign in" },
-    skillsNote: "Full-Stack Web Development · Art & Painting · Content Creation",
+    skillsNote: "Full-Stack Web Development · Travel Vlogging · Content Creation",
     preview: {
       skill: "Full-Stack Web Development",
       caption: "Illustrative",
@@ -293,10 +293,10 @@ export function getLandingContent(): LandingContent {
         image: "/skills/web.jpg",
       },
       {
-        title: "Art & Painting",
-        body: "Color theory, perspective, anatomy, composition, and medium technique.",
-        available: false,
-        image: "/skills/art.jpg",
+        title: "Travel Vlogging",
+        body: "Shoot planning, a travel kit, location audio, and the rules of filming people and places.",
+        available: true,
+        image: "/skills/travel-vlogging.jpg",
       },
       {
         title: "Content Creation",
@@ -321,8 +321,8 @@ export function getLandingContent(): LandingContent {
         body: "The technical path: the pieces you have to be able to explain, from the interface through the data.",
       },
       {
-        title: "Painting fundamentals",
-        body: "Color, perspective, anatomy, composition, and medium. Technique that can be described and checked.",
+        title: "Travel vlogging",
+        body: "Planning a shoot, the travel kit, location audio, and the rules of filming people and places.",
       },
       {
         title: "Content technique",
@@ -342,12 +342,12 @@ export function getLandingContent(): LandingContent {
         rating: 5,
       },
       {
-        id: "paint",
+        id: "travel",
         title: "The follow-up was specific",
         quote:
-          "I wrote that a shadow is just darker. The question asked where the color of the light showed up. I had skipped that part.",
+          "I wrote that spare batteries go in the bag. The question asked which ones have to stay in the cabin. I had skipped that part.",
         name: "Elena Voss",
-        skill: "Painting fundamentals",
+        skill: "Travel vlogging",
         rating: 5,
       },
       {
@@ -361,9 +361,9 @@ export function getLandingContent(): LandingContent {
       {
         id: "rows",
         title: "The skills stay separate",
-        quote: "Painting never got mixed into the web roadmap. Each skill has its own row, and I can see what is still locked.",
+        quote: "Travel vlogging never got mixed into the web roadmap. Each skill has its own row, and I can see what is still locked.",
         name: "Priya Nair",
-        skill: "Painting fundamentals",
+        skill: "Travel vlogging",
         rating: 5,
       },
       {
@@ -429,7 +429,7 @@ export function getLandingContent(): LandingContent {
         title: "Skills",
         links: [
           { label: "Full-Stack Web Development", href: "#skills" },
-          { label: "Art & Painting", href: "#skills" },
+          { label: "Travel Vlogging", href: "#skills" },
           { label: "Content Creation", href: "#skills" },
         ],
       },

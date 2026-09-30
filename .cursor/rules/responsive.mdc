@@ -1,0 +1,14 @@
+---
+description: Keep every SkillFlow page usable on a phone
+alwaysApply: true
+---
+
+# Responsive layout
+
+Check the layout at a phone width (about 375px) and at desktop before finishing a page, section, or component. Do this together with the cache decision. Do not wait to be asked.
+
+A grid of cards uses one column under 640px and two columns under 960px, unless it is a horizontal scroller such as a lesson lane. Write the mobile rule after the base `grid-template-columns` rule. A later desktop rule overrides an earlier media query.
+
+Text in a card wraps. A title in the app bar can shrink. Do not give a flex child `flex-shrink: 0` when the row also holds a menu, theme control, and account button.
+
+Verify the changed screen in the browser at phone width: the page does not scroll sideways, and the grid shape changes with the viewport.

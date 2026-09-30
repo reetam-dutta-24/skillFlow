@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { Icon } from "../core/Icon.jsx";
 import { Chip } from "../core/Chip.jsx";
+import { SkillImage } from "../core/SkillImage";
 
 const STATUS = {
   done: { icon: "circle-check", color: "var(--state-pass)", chip: "pass", label: "Passed" },
@@ -13,7 +14,7 @@ const STATUS = {
 };
 
 /** One stage in a skill roadmap. Locked stages blur the preview and explain why. */
-export function RoadmapStage({ index, title, description, status = "todo", mastery, meta, unlockHint, last = false, href, onOpen, style, ...rest }) {
+export function RoadmapStage({ index, title, image, description, status = "todo", mastery, meta, unlockHint, last = false, href, onOpen, style, ...rest }) {
   const [hover, setHover] = React.useState(false);
   const s = STATUS[status] || STATUS.todo;
   const locked = status === "locked";
@@ -36,6 +37,9 @@ export function RoadmapStage({ index, title, description, status = "todo", maste
   const panel = (
     <>
       <div style={{ filter: locked ? "var(--blur-lock)" : "none", opacity: locked ? 0.5 : 1, userSelect: locked ? "none" : "auto" }}>
+        {image ? (
+          <SkillImage className="sf-stage-photo" src={image} alt="" width={640} height={360} sizes="(max-width: 820px) 100vw, 640px" />
+        ) : null}
         <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
           <span style={{ fontSize: "var(--text-2xs)", fontWeight: "var(--weight-semibold)", letterSpacing: "var(--tracking-wide)", textTransform: "uppercase", color: "var(--text-faint)" }}>Stage {index}</span>
           {mastery != null && !locked ? <Chip tone="accent">{mastery}% mastery</Chip> : null}

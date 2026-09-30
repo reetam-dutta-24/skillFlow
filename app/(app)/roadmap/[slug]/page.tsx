@@ -79,6 +79,7 @@ export default async function RoadmapDetailPage({ params }: PageProps) {
                 key={stage.id}
                 index={stage.order}
                 title={stage.title}
+                image={stage.image ?? undefined}
                 description={stage.description}
                 status={status}
                 mastery={stage.masteryPercent > 0 ? stage.masteryPercent : undefined}

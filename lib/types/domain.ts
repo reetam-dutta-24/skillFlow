@@ -56,6 +56,7 @@ export type RoadmapStageView = {
   skillId: string;
   title: string;
   description: string | null;
+  image: string | null;
   order: number;
   status: StageStatus;
   masteryPercent: number;

@@ -53,6 +53,7 @@ export function CatalogEditor({ skills }: { skills: CatalogEditorSkill[] }) {
   const [skillId, setSkillId] = useState(first?.id ?? "");
   const [stageId, setStageId] = useState(firstStage?.id ?? "");
   const [stageTitle, setStageTitle] = useState(firstStage?.title ?? "");
+  const [stageImage, setStageImage] = useState(firstStage?.image ?? "");
   const [stageDescription, setStageDescription] = useState(firstStage?.description ?? "");
   const [level, setLevel] = useState(firstStage?.level ?? "BEGINNER");
   const [objectives, setObjectives] = useState(firstStage?.objectives ?? "");
@@ -125,6 +126,7 @@ export function CatalogEditor({ skills }: { skills: CatalogEditorSkill[] }) {
   function showStage(next: CatalogEditorStage | undefined) {
     setStageId(next?.id ?? "");
     setStageTitle(next?.title ?? "");
+    setStageImage(next?.image ?? "");
     setStageDescription(next?.description ?? "");
     setLevel(next?.level ?? "BEGINNER");
     setObjectives(next?.objectives ?? "");
@@ -173,6 +175,10 @@ export function CatalogEditor({ skills }: { skills: CatalogEditorSkill[] }) {
       setStageError("Add a title.");
       return;
     }
+    if (stageImage.trim() && !storedSource(stageImage)) {
+      setStageError("Upload an image, or use an https link.");
+      return;
+    }
     if (!question.trim()) {
       setStageError("Add an explain-back question.");
       return;
@@ -188,6 +194,7 @@ export function CatalogEditor({ skills }: { skills: CatalogEditorSkill[] }) {
       skillId,
       order: stage.order,
       title: stageTitle,
+      image: stageImage,
       description: stageDescription,
       level,
       objectives,
@@ -370,6 +377,7 @@ export function CatalogEditor({ skills }: { skills: CatalogEditorSkill[] }) {
             Title
             <input value={stageTitle} onChange={(event) => setStageTitle(event.target.value)} />
           </label>
+          <SourceField label="Image" kind="image" value={stageImage} onChange={setStageImage} />
           <label>
             Description
             <textarea value={stageDescription} rows={3} onChange={(event) => setStageDescription(event.target.value)} />

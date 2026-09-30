@@ -118,6 +118,7 @@ export async function upsertStage(input: unknown, db?: CatalogDb): Promise<Catal
         data: defined({
           title: data.title,
           description: data.description,
+          image: data.image,
           level: data.level,
           learningObjectives: data.learningObjectives,
         }),
@@ -132,6 +133,7 @@ export async function upsertStage(input: unknown, db?: CatalogDb): Promise<Catal
         order: data.order,
         title: data.title,
         description: data.description ?? null,
+        image: data.image ?? null,
         level: data.level ?? "BEGINNER",
         learningObjectives: data.learningObjectives ?? [],
       },

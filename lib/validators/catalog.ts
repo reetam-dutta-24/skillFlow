@@ -36,11 +36,26 @@ export const setSkillStatusSchema = z.object({
   status: skillStatusSchema,
 });
 
+const optionalImage = z
+  .string()
+  .trim()
+  .optional()
+  .transform((value) => {
+    if (value === undefined) return undefined;
+    return value.length > 0 ? value : null;
+  })
+  .refine((value) => value === undefined || value === null || storedSource(value) !== null, "Upload an image, or use an https link.")
+  .transform((value) => {
+    if (!value) return value;
+    return storedSource(value);
+  });
+
 export const stageSchema = z.object({
   skillId: z.string().trim().min(1, "Choose a skill that exists."),
   order: z.number().int().min(1, "Choose a position."),
   title: z.string().trim().min(1, "Add a title."),
   description: optionalText,
+  image: optionalImage,
   level: stageLevelSchema.optional(),
   learningObjectives: lineList("Add an objective.").optional(),
 });

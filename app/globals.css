@@ -2736,6 +2736,16 @@ a.sf-path-card:hover {
   object-fit: cover;
   border-radius: var(--radius-btn);
 }
+.sf-stage-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  margin: 0 0 12px;
+  border-radius: var(--radius-btn);
+  background: var(--surface-card);
+}
 .sf-roadmap-list,
 .sf-roadmap {
   margin: 0;

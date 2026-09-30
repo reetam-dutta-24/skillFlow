@@ -99,6 +99,7 @@ function toStage(
     skillId: stage.skillId,
     title: stage.title,
     description: open ? stage.description : LOCKED_PREVIEW,
+    image: stage.image,
     order: stage.order,
     status,
     masteryPercent: status === "passed" ? 100 : 0,

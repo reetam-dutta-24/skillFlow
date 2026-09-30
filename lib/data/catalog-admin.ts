@@ -28,6 +28,7 @@ export type CatalogEditorStage = {
   id: string;
   title: string;
   description: string;
+  image: string;
   order: number;
   level: "BEGINNER" | "INTERMEDIATE" | "ADVANCED";
   objectives: string;
@@ -70,6 +71,7 @@ export type StageSaveInput = {
   order: number;
   title: string;
   description: string;
+  image: string;
   level: string;
   objectives: string;
   question: string;
@@ -108,6 +110,7 @@ export async function getCatalogEditor(): Promise<CatalogEditorSkill[]> {
         id: stage.id,
         title: stage.title,
         description: stage.description ?? "",
+        image: stage.image ?? "",
         order: stage.order,
         level: stage.level,
         objectives: stage.learningObjectives.join("\n"),
@@ -179,6 +182,7 @@ export async function saveCatalogStage(input: StageSaveInput): Promise<{ ok: tru
           order: input.order,
           title: input.title,
           description: input.description,
+          image: input.image,
           level: input.level,
           learningObjectives: pointsFromText(input.objectives),
         },

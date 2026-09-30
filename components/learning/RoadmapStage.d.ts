@@ -10,6 +10,8 @@ import * as React from "react";
 export interface RoadmapStageProps extends React.LiHTMLAttributes<HTMLLIElement> {
   index: number;
   title: React.ReactNode;
+  /** Stage photo. Shown above the title. */
+  image?: string;
   description?: React.ReactNode;
   status?: "done" | "active" | "todo" | "locked";
   mastery?: number;

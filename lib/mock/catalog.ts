@@ -225,6 +225,7 @@ function stagesFor(skillId: string): RoadmapStageView[] {
     hasExplainBack: true,
     quizPassed: stage.quizPassed,
     explainBackPassed: stage.explainBackPassed,
+    image: null,
     previousStageTitle: index > 0 ? seeds[index - 1].title : null,
   }));
 }

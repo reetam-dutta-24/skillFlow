@@ -15,6 +15,7 @@ export async function getClipFeed(): Promise<ClipFeedData> {
   const skills: ClipFeedSkill[] = catalog.map((entry) => ({
     slug: entry.skill.slug,
     name: entry.skill.name,
+    image: entry.skill.image,
     status: entry.skill.status,
     followed: entry.skill.followed,
     order: entry.skill.order,

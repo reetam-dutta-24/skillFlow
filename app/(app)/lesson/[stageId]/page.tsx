@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
-import { SKILL_CHOICES } from "@/lib/learner";
 import { getLesson } from "@/lib/data/lesson";
 import type { ResourceType, ResourceView } from "@/lib/types/domain";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
@@ -95,7 +94,7 @@ export default async function LessonPage({ params }: PageProps) {
   const clip = pickClip(data.resources);
   const featured = pickFeatured(data.resources, clip?.id ?? null);
   const sources = data.resources.filter((item) => item.id !== clip?.id && item.id !== featured?.id);
-  const poster = SKILL_CHOICES.find((choice) => choice.slug === data.skill.slug)?.image;
+  const poster = data.skill.image;
 
   return (
     <div className="sf-lesson">

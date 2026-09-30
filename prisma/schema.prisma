@@ -97,6 +97,7 @@ model Skill {
   slug        String  @unique
   name        String
   description String?
+  image       String
   isFlagship  Boolean @default(false)
   order       Int     @default(0)
 

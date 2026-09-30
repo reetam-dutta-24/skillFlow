@@ -25,6 +25,7 @@ export type SkillView = {
   slug: string;
   name: string;
   description: string | null;
+  image: string;
   isFlagship: boolean;
   order: number;
   status: SkillStatus;

@@ -163,6 +163,7 @@ export type CatalogSkillRow = {
   name: string;
   slug: string;
   description: string;
+  image: string;
   open: boolean;
 };
 
@@ -174,6 +175,7 @@ export async function listCatalogSkills(): Promise<CatalogSkillRow[]> {
     name: skill.name,
     slug: skill.slug,
     description: skill.description ?? "",
+    image: skill.image,
     open: skill.isFlagship,
   }));
 }

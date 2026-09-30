@@ -66,6 +66,7 @@ export async function getSubmitCatalog() {
       id: true,
       slug: true,
       name: true,
+      image: true,
       stages: { orderBy: { order: "asc" }, select: { id: true, title: true } },
     },
   });

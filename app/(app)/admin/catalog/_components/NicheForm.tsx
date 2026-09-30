@@ -13,6 +13,7 @@ export function NicheForm({ skills }: { skills: CatalogSkillRow[] }) {
   const [slug, setSlug] = useState("");
   const [slugEdited, setSlugEdited] = useState(false);
   const [description, setDescription] = useState("");
+  const [image, setImage] = useState("");
   const [open, setOpen] = useState(false);
   const [error, setError] = useState("");
   const [saved, setSaved] = useState("");
@@ -28,7 +29,7 @@ export function NicheForm({ skills }: { skills: CatalogSkillRow[] }) {
     setError("");
     setSaved("");
     setPending(true);
-    const result = await createSkill({ name, slug, description, open });
+    const result = await createSkill({ name, slug, description, image, open });
     setPending(false);
     if (!result.ok) {
       setError(result.error);
@@ -38,6 +39,7 @@ export function NicheForm({ skills }: { skills: CatalogSkillRow[] }) {
     setSlug("");
     setSlugEdited(false);
     setDescription("");
+    setImage("");
     setOpen(false);
     setSaved(result.slug);
     router.refresh();
@@ -66,6 +68,17 @@ export function NicheForm({ skills }: { skills: CatalogSkillRow[] }) {
           Description
           <textarea value={description} rows={3} onChange={(event) => setDescription(event.target.value)} />
         </label>
+        <label>
+          Image
+          <input
+            value={image}
+            inputMode="url"
+            type="url"
+            placeholder="https://"
+            required
+            onChange={(event) => setImage(event.target.value)}
+          />
+        </label>
         <div className="sf-check">
           <input id="skill-open" type="checkbox" checked={open} onChange={(event) => setOpen(event.target.checked)} />
           <label htmlFor="skill-open">Open to follow</label>
@@ -84,9 +97,12 @@ export function NicheForm({ skills }: { skills: CatalogSkillRow[] }) {
         <ul className="sf-niche-scroll">
           {skills.map((skill) => (
             <li key={skill.id}>
-              <span>
-                {skill.name}
-                <small>{skill.slug}</small>
+              <span className="sf-niche-row">
+                <img src={skill.image} alt="" />
+                <span>
+                  {skill.name}
+                  <small>{skill.slug}</small>
+                </span>
               </span>
               <span>{skill.open ? "Open" : "Coming soon"}</span>
             </li>

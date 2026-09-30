@@ -25,8 +25,9 @@ const protectedRoutes = [
 
 export const proxy = auth((req) => {
   const isProtected = protectedRoutes.some((route) => req.nextUrl.pathname.startsWith(route));
+  const isAsset = /\.(?:avif|gif|jpe?g|png|svg|webp|ico)$/i.test(req.nextUrl.pathname);
 
-  if (isProtected && !req.auth) {
+  if (isProtected && !isAsset && !req.auth) {
     const loginUrl = new URL("/login", req.nextUrl.origin);
     return NextResponse.redirect(loginUrl);
   }

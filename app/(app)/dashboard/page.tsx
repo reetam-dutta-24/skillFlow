@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
-import { SKILL_CHOICES } from "@/lib/learner";
 import { getDashboardData } from "@/lib/data/dashboard";
 import type { LessonLaneStatus } from "@/lib/types/pages";
 import { Icon } from "@/components/core/Icon.jsx";
@@ -133,7 +132,7 @@ export default async function DashboardPage() {
           {data.catalog
             .filter((skill) => !skill.followed)
             .map((skill) => {
-              const image = SKILL_CHOICES.find((choice) => choice.slug === skill.slug)?.image;
+              const image = skill.image;
               const soon = skill.status === "coming_soon";
               return (
                 <li key={skill.id}>

@@ -3,7 +3,6 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { SKILL_CHOICES } from "@/lib/learner";
 import type { ClipFeedSkill, ClipFormat, ClipItem } from "@/lib/types/pages";
 import { Icon } from "@/components/core/Icon.jsx";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
@@ -30,7 +29,7 @@ export function ClipFeed({ skills, clips }: { skills: ClipFeedSkill[]; clips: Cl
   const scrollerRef = useRef<HTMLDivElement>(null);
   const skill = skills.find((item) => item.slug === slug);
   const visible = clips.filter((clip) => clip.skillSlug === slug && clip.format === format);
-  const poster = SKILL_CHOICES.find((choice) => choice.slug === slug)?.image;
+  const poster = skill?.image;
 
   function chooseSkill(nextSlug: string) {
     setSlug(nextSlug);

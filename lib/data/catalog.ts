@@ -59,6 +59,7 @@ function toSkill(skill: CatalogSkill): SkillView {
     slug: skill.slug,
     name: skill.name,
     description: skill.description,
+    image: skill.image,
     isFlagship: skill.isFlagship,
     order: skill.order,
     status: skillStatus(skill.isFlagship),

@@ -7,10 +7,9 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/core/Button.jsx";
 import { Icon } from "@/components/core/Icon.jsx";
 import { PaginationDots } from "@/components/navigation/PaginationDots.jsx";
-import { skillBySlug } from "@/lib/learner";
 import { submitResource } from "../actions";
 
-type SkillOption = { id: string; slug: string; name: string; stages: { id: string; title: string }[] };
+type SkillOption = { id: string; slug: string; name: string; image: string; stages: { id: string; title: string }[] };
 
 const STEPS = ["skill", "stage", "kind", "details", "review"] as const;
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -169,9 +168,7 @@ export function SubmitForm({ skills }: { skills: SkillOption[] }) {
                       }}
                     >
                       <span className="sf-pick-photo">
-                        {skillBySlug(item.slug)?.image ? (
-                          <Image src={skillBySlug(item.slug)!.image} alt="" fill sizes="180px" />
-                        ) : null}
+                        {item.image ? <Image src={item.image} alt="" fill sizes="180px" /> : null}
                       </span>
                       <span className="sf-pick-label">{item.name}</span>
                     </Pick>
@@ -232,7 +229,7 @@ export function SubmitForm({ skills }: { skills: SkillOption[] }) {
               {step === 4 && skill && stage ? (
                 <div className="sf-ready">
                   <div className="sf-ready-photo">
-                    {skillBySlug(skill.slug)?.image ? <Image src={skillBySlug(skill.slug)!.image} alt="" fill sizes="160px" /> : null}
+                    {skill.image ? <Image src={skill.image} alt="" fill sizes="160px" /> : null}
                   </div>
                   <div>
                     <p className="sf-ready-skill">{title.trim() || "Untitled"}</p>

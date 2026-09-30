@@ -46,6 +46,7 @@ export type ClipFormat = "short" | "video";
 export type ClipFeedSkill = {
   slug: string;
   name: string;
+  image: string;
   status: SkillStatus;
   followed: boolean;
   order: number;

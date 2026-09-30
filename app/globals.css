@@ -4043,11 +4043,25 @@ a.sf-source:hover {
 }
 .sf-niche-scroll li {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: 12px;
   padding: 8px 0;
   border-bottom: 1px solid var(--border-subtle);
   font-size: var(--text-sm);
+}
+.sf-niche-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.sf-niche-row img {
+  width: 56px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex: none;
 }
 .sf-niche-scroll small {
   display: block;

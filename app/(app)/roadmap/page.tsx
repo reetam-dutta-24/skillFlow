@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
-import { SKILL_CHOICES } from "@/lib/learner";
 import { getRoadmapIndex } from "@/lib/data/roadmap";
 import { Button } from "@/components/core/Button.jsx";
 import { MasteryChip } from "@/components/core/MasteryChip.jsx";
@@ -42,7 +41,7 @@ export default async function RoadmapIndexPage() {
         ) : (
           <ul className="sf-roadmap-list">
             {data.followed.map((row) => {
-              const image = SKILL_CHOICES.find((choice) => choice.slug === row.skill.slug)?.image;
+              const image = row.skill.image;
               return (
                 <li key={row.skill.id}>
                   <article className="sf-roadmap-card">
@@ -70,7 +69,7 @@ export default async function RoadmapIndexPage() {
         <h2 id="roadmap-more">More skills</h2>
         <ul className="sf-explore">
           {data.availableToAdd.map((skill) => {
-            const image = SKILL_CHOICES.find((choice) => choice.slug === skill.slug)?.image;
+            const image = skill.image;
             const soon = skill.status === "coming_soon";
             return (
               <li key={skill.id}>

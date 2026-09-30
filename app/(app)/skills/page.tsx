@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { loadCatalog } from "@/lib/data/catalog";
-import { skillBySlug } from "@/lib/learner";
 import { SkillBrowse } from "./_components/SkillBrowse";
 
 export const metadata: Metadata = { title: "Niches" };
@@ -18,7 +17,7 @@ export default async function SkillsPage() {
     status: entry.skill.status,
     followed: entry.skill.followed,
     stageCount: entry.stages.length,
-    image: skillBySlug(entry.skill.slug)?.image ?? null,
+    image: entry.skill.image,
     href: entry.skill.status === "available" && entry.stages.length > 0 ? `/roadmap/${entry.skill.slug}` : null,
   }));
 

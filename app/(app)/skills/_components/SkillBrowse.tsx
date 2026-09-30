@@ -7,6 +7,21 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Icon } from "@/components/core/Icon.jsx";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
 
+const FILTERS = [
+  { id: "all", label: "All" },
+  { id: "open", label: "Open" },
+  { id: "care", label: "Care" },
+  { id: "money", label: "Money" },
+  { id: "home", label: "Home" },
+  { id: "language", label: "Language" },
+  { id: "games", label: "Games" },
+  { id: "craft", label: "Craft" },
+  { id: "future", label: "Future" },
+  { id: "mind", label: "Mind" },
+] as const;
+
+type FilterId = (typeof FILTERS)[number]["id"];
+
 export type BrowseSkill = {
   id: string;
   name: string;
@@ -16,12 +31,16 @@ export type BrowseSkill = {
   stageCount: number;
   image: string | null;
   href: string | null;
+  group: string;
+  tags: string[];
 };
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-function matches(skill: BrowseSkill, query: string) {
-  const haystack = `${skill.name} ${skill.description}`.toLowerCase();
+function matches(skill: BrowseSkill, query: string, filter: FilterId) {
+  if (filter === "open" && skill.status !== "available") return false;
+  if (filter !== "all" && filter !== "open" && skill.group !== filter) return false;
+  const haystack = `${skill.name} ${skill.description} ${skill.tags.join(" ")}`.toLowerCase();
   return query
     .toLowerCase()
     .split(/\s+/)
@@ -33,7 +52,8 @@ export function SkillBrowse({ skills }: { skills: BrowseSkill[] }) {
   const reduce = useReducedMotion();
   const resultsRef = useRef<HTMLDivElement>(null);
   const [query, setQuery] = useState("");
-  const filtered = useMemo(() => skills.filter((skill) => matches(skill, query)), [skills, query]);
+  const [filter, setFilter] = useState<FilterId>("all");
+  const filtered = useMemo(() => skills.filter((skill) => matches(skill, query, filter)), [skills, query, filter]);
 
   function search(value: string) {
     setQuery(value);
@@ -42,22 +62,37 @@ export function SkillBrowse({ skills }: { skills: BrowseSkill[] }) {
 
   return (
     <div className="sf-browse-body">
-      <div className="sf-browse-search">
-        <label>
-          <Icon name="search" size={16} />
-          <span className="sf-sr">Search skills</span>
-          <input
-            type="search"
-            value={query}
-            placeholder="Search a skill or a topic"
-            onChange={(event) => search(event.target.value)}
-          />
-        </label>
-        {query ? (
-          <button type="button" onClick={() => search("")}>
-            Clear
-          </button>
-        ) : null}
+      <div className="sf-browse-tools">
+        <div className="sf-browse-search">
+          <label>
+            <Icon name="search" size={16} />
+            <span className="sf-sr">Search skills</span>
+            <input
+              type="search"
+              value={query}
+              placeholder="Search a name, a topic, or a tag"
+              onChange={(event) => search(event.target.value)}
+            />
+          </label>
+          {query ? (
+            <button type="button" onClick={() => search("")}>
+              Clear
+            </button>
+          ) : null}
+        </div>
+        <div className="sf-browse-filters" role="group" aria-label="Filter skills">
+          {FILTERS.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              aria-pressed={filter === item.id}
+              className={filter === item.id ? "is-on" : undefined}
+              onClick={() => setFilter(item.id)}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
       </div>
       <p className="sf-browse-count" aria-live="polite">
         {filtered.length === skills.length
@@ -70,7 +105,7 @@ export function SkillBrowse({ skills }: { skills: BrowseSkill[] }) {
             compact
             icon="search"
             title="No skill matches"
-            description="Try a shorter word, or clear the search to see every niche."
+            description="Try another filter, or a shorter word."
           />
         ) : (
           <motion.ul className="sf-browse-grid" layout>

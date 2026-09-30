@@ -1,0 +1,1379 @@
+{
+  "stages": [
+    {
+      "order": 1,
+      "title": "How the Web Works & Semantic HTML",
+      "level": "BEGINNER",
+      "description": "What really happens between typing a URL and seeing a page, and how to write HTML that means something to browsers, search engines and assistive technology.",
+      "learningObjectives": [
+        "Request/response and URLs",
+        "How a browser loads and renders a page",
+        "Semantic HTML elements",
+        "Accessible forms"
+      ],
+      "explainBack": {
+        "question": "What happens between typing a URL and seeing the page, and why does semantic HTML matter for that page?",
+        "rubric": [
+          "States that the domain name is resolved to an IP address (DNS)",
+          "Explains that the browser sends an HTTP request and receives HTML in the response",
+          "Explains that the browser parses the HTML and loads linked CSS and JavaScript before rendering",
+          "Explains that semantic elements convey meaning to assistive technology and search engines, not just appearance",
+          "Gives a concrete semantic-vs-generic example (e.g. <nav> vs <div>, <button> vs clickable <div>)"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "What happens when you type a URL into your browser?",
+          "provider": "ByteByteGo",
+          "url": "https://www.youtube.com/watch?v=AlkDbnbv7dk",
+          "description": "A short visual walkthrough of the full journey from typing a URL to seeing the rendered page.",
+          "keyPoints": [
+            "Follows a URL from the address bar to a rendered page",
+            "Covers the DNS lookup that finds the server's IP address",
+            "Covers the connection and HTTP request/response exchange",
+            "Covers how the browser turns the response into a page"
+          ],
+          "videoId": "AlkDbnbv7dk"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How the web works",
+          "provider": "MDN Web Docs",
+          "url": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Web_standards/How_the_web_works",
+          "description": "MDN's beginner explanation of clients, servers, DNS, TCP/IP, packets and HTTP.",
+          "keyPoints": [
+            "Browsers (clients) request pages and servers send back the files",
+            "DNS translates a domain name into the server's IP address",
+            "TCP/IP moves data across the internet in packets",
+            "HTTP is the request/response language; status codes like 200 and 404 report results"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Populating the page: how browsers work",
+          "provider": "MDN Web Docs",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/How_browsers_work",
+          "description": "How a browser turns an HTML response into pixels: parsing, the DOM and CSSOM, and the render pipeline.",
+          "keyPoints": [
+            "DNS lookup, TCP and TLS happen before the first request",
+            "HTML is parsed into the DOM while a preload scanner fetches CSS, JS and images",
+            "CSS is parsed into the CSSOM",
+            "DOM and CSSOM combine into a render tree, then layout, paint and compositing"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Structuring documents",
+          "provider": "MDN Web Docs",
+          "url": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/Structuring_documents",
+          "description": "How to structure a page with semantic sectioning elements and why that matters.",
+          "keyPoints": [
+            "header, nav, main, article, section, aside and footer describe what each part of a page is",
+            "Assistive technology uses these elements to let people jump between regions",
+            "div and span are for when no semantic element fits",
+            "Use main once per page for the unique content"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "HTML: A good basis for accessibility",
+          "provider": "MDN Web Docs",
+          "url": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Accessibility/HTML",
+          "description": "Why correct HTML elements give you keyboard and screen-reader support for free, including accessible forms.",
+          "keyPoints": [
+            "A real <button> is keyboard and screen-reader accessible; a clickable <div> is not",
+            "Associate each form control with a <label> using the for attribute",
+            "Headings, alt text and table headers help screen-reader users",
+            "Don't remove native keyboard behaviour that semantic elements provide"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": "CSS Layout & Responsive Design",
+      "level": "BEGINNER",
+      "description": "How the box model sizes elements, how the cascade decides which styles win, and how Flexbox and Grid build layouts that adapt to any screen.",
+      "learningObjectives": [
+        "Box model and box-sizing",
+        "Cascade and specificity",
+        "Flexbox",
+        "Grid",
+        "Responsive design with media queries"
+      ],
+      "explainBack": {
+        "question": "When would you choose Flexbox over Grid, and how does the box model affect an element's size?",
+        "rubric": [
+          "Explains Flexbox as one-dimensional (a row or a column) and Grid as two-dimensional (rows and columns)",
+          "Names the box model layers: content, padding, border, margin",
+          "Explains that box-sizing: border-box includes padding and border in the declared width",
+          "Explains making layouts responsive with media queries or intrinsic, flexible sizing"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Flexbox or grid - How to decide?",
+          "provider": "Kevin Powell",
+          "url": "https://www.youtube.com/watch?v=3elGSZSWTbM",
+          "description": "A CSS specialist's practical approach to choosing between Flexbox and Grid for a given layout.",
+          "keyPoints": [
+            "Compares when Flexbox or Grid suits a layout",
+            "Flexbox lets content size itself along one axis",
+            "Grid defines rows and columns up front",
+            "Choose based on the layout you need, not habit"
+          ],
+          "videoId": "3elGSZSWTbM"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "The box model",
+          "provider": "MDN Web Docs",
+          "url": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/Box_model",
+          "description": "Content, padding, border and margin, the standard vs alternative box model, and margin collapsing.",
+          "keyPoints": [
+            "Every element is a box: content, padding, border, margin",
+            "By default width sets only the content area, so padding and border add to it",
+            "box-sizing: border-box makes width include padding and border",
+            "Block and inline elements treat the box model differently"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "COURSE_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Learn CSS",
+          "provider": "web.dev (Google Chrome team)",
+          "url": "https://web.dev/learn/css",
+          "description": "A free, evergreen CSS course covering the box model, cascade, specificity, Flexbox and Grid.",
+          "keyPoints": [
+            "Everything CSS displays is a box",
+            "The cascade and specificity decide which rule wins",
+            "Flexbox lays out items in one dimension",
+            "Grid lays out rows and columns in two dimensions"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Responsive web design",
+          "provider": "MDN Web Docs",
+          "url": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout/Responsive_Design",
+          "description": "Media queries, flexible layouts, responsive images and typography, and the viewport meta tag.",
+          "keyPoints": [
+            "Responsive design is an approach, not a single technology",
+            "Media queries apply CSS at specific viewport sizes, often mobile-first",
+            "Flexbox and Grid are responsive by default with flexible units",
+            "The viewport meta tag is required for mobile layouts"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": "JavaScript Fundamentals",
+      "level": "BEGINNER",
+      "description": "The core language: values and types, functions, scope, arrays and objects, and responding to events in the page.",
+      "learningObjectives": [
+        "Values and types",
+        "Functions",
+        "Scope",
+        "Arrays and objects",
+        "DOM events"
+      ],
+      "explainBack": {
+        "question": "Explain the difference between let, const and var, and what a closure is.",
+        "rubric": [
+          "Explains that let and const are block-scoped while var is function-scoped",
+          "Explains that const prevents reassignment but not mutation of objects",
+          "Defines a closure as a function that keeps access to variables from its outer scope after that scope has finished",
+          "Gives a practical closure example (e.g. a counter or a function factory)"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Learn Closures In 7 Minutes",
+          "provider": "Web Dev Simplified",
+          "url": "https://www.youtube.com/watch?v=3a0I8ICR1Vg",
+          "description": "A short, example-driven explanation of closures.",
+          "keyPoints": [
+            "A closure lets a function use variables from where it was created",
+            "Inner functions keep access to outer variables after the outer function returns",
+            "Walks through practical closure examples"
+          ],
+          "videoId": "3a0I8ICR1Vg"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Variable scope, closure",
+          "provider": "The Modern JavaScript Tutorial (javascript.info)",
+          "url": "https://javascript.info/closure",
+          "description": "Block scope, lexical environments and how every JavaScript function closes over its surroundings.",
+          "keyPoints": [
+            "let and const are confined to the block they're declared in",
+            "Every function remembers the lexical environment it was created in",
+            "That's why inner functions can use outer variables later",
+            "Environments stay in memory while a function still references them"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "The old \"var\"",
+          "provider": "The Modern JavaScript Tutorial (javascript.info)",
+          "url": "https://javascript.info/var",
+          "description": "How var differs from let and const: function scope, hoisting and redeclaration.",
+          "keyPoints": [
+            "var ignores blocks and is scoped to the whole function",
+            "var declarations are hoisted to the top of the function",
+            "var can be redeclared; let cannot",
+            "Old code used IIFEs to fake block scope"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "const",
+          "provider": "MDN Web Docs",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const",
+          "description": "Reference for const: block-scoped, cannot be reassigned, but objects it points to can still change.",
+          "keyPoints": [
+            "const creates a block-scoped binding",
+            "A const binding can't be reassigned",
+            "Properties of a const object can still be added, changed or removed",
+            "const makes the binding constant, not the value"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "COURSE_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "The Modern JavaScript Tutorial",
+          "provider": "The Modern JavaScript Tutorial (javascript.info)",
+          "url": "https://javascript.info/",
+          "description": "A free, complete JavaScript tutorial from fundamentals through objects, data types, functions and browser events.",
+          "keyPoints": [
+            "Part 1 covers fundamentals, objects, data types and functions",
+            "Arrays and objects are covered in dedicated chapters",
+            "Part 2 covers the DOM and browser events",
+            "Free and open-source"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Asynchronous JavaScript",
+      "level": "BEGINNER",
+      "description": "Why JavaScript doesn't wait, how the event loop works, and how promises, async/await and fetch let you work with data that arrives later.",
+      "learningObjectives": [
+        "Event loop basics",
+        "Promises",
+        "async/await",
+        "fetch",
+        "Error handling"
+      ],
+      "explainBack": {
+        "question": "Why doesn't fetch return data immediately, and how do async/await make it easier to handle?",
+        "rubric": [
+          "Explains that network work is asynchronous and non-blocking",
+          "States that fetch returns a Promise",
+          "Explains that await pauses the async function until the Promise settles without blocking the main thread",
+          "Explains error handling with try/catch AND checking response.ok, because fetch does not reject on HTTP error statuses"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "What the heck is the event loop anyway? | Philip Roberts | JSConf EU",
+          "provider": "JSConf",
+          "url": "https://www.youtube.com/watch?v=8aGhZQkoFbQ",
+          "description": "The classic conference talk that visualises the call stack, browser APIs, the callback queue and the event loop.",
+          "keyPoints": [
+            "JavaScript runs one thing at a time on a single call stack",
+            "Slow work is handed to browser APIs so the stack stays free",
+            "Finished callbacks wait in a queue until the stack is empty",
+            "Blocking the stack freezes the page"
+          ],
+          "videoId": "8aGhZQkoFbQ"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Promise",
+          "provider": "The Modern JavaScript Tutorial (javascript.info)",
+          "url": "https://javascript.info/promise-basics",
+          "description": "What a promise is, its states, and how then, catch and finally handle results.",
+          "keyPoints": [
+            "A promise starts pending and settles once, as fulfilled or rejected",
+            "then() attaches handlers for success and failure",
+            "catch() handles errors; finally() runs cleanup either way"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Async/await",
+          "provider": "The Modern JavaScript Tutorial (javascript.info)",
+          "url": "https://javascript.info/async-await",
+          "description": "How async functions and await make promise-based code read top to bottom, including error handling.",
+          "keyPoints": [
+            "async functions always return a promise",
+            "await pauses the function until the promise settles, without blocking the engine",
+            "A rejected promise makes await throw, so use try/catch",
+            "Top-level await only works in modules"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Using the Fetch API",
+          "provider": "MDN Web Docs",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch",
+          "description": "How to make requests with fetch, read responses, and handle both network and HTTP errors.",
+          "keyPoints": [
+            "fetch returns a Promise that resolves to a Response",
+            "fetch does not reject on HTTP errors like 404, so check response.ok",
+            "Wrap calls in try/catch to handle network failures",
+            "Reading the body (json(), text()) is also asynchronous"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "The Async Await Episode I Promised",
+          "provider": "Fireship",
+          "url": "https://www.youtube.com/watch?v=vn3tm0quoqE",
+          "description": "A fast, code-heavy tour of promises and async/await, including common mistakes.",
+          "keyPoints": [
+            "Shows how promises chain",
+            "Rewrites promise chains with async/await",
+            "Covers error handling and running promises concurrently"
+          ],
+          "videoId": "vn3tm0quoqE"
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "title": "TypeScript Essentials",
+      "level": "BEGINNER",
+      "description": "Why typed JavaScript catches bugs before they run, and the everyday types, unions, narrowing and generics you'll use constantly.",
+      "learningObjectives": [
+        "Basic and object types",
+        "Interfaces and type aliases",
+        "Union types",
+        "Narrowing",
+        "Generics basics"
+      ],
+      "explainBack": {
+        "question": "What problem does TypeScript solve, and how does narrowing work on a union type?",
+        "rubric": [
+          "Explains that static type checking catches type errors before the code runs",
+          "Explains that types are erased at compile time and don't exist at runtime",
+          "Explains that a union type means a value can be one of several types",
+          "Explains narrowing (typeof, in, or a discriminant property) letting TypeScript know the specific type inside a branch"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "TypeScript Tutorial for Beginners",
+          "provider": "Programming with Mosh",
+          "url": "https://www.youtube.com/watch?v=d56mG7DezGs",
+          "description": "A beginner-friendly video course introducing TypeScript's type system and tooling.",
+          "keyPoints": [
+            "Why TypeScript exists and how it compiles to JavaScript",
+            "Basic types, arrays, tuples and objects",
+            "Type aliases, unions and optional values"
+          ],
+          "videoId": "d56mG7DezGs"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "The Basics",
+          "provider": "TypeScript Documentation",
+          "url": "https://www.typescriptlang.org/docs/handbook/2/basic-types.html",
+          "description": "The official handbook's introduction to static type checking, and how types are erased when compiling.",
+          "keyPoints": [
+            "TypeScript catches errors like calling a non-function before the code runs",
+            "It flags typos and missing properties",
+            "Type annotations are removed when compiling to JavaScript",
+            "Strictness can be tuned for gradual adoption"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Everyday Types",
+          "provider": "TypeScript Documentation",
+          "url": "https://www.typescriptlang.org/docs/handbook/2/everyday-types.html",
+          "description": "The types you'll use daily: primitives, objects, unions, type aliases and interfaces.",
+          "keyPoints": [
+            "Primitive types mirror JavaScript's typeof results",
+            "Object types can have optional properties",
+            "Union types combine several possible types with |",
+            "Type aliases and interfaces both describe shapes; interfaces can be extended by merging"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Narrowing",
+          "provider": "TypeScript Documentation",
+          "url": "https://www.typescriptlang.org/docs/handbook/2/narrowing.html",
+          "description": "How TypeScript narrows a union to a specific type using control flow checks.",
+          "keyPoints": [
+            "typeof checks narrow primitive unions",
+            "The in operator narrows by property presence",
+            "Discriminated unions narrow using a shared literal property",
+            "TypeScript tracks narrowing through control flow"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Generics",
+          "provider": "TypeScript Documentation",
+          "url": "https://www.typescriptlang.org/docs/handbook/2/generics.html",
+          "description": "Writing reusable functions and types with type parameters instead of any.",
+          "keyPoints": [
+            "Type parameters keep type information instead of falling back to any",
+            "extends constrains what a generic type must have",
+            "Interfaces and classes can be generic too"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "title": "React Fundamentals",
+      "level": "INTERMEDIATE",
+      "description": "Building UIs from components: JSX, props, rendering lists with keys, conditional rendering, and how data flows down the tree.",
+      "learningObjectives": [
+        "Components and JSX",
+        "Props",
+        "Rendering lists and keys",
+        "One-way data flow",
+        "Conditional rendering"
+      ],
+      "explainBack": {
+        "question": "What are props, and why does React need a key when rendering a list?",
+        "rubric": [
+          "Explains props as read-only inputs passed from a parent component to a child",
+          "Explains that data flows down the component tree",
+          "Explains that keys give list items a stable identity across renders",
+          "Explains why using the array index as a key breaks when items are reordered or inserted"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "React JS 19 Full Course 2025 | Build an App and Master React in 2 Hours",
+          "provider": "JavaScript Mastery",
+          "url": "https://www.youtube.com/watch?v=dCLhUialKPQ",
+          "description": "A project-based React 19 course that builds an app while introducing components, props, state and hooks.",
+          "keyPoints": [
+            "Components and JSX in React 19",
+            "Passing data with props",
+            "Rendering lists and conditional UI",
+            "Builds a complete app along the way"
+          ],
+          "videoId": "dCLhUialKPQ"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Describing the UI",
+          "provider": "React (react.dev)",
+          "url": "https://react.dev/learn/describing-the-ui",
+          "description": "The official chapter covering components, JSX, props, conditional rendering, lists and purity.",
+          "keyPoints": [
+            "Components are functions that return markup",
+            "JSX rules and embedding JavaScript with curly braces",
+            "Conditional rendering with if, && and ternaries",
+            "Rendering lists with map() and keys"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Passing Props to a Component",
+          "provider": "React (react.dev)",
+          "url": "https://react.dev/learn/passing-props-to-a-component",
+          "description": "How parents pass data to children with props, and why props are read-only.",
+          "keyPoints": [
+            "Parents pass information to children through props",
+            "Props are immutable snapshots; each render gets new props",
+            "To change props, the parent must pass different ones",
+            "Use state, not props, for interactivity"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Rendering Lists",
+          "provider": "React (react.dev)",
+          "url": "https://react.dev/learn/rendering-lists",
+          "description": "Rendering arrays with map and filter, and why every list item needs a stable key.",
+          "keyPoints": [
+            "Keys let React match list items between renders",
+            "Index keys cause bugs when items are inserted, removed or reordered",
+            "Don't generate keys on the fly (e.g. Math.random())",
+            "Use stable IDs from your data"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "COURSE_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Tutorial: Tic-Tac-Toe",
+          "provider": "React (react.dev)",
+          "url": "https://react.dev/learn/tutorial-tic-tac-toe",
+          "description": "The official hands-on tutorial: build a game while learning components, props, state and lifting state up.",
+          "keyPoints": [
+            "Build reusable components that pass data through props",
+            "Manage state with useState",
+            "Lift state up to a parent to share it",
+            "Use immutability to add time travel"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Hooks & State",
+      "level": "INTERMEDIATE",
+      "description": "Making components remember things with useState, syncing with the outside world with useEffect, and knowing when you don't need an effect at all.",
+      "learningObjectives": [
+        "useState",
+        "useEffect and dependency arrays",
+        "Effect cleanup",
+        "Lifting state up",
+        "Derived state"
+      ],
+      "explainBack": {
+        "question": "Why does useEffect need a dependency array?",
+        "rubric": [
+          "Explains that effects run after render",
+          "Explains that the array lists the values the effect depends on, and the effect re-runs when one of them changes",
+          "Explains that an empty array means the effect runs after mount only, with cleanup on unmount",
+          "Explains that missing dependencies cause stale values",
+          "Explains the purpose of the cleanup function"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Learn useEffect In 13 Minutes",
+          "provider": "Web Dev Simplified",
+          "url": "https://www.youtube.com/watch?v=0ZJgIjIuY7U",
+          "description": "A focused explanation of useEffect, its dependency array and cleanup.",
+          "keyPoints": [
+            "Effects run after the component renders",
+            "The dependency array controls when the effect re-runs",
+            "An empty array runs the effect once after mount",
+            "Return a cleanup function to undo the effect"
+          ],
+          "videoId": "0ZJgIjIuY7U"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "State: A Component's Memory",
+          "provider": "React (react.dev)",
+          "url": "https://react.dev/learn/state-a-components-memory",
+          "description": "Why regular variables don't survive re-renders and how useState gives components memory.",
+          "keyPoints": [
+            "State persists between renders; local variables don't",
+            "useState returns the value and a setter that triggers a re-render",
+            "Hooks rely on call order, so call them at the top level"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Synchronizing with Effects",
+          "provider": "React (react.dev)",
+          "url": "https://react.dev/learn/synchronizing-with-effects",
+          "description": "What effects are for, when they run, how dependencies control re-running, and why cleanup matters.",
+          "keyPoints": [
+            "Effects run after rendering, to sync with systems outside React",
+            "React skips an effect when its dependencies haven't changed",
+            "An empty array runs the effect once when the component appears",
+            "Cleanup runs before the next effect and on unmount"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Lifecycle of Reactive Effects",
+          "provider": "React (react.dev)",
+          "url": "https://react.dev/learn/lifecycle-of-reactive-effects",
+          "description": "Why every reactive value an effect reads must be a dependency, and the bugs you get when one is missing.",
+          "keyPoints": [
+            "Props, state and component variables are reactive",
+            "Every reactive value an effect uses must be a dependency",
+            "Missing dependencies leave the effect using stale values",
+            "The linter checks dependencies for you"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Sharing State Between Components",
+          "provider": "React (react.dev)",
+          "url": "https://react.dev/learn/sharing-state-between-components",
+          "description": "Lifting state up to the closest common parent so components stay in sync.",
+          "keyPoints": [
+            "Move shared state to the closest common parent",
+            "Pass the value down as props",
+            "Pass event handlers down so children can request changes"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "You Might Not Need an Effect",
+          "provider": "React (react.dev)",
+          "url": "https://react.dev/learn/you-might-not-need-an-effect",
+          "description": "When to compute values during render instead of storing them in state or syncing them with an effect.",
+          "keyPoints": [
+            "Calculate values from props and state during render instead of storing them",
+            "Redundant state gets out of sync and causes bugs",
+            "Use useMemo only for expensive calculations"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "title": "Next.js App Router & Rendering",
+      "level": "INTERMEDIATE",
+      "description": "File-based routing, layouts, Server and Client Components, and how Next.js decides whether a route renders statically or per request.",
+      "learningObjectives": [
+        "File-based routing",
+        "Layouts",
+        "Server vs Client Components",
+        "Static vs dynamic rendering",
+        "Loading and error files"
+      ],
+      "explainBack": {
+        "question": "What is the difference between a Server Component and a Client Component, and when does a route render statically versus dynamically?",
+        "rubric": [
+          "Explains that Server Components render on the server and ship no component JavaScript to the browser",
+          "Explains that Client Components ('use client') are needed for state, effects and event handlers, and are hydrated in the browser",
+          "Explains that a route renders statically when it uses no request-time data",
+          "Explains that a route renders dynamically when it uses request data such as cookies, headers or searchParams"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Next.js 15 Tutorial - 52 - Server and Client Components",
+          "provider": "Codevolution",
+          "url": "https://www.youtube.com/watch?v=dMCSiA5gzkU",
+          "description": "A focused lesson from a well-known Next.js series on when to use Server vs Client Components.",
+          "keyPoints": [
+            "Components are Server Components by default in the App Router",
+            "'use client' marks a Client Component boundary",
+            "Client Components are needed for state and interactivity"
+          ],
+          "videoId": "dMCSiA5gzkU"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Layouts and Pages",
+          "provider": "Next.js Documentation",
+          "url": "https://nextjs.org/docs/app/getting-started/layouts-and-pages",
+          "description": "File-system routing in the App Router: pages, layouts, nested routes and dynamic segments. (Docs v16.3.7)",
+          "keyPoints": [
+            "Folders define route segments; page files make them public",
+            "Layouts are shared UI that keep state across navigations",
+            "[slug] folders create dynamic segments",
+            "Reading searchParams opts a page into dynamic rendering"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Server and Client Components",
+          "provider": "Next.js Documentation",
+          "url": "https://nextjs.org/docs/app/getting-started/server-and-client-components",
+          "description": "When to use Server vs Client Components, how they render, and how hydration works. (Docs v16.3.7)",
+          "keyPoints": [
+            "Layouts and pages are Server Components by default",
+            "Use Client Components for state, event handlers, effects and browser APIs",
+            "Server Components reduce the JavaScript sent to the browser",
+            "Hydration attaches event handlers to server-rendered HTML"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Static and Dynamic Rendering",
+          "provider": "Next.js Learn",
+          "url": "https://nextjs.org/learn/dashboard-app/static-and-dynamic-rendering",
+          "description": "The official course chapter defining static vs dynamic rendering and what makes a route dynamic.",
+          "keyPoints": [
+            "Static rendering happens at build time or on revalidation and is served to everyone",
+            "Dynamic rendering happens per request",
+            "Request-time information like cookies or URL parameters makes a route dynamic",
+            "Static is faster and cheaper; dynamic enables per-user data"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Error Handling",
+          "provider": "Next.js Documentation",
+          "url": "https://nextjs.org/docs/app/getting-started/error-handling",
+          "description": "Expected errors, error.js boundaries, notFound(), and global-error. (Docs v16.3.6)",
+          "keyPoints": [
+            "Model expected errors as return values",
+            "error.js files are client-side error boundaries per route segment",
+            "notFound() plus not-found.js shows a 404 UI",
+            "global-error.js handles errors in the root layout"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "COURSE_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "App Router: Next.js Foundations course",
+          "provider": "Next.js Learn",
+          "url": "https://nextjs.org/learn/dashboard-app",
+          "description": "The official free course that builds a full-stack dashboard with the App Router.",
+          "keyPoints": [
+            "Routing with nested layouts and pages",
+            "Data fetching and streaming with loading states",
+            "Server Actions, error handling and authentication",
+            "Builds a complete app end to end"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 9,
+      "title": "Data Mutations & Server Actions",
+      "level": "INTERMEDIATE",
+      "description": "Handling forms with Server Actions, validating input on the server, refreshing data after a change, and showing pending and error states.",
+      "learningObjectives": [
+        "Forms",
+        "Server Actions",
+        "Server-side validation",
+        "Revalidation and redirects",
+        "Pending and error states"
+      ],
+      "explainBack": {
+        "question": "How does a Server Action handle a form submission, and why must you still validate input on the server?",
+        "rubric": [
+          "Explains that a 'use server' function runs on the server and can be a form's action, without writing a separate API route",
+          "Explains that client input is untrusted and must be validated on the server (e.g. with a schema)",
+          "Explains revalidating or redirecting so the UI reflects the change",
+          "Explains showing pending and error states"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Next.js 15 Tutorial - 74 - Forms with Server Actions",
+          "provider": "Codevolution",
+          "url": "https://www.youtube.com/watch?v=xWFbnrTap3M",
+          "description": "A focused lesson on submitting forms to Server Actions in the App Router.",
+          "keyPoints": [
+            "A form's action can call a Server Action directly",
+            "Server Actions receive the submitted FormData",
+            "No separate API route is needed"
+          ],
+          "videoId": "xWFbnrTap3M"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How to create forms with Server Actions",
+          "provider": "Next.js Documentation",
+          "url": "https://nextjs.org/docs/app/guides/forms",
+          "description": "Forms with Server Actions: validation with Zod, useActionState error messages, pending states and optimistic updates. (Docs v16.3.6)",
+          "keyPoints": [
+            "Server Actions receive FormData from the form automatically",
+            "Validate on the server with a schema library like Zod",
+            "useActionState returns error state and a pending flag",
+            "Always check authentication inside each Server Action"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "'use server' directive",
+          "provider": "React (react.dev)",
+          "url": "https://react.dev/reference/rsc/use-server",
+          "description": "The React reference for Server Functions, including their security considerations.",
+          "keyPoints": [
+            "'use server' marks functions the client can call on the server",
+            "Server Functions can be passed to a form's action",
+            "Arguments are fully client-controlled, so treat them as untrusted",
+            "Check the user is allowed to perform the action"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Basic usage",
+          "provider": "Zod",
+          "url": "https://zod.dev/basics",
+          "description": "Defining a schema and validating data with parse and safeParse.",
+          "keyPoints": [
+            "Define schemas with z.object() and field types",
+            "parse() throws on invalid data",
+            "safeParse() returns success with data, or failure with errors, without throwing"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Mutating Data",
+          "provider": "Next.js Documentation",
+          "url": "https://nextjs.org/docs/app/getting-started/mutating-data",
+          "description": "The getting-started guide to Server Functions for creating, updating and deleting data.",
+          "keyPoints": [
+            "Server Functions run on the server and are invoked from forms or event handlers",
+            "Revalidate cached data after a mutation",
+            "Redirect after a successful mutation"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "COURSE_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Chapter 11: Mutating Data",
+          "provider": "Next.js Learn",
+          "url": "https://nextjs.org/learn/dashboard-app/mutating-data",
+          "description": "The official course chapter on Server Actions, revalidatePath and redirect.",
+          "keyPoints": [
+            "Create, update and delete records with Server Actions",
+            "revalidatePath clears cached data after a change",
+            "redirect sends the user on after submitting"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 10,
+      "title": "Databases & Prisma",
+      "level": "ADVANCED",
+      "description": "Modeling data as related tables, evolving the schema with migrations, querying related records, and avoiding the N+1 query problem.",
+      "learningObjectives": [
+        "Relational modeling",
+        "Relations and foreign keys",
+        "Migrations",
+        "Querying with relations",
+        "The N+1 problem"
+      ],
+      "explainBack": {
+        "question": "Why model data as related tables with foreign keys, and what is the N+1 query problem?",
+        "rubric": [
+          "Explains that relations avoid duplication and keep data consistent via foreign keys",
+          "Gives a one-to-many example",
+          "Explains that migrations version schema changes",
+          "Defines N+1 as one query for a list plus one query per item",
+          "Explains the fix: include relations, use a join, or batch queries"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Database Design Course - Learn how to design and plan a database for beginners",
+          "provider": "freeCodeCamp.org",
+          "url": "https://www.youtube.com/watch?v=ztHopE5Wnpc",
+          "description": "A beginner course on designing relational databases: keys, relationships and normalization.",
+          "keyPoints": [
+            "Tables, rows and columns",
+            "Primary and foreign keys",
+            "One-to-one, one-to-many and many-to-many relationships",
+            "Normalization to avoid duplicate data"
+          ],
+          "videoId": "ztHopE5Wnpc"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "One-to-many relations (Prisma ORM v6)",
+          "provider": "Prisma Documentation (ORM v6)",
+          "url": "https://www.prisma.io/docs/orm/v6/prisma-schema/data-model/relations/one-to-many-relations",
+          "description": "Defining one-to-many relations in schema.prisma with a relation field and a foreign-key scalar.",
+          "keyPoints": [
+            "A one-to-many relation links one record to many others (one user, many posts)",
+            "The child model stores the foreign key (e.g. authorId)",
+            "@relation(fields: [...], references: [...]) connects the foreign key to the parent's id"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Getting started with Prisma Migrate (Prisma ORM v6)",
+          "provider": "Prisma Documentation (ORM v6)",
+          "url": "https://www.prisma.io/docs/orm/v6/prisma-migrate/getting-started",
+          "description": "Creating and applying migrations with prisma migrate dev.",
+          "keyPoints": [
+            "prisma migrate dev creates a timestamped SQL migration file",
+            "The migration is applied to the database in the same step",
+            "Migration files are committed to version history"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Relation queries (Prisma ORM v6)",
+          "provider": "Prisma Documentation (ORM v6)",
+          "url": "https://www.prisma.io/docs/orm/v6/prisma-client/queries/relation-queries",
+          "description": "Reading related records with include and nested select.",
+          "keyPoints": [
+            "include returns related records with the parent",
+            "A nested select picks specific fields from related records",
+            "Related data can be loaded in a single query"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Query optimization (Prisma ORM v6)",
+          "provider": "Prisma Documentation (ORM v6)",
+          "url": "https://www.prisma.io/docs/orm/v6/prisma-client/queries/query-optimization-performance",
+          "description": "Diagnosing and fixing the N+1 problem in Prisma.",
+          "keyPoints": [
+            "N+1: one query for a list, then one more query per item",
+            "Fix it with nested reads (include)",
+            "The fluent API batches findUnique calls in the same tick",
+            "relationLoadStrategy: 'join' loads everything in one query"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 11,
+      "title": "Authentication & Sessions",
+      "level": "ADVANCED",
+      "description": "Storing passwords safely, the trade-offs between sessions and JWTs, how OAuth sign-in works, and protecting routes on the server.",
+      "learningObjectives": [
+        "Password hashing",
+        "Sessions vs JWT",
+        "OAuth authorization code flow",
+        "Route protection"
+      ],
+      "explainBack": {
+        "question": "How should passwords be stored, and what is the difference between a session-based and a JWT-based login?",
+        "rubric": [
+          "Explains never storing plaintext: use a slow, salted, one-way hash (e.g. Argon2id or bcrypt) and compare on login",
+          "Explains that sessions keep state on the server and are easy to revoke",
+          "Explains that JWTs are signed tokens carrying claims, are stateless, and are hard to revoke before expiry",
+          "Explains protecting routes on the server, not only by hiding UI"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Session vs Token Authentication in 100 Seconds",
+          "provider": "Fireship",
+          "url": "https://www.youtube.com/watch?v=UBUNrFtufWo",
+          "description": "A very short comparison of session-based and token-based authentication.",
+          "keyPoints": [
+            "Sessions store login state on the server with an ID in a cookie",
+            "Tokens (JWTs) carry signed user data to the client",
+            "The trade-offs between the two approaches"
+          ],
+          "videoId": "UBUNrFtufWo"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Password Storage Cheat Sheet",
+          "provider": "OWASP Cheat Sheet Series",
+          "url": "https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html",
+          "description": "The security community's reference for storing passwords: hashing, salting and algorithm choice.",
+          "keyPoints": [
+            "Never store passwords in plaintext or with reversible encryption",
+            "Use a slow, salted, one-way hash",
+            "Argon2id is the first choice; bcrypt is acceptable for legacy systems",
+            "Hashing can't be reversed, unlike encryption"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Session Strategies",
+          "provider": "Auth.js",
+          "url": "https://authjs.dev/concepts/session-strategies",
+          "description": "Auth.js's comparison of JWT and database sessions, including revocation trade-offs.",
+          "keyPoints": [
+            "JWT sessions are stored client-side and need no database lookup",
+            "A JWT can't be expired early without a server-side blocklist",
+            "Database sessions can be changed or deleted at any time, enabling 'sign out everywhere'",
+            "Database sessions cost a lookup per request"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "OAuth 2.0 and OpenID Connect (in plain English)",
+          "provider": "OktaDev",
+          "url": "https://www.youtube.com/watch?v=996OiexHze0",
+          "description": "A widely recommended plain-English talk on how OAuth 2.0 and OpenID Connect work.",
+          "keyPoints": [
+            "Why OAuth replaced sharing passwords with third-party apps",
+            "The authorization code flow step by step",
+            "The difference between OAuth (authorization) and OpenID Connect (authentication)"
+          ],
+          "videoId": "996OiexHze0"
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Authorization Code Flow",
+          "provider": "Auth0 Docs",
+          "url": "https://auth0.com/docs/get-started/authentication-and-authorization-flow/authorization-code-flow",
+          "description": "How the authorization code flow works, step by step.",
+          "keyPoints": [
+            "The app redirects the user to the authorization server",
+            "The server redirects back to the app with a single-use authorization code",
+            "The app exchanges the code plus its client secret for tokens, server to server"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How to implement authentication in Next.js",
+          "provider": "Next.js Documentation",
+          "url": "https://nextjs.org/docs/app/guides/authentication",
+          "description": "Next.js's guide to sign-up and login, stateless vs database sessions, and authorization. (Docs v16.3.6)",
+          "keyPoints": [
+            "Validate credentials in Server Actions and hash passwords before storing",
+            "Stateless sessions live in signed cookies; database sessions store an ID",
+            "Proxy checks are optimistic and must not be the only line of defense",
+            "Check authorization in a Data Access Layer, Server Actions and Route Handlers"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 12,
+      "title": "Testing & Deployment",
+      "level": "ADVANCED",
+      "description": "What to test at each level, how a CI pipeline protects your main branch, keeping secrets out of your code, and shipping to production.",
+      "learningObjectives": [
+        "Testing pyramid",
+        "Unit, integration and end-to-end tests",
+        "Environment variables",
+        "CI/CD pipelines",
+        "Deploying"
+      ],
+      "explainBack": {
+        "question": "What would you test at the unit level versus end-to-end, and what does a CI pipeline do before a deploy?",
+        "rubric": [
+          "Explains that unit tests cover small isolated logic and are fast and numerous",
+          "Explains that end-to-end tests cover full user flows and are fewer and slower",
+          "Explains that CI runs lint, type-check, tests and build on each push and blocks a failing deploy",
+          "Explains that secrets live in environment variables, never in the repository"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Software Testing Explained in 100 Seconds",
+          "provider": "Fireship",
+          "url": "https://www.youtube.com/watch?v=u6QfIXgjwGQ",
+          "description": "A very short overview of automated testing and the main kinds of tests.",
+          "keyPoints": [
+            "Why automated tests matter",
+            "Unit, integration and end-to-end tests",
+            "Where each kind of test fits"
+          ],
+          "videoId": "u6QfIXgjwGQ"
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "DevOps CI/CD Explained in 100 Seconds",
+          "provider": "Fireship",
+          "url": "https://www.youtube.com/watch?v=scEDHsr3APg",
+          "description": "A very short explanation of continuous integration and delivery.",
+          "keyPoints": [
+            "Continuous integration runs checks on every change",
+            "Continuous delivery automates releasing",
+            "Pipelines catch problems before they reach users"
+          ],
+          "videoId": "scEDHsr3APg"
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "The Practical Test Pyramid",
+          "provider": "martinfowler.com",
+          "author": "Ham Vocke",
+          "url": "https://martinfowler.com/articles/practical-test-pyramid.html",
+          "description": "The widely cited guide to balancing unit, integration and end-to-end tests, and running them in a deployment pipeline.",
+          "keyPoints": [
+            "Write lots of small, fast unit tests",
+            "Write some coarser integration tests",
+            "Write very few high-level end-to-end tests",
+            "Order pipeline stages so the fastest tests fail first"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Quickstart for GitHub Actions",
+          "provider": "GitHub Docs",
+          "url": "https://docs.github.com/en/actions/get-started/quickstart",
+          "description": "Creating a first GitHub Actions workflow that runs automatically on every push.",
+          "keyPoints": [
+            "Workflows live as YAML files in .github/workflows",
+            "on: [push] runs the workflow on every push",
+            "Jobs run steps such as installing dependencies and running tests"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How to use environment variables in Next.js",
+          "provider": "Next.js Documentation",
+          "url": "https://nextjs.org/docs/app/guides/environment-variables",
+          "description": "Loading environment variables in Next.js and controlling which values reach the browser. (Docs v16.3.6)",
+          "keyPoints": [
+            "Next.js loads .env files into process.env on the server",
+            "Only NEXT_PUBLIC_ variables are inlined into the browser bundle",
+            ".env files are gitignored by default and almost never belong in the repo",
+            "NEXT_PUBLIC_ values are frozen at build time"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Deploying",
+          "provider": "Next.js Documentation",
+          "url": "https://nextjs.org/docs/app/getting-started/deploying",
+          "description": "Deployment options for a Next.js app: Node.js server, Docker, static export and platforms.",
+          "keyPoints": [
+            "Deploy as a Node.js server",
+            "Deploy in a Docker container",
+            "Static export for fully static sites",
+            "Deploy on managed platforms"
+          ]
+        }
+      ]
+    }
+  ],
+  "slug": "full-stack-web-development",
+  "name": "Full-Stack Web Development",
+  "description": "Build and ship modern web apps: the web platform, JavaScript and TypeScript, React, Next.js, databases, auth, testing and deployment.",
+  "status": "COMING_SOON"
+}

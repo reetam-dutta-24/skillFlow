@@ -1,7 +1,9 @@
 // prisma/seed.ts
 import bcrypt from "bcryptjs"
 import { PrismaClient } from "@prisma/client"
+import { prisma as catalogPrisma } from "../lib/prisma"
 import { EXTRA_NICHES } from "../lib/niche-catalog"
+import { importCatalog } from "../scripts/import-catalog"
 
 const prisma = new PrismaClient()
 
@@ -96,6 +98,8 @@ async function main() {
   }
 
   console.log("Admin accounts seeded.")
+
+  await importCatalog("full-stack-web-dev", { apply: true })
 }
 
 main()
@@ -103,4 +107,7 @@ main()
     console.error(e)
     process.exit(1)
   })
-  .finally(() => prisma.$disconnect())
+  .finally(async () => {
+    await prisma.$disconnect()
+    await catalogPrisma.$disconnect()
+  })

@@ -2736,15 +2736,44 @@ a.sf-path-card:hover {
   object-fit: cover;
   border-radius: var(--radius-btn);
 }
-.sf-stage-photo {
+.sf-stage-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 148px;
+  gap: 12px;
+  align-items: center;
+}
+.sf-stage-copy {
+  min-width: 0;
+}
+.sf-stage-desc,
+.sf-stage-meta {
+  margin: 4px 0 0;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+.sf-stage-desc {
+  font-size: var(--text-xs);
+  line-height: 1.4;
+  color: var(--text-muted);
+  -webkit-line-clamp: 2;
+}
+.sf-stage-meta {
+  font-size: var(--text-2xs);
+  color: var(--text-faint);
+  -webkit-line-clamp: 1;
+}
+.sf-stage-photo-wrap {
+  position: relative;
   display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  margin: 0 0 12px;
+  width: 148px;
+  height: 84px;
+  overflow: hidden;
   border-radius: var(--radius-btn);
   background: var(--surface-card);
+}
+.sf-stage-photo {
+  object-fit: cover;
 }
 .sf-roadmap-list,
 .sf-roadmap {
@@ -3563,6 +3592,14 @@ a.sf-source:hover {
   }
   .sf-roadmap-card {
     grid-template-columns: 1fr;
+  }
+  .sf-stage-body {
+    grid-template-columns: minmax(0, 1fr) 104px;
+    gap: 10px;
+  }
+  .sf-stage-photo-wrap {
+    width: 104px;
+    height: 64px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

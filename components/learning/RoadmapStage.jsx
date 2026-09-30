@@ -23,8 +23,8 @@ export function RoadmapStage({ index, title, image, description, status = "todo"
     position: "relative",
     flex: 1,
     minWidth: 0,
-    marginBottom: 16,
-    padding: "18px 20px",
+    marginBottom: 10,
+    padding: "12px 14px",
     overflow: "hidden",
     cursor: locked || (!open && !onOpen) ? "default" : "pointer",
     borderRadius: "var(--radius-card)",
@@ -36,18 +36,22 @@ export function RoadmapStage({ index, title, image, description, status = "todo"
   };
   const panel = (
     <>
-      <div style={{ filter: locked ? "var(--blur-lock)" : "none", opacity: locked ? 0.5 : 1, userSelect: locked ? "none" : "auto" }}>
-        {image ? (
-          <SkillImage className="sf-stage-photo" src={image} alt="" width={640} height={360} sizes="(max-width: 820px) 100vw, 640px" />
-        ) : null}
-        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
-          <span style={{ fontSize: "var(--text-2xs)", fontWeight: "var(--weight-semibold)", letterSpacing: "var(--tracking-wide)", textTransform: "uppercase", color: "var(--text-faint)" }}>Stage {index}</span>
-          {mastery != null && !locked ? <Chip tone="accent">{mastery}% mastery</Chip> : null}
-          {!locked ? <Chip tone={s.chip}>{s.label}</Chip> : null}
+      <div className="sf-stage-body" style={{ filter: locked ? "var(--blur-lock)" : "none", opacity: locked ? 0.5 : 1, userSelect: locked ? "none" : "auto" }}>
+        <div className="sf-stage-copy">
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+            <span style={{ fontSize: "var(--text-2xs)", fontWeight: "var(--weight-semibold)", letterSpacing: "var(--tracking-wide)", textTransform: "uppercase", color: "var(--text-faint)" }}>Stage {index}</span>
+            {mastery != null && !locked ? <Chip tone="accent">{mastery}% mastery</Chip> : null}
+            {!locked ? <Chip tone={s.chip}>{s.label}</Chip> : null}
+          </div>
+          <h3 style={{ margin: 0, fontSize: "var(--text-sm)", fontWeight: "var(--weight-semibold)", color: "var(--text-primary)" }}>{title}</h3>
+          {description ? <p className="sf-stage-desc">{description}</p> : null}
+          {meta ? <p className="sf-stage-meta">{meta}</p> : null}
         </div>
-        <h3 style={{ margin: 0, fontSize: "var(--text-subtitle)", fontWeight: "var(--weight-semibold)", color: "var(--text-primary)" }}>{title}</h3>
-        {description ? <p style={{ margin: "5px 0 0", fontSize: "var(--text-sm)", color: "var(--text-muted)", textWrap: "pretty" }}>{description}</p> : null}
-        {meta ? <p style={{ margin: "8px 0 0", fontSize: "var(--text-2xs)", color: "var(--text-faint)" }}>{meta}</p> : null}
+        {image ? (
+          <span className="sf-stage-photo-wrap">
+            <SkillImage className="sf-stage-photo" src={image} alt="" fill sizes="148px" />
+          </span>
+        ) : null}
       </div>
       {locked ? (
         <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8, padding: 20, textAlign: "center" }}>
@@ -59,7 +63,7 @@ export function RoadmapStage({ index, title, image, description, status = "todo"
   );
   return (
     <li style={{ display: "flex", gap: 16, listStyle: "none", ...style }} {...rest}>
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0, paddingTop: 20 }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0, paddingTop: 14 }}>
         <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 32, height: 32, borderRadius: "var(--radius-full)", background: status === "active" ? "var(--accent-quiet)" : "var(--surface-card)", border: "1px solid " + (status === "active" ? "var(--border-accent)" : "var(--border-subtle)") }}>
           <Icon name={s.icon} size={16} color={s.color} />
         </span>

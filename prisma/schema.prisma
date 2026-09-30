@@ -39,6 +39,16 @@ model User {
   reviewedResources  ResourceSubmission[] @relation("Reviewer")
 
   learnerProfile LearnerProfile?
+
+  communityContributions CommunityContribution[] @relation("CommunityAuthor")
+  mergedContributions    CommunityContribution[] @relation("CommunityMerger")
+  contributionReviews    ContributionReview[]    @relation("CommunityReviewer")
+  usefulMarks            UsefulMark[]
+  contributionViews      ContributionView[]
+  communityMemberships   CommunityMembership[]
+  communityRoles         CommunityRole[]         @relation("CommunityMemberRole")
+  grantedCommunityRoles  CommunityRole[]         @relation("CommunityRoleGranter")
+  gapReports             GapReport[]
 }
 
 model LearnerProfile {
@@ -134,6 +144,11 @@ model Skill {
   stages       RoadmapStage[]
   userProgress UserSkillProgress[]
 
+  communityContributions CommunityContribution[]
+  communityMemberships   CommunityMembership[]
+  communityRoles         CommunityRole[]
+  gapReports             GapReport[]
+
   createdAt DateTime @default(now())
 }
 
@@ -155,6 +170,8 @@ model RoadmapStage {
   quiz              Quiz?
   explainBackPrompt ExplainBackPrompt?
   stageCompletions  StageCompletion[]
+  communityContributions CommunityContribution[]
+  gapReports             GapReport[]
 
   @@unique([skillId, order])
 }
@@ -338,4 +355,193 @@ model StageCompletion {
   stage RoadmapStage @relation(fields: [stageId], references: [id], onDelete: Cascade)
 
   @@unique([userId, stageId])
+}
+
+// ── OPEN SOURCE COMMUNITY ──────────────────────
+// Separate from Resource and ResourceSubmission. Nothing here is the official catalog.
+
+enum ContributionType {
+  RESOURCE
+  CONCEPT_NOTE
+  LEARNING_PATH
+  FOLLOW
+}
+
+enum ContributionStatus {
+  OPEN
+  CHANGES_REQUESTED
+  MERGED
+  CLOSED
+}
+
+enum Disclosure {
+  NONE
+  I_MADE_THIS
+  AFFILIATE_OR_SPONSORED
+}
+
+enum ReviewDecision {
+  APPROVE
+  REQUEST_CHANGES
+  CLOSE
+}
+
+enum ReviewReason {
+  OFF_TOPIC
+  LOW_QUALITY
+  DUPLICATE
+  BROKEN_LINK
+  UNDISCLOSED_PROMOTION
+  INACCURATE
+  OTHER
+}
+
+enum CommunityRoleType {
+  REVIEWER
+  MAINTAINER
+}
+
+enum GapStatus {
+  OPEN
+  RESOLVED
+  CLOSED
+}
+
+enum LinkCheckStatus {
+  OK
+  UNREACHABLE
+  NOT_CHECKED
+}
+
+model CommunityContribution {
+  id            String             @id @default(cuid())
+  skillId       String
+  authorId      String?
+  type          ContributionType
+  status        ContributionStatus @default(OPEN)
+  title         String
+  summary       String
+  body          String?            @db.Text
+  imageUrl      String?
+  url           String?
+  normalizedUrl String?
+  sources       String[]           @default([])
+  steps         Json?
+  tags          String[]           @default([])
+  stageId       String?
+  disclosure    Disclosure
+  gapId         String?
+  linkStatus    LinkCheckStatus    @default(NOT_CHECKED)
+  linkCheckedAt DateTime?
+  usefulCount   Int                @default(0)
+  viewCount     Int                @default(0)
+  revision      Int                @default(1)
+  mergedAt      DateTime?
+  mergedById    String?
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+
+  skill       Skill          @relation(fields: [skillId], references: [id], onDelete: Cascade)
+  author      User?          @relation("CommunityAuthor", fields: [authorId], references: [id], onDelete: SetNull)
+  stage       RoadmapStage?  @relation(fields: [stageId], references: [id], onDelete: SetNull)
+  gap         GapReport?     @relation("GapCited", fields: [gapId], references: [id], onDelete: SetNull)
+  mergedBy    User?          @relation("CommunityMerger", fields: [mergedById], references: [id], onDelete: SetNull)
+  reviews     ContributionReview[]
+  usefulMarks UsefulMark[]
+  views       ContributionView[]
+  resolvedGap GapReport?     @relation("GapResolvedBy")
+
+  @@unique([skillId, normalizedUrl])
+  @@index([skillId, status, mergedAt])
+  @@index([skillId, status, usefulCount])
+  @@index([authorId, createdAt])
+  @@index([status, createdAt])
+}
+
+model ContributionReview {
+  id             String         @id @default(cuid())
+  contributionId String
+  reviewerId     String?
+  decision       ReviewDecision
+  reason         ReviewReason?
+  feedback       String?        @db.Text
+  revision       Int
+  createdAt      DateTime       @default(now())
+
+  contribution CommunityContribution @relation(fields: [contributionId], references: [id], onDelete: Cascade)
+  reviewer     User?                 @relation("CommunityReviewer", fields: [reviewerId], references: [id], onDelete: SetNull)
+
+  @@index([contributionId, createdAt])
+}
+
+model UsefulMark {
+  userId         String
+  contributionId String
+  createdAt      DateTime @default(now())
+
+  user         User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  contribution CommunityContribution @relation(fields: [contributionId], references: [id], onDelete: Cascade)
+
+  @@id([userId, contributionId])
+}
+
+model ContributionView {
+  userId         String
+  contributionId String
+  createdAt      DateTime @default(now())
+
+  user         User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  contribution CommunityContribution @relation(fields: [contributionId], references: [id], onDelete: Cascade)
+
+  @@id([userId, contributionId])
+}
+
+model CommunityMembership {
+  userId     String
+  skillId    String
+  joinedAt   DateTime @default(now())
+  lastSeenAt DateTime @default(now())
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  skill Skill @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  @@id([userId, skillId])
+  @@index([skillId])
+}
+
+model CommunityRole {
+  id          String            @id @default(cuid())
+  userId      String
+  skillId     String
+  role        CommunityRoleType
+  grantedById String?
+  createdAt   DateTime          @default(now())
+
+  user      User  @relation("CommunityMemberRole", fields: [userId], references: [id], onDelete: Cascade)
+  skill     Skill @relation(fields: [skillId], references: [id], onDelete: Cascade)
+  grantedBy User? @relation("CommunityRoleGranter", fields: [grantedById], references: [id], onDelete: SetNull)
+
+  @@unique([userId, skillId, role])
+}
+
+model GapReport {
+  id                       String    @id @default(cuid())
+  skillId                  String
+  stageId                  String?
+  authorId                 String?
+  title                    String
+  description              String    @db.Text
+  status                   GapStatus @default(OPEN)
+  goodFirst                Boolean   @default(false)
+  resolvedByContributionId String?   @unique
+  createdAt                DateTime  @default(now())
+  updatedAt                DateTime  @updatedAt
+
+  skill      Skill                   @relation(fields: [skillId], references: [id], onDelete: Cascade)
+  stage      RoadmapStage?           @relation(fields: [stageId], references: [id], onDelete: SetNull)
+  author     User?                   @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  citations  CommunityContribution[] @relation("GapCited")
+  resolvedBy CommunityContribution?  @relation("GapResolvedBy", fields: [resolvedByContributionId], references: [id], onDelete: SetNull)
+
+  @@index([skillId, status, createdAt])
 }

@@ -1,17 +1,16 @@
 import type { Metadata } from "next";
-import { SkillImage } from "@/components/core/SkillImage";
+import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { getDashboardData } from "@/lib/data/dashboard";
 import type { LessonLaneStatus } from "@/lib/types/pages";
 import { Icon } from "@/components/core/Icon.jsx";
-import { Button } from "@/components/core/Button.jsx";
 import { StatCard } from "@/components/core/StatCard.jsx";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
 import { LessonCard } from "@/components/learning/LessonCard.jsx";
 import { SkillRow } from "@/components/learning/SkillRow.jsx";
 import { StreakBanner } from "@/components/learning/StreakBanner.jsx";
-import { AddSkillButton } from "./_components/AddSkillButton";
+import { NicheGrid, NicheTeaserFallback } from "../skills/_components/NicheGrid";
 
 function cardStatus(status: LessonLaneStatus) {
   if (status === "done") return "done" as const;
@@ -128,34 +127,9 @@ export default async function DashboardPage() {
       </section>
       <section className="sf-dash-block" aria-labelledby="dash-explore">
         <h2 id="dash-explore">Explore</h2>
-        <ul className="sf-explore">
-          {data.catalog
-            .filter((skill) => !skill.followed)
-            .map((skill) => {
-              const image = skill.image;
-              const soon = skill.status === "coming_soon";
-              return (
-                <li key={skill.id}>
-                  <article className="sf-explore-card">
-                    {image ? (
-                      <SkillImage className="sf-explore-photo" src={image} alt="" width={480} height={270} sizes="(max-width: 640px) 100vw, (max-width: 960px) 50vw, 320px" />
-                    ) : null}
-                    <div>
-                      <h3>{skill.name}</h3>
-                      {skill.description ? <p>{skill.description}</p> : null}
-                    </div>
-                    {soon ? (
-                      <Button type="button" variant="quiet" size="sm" disabled>
-                        Coming soon
-                      </Button>
-                    ) : (
-                      <AddSkillButton />
-                    )}
-                  </article>
-                </li>
-              );
-            })}
-        </ul>
+        <Suspense fallback={<NicheTeaserFallback />}>
+          <NicheGrid mode="teaser" />
+        </Suspense>
       </section>
     </div>
   );

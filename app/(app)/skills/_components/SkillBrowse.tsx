@@ -6,6 +6,7 @@ import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Icon } from "@/components/core/Icon.jsx";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
+import { NICHE_PAGE_SIZE, NICHE_TEASER_CLEAR, NICHE_TEASER_PEEK } from "./niche-layout";
 
 const FILTERS = [
   { id: "all", label: "All" },
@@ -70,17 +71,60 @@ function matches(skill: BrowseSkill, query: string, filter: FilterId) {
     .every((token) => haystack.includes(token));
 }
 
-export function SkillBrowse({ skills }: { skills: BrowseSkill[] }) {
+export function SkillBrowse({ skills, mode = "page" }: { skills: BrowseSkill[]; mode?: "page" | "teaser" }) {
   const reduce = useReducedMotion();
   const resultsRef = useRef<HTMLDivElement>(null);
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<FilterId>("all");
+  const [page, setPage] = useState(1);
   const filtered = useMemo(() => skills.filter((skill) => matches(skill, query, filter)), [skills, query, filter]);
+  const pageCount = Math.max(1, Math.ceil(filtered.length / NICHE_PAGE_SIZE));
+  const current = Math.min(page, pageCount);
+  const start = (current - 1) * NICHE_PAGE_SIZE;
+  const visible = mode === "page" ? filtered.slice(start, start + NICHE_PAGE_SIZE) : skills.slice(0, NICHE_TEASER_CLEAR);
+  const peek = mode === "teaser" ? skills.slice(NICHE_TEASER_CLEAR, NICHE_TEASER_CLEAR + NICHE_TEASER_PEEK) : [];
 
   function search(value: string) {
     setQuery(value);
+    setPage(1);
     resultsRef.current?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "nearest" });
   }
+
+  function goTo(next: number) {
+    setPage(next);
+    resultsRef.current?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "nearest" });
+  }
+
+  if (mode === "teaser") {
+    return (
+      <div className="sf-niche-teaser">
+        <ul className="sf-browse-grid">
+          {visible.map((skill) => (
+            <li key={skill.id}>
+              <SkillCard skill={skill} />
+            </li>
+          ))}
+        </ul>
+        {peek.length > 0 ? (
+          <div className="sf-niche-peek" aria-hidden="true">
+            <ul className="sf-browse-grid" inert>
+              {peek.map((skill) => (
+                <li key={skill.id}>
+                  <SkillCard skill={skill} preview />
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+        <p className="sf-niche-explore">
+          <Link href="/skills">Explore all the niches</Link>
+        </p>
+      </div>
+    );
+  }
+
+  const rangeStart = filtered.length === 0 ? 0 : start + 1;
+  const rangeEnd = Math.min(start + NICHE_PAGE_SIZE, filtered.length);
 
   return (
     <div className="sf-browse-body">
@@ -109,7 +153,10 @@ export function SkillBrowse({ skills }: { skills: BrowseSkill[] }) {
               type="button"
               aria-pressed={filter === item.id}
               className={filter === item.id ? "is-on" : undefined}
-              onClick={() => setFilter(item.id)}
+              onClick={() => {
+                setFilter(item.id);
+                setPage(1);
+              }}
             >
               {item.label}
             </button>
@@ -117,9 +164,11 @@ export function SkillBrowse({ skills }: { skills: BrowseSkill[] }) {
         </div>
       </div>
       <p className="sf-browse-count" aria-live="polite">
-        {filtered.length === skills.length
-          ? `${skills.length} skills`
-          : `${filtered.length} of ${skills.length} match`}
+        {filtered.length === 0
+          ? `0 of ${skills.length} match`
+          : filtered.length === skills.length
+            ? `Showing ${rangeStart}–${rangeEnd} of ${skills.length}`
+            : `Showing ${rangeStart}–${rangeEnd} of ${filtered.length} matches`}
       </p>
       <div ref={resultsRef}>
         {filtered.length === 0 ? (
@@ -132,7 +181,7 @@ export function SkillBrowse({ skills }: { skills: BrowseSkill[] }) {
         ) : (
           <motion.ul className="sf-browse-grid" layout>
             <AnimatePresence mode="popLayout">
-              {filtered.map((skill, index) => (
+              {visible.map((skill, index) => (
                 <motion.li
                   key={skill.id}
                   layout
@@ -148,12 +197,36 @@ export function SkillBrowse({ skills }: { skills: BrowseSkill[] }) {
             </AnimatePresence>
           </motion.ul>
         )}
+        {filtered.length > NICHE_PAGE_SIZE ? (
+          <nav className="sf-browse-pages" aria-label="Niche pages">
+            <button type="button" onClick={() => goTo(current - 1)} disabled={current === 1}>
+              Previous
+            </button>
+            {Array.from({ length: pageCount }, (_, index) => {
+              const number = index + 1;
+              return (
+                <button
+                  key={number}
+                  type="button"
+                  aria-current={number === current ? "page" : undefined}
+                  aria-label={`Page ${number}`}
+                  onClick={() => goTo(number)}
+                >
+                  {number}
+                </button>
+              );
+            })}
+            <button type="button" onClick={() => goTo(current + 1)} disabled={current === pageCount}>
+              Next
+            </button>
+          </nav>
+        ) : null}
       </div>
     </div>
   );
 }
 
-function SkillCard({ skill }: { skill: BrowseSkill }) {
+function SkillCard({ skill, preview = false }: { skill: BrowseSkill; preview?: boolean }) {
   const followedIds = useContext(FollowedIdsContext);
   const followed = followedIds ? followedIds.has(skill.id) : skill.followed;
   const view = followed === skill.followed ? skill : { ...skill, followed };
@@ -187,8 +260,8 @@ function SkillCard({ skill }: { skill: BrowseSkill }) {
     </>
   );
 
-  if (!view.href) {
-    return <article className="sf-skill-tile is-soon">{body}</article>;
+  if (preview || !view.href) {
+    return <article className={view.href ? "sf-skill-tile" : "sf-skill-tile is-soon"}>{body}</article>;
   }
 
   return (

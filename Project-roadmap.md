@@ -28,7 +28,7 @@ Last aligned with the working tree on 30 September 2026.
 | Lessons and clips | Done for stored resources | The player reads `Resource` rows. YouTube watch links are rewritten into an embed |
 | Admin catalog and submissions | Done | An admin can edit stages and resources, and an approval creates a resource |
 | Caching | Done for shared catalog | Niche grid, lessons, clips, and the submit picker are one cached copy. Progress and the account menu stay per person |
-| Settings follow | Done | Add and remove on the settings page write `UserSkillProgress`. The Add button on Home does not |
+| Settings follow | Done | Add and remove on the settings page write `UserSkillProgress`. Home links to the niche list instead of a fake Add |
 | Quiz and explain-back AI | Not started | Prompts are stored. No quiz questions exist. The explain-back screen still reads mock data |
 | Unlock by mastery | Not in Version 1 | A free path locks its last three stages. A pass does not open the next one |
 | Tests, deploy, monitoring | Not started | No test suite, no production host, no Sentry |
@@ -93,6 +93,8 @@ Signed-in pages are not fully static. Follow marks, mastery, and the account men
 
 The lifetime is `cacheLife("hours")`. The tag is `catalog` (`lib/cache/tags.ts`). An admin catalog save and an approved submission call `invalidateCatalog()`, which is `updateTag`, so the edit shows up immediately. A catalog import run from a script cannot call `updateTag`. That change shows up when the hour-long cache refreshes.
 
+The niches page does not cache each page separately. It caches the full list once, then the browser shows 4 columns by 8 rows (32 cards) and turns the page locally. Home and the roadmap index use a second cached render of that same catalog: 4 columns by 3 rows, a blurred peek of the next row, and a link to `/skills`.
+
 Progress, streaks, follow state, quiz history, and the account menu stay on the request. The account name is cached per user under `account:${userId}` and expires when that person saves their name. A cached function returns plain data. It does not call `auth()`, `cookies()`, or `headers()`.
 
 Roadmap stage status (passed, in progress, ready) stays personal, so the roadmap page is not one cached component. It reads the cached catalog and overlays that person's progress.
@@ -132,11 +134,11 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 
 **Shell.** Every signed-in page sits in `app/(app)`. The URL does not contain `(app)`. Desktop shows a fixed sidebar from 960px up. Below that, the sidebar is a dialog drawer. Main nav includes Home, Clips, Roadmaps, Progress, Analytics, Submit a resource, and Settings. Admin appears only when `role === ADMIN`.
 
-**Niches (`/skills`).** Search and group filters. An available skill with stages is a link to its roadmap. A coming-soon skill is a card, not a link. Travel shows "Free · 8 stages". Art shows "Coming soon".
+**Niches (`/skills`).** Search and group filters, then 32 cards a page (4 columns by 8 rows). An available skill with stages is a link to its roadmap. A coming-soon skill is a card, not a link. Travel shows "Free · 8 stages". Art shows "Coming soon". Narrow screens stack the same 32 cards into fewer columns.
 
-**Home.** Streak banner, four stats from the signed-in user (zeros until there are attempts), and one horizontal row per followed skill. Open stages link to the lesson. Locked stages do not. Explore lists skills that are not on the feed. Its Add button is a preview and does not save. The real follow is Settings.
+**Home.** Streak banner, four stats from the signed-in user (zeros until there are attempts), and one horizontal row per followed skill. Open stages link to the lesson. Locked stages do not. Explore shows 4 columns by 3 rows of niche cards, a blurred peek of the next row, and Explore all the niches. The real follow is Settings.
 
-**Roadmaps.** The index says the three free paths by name. A followed skill has Continue and Open path. Art's button is a disabled "Coming soon". A path page shows the stage photo, the real description when the stage is open, and "This part of the path stays locked." when it is not. Stage photos are 16:9 files in `public/uploads`. That folder is gitignored, so a clone does not include them.
+**Roadmaps.** The index says the three free paths by name. A followed skill has Continue and Open path. More skills is the same short niche teaser as Home. A path page shows the stage photo, the real description when the stage is open, and "This part of the path stays locked." when it is not. Stage photos are 16:9 files in `public/uploads`. That folder is gitignored, so a clone does not include them.
 
 **Lesson.** The first video is the clip. Other resources are sources. A course link is labeled "Course". Pressing play loads `youtube-nocookie.com/embed/...`. A locked lesson shows the stage title and the skill name, and does not include the resource text. Direct visits to a locked stage id behave the same way.
 
@@ -343,7 +345,7 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 - [x] Settings follow and unfollow
 - [ ] Quiz UI calling a real quiz pipeline
 - [ ] Explain-back UI calling a real grader
-- [ ] Home and roadmap Add buttons that save, or removal of the preview so people are not misled
+- [x] Home and roadmap no longer show a preview Add. Explore links to the niche list. Follow stays on Settings
 - [ ] A full responsive pass, including 375px
 - [ ] Landing, auth carousel, and onboarding updated if Art should stop being named as a launch niche
 
@@ -448,4 +450,4 @@ The extra niches are in the database and show as coming soon. A new path is a re
 
 ---
 
-**Right now.** Phases 0, 1, 2, 3, and 7 are done for the three free paths. Phase 6 is done for those screens and open for quiz, explain-back, and the preview Add button. Phases 4, 5, 8, and 9 are the remaining Version 1 backend. Next product step, when you choose it, is Phase 4: store real quiz questions and make the explain-back screen read the prompt that is already saved.
+**Right now.** Phases 0, 1, 2, 3, and 7 are done for the three free paths. Phase 6 is done for those screens and open for quiz and explain-back. Phases 4, 5, 8, and 9 are the remaining Version 1 backend. Next product step, when you choose it, is Phase 4: store real quiz questions and make the explain-back screen read the prompt that is already saved.

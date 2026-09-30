@@ -12,6 +12,8 @@ Three free paths are loaded and available:
 
 On each free path the last three stages stay visible and locked. Art & Painting remains a flagship and is coming soon, with no stages. Every other niche is coming soon.
 
+The niche list shows 32 cards a page. Home and roadmaps show the first 12, a blurred peek of the next row, and a link to the full list.
+
 A dead stored link can be marked unavailable. The lesson keeps the saved title, description, and key points.
 
 ## Tech stack

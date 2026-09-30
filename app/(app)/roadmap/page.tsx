@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { SkillImage } from "@/components/core/SkillImage";
 import Link from "next/link";
+import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { getRoadmapIndex } from "@/lib/data/roadmap";
-import { Button } from "@/components/core/Button.jsx";
 import { MasteryChip } from "@/components/core/MasteryChip.jsx";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
-import { AddSkillButton } from "../dashboard/_components/AddSkillButton";
+import { NicheGrid, NicheTeaserFallback } from "../skills/_components/NicheGrid";
 
 export const metadata: Metadata = {
   title: "Roadmaps",
@@ -67,33 +67,9 @@ export default async function RoadmapIndexPage() {
       </section>
       <section className="sf-dash-block" aria-labelledby="roadmap-more">
         <h2 id="roadmap-more">More skills</h2>
-        <ul className="sf-explore">
-          {data.availableToAdd.map((skill) => {
-            const image = skill.image;
-            const soon = skill.status === "coming_soon";
-            return (
-              <li key={skill.id}>
-                <article className="sf-explore-card">
-                  {image ? <SkillImage className="sf-explore-photo" src={image} alt="" width={480} height={270} sizes="(max-width: 640px) 100vw, (max-width: 960px) 50vw, 320px" /> : null}
-                  <div>
-                    <h3>{skill.name}</h3>
-                    {skill.description ? <p>{skill.description}</p> : null}
-                  </div>
-                  {soon ? (
-                    <Button type="button" variant="quiet" size="sm" disabled>
-                      Coming soon
-                    </Button>
-                  ) : (
-                    <p className="sf-roadmap-actions">
-                      <Link href={`/roadmap/${skill.slug}`}>View path</Link>
-                      <AddSkillButton />
-                    </p>
-                  )}
-                </article>
-              </li>
-            );
-          })}
-        </ul>
+        <Suspense fallback={<NicheTeaserFallback />}>
+          <NicheGrid mode="teaser" />
+        </Suspense>
       </section>
     </div>
   );

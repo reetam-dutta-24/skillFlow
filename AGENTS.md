@@ -77,7 +77,7 @@ Do not run `npx prisma db seed`. The seed resets admin passwords and rewrites ev
 Wired to Postgres:
 
 - Niches, roadmaps, lessons, and clips read `Skill`, `RoadmapStage`, and `Resource`.
-- Home shows one row per followed skill. Settings → Add follows an available skill and writes `UserSkillProgress`. Settings → Remove deletes that progress row and keeps quiz history. The Add button on Home and on the roadmap index is a preview. It does not save.
+- Home shows one row per followed skill. Settings → Add follows an available skill and writes `UserSkillProgress`. Settings → Remove deletes that progress row and keeps quiz history. Home and the roadmap index show a short niche teaser that links to `/skills`. They do not follow a skill.
 - A niche card links to `/roadmap/[slug]` only when the skill is available and has stages. Coming-soon cards are articles.
 - Admin catalog (`/admin/catalog`) edits skills that already have stages, and lists every niche. Needs-review filter is `#catalog-review-only`.
 - Submit writes `ResourceSubmission`. Admin approval creates a `Resource`. Reject stores a note.
@@ -97,7 +97,7 @@ Not wired:
 ## Stack facts that are easy to get wrong
 
 - Next.js 16.3.4, React 19.2.8, Tailwind v4, Prisma 6.19.3, NextAuth v5 beta.32. `trustHost: true`. Sessions are JWT. Credentials needs JWT. Do not describe database sessions or a finished Google button. Google is configured in `lib/auth.ts` only.
-- `cacheComponents` is on in `next.config.ts`. Shared niches, stages, resources, the niche grid, lesson screens, clips, and the submit picker use `use cache` with the `catalog` tag. Admin catalog saves and an approved submission call `updateTag`. Progress, streaks, and settings stay on the request. The account menu streams beside that shell.
+- `cacheComponents` is on in `next.config.ts`. Shared niches, stages, resources, the niche grid, lesson screens, clips, and the submit picker use `use cache` with the `catalog` tag. The niches page shows 32 cards at a time in the browser, so the page number is not a cache key. Home and the roadmap index reuse a cached teaser of the first rows. Admin catalog saves and an approved submission call `updateTag`. Progress, streaks, and settings stay on the request. The account menu streams beside that shell.
 - `proxy.ts` exports `export const proxy = auth(...)`. `middleware.ts` was deleted. Do not restore it. The proxy only checks that someone is signed in.
 - Postgres database name is `skillflow` on localhost:5432. `prisma.config.ts` loads `.env` with dotenv because Prisma 6 does not.
 - Migrations through `20260930150000_stage_image` are applied. Do not create a migration unless the schema changes.

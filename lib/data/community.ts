@@ -35,6 +35,8 @@ export type MergedCard = {
   stage: { order: number; title: string } | null;
 };
 
+export type FeedCard = MergedCard & { skill: { slug: string; name: string } };
+
 export type MergedQuery = {
   skillId: string;
   type: string;
@@ -204,6 +206,74 @@ export async function loadMergedPage(query: MergedQuery): Promise<{ items: Merge
   };
 }
 
+/** Public merged contributions across the niches in view. The skill id list is part of the cache key. */
+export async function loadMergedFeed(query: { skillIds: string; sort: string; cursor: string; type: string }): Promise<{ items: FeedCard[]; nextCursor: string | null }> {
+  "use cache";
+  cacheLife("hours");
+  cacheTag(COMMUNITY_TAG);
+
+  const ids = [...new Set(query.skillIds.split(",").map((id) => id.trim()).filter(Boolean))].sort();
+  if (ids.length === 0) return { items: [], nextCursor: null };
+
+  const sort = query.sort === "useful" ? "useful" : "newest";
+  const type = TYPES.has(query.type) ? (query.type as ContributionType) : undefined;
+  const cursor = decodeCursor(sort, query.cursor);
+  const where: Prisma.CommunityContributionWhereInput = {
+    skillId: { in: ids },
+    status: "MERGED",
+    ...(type ? { type } : {}),
+  };
+
+  if (cursor && "createdAt" in cursor) {
+    where.AND = [{ OR: [{ createdAt: { lt: cursor.createdAt } }, { createdAt: cursor.createdAt, id: { lt: cursor.id } }] }];
+  }
+  if (cursor && "usefulCount" in cursor) {
+    where.AND = [{ OR: [{ usefulCount: { lt: cursor.usefulCount } }, { usefulCount: cursor.usefulCount, id: { lt: cursor.id } }] }];
+  }
+
+  const rows = await prisma.communityContribution.findMany({
+    where,
+    orderBy: sort === "useful" ? [{ usefulCount: "desc" }, { id: "desc" }] : [{ createdAt: "desc" }, { id: "desc" }],
+    take: MERGED_PAGE_SIZE + 1,
+    select: {
+      id: true,
+      type: true,
+      title: true,
+      summary: true,
+      tags: true,
+      disclosure: true,
+      usefulCount: true,
+      imageUrl: true,
+      createdAt: true,
+      mergedAt: true,
+      author: { select: { id: true, name: true, image: true } },
+      stage: { select: { order: true, title: true } },
+      skill: { select: { slug: true, name: true } },
+    },
+  });
+
+  const page = rows.slice(0, MERGED_PAGE_SIZE);
+  const last = page[page.length - 1];
+  return {
+    items: page.map((row) => ({
+      id: row.id,
+      type: row.type,
+      title: row.title,
+      summary: row.summary,
+      imageUrl: row.imageUrl,
+      tags: row.tags,
+      disclosure: row.disclosure,
+      usefulCount: row.usefulCount,
+      createdAt: row.createdAt.toISOString(),
+      mergedAt: row.mergedAt ? row.mergedAt.toISOString() : null,
+      author: row.author,
+      stage: row.stage,
+      skill: row.skill,
+    })),
+    nextCursor: rows.length > MERGED_PAGE_SIZE && last ? encodeCursor(sort, last) : null,
+  };
+}
+
 /** Open gaps first, with good-first gaps ahead of the other open ones. */
 export async function loadCommunityGaps(skillId: string): Promise<PublicGap[]> {
   "use cache";
@@ -255,6 +325,15 @@ export async function loadCommunityContributors(skillId: string) {
   cacheLife("hours");
   cacheTag(COMMUNITY_TAG);
   return nicheContributors(skillId);
+}
+
+/** Skills this person follows. Stays on the request. */
+export async function myFollowedSkillIds(userId: string) {
+  const rows = await prisma.userSkillProgress.findMany({
+    where: { userId },
+    select: { skillId: true },
+  });
+  return rows.map((row) => row.skillId);
 }
 
 /** Joined niches and how many public changes arrived since each one was last opened. */

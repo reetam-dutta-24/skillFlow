@@ -22,7 +22,7 @@ Last aligned with the working tree on 30 September 2026.
 | Product shape, tokens, component kit | Done | Dark/light theme, accent presets, shared buttons, cards, charts |
 | Public pages | Done | Landing, login, signup, privacy, terms. Landing names Travel Vlogging with the other two free paths |
 | Database schema and local Postgres | Done | Prisma models and migrations, through the open-source community tables |
-| Open Source browse | In progress | Signed-in list, niche tabs, and contribution pages read the community tables. The form and the review queue are not built |
+| Open Source browse | In progress | The signed-in page is a contribution feed for followed skills, with a niche filter beside it. Niche tabs and contribution pages read the community tables. The form and the review queue are not built |
 | Auth | Done for email/password | Auth.js, bcrypt passwords, JWT session, route protection. Google is configured in code. The login screen is email and password |
 | Onboarding | Done and saved | Skill, pace, goal, and accent are written to Postgres |
 | Niches and roadmaps | Done for three paths | Full-Stack, Travel Vlogging, and Content Creation are free and available. Art stays a coming-soon flagship |

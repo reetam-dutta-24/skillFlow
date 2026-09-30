@@ -6,16 +6,7 @@ import Link from "next/link";
 import type { ClipFeedSkill, ClipFormat, ClipItem } from "@/lib/types/pages";
 import { Icon } from "@/components/core/Icon.jsx";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
-
-function playableSrc(url: string) {
-  try {
-    const next = new URL(url);
-    next.searchParams.set("autoplay", "1");
-    return next.toString();
-  } catch {
-    return url;
-  }
-}
+import { playableSrc } from "@/lib/playable-src";
 
 export function ClipFeed({ skills, clips }: { skills: ClipFeedSkill[]; clips: ClipItem[] }) {
   const initial =

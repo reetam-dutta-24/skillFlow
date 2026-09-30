@@ -5,19 +5,10 @@ import Link from "next/link";
 import { Icon } from "../core/Icon.jsx";
 import { Chip } from "../core/Chip.jsx";
 import { SkillImage } from "@/components/core/SkillImage";
+import { playableSrc } from "@/lib/playable-src";
 
 function isLocalVideo(url) {
   return typeof url === "string" && url.startsWith("/uploads/") && /\.(?:mp4|webm|mov)$/i.test(url);
-}
-
-function playableSrc(url) {
-  try {
-    const next = new URL(url);
-    next.searchParams.set("autoplay", "1");
-    return next.toString();
-  } catch {
-    return url;
-  }
 }
 
 /** Lesson screen: hook clip on top, external full resource below, then actions. */
@@ -69,7 +60,7 @@ export function LessonPlayer({ title, skill, stage, duration, watched = false, r
         <a href={resource.url} target="_blank" rel="noreferrer" style={{ display: "flex", alignItems: "center", gap: 14, padding: "16px 18px", textDecoration: "none", borderRadius: "var(--radius-panel)", background: "var(--surface-card)", border: "1px solid var(--border-default)" }}>
           <Icon name="external-link" size={17} color="var(--accent)" />
           <span style={{ flex: 1, minWidth: 0 }}>
-            <span style={{ display: "block", fontSize: "var(--text-body)", fontWeight: "var(--weight-semibold)", color: "var(--text-primary)" }}>{resource.title}</span>
+            <span style={{ display: "block", overflowWrap: "anywhere", fontSize: "var(--text-body)", fontWeight: "var(--weight-semibold)", color: "var(--text-primary)" }}>{resource.title}</span>
             <span style={{ display: "block", marginTop: 2, fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>External · {resource.source}{resource.length ? " · " + resource.length : ""}</span>
           </span>
           <Icon name="arrow-up-right" size={16} color="var(--text-faint)" />

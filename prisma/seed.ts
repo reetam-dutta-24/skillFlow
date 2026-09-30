@@ -30,7 +30,8 @@ const BASE_SKILLS = [
   {
     slug: "content-creation",
     name: "Content Creation",
-    description: "Plan, make, and publish work people can finish.",
+    description:
+      "Plan, shoot, edit and publish video that holds attention: formats and specs, exposure, lighting, audio, composition, editing, color, loudness, analytics and copyright.",
     image: "/skills/content.jpg",
     isFlagship: true,
     order: 3,
@@ -121,6 +122,7 @@ async function main() {
   console.log("Admin accounts seeded.")
 
   await importCatalog("full-stack-web-dev", { apply: true })
+  await importCatalog("content-creation", { apply: true })
 }
 
 main()

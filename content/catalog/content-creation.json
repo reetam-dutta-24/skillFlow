@@ -1,0 +1,1234 @@
+{
+  "stages": [
+    {
+      "order": 1,
+      "title": "Platforms, Formats & Specs",
+      "level": "BEGINNER",
+      "description": "How short-form and long-form video differ, why aspect ratio matters on each platform, and the official upload settings that keep your video sharp.",
+      "learningObjectives": [
+        "Short-form vs long-form formats",
+        "Aspect ratios and why they matter",
+        "Official upload specs: resolution, frame rate, encoding",
+        "Choosing a format for the platform and the viewer"
+      ],
+      "explainBack": {
+        "question": "How do short-form and long-form video differ in format, and why does aspect ratio matter on each platform?",
+        "rubric": [
+          "States that short-form (Shorts, Reels) is vertical 9:16 or square, while long-form YouTube video is typically horizontal 16:9",
+          "Notes that platforms define formats by shape and length (e.g. YouTube Shorts: square or vertical, up to 3 minutes; wider uploads count as long-form)",
+          "Explains that the wrong aspect ratio leads to cropping or black bars (letterboxing/pillarboxing)",
+          "Mentions uploading at the frame rate it was recorded in and a standard resolution such as 1080p, per YouTube's recommended settings",
+          "Explains that the format should follow the platform and how the viewer watches (phone in hand vs desktop/TV)"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Start creating with YouTube Shorts",
+          "provider": "YouTube Presents",
+          "url": "https://www.youtube.com/watch?v=fmHGgWN2Jss",
+          "description": "YouTube's own short intro to creating Shorts: the vertical format, the in-app tools and how Shorts fit alongside long-form.",
+          "keyPoints": [
+            "Introduces Shorts as YouTube's vertical short-form format",
+            "Shows creating directly from the phone with the Shorts camera",
+            "Covers built-in tools such as music, speed and timers",
+            "Positions Shorts alongside long-form on the same channel"
+          ],
+          "videoId": "fmHGgWN2Jss"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Upload YouTube Shorts - Computer - YouTube Help",
+          "provider": "YouTube Help",
+          "url": "https://support.google.com/youtube/answer/12779649?hl=en&co=GENIE.Platform%3DDesktop",
+          "description": "YouTube's official page on uploading Shorts from a computer, including which videos qualify as a Short.",
+          "keyPoints": [
+            "A Short must have a square or vertical aspect ratio",
+            "Shorts can be up to 3 minutes long",
+            "Qualifying uploads are classified as Shorts automatically"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Understand three-minute YouTube Shorts",
+          "provider": "YouTube Help",
+          "url": "https://support.google.com/youtube/answer/15424877?hl=en",
+          "description": "Explains YouTube's move to Shorts of up to three minutes and how aspect ratio decides whether an upload is a Short or long-form.",
+          "keyPoints": [
+            "Square and vertical videos up to 3 minutes are Shorts",
+            "Videos with a wider aspect ratio are treated as long-form",
+            "Length and shape together decide the format"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "YouTube recommended upload encoding settings",
+          "provider": "YouTube Help",
+          "url": "https://support.google.com/youtube/answer/1722171?hl=en",
+          "description": "YouTube's official recommended container, codecs, frame rates, bitrates and aspect ratio for uploads.",
+          "keyPoints": [
+            "Recommended container MP4 with H.264 video and AAC-LC audio",
+            "Upload at the same frame rate the video was recorded in (e.g. 24-60 fps)",
+            "16:9 is the standard aspect ratio for desktop; the player adapts to others",
+            "Suggested SDR bitrate for 1080p is about 8 Mbps (12 Mbps at high frame rates)",
+            "Higher resolutions such as 4K need much higher bitrates"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "The Definitive Guide to Aspect Ratio [with FREE Aspect Ratio Calculator]",
+          "provider": "StudioBinder",
+          "url": "https://www.studiobinder.com/blog/aspect-ratio/",
+          "description": "A clear explainer on what aspect ratio is, the common ratios in film and social video, and what happens when content and screen don't match.",
+          "keyPoints": [
+            "Aspect ratio is the width-to-height relationship of the frame",
+            "16:9 is the standard for HD video and most screens",
+            "9:16 vertical suits phone-first social platforms",
+            "Mismatched ratios produce black bars or cropping"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Reel size & aspect ratios on Instagram",
+          "provider": "Instagram Help Center",
+          "url": "https://help.instagram.com/1038071743007909",
+          "description": "Instagram's help page on the sizes and aspect ratios supported for Reels.",
+          "keyPoints": [
+            "Reels are designed for full-screen vertical viewing",
+            "Lists the aspect ratios Instagram supports for Reels",
+            "Content outside the supported ratio may be cropped or shown with borders"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Camera & Exposure",
+      "level": "BEGINNER",
+      "description": "Control brightness and motion on camera: aperture, shutter speed and ISO, the trade-offs between them, and the 180-degree shutter rule for natural-looking video.",
+      "learningObjectives": [
+        "Aperture, shutter speed and ISO",
+        "Exposure trade-offs: depth of field, motion blur, noise",
+        "The 180-degree shutter rule",
+        "ND filters in bright light"
+      ],
+      "explainBack": {
+        "question": "Explain the exposure triangle and the 180-degree shutter rule for video.",
+        "rubric": [
+          "Explains that aperture controls how much light enters and affects depth of field (wider aperture = shallower focus)",
+          "Explains that shutter speed controls exposure time and motion blur",
+          "Explains that raising ISO brightens the image but adds noise",
+          "Describes the trade-off: changing one setting to fix brightness changes the look, so the other two must compensate",
+          "States the 180-degree rule: shutter speed about 1/(2 x frame rate), e.g. 1/50 at 24-25 fps, and that ND filters keep that shutter speed in bright light"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Exposure Triangle Explained: ISO, Aperture & Shutter Speed for Beginners",
+          "provider": "Jonny Duncan",
+          "url": "https://www.youtube.com/watch?v=CxfQn9a4a2s",
+          "description": "A beginner walkthrough of the three exposure settings and how they work together.",
+          "keyPoints": [
+            "Introduces aperture, shutter speed and ISO as the three exposure controls",
+            "Shows how each setting changes brightness",
+            "Explains the side effects of each: depth of field, motion blur and noise",
+            "Demonstrates balancing the three for a correct exposure"
+          ],
+          "videoId": "CxfQn9a4a2s"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "The exposure triangle explained",
+          "provider": "Videomaker",
+          "url": "https://www.videomaker.com/article/c10/17956-exposure-triangle/",
+          "description": "Videomaker's video-focused explanation of aperture, shutter speed and ISO and the compromises between them.",
+          "keyPoints": [
+            "Exposure depends on aperture, shutter speed and ISO together",
+            "Wider apertures let in more light and make depth of field shallower",
+            "Slower shutter speeds add light and motion blur",
+            "Higher ISO brightens the image but increases noise",
+            "Changing one setting means compensating with the others"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Exposure Triangle Basics: Aperture, Shutter Speed and ISO",
+          "provider": "Canon Australia",
+          "url": "https://www.canon.com.au/get-inspired/exposure-triangle-basics",
+          "description": "A camera maker's plain-language primer on the three exposure settings and what each one does.",
+          "keyPoints": [
+            "Aperture is the lens opening, measured in f-stops",
+            "Lower f-numbers mean a wider opening and more light",
+            "Shutter speed is how long the sensor is exposed",
+            "ISO is the sensor's sensitivity to light"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What Is the 180-Degree Shutter Rule — And Why It Matters",
+          "provider": "StudioBinder",
+          "url": "https://www.studiobinder.com/blog/what-is-the-180-degree-shutter-rule/",
+          "description": "Explains the 180-degree shutter rule, where it comes from and why it gives natural motion blur in video.",
+          "keyPoints": [
+            "Set shutter speed to about double the frame rate",
+            "At 24 fps that means 1/48, or the nearest setting 1/50",
+            "Much faster shutters make motion look choppy; slower ones make it smeary",
+            "The rule comes from rotary shutters on film cameras"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Shutter Speed, Frame Rate and the 180° Rule",
+          "provider": "PolarPro",
+          "url": "https://www.polarpro.com/blogs/polarpro/how-shutter-speed-affects-video",
+          "description": "Connects shutter speed, frame rate and motion blur, and shows how ND filters keep the 180-degree shutter in daylight.",
+          "keyPoints": [
+            "Shutter speed about double the frame rate gives natural motion blur",
+            "Example: 1/50 at 24 fps, 1/60 at 30 fps",
+            "In bright light a slow shutter overexposes the image",
+            "ND filters cut incoming light so you can keep the right shutter speed"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Lighting for Video",
+      "level": "BEGINNER",
+      "description": "Light a talking-head video with key, fill and back lights, control how hard or soft the light is, and keep its color consistent.",
+      "learningObjectives": [
+        "Place key, fill and back lights and explain what each one does",
+        "Control light quality (hard vs soft) by changing the size of the source relative to the subject",
+        "Use color temperature in Kelvin and set white balance so skin tones look natural",
+        "Balance key-to-fill intensity to control how dramatic the shadows look"
+      ],
+      "explainBack": {
+        "question": "How would you light a talking-head video with three-point lighting, and how do you control how soft the light is and its color?",
+        "rubric": [
+          "The key light is the main, brightest source, usually placed at an angle (around 45 degrees) in front of the subject",
+          "The fill light sits on the opposite side and is dimmer than the key (e.g. about a 2:1 key-to-fill ratio), lifting the shadows the key creates",
+          "The back (rim) light sits behind the subject and separates them from the background, adding depth",
+          "A source that is larger relative to the subject (diffused, bounced, softbox) gives softer, more gradual shadows; a small direct source gives hard, sharp shadows",
+          "Color temperature is measured in Kelvin (daylight about 5600K, tungsten about 3200K); avoid mixing sources of different color temperature and set white balance to match the light"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "YouTube Lighting Setup for Beginners: 3 Point Lighting Tutorial",
+          "provider": "B&H Photo Video Pro Audio",
+          "url": "https://www.youtube.com/watch?v=5G-3_8jH11s",
+          "description": "A beginner walkthrough of building a three-point lighting setup for a YouTube-style talking-head video.",
+          "keyPoints": [
+            "Sets up key, fill and back lights for a seated presenter",
+            "Aimed at YouTube creators starting out with lights",
+            "Shows how each light changes the look of the shot"
+          ],
+          "videoId": "5G-3_8jH11s"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Three-Point Video Lighting: Key, Fill, & Backlight Setup Guide",
+          "provider": "StudioBinder",
+          "url": "https://www.studiobinder.com/blog/three-point-lighting-setup/",
+          "description": "Explains the role and placement of the key, fill and backlight and how the key-to-fill ratio changes the mood of a shot.",
+          "keyPoints": [
+            "Key light is the primary source, typically angled about 45 degrees in front of the subject",
+            "Fill light sits opposite the key and reveals detail on the shadow side",
+            "Backlight sits behind the subject to add separation and dimension",
+            "Suggests about 2:1 key-to-fill for cinematic looks, closer to 1.5:1 for corporate content"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Light Source: Hard Light, Soft Light",
+          "provider": "Videomaker",
+          "url": "https://www.videomaker.com/article/c13/9421-light-source-hard-light-soft-light/",
+          "description": "Compares hard light from small, directional sources with soft light from large or bounced/diffused sources, and how each shapes shadows.",
+          "keyPoints": [
+            "Small spotlight-type sources give hard light with sharp-edged shadows",
+            "Large sources, bounce and diffusion give soft light with gradual shadows",
+            "The larger the source relative to the subject, the softer the result",
+            "Soft light wraps around the contours of a face; many setups mix a hard key with soft fill"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "7.10: White Balance",
+          "provider": "LibreTexts (Video Production Handbook, ASCCC OERI)",
+          "author": "Christopher Clemens et al.",
+          "url": "https://human.libretexts.org/Bookshelves/Theater_Film_and_Storytelling/Video_Production_Handbook/07%3A_Camera_Functions/7.10%3A_White_Balance",
+          "description": "Open textbook section on color temperature and the three ways to set a camera's white balance: auto, presets, and manual with a white card.",
+          "keyPoints": [
+            "Daylight is about 5600K and indoor tungsten about 3200K",
+            "Cameras do not adapt to color temperature the way eyes do, causing color casts",
+            "Auto white balance struggles and can shift under mixed window and lamp light",
+            "Manual white balance: fill the frame with white where the talent stands and press set"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Lighting 101 - Three Point Lighting Tutorial",
+          "provider": "John Gress",
+          "url": "https://www.youtube.com/watch?v=L0jXjEeKvv4",
+          "description": "A second demonstration of three-point lighting, building the look one light at a time.",
+          "keyPoints": [
+            "Introduces the key, fill and back light roles",
+            "Builds the setup step by step",
+            "Useful as a second visual example after the B&H video"
+          ],
+          "videoId": "L0jXjEeKvv4"
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Audio Recording",
+      "level": "INTERMEDIATE",
+      "description": "Record clean, usable dialogue by choosing and placing the right microphone, setting levels with headroom, and monitoring as you record.",
+      "learningObjectives": [
+        "Choose a microphone type and polar pattern (lavalier, shotgun, cardioid, omni) for the situation",
+        "Place the microphone close to the speaker to improve signal-to-noise and reduce room sound",
+        "Set recording levels so peaks leave headroom below 0 dBFS and never clip",
+        "Monitor audio with headphones during recording to catch problems immediately"
+      ],
+      "explainBack": {
+        "question": "How do you record clean dialogue for a video, and how do you set your levels?",
+        "rubric": [
+          "Peaks should sit well below 0 dBFS to leave headroom; a common target is roughly -12 to -6 dBFS (some guides suggest a more cautious ceiling around -16 dB)",
+          "Digital clipping happens when the signal tries to exceed 0 dBFS; the waveform is cut off and the distortion cannot be fully fixed in post",
+          "Moving the mic closer to the mouth raises the voice relative to background noise and room reflections, rather than just turning up gain",
+          "Pick the mic and pickup pattern for the job: a lavalier for close, consistent dialogue; a shotgun just out of frame aimed at the mouth; cardioid/directional patterns reject off-axis sound",
+          "Monitor with isolating headphones while recording to hear noise, distortion or problems before it is too late"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Basic Audio Techniques for Video: Selecting the Right Lavalier Mic",
+          "provider": "Audio-Technica USA",
+          "url": "https://www.youtube.com/watch?v=AO7MfSsnBfw",
+          "description": "Part of Audio-Technica's Basic Audio Techniques for Video series, on choosing a lavalier mic for recording dialogue.",
+          "keyPoints": [
+            "Explains what to look for when choosing a lav mic",
+            "Part of a 13-video series on audio for video (booming, shotguns, wireless)",
+            "Focused on dialogue capture for video"
+          ],
+          "videoId": "AO7MfSsnBfw"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Techniques for Gaining Stage Your Microphone During Recording",
+          "provider": "RØDE",
+          "url": "https://help.rode.com/hc/en-us/articles/12966417339919-Techniques-for-Gaining-Stage-Your-Microphone-During-Recording",
+          "description": "RØDE help article on gain staging: start with low gain, raise it while watching meters, aim for healthy peaks and monitor on headphones.",
+          "keyPoints": [
+            "Recommends peaks between -12 dB and -6 dB while recording",
+            "Start preamp gain low and raise it gradually; stay out of the red",
+            "Move the mic closer instead of only adding preamp gain",
+            "Monitor on headphones; distortion at recording cannot be fully fixed in post"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Vlogging: The Basics of Audio and Sound",
+          "provider": "B&H Explora",
+          "author": "Peter Ward",
+          "url": "https://www.bhphotovideo.com/explora/video/tips-and-solutions/vlogging-basics-sound",
+          "description": "Creator-focused guide to shotgun vs lavalier mics, keeping the mic close, avoiding digital clipping, and choosing isolating monitoring headphones.",
+          "keyPoints": [
+            "Keep the mic as close to the subject as possible to cut unwanted noise",
+            "Shotguns work best roughly one to six feet from the subject",
+            "Suggests about -16 dB as a safe ceiling for peaks",
+            "Clipping above 0 dB cuts off the waveform and cannot be recovered",
+            "Use isolating over-ear headphones to monitor"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How To Record Better Interview Audio",
+          "provider": "RØDE",
+          "url": "https://rode.com/en-ca/about/news-info/how-to-record-better-interview-audio",
+          "description": "Practical guide to shotgun, lavalier and handheld mics for interviews, including placement and when each type fits.",
+          "keyPoints": [
+            "Place a shotgun a few inches in front of and above the subject, just out of frame, angled at the mouth",
+            "A lav's closeness to the mouth gives a very good signal-to-noise ratio",
+            "Lavs need setup time; better for planned shoots than run-and-gun",
+            "Omni handhelds can sit between two speakers; cardioid handhelds must be close"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Microphone Directionality and Polar Pattern Basics",
+          "provider": "Shure",
+          "url": "https://www.shure.com/en-US/insights/microphone-directionality-polar-pattern-basics",
+          "description": "Explains omnidirectional, cardioid, super/hypercardioid and figure-8 pickup patterns and how directionality affects background noise.",
+          "keyPoints": [
+            "Omni mics pick up equally from all directions and do not reject room noise",
+            "Cardioid is the most common directional pattern, rejecting most sound from the rear",
+            "Super- and hypercardioids have narrower pickup but some rear sensitivity",
+            "Directional mics can work farther away for the same direct-to-ambient balance"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Framing & Shot Composition",
+      "level": "INTERMEDIATE",
+      "description": "Choose shot sizes and frame subjects with good headroom, lead room and consistent screen direction so viewers always understand what they are seeing.",
+      "learningObjectives": [
+        "Name the main shot sizes and what each is used for",
+        "Frame a subject with appropriate headroom and look/lead room",
+        "Use the rule of thirds as a placement guide",
+        "Apply the 180-degree rule to keep screen direction consistent between shots"
+      ],
+      "explainBack": {
+        "question": "What are the main shot sizes, and how do headroom, lead room and the 180-degree rule keep a video readable?",
+        "rubric": [
+          "Names shot sizes and their uses: wide shots show the subject in their setting, medium shots (about waist up) balance subject and surroundings, close-ups show faces and emotion",
+          "Headroom is the space above the subject's head; too much makes them look like they are sinking, too little feels cramped or crops the head",
+          "Look/lead room is extra space in the direction the subject faces or moves, so the frame feels balanced and the viewer sees where they are going",
+          "180-degree rule: draw an imaginary line (axis of action) between subjects and keep the camera on one side so their left/right relationship and screen direction stay consistent",
+          "Rule of thirds: place key features such as the eyes on or near the thirds lines and intersections rather than dead center"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Ultimate Guide to Camera Shots: Every Shot Size Explained [The Shot List, Ep 1]",
+          "provider": "StudioBinder",
+          "url": "https://www.youtube.com/watch?v=AyML8xuKfoc",
+          "description": "StudioBinder's video tour of every standard shot size, with film examples of when each is used.",
+          "keyPoints": [
+            "Covers extreme wide through extreme close-up",
+            "Explains what each shot size communicates",
+            "Uses examples from well-known films"
+          ],
+          "videoId": "AyML8xuKfoc"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Guide to Camera Shots: Every Shot Size Explained (2026)",
+          "provider": "StudioBinder",
+          "url": "https://www.studiobinder.com/blog/types-of-camera-shots-sizes-in-film/",
+          "description": "Defines each shot size from extreme wide to extreme close-up and explains what each is good for.",
+          "keyPoints": [
+            "Extreme wide makes the subject small against the location",
+            "Wide shot keeps the whole subject visible in context",
+            "Medium shot frames roughly from the waist up and is very versatile",
+            "Medium close-up is about chest up; close-up shows emotions and reactions"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Framing Good Shots",
+          "provider": "Videomaker",
+          "url": "https://www.videomaker.com/article/f5/9231-framing-good-shots",
+          "description": "Covers the rule of thirds, headroom, look room and lead room with plain examples.",
+          "keyPoints": [
+            "Divide the frame into thirds and place subjects on the intersections",
+            "Too much headroom looks like sinking; too little looks like bumping the head",
+            "Putting the eyes on the upper third line gives good headroom",
+            "Look room goes in front of a face; lead room in front of a moving subject"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "9.5: Video Composition",
+          "provider": "LibreTexts (Documentary Culture)",
+          "author": "Christopher Clemens",
+          "url": "https://human.libretexts.org/Bookshelves/Theater_Film_and_Storytelling/Documentary_Culture/09%3A_Video_Aesthetics/9.05%3A_Video_Composition",
+          "description": "Open textbook section on rule of thirds, headroom, nose room, lead room and the 180-degree line of action.",
+          "keyPoints": [
+            "Place interview subjects' eyes near a thirds intersection rather than centered",
+            "Excessive headroom makes the subject look too low in the frame",
+            "Give moving subjects more room in front of their motion than behind",
+            "Crossing the line of action can make characters seem to face the same way"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What is the 180 Degree Rule in Film? Crossing the Line with Purpose",
+          "provider": "StudioBinder",
+          "url": "https://www.studiobinder.com/blog/what-is-the-180-degree-rule/",
+          "description": "Explains the imaginary axis between subjects, why keeping the camera on one side preserves orientation, and what crossing it does.",
+          "keyPoints": [
+            "An imaginary axis runs between characters or objects",
+            "Keeping the camera on one side keeps their left/right relationship consistent",
+            "Crossing the line disorients viewers",
+            "Breaking it on purpose can signal unease"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Screen Direction",
+          "provider": "No-Nonsense Filmmaking (LMU Pressbooks)",
+          "author": "Jessica Livingstone and Mischa Livingstone",
+          "url": "https://lmu.pressbooks.pub/filmmaking/chapter/screen-direction/",
+          "description": "Open textbook chapter on screen direction and the 180-degree rule, including three accepted ways to cross the line.",
+          "keyPoints": [
+            "Screen direction is which way a character faces while interacting",
+            "Pick one side of the line between characters for all camera setups",
+            "If the line is crossed, both characters can seem to look the same way",
+            "Cross safely by moving the subject, moving the camera in one shot, or shooting on the line"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "title": "Editing Fundamentals",
+      "level": "INTERMEDIATE",
+      "description": "Use J-cuts, L-cuts, jump cuts and cutting on action, and control pacing, to make edits feel smooth and keep viewers watching.",
+      "learningObjectives": [
+        "Build J-cuts and L-cuts and explain how split audio smooths transitions",
+        "Use jump cuts to tighten talking-head footage",
+        "Cut on action to hide edits during movement",
+        "Control pacing through shot length and cutting rhythm"
+      ],
+      "explainBack": {
+        "question": "Explain J-cuts, L-cuts, jump cuts and cutting on action, and when you'd use each.",
+        "rubric": [
+          "J-cut: the audio of the next clip starts before its picture, useful to lead into a new scene or build anticipation",
+          "L-cut: the audio of the current clip continues over the next clip's picture, e.g. showing a listener's reaction in dialogue or interviews",
+          "Jump cut: a cut within the same shot that skips ahead in time; common in talking-head videos to remove pauses and filler words",
+          "Cutting on action: cutting during a movement so the motion carries the viewer's eye across the cut and hides it",
+          "Pacing: shot length and rhythm set the energy; faster cutting builds intensity, slower cutting gives room to breathe, and trimming dead air helps hold attention"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Tips for Editing with J-Cuts | PremiumBeat.com",
+          "provider": "PremiumBeat by Shutterstock",
+          "url": "https://www.youtube.com/watch?v=7-BeYm_XpAU",
+          "description": "Short PremiumBeat demo of making and using J-cuts in an edit.",
+          "keyPoints": [
+            "Shows incoming audio leading its picture",
+            "Explains why J-cuts make transitions feel smoother",
+            "Short, practical editing example"
+          ],
+          "videoId": "7-BeYm_XpAU"
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "What is a Jump Cut & When to Use It — 5 Essential Jump Cut Editing Techniques Explained",
+          "provider": "StudioBinder",
+          "url": "https://www.youtube.com/watch?v=03zw4RNv0gE",
+          "description": "StudioBinder video on what jump cuts are and several ways editors use them.",
+          "keyPoints": [
+            "Defines the jump cut",
+            "Presents five ways jump cuts are used",
+            "Uses film examples to show the effect"
+          ],
+          "videoId": "03zw4RNv0gE"
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Video Breakdown: 9 Cuts Every Editor Should Know",
+          "provider": "PremiumBeat",
+          "author": "Robbie Janney",
+          "url": "https://www.premiumbeat.com/blog/9-essential-video-editing-cuts",
+          "description": "Overview of nine common cuts, including jump cuts, J-cuts, L-cuts and cutting on action, with what each is for.",
+          "keyPoints": [
+            "Jump cuts can slim down a long take; badly placed ones feel jarring",
+            "A J-cut brings the next clip's audio in before its video",
+            "An L-cut lets the outgoing clip's audio continue over the next video",
+            "Cutting on action joins clips mid-movement to disguise the edit"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How to use J-cuts vs. L-cuts in video editing for engaging transitions",
+          "provider": "Vimeo",
+          "url": "https://vimeo.com/blog/post/j-cuts-l-cuts",
+          "description": "Explains J-cuts and L-cuts, how they look on a timeline, when to use each, and how to build them by unlinking audio.",
+          "keyPoints": [
+            "J-cut: the second clip's audio plays over the first clip's picture",
+            "L-cut: the first clip's audio carries over the second clip's picture",
+            "J-cuts build anticipation; L-cuts hold an emotional beat",
+            "L-cuts suit interviews and dialogue, showing reactions"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What are jump cuts, and how do you edit them?",
+          "provider": "Epidemic Sound",
+          "url": "https://www.epidemicsound.com/blog/what-are-jump-cuts/",
+          "description": "Creator-oriented guide to jump cuts: what they are, why YouTubers use them to remove filler, and tips for not overdoing them.",
+          "keyPoints": [
+            "A jump cut breaks one continuous shot and skips ahead in time",
+            "Widely used on YouTube to remove pauses and filler words",
+            "Use audio waveforms to find and trim dead air",
+            "Avoid over-trimming; keep some natural pauses"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Set the Pace With This Guide to Film Rhythm Editing",
+          "provider": "Backstage",
+          "author": "Kyle DeGuzman",
+          "url": "https://www.backstage.com/magazine/article/film-rhythm-editing-guide-77147/",
+          "description": "Explains rhythm and pacing in editing: how shot duration and cut timing set energy, and when to slow down or speed up.",
+          "keyPoints": [
+            "Rhythm is the timing of cuts, transitions and shot durations",
+            "Quicker cuts build energy and intensity",
+            "Slower cuts give reflection and emotional depth",
+            "Deliberate pauses let the audience absorb a moment"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Color Correction & Grading",
+      "level": "INTERMEDIATE",
+      "description": "Fix exposure, white balance and shot matching first, then apply a creative look, using video scopes instead of your eyes alone.",
+      "learningObjectives": [
+        "Distinguish color correction (technical fixes) from color grading (creative look) and do them in that order",
+        "Read a waveform to judge luminance (brightness) levels",
+        "Read a vectorscope to judge hue and saturation, including the skin-tone indicator line",
+        "Explain why log footage looks flat and how it is converted (LUT or color space transform) before grading"
+      ],
+      "explainBack": {
+        "question": "What's the difference between color correction and color grading, and how do scopes help you do them?",
+        "rubric": [
+          "Color correction comes first: fix exposure/contrast and white balance and make shots match so footage looks natural and consistent",
+          "Color grading comes after correction and applies a creative look or mood to the corrected footage",
+          "A waveform monitor shows the luminance (brightness) of the image, with brighter parts higher and darker parts lower on the graph",
+          "A vectorscope shows hue (angle around the circle) and saturation (distance from the center); skin tones of all people should fall near its skin-tone line",
+          "Log footage is intentionally flat/low-contrast to preserve dynamic range and must be converted (e.g., an input LUT or color space transform/color management) before grading"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Color Correction vs Color Grading Explained | Cinecom.net",
+          "provider": "Cinecom.net",
+          "url": "https://www.youtube.com/watch?v=4VxHskBLpCY",
+          "description": "A short explainer from an editing-tutorial channel that separates the corrective and creative stages of color work.",
+          "keyPoints": [
+            "Contrasts correcting footage with grading it for a look",
+            "Shows the two stages applied to example shots",
+            "Aimed at creators editing their own videos"
+          ],
+          "videoId": "4VxHskBLpCY"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Color Grading vs. Color Correction Process for Video",
+          "provider": "StudioBinder",
+          "url": "https://www.studiobinder.com/blog/color-grading-vs-color-correction-process/",
+          "description": "Defines correction as the technical step that makes footage look natural and consistent, and grading as the creative step that adds mood, and lays out the order to do them in.",
+          "keyPoints": [
+            "Correction fixes color problems so footage looks natural and consistent",
+            "Grading adds atmosphere and emotion, often with stylized color",
+            "Workflow: set picture profile, then correct, then grade",
+            "Lists scopes: waveform, parade, histogram, vectorscope",
+            "Flat/log profiles keep more room to work; input LUTs are used with log footage"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "16.5: Video scopes for post-production",
+          "provider": "LibreTexts (Video Production Handbook)",
+          "author": "Misha Antonich",
+          "url": "https://human.libretexts.org/Bookshelves/Theater_Film_and_Storytelling/Video_Production_Handbook/16%3A_The_Finishing_Process/16.05%3A_Video_scopes_for_post-production",
+          "description": "An open textbook section explaining what the waveform monitor and vectorscope measure and how colorists use them for correction and for grading.",
+          "keyPoints": [
+            "Waveform plots luminance: brightest parts at the top, darkest at the bottom",
+            "Vectorscope shows hue and saturation; saturation grows away from the center",
+            "Skin tones should fall along the skin-color line near 11 o'clock",
+            "Correction uses scopes to optimize color, exposure and contrast; grading uses them to build a look"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Correct skin tones",
+          "provider": "Adobe",
+          "url": "https://www.adobe.com/learn/premiere-pro/web/correct-skin-tones",
+          "description": "Adobe's Premiere Pro tutorial on using the Lumetri Vectorscope YUV and RGB Parade to spot and correct color casts on skin.",
+          "keyPoints": [
+            "Vectorscope plots the hue and saturation of every pixel",
+            "Skin produces a line along the -I axis, regardless of the person's skin color",
+            "A skew away from that line toward a color box indicates a cast",
+            "Lumetri Scopes can show several scope types at once"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Understanding the Log vs. the LUT",
+          "provider": "Adorama",
+          "author": "Eric Cohen",
+          "url": "https://www.adorama.com/alc/understanding-log-vs-lut",
+          "description": "Explains why log profiles produce a flat, washed-out image on purpose and why a LUT (lookup table) is applied in post to bring back contrast and color before further grading.",
+          "keyPoints": [
+            "Log is deliberately flat and low-contrast to preserve dynamic range",
+            "A flat image on the camera monitor is expected, not a defect",
+            "The matching LUT converts log footage to a normal-looking image",
+            "Grading builds on the converted image"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "COURSE_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "DaVinci Resolve – Training",
+          "provider": "Blackmagic Design",
+          "url": "https://www.blackmagicdesign.com/products/davinciresolve/training",
+          "description": "Blackmagic's official free training hub for DaVinci Resolve, including the Colorist Guide PDF and videos on color correction, scopes and color management.",
+          "keyPoints": [
+            "Free PDF books, including The Colorist Guide to DaVinci Resolve",
+            "Intro to Color video covers primary/secondary tools and reading scopes",
+            "Advanced material covers color management and RAW media",
+            "Books include lesson files and optional certification exams"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "title": "Audio Post-Production",
+      "level": "ADVANCED",
+      "description": "Make dialogue clear and levels consistent with loudness metering, EQ, compression and ducking so audio holds up after platform normalization.",
+      "learningObjectives": [
+        "Measure loudness in LUFS and explain integrated loudness",
+        "Describe how streaming platforms normalize loudness and what that means for a mix",
+        "Use EQ (e.g., a high-pass filter) to remove low-frequency rumble and improve clarity",
+        "Use compression to even out dynamic range and ducking to keep music under dialogue"
+      ],
+      "explainBack": {
+        "question": "How do you make your video's audio sound clear and consistent across platforms?",
+        "rubric": [
+          "Loudness is measured in LUFS (per ITU-R BS.1770); integrated loudness is the average over the whole program",
+          "Platforms normalize playback loudness: many streaming services target about -14 LUFS; YouTube publishes no official figure but is commonly measured around -12 to -14 LUFS and adjusts playback level to match",
+          "EQ shapes frequencies, e.g., a high-pass filter removes low-frequency rumble that muddies dialogue",
+          "Compression reduces dynamic range so quiet and loud parts end up closer in level",
+          "Ducking automatically lowers music while dialogue is present"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "How to Balance Audio in Premiere Pro (Auto-Ducking) | Tutorial with Josh Olufemii | Adobe Video",
+          "provider": "Adobe Video",
+          "url": "https://www.youtube.com/watch?v=WiBPYov-6FU",
+          "description": "Adobe's official tutorial on balancing voice and music in Premiere Pro, including automatic ducking.",
+          "keyPoints": [
+            "Balancing dialogue and music levels in Premiere Pro",
+            "Using auto-ducking so music dips under speech",
+            "Presented by creator Josh Olufemii"
+          ],
+          "videoId": "WiBPYov-6FU"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What are LUFS? The complete guide",
+          "provider": "iZotope",
+          "author": "Ian Stewart",
+          "url": "https://www.izotope.com/en/learn/what-are-lufs",
+          "description": "Explains what LUFS measure, how momentary, short-term and integrated loudness differ, and why streaming services normalize to a loudness level.",
+          "keyPoints": [
+            "LUFS = loudness units relative to full scale, weighted like human hearing",
+            "Momentary uses a 400 ms window; short-term averages the last 3 seconds",
+            "Integrated loudness averages a whole program such as an episode",
+            "Most streaming services turn audio down to about -14 LUFS"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Video Post-Production Workflow Guide: Loudness for YouTube",
+          "provider": "Frame.io",
+          "url": "https://workflow.frame.io/guide/loudness-for-youtube",
+          "description": "Frame.io's workflow guide section on YouTube loudness, noting YouTube does not publish exact specs and applies loudness normalization on playback.",
+          "keyPoints": [
+            "YouTube does not release an official loudness spec",
+            "YouTube adjusts playback level based on its own analysis",
+            "Mixing around -12 to -14 LUFS reduces how much YouTube changes your audio",
+            "Hitting an exact integrated number is not a guarantee"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "6 ways to use a high-pass filter when mixing",
+          "provider": "iZotope",
+          "author": "Nick Messitte",
+          "url": "https://www.izotope.com/en/learn/6-ways-to-use-a-high-pass-filter-when-mixing",
+          "description": "Describes the high-pass filter as an EQ curve that removes low frequencies and explains using it to clear rumble and wasted low end.",
+          "keyPoints": [
+            "A high-pass filter removes low-frequency content below a cutoff",
+            "Most recorded sources carry unwanted rumble below the useful range",
+            "Rumble around 20-40 Hz can be inaudible yet eat headroom",
+            "Filter only what hurts clarity; don't rely on presets"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Apply amplitude and compression effects to audio",
+          "provider": "Adobe Audition Help",
+          "url": "https://helpx.adobe.com/ca/audition/desktop/effects-reference/amplitude-compression-effects.html",
+          "description": "Adobe Audition's reference for dynamics effects, explaining how compressors reduce dynamic range and which tools level speech.",
+          "keyPoints": [
+            "Compression reduces dynamic range for more consistent levels",
+            "Single-band Compressor also raises perceived loudness",
+            "Dynamics Processing can act as compressor, limiter or expander/gate",
+            "Speech Volume Leveler evens out dialogue levels"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Automatic audio ducking",
+          "provider": "Adobe",
+          "url": "https://www.adobe.com/learn/premiere-pro/web/automatic-audio-ducking",
+          "description": "Adobe tutorial showing how to tag clips as Dialogue and Music in the Essential Sound panel and let Premiere lower music automatically during speech.",
+          "keyPoints": [
+            "Ducking makes background music dip during speech",
+            "Tag clips as Dialogue or Music in Essential Sound",
+            "Adjust sensitivity, reduction amount and fade speed",
+            "Auto-Match loudness first to set baseline levels"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 9,
+      "title": "Platform Mechanics & Analytics",
+      "level": "ADVANCED",
+      "description": "Understand how YouTube's recommendation system uses viewer behavior and which analytics (impressions, CTR, retention) show whether a video is working.",
+      "learningObjectives": [
+        "Explain, per YouTube's own descriptions, what signals drive recommendations",
+        "Define impressions and impressions click-through rate (CTR)",
+        "Read audience retention and average view duration to find drop-off points",
+        "Combine CTR and retention to decide whether to fix packaging (title/thumbnail) or content (pacing/structure)"
+      ],
+      "explainBack": {
+        "question": "How does YouTube decide what to recommend, and which analytics tell you whether a video is working?",
+        "rubric": [
+          "Recommendations are driven by viewer behavior and satisfaction signals (clicks, watch time, likes, dislikes, shares, survey responses); it is a constantly evolving learning system, not a fixed formula",
+          "An impression is counted when a video's thumbnail is shown on YouTube (at least 50% visible for over 1 second)",
+          "Impressions CTR is how often viewers watched after seeing an impression (views from impressions divided by impressions)",
+          "Audience retention and average view duration show how long people watch and where they drop off (intro, dips, spikes)",
+          "Use them together: low CTR points to title/thumbnail; poor retention points to content/pacing; high CTR with low view duration suggests misleading packaging"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "YouTube Search & Discovery: 'The Algorithm' and Performance FAQs",
+          "provider": "YouTube Creators",
+          "url": "https://www.youtube.com/watch?v=fApg7tzlLjY",
+          "description": "YouTube's official Creators channel answers common questions about how search and discovery recommend videos and how to read performance.",
+          "keyPoints": [
+            "How YouTube's discovery system picks videos for viewers",
+            "Common creator questions about 'the algorithm'",
+            "How to interpret video performance data"
+          ],
+          "videoId": "fApg7tzlLjY"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "On YouTube's recommendation system",
+          "provider": "YouTube Official Blog",
+          "author": "Cristos Goodrow",
+          "url": "https://blog.youtube/inside-youtube/on-youtubes-recommendation-system/",
+          "description": "YouTube's VP of Engineering explains the signals the recommendation system uses and why it moved from clicks to watch time to satisfaction surveys.",
+          "keyPoints": [
+            "Clicks indicate interest but are not enough alone",
+            "Watch time became a key signal in 2012",
+            "Surveys measure 'valued watchtime' for satisfying videos",
+            "Shares, likes and dislikes also feed the system",
+            "The system keeps learning from billions of signals"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Algorithm-Based Recommendations on YouTube - How YouTube Works",
+          "provider": "YouTube",
+          "url": "https://www.youtube.com/howyoutubeworks/recommendations/",
+          "description": "YouTube's official page summarizing what the recommendation system considers when personalizing the home feed and Up Next.",
+          "keyPoints": [
+            "Uses viewing behavior, likes, dislikes and subscriptions",
+            "Feedback includes satisfaction surveys",
+            "Also weighs quality and authoritativeness of content"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Check your YouTube thumbnail impressions and watch time",
+          "provider": "YouTube Help",
+          "url": "https://support.google.com/youtube/answer/9314486?hl=en",
+          "description": "Defines impressions and impressions CTR in YouTube Analytics and lists which surfaces count toward impressions.",
+          "keyPoints": [
+            "Impression = thumbnail shown >1 second with at least 50% visible",
+            "Counts home, search, subscriptions, Up Next and playlists",
+            "Excludes external embeds and YouTube Kids/Music apps",
+            "Impressions CTR = how often viewers watched after seeing a thumbnail"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Impressions and click-through rate FAQ",
+          "provider": "YouTube Help",
+          "url": "https://support.google.com/youtube/answer/7628154?hl=en-GB",
+          "description": "YouTube's FAQ on interpreting impressions CTR, typical ranges, and why CTR must be read alongside view duration.",
+          "keyPoints": [
+            "Half of channels/videos have impressions CTR of 2%-10%",
+            "Wait for enough impressions before judging",
+            "Don't over-react to small CTR changes",
+            "Clickbait gives high CTR, low view duration and fewer impressions"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Measure key moments for audience retention",
+          "provider": "YouTube Help",
+          "url": "https://support.google.com/youtube/answer/9314415?hl=en",
+          "description": "Explains the audience retention report, average view duration, and key moments such as intros, spikes and dips.",
+          "keyPoints": [
+            "Retention shows how well each moment held viewers",
+            "Intro shows % still watching after 30 seconds",
+            "Dips = skipped or left; spikes = rewatched or shared",
+            "Compare against your recent videos of similar length"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 10,
+      "title": "Copyright, Licensing & Platform Policies",
+      "level": "ADVANCED",
+      "description": "Know the legal options for using others' music and clips, and what Content ID claims and copyright strikes mean for your channel.",
+      "learningObjectives": [
+        "Distinguish public domain material from royalty-free/licensed material",
+        "Explain the conditions attached to Creative Commons licenses",
+        "Differentiate a Content ID claim from a copyright strike and their consequences",
+        "Explain why fair use is decided case by case and why giving credit is not enough",
+        "Identify safe music sources such as the YouTube Audio Library"
+      ],
+      "explainBack": {
+        "question": "Can you use someone else's music or clip in your video? Explain the options and what happens if you get it wrong.",
+        "rubric": [
+          "Public domain works (e.g., CC0-dedicated) have no copyright restrictions; 'royalty-free' is not the same - it is still a license, and you must follow its terms (e.g., attribution)",
+          "Creative Commons licenses allow use under conditions: Attribution (BY), NonCommercial (NC), NoDerivatives (ND), ShareAlike (SA)",
+          "A Content ID claim lets the rights holder block, monetize or track the video and does not by itself cause a strike; a copyright strike follows a valid legal removal request and removes the video, and three active strikes can get the channel terminated",
+          "Fair use is decided case by case by courts using four factors (purpose, nature, amount, market effect); crediting the creator or adding a disclaimer does not make a use fair",
+          "The YouTube Audio Library provides copyright-safe music that won't be claimed, though some tracks require attribution"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "What can you do about Content ID claims? - Copyright on YouTube",
+          "provider": "YouTube Creators",
+          "url": "https://www.youtube.com/watch?v=bBXFiaGJlZg",
+          "description": "YouTube's official explainer on what a Content ID claim means for your video and the options you have in response.",
+          "keyPoints": [
+            "What happens when Content ID matches your upload",
+            "Options such as removing the claimed content or disputing",
+            "Part of YouTube's official copyright series"
+          ],
+          "videoId": "bBXFiaGJlZg"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "About CC Licenses",
+          "provider": "Creative Commons",
+          "url": "https://creativecommons.org/share-your-work/cclicenses/",
+          "description": "Creative Commons' official description of the four license elements, the six licenses built from them, and the CC0 public domain dedication.",
+          "keyPoints": [
+            "BY: credit the creator",
+            "SA: adaptations must use the same terms",
+            "NC: noncommercial use only; ND: no adaptations",
+            "Six licenses range from CC BY to CC BY-NC-ND",
+            "CC0 places a work in the public domain"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Use music and sound effects from the Audio Library",
+          "provider": "YouTube Help",
+          "url": "https://support.google.com/youtube/answer/3376882?hl=en",
+          "description": "Explains YouTube's free Audio Library, which tracks can be monetized, and when attribution is required.",
+          "keyPoints": [
+            "Royalty-free, copyright-safe music and sound effects",
+            "Audio Library tracks won't be claimed via Content ID",
+            "Creative Commons tracks require crediting the artist",
+            "Standard-license tracks need no attribution",
+            "YouTube only vouches for its own library, not other royalty-free sources"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What is a copyright claim?",
+          "provider": "YouTube Help",
+          "url": "https://support.google.com/youtube/answer/7002106",
+          "description": "Explains what a Content ID copyright claim is and what rights holders can do with it, and how it differs from a strike.",
+          "keyPoints": [
+            "Content ID applies a claim when it finds matching content",
+            "Claimants can block, monetize or track the video",
+            "Actions can differ by country",
+            "Claims are separate from copyright strikes"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Copyright strike basics",
+          "provider": "YouTube Help",
+          "url": "https://support.google.com/youtube/answer/2814000?hl=en",
+          "description": "Explains when a copyright strike is issued, what happens with each strike, and the ways to resolve one.",
+          "keyPoints": [
+            "A strike follows a valid legal copyright removal request",
+            "Strikes expire after 90 days if you complete Copyright School",
+            "Three strikes: account and channels subject to termination",
+            "Resolve via waiting, retraction or counter notification"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Fair use on YouTube",
+          "provider": "YouTube Help",
+          "url": "https://support.google.com/youtube/answer/9783148",
+          "description": "YouTube's explanation of U.S. fair use: the four factors courts weigh, that outcomes depend on the facts, and common myths.",
+          "keyPoints": [
+            "Four factors: purpose, nature, amount used, market effect",
+            "Courts decide each case on its own facts",
+            "Giving credit doesn't make a copy fair use",
+            "'No infringement intended' disclaimers don't protect you"
+          ]
+        }
+      ]
+    }
+  ],
+  "slug": "content-creation",
+  "name": "Content Creation",
+  "description": "Plan, shoot, edit and publish video that holds attention: formats and specs, exposure, lighting, audio, composition, editing, color, loudness, analytics and copyright.",
+  "status": "AVAILABLE"
+}

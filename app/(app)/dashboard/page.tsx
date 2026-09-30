@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { SkillImage } from "@/components/core/SkillImage";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { getDashboardData } from "@/lib/data/dashboard";
@@ -138,7 +138,7 @@ export default async function DashboardPage() {
                 <li key={skill.id}>
                   <article className="sf-explore-card">
                     {image ? (
-                      <Image className="sf-explore-photo" src={image} alt="" width={480} height={270} />
+                      <SkillImage className="sf-explore-photo" src={image} alt="" width={480} height={270} sizes="(max-width: 640px) 100vw, (max-width: 960px) 50vw, 320px" />
                     ) : null}
                     <div>
                       <h3>{skill.name}</h3>

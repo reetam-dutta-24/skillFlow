@@ -2,6 +2,8 @@
 
 import { useState, type FormEvent } from "react";
 import { Button } from "@/components/core/Button.jsx";
+import { SourceField } from "@/components/forms/SourceField";
+import { storedSource } from "@/lib/stored-source";
 import { BYOR_UNSUPPORTED_URL } from "@/lib/mock/config";
 
 const PREVIEW = [
@@ -23,8 +25,8 @@ export function ByorForm() {
     event.preventDefault();
     setError("");
     setReady(false);
-    if (!url.startsWith("https://")) {
-      setError("Use an https link.");
+    if (!storedSource(url)) {
+      setError("Upload a file, or use an https link.");
       return;
     }
     setPending(true);
@@ -40,10 +42,7 @@ export function ByorForm() {
   return (
     <div className="sf-byor">
       <form className="sf-v2-form" onSubmit={(event) => void generate(event)}>
-        <label>
-          Resource link
-          <input type="url" required value={url} onChange={(event) => setUrl(event.target.value)} placeholder="https://" />
-        </label>
+        <SourceField label="Resource link" value={url} onChange={setUrl} />
         <label>
           Stage, optional
           <input value={stage} onChange={(event) => setStage(event.target.value)} />

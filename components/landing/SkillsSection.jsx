@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SkillImage } from "@/components/core/SkillImage";
 import { Chip } from "../core/Chip.jsx";
 import { GlassCard } from "../core/GlassCard.jsx";
 import { SectionHeader } from "../core/SectionHeader.jsx";
@@ -36,7 +36,7 @@ function SkillCard({ skill, muted = false }) {
   return (
     <GlassCard className={muted ? "sf-skill-card is-soon" : "sf-skill-card"} style={{ height: "100%", padding: 0 }}>
       <div className="sf-skill-media" aria-hidden="true">
-        <Image src={skill.image} alt="" fill sizes="(min-width: 960px) 30vw, 100vw" />
+        <SkillImage src={skill.image} alt="" fill sizes="(min-width: 960px) 30vw, 100vw" />
       </div>
       <div className="sf-skill-vignette" aria-hidden="true" />
       <div className="sf-skill-copy">

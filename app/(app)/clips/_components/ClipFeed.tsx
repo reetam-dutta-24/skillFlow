@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import Image from "next/image";
+import { SkillImage } from "@/components/core/SkillImage";
 import Link from "next/link";
 import type { ClipFeedSkill, ClipFormat, ClipItem } from "@/lib/types/pages";
 import { Icon } from "@/components/core/Icon.jsx";
@@ -115,7 +115,7 @@ export function ClipFeed({ skills, clips }: { skills: ClipFeedSkill[]; clips: Cl
                         />
                       ) : (
                         <>
-                          {poster ? <Image className="sf-reel-photo" src={poster} alt="" fill sizes="(max-width: 640px) 100vw, 420px" /> : null}
+                          {poster ? <SkillImage className="sf-reel-photo" src={poster} alt="" fill sizes="(max-width: 640px) 100vw, 420px" /> : null}
                           <button type="button" className="sf-reel-play" aria-label={`Play ${clip.title}`} onClick={() => setPlayingId(clip.id)}>
                             <span>
                               <Icon name="play" size={26} color="var(--text-on-accent)" />
@@ -160,7 +160,7 @@ export function ClipFeed({ skills, clips }: { skills: ClipFeedSkill[]; clips: Cl
                       />
                     ) : (
                       <>
-                        {poster ? <Image src={poster} alt="" fill sizes="(max-width: 640px) 100vw, 360px" /> : null}
+                        {poster ? <SkillImage src={poster} alt="" fill sizes="(max-width: 640px) 100vw, 360px" /> : null}
                         <button type="button" className="sf-reel-play" aria-label={`Play ${clip.title}`} onClick={() => setPlayingId(clip.id)}>
                           <span>
                             <Icon name="play" size={22} color="var(--text-on-accent)" />

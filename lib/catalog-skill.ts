@@ -1,6 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { prisma } from "@/lib/prisma";
+import { readUploadedImage } from "@/lib/uploads";
 
 export type CatalogSkillInput = {
   name: string;
@@ -13,7 +14,7 @@ export type CatalogSkillInput = {
 export type CatalogSkillResult = { ok: true; id: string; slug: string } | { ok: false; error: string };
 
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
-const LOCAL_IMAGE = /^\/skills\/[a-z0-9-]+\.(?:jpe?g|png|webp)$/;
+const LOCAL_IMAGE = /^\/skills\/[a-z0-9-]+\.(?:jpe?g|png|webp|gif)$/;
 const MAX_IMAGE_BYTES = 6 * 1024 * 1024;
 
 function blockedHost(hostname: string) {
@@ -27,6 +28,7 @@ function blockedHost(hostname: string) {
 function extensionFor(type: string) {
   if (type.includes("png")) return "png";
   if (type.includes("webp")) return "webp";
+  if (type.includes("gif")) return "gif";
   if (type.includes("jpeg") || type.includes("jpg")) return "jpg";
   return null;
 }
@@ -36,6 +38,14 @@ export async function storeSkillImage(slug: string, image: string): Promise<stri
   const trimmed = image.trim();
   if (!trimmed) return null;
   if (LOCAL_IMAGE.test(trimmed)) return trimmed;
+
+  const uploaded = await readUploadedImage(trimmed);
+  if (uploaded) {
+    const directory = path.join(process.cwd(), "public", "skills");
+    await mkdir(directory, { recursive: true });
+    await writeFile(path.join(directory, `${slug}.${uploaded.ext}`), uploaded.bytes);
+    return `/skills/${slug}.${uploaded.ext}`;
+  }
 
   let url: URL;
   try {
@@ -70,7 +80,7 @@ export async function createCatalogSkill(input: CatalogSkillInput): Promise<Cata
   if (taken) return { ok: false, error: "That slug is already used." };
 
   const image = await storeSkillImage(slug, input.image);
-  if (!image) return { ok: false, error: "Use an https image link." };
+  if (!image) return { ok: false, error: "Add an image from your device, or an https link." };
 
   const last = await prisma.skill.findFirst({ orderBy: { order: "desc" }, select: { order: true } });
   const created = await prisma.skill.create({

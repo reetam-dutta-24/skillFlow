@@ -1,6 +1,7 @@
 import "server-only";
 import { Prisma, ResourceType } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
+import { storedSource } from "@/lib/stored-source";
 import type { SubmissionView } from "@/lib/types/domain";
 
 const RESOURCE_TYPES = new Set<string>(Object.values(ResourceType));
@@ -15,15 +16,6 @@ export type SubmitInput = {
 
 function parseType(value: string): ResourceType | null {
   return RESOURCE_TYPES.has(value) ? (value as ResourceType) : null;
-}
-
-function httpsUrl(value: string) {
-  try {
-    const url = new URL(value.trim());
-    return url.protocol === "https:" ? url.toString() : null;
-  } catch {
-    return null;
-  }
 }
 
 function blankToNull(value: string) {
@@ -92,8 +84,8 @@ export async function createSubmission(userId: string, input: SubmitInput) {
   const type = parseType(input.type);
   if (!type) return { ok: false as const, error: "Choose a resource type." };
 
-  const url = httpsUrl(input.url);
-  if (!url) return { ok: false as const, error: "Use an https link." };
+  const url = storedSource(input.url);
+  if (!url) return { ok: false as const, error: "Upload a file, or use an https link." };
 
   const stage = await prisma.roadmapStage.findUnique({ where: { id: input.stageId }, select: { id: true } });
   if (!stage) return { ok: false as const, error: "Choose a stage that exists." };

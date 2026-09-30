@@ -3,12 +3,16 @@
 import { useState } from "react";
 import { Button } from "@/components/core/Button.jsx";
 import { Chip } from "@/components/core/Chip.jsx";
+import { SourceField } from "@/components/forms/SourceField";
+import { storedSource } from "@/lib/stored-source";
 
 type Status = "none" | "pending" | "verified";
 
 export function CreatorDesk({ initial }: { initial: Status }) {
   const [status, setStatus] = useState<Status>(initial);
   const [pending, setPending] = useState(false);
+  const [samples, setSamples] = useState("");
+  const [sampleError, setSampleError] = useState("");
 
   if (status === "verified") {
     return (
@@ -38,6 +42,11 @@ export function CreatorDesk({ initial }: { initial: Status }) {
       className="sf-v2-form"
       onSubmit={(event) => {
         event.preventDefault();
+        if (!storedSource(samples)) {
+          setSampleError("Upload a file, or use an https link.");
+          return;
+        }
+        setSampleError("");
         setPending(true);
         window.setTimeout(() => {
           setPending(false);
@@ -50,10 +59,8 @@ export function CreatorDesk({ initial }: { initial: Status }) {
         Expertise
         <input required />
       </label>
-      <label>
-        Sample links
-        <textarea required rows={3} placeholder="https://" />
-      </label>
+      <SourceField label="Sample links" value={samples} onChange={(value) => { setSamples(value); setSampleError(""); }} />
+      {sampleError ? <p role="alert">{sampleError}</p> : null}
       <label>
         Statement
         <textarea required rows={4} />

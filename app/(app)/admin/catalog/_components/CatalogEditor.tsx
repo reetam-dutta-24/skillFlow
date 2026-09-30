@@ -4,6 +4,8 @@ import { useMemo, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/core/Button.jsx";
+import { SourceField } from "@/components/forms/SourceField";
+import { storedSource } from "@/lib/stored-source";
 import type { CatalogEditorSkill } from "@/lib/data/catalog-admin";
 import { saveResource } from "../actions";
 
@@ -75,7 +77,7 @@ export function CatalogEditor({ skills }: { skills: CatalogEditorSkill[] }) {
     const next: Record<string, string> = {};
     if (!stageId) next.stage = "Choose a stage.";
     if (!title.trim()) next.title = "Add a title.";
-    if (!url.startsWith("https://")) next.url = "Use an https link.";
+    if (!storedSource(url)) next.url = "Upload a file, or use an https link.";
     setErrors(next);
     if (Object.keys(next).length) return;
 
@@ -158,18 +160,13 @@ export function CatalogEditor({ skills }: { skills: CatalogEditorSkill[] }) {
             ))}
           </select>
         </label>
-        <label>
-          Link
-          <input
-            value={url}
-            inputMode="url"
-            type="url"
-            placeholder="https://"
-            aria-invalid={Boolean(errors.url)}
-            aria-describedby={errors.url ? "catalog-url-error" : undefined}
-            onChange={(event) => setUrl(event.target.value)}
-          />
-        </label>
+        <SourceField
+          label="Link"
+          value={url}
+          invalid={Boolean(errors.url)}
+          errorId={errors.url ? "catalog-url-error" : undefined}
+          onChange={setUrl}
+        />
         {errors.url ? <p id="catalog-url-error">{errors.url}</p> : null}
         <label>
           Title

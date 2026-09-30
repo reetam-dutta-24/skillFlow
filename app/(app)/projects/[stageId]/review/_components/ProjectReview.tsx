@@ -3,6 +3,8 @@
 import { useId, useState } from "react";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
 import { Button } from "@/components/core/Button.jsx";
+import { SourceField } from "@/components/forms/SourceField";
+import { storedSource } from "@/lib/stored-source";
 
 const CRITERIA = ["Correctness", "Clarity", "Edge cases", "Explanation"];
 
@@ -10,6 +12,8 @@ export function ProjectReview({ waiting }: { waiting: boolean }) {
   const [tab, setTab] = useState<"submit" | "review">("submit");
   const [report, setReport] = useState(false);
   const [notice, setNotice] = useState("");
+  const [link, setLink] = useState("");
+  const [linkError, setLinkError] = useState("");
   const titleId = useId();
 
   return (
@@ -19,15 +23,21 @@ export function ProjectReview({ waiting }: { waiting: boolean }) {
         <button type="button" role="tab" aria-selected={tab === "review"} onClick={() => setTab("review")}>Review a peer</button>
       </div>
       {tab === "submit" ? (
-        <form className="sf-v2-form" onSubmit={(event) => { event.preventDefault(); setNotice("Submitted for a peer at your stage."); }}>
+        <form className="sf-v2-form" onSubmit={(event) => {
+          event.preventDefault();
+          if (!storedSource(link)) {
+            setLinkError("Upload a file, or use an https link.");
+            return;
+          }
+          setLinkError("");
+          setNotice("Submitted for a peer at your stage.");
+        }}>
           <label>
             What you built
             <textarea required rows={5} />
           </label>
-          <label>
-            Link
-            <input required type="url" placeholder="https://" />
-          </label>
+          <SourceField label="Link" value={link} onChange={(value) => { setLink(value); setLinkError(""); }} />
+          {linkError ? <p role="alert">{linkError}</p> : null}
           <Button type="submit" variant="gradient">Submit project</Button>
           {notice ? <p role="status">{notice}</p> : null}
         </form>

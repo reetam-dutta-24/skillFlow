@@ -12,6 +12,7 @@ type PageProps = {
 };
 
 function hostLabel(url: string) {
+  if (url.startsWith("/uploads/")) return "Uploaded file";
   try {
     return new URL(url).hostname.replace(/^www\./, "");
   } catch {

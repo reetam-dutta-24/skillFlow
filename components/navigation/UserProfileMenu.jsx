@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { Icon } from "../core/Icon.jsx";
+import { SkillImage } from "@/components/core/SkillImage";
 
 const ITEMS = [
   { label: "Progress", icon: "chart-line" },
@@ -72,7 +73,9 @@ export function UserProfileMenu({ name, handle, email, avatarUrl, placement = "t
           transition: "background var(--dur-fast) var(--ease-in-out)",
         }}
       >
-        {avatarUrl ? (
+        {avatarUrl?.startsWith("/") ? (
+          <SkillImage src={avatarUrl} alt="" width={64} height={64} sizes="32px" style={{ width: 32, height: 32, borderRadius: "var(--radius-full)", objectFit: "cover", flexShrink: 0 }} />
+        ) : avatarUrl ? (
           <img src={avatarUrl} alt="" style={{ width: 32, height: 32, borderRadius: "var(--radius-full)", objectFit: "cover", flexShrink: 0 }} />
         ) : (
           <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 32, height: 32, flexShrink: 0, borderRadius: "var(--radius-full)", backgroundImage: "var(--gradient-brand)", color: "#fff", fontSize: "var(--text-sm)", fontWeight: "var(--weight-bold)" }}>{initial}</span>

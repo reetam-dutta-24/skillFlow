@@ -1,6 +1,7 @@
 import "server-only";
 import { ResourceType } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
+import { storedSource } from "@/lib/stored-source";
 import type { ResourceType as ResourceTypeName } from "@/lib/types/domain";
 
 export type CatalogEditorResource = {
@@ -46,15 +47,6 @@ const RESOURCE_TYPES = new Set<string>(Object.values(ResourceType));
 
 function parseType(value: string): ResourceType | null {
   return RESOURCE_TYPES.has(value) ? (value as ResourceType) : null;
-}
-
-function httpsUrl(value: string) {
-  try {
-    const url = new URL(value.trim());
-    return url.protocol === "https:" ? url.toString() : null;
-  } catch {
-    return null;
-  }
 }
 
 function blankToNull(value: string) {
@@ -109,8 +101,8 @@ export async function saveCatalogResource(input: CatalogSaveInput): Promise<Cata
   const type = parseType(input.type);
   if (!type) return { ok: false, error: "Choose a resource type." };
 
-  const url = httpsUrl(input.url);
-  if (!url) return { ok: false, error: "Use an https link." };
+  const url = storedSource(input.url);
+  if (!url) return { ok: false, error: "Upload a file, or use an https link." };
 
   const stage = await prisma.roadmapStage.findUnique({
     where: { id: input.stageId },

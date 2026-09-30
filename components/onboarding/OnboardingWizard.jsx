@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import Image from "next/image";
+import { SkillImage } from "@/components/core/SkillImage";
 import { ACCENTS, applyAccent, isAccentId } from "@/lib/accent";
 import { GOAL_CHOICES, PACE_CHOICES, SKILL_CHOICES, goalById, paceById, skillBySlug } from "@/lib/learner";
 import { saveLearnerProfile } from "@/app/onboarding/actions";
@@ -153,7 +153,7 @@ function WelcomeCard({ name, reduce, motionProps }) {
             transition={reduce ? { duration: 0 } : { duration: 0.45, delay: 0.08 + index * 0.06, ease: EASE }}
             style={{ zIndex: index }}
           >
-            <Image src={skill.image} alt="" fill sizes="72px" />
+            <SkillImage src={skill.image} alt="" fill sizes="72px" />
           </motion.span>
         ))}
       </div>
@@ -257,7 +257,7 @@ function SkillStep({ value, onChange, reduce }) {
           delay={index}
         >
           <span className="sf-pick-photo">
-            <Image src={skill.image} alt="" fill sizes="(min-width: 720px) 180px, 42vw" />
+            <SkillImage src={skill.image} alt="" fill sizes="(min-width: 720px) 180px, 42vw" />
           </span>
           <span className="sf-pick-label">{skill.title}</span>
         </Pick>
@@ -316,7 +316,7 @@ function ReadyStep({ name, skillSlug, pace, goal, accent }) {
   return (
     <div className="sf-ready">
       <div className="sf-ready-photo">
-        <Image src={skill.image} alt="" fill sizes="240px" />
+        <SkillImage src={skill.image} alt="" fill sizes="240px" />
       </div>
       <div>
         {name ? <p className="sf-ready-name">{name}</p> : null}

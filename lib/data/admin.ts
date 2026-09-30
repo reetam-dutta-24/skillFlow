@@ -1,5 +1,6 @@
 import "server-only";
 import { prisma } from "@/lib/prisma";
+import { storedSource } from "@/lib/stored-source";
 import type { SubmissionView } from "@/lib/types/domain";
 import { Prisma } from "@prisma/client";
 
@@ -79,14 +80,8 @@ export async function reviewSubmissionRecord(input: {
     return { ok: true as const, ...paths };
   }
 
-  let url: string;
-  try {
-    const parsed = new URL(submission.url);
-    if (parsed.protocol !== "https:") return { ok: false as const, error: "This suggestion does not have an https link." };
-    url = parsed.toString();
-  } catch {
-    return { ok: false as const, error: "This suggestion does not have an https link." };
-  }
+  const url = storedSource(submission.url);
+  if (!url) return { ok: false as const, error: "Upload a file, or use an https link." };
 
   await prisma.$transaction(async (tx) => {
     const last = await tx.resource.findFirst({

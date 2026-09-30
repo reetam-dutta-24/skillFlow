@@ -1,7 +1,9 @@
 "use client";
 
 import { useMemo, useRef, useState, type FormEvent, type ReactNode } from "react";
-import Image from "next/image";
+import { SkillImage } from "@/components/core/SkillImage";
+import { SourceField } from "@/components/forms/SourceField";
+import { storedSource } from "@/lib/stored-source";
 import { useRouter, useSearchParams } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/core/Button.jsx";
@@ -84,8 +86,8 @@ export function SubmitForm({ skills }: { skills: SkillOption[] }) {
         setFieldError("Add a title.");
         return;
       }
-      if (!url.startsWith("https://")) {
-        setFieldError("Use an https link.");
+      if (!storedSource(url)) {
+        setFieldError("Upload a file, or use an https link.");
         return;
       }
     }
@@ -168,7 +170,7 @@ export function SubmitForm({ skills }: { skills: SkillOption[] }) {
                       }}
                     >
                       <span className="sf-pick-photo">
-                        {item.image ? <Image src={item.image} alt="" fill sizes="180px" /> : null}
+                        {item.image ? <SkillImage src={item.image} alt="" fill sizes="180px" /> : null}
                       </span>
                       <span className="sf-pick-label">{item.name}</span>
                     </Pick>
@@ -216,10 +218,7 @@ export function SubmitForm({ skills }: { skills: SkillOption[] }) {
                     Title
                     <input value={title} onChange={(event) => { setTitle(event.target.value); setFieldError(""); }} />
                   </label>
-                  <label>
-                    Link
-                    <input value={url} type="url" inputMode="url" placeholder="https://" onChange={(event) => { setUrl(event.target.value); setFieldError(""); }} />
-                  </label>
+                  <SourceField label="Link" value={url} onChange={(value) => { setUrl(value); setFieldError(""); }} />
                   <label>
                     Description
                     <textarea value={description} rows={3} onChange={(event) => setDescription(event.target.value)} />
@@ -229,7 +228,7 @@ export function SubmitForm({ skills }: { skills: SkillOption[] }) {
               {step === 4 && skill && stage ? (
                 <div className="sf-ready">
                   <div className="sf-ready-photo">
-                    {skill.image ? <Image src={skill.image} alt="" fill sizes="160px" /> : null}
+                    {skill.image ? <SkillImage src={skill.image} alt="" fill sizes="160px" /> : null}
                   </div>
                   <div>
                     <p className="sf-ready-skill">{title.trim() || "Untitled"}</p>

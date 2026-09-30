@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import { SkillImage } from "@/components/core/SkillImage";
 import { Icon } from "../core/Icon.jsx";
 import { Chip } from "../core/Chip.jsx";
 import { MasteryChip } from "../core/MasteryChip.jsx";
@@ -40,7 +41,7 @@ export function LessonCard({ title, skill, meta, status = "todo", mastery, kind 
     <>
       <div style={{ position: "relative", height: 90, background: "var(--bg-sunken)", overflow: "hidden" }}>
         {thumbnail ? (
-          <img src={thumbnail} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", filter: locked ? "var(--blur-lock)" : "none" }} />
+          <SkillImage src={thumbnail} alt="" fill sizes="160px" style={{ objectFit: "cover", filter: locked ? "var(--blur-lock)" : "none" }} />
         ) : (
           <span style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-faint)" }}>
             <Icon name={kind === "quiz" ? "list-checks" : kind === "gate" ? "message-square-quote" : "play"} size={20} color="var(--text-faint)" />

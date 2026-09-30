@@ -4,6 +4,11 @@ import React from "react";
 import Link from "next/link";
 import { Icon } from "../core/Icon.jsx";
 import { Chip } from "../core/Chip.jsx";
+import { SkillImage } from "@/components/core/SkillImage";
+
+function isLocalVideo(url) {
+  return typeof url === "string" && url.startsWith("/uploads/") && /\.(?:mp4|webm|mov)$/i.test(url);
+}
 
 function playableSrc(url) {
   try {
@@ -30,7 +35,9 @@ export function LessonPlayer({ title, skill, stage, duration, watched = false, r
       </div>
 
       <div style={{ position: "relative", aspectRatio: "16 / 9", overflow: "hidden", borderRadius: "var(--radius-card)", background: "var(--bg-sunken)", border: "1px solid var(--border-subtle)" }}>
-        {playing && clipUrl ? (
+        {playing && clipUrl && isLocalVideo(clipUrl) ? (
+          <video src={clipUrl} controls autoPlay style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+        ) : playing && clipUrl ? (
           <iframe
             src={playableSrc(clipUrl)}
             title="Hook clip"
@@ -40,7 +47,7 @@ export function LessonPlayer({ title, skill, stage, duration, watched = false, r
           />
         ) : (
           <>
-            {poster ? <img src={poster} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.6 }} /> : null}
+            {poster ? <SkillImage src={poster} alt="" fill sizes="(max-width: 820px) 100vw, 820px" style={{ objectFit: "cover", opacity: 0.6 }} /> : null}
             {clipUrl ? (
               <button type="button" aria-label="Play hook clip" onClick={() => setPlaying(true)} style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", border: 0, padding: 0, background: "transparent", cursor: "pointer" }}>
                 <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 60, height: 60, borderRadius: "var(--radius-full)", backgroundImage: "var(--gradient-brand)" }}>

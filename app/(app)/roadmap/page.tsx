@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { SkillImage } from "@/components/core/SkillImage";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
@@ -45,7 +45,7 @@ export default async function RoadmapIndexPage() {
               return (
                 <li key={row.skill.id}>
                   <article className="sf-roadmap-card">
-                    {image ? <Image className="sf-explore-photo" src={image} alt="" width={480} height={270} /> : null}
+                    {image ? <SkillImage className="sf-explore-photo" src={image} alt="" width={480} height={270} sizes="(max-width: 640px) 100vw, (max-width: 960px) 50vw, 320px" /> : null}
                     <div className="sf-roadmap-copy">
                       <h3>{row.skill.name}</h3>
                       <p>
@@ -74,7 +74,7 @@ export default async function RoadmapIndexPage() {
             return (
               <li key={skill.id}>
                 <article className="sf-explore-card">
-                  {image ? <Image className="sf-explore-photo" src={image} alt="" width={480} height={270} /> : null}
+                  {image ? <SkillImage className="sf-explore-photo" src={image} alt="" width={480} height={270} sizes="(max-width: 640px) 100vw, (max-width: 960px) 50vw, 320px" /> : null}
                   <div>
                     <h3>{skill.name}</h3>
                     {skill.description ? <p>{skill.description}</p> : null}

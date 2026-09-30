@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SkillImage } from "@/components/core/SkillImage";
 import Link from "next/link";
 import { goalById, goalLine, paceById, stageTag } from "@/lib/learner";
 import { Chip } from "../core/Chip.jsx";
@@ -16,7 +16,7 @@ export function ForYou({ name, skill, pace, goal, stages }) {
       <h1 id="reco-title">Your path</h1>
       <article className="sf-reco">
         <div className="sf-reco-media">
-          <Image src={skill.image} alt="" fill sizes="(min-width: 800px) 760px, 100vw" priority />
+          <SkillImage src={skill.image} alt="" fill sizes="(min-width: 800px) 760px, 100vw" priority />
         </div>
         <div className="sf-reco-copy">
           <p>Recommended for you</p>

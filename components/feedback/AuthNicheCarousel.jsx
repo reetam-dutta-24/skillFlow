@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
+import { SkillImage } from "@/components/core/SkillImage";
 
 const NICHES = [
   { title: "Full-Stack Web Development", image: "/skills/web.jpg" },
@@ -90,7 +90,7 @@ export function AuthNicheCarousel() {
               onClick={() => show(index)}
             >
               <span className="sf-niche-photo">
-                <Image src={niche.image} alt="" fill sizes="220px" />
+                <SkillImage src={niche.image} alt="" fill sizes="220px" />
               </span>
               <span className="sf-niche-name">{niche.title}</span>
             </button>

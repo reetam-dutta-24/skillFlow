@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SkillImage } from "@/components/core/SkillImage";
 
 /** Why the project exists. Copy sits on the left; skill photos sit on the right. */
 export function AboutSection({ title, body, stack, githubLabel, githubUrl, visuals }) {
@@ -24,7 +24,7 @@ export function AboutSection({ title, body, stack, githubLabel, githubUrl, visua
         <ul className="sf-about-visual">
           {visuals.map((item) => (
             <li key={item.title}>
-              <Image src={item.image} alt="" fill sizes="(min-width: 960px) 24vw, 50vw" />
+              <SkillImage src={item.image} alt="" fill sizes="(min-width: 960px) 24vw, 50vw" />
               <span className="sf-about-veil" aria-hidden="true" />
               <span className="sf-about-caption">{item.title}</span>
             </li>

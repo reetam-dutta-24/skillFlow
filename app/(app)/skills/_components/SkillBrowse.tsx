@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
-import Image from "next/image";
+import { SkillImage } from "@/components/core/SkillImage";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Icon } from "@/components/core/Icon.jsx";
@@ -136,7 +136,7 @@ function SkillCard({ skill }: { skill: BrowseSkill }) {
     <>
       {skill.image ? (
         <span className="sf-skill-tile-photo">
-          <Image src={skill.image} alt="" fill sizes="(min-width: 900px) 280px, 100vw" />
+          <SkillImage src={skill.image} alt="" fill sizes="(max-width: 640px) 100vw, 280px" />
         </span>
       ) : (
         <span className="sf-skill-tile-photo sf-skill-tile-fallback" aria-hidden="true" />

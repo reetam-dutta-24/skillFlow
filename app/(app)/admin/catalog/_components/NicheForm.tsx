@@ -3,7 +3,10 @@
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/core/Button.jsx";
+import { SkillImage } from "@/components/core/SkillImage";
+import { SourceField } from "@/components/forms/SourceField";
 import { slugFromName } from "@/lib/niche-catalog";
+import { storedSource } from "@/lib/stored-source";
 import type { CatalogSkillRow } from "@/lib/data/catalog-admin";
 import { createSkill } from "../actions";
 
@@ -28,6 +31,10 @@ export function NicheForm({ skills }: { skills: CatalogSkillRow[] }) {
     event.preventDefault();
     setError("");
     setSaved("");
+    if (!storedSource(image)) {
+      setError("Add an image from your device, or an https link.");
+      return;
+    }
     setPending(true);
     const result = await createSkill({ name, slug, description, image, open });
     setPending(false);
@@ -68,17 +75,7 @@ export function NicheForm({ skills }: { skills: CatalogSkillRow[] }) {
           Description
           <textarea value={description} rows={3} onChange={(event) => setDescription(event.target.value)} />
         </label>
-        <label>
-          Image
-          <input
-            value={image}
-            inputMode="url"
-            type="url"
-            placeholder="https://"
-            required
-            onChange={(event) => setImage(event.target.value)}
-          />
-        </label>
+        <SourceField label="Image" kind="image" value={image} onChange={setImage} />
         <div className="sf-check">
           <input id="skill-open" type="checkbox" checked={open} onChange={(event) => setOpen(event.target.checked)} />
           <label htmlFor="skill-open">Open to follow</label>
@@ -98,7 +95,7 @@ export function NicheForm({ skills }: { skills: CatalogSkillRow[] }) {
           {skills.map((skill) => (
             <li key={skill.id}>
               <span className="sf-niche-row">
-                <img src={skill.image} alt="" />
+                <SkillImage src={skill.image} alt="" width={112} height={72} sizes="56px" />
                 <span>
                   {skill.name}
                   <small>{skill.slug}</small>

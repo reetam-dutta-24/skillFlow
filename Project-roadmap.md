@@ -27,6 +27,7 @@ Last aligned with the working tree on 30 September 2026.
 | Niches and roadmaps | Done for three paths | Full-Stack, Travel Vlogging, and Content Creation are free and available. Art stays a coming-soon flagship |
 | Lessons and clips | Done for stored resources | The player reads `Resource` rows. YouTube watch links are rewritten into an embed |
 | Admin catalog and submissions | Done | An admin can edit stages and resources, and an approval creates a resource |
+| Caching | Done for shared catalog | Niche grid, lessons, clips, and the submit picker are one cached copy. Progress and the account menu stay per person |
 | Settings follow | Done | Add and remove on the settings page write `UserSkillProgress`. The Add button on Home does not |
 | Quiz and explain-back AI | Not started | Prompts are stored. No quiz questions exist. The explain-back screen still reads mock data |
 | Unlock by mastery | Not in Version 1 | A free path locks its last three stages. A pass does not open the next one |
@@ -75,6 +76,28 @@ Landing, the auth carousel, and onboarding still list Art as a launch niche. Tha
 - **`lib/prisma.ts`.** One Prisma Client for the process, stored on `globalThis` in development.
 - **`proxy.ts`.** If there is no session, a visit to a signed-in URL redirects to `/login`. Role checks are not done here. Admin pages call `requireAdmin()` themselves.
 - **`lib/data`.** Each loader starts with `import "server-only"`. Catalog, lesson, clips, dashboard, settings, submissions, and admin catalog read Prisma. Milestone (explain-back) and the Version 2 previews still read `lib/mock`.
+
+---
+
+## Revision: caching
+
+Public pages are static. `/`, `/login`, `/signup`, `/privacy`, and `/terms` do not read a session, so Next.js builds them once and does not ask the server for that HTML on every visit.
+
+Signed-in pages are not fully static. Follow marks, mastery, and the account menu differ per person. `cacheComponents` is on in `next.config.ts`. The part that is the same for every visitor is cached with `"use cache"`:
+
+- The niche grid, including the card template
+- Lesson screens, including a locked stage. The lock is the last three stages of a free path, so it is the same for every learner
+- Clip items from open stages
+- The submit-a-resource skill picker
+- The public catalog those screens read (`lib/data/public-catalog.ts`)
+
+The lifetime is `cacheLife("hours")`. The tag is `catalog` (`lib/cache/tags.ts`). An admin catalog save and an approved submission call `invalidateCatalog()`, which is `updateTag`, so the edit shows up immediately. A catalog import run from a script cannot call `updateTag`. That change shows up when the hour-long cache refreshes.
+
+Progress, streaks, follow state, quiz history, and the account menu stay on the request. The account name is cached per user under `account:${userId}` and expires when that person saves their name. A cached function returns plain data. It does not call `auth()`, `cookies()`, or `headers()`.
+
+Roadmap stage status (passed, in progress, ready) stays personal, so the roadmap page is not one cached component. It reads the cached catalog and overlays that person's progress.
+
+There is no Redis layer. The cache is Next's own store. `ioredis` is in the dependencies and is unused.
 
 ---
 
@@ -181,6 +204,7 @@ Stage photos were generated for all 10 Content Creation stages and all 8 Travel 
 - **Google is in `lib/auth.ts`. The login form does not show a Google button.**
 - **Proxy is not the admin check.** The proxy only asks "is someone signed in?". `requireAdmin()` asks "is this person an admin?".
 - **Public pages stay static.** `/`, `/login`, `/signup`, `/privacy`, and `/terms` do not call `auth()` in the root layout.
+- **Shared screens are one cached copy. Personal progress is not.** The niche grid, lessons, clips, and the submit picker use the `catalog` tag. Admin saves expire it at once. Follow marks, mastery, and the account menu stay on the request.
 - **The feed can hold more than one skill.** Onboarding saves one profile skill. Settings can add more available skills. Home renders one row per followed skill. The old "one skill only" rule is not what the screen does.
 - **The last three stages are the Version 1 lock.** It is not a quiz gate. Coming-soon and monetized skills open no stages.
 - **Art stayed a flagship.** Travel took its place as the third free path. Art is coming soon so a card does not promise a path that has no stages.
@@ -219,13 +243,13 @@ Do not start a later phase's backend until the previous phase's open boxes are d
 - [ ] **OWASP baseline** — passwords are hashed, secrets stay in `.env`, admin routes check role. A full threat pass is not done.
 - [ ] **Accessibility** — semantic headings, labels, and focus are in the kit. A full keyboard and contrast pass is not done.
 - [ ] **Tests** — none yet.
-- [x] **README and agent context** — `README.md`, `AGENTS.md`, and this file match the three free paths. The case study is not written.
+- [x] **README and agent context** — `README.md`, `AGENTS.md`, and this file match the three free paths and the shared-content cache. The case study is not written.
 
 ## Non-functional requirements
 
 - [ ] Scalability documented for a real deploy
 - [ ] Security: auth works for email/password; a threat pass is still open
-- [ ] Performance: foreign keys exist; feed caching is not a separate layer
+- [x] Performance of shared catalog reads — one cached copy of the niche grid, lessons, clips, and the submit picker. Personal progress stays a small query. A production host and CDN are still open
 - [x] Reliability of a dead link — a stored source can be marked unavailable and the lesson keeps the snapshot
 - [x] Maintainability of the UI layer — tokens, typed view models, `lib/data` boundary
 - [ ] Observability (Sentry or equivalent)
@@ -313,6 +337,7 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 **Status: 🔶 THE LEARNING PATH IS ON REAL DATA. QUIZ, EXPLAIN-BACK, AND VERSION 2 ARE NOT**
 
 - [x] App shell, home, clips, roadmaps, lesson, settings, submit, admin catalog
+- [x] Shared catalog cache for the niche grid, lessons, clips, and the submit picker. Admin saves expire it
 - [x] Loading skeletons, empty states, and the locked-stage state
 - [x] Stage photos on the three paths
 - [x] Settings follow and unfollow

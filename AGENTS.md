@@ -127,4 +127,5 @@ Also leave `lib/auth.ts` and the auth models alone unless the task is auth.
 - If a link check fails, report the URL and the result. Do not replace it.
 - Do not sign the browser out. Do not print `AUTH_SECRET` or passwords.
 - When a screen, layout, or client flow changes, verify it in the browser before saying it is done.
-- Update this file and `Project-roadmap.md` when the product status changes, so the next chat does not revive the old Art-as-third-path or mock-catalog story.
+- Decide the cache for every new page, section, and component. Content that is the same for every visitor uses `"use cache"`, `cacheLife("hours")`, and the `catalog` tag, and a write that changes it calls `invalidateCatalog()`. Session, progress, follow marks, streaks, and the account menu stay on the request. Do not call `auth()` inside a cached function.
+- Update `AGENTS.md`, `Project-roadmap.md`, and `README.md` when the product gains a capability those files do not mention. A new cache, a new path, a new lock rule, and a newly wired screen all belong there. Do not leave a new system only in code. Do not hand-edit `content/catalog/_review/`.

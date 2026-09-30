@@ -16,7 +16,7 @@ A dead stored link can be marked unavailable. The lesson keeps the saved title, 
 
 ## Tech stack
 
-- Next.js 16.3.4, React 19, TypeScript, Tailwind CSS v4
+- Next.js 16.3.4, React 19, TypeScript, Tailwind CSS v4. Landing and auth pages are static. Shared catalog screens (niche grid, lessons, clips, submit picker) are cached for every visitor. Progress and the account menu stay per person
 - PostgreSQL and Prisma 6
 - Auth.js v5 — email and password with bcrypt, JWT sessions. Google is configured in code and is not on the login form
 - Quizzes and explain-back grading are not connected to a model yet

@@ -1,0 +1,14 @@
+---
+description: Cache shared SkillFlow content; keep personal data on the request
+alwaysApply: true
+---
+
+# Caching decisions
+
+Decide the cache for every new page, section, and component before writing it. Do not wait to be asked.
+
+Shared content is the same for every visitor: niche cards and the niche grid, stage lists, lesson bodies, clip items, resource lists, and the submit picker. Cache it with `"use cache"`, `cacheLife("hours")`, and `cacheTag(CATALOG_TAG)` from `lib/cache/tags.ts`. Return plain serializable data. A write that changes that content calls `invalidateCatalog()` from `lib/cache/invalidate.ts`.
+
+Personal content stays on the request: session, follow marks, mastery, stage pass state, streaks, quiz history, and the account menu. Do not put `cookies()`, `headers()`, or `auth()` inside a cached function. Per-user rows that are safe to reuse use `accountTag(userId)` and `invalidateAccount(userId)`.
+
+Static pages with no session (landing, login, signup, privacy, terms) stay static. Do not mark a shared catalog screen `force-dynamic`.

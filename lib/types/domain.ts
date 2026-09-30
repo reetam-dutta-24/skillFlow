@@ -12,7 +12,9 @@ export type SessionViewer = {
 
 export type SkillStatus = "available" | "coming_soon";
 
-export type StageStatus = "passed" | "in_progress" | "locked";
+export type SkillOffer = "FREE" | "MONETIZED";
+
+export type StageStatus = "passed" | "in_progress" | "ready" | "locked";
 
 export type ResourceType = "HOOK_CLIP" | "EMBEDDED_VIDEO" | "DOC_LINK" | "COURSE_LINK";
 
@@ -29,6 +31,7 @@ export type SkillView = {
   isFlagship: boolean;
   order: number;
   status: SkillStatus;
+  offer: SkillOffer;
   followed: boolean;
   masteryPercent: number;
   createdAt: string;

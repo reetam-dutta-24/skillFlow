@@ -18,6 +18,7 @@ export default async function SkillsPage() {
       name: entry.skill.name,
       description: entry.skill.description ?? "",
       status: entry.skill.status,
+      offer: entry.skill.offer,
       followed: entry.skill.followed,
       stageCount: entry.stages.length,
       image: entry.skill.image,

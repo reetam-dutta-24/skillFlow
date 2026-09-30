@@ -97,6 +97,22 @@ enum SkillStatus {
   COMING_SOON
 }
 
+enum SkillOffer {
+  FREE
+  MONETIZED
+}
+
+enum NicheGroup {
+  CARE
+  MONEY
+  HOME
+  LANGUAGE
+  GAMES
+  CRAFT
+  FUTURE
+  MIND
+}
+
 enum StageLevel {
   BEGINNER
   INTERMEDIATE
@@ -110,6 +126,8 @@ model Skill {
   description String?
   image       String
   status      SkillStatus @default(COMING_SOON)
+  offer       SkillOffer  @default(MONETIZED)
+  nicheGroup  NicheGroup  @default(MIND)
   isFlagship  Boolean     @default(false)
   order       Int         @default(0)
 
@@ -127,6 +145,7 @@ model RoadmapStage {
   order               Int
   level               StageLevel @default(BEGINNER)
   learningObjectives  String[]   @default([])
+  monetized           Boolean    @default(false)
 
   skill Skill @relation(fields: [skillId], references: [id], onDelete: Cascade)
 
@@ -172,6 +191,7 @@ model Resource {
   sourceStatus   SourceStatus @default(ACTIVE)
   lastVerifiedAt DateTime?
   needsReview    Boolean      @default(false)
+  monetized      Boolean      @default(false)
 
   stage RoadmapStage @relation(fields: [stageId], references: [id], onDelete: Cascade)
 

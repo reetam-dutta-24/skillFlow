@@ -14,10 +14,12 @@ type PageProps = {
 function stageStatus(status: StageStatus) {
   if (status === "passed") return "done" as const;
   if (status === "in_progress") return "active" as const;
+  if (status === "ready") return "todo" as const;
   return "locked" as const;
 }
 
 function stageMeta(stage: RoadmapStageView) {
+  if (stage.status === "locked") return "Locked";
   const lessons =
     stage.lessonCount === 0 ? "No lessons yet" : stage.lessonCount === 1 ? "1 lesson" : `${stage.lessonCount} lessons`;
   const parts = [lessons];
@@ -27,9 +29,7 @@ function stageMeta(stage: RoadmapStageView) {
 }
 
 function unlockHint(stage: RoadmapStageView) {
-  if (stage.previousStageTitle) {
-    return `Complete the explain-back check on ${stage.previousStageTitle} to unlock.`;
-  }
+  if (stage.previousStageTitle) return "The last part of this free path stays locked.";
   return "This stage is not open yet.";
 }
 
@@ -48,8 +48,10 @@ export default async function RoadmapDetailPage({ params }: PageProps) {
   if (!data) notFound();
 
   const summary = data.stages.length
-    ? [data.skill.description, `${data.currentPosition}. ${data.skill.masteryPercent}% mastery.`].filter(Boolean).join(" ")
-    : data.skill.description;
+    ? [data.skill.offer === "FREE" ? "This path is free." : null, data.skill.description, `${data.currentPosition}. ${data.skill.masteryPercent}% mastery.`]
+        .filter(Boolean)
+        .join(" ")
+    : [data.skill.offer === "FREE" ? "This path is free." : null, data.skill.description].filter(Boolean).join(" ");
 
   return (
     <div className="sf-dash">

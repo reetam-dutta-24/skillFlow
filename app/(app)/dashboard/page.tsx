@@ -16,7 +16,7 @@ import { AddSkillButton } from "./_components/AddSkillButton";
 function cardStatus(status: LessonLaneStatus) {
   if (status === "done") return "done" as const;
   if (status === "current") return "active" as const;
-  if (status === "quiz") return "todo" as const;
+  if (status === "quiz" || status === "ready") return "todo" as const;
   return "locked" as const;
 }
 
@@ -34,7 +34,7 @@ function cardMeta(status: LessonLaneStatus) {
 }
 
 function canOpen(status: LessonLaneStatus) {
-  return status === "done" || status === "current" || status === "quiz";
+  return status === "done" || status === "current" || status === "ready" || status === "quiz";
 }
 
 export const metadata: Metadata = {

@@ -117,6 +117,7 @@ export function SettingsScreen({
               <div className="sf-settings-skill">
                 <strong>{skill.name}</strong>
                 {skill.followed ? <Chip tone="accent">On your feed</Chip> : null}
+                {skill.offer === "FREE" ? <Chip tone="pass">Free</Chip> : null}
                 {skill.status === "coming_soon" ? <Chip tone="lock">Coming soon</Chip> : null}
               </div>
               {skill.followed ? (

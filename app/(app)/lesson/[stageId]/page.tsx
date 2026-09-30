@@ -59,9 +59,7 @@ export default async function LessonPage({ params }: PageProps) {
   if (!data) notFound();
 
   if (data.kind === "locked") {
-    const hint = data.previousStageTitle
-      ? `Complete the explain-back check on ${data.previousStageTitle} to unlock.`
-      : "This stage is not open yet.";
+    const hint = data.previousStageTitle ? "The last part of this free path stays locked." : "This stage is not open yet.";
     return (
       <div className="sf-lesson">
         <p>

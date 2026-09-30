@@ -8,6 +8,7 @@ import type { DashboardData, LessonLaneItem, LessonLaneStatus } from "@/lib/type
 function laneStatus(stage: RoadmapStageView): LessonLaneStatus {
   if (stage.status === "passed") return "done";
   if (stage.status === "in_progress") return "current";
+  if (stage.status === "ready") return "ready";
   return "locked";
 }
 

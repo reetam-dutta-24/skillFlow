@@ -5,7 +5,7 @@ import { loadCatalog } from "@/lib/data/catalog";
 import { prisma } from "@/lib/prisma";
 import type { SkillStatus } from "@/lib/types/domain";
 
-export type SettingsSkill = { id: string; name: string; status: SkillStatus; followed: boolean };
+export type SettingsSkill = { id: string; name: string; status: SkillStatus; offer: "FREE" | "MONETIZED"; followed: boolean };
 
 const SIGN_IN_AGAIN = "Sign in again before saving.";
 
@@ -29,6 +29,7 @@ export async function getSettingsProfile() {
       id: entry.skill.id,
       name: entry.skill.name,
       status: entry.skill.status,
+      offer: entry.skill.offer,
       followed: entry.skill.followed,
     })),
     streakReminder: true,
@@ -57,10 +58,10 @@ export async function saveProfileName(userId: string, name: string) {
 export async function followSkillRecord(userId: string, skillId: string) {
   const skill = await prisma.skill.findUnique({
     where: { id: skillId },
-    select: { id: true, isFlagship: true },
+    select: { id: true, status: true },
   });
   if (!skill) return { ok: false as const, error: "Choose a skill that exists." };
-  if (!skill.isFlagship) return { ok: false as const, error: "That skill is not open yet." };
+  if (skill.status !== "AVAILABLE") return { ok: false as const, error: "That skill is not open yet." };
 
   try {
     await prisma.userSkillProgress.upsert({

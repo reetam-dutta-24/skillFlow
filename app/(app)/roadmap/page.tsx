@@ -23,7 +23,7 @@ export default async function RoadmapIndexPage() {
     <div className="sf-dash">
       <header className="sf-page-head">
         <h1>Roadmaps</h1>
-        <p>One ordered path per skill. A stage stays locked until the explain-back before it is passed.</p>
+        <p>The three flagship paths are free. On each one, the last few stages stay locked.</p>
       </header>
       <section className="sf-dash-block" aria-labelledby="roadmap-yours">
         <h2 id="roadmap-yours">Your paths</h2>

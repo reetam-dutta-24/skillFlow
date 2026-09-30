@@ -27,6 +27,7 @@ export type BrowseSkill = {
   name: string;
   description: string;
   status: "available" | "coming_soon";
+  offer: "FREE" | "MONETIZED";
   followed: boolean;
   stageCount: number;
   image: string | null;
@@ -146,11 +147,15 @@ function SkillCard({ skill }: { skill: BrowseSkill }) {
         <span className="sf-skill-tile-kicker">
           {skill.status === "coming_soon"
             ? "Coming soon"
-            : skill.followed
-              ? "On your feed"
-              : skill.stageCount
-                ? `${skill.stageCount} stages`
-                : "No stages yet"}
+            : skill.offer === "FREE"
+              ? skill.stageCount
+                ? `Free · ${skill.stageCount} stages`
+                : "Free"
+              : skill.followed
+                ? "On your feed"
+                : skill.stageCount
+                  ? `${skill.stageCount} stages`
+                  : "No stages yet"}
         </span>
         <strong>{skill.name}</strong>
         {skill.description ? <span>{skill.description}</span> : null}

@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs"
 import { PrismaClient } from "@prisma/client"
 import { prisma as catalogPrisma } from "../lib/prisma"
 import { EXTRA_NICHES } from "../lib/niche-catalog"
+import { nicheMeta } from "../lib/niche-meta"
 import { importCatalog } from "../scripts/import-catalog"
 
 const prisma = new PrismaClient()
@@ -72,11 +73,31 @@ async function main() {
         image: skill.image,
         isFlagship: skill.isFlagship,
         status: skill.isFlagship ? "AVAILABLE" : "COMING_SOON",
+        offer: skill.isFlagship ? "FREE" : "MONETIZED",
+        nicheGroup: nicheMeta(skill.slug).group.toUpperCase() as
+          | "CARE"
+          | "MONEY"
+          | "HOME"
+          | "LANGUAGE"
+          | "GAMES"
+          | "CRAFT"
+          | "FUTURE"
+          | "MIND",
         order: skill.order,
       },
       create: {
         ...skill,
         status: skill.isFlagship ? "AVAILABLE" : "COMING_SOON",
+        offer: skill.isFlagship ? "FREE" : "MONETIZED",
+        nicheGroup: nicheMeta(skill.slug).group.toUpperCase() as
+          | "CARE"
+          | "MONEY"
+          | "HOME"
+          | "LANGUAGE"
+          | "GAMES"
+          | "CRAFT"
+          | "FUTURE"
+          | "MIND",
       },
     })
   }

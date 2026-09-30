@@ -12,7 +12,7 @@ import type {
   WeakTopicView,
 } from "@/lib/types/domain";
 
-export type LessonLaneStatus = "done" | "current" | "quiz" | "milestone_check" | "locked";
+export type LessonLaneStatus = "done" | "current" | "ready" | "quiz" | "milestone_check" | "locked";
 
 export type LessonLaneItem = {
   id: string;

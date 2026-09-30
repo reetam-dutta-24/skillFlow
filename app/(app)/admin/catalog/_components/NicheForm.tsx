@@ -3,12 +3,13 @@
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/core/Button.jsx";
+import { Chip } from "@/components/core/Chip.jsx";
 import { SkillImage } from "@/components/core/SkillImage";
 import { SourceField } from "@/components/forms/SourceField";
 import { slugFromName } from "@/lib/niche-catalog";
 import { storedSource } from "@/lib/stored-source";
 import type { CatalogSkillRow } from "@/lib/data/catalog-admin";
-import { createSkill } from "../actions";
+import { createSkill, updateSkillStatus } from "../actions";
 
 export function NicheForm({ skills }: { skills: CatalogSkillRow[] }) {
   const router = useRouter();
@@ -21,6 +22,27 @@ export function NicheForm({ skills }: { skills: CatalogSkillRow[] }) {
   const [error, setError] = useState("");
   const [saved, setSaved] = useState("");
   const [pending, setPending] = useState(false);
+  const [query, setQuery] = useState("");
+  const [pendingId, setPendingId] = useState("");
+  const [statusError, setStatusError] = useState("");
+  const visible = skills.filter((skill) => {
+    const needle = query.trim().toLowerCase();
+    if (!needle) return true;
+    return skill.name.toLowerCase().includes(needle) || skill.slug.includes(needle);
+  });
+
+  async function toggleStatus(skill: CatalogSkillRow) {
+    setPendingId(skill.id);
+    setStatusError("");
+    const status = skill.status === "AVAILABLE" ? "COMING_SOON" : "AVAILABLE";
+    const result = await updateSkillStatus({ skillId: skill.id, status });
+    setPendingId("");
+    if (!result.ok) {
+      setStatusError(result.error);
+      return;
+    }
+    router.refresh();
+  }
 
   function onName(value: string) {
     setName(value);
@@ -91,8 +113,13 @@ export function NicheForm({ skills }: { skills: CatalogSkillRow[] }) {
       </form>
       <div>
         <h2>Niches</h2>
+        <label className="sf-niche-filter">
+          Filter niches
+          <input value={query} onChange={(event) => setQuery(event.target.value)} />
+        </label>
+        {statusError ? <p role="alert">{statusError}</p> : null}
         <ul className="sf-niche-scroll">
-          {skills.map((skill) => (
+          {visible.map((skill) => (
             <li key={skill.id}>
               <span className="sf-niche-row">
                 <SkillImage src={skill.image} alt="" width={112} height={72} sizes="56px" />
@@ -101,10 +128,24 @@ export function NicheForm({ skills }: { skills: CatalogSkillRow[] }) {
                   <small>{skill.slug}</small>
                 </span>
               </span>
-              <span>{skill.open ? "Open" : "Coming soon"}</span>
+              <span className="sf-niche-status">
+                {skill.open ? <Chip tone="accent">Flagship</Chip> : null}
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="quiet"
+                  aria-pressed={skill.status === "AVAILABLE"}
+                  aria-label={`${skill.name}, ${skill.status === "AVAILABLE" ? "available" : "coming soon"}`}
+                  disabled={pendingId === skill.id}
+                  onClick={() => void toggleStatus(skill)}
+                >
+                  {pendingId === skill.id ? "Saving..." : skill.status === "AVAILABLE" ? "Available" : "Coming soon"}
+                </Button>
+              </span>
             </li>
           ))}
         </ul>
+        {visible.length === 0 ? <p>No niches match that filter.</p> : null}
       </div>
     </section>
   );

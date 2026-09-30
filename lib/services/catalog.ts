@@ -206,6 +206,7 @@ export async function upsertResource(
       language: data.language,
       sourceStatus: data.sourceStatus,
       needsReview: data.needsReview,
+      lastVerifiedAt: data.lastVerifiedAt,
       order: data.order,
     });
 
@@ -257,6 +258,7 @@ export async function upsertResource(
           language: data.language ?? "en",
           sourceStatus: data.sourceStatus ?? "ACTIVE",
           needsReview: data.needsReview ?? false,
+          lastVerifiedAt: data.lastVerifiedAt ?? null,
           order: data.order ?? (last?.order ?? 0) + 1,
         },
         select: { id: true },

@@ -3760,6 +3760,7 @@ a.sf-source:hover {
   padding: 14px 16px;
 }
 .sf-settings label,
+.sf-niche-filter,
 .sf-submit label,
 .sf-v2-form label,
 .sf-dialog label,
@@ -3771,6 +3772,7 @@ a.sf-source:hover {
   color: var(--text-secondary);
 }
 .sf-settings input,
+.sf-niche-filter input,
 .sf-submit input,
 .sf-submit select,
 .sf-submit textarea,
@@ -4007,6 +4009,50 @@ a.sf-source:hover {
 }
 .sf-catalog-list button[aria-current="true"] {
   border-color: var(--border-accent);
+}
+.sf-catalog-stage {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+.sf-catalog-stage h2 {
+  margin: 0;
+  font-size: var(--text-subtitle);
+  letter-spacing: var(--tracking-tight);
+}
+.sf-catalog-row {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+}
+.sf-catalog-list .sf-catalog-row > button {
+  flex: 1;
+  width: auto;
+  align-items: center;
+}
+.sf-catalog-meta {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+}
+.sf-catalog-moves {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: 4px;
+}
+.sf-catalog-list .sf-catalog-moves button {
+  width: auto;
+}
+.sf-niche-status {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 8px;
 }
 .sf-niche-admin {
   display: grid;

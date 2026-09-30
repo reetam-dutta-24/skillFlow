@@ -66,6 +66,7 @@ export const resourceSchema = z.object({
   language: z.string().trim().min(1).optional(),
   sourceStatus: sourceStatusSchema.optional(),
   needsReview: z.boolean().optional(),
+  lastVerifiedAt: z.coerce.date().optional(),
   order: z.number().int().min(1).optional(),
 });
 

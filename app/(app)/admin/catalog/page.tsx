@@ -22,7 +22,7 @@ export default async function AdminCatalogPage() {
       <header className="sf-page-head">
         <AdminSectionNav current="catalog" />
         <h1>Catalog</h1>
-        <p>Add a niche, or add a resource to a stage that already exists.</p>
+        <p>Add a niche, mark a skill available or coming soon, and edit the stages and resources already on it.</p>
       </header>
       <NicheForm skills={skills} />
       {catalog.length === 0 ? (

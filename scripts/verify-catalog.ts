@@ -2,6 +2,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { z } from "zod";
+import { checkCatalogLink, outcomeText, type LinkOutcome } from "@/lib/catalog-link-check";
 
 /** Live skill slug → catalog file name. The file keeps the researched slug. */
 const FILE_BY_SLUG: Record<string, string> = {
@@ -9,7 +10,6 @@ const FILE_BY_SLUG: Record<string, string> = {
 };
 
 const DELAY_MS = 400;
-const TIMEOUT_MS = 15_000;
 
 const resourceSchema = z.object({
   order: z.number().int(),
@@ -37,33 +37,17 @@ const catalogSchema = z.object({
 type Catalog = z.infer<typeof catalogSchema>;
 type Resource = z.infer<typeof resourceSchema>;
 
-type Outcome =
-  | { kind: "ok"; status: number }
-  | { kind: "embedding_disabled"; status: number }
-  | { kind: "removed_or_private"; status: number }
-  | { kind: "needs_manual_check"; status: number; reason: string }
-  | { kind: "failed"; status: number | null; reason: string };
-
-type Mismatch = { label: string; catalog: string; found: string };
-
 type Checked = {
   stageOrder: number;
   stageTitle: string;
   resource: Resource;
-  outcome: Outcome;
-  mismatches: Mismatch[];
+  outcome: LinkOutcome;
+  mismatches: { label: string; catalog: string; found: string }[];
   finalUrl: string | null;
 };
 
-const CHALLENGE =
-  /just a moment|cf-challenge|challenge-platform|attention required|enable javascript and cookies|pardon our interruption|verify you are human|checking your browser/i;
-
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-function normalize(value: string) {
-  return value.trim().toLowerCase().replace(/\s+/g, " ");
 }
 
 function catalogFile(slug: string) {
@@ -90,135 +74,7 @@ async function readCatalog(slug: string) {
   return { fileName, catalog: parsed.data };
 }
 
-async function readSnippet(response: Response) {
-  const reader = response.body?.getReader();
-  if (!reader) return "";
-  const decoder = new TextDecoder();
-  let text = "";
-  try {
-    while (text.length < 12_000) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      text += decoder.decode(value, { stream: true });
-    }
-  } finally {
-    await reader.cancel().catch(() => undefined);
-  }
-  return text.slice(0, 12_000);
-}
-
-function isBotChallenge(response: Response, body: string) {
-  if (response.headers.get("cf-mitigated")) return true;
-  const type = response.headers.get("content-type") ?? "";
-  if (!type.includes("html") && !type.includes("text")) return false;
-  return CHALLENGE.test(body);
-}
-
-async function request(url: string) {
-  const response = await fetch(url, {
-    redirect: "follow",
-    signal: AbortSignal.timeout(TIMEOUT_MS),
-    headers: {
-      Accept: "text/html,application/xhtml+xml,application/json;q=0.9,*/*;q=0.8",
-      "User-Agent": "SkillFlowCatalogCheck/1.0",
-    },
-  });
-  return response;
-}
-
-function failure(error: unknown): Outcome {
-  const reason = error instanceof Error ? error.message : "Could not reach the link.";
-  return { kind: "failed", status: null, reason };
-}
-
-async function checkVideo(resource: Resource): Promise<{ outcome: Outcome; mismatches: Mismatch[] }> {
-  if (!resource.videoId) return { outcome: { kind: "failed", status: null, reason: "Missing video id." }, mismatches: [] };
-  const endpoint = new URL("https://www.youtube.com/oembed");
-  endpoint.searchParams.set("url", `https://www.youtube.com/watch?v=${resource.videoId}`);
-  endpoint.searchParams.set("format", "json");
-
-  let response: Response;
-  try {
-    response = await request(endpoint.toString());
-  } catch (error) {
-    return { outcome: failure(error), mismatches: [] };
-  }
-
-  if (response.status === 401 || response.status === 403) {
-    await response.body?.cancel().catch(() => undefined);
-    return { outcome: { kind: "embedding_disabled", status: response.status }, mismatches: [] };
-  }
-  if (response.status === 404) {
-    await response.body?.cancel().catch(() => undefined);
-    return { outcome: { kind: "removed_or_private", status: response.status }, mismatches: [] };
-  }
-  if (response.status < 200 || response.status >= 300) {
-    await response.body?.cancel().catch(() => undefined);
-    return { outcome: { kind: "failed", status: response.status, reason: `HTTP ${response.status}` }, mismatches: [] };
-  }
-
-  let payload: { title?: unknown; author_name?: unknown };
-  try {
-    payload = (await response.json()) as { title?: unknown; author_name?: unknown };
-  } catch {
-    return { outcome: { kind: "failed", status: response.status, reason: "Oembed response was not JSON." }, mismatches: [] };
-  }
-  if (typeof payload.title !== "string" || typeof payload.author_name !== "string") {
-    return { outcome: { kind: "failed", status: response.status, reason: "Oembed response had no title or author." }, mismatches: [] };
-  }
-
-  const mismatches: Mismatch[] = [];
-  if (normalize(resource.title) !== normalize(payload.title)) {
-    mismatches.push({ label: "Title", catalog: resource.title, found: payload.title });
-  }
-  if (normalize(resource.provider) !== normalize(payload.author_name)) {
-    mismatches.push({ label: "Author", catalog: resource.provider, found: payload.author_name });
-  }
-  if (resource.author && normalize(resource.author) !== normalize(payload.author_name)) {
-    mismatches.push({ label: "Author credit", catalog: resource.author, found: payload.author_name });
-  }
-  return { outcome: { kind: "ok", status: response.status }, mismatches };
-}
-
-async function checkPage(url: string): Promise<{ outcome: Outcome; finalUrl: string | null }> {
-  let response: Response;
-  try {
-    response = await request(url);
-  } catch (error) {
-    return { outcome: failure(error), finalUrl: null };
-  }
-
-  const finalUrl = response.url && response.url !== url ? response.url : null;
-  if (response.status === 403 || response.status === 429) {
-    await response.body?.cancel().catch(() => undefined);
-    return {
-      outcome: { kind: "needs_manual_check", status: response.status, reason: `HTTP ${response.status}` },
-      finalUrl,
-    };
-  }
-
-  const body = await readSnippet(response);
-  if (isBotChallenge(response, body)) {
-    return {
-      outcome: { kind: "needs_manual_check", status: response.status, reason: "bot challenge" },
-      finalUrl,
-    };
-  }
-  if (response.status >= 200 && response.status < 300) {
-    return { outcome: { kind: "ok", status: response.status }, finalUrl };
-  }
-  return { outcome: { kind: "failed", status: response.status, reason: `HTTP ${response.status}` }, finalUrl };
-}
-
-function outcomeText(outcome: Outcome) {
-  if (outcome.kind === "ok") return `OK (${outcome.status})`;
-  if (outcome.kind === "embedding_disabled") return `embedding disabled (${outcome.status})`;
-  if (outcome.kind === "removed_or_private") return `removed or private (${outcome.status})`;
-  if (outcome.kind === "needs_manual_check") return `needs manual check (${outcome.reason})`;
-  return `failed (${outcome.reason})`;
-}
-
-function problem(outcome: Outcome) {
+function problem(outcome: LinkOutcome) {
   return outcome.kind !== "ok";
 }
 
@@ -229,13 +85,16 @@ async function checkCatalog(catalog: Catalog) {
   for (let index = 0; index < resources.length; index += 1) {
     if (index > 0) await sleep(DELAY_MS);
     const { stage, resource } = resources[index];
-    const video = resource.type === "EMBEDDED_VIDEO";
-    const result = video ? await checkVideo(resource) : await checkPage(resource.url);
-    const outcome = result.outcome;
-    const mismatches = "mismatches" in result ? result.mismatches : [];
-    const finalUrl = "finalUrl" in result ? result.finalUrl : null;
-    checked.push({ stageOrder: stage.order, stageTitle: stage.title, resource, outcome, mismatches, finalUrl });
-    console.log(`${index + 1}/${resources.length} ${stage.order}.${resource.order} ${outcomeText(outcome)}`);
+    const result = await checkCatalogLink(resource);
+    checked.push({
+      stageOrder: stage.order,
+      stageTitle: stage.title,
+      resource,
+      outcome: result.outcome,
+      mismatches: result.mismatches,
+      finalUrl: result.finalUrl,
+    });
+    console.log(`${index + 1}/${resources.length} ${stage.order}.${resource.order} ${outcomeText(result.outcome)}`);
   }
 
   return checked;
@@ -258,7 +117,7 @@ function reportMarkdown(slug: string, fileName: string, catalog: Catalog, checke
   const problems = checked.filter((item) => problem(item.outcome));
   const mismatches = checked.filter((item) => item.mismatches.length > 0);
   const reviews = checked.filter((item) => item.resource.needsReview);
-  const count = (kind: Outcome["kind"]) => checked.filter((item) => item.outcome.kind === kind).length;
+  const count = (kind: LinkOutcome["kind"]) => checked.filter((item) => item.outcome.kind === kind).length;
   const checkedOn = new Date().toISOString().slice(0, 10);
 
   const sections = [

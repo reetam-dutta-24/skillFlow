@@ -1,40 +1,24 @@
 import type { Metadata } from "next";
-import { redirect } from "next/navigation";
-import { auth } from "@/lib/auth";
-import { loadCatalog } from "@/lib/data/catalog";
-import { nicheMeta } from "@/lib/niche-meta";
-import { SkillBrowse } from "./_components/SkillBrowse";
+import { Suspense } from "react";
+import { FollowedSkillSeed } from "./_components/FollowedSkillSeed";
+import { NicheGrid } from "./_components/NicheGrid";
+import { FollowedOverrideProvider } from "./_components/SkillBrowse";
 
 export const metadata: Metadata = { title: "Niches" };
 
-export default async function SkillsPage() {
-  const session = await auth();
-  if (!session?.user?.id) redirect("/login");
-  const catalog = await loadCatalog();
-  const skills = catalog.map((entry) => {
-    const meta = nicheMeta(entry.skill.slug);
-    return {
-      id: entry.skill.id,
-      name: entry.skill.name,
-      description: entry.skill.description ?? "",
-      status: entry.skill.status,
-      offer: entry.skill.offer,
-      followed: entry.skill.followed,
-      stageCount: entry.stages.length,
-      image: entry.skill.image,
-      href: entry.skill.status === "available" && entry.stages.length > 0 ? `/roadmap/${entry.skill.slug}` : null,
-      group: meta.group,
-      tags: meta.tags,
-    };
-  });
-
+export default function SkillsPage() {
   return (
-    <div className="sf-browse">
-      <header className="sf-page-head">
-        <h1>Niches</h1>
-        <p>Every skill on SkillFlow. Filter a group, or search a name, a topic, or a tag.</p>
-      </header>
-      <SkillBrowse skills={skills} />
-    </div>
+    <FollowedOverrideProvider>
+      <div className="sf-browse">
+        <header className="sf-page-head">
+          <h1>Niches</h1>
+          <p>Every skill on SkillFlow. Filter a group, or search a name, a topic, or a tag.</p>
+        </header>
+        <NicheGrid />
+        <Suspense fallback={null}>
+          <FollowedSkillSeed />
+        </Suspense>
+      </div>
+    </FollowedOverrideProvider>
   );
 }

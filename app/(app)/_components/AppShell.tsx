@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useId, useRef, useState, type ReactNode } from "react";
+import { Suspense, useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
-import { signOut } from "next-auth/react";
 import { Icon } from "@/components/core/Icon.jsx";
 import { Sidebar, type SidebarItem } from "@/components/navigation/Sidebar.jsx";
 import { Topbar } from "@/components/navigation/Topbar.jsx";
+import { ShellRoleProvider, useShellRole } from "./shell-role";
 
 const NAV: SidebarItem[] = [
   { id: "home", label: "Home", icon: "house", href: "/dashboard" },
@@ -25,11 +25,10 @@ const ADMIN_ITEM: SidebarItem = {
   href: "/admin/submissions",
 };
 
-type ShellUser = {
-  name: string;
-  email: string | null;
-  image: string | null;
-  role: "USER" | "ADMIN";
+type ShellProps = {
+  account: ReactNode;
+  notifications: ReactNode;
+  children: ReactNode;
 };
 
 function activeId(pathname: string) {
@@ -78,37 +77,67 @@ function titleFor(pathname: string) {
   return "Home";
 }
 
-export function AppShell({ user, notifications, children }: { user: ShellUser; notifications: ReactNode; children: ReactNode }) {
+function navItems(role: "USER" | "ADMIN") {
+  return role === "ADMIN" ? [...NAV, ADMIN_ITEM] : NAV;
+}
+
+function PathTitle() {
+  return titleFor(usePathname());
+}
+
+function LiveSidebar({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = usePathname();
-  const [openPath, setOpenPath] = useState<string | null>(null);
+  return <Sidebar items={navItems(useShellRole())} active={activeId(pathname)} onNavigate={onNavigate} />;
+}
+
+function CloseMenuOnNavigate({ close }: { close: () => void }) {
+  const pathname = usePathname();
+  const previous = useRef(pathname);
+  useEffect(() => {
+    if (previous.current === pathname) return;
+    previous.current = pathname;
+    close();
+  }, [pathname, close]);
+  return null;
+}
+
+export function AppShell({ account, notifications, children }: ShellProps) {
+  return (
+    <ShellRoleProvider>
+      <AppShellFrame account={account} notifications={notifications}>
+        {children}
+      </AppShellFrame>
+    </ShellRoleProvider>
+  );
+}
+
+function AppShellFrame({ account, notifications, children }: ShellProps) {
+  const [menuOpen, setMenuOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const titleId = useId();
   const wasOpen = useRef(false);
-  const items = user.role === "ADMIN" ? [...NAV, ADMIN_ITEM] : NAV;
-  const active = activeId(pathname);
-  const open = openPath === pathname;
 
   function closeMenu() {
-    setOpenPath(null);
+    setMenuOpen(false);
   }
 
   useEffect(() => {
-    if (wasOpen.current && !open) triggerRef.current?.focus();
-    wasOpen.current = open;
-  }, [open]);
+    if (wasOpen.current && !menuOpen) triggerRef.current?.focus();
+    wasOpen.current = menuOpen;
+  }, [menuOpen]);
 
   useEffect(() => {
     const media = window.matchMedia("(min-width: 960px)");
     function onChange() {
-      if (media.matches) setOpenPath(null);
+      if (media.matches) setMenuOpen(false);
     }
     media.addEventListener("change", onChange);
     return () => media.removeEventListener("change", onChange);
   }, []);
 
   useEffect(() => {
-    if (!open) return undefined;
+    if (!menuOpen) return undefined;
     const panel = panelRef.current;
     const focusable = () =>
       panel ? [...panel.querySelectorAll<HTMLElement>("a[href], button:not([disabled]), [tabindex]:not([tabindex='-1'])")] : [];
@@ -117,7 +146,7 @@ export function AppShell({ user, notifications, children }: { user: ShellUser; n
     function onKey(event: KeyboardEvent) {
       if (event.key === "Escape") {
         event.preventDefault();
-        setOpenPath(null);
+        setMenuOpen(false);
         return;
       }
       if (event.key !== "Tab") return;
@@ -136,49 +165,53 @@ export function AppShell({ user, notifications, children }: { user: ShellUser; n
 
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [open]);
+  }, [menuOpen]);
+
+  const menuButton = (
+    <button
+      ref={triggerRef}
+      type="button"
+      className="sf-app-menu-btn"
+      aria-expanded={menuOpen}
+      aria-controls={menuOpen ? `${titleId}-dialog` : undefined}
+      onClick={() => setMenuOpen(true)}
+    >
+      <Icon name="menu" size={18} />
+      <span className="sf-sr">Open menu</span>
+    </button>
+  );
 
   return (
     <div className="sf-app">
+      <Suspense fallback={null}>
+        <CloseMenuOnNavigate close={closeMenu} />
+      </Suspense>
       <div className="sf-app-nav">
-        <Sidebar items={items} active={active} />
+        <Suspense fallback={<Sidebar items={NAV} active="" />}>
+          <LiveSidebar />
+        </Suspense>
       </div>
-      <div className="sf-app-body" {...(open ? { inert: true } : {})}>
+      <div className="sf-app-body" {...(menuOpen ? { inert: true } : {})}>
         <a className="sf-skip" href="#main">
           Skip to main content
         </a>
         <Topbar
-          title={titleFor(pathname)}
+          title={
+            <Suspense fallback="SkillFlow">
+              <PathTitle />
+            </Suspense>
+          }
           titleAs="p"
           showSearch={false}
-          leading={
-            <button
-              ref={triggerRef}
-              type="button"
-              className="sf-app-menu-btn"
-              aria-expanded={open}
-              aria-controls={open ? `${titleId}-dialog` : undefined}
-              onClick={() => setOpenPath(pathname)}
-            >
-              <Icon name="menu" size={18} />
-              <span className="sf-sr">Open menu</span>
-            </button>
-          }
+          leading={menuButton}
           notificationSlot={notifications}
-          user={{ name: user.name, email: user.email ?? undefined, avatarUrl: user.image ?? undefined }}
-          menuItems={[
-            { label: "Settings", icon: "settings", href: "/settings" },
-            { label: "Log out", icon: "log-out", danger: true },
-          ]}
-          onMenuSelect={(label) => {
-            if (label === "Log out") void signOut({ callbackUrl: "/" });
-          }}
+          accountSlot={account}
         />
         <main id="main" className="sf-app-main">
           {children}
         </main>
       </div>
-      {open ? (
+      {menuOpen ? (
         <div className="sf-app-drawer" id={`${titleId}-dialog`} role="dialog" aria-modal="true" aria-labelledby={titleId}>
           <button type="button" className="sf-app-backdrop" tabIndex={-1} aria-hidden="true" onClick={closeMenu} />
           <div className="sf-app-drawer-panel" ref={panelRef}>
@@ -186,7 +219,9 @@ export function AppShell({ user, notifications, children }: { user: ShellUser; n
             <button type="button" className="sf-app-drawer-close" onClick={closeMenu}>
               Close
             </button>
-            <Sidebar items={items} active={active} onNavigate={() => setOpenPath(null)} />
+            <Suspense fallback={<Sidebar items={NAV} active="" onNavigate={closeMenu} />}>
+              <LiveSidebar onNavigate={closeMenu} />
+            </Suspense>
           </div>
         </div>
       ) : null}

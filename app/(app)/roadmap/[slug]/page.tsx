@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
+import { loadPublicCatalog, publicSkillName } from "@/lib/data/public-catalog";
 import { getRoadmap } from "@/lib/data/roadmap";
 import type { RoadmapStageView, StageStatus } from "@/lib/types/domain";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
@@ -10,6 +11,11 @@ import { RoadmapStage } from "@/components/learning/RoadmapStage.jsx";
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
+
+export async function generateStaticParams() {
+  const catalog = await loadPublicCatalog();
+  return catalog.map((entry) => ({ slug: entry.skill.slug }));
+}
 
 function stageStatus(status: StageStatus) {
   if (status === "passed") return "done" as const;
@@ -35,8 +41,8 @@ function unlockHint(stage: RoadmapStageView) {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const data = await getRoadmap(slug);
-  return { title: data ? data.skill.name : "Page not found" };
+  const name = await publicSkillName(slug);
+  return { title: name ?? "Page not found" };
 }
 
 export default async function RoadmapDetailPage({ params }: PageProps) {

@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { redirect } from "next/navigation";
 import { Suspense } from "react";
-import { auth } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
-import { getNotifications } from "@/lib/data/notifications";
 import { NotificationBell } from "@/components/navigation/NotificationBell.jsx";
+import { getNotifications } from "@/lib/data/notifications";
+import { AccountMenuFallback } from "./_components/AccountMenuFallback";
 import { AppShell } from "./_components/AppShell";
 import { NotificationMenu } from "./_components/NotificationMenu";
+import { ShellIdentity } from "./_components/ShellIdentity";
 
 export const metadata: Metadata = {
   title: {
@@ -25,24 +24,14 @@ async function ShellNotifications() {
   return <NotificationMenu items={items} />;
 }
 
-export default async function AppGroupLayout({ children }: { children: ReactNode }) {
-  const session = await auth();
-  if (!session?.user?.id) redirect("/login");
-
-  const role = session.user.role === "ADMIN" ? "ADMIN" : "USER";
-  const account = await prisma.user.findUnique({
-    where: { id: session.user.id },
-    select: { name: true, email: true, image: true },
-  });
-
+export default function AppGroupLayout({ children }: { children: ReactNode }) {
   return (
     <AppShell
-      user={{
-        name: (account?.name ?? session.user.name)?.trim() || "Account",
-        email: account?.email ?? session.user.email ?? null,
-        image: account?.image ?? session.user.image ?? null,
-        role,
-      }}
+      account={
+        <Suspense fallback={<AccountMenuFallback />}>
+          <ShellIdentity />
+        </Suspense>
+      }
       notifications={
         <Suspense fallback={<NotificationBell count={0} />}>
           <ShellNotifications />

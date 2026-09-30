@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { invalidateCatalog } from "@/lib/cache/invalidate";
 import { requireAdmin } from "@/lib/require-admin";
 import { reviewSubmissionRecord } from "@/lib/data/admin";
 
@@ -18,6 +19,7 @@ export async function reviewSubmission(input: { id: string; decision: "approve" 
     revalidatePath("/roadmap");
     revalidatePath(result.roadmapHref);
     revalidatePath(result.lessonHref);
+    if (input.decision === "approve") invalidateCatalog();
   }
   return result;
 }

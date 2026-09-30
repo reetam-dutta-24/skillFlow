@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { invalidateCatalog } from "@/lib/cache/invalidate";
 import { prepareCatalogSkill, type CatalogSkillInput } from "@/lib/catalog-skill";
 import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/require-admin";
@@ -23,6 +24,7 @@ async function revalidateStage(stageId: string) {
   revalidatePath("/roadmap");
   revalidatePath(`/lesson/${stageId}`);
   if (stage) revalidatePath(`/roadmap/${stage.skill.slug}`);
+  invalidateCatalog();
 }
 
 async function revalidateSkill(skillId: string) {
@@ -33,6 +35,7 @@ async function revalidateSkill(skillId: string) {
   revalidatePath("/dashboard");
   revalidatePath("/roadmap");
   if (skill) revalidatePath(`/roadmap/${skill.slug}`);
+  invalidateCatalog();
 }
 
 export async function saveResource(input: CatalogSaveInput) {
@@ -43,6 +46,7 @@ export async function saveResource(input: CatalogSaveInput) {
     revalidatePath(result.roadmapHref);
     revalidatePath(result.lessonHref);
     revalidatePath("/admin/catalog");
+    invalidateCatalog();
   }
   return result;
 }
@@ -58,6 +62,7 @@ export async function createSkill(input: CatalogSkillInput) {
   revalidatePath("/settings");
   revalidatePath("/dashboard");
   revalidatePath("/roadmap");
+  invalidateCatalog();
   return { ok: true as const, id: saved.data.id, slug: saved.data.slug };
 }
 

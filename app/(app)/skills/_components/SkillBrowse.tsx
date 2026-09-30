@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { SkillImage } from "@/components/core/SkillImage";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
@@ -37,6 +37,27 @@ export type BrowseSkill = {
 };
 
 const EASE = [0.22, 1, 0.36, 1] as const;
+
+const FollowedIdsContext = createContext<ReadonlySet<string> | null>(null);
+const PublishFollowedContext = createContext<(ids: string[]) => void>(() => {});
+
+export function FollowedOverrideProvider({ children }: { children: ReactNode }) {
+  const [ids, setIds] = useState<ReadonlySet<string> | null>(null);
+  const publish = useMemo(() => (next: string[]) => setIds(new Set(next)), []);
+  return (
+    <PublishFollowedContext.Provider value={publish}>
+      <FollowedIdsContext.Provider value={ids}>{children}</FollowedIdsContext.Provider>
+    </PublishFollowedContext.Provider>
+  );
+}
+
+export function PublishFollowedIds({ ids }: { ids: string[] }) {
+  const publish = useContext(PublishFollowedContext);
+  useEffect(() => {
+    publish(ids);
+  }, [ids, publish]);
+  return null;
+}
 
 function matches(skill: BrowseSkill, query: string, filter: FilterId) {
   if (filter === "open" && skill.status !== "available") return false;
@@ -133,11 +154,14 @@ export function SkillBrowse({ skills }: { skills: BrowseSkill[] }) {
 }
 
 function SkillCard({ skill }: { skill: BrowseSkill }) {
+  const followedIds = useContext(FollowedIdsContext);
+  const followed = followedIds ? followedIds.has(skill.id) : skill.followed;
+  const view = followed === skill.followed ? skill : { ...skill, followed };
   const body = (
     <>
-      {skill.image ? (
+      {view.image ? (
         <span className="sf-skill-tile-photo">
-          <SkillImage src={skill.image} alt="" fill sizes="(max-width: 640px) 100vw, 280px" />
+          <SkillImage src={view.image} alt="" fill sizes="(max-width: 640px) 100vw, 280px" />
         </span>
       ) : (
         <span className="sf-skill-tile-photo sf-skill-tile-fallback" aria-hidden="true" />
@@ -145,30 +169,30 @@ function SkillCard({ skill }: { skill: BrowseSkill }) {
       <span className="sf-skill-tile-shade" aria-hidden="true" />
       <span className="sf-skill-tile-copy">
         <span className="sf-skill-tile-kicker">
-          {skill.status === "coming_soon"
+          {view.status === "coming_soon"
             ? "Coming soon"
-            : skill.offer === "FREE"
-              ? skill.stageCount
-                ? `Free · ${skill.stageCount} stages`
+            : view.offer === "FREE"
+              ? view.stageCount
+                ? `Free · ${view.stageCount} stages`
                 : "Free"
-              : skill.followed
+              : view.followed
                 ? "On your feed"
-                : skill.stageCount
-                  ? `${skill.stageCount} stages`
+                : view.stageCount
+                  ? `${view.stageCount} stages`
                   : "No stages yet"}
         </span>
-        <strong>{skill.name}</strong>
-        {skill.description ? <span>{skill.description}</span> : null}
+        <strong>{view.name}</strong>
+        {view.description ? <span>{view.description}</span> : null}
       </span>
     </>
   );
 
-  if (!skill.href) {
+  if (!view.href) {
     return <article className="sf-skill-tile is-soon">{body}</article>;
   }
 
   return (
-    <Link className="sf-skill-tile" href={skill.href}>
+    <Link className="sf-skill-tile" href={view.href}>
       {body}
     </Link>
   );

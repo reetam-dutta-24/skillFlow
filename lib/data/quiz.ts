@@ -1,6 +1,8 @@
 import "server-only";
 import { cache } from "react";
 import type { Prisma } from "@prisma/client";
+import { cacheLife, cacheTag } from "next/cache";
+import { CATALOG_TAG } from "@/lib/cache/tags";
 import { loadCatalog } from "@/lib/data/catalog";
 import { QUIZ_PASS_THRESHOLD } from "@/lib/mock/config";
 import { prisma } from "@/lib/prisma";
@@ -61,6 +63,18 @@ function toQuiz(row: {
   };
 }
 
+async function loadCachedQuiz(stageId: string): Promise<QuizView | null> {
+  "use cache";
+  cacheLife("hours");
+  cacheTag(CATALOG_TAG);
+
+  const row = await prisma.quiz.findUnique({
+    where: { stageId },
+    include: { questions: { orderBy: { order: "asc" } } },
+  });
+  return row ? toQuiz(row) : null;
+}
+
 export const getQuiz = cache(async (stageId: string): Promise<QuizData | null> => {
   const catalog = await loadCatalog();
   const entry = catalog.find((item) => item.stages.some((stage) => stage.id === stageId));
@@ -77,11 +91,7 @@ export const getQuiz = cache(async (stageId: string): Promise<QuizData | null> =
     };
   }
 
-  const row = await prisma.quiz.findUnique({
-    where: { stageId },
-    include: { questions: { orderBy: { order: "asc" } } },
-  });
-  const quiz = row ? toQuiz(row) : null;
+  const quiz = await loadCachedQuiz(stageId);
   if (!quiz || quiz.questions.length === 0) {
     return {
       kind: "empty",

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
+import { loadPublicCatalog, publicStageTitle } from "@/lib/data/public-catalog";
 import { getQuiz, QUIZ_PASS_THRESHOLD } from "@/lib/data/quiz";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
 import { QuizFailure } from "./_components/QuizFailure";
@@ -11,13 +12,15 @@ type PageProps = {
   params: Promise<{ stageId: string }>;
 };
 
+export async function generateStaticParams() {
+  const catalog = await loadPublicCatalog();
+  return catalog.flatMap((entry) => entry.stages.map((stage) => ({ stageId: stage.id })));
+}
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { stageId } = await params;
-  const data = await getQuiz(stageId);
-  if (!data) return { title: "Page not found" };
-  if (data.kind === "unavailable") return { title: "Quiz" };
-  if (data.kind === "locked" || data.kind === "empty") return { title: data.stageTitle };
-  return { title: data.stage.title };
+  const title = await publicStageTitle(stageId);
+  return { title: title ?? "Page not found" };
 }
 
 export default async function QuizPage({ params }: PageProps) {

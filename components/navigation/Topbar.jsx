@@ -7,7 +7,7 @@ import { NotificationBell } from "./NotificationBell.jsx";
 import { UserProfileMenu } from "./UserProfileMenu.jsx";
 
 /** Sticky page header: title, search, notifications, theme, account. */
-export function Topbar({ title, user, theme = "dark", onThemeChange, themeTarget, notifications = 0, onNotificationsClick, searchValue, onSearchChange, showSearch = true, leading = null, notificationSlot = null, titleAs = "h1", menuItems, onMenuSelect, style, ...rest }) {
+export function Topbar({ title, user, theme = "dark", onThemeChange, themeTarget, notifications = 0, onNotificationsClick, searchValue, onSearchChange, showSearch = true, leading = null, notificationSlot = null, accountSlot = null, titleAs = "h1", menuItems, onMenuSelect, style, ...rest }) {
   return (
     <header
       style={{
@@ -35,7 +35,7 @@ export function Topbar({ title, user, theme = "dark", onThemeChange, themeTarget
         {showSearch ? <div style={{ width: 300 }}><SearchPill value={searchValue} onChange={onSearchChange} /></div> : null}
         <ThemeToggle compact theme={theme} onChange={onThemeChange} target={themeTarget} />
         {notificationSlot ?? <NotificationBell count={notifications} onClick={onNotificationsClick} />}
-        {user ? <UserProfileMenu {...user} items={menuItems} onSelect={onMenuSelect} /> : null}
+        {accountSlot ?? (user ? <UserProfileMenu {...user} items={menuItems} onSelect={onMenuSelect} /> : null)}
       </div>
     </header>
   );

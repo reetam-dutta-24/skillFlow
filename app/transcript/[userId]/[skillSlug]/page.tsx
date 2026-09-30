@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { getTranscript } from "@/lib/data/v2";
@@ -16,7 +17,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function TranscriptPage({ params }: PageProps) {
+export default function TranscriptPage({ params }: PageProps) {
+  return (
+    <Suspense fallback={<p className="sf-review-live">Loading transcript</p>}>
+      <TranscriptContent params={params} />
+    </Suspense>
+  );
+}
+
+async function TranscriptContent({ params }: PageProps) {
   const session = await auth();
   const { userId, skillSlug } = await params;
   const data = await getTranscript(skillSlug);

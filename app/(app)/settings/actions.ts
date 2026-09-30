@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { invalidateAccount } from "@/lib/cache/invalidate";
 import { auth } from "@/lib/auth";
 import { followSkillRecord, saveProfileName, unfollowSkillRecord } from "@/lib/data/settings";
 
@@ -17,7 +18,10 @@ export async function saveSettings(input: { name: string }) {
   const session = await auth();
   if (!session?.user?.id) return { ok: false as const, error: "Sign in again before saving." };
   const result = await saveProfileName(session.user.id, input.name);
-  if (result.ok) refreshAccount();
+  if (result.ok) {
+    refreshAccount();
+    invalidateAccount(session.user.id);
+  }
   return result;
 }
 

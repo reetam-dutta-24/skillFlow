@@ -97,6 +97,7 @@ Not wired:
 ## Stack facts that are easy to get wrong
 
 - Next.js 16.3.4, React 19.2.8, Tailwind v4, Prisma 6.19.3, NextAuth v5 beta.32. `trustHost: true`. Sessions are JWT. Credentials needs JWT. Do not describe database sessions or a finished Google button. Google is configured in `lib/auth.ts` only.
+- `cacheComponents` is on in `next.config.ts`. Shared niches, stages, resources, the niche grid, lesson screens, clips, and the submit picker use `use cache` with the `catalog` tag. Admin catalog saves and an approved submission call `updateTag`. Progress, streaks, and settings stay on the request. The account menu streams beside that shell.
 - `proxy.ts` exports `export const proxy = auth(...)`. `middleware.ts` was deleted. Do not restore it. The proxy only checks that someone is signed in.
 - Postgres database name is `skillflow` on localhost:5432. `prisma.config.ts` loads `.env` with dotenv because Prisma 6 does not.
 - Migrations through `20260930150000_stage_image` are applied. Do not create a migration unless the schema changes.

@@ -21,6 +21,8 @@ export interface TopbarProps extends React.HTMLAttributes<HTMLElement> {
   leading?: React.ReactNode;
   /** Replaces the bell when the shell supplies its own menu. */
   notificationSlot?: React.ReactNode;
+  /** Replaces the account menu when the shell streams the signed-in person. */
+  accountSlot?: React.ReactNode;
   /** Page content owns the h1. The shell title is then plain text. */
   titleAs?: "h1" | "p";
   menuItems?: { label: string; icon: string; danger?: boolean; href?: string }[];

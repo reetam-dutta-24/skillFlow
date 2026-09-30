@@ -4,10 +4,7 @@ import { getAdminQueue } from "@/lib/data/admin";
 import { AdminSectionNav } from "../_components/AdminSectionNav";
 import { AdminQueue } from "./_components/AdminQueue";
 
-export async function generateMetadata(): Promise<Metadata> {
-  await requireAdmin();
-  return { title: "Submissions" };
-}
+export const metadata: Metadata = { title: "Submissions" };
 
 export default async function AdminSubmissionsPage() {
   await requireAdmin();

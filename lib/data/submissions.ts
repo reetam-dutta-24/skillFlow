@@ -1,5 +1,6 @@
 import "server-only";
 import { Prisma, ResourceType } from "@prisma/client";
+import { loadSubmitCatalog } from "@/lib/data/public-catalog";
 import { prisma } from "@/lib/prisma";
 import { storedSource } from "@/lib/stored-source";
 import type { SubmissionView } from "@/lib/types/domain";
@@ -51,18 +52,7 @@ function toView(row: SubmissionRow): SubmissionView {
 
 /** Skills that already have stages. A suggestion needs a real stage id. */
 export async function getSubmitCatalog() {
-  const skills = await prisma.skill.findMany({
-    where: { isFlagship: true, stages: { some: {} } },
-    orderBy: { order: "asc" },
-    select: {
-      id: true,
-      slug: true,
-      name: true,
-      image: true,
-      stages: { orderBy: { order: "asc" }, select: { id: true, title: true } },
-    },
-  });
-  return skills;
+  return loadSubmitCatalog();
 }
 
 export async function getOwnSubmissions(viewer: { id: string; name: string | null }): Promise<SubmissionView[]> {

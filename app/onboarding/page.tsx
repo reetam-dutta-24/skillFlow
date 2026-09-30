@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
@@ -8,7 +9,19 @@ export const metadata: Metadata = {
   title: "Your path",
 };
 
-export default async function OnboardingPage({
+export default function OnboardingPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ edit?: string }>;
+}) {
+  return (
+    <Suspense fallback={<p className="sf-review-live">Loading your path</p>}>
+      <OnboardingContent searchParams={searchParams} />
+    </Suspense>
+  );
+}
+
+async function OnboardingContent({
   searchParams,
 }: {
   searchParams: Promise<{ edit?: string }>;

@@ -18,6 +18,9 @@ Actively in development. Currently in Phase 3 (Core Backend: Content & Roadmap S
 - **Infrastructure:** Docker (local dev), AWS, Vercel, Redis
 - **AI:** Anthropic/OpenAI API — grounded quiz generation and multi-turn explain-back grading
 
+
+
+
 ## Getting Started
 
 ```bash

@@ -2,7 +2,8 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { z } from "zod";
-import { checkCatalogLink, outcomeText, type LinkOutcome } from "@/lib/catalog-link-check";
+import { checkCatalogLink, isFatalLink, outcomeText, type LinkOutcome } from "@/lib/catalog-link-check";
+import { prisma } from "@/lib/prisma";
 
 /** Live skill slug → catalog file name. The file keeps the researched slug. */
 const FILE_BY_SLUG: Record<string, string> = {
@@ -168,6 +169,165 @@ function reportMarkdown(slug: string, fileName: string, catalog: Catalog, checke
   return `${sections.join("\n").replace(/\n{3,}/g, "\n\n")}\n`;
 }
 
+type StoredResource = {
+  id: string;
+  stageOrder: number;
+  stageTitle: string;
+  order: number;
+  type: string;
+  url: string;
+  title: string;
+  provider: string;
+  author: string | null;
+  videoId: string | null;
+  sourceStatus: "ACTIVE" | "UNAVAILABLE";
+};
+
+async function readStoredCatalog(slug: string) {
+  const skill = await prisma.skill.findUnique({
+    where: { slug },
+    select: {
+      name: true,
+      stages: {
+        orderBy: { order: "asc" },
+        select: {
+          order: true,
+          title: true,
+          resources: {
+            orderBy: { order: "asc" },
+            select: {
+              id: true,
+              order: true,
+              type: true,
+              url: true,
+              title: true,
+              provider: true,
+              author: true,
+              videoId: true,
+              sourceStatus: true,
+            },
+          },
+        },
+      },
+    },
+  });
+  if (!skill) throw new Error(`No skill named ${slug}.`);
+  const resources: StoredResource[] = skill.stages.flatMap((stage) =>
+    stage.resources.map((resource) => ({
+      id: resource.id,
+      stageOrder: stage.order,
+      stageTitle: stage.title,
+      order: resource.order,
+      type: resource.type,
+      url: resource.url,
+      title: resource.title,
+      provider: resource.provider,
+      author: resource.author,
+      videoId: resource.videoId,
+      sourceStatus: resource.sourceStatus,
+    })),
+  );
+  return { name: skill.name, resources };
+}
+
+function fromDbMarkdown(
+  slug: string,
+  fileName: string,
+  skillName: string,
+  checked: { resource: StoredResource; outcome: LinkOutcome; nextStatus: "ACTIVE" | "UNAVAILABLE" }[],
+) {
+  const checkedOn = new Date().toISOString().slice(0, 10);
+  const unavailable = checked.filter((item) => item.nextStatus === "UNAVAILABLE");
+  const manual = checked.filter((item) => item.outcome.kind === "needs_manual_check");
+  const lines = [
+    `# Stored link check: ${fileName}`,
+    "",
+    `Checked ${checkedOn} for skill \`${slug}\` (${skillName}). ${checked.length} stored resources.`,
+    "A removed, private, failed, or non-embeddable source is marked unavailable. The saved title and notes stay.",
+    "A link that needs a person to look at it is left unchanged.",
+    "",
+    "## Summary",
+    "",
+    `- Unavailable: ${unavailable.length}`,
+    `- Needs a person to check: ${manual.length}`,
+    `- Still available: ${checked.filter((item) => item.nextStatus === "ACTIVE").length}`,
+    "",
+    "## Marked unavailable",
+    "",
+    unavailable.length === 0
+      ? "None."
+      : unavailable
+          .map(
+            (item) =>
+              `- Stage ${item.resource.stageOrder}.${item.resource.order} — ${item.resource.title}: ${outcomeText(item.outcome)}`,
+          )
+          .join("\n"),
+    "",
+    "## Needs a person to check",
+    "",
+    manual.length === 0
+      ? "None."
+      : manual
+          .map(
+            (item) =>
+              `- Stage ${item.resource.stageOrder}.${item.resource.order} — ${item.resource.title}: ${outcomeText(item.outcome)}`,
+          )
+          .join("\n"),
+    "",
+  ];
+  return `${lines.join("\n").replace(/\n{3,}/g, "\n\n")}\n`;
+}
+
+/** Check the resources stored for a skill. Fatal links are marked unavailable. */
+export async function verifyStoredCatalog(slug: string) {
+  const { fileName } = catalogFile(slug);
+  const { name, resources } = await readStoredCatalog(slug);
+  if (resources.length === 0) throw new Error(`${slug} has no stored resources to check.`);
+  console.log(`Checking ${resources.length} stored resources for ${slug}.`);
+
+  const checked: { resource: StoredResource; outcome: LinkOutcome; nextStatus: "ACTIVE" | "UNAVAILABLE" }[] = [];
+  for (let index = 0; index < resources.length; index += 1) {
+    if (index > 0) await sleep(DELAY_MS);
+    const resource = resources[index];
+    const result = await checkCatalogLink(resource);
+    const nextStatus = isFatalLink(result.outcome)
+      ? "UNAVAILABLE"
+      : result.outcome.kind === "ok"
+        ? "ACTIVE"
+        : resource.sourceStatus;
+    checked.push({ resource, outcome: result.outcome, nextStatus });
+    const change = nextStatus === resource.sourceStatus ? "unchanged" : nextStatus === "UNAVAILABLE" ? "unavailable" : "available again";
+    console.log(`${index + 1}/${resources.length} ${resource.stageOrder}.${resource.order} ${outcomeText(result.outcome)} — ${change}`);
+  }
+
+  const remote = checked.filter((item) => !item.resource.url.startsWith("/uploads/"));
+  const neverReached = remote.filter((item) => item.outcome.kind === "failed" && item.outcome.status === null);
+  if (remote.length > 0 && neverReached.length === remote.length) {
+    throw new Error("Every link failed before a response. Nothing was marked unavailable.");
+  }
+
+  const checkedAt = new Date();
+  await prisma.$transaction(
+    checked.map((item) =>
+      prisma.resource.update({
+        where: { id: item.resource.id },
+        data: {
+          lastVerifiedAt: checkedAt,
+          ...(item.nextStatus === item.resource.sourceStatus ? {} : { sourceStatus: item.nextStatus }),
+        },
+      }),
+    ),
+  );
+
+  const reviewDir = path.join(process.cwd(), "content", "catalog", "_review");
+  await mkdir(reviewDir, { recursive: true });
+  const reviewPath = path.join(reviewDir, `${fileName}.from-db.md`);
+  await writeFile(reviewPath, fromDbMarkdown(slug, fileName, name, checked));
+  const unavailable = checked.filter((item) => item.nextStatus === "UNAVAILABLE").length;
+  console.log(`Marked ${unavailable} unavailable. Wrote ${path.relative(process.cwd(), reviewPath)}`);
+  return reviewPath;
+}
+
 export async function verifyCatalog(slug: string) {
   const { fileName, catalog } = await readCatalog(slug);
   console.log(`Checking ${catalog.stages.reduce((sum, stage) => sum + stage.resources.length, 0)} resources in ${fileName}.json`);
@@ -188,13 +348,20 @@ function isDirectRun() {
 }
 
 if (isDirectRun()) {
-  const slug = process.argv[2];
-  if (!slug || slug.startsWith("--")) {
-    console.error("Usage: npx tsx scripts/verify-catalog.ts <skill-slug>");
+  const args = process.argv.slice(2);
+  const fromDb = args.includes("--from-db");
+  const slug = args.find((arg) => !arg.startsWith("--"));
+  if (!slug) {
+    console.error("Usage: npx tsx scripts/verify-catalog.ts <skill-slug> [--from-db]");
     process.exit(1);
   }
-  verifyCatalog(slug).catch((error: unknown) => {
-    console.error(error instanceof Error ? error.message : error);
-    process.exit(1);
-  });
+  const run = fromDb ? verifyStoredCatalog(slug) : verifyCatalog(slug);
+  run
+    .catch((error: unknown) => {
+      console.error(error instanceof Error ? error.message : error);
+      process.exitCode = 1;
+    })
+    .finally(() => {
+      void prisma.$disconnect();
+    });
 }

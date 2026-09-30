@@ -72,6 +72,11 @@ function failure(error: unknown): LinkOutcome {
   return { kind: "failed", status: null, reason };
 }
 
+/** Removed, private, unreachable, or not embeddable. A manual check is not fatal. */
+export function isFatalLink(outcome: LinkOutcome) {
+  return outcome.kind === "embedding_disabled" || outcome.kind === "removed_or_private" || outcome.kind === "failed";
+}
+
 export function outcomeText(outcome: LinkOutcome) {
   if (outcome.kind === "ok") return `OK (${outcome.status})`;
   if (outcome.kind === "embedding_disabled") return `embedding disabled (${outcome.status})`;
@@ -186,6 +191,6 @@ export async function checkCatalogLink(input: CheckInput): Promise<LinkCheck> {
     const outcome: LinkOutcome = { kind: "ok", status: 200 };
     return { outcome, mismatches: [], finalUrl: null, summary: "Uploaded file. There is no remote link to check." };
   }
-  if (input.type === "EMBEDDED_VIDEO") return checkVideo(input);
+  if (input.type === "EMBEDDED_VIDEO" || input.type === "HOOK_CLIP") return checkVideo(input);
   return checkPage(input.url);
 }

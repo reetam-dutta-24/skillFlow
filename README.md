@@ -7,7 +7,7 @@ watch-time or passive completion.
 
 ## Status
 
-Actively in development. Currently in Phase 3 (Core Backend: Content & Roadmap System).
+Actively in development. The Full-Stack path is loaded. A dead resource link can be marked unavailable, and the lesson keeps the saved title and notes.
 
 ## Tech Stack
 
@@ -32,6 +32,20 @@ npm run dev
 ```
 
 Copy `.env.example` to `.env` and fill in real values before running.
+
+## Catalog links
+
+Check the researched catalog file. This does not change stored resources:
+
+```bash
+npx tsx scripts/verify-catalog.ts full-stack-web-dev
+```
+
+Check the links already stored for a skill. A removed, private, failed, or non-embeddable source is marked unavailable and stamped with the check time. A link that only needs a person to look at it is left as it is. The saved title, description, and key points stay on the lesson.
+
+```bash
+npx tsx scripts/verify-catalog.ts full-stack-web-dev --from-db
+```
 
 ## Core Differentiator
 

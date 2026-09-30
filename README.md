@@ -1,27 +1,27 @@
 # SkillFlow
 
-A mastery-first learning platform that replaces fragmented, attention-optimized
-learning with one structured system — curated roadmaps, AI-grounded quizzes, and
-a mandatory Socratic explain-back gate that verifies real comprehension, not just
-watch-time or passive completion.
+A mastery-first learning platform. Curated roadmaps, a quiz, and an explain-back check are the product. Version 1 ships the roadmaps and the lessons. The quiz and the explain-back are not graded yet.
 
 ## Status
 
-Actively in development. The Full-Stack path is loaded. A dead resource link can be marked unavailable, and the lesson keeps the saved title and notes.
+Three free paths are loaded and available:
 
-## Tech Stack
+- Full-Stack Web Development — 12 stages, 64 resources. Stages 1–9 open.
+- Travel Vlogging — 8 stages, 46 resources. Stages 1–5 open.
+- Content Creation — 10 stages, 57 resources. Stages 1–7 open.
 
-- **Frontend:** Next.js 16, React, TypeScript, Tailwind CSS, Framer Motion
-- **Backend:** Next.js App Router, Server Actions
-- **Database:** PostgreSQL + Prisma ORM
-- **Auth:** Auth.js — Google OAuth + email/password (bcrypt), JWT sessions
-- **Infrastructure:** Docker (local dev), AWS, Vercel, Redis
-- **AI:** Anthropic/OpenAI API — grounded quiz generation and multi-turn explain-back grading
+On each free path the last three stages stay visible and locked. Art & Painting remains a flagship and is coming soon, with no stages. Every other niche is coming soon.
 
+A dead stored link can be marked unavailable. The lesson keeps the saved title, description, and key points.
 
+## Tech stack
 
+- Next.js 16.3.4, React 19, TypeScript, Tailwind CSS v4
+- PostgreSQL and Prisma 6
+- Auth.js v5 — email and password with bcrypt, JWT sessions. Google is configured in code and is not on the login form
+- Quizzes and explain-back grading are not connected to a model yet
 
-## Getting Started
+## Getting started
 
 ```bash
 npm install
@@ -33,27 +33,33 @@ npm run dev
 
 Copy `.env.example` to `.env` and fill in real values before running.
 
-## Catalog links
+Do not re-run the seed on a database that already has people in it. The seed resets the admin passwords and rewrites every niche. To reload one path, use the catalog commands below, then set that skill's status and offer directly. The importer does not change status, the cover image, or the flagship flag.
 
-Check the researched catalog file. This does not change stored resources:
+## Catalog
+
+Check the researched file. This does not change stored resources:
 
 ```bash
 npx tsx scripts/verify-catalog.ts full-stack-web-dev
+npx tsx scripts/verify-catalog.ts content-creation
+npx tsx scripts/verify-catalog.ts travel-vlogging
 ```
 
-Check the links already stored for a skill. A removed, private, failed, or non-embeddable source is marked unavailable and stamped with the check time. A link that only needs a person to look at it is left as it is. The saved title, description, and key points stay on the lesson.
+Load a path. The first command prints the plan. The second writes it.
+
+```bash
+npx tsx --conditions=react-server scripts/import-catalog.ts travel-vlogging
+npx tsx --conditions=react-server scripts/import-catalog.ts travel-vlogging --apply
+```
+
+Check the links already stored for a skill. A removed, private, failed, or non-embeddable source is marked unavailable. A link that only needs a person to look at it is left as it is.
 
 ```bash
 npx tsx scripts/verify-catalog.ts full-stack-web-dev --from-db
 ```
 
-## Core Differentiator
+The Full-Stack file is `content/catalog/full-stack-web-development.json`. The live slug stays `full-stack-web-dev`.
 
-Most learning platforms gate progress on watch-time or a multiple-choice quiz.
-SkillFlow gates each roadmap milestone on a short, adaptive comprehension check:
-explain the concept in your own words, answer a targeted AI follow-up question
-on whatever was vague or incomplete, and only then does the next stage unlock.
+## What is still ahead
 
-## License
-
-TBD
+Passing a quiz or an explain-back does not unlock a stage. The model calls, Stripe, and the leaderboard score are not running. `Project-roadmap.md` is the phase list. `AGENTS.md` is the working context for the next session.

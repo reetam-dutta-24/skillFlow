@@ -1,9 +1,10 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { createCatalogSkill, type CatalogSkillInput } from "@/lib/catalog-skill";
+import { prepareCatalogSkill, type CatalogSkillInput } from "@/lib/catalog-skill";
 import { requireAdmin } from "@/lib/require-admin";
 import { saveCatalogResource, type CatalogSaveInput } from "@/lib/data/catalog-admin";
+import { upsertSkill } from "@/lib/services/catalog";
 
 export async function saveResource(input: CatalogSaveInput) {
   await requireAdmin();
@@ -18,13 +19,14 @@ export async function saveResource(input: CatalogSaveInput) {
 
 export async function createSkill(input: CatalogSkillInput) {
   await requireAdmin();
-  const result = await createCatalogSkill(input);
-  if (result.ok) {
-    revalidatePath("/admin/catalog");
-    revalidatePath("/skills");
-    revalidatePath("/settings");
-    revalidatePath("/dashboard");
-    revalidatePath("/roadmap");
-  }
-  return result;
+  const ready = await prepareCatalogSkill(input);
+  if (!ready.ok) return ready;
+  const saved = await upsertSkill(ready.skill);
+  if (!saved.ok) return saved;
+  revalidatePath("/admin/catalog");
+  revalidatePath("/skills");
+  revalidatePath("/settings");
+  revalidatePath("/dashboard");
+  revalidatePath("/roadmap");
+  return { ok: true as const, id: saved.data.id, slug: saved.data.slug };
 }

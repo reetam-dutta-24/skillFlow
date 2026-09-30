@@ -1,7 +1,6 @@
 import "server-only";
-import { ResourceType } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
-import { storedSource } from "@/lib/stored-source";
+import { upsertResource } from "@/lib/services/catalog";
 import type { ResourceType as ResourceTypeName } from "@/lib/types/domain";
 
 export type CatalogEditorResource = {
@@ -43,22 +42,11 @@ export type CatalogSaveResult =
   | { ok: true; id: string; lessonHref: string; roadmapHref: string }
   | { ok: false; error: string };
 
-const RESOURCE_TYPES = new Set<string>(Object.values(ResourceType));
-
-function parseType(value: string): ResourceType | null {
-  return RESOURCE_TYPES.has(value) ? (value as ResourceType) : null;
-}
-
 function pointsFromText(value: string) {
   return value
     .split("\n")
     .map((line) => line.trim())
     .filter((line) => line.length > 0);
-}
-
-function blankToNull(value: string) {
-  const trimmed = value.trim();
-  return trimmed ? trimmed : null;
 }
 
 /** Skills that already have stages, with the resources on each stage. */
@@ -99,62 +87,26 @@ export async function getCatalogEditor(): Promise<CatalogEditorSkill[]> {
 
 /** Insert or update one resource. Caller must already be an admin. */
 export async function saveCatalogResource(input: CatalogSaveInput): Promise<CatalogSaveResult> {
-  const title = input.title.trim();
-  if (title.toLowerCase() === "fail this save") {
+  if (input.title.trim().toLowerCase() === "fail this save") {
     return { ok: false, error: "The resource could not be saved. Try again." };
   }
-  if (!title) return { ok: false, error: "Add a title." };
 
-  const type = parseType(input.type);
-  if (!type) return { ok: false, error: "Choose a resource type." };
-
-  const url = storedSource(input.url);
-  if (!url) return { ok: false, error: "Upload a file, or use an https link." };
-
-  const stage = await prisma.roadmapStage.findUnique({
-    where: { id: input.stageId },
-    select: { id: true, skill: { select: { slug: true } } },
+  const saved = await upsertResource({
+    id: input.id?.trim() || undefined,
+    stageId: input.stageId,
+    type: input.type,
+    url: input.url,
+    title: input.title,
+    description: input.description,
+    keyPoints: pointsFromText(input.keyPoints),
   });
-  if (!stage) return { ok: false, error: "Choose a stage that exists." };
-  const saved = { lessonHref: `/lesson/${stage.id}`, roadmapHref: `/roadmap/${stage.skill.slug}` };
-
-  const description = blankToNull(input.description);
-  const keyPoints = pointsFromText(input.keyPoints);
-  const resourceId = input.id?.trim() ?? "";
-
-  if (resourceId) {
-    const existing = await prisma.resource.findUnique({ where: { id: resourceId }, select: { id: true, stageId: true } });
-    if (!existing || existing.stageId !== stage.id) {
-      return { ok: false, error: "That resource is no longer on this stage." };
-    }
-    await prisma.resource.update({
-      where: { id: existing.id },
-      data: { type, url, title, description, keyPoints },
-    });
-    return { ok: true, id: existing.id, ...saved };
-  }
-
-  const created = await prisma.$transaction(async (tx) => {
-    const last = await tx.resource.findFirst({
-      where: { stageId: stage.id },
-      orderBy: { order: "desc" },
-      select: { order: true },
-    });
-    return tx.resource.create({
-      data: {
-        stageId: stage.id,
-        type,
-        url,
-        title,
-        description,
-        keyPoints,
-        order: (last?.order ?? 0) + 1,
-      },
-      select: { id: true },
-    });
-  });
-
-  return { ok: true, id: created.id, ...saved };
+  if (!saved.ok) return saved;
+  return {
+    ok: true,
+    id: saved.data.id,
+    lessonHref: `/lesson/${saved.data.stageId}`,
+    roadmapHref: `/roadmap/${saved.data.skillSlug}`,
+  };
 }
 
 export type CatalogSkillRow = {

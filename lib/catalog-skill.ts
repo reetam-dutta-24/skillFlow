@@ -11,8 +11,6 @@ export type CatalogSkillInput = {
   open: boolean;
 };
 
-export type CatalogSkillResult = { ok: true; id: string; slug: string } | { ok: false; error: string };
-
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const LOCAL_IMAGE = /^\/skills\/[a-z0-9-]+\.(?:jpe?g|png|webp|gif)$/;
 const MAX_IMAGE_BYTES = 6 * 1024 * 1024;
@@ -68,7 +66,17 @@ export async function storeSkillImage(slug: string, image: string): Promise<stri
   return `/skills/${slug}.${extension}`;
 }
 
-export async function createCatalogSkill(input: CatalogSkillInput): Promise<CatalogSkillResult> {
+export type PreparedCatalogSkill = {
+  name: string;
+  slug: string;
+  description: string;
+  image: string;
+  status: "AVAILABLE" | "COMING_SOON";
+  isFlagship: boolean;
+};
+
+/** Check a new niche and store its photo. The catalog service writes the row. */
+export async function prepareCatalogSkill(input: CatalogSkillInput): Promise<{ ok: true; skill: PreparedCatalogSkill } | { ok: false; error: string }> {
   const name = input.name.trim();
   const slug = input.slug.trim().toLowerCase();
   const description = input.description.trim();
@@ -82,18 +90,15 @@ export async function createCatalogSkill(input: CatalogSkillInput): Promise<Cata
   const image = await storeSkillImage(slug, input.image);
   if (!image) return { ok: false, error: "Add an image from your device, or an https link." };
 
-  const last = await prisma.skill.findFirst({ orderBy: { order: "desc" }, select: { order: true } });
-  const created = await prisma.skill.create({
-    data: {
+  return {
+    ok: true,
+    skill: {
       name,
       slug,
-      description: description || null,
+      description,
       image,
-      isFlagship: input.open,
       status: input.open ? "AVAILABLE" : "COMING_SOON",
-      order: (last?.order ?? 0) + 1,
+      isFlagship: input.open,
     },
-    select: { id: true, slug: true },
-  });
-  return { ok: true, id: created.id, slug: created.slug };
+  };
 }

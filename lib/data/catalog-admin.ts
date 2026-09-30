@@ -157,3 +157,23 @@ export async function saveCatalogResource(input: CatalogSaveInput): Promise<Cata
 
   return { ok: true, id: created.id, ...saved };
 }
+
+export type CatalogSkillRow = {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  open: boolean;
+};
+
+/** Every skill, including ones that have no stages yet. */
+export async function listCatalogSkills(): Promise<CatalogSkillRow[]> {
+  const skills = await prisma.skill.findMany({ orderBy: { order: "asc" } });
+  return skills.map((skill) => ({
+    id: skill.id,
+    name: skill.name,
+    slug: skill.slug,
+    description: skill.description ?? "",
+    open: skill.isFlagship,
+  }));
+}

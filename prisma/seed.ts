@@ -1,24 +1,69 @@
 // prisma/seed.ts
 import bcrypt from "bcryptjs"
 import { PrismaClient } from "@prisma/client"
+import { EXTRA_NICHES } from "../lib/niche-catalog"
 
 const prisma = new PrismaClient()
 
 const ADMIN_PASSWORD = "admin123"
 
+const BASE_SKILLS = [
+  {
+    slug: "full-stack-web-dev",
+    name: "Full-Stack Web Development",
+    description: "Build and ship a web app, from the interface through the database.",
+    isFlagship: true,
+    order: 1,
+  },
+  {
+    slug: "art-painting",
+    name: "Art & Painting",
+    description: "See, mix, and place paint so a picture holds together.",
+    isFlagship: true,
+    order: 2,
+  },
+  {
+    slug: "content-creation",
+    name: "Content Creation",
+    description: "Plan, make, and publish work people can finish.",
+    isFlagship: true,
+    order: 3,
+  },
+  {
+    slug: "photography",
+    name: "Photography",
+    description: "Light, frame, and edit a photograph on purpose.",
+    isFlagship: false,
+    order: 4,
+  },
+  {
+    slug: "music-production",
+    name: "Music Production",
+    description: "Arrange, record, and mix a track.",
+    isFlagship: false,
+    order: 5,
+  },
+]
+
 async function main() {
   const skills = [
-    { slug: "full-stack-web-dev", name: "Full-Stack Web Development", isFlagship: true, order: 1 },
-    { slug: "art-painting", name: "Art & Painting", isFlagship: true, order: 2 },
-    { slug: "content-creation", name: "Content Creation", isFlagship: true, order: 3 },
-    { slug: "photography", name: "Photography", isFlagship: false, order: 4 },
-    { slug: "music-production", name: "Music Production", isFlagship: false, order: 5 },
+    ...BASE_SKILLS,
+    ...EXTRA_NICHES.map((skill, index) => ({
+      ...skill,
+      isFlagship: false,
+      order: index + 6,
+    })),
   ]
 
   for (const skill of skills) {
     await prisma.skill.upsert({
       where: { slug: skill.slug },
-      update: {},
+      update: {
+        name: skill.name,
+        description: skill.description,
+        isFlagship: skill.isFlagship,
+        order: skill.order,
+      },
       create: skill,
     })
   }

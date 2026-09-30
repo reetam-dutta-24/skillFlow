@@ -1,0 +1,67 @@
+/** Niches beyond the five original skills. Coming soon until a path is built. */
+export function slugFromName(name: string) {
+  return name
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .replace(/-{2,}/g, "-");
+}
+
+export const EXTRA_NICHES: { slug: string; name: string; description: string }[] = [
+  { slug: "self-grooming", name: "Self-Grooming", description: "Hair, skin, and the habits that make day-to-day presentation deliberate." },
+  { slug: "animation", name: "Animation", description: "Movement, timing, and how a still drawing becomes a scene." },
+  { slug: "travel-vlogging", name: "Travel Vlogging", description: "Planning, filming, and editing a trip so the story is watchable." },
+  { slug: "story-writing", name: "Story Writing", description: "Plot, character, and revision for short and long fiction." },
+  { slug: "iot-robot-automation", name: "IoT & Robot Automation", description: "Sensors, controllers, and the software that moves a physical machine." },
+  { slug: "cybersecurity", name: "Cybersecurity", description: "How accounts, networks, and software are attacked and defended." },
+  { slug: "data-analysis", name: "Data Analysis", description: "Cleaning data, finding a pattern, and saying what it does not prove." },
+  { slug: "machine-learning", name: "Machine Learning", description: "Training a model, measuring it, and knowing when it is guessing." },
+  { slug: "ui-design", name: "UI Design", description: "Layout, type, and controls people can actually use." },
+  { slug: "ux-research", name: "UX Research", description: "Watching how people use a product and what to change because of it." },
+  { slug: "graphic-design", name: "Graphic Design", description: "Composition, hierarchy, and type for posters, brands, and screens." },
+  { slug: "digital-marketing", name: "Digital Marketing", description: "How a message finds an audience without pretending every click is a sale." },
+  { slug: "seo", name: "SEO", description: "How search engines read a page and what a writer can honestly improve." },
+  { slug: "product-management", name: "Product Management", description: "Choosing what to build, for whom, and what to leave out." },
+  { slug: "project-management", name: "Project Management", description: "Scope, sequence, and how a group finishes the work it promised." },
+  { slug: "cloud-fundamentals", name: "Cloud Fundamentals", description: "What runs on someone else's servers, and how access, cost, and failure work." },
+  { slug: "devops", name: "DevOps", description: "Build, test, and release so a change can ship without a scramble." },
+  { slug: "mobile-development", name: "Mobile Development", description: "Apps that fit a phone: layout, offline use, and the platform rules." },
+  { slug: "copywriting", name: "Copywriting", description: "Writing that helps a person decide, without hiding the tradeoff." },
+  { slug: "sales", name: "Sales", description: "Listening for a real need and making an offer someone can refuse." },
+  { slug: "first-aid", name: "First Aid", description: "What to do in the first minutes of bleeding, choking, or a collapse." },
+  { slug: "food-safety", name: "Food Safety", description: "Temperature, contamination, and storage that keep a meal from making people sick." },
+  { slug: "home-repair", name: "Home Repair", description: "The small fixes in a house, and the ones that need a licensed tradesperson." },
+  { slug: "auto-maintenance", name: "Auto Maintenance", description: "Fluids, tires, brakes, and the checks that prevent a roadside failure." },
+  { slug: "personal-finance", name: "Personal Finance", description: "Spending, debt, and saving in an order that survives a bad month." },
+  { slug: "bookkeeping", name: "Bookkeeping", description: "Recording what came in and what went out so the numbers can be trusted." },
+  { slug: "emergency-preparedness", name: "Emergency Preparedness", description: "Water, power, and a plan for the first days after a local disaster." },
+  { slug: "sign-language", name: "Sign Language", description: "A visual language, practiced as a language and not as a party trick." },
+  { slug: "statistical-literacy", name: "Statistical Literacy", description: "Averages, samples, and the claims a chart is not allowed to make." },
+  { slug: "information-literacy", name: "Information Literacy", description: "How to tell a source, a rumor, and an ad apart." },
+  { slug: "digital-privacy", name: "Digital Privacy", description: "Accounts, permissions, and what a device collects without being asked twice." },
+  { slug: "accessibility", name: "Accessibility", description: "Building so people who use a keyboard, a reader, or captions are not locked out." },
+  { slug: "welding", name: "Welding", description: "Joints, heat, and the safety gear that belongs on before the arc." },
+  { slug: "carpentry", name: "Carpentry", description: "Measure, cut, and join wood so the piece stays square." },
+  { slug: "sewing", name: "Sewing", description: "Fabric, pattern, and a machine stitch that holds." },
+  { slug: "gardening", name: "Gardening", description: "Soil, water, and seasons for food and plants in a real yard." },
+  { slug: "nutrition", name: "Nutrition", description: "What a meal needs to do, past the label on the box." },
+  { slug: "motion-design", name: "Motion Design", description: "Type and shape that move with a reason, not a preset." },
+  { slug: "3d-modeling", name: "3D Modeling", description: "Form, topology, and a model that can be lit or printed." },
+  { slug: "illustration", name: "Illustration", description: "Drawing an idea so it reads at a glance." },
+  { slug: "sound-design", name: "Sound Design", description: "Noise, music, and silence chosen for a scene." },
+  { slug: "cinematography", name: "Cinematography", description: "Light, lens, and frame so a shot says where to look." },
+  { slug: "film-editing", name: "Film Editing", description: "Cuts, pace, and the version of a scene the audience should see." },
+  { slug: "pottery", name: "Pottery", description: "Clay, centering, and a firing that does not crack the piece." },
+  { slug: "technical-writing", name: "Technical Writing", description: "Instructions a stranger can follow without guessing." },
+  { slug: "translation", name: "Translation", description: "Moving meaning between languages, including what should not be literal." },
+  { slug: "research-methods", name: "Research Methods", description: "A question, a method, and a result that stays inside the evidence." },
+  { slug: "ai-literacy", name: "AI Literacy", description: "What a model can draft, what it invents, and what a person still has to check." },
+  { slug: "embedded-systems", name: "Embedded Systems", description: "Software that runs on a small device with limited memory and a real clock." },
+  { slug: "climate-literacy", name: "Climate Literacy", description: "Energy, weather, and the difference between a trend and a single hot day." },
+  { slug: "public-speaking", name: "Public Speaking", description: "A talk with a point, a structure, and a pace people can follow." },
+  { slug: "spreadsheets", name: "Spreadsheets", description: "Cells, formulas, and a sheet someone else can audit." },
+  { slug: "cooking", name: "Cooking", description: "Heat, salt, and a meal that finishes at the same time." },
+  { slug: "critical-thinking", name: "Critical Thinking", description: "An argument's claim, its evidence, and the step that does not follow." },
+  { slug: "game-development", name: "Game Development", description: "Rules, feedback, and a loop a player wants to try again." },
+];

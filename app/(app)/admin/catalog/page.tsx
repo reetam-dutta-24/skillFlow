@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { auth } from "@/lib/auth";
 import { requireAdmin } from "@/lib/require-admin";
-import { getCatalogEditor } from "@/lib/data/catalog-admin";
+import { getCatalogEditor, listCatalogSkills } from "@/lib/data/catalog-admin";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
 import { AdminSectionNav } from "../_components/AdminSectionNav";
 import { CatalogEditor } from "./_components/CatalogEditor";
+import { NicheForm } from "./_components/NicheForm";
 
 export async function generateMetadata(): Promise<Metadata> {
   const session = await auth();
@@ -14,19 +15,20 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function AdminCatalogPage() {
   await requireAdmin();
-  const skills = await getCatalogEditor();
+  const [catalog, skills] = await Promise.all([getCatalogEditor(), listCatalogSkills()]);
 
   return (
     <div className="sf-admin-page">
       <header className="sf-page-head">
         <AdminSectionNav current="catalog" />
         <h1>Catalog</h1>
-        <p>Add a resource to a stage. The lesson for that stage reads it from the database.</p>
+        <p>Add a niche, or add a resource to a stage that already exists.</p>
       </header>
-      {skills.length === 0 ? (
+      <NicheForm skills={skills} />
+      {catalog.length === 0 ? (
         <EmptyState icon="library" title="No stages yet" description="A skill needs stages before a resource can be added." />
       ) : (
-        <CatalogEditor skills={skills} />
+        <CatalogEditor skills={catalog} />
       )}
     </div>
   );

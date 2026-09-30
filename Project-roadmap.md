@@ -21,13 +21,14 @@ Last aligned with the working tree on 30 September 2026.
 | --- | --- | --- |
 | Product shape, tokens, component kit | Done | Dark/light theme, accent presets, shared buttons, cards, charts |
 | Public pages | Done | Landing, login, signup, privacy, terms. Landing names Travel Vlogging with the other two free paths |
-| Database schema and local Postgres | Done | Prisma models and nine migrations, through stage images |
+| Database schema and local Postgres | Done | Prisma models and migrations, through the open-source community tables |
+| Open Source browse | In progress | Signed-in list, niche tabs, and contribution pages read the community tables. The form and the review queue are not built |
 | Auth | Done for email/password | Auth.js, bcrypt passwords, JWT session, route protection. Google is configured in code. The login screen is email and password |
 | Onboarding | Done and saved | Skill, pace, goal, and accent are written to Postgres |
 | Niches and roadmaps | Done for three paths | Full-Stack, Travel Vlogging, and Content Creation are free and available. Art stays a coming-soon flagship |
 | Lessons and clips | Done for stored resources | The player reads `Resource` rows. YouTube watch links are rewritten into an embed |
 | Admin catalog and submissions | Done | An admin can edit stages and resources, and an approval creates a resource |
-| Caching | Done for shared catalog | Niche grid, lessons, clips, and the submit picker are one cached copy. Progress and the account menu stay per person |
+| Caching | Done for shared catalog and community lists | Niche grid, lessons, clips, and the submit picker share the catalog tag. Merged community pages share the community tag. Progress and the account menu stay per person |
 | Settings follow | Done | Add and remove on the settings page write `UserSkillProgress`. Home links to the niche list instead of a fake Add |
 | Quiz and explain-back AI | Not started | Prompts are stored. No quiz questions exist. The explain-back screen still reads mock data |
 | Unlock by mastery | Not in Version 1 | A free path locks its last three stages. A pass does not open the next one |

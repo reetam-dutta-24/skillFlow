@@ -1,4 +1,5 @@
 import "server-only";
+import { invalidateCommunity } from "@/lib/cache/invalidate";
 import { prisma } from "@/lib/prisma";
 import { communityActor } from "@/lib/services/community/actor";
 import { canModerate, canReviewContribution } from "@/lib/services/community/permissions";
@@ -51,6 +52,7 @@ export async function reviewContribution(userId: string, raw: unknown) {
     }
   });
 
+  invalidateCommunity();
   return { ok: true as const, status: next.status };
 }
 
@@ -82,5 +84,6 @@ export async function unmergeContribution(userId: string, contributionId: string
     });
     await tx.communityContribution.update({ where: { id: current.id }, data: { status: next.status } });
   });
+  invalidateCommunity();
   return { ok: true as const, status: next.status };
 }

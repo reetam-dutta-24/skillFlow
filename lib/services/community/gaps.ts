@@ -1,4 +1,5 @@
 import "server-only";
+import { invalidateCommunity } from "@/lib/cache/invalidate";
 import { prisma } from "@/lib/prisma";
 import { communityActor } from "@/lib/services/community/actor";
 import { COMMUNITY_LIMITS, limitMessage, limitReached } from "@/lib/services/community/limits";
@@ -38,6 +39,7 @@ export async function reportGap(userId: string, raw: unknown) {
     },
     select: { id: true },
   });
+  invalidateCommunity();
   return { ok: true as const, id: row.id };
 }
 
@@ -49,6 +51,7 @@ export async function setGapGoodFirst(userId: string, gapId: string, goodFirst: 
   if (!canModerate(actor, gap.skillId)) return fail("You cannot label gaps in this niche.");
   if (gap.status !== "OPEN") return fail("Label an open gap.");
   await prisma.gapReport.update({ where: { id: gap.id }, data: { goodFirst } });
+  invalidateCommunity();
   return { ok: true as const };
 }
 
@@ -60,5 +63,6 @@ export async function closeGap(userId: string, gapId: string) {
   if (!canModerate(actor, gap.skillId)) return fail("You cannot close gaps in this niche.");
   if (gap.status === "RESOLVED") return fail("That gap was resolved by a contribution.");
   await prisma.gapReport.update({ where: { id: gap.id }, data: { status: "CLOSED" } });
+  invalidateCommunity();
   return { ok: true as const };
 }

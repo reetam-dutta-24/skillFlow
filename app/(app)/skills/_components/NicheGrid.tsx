@@ -45,6 +45,7 @@ export async function NicheGrid({ mode = "page" }: { mode?: "page" | "teaser" })
       stageCount: entry.stages.length,
       image: entry.skill.image,
       href: entry.skill.status === "available" && entry.stages.length > 0 ? `/roadmap/${entry.skill.slug}` : null,
+      communityHref: `/open-source/${entry.skill.slug}`,
       group: meta.group,
       tags: meta.tags,
     };

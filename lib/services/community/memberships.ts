@@ -1,4 +1,5 @@
 import "server-only";
+import { invalidateCommunity } from "@/lib/cache/invalidate";
 import { prisma } from "@/lib/prisma";
 import { fail } from "@/lib/services/community/result";
 
@@ -10,11 +11,13 @@ export async function joinCommunity(userId: string, skillId: string) {
     create: { userId, skillId },
     update: {},
   });
+  invalidateCommunity();
   return { ok: true as const, joined: true as const };
 }
 
 export async function leaveCommunity(userId: string, skillId: string) {
   await prisma.communityMembership.deleteMany({ where: { userId, skillId } });
+  invalidateCommunity();
   return { ok: true as const, joined: false as const };
 }
 

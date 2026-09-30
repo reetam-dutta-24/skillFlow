@@ -9,6 +9,7 @@ export const SKILLFLOW_NAV = [
   { id: "niches", label: "Niches", icon: "library", href: "/skills" },
   { id: "clips", label: "Clips", icon: "clapperboard", href: "/clips" },
   { id: "roadmaps", label: "Roadmaps", icon: "route", href: "/roadmap" },
+  { id: "open-source", label: "Open Source", icon: "git-pull-request", href: "/open-source" },
   { id: "progress", label: "Progress", icon: "chart-line", href: "/progress" },
   { id: "analytics", label: "Analytics", icon: "chart-pie", href: "/analytics" },
   { id: "submit", label: "Submit a resource", icon: "file-plus", href: "/submit" },

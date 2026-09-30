@@ -16,6 +16,8 @@ The niche list shows 32 cards a page. Home and roadmaps show the first 12, a blu
 
 Signed-in learners can keep a preset accent or build their own gradient from a color palette, a hex value, or RGB. Public pages stay on Dusk.
 
+Open Source is a signed-in community for every niche, separate from the official roadmap. The list, the niche tabs, and a contribution page are in place. The contribution form is not.
+
 A dead stored link can be marked unavailable. The lesson keeps the saved title, description, and key points.
 
 ## Tech stack

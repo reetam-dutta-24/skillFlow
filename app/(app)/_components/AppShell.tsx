@@ -12,6 +12,7 @@ const NAV: SidebarItem[] = [
   { id: "niches", label: "Niches", icon: "library", href: "/skills" },
   { id: "clips", label: "Clips", icon: "clapperboard", href: "/clips" },
   { id: "roadmaps", label: "Roadmaps", icon: "route", href: "/roadmap" },
+  { id: "open-source", label: "Open Source", icon: "git-pull-request", href: "/open-source" },
   { id: "progress", label: "Progress", icon: "chart-line", href: "/progress" },
   { id: "analytics", label: "Analytics", icon: "chart-pie", href: "/analytics" },
   { id: "submit", label: "Submit a resource", icon: "file-plus", href: "/submit" },
@@ -34,6 +35,7 @@ type ShellProps = {
 function activeId(pathname: string) {
   if (pathname.startsWith("/dev")) return "";
   if (pathname.startsWith("/admin")) return "admin";
+  if (pathname.startsWith("/open-source")) return "open-source";
   if (pathname.startsWith("/skills")) return "niches";
   if (pathname.startsWith("/clips")) return "clips";
   if (pathname.startsWith("/roadmap") || pathname.startsWith("/lesson") || pathname.startsWith("/quiz") || pathname.startsWith("/milestone")) return "roadmaps";
@@ -54,6 +56,7 @@ function activeId(pathname: string) {
 
 function titleFor(pathname: string) {
   if (pathname.startsWith("/admin")) return "Admin";
+  if (pathname.startsWith("/open-source")) return "Open Source";
   if (pathname.startsWith("/skills")) return "Niches";
   if (pathname.startsWith("/clips")) return "Clips";
   if (pathname.startsWith("/roadmap")) return "Roadmaps";

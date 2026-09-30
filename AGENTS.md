@@ -84,6 +84,7 @@ Wired to Postgres:
 - Profile name saves. Email does not. Theme and accent apply immediately. The ten presets stay. A custom gradient is `custom:#start:#end` on `LearnerProfile.accent` and the `skillflow-accent` cookie. The palette, hex, and RGB fields live on Settings and onboarding. That choice is personal: it is not part of the catalog cache, and saving it does not call `invalidateCatalog()`.
 - Explain-back questions and rubrics are stored on each imported stage. No quiz questions are stored. `/quiz/[stageId]` reads Prisma and shows an empty state.
 - Progress, analytics, and home stats read real attempt counts. With no attempts, those numbers are zero. The charts are not a mock learner with a streak of 12.
+- Open Source (`/open-source`) lists every niche, including coming-soon ones. A niche page has read-only Contributions, Gaps, Changelog, and Contributors tabs. Only merged contributions are public. Join, leave, and “Found this useful” write through the community services. The contribution form, review queue, and contributor profile are not built yet. Community pages use the `community` cache tag. A join, a useful mark, a merge, or a gap change calls `invalidateCommunity()`. They do not call `invalidateCatalog()`.
 
 Not wired:
 
@@ -97,10 +98,10 @@ Not wired:
 ## Stack facts that are easy to get wrong
 
 - Next.js 16.3.4, React 19.2.8, Tailwind v4, Prisma 6.19.3, NextAuth v5 beta.32. `trustHost: true`. Sessions are JWT. Credentials needs JWT. Do not describe database sessions or a finished Google button. Google is configured in `lib/auth.ts` only.
-- `cacheComponents` is on in `next.config.ts`. Shared niches, stages, resources, the niche grid, lesson screens, clips, and the submit picker use `use cache` with the `catalog` tag. The niches page shows 32 cards at a time in the browser, so the page number is not a cache key. Home and the roadmap index reuse a cached teaser of the first rows. Admin catalog saves and an approved submission call `updateTag`. Progress, streaks, and settings stay on the request. The account menu streams beside that shell.
+- `cacheComponents` is on in `next.config.ts`. Shared niches, stages, resources, the niche grid, lesson screens, clips, and the submit picker use `use cache` with the `catalog` tag. Merged community lists, member counts, gaps, and the changelog use the `community` tag. The niches page shows 32 cards at a time in the browser, so the page number is not a cache key. Home and the roadmap index reuse a cached teaser of the first rows. Admin catalog saves and an approved submission call `updateTag`. Progress, streaks, settings, joined state, and “N new” stay on the request. The account menu streams beside that shell.
 - `proxy.ts` exports `export const proxy = auth(...)`. `middleware.ts` was deleted. Do not restore it. The proxy only checks that someone is signed in.
 - Postgres database name is `skillflow` on localhost:5432. `prisma.config.ts` loads `.env` with dotenv because Prisma 6 does not.
-- Migrations through `20260930150000_stage_image` are applied. Do not create a migration unless the schema changes.
+- Migrations through `20260930160507_open_source_community` are applied. Do not create a migration unless the schema changes.
 - `tsx` top-level await fails under CommonJS. Wrap scripts in `async function main()`. PowerShell has no `&&` and no bash heredoc. It also eats `$disconnect` inside `tsx -e`. Use a temp script, then delete it.
 - Full-repo `eslint` still fails on older files. Lint the files you touched. `tsc --noEmit` and `next build` are the project checks.
 - Do not start a second `npm run dev` if one is already answering on port 3000.

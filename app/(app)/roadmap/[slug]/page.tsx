@@ -66,6 +66,10 @@ export default async function RoadmapDetailPage({ params }: PageProps) {
           <Link className="sf-roadmap-link" href="/roadmap">
             All roadmaps
           </Link>
+          {" · "}
+          <Link className="sf-roadmap-link" href={`/open-source/${data.skill.slug}`}>
+            Open Source
+          </Link>
         </p>
         <h1>{data.skill.name}</h1>
         {summary ? <p>{summary}</p> : null}

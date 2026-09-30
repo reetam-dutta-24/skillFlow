@@ -1,5 +1,6 @@
 import "server-only";
 import { Prisma } from "@prisma/client";
+import { invalidateCommunity } from "@/lib/cache/invalidate";
 import { prisma } from "@/lib/prisma";
 import { COMMUNITY_LIMITS, limitMessage, limitReached } from "@/lib/services/community/limits";
 import { fail } from "@/lib/services/community/result";
@@ -44,6 +45,7 @@ export async function toggleUseful(userId: string, contributionId: string) {
       });
       return updated.usefulCount;
     });
+    invalidateCommunity();
     return { ok: true as const, useful: !existing, usefulCount };
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {

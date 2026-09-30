@@ -33,6 +33,7 @@ export type BrowseSkill = {
   stageCount: number;
   image: string | null;
   href: string | null;
+  communityHref?: string | null;
   group: string;
   tags: string[];
 };
@@ -256,6 +257,11 @@ function SkillCard({ skill, preview = false }: { skill: BrowseSkill; preview?: b
         </span>
         <strong>{view.name}</strong>
         {view.description ? <span>{view.description}</span> : null}
+        {!view.href && view.communityHref ? (
+          <Link href={view.communityHref} className="sf-skill-os">
+            Open Source
+          </Link>
+        ) : null}
       </span>
     </>
   );

@@ -21,6 +21,7 @@ const protectedRoutes = [
   "/dev",
   "/submit",
   "/admin",
+  "/open-source",
 ];
 
 export const proxy = auth((req) => {
@@ -73,5 +74,7 @@ export const config = {
     "/submit/:path*",
     "/admin",
     "/admin/:path*",
+    "/open-source",
+    "/open-source/:path*",
   ],
 };

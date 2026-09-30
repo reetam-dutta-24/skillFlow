@@ -1,0 +1,1011 @@
+{
+  "stages": [
+    {
+      "order": 1,
+      "title": "Planning a Travel Shoot",
+      "level": "BEGINNER",
+      "description": "How to turn a day in an unfamiliar city into a filmable plan: a clear angle, a shot list, remote scouting, and a schedule built around the light and the weather.",
+      "learningObjectives": [
+        "Define a story or angle for the vlog before arriving",
+        "Build a shot list covering establishing shots, B-roll and detail shots",
+        "Scout locations remotely (maps, Street View/Google Earth, sun-position tools) and check access",
+        "Schedule shooting around golden hour and blue hour",
+        "Plan for weather with research and schedule buffers"
+      ],
+      "explainBack": {
+        "question": "How would you plan a day of filming in a new city so you come home with a usable vlog?",
+        "rubric": [
+          "Defines the story or angle of the video before going, so shots serve a narrative rather than being random",
+          "Makes a shot list of must-get shots, including wide establishing shots, B-roll/cutaways and close detail shots",
+          "Scouts locations in advance using maps, photos, Street View/Google Earth or sun-position apps, and checks practical access (permits, facilities, opening times)",
+          "Plans key shots around the light: golden hour (sun low, roughly 6 degrees below to 6 degrees above the horizon, warm soft light) and blue hour (twilight, sun about 4-8 degrees below the horizon, blue sky good for lit cityscapes)",
+          "Checks the weather/climate beforehand and builds in a backup (spare time windows or alternative shots) in case plans change"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "How I PLAN My TRAVEL VIDEOS - Pre-Production Process",
+          "provider": "Aidin Robbins",
+          "url": "https://www.youtube.com/watch?v=0yzSH7IqG1k",
+          "description": "A travel filmmaker walks through the pre-production he does before a trip, from the idea for the video to planning what to film.",
+          "keyPoints": [
+            "Shows a real travel filmmaker's pre-production routine",
+            "Covers planning the video's idea before shooting",
+            "Covers preparing what to film at each destination"
+          ],
+          "videoId": "0yzSH7IqG1k"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How to Create a Travel YouTube Channel: Part 1—Shooting and Editing",
+          "provider": "OWC Blog",
+          "author": "Josh Edwards",
+          "url": "https://owc.com/blog/how-to-create-a-travel-youtube-channel-part-1-shooting-and-editing",
+          "description": "A travel YouTuber's planning workflow: research the destination, scout it remotely with Google Earth and sun apps, find the story, and write a shot list with a padded schedule.",
+          "keyPoints": [
+            "Research climate, weather, safety and local attitudes to filming before you go",
+            "Use Google Earth and Street View to scout places you can't visit in advance",
+            "Sun-tracking apps (e.g. Sun Seeker) show light angles and timing at a location",
+            "Without a story, beautiful shots mean little; pick a clear narrative focus",
+            "Pair a shot list with a flexible schedule padded by 24-48 hour windows"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How to Make a Shot List in 8 Steps — Process Explained",
+          "provider": "StudioBinder",
+          "url": "https://www.studiobinder.com/blog/how-to-make-a-shot-list/",
+          "description": "Explains what a shot list is and walks through building one step by step, including what details to note for each shot.",
+          "keyPoints": [
+            "A shot list is an ordered list of shots that together form scenes",
+            "Each entry can record shot size, angle, movement, lens and equipment",
+            "Planning coverage in advance avoids improvising on location",
+            "Check off shots as you get them during the shoot"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Golden Hour",
+          "provider": "timeanddate.com",
+          "url": "https://www.timeanddate.com/astronomy/golden-hour.html",
+          "description": "Explains when golden hour happens, why the light turns warm and soft, and how its length changes with latitude.",
+          "keyPoints": [
+            "Golden hour is around sunrise and sunset, sun roughly 6° below to 6° above the horizon",
+            "Low sun light passes through more atmosphere, scattering blue and leaving warm tones",
+            "Light is softer with lower contrast than midday",
+            "Length varies by place: ~50 min near the equator, 90+ min at high latitudes",
+            "Use a sun calculator to find the exact times for your location"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Blue Hour",
+          "provider": "timeanddate.com",
+          "url": "https://www.timeanddate.com/astronomy/blue-hour.html",
+          "description": "Explains blue hour: the twilight period when the sun is a few degrees below the horizon and the sky turns deep blue, ideal for lit-up city scenes.",
+          "keyPoints": [
+            "Blue hour occurs when the sun is about 4-8 degrees below the horizon",
+            "It is short: roughly 16-30 minutes depending on latitude",
+            "Works best for cityscapes where artificial lights contrast with the blue sky",
+            "Plan with a sun calculator and use a tripod in the low light"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Travel Camera Kit & Power",
+      "level": "BEGINNER",
+      "description": "Choosing a light, versatile travel kit and following the airline rules for flying with lithium-ion camera batteries and power banks.",
+      "learningObjectives": [
+        "Choose a compact, versatile travel filming kit",
+        "Apply the carry-on rule for spare lithium batteries and power banks",
+        "Apply watt-hour (Wh) limits and calculate Wh from a battery label",
+        "Protect battery terminals against short circuit",
+        "Check plug types and voltage for the destination"
+      ],
+      "explainBack": {
+        "question": "What would you pack for a travel vlog, and what are the rules for flying with camera batteries?",
+        "rubric": [
+          "States that spare lithium-ion batteries and power banks must travel in carry-on (cabin) baggage, never in checked bags, and must be removed if a cabin bag is gate-checked",
+          "States the Wh limits: up to 100 Wh allowed without approval; over 100 Wh up to 160 Wh needs airline approval (max two spares); over 160 Wh is forbidden for passengers; notes airlines may limit power banks further (IATA 2026 guidance: max two power banks of up to 100 Wh)",
+          "Explains protecting terminals from short circuit: original retail packaging, tape over terminals, battery cases/sleeves or separate pouches",
+          "Favours a light, versatile kit (one camera, a versatile lens, a mic, spare batteries and memory cards, charger) over a heavy one",
+          "Checks the destination's plug type and voltage, using plug adapters and confirming chargers are dual-voltage (e.g. labelled 100-240 V) before relying on them"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Lithium Batteries: How to Pack Safe",
+          "provider": "Federal Aviation Administration",
+          "url": "https://www.youtube.com/watch?v=v8zLaNYxMGM",
+          "description": "The FAA's own short explainer on how to pack lithium batteries safely when flying.",
+          "keyPoints": [
+            "Official FAA guidance on packing lithium batteries",
+            "Covers keeping spare batteries in carry-on baggage",
+            "Covers protecting batteries from damage and short circuit"
+          ],
+          "videoId": "v8zLaNYxMGM"
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "The PERFECT travel vlog camera kit - light weight, minimal, high quality",
+          "provider": "Katie Steckly",
+          "url": "https://www.youtube.com/watch?v=2yiOKqPRUQM",
+          "description": "A creator shows a compact travel vlogging setup chosen to stay light while keeping good image and audio quality.",
+          "keyPoints": [
+            "Presents a minimal, lightweight travel vlog kit",
+            "Explains the trade-off between portability and quality",
+            "Shows the camera, audio and accessories chosen"
+          ],
+          "videoId": "2yiOKqPRUQM"
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "PackSafe - Lithium Batteries",
+          "provider": "Federal Aviation Administration",
+          "url": "https://www.faa.gov/hazmat/packsafe/lithium-batteries",
+          "description": "The FAA's official passenger rules for lithium batteries: where spares may be carried, Wh limits, quantity limits and how to prevent short circuits.",
+          "keyPoints": [
+            "Spare lithium batteries and power banks go in carry-on only",
+            "If a cabin bag is gate-checked, remove spare batteries and keep them with you",
+            "Up to 100 Wh is allowed; two spares of 101-160 Wh need airline approval",
+            "Batteries over 160 Wh are generally not allowed for passengers",
+            "Protect terminals: retail packaging, tape, battery case, sleeve or snug pouch",
+            "Airlines may set stricter limits on power banks"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Passengers Travelling with Lithium Batteries - Guidance Document, Revised for the 2026 Regulations",
+          "provider": "IATA",
+          "url": "https://www.iata.org/contentassets/6fea26dd84d24b26a7a1fd5788561d6e/passengers_travelling_with_lithium_batteries.pdf",
+          "description": "The airline industry's 2026 guidance for passengers carrying lithium batteries, including Wh thresholds, spare battery and power bank limits and how to calculate Wh.",
+          "keyPoints": [
+            "Spares must be individually protected and carried only in cabin baggage",
+            "≤100 Wh: no approval; >100-160 Wh: operator approval; >160 Wh: forbidden",
+            "Max 20 spare batteries per person; power banks limited to two of ≤100 Wh",
+            "Power banks must not be charged from aircraft power or kept in overhead bins",
+            "Wh = rated capacity in Ah × nominal voltage (V)"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Electric Europe: Adapters and Converters",
+          "provider": "Rick Steves' Europe",
+          "url": "https://ricksteves.com/travel-tips/phones-tech/electric-adapters-converters",
+          "description": "Explains the voltage and plug differences between North America and Europe and how to tell if a device only needs a plug adapter.",
+          "keyPoints": [
+            "North America uses about 110 V; Europe uses about 220 V",
+            "Most modern electronics are dual-voltage; check the label for a voltage range",
+            "Devices that aren't dual-voltage need a bulky converter",
+            "Adapters only change plug shape; bring more than one",
+            "Plug shapes differ by region (e.g. UK three-prong vs continental round-pin)"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Essential Travel Vlogging Equipment",
+          "provider": "Artlist",
+          "author": "Ron Dawson",
+          "url": "https://artlist.io/blog/essential-travel-vlogging-equipment/",
+          "description": "A travelling filmmaker's list of compact vlogging gear, with an emphasis on packing light while keeping production quality.",
+          "keyPoints": [
+            "Compact mirrorless cameras or a smartphone can carry a travel vlog",
+            "A small gimbal and compact light add capability with little weight",
+            "Portable chargers and outlet adapters for each country are essentials",
+            "Packing light matters when you are moving constantly"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Stabilization & Shooting on the Move",
+      "level": "INTERMEDIATE",
+      "description": "Getting smooth footage while walking and travelling using gimbals, in-camera stabilization and body technique, and choosing between timelapse and hyperlapse.",
+      "learningObjectives": [
+        "Explain how a motorized gimbal stabilizes a camera",
+        "Compare optical/in-body (IBIS/OIS) and electronic stabilization, including EIS cropping",
+        "Use walking and holding techniques that reduce shake",
+        "Choose between a timelapse and a hyperlapse"
+      ],
+      "explainBack": {
+        "question": "How do you get smooth footage while walking and traveling, and when would you use a timelapse vs a hyperlapse?",
+        "rubric": [
+          "Explains that a motorized gimbal uses sensors (IMU) and brushless motors on three axes (pan, tilt, roll) to counteract unwanted movement",
+          "Distinguishes optical/in-body stabilization (moving lens elements or the sensor) from electronic stabilization, which works in software and crops/narrows the frame",
+          "Describes walking technique: knees slightly bent, rolling heel-to-toe 'ninja walk', camera held close with elbows tucked",
+          "Notes that wider focal lengths make shake less visible than tight or telephoto shots",
+          "Defines timelapse as a static camera taking photos at set intervals to compress time, and hyperlapse as the same idea with the camera moving between frames"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "The Secret to Getting BUTTERY SMOOTH Gimbal Shots (Ninja Walk Tutorial)",
+          "provider": "910 Academy",
+          "url": "https://www.youtube.com/watch?v=KrnkX03DXFc",
+          "description": "A tutorial on the 'ninja walk' technique for smoother footage when walking with a gimbal.",
+          "keyPoints": [
+            "Demonstrates the ninja walk with a gimbal",
+            "Shows how footwork and posture reduce vertical bounce",
+            "Aimed at getting smooth walking shots"
+          ],
+          "videoId": "KrnkX03DXFc"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What Is a Gimbal? (Definition and How to Use One)",
+          "provider": "No Film School",
+          "author": "Jason Hellerman",
+          "url": "https://nofilmschool.com/what-is-a-gimbal-definition",
+          "description": "Defines a gimbal, explains the pan, tilt and roll axes, and how motorized gimbals use an IMU and brushless motors to cancel shake.",
+          "keyPoints": [
+            "A gimbal is a pivoted support letting an object rotate about an axis",
+            "Camera gimbals usually stabilize three axes: tilt, roll and pan",
+            "Motorized gimbals use an IMU and brushless motors to make micro-corrections",
+            "They separate intended moves (pans, tracking) from unwanted shake",
+            "Walking technique still matters for smooth results"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "FAQ: Image Stabilization",
+          "provider": "B&H eXplora",
+          "author": "Allan Weitz",
+          "url": "https://www.bhphotovideo.com/explora/node/96691",
+          "description": "A plain-language FAQ on optical (lens or sensor-shift) and electronic image stabilization and how they apply to stills and video.",
+          "keyPoints": [
+            "Optical stabilization shifts lens elements or the sensor to counter movement",
+            "Electronic/digital stabilization reduces shake in software",
+            "Many cameras combine optical and electronic stabilization",
+            "Stabilization helps both stills and video; brand names for it vary"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "SteadyShot (movie)",
+          "provider": "Sony Help Guide (α7C II)",
+          "url": "https://helpguide.sony.net/ilc/2360/v1/en/contents/0412B_movie_steadyshot.html",
+          "description": "Sony's manual page for movie stabilization modes, showing that stronger electronic modes narrow the angle of view by cropping.",
+          "keyPoints": [
+            "Modes: Dynamic Active, Active, Standard and Off",
+            "Active gives stronger stabilization but narrows the angle of view",
+            "Dynamic Active crops and enlarges the image, narrowing the view further",
+            "Standard suits stable shooting; stronger modes suit walking shots"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "10 Tips for Shooting Buttery Smooth Handheld Footage",
+          "provider": "Epidemic Sound",
+          "author": "Patrick Hanlon",
+          "url": "https://www.epidemicsound.com/blog/10-tips-for-shooting-buttery-smooth-handheld-footage/",
+          "description": "Ten practical techniques for steadier handheld video, from how you hold and walk with the camera to lens choice and slow motion.",
+          "keyPoints": [
+            "Hold the camera close with elbows tucked into your ribs",
+            "Walk heel-to-toe with knees slightly bent",
+            "Shoot wide: wide shots show less visible shake than close-ups",
+            "Slow motion makes remaining movement less noticeable",
+            "Software stabilization (e.g. Warp Stabilizer) can smooth leftover shake"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Timelapse and Hyperlapse with Drones",
+          "provider": "B&H eXplora",
+          "author": "John Foldi",
+          "url": "https://www.bhphotovideo.com/explora/drones/buying-guide/timelapse-and-hyperlapse-with-drones",
+          "description": "Defines timelapse and hyperlapse and explains interval shooting, using drones as the example platform.",
+          "keyPoints": [
+            "Both take photos at fixed intervals to show time passing quickly",
+            "Timelapse: the camera stays static",
+            "Hyperlapse: the camera moves through space between frames",
+            "A 10-second clip at 30 fps needs 300 images"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Audio on Location",
+      "level": "INTERMEDIATE",
+      "description": "Recording clear voice and useful natural sound outdoors and in busy places: wind protection, mic choice and placement, ambience, monitoring and levels.",
+      "learningObjectives": [
+        "Reduce wind noise with windscreens, placement and low-cut filtering",
+        "Choose and place a lavalier mic for noisy environments",
+        "Record ambience/room tone to support the edit",
+        "Monitor with headphones and set levels with headroom"
+      ],
+      "explainBack": {
+        "question": "How do you record usable voice and sound while filming outdoors and in busy places?",
+        "rubric": [
+          "Identifies wind as the main outdoor problem and uses a foam windscreen, stepping up to a furry windshield ('deadcat') or blimp in stronger wind, plus shielding (body, walls, clipping the lav under clothing)",
+          "Explains that a lavalier close to the mouth (upper chest) picks up voice over background noise better than an on-camera mic in noisy places",
+          "Records ambience/natural sound or room tone (at least 30-60 seconds) to fill gaps, smooth cuts and set the scene",
+          "Monitors audio with headphones and sets gain so peaks sit around -12 to -6 dB, leaving headroom and avoiding clipping",
+          "Uses a high-pass/low-cut filter to reduce low-frequency wind rumble (roughly 20-250 Hz)"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "How To Reduce Wind Noise When Recording Outside | Audio for Film 101 – Episode 1",
+          "provider": "RØDE",
+          "url": "https://www.youtube.com/watch?v=SBG3KXLyGcQ",
+          "description": "RØDE's video episode on tackling wind noise outdoors, the companion to its written guide.",
+          "keyPoints": [
+            "Covers foam windshields, deadcats and blimps",
+            "Covers mic placement and shielding from wind",
+            "Covers low-cut filtering for wind rumble"
+          ],
+          "videoId": "SBG3KXLyGcQ"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Audio For Film 101: Ways to Reduce Wind Noise When Recording Outside",
+          "provider": "RØDE",
+          "url": "https://rode.com/en/blog/all/ways-to-reduce-wind-noise-when-recording-outside",
+          "description": "RØDE's guide to controlling wind noise with windshields, mic choice, placement and EQ.",
+          "keyPoints": [
+            "Foam windshields are the first defence; deadcats handle stronger wind",
+            "Deadcats can slightly dull high frequencies, fixable in post",
+            "Use natural barriers and the speaker's body to block gusts",
+            "Clip a lav inside a shirt pocket rather than exposed",
+            "Wind noise sits around 20-250 Hz; a high-pass/low-cut filter reduces it"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How Lavalier Microphones Improve Interview Audio, Even in Noisy Environments",
+          "provider": "DJI",
+          "url": "https://www.dji.com/media-center/insights/lavalier-microphones-for-clear-interviews",
+          "description": "Explains why a lavalier mic worn close to the mouth gives clearer, more consistent voice in noisy places than an on-camera mic.",
+          "keyPoints": [
+            "Lavs sit close to the mouth, so voice dominates background noise",
+            "Mic-to-mouth distance stays constant as the speaker moves",
+            "Close pickup reduces traffic, HVAC and ambient bleed",
+            "Monitor with headphones to catch problems while recording",
+            "Use windscreens outdoors to cut wind and rustle"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What is Room Tone",
+          "provider": "StudioBinder",
+          "url": "https://www.studiobinder.com/blog/what-is-room-tone",
+          "description": "Defines room tone, how long to record it and why editors need it, and how it differs from broader ambience.",
+          "keyPoints": [
+            "Room tone is a location's natural sound with no intentional noise",
+            "Record at least 30-60 seconds for each setup",
+            "It fills silent gaps and smooths cuts between takes",
+            "Ambience is broader environmental sound that can include activity",
+            "Outdoor locations need it too (traffic, wind, distant activity)"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Travel Videography 101 with WWF Video Experts",
+          "provider": "Natural Habitat Adventures",
+          "author": "Kelley Ashford & Irene Magafan (WWF)",
+          "url": "https://www.nathab.com/blog/travel-videography-101-with-wwf-video-experts",
+          "description": "Travel video advice from WWF's video team, including planning, shooting cutaways and recording natural sound on location.",
+          "keyPoints": [
+            "Natural sound is essential to a travel video",
+            "Set the camera down and record ~30 s of sound to capture the soundscape",
+            "Plan with a shot list and a clear story focus, but stay open",
+            "Pack minimal gear and back up footage daily"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Techniques for Gaining Stage Your Microphone During Recording",
+          "provider": "RØDE",
+          "url": "https://help.rode.com/hc/en-us/articles/12966417339919-Techniques-for-Gaining-Stage-Your-Microphone-During-Recording",
+          "description": "RØDE's guidance on setting recording levels: target peak range, avoiding clipping and monitoring with headphones.",
+          "keyPoints": [
+            "Aim for peaks between -12 dB and -6 dB to leave headroom",
+            "Clipping causes distortion that can't be fully fixed in post",
+            "Move the mic closer instead of adding lots of gain",
+            "Listen on headphones while adjusting gain"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Drones: Rules & Safe Flying",
+      "level": "INTERMEDIATE",
+      "description": "How to check and follow the drone rules of the country you fly in (India, US, EU examples) before launching a drone for a travel vlog.",
+      "learningObjectives": [
+        "Explain why drone rules must be checked per country (and per trip) with that country's aviation authority, including whether you can bring a drone in at all",
+        "Describe India's Drone Rules 2021 basics: Digital Sky, green/yellow/red airspace zones, and lighter requirements for nano drones",
+        "Summarise the core US FAA recreational flyer rules (TRUST, 400 ft, visual line of sight, airspace authorization, registration)",
+        "Summarise the EU (EASA) open-category basics: operator registration, 120 m limit, and national no-fly zones"
+      ],
+      "explainBack": {
+        "question": "What do you need to check before flying a drone for a travel vlog, in India and abroad?",
+        "rubric": [
+          "Drone rules are set per country by its aviation authority and change over time, so check the official source for the country you will fly in before the trip, including extra steps for foreign-registered drones or whether you may bring one in at all",
+          "India: under the Drone Rules 2021, check the Digital Sky airspace map — green zones need no flight permission (up to 400 ft), yellow zones need air traffic control permission, red zones only with Central Government permission",
+          "India: nano drones (up to 250 g) and non-commercial micro drones do not need a remote pilot licence/certificate; other cases need registration (UIN) and a certificate — verify current rules on official sources",
+          "US (FAA recreational flyers): pass TRUST and carry proof, fly at or below 400 ft in uncontrolled (Class G) airspace, keep visual line of sight, get LAANC/DroneZone authorization in controlled airspace near airports, and register drones of 250 g or more",
+          "EU (EASA open category): register as an operator with the aviation authority of your country of residence if your drone has a camera and is not a toy (even a 249 g DJI Mini), stay under 120 m, and check national no-fly zones"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "DJI Flight Safety Tips",
+          "provider": "DJI Tutorials",
+          "url": "https://www.youtube.com/watch?v=5lCHW1iWCgk",
+          "description": "Short official DJI tutorial on safe-flying habits for consumer drones, useful as a pre-flight checklist before a travel shoot.",
+          "keyPoints": [
+            "Pre-flight safety checks for DJI consumer drones",
+            "Habits for flying safely around people, obstacles and restricted areas",
+            "Official manufacturer guidance rather than a third-party opinion"
+          ],
+          "videoId": "5lCHW1iWCgk"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Drone Rules, 2021 (PIB backgrounder)",
+          "provider": "Press Information Bureau, Government of India",
+          "url": "https://static.pib.gov.in/WriteReadData/specificdocs/documents/2022/jan/doc202212810701.pdf",
+          "description": "Government of India backgrounder on the liberalised Drone Rules 2021: airspace zones, Digital Sky, and which drones need a remote pilot licence.",
+          "keyPoints": [
+            "Drone Rules 2021 were notified by the Ministry of Civil Aviation on 25 August 2021",
+            "Green zones: no permission needed, up to 400 ft; yellow zones need ATC approval; red zones need Central Government permission",
+            "Nano drones and non-commercial micro drones do not need a remote pilot licence",
+            "Digital Sky platform handles online registration and flight clearances"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Recreational Flyers & Community-Based Organizations",
+          "provider": "Federal Aviation Administration",
+          "url": "https://www.faa.gov/uas/recreational_flyers",
+          "description": "The FAA's official list of rules for people flying drones for fun in the US, from the safety test to altitude and airspace limits.",
+          "keyPoints": [
+            "Take TRUST and carry proof of passing when you fly",
+            "Fly at or below 400 ft in Class G (uncontrolled) airspace",
+            "Keep the drone within visual line of sight, or use a co-located visual observer",
+            "Controlled airspace (around many airports) needs prior LAANC or DroneZone authorization",
+            "Register drones weighing 250 g or more; registered drones must broadcast Remote ID"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Information for International UAS Operators in the United States",
+          "provider": "Federal Aviation Administration",
+          "url": "https://www.faa.gov/uas/resources/foreign_operators",
+          "description": "FAA page for visitors bringing a foreign drone to the US, showing that travellers face extra steps beyond local pilots.",
+          "keyPoints": [
+            "Foreign-registered drones with Remote ID need a Notice of Identification filed with the FAA before flying",
+            "Drones without Remote ID can only fly inside FAA-Recognized Identification Areas (FRIAs)",
+            "Visitors are pointed back to the standard recreational flyer rules"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "I bought a DJI Mini (weight 249g) how can I operate it?",
+          "provider": "European Union Aviation Safety Agency (EASA)",
+          "url": "https://www.easa.europa.eu/en/faq/136863",
+          "description": "EASA FAQ explaining that even a sub-250 g camera drone in the EU needs operator registration and must follow open-category A1 rules.",
+          "keyPoints": [
+            "A camera drone like the 249 g DJI Mini is not a toy under EU rules",
+            "The operator must register with the national aviation authority and display the number on the drone",
+            "No remote pilot certificate is required for it, but A1/A3 online training is highly recommended",
+            "Most EASA member states require third-party insurance"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Once in the air",
+          "provider": "European Union Aviation Safety Agency (EASA)",
+          "url": "https://www.easa.europa.eu/en/the-agency/faqs/once-air",
+          "description": "EASA FAQ on in-flight limits in the EU: maximum height, flying near people, and national no-fly zones.",
+          "keyPoints": [
+            "General maximum height is 120 m from the closest point of the ground",
+            "Member states set their own no-fly zones; check with the national aviation authority",
+            "Sub-250 g or C0/C1 drones may fly over uninvolved people; heavier classes face distance limits",
+            "Never fly near an ongoing emergency response"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "title": "Filming People & Places Legally and Ethically",
+      "level": "INTERMEDIATE",
+      "description": "When you need permission to film people and places while travelling, and how to ask for it and respect the answer.",
+      "learningObjectives": [
+        "Recognise that filming rules differ by country and site, and identify places that commonly restrict or require permission for filming",
+        "Explain what a model release is and when you need one from identifiable people",
+        "Apply respectful consent practices, including accepting refusals and extra care with children and sacred settings",
+        "Describe how YouTube's privacy guidelines let identifiable people request removal of content"
+      ],
+      "explainBack": {
+        "question": "When do you need permission to film people or places while traveling, and how do you handle it respectfully?",
+        "rubric": [
+          "Rules differ by country and site: restricted/protected areas, airports, ports and railways can require clearance, and sensitive places such as religious sites need local norms checked before filming",
+          "Filming at protected monuments for films or documentaries needs permission from the site authority (in India, the Archaeological Survey of India, with a fee), and foreign crews shooting documentaries in India need prior approval and a J visa — check the country's rules for your kind of shoot",
+          "A model release is a signed permission from identifiable people to use their image; it matters most for commercial use and is always signed by a parent/guardian for minors",
+          "Ask for consent before filming someone up close, accept a 'no' without argument, and take extra care with children and elders",
+          "YouTube's privacy guidelines let a uniquely identifiable person file a privacy complaint; YouTube weighs factors like public interest and consent and may give the creator a chance to remove the video or blur faces"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Travel Filmmaking in Vietnam: Filming People While Traveling | Part 3",
+          "provider": "Tamron Europe",
+          "url": "https://www.youtube.com/watch?v=_PXPMSM0Xqc",
+          "description": "Lens-maker Tamron's travel filmmaking episode focused on filming local people during a trip in Vietnam.",
+          "keyPoints": [
+            "Approaching and filming people you meet while travelling",
+            "Practical on-location examples from a travel shoot in Vietnam",
+            "Part of a multi-episode travel filmmaking series"
+          ],
+          "videoId": "_PXPMSM0Xqc"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How to Photograph People When You Travel (Without Being Disrespectful)",
+          "provider": "AFAR",
+          "author": "Sarah Buder",
+          "url": "https://www.afar.com/magazine/how-to-photograph-people-when-you-travel-without-being-disrespectful",
+          "description": "Travel-magazine guide, built on a working photographer's advice, to asking permission and photographing people respectfully abroad.",
+          "keyPoints": [
+            "Make eye contact and ask before shooting; learn how to ask in the local language",
+            "Some people will say no for cultural or personal reasons, and that answer must be respected",
+            "Research local customs, especially before photographing children, elders or religious settings",
+            "Spending time with people leads to better, more consensual images"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "When do you need a model release form?",
+          "provider": "Videomaker",
+          "author": "Mark Levy",
+          "url": "https://www.videomaker.com/how-to/legal/permission/when-do-you-need-a-model-release-form/",
+          "description": "Explains what a model release is for video, when you need one, and how commercial and editorial use differ.",
+          "keyPoints": [
+            "A release grants permission to use footage of identifiable people",
+            "Needed for commercial work and when faces are clearly recognisable",
+            "News/editorial coverage of newsworthy events usually doesn't need releases",
+            "Minors always need a parent or guardian signature; private venues need permission too"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Model Release Form Template",
+          "provider": "StudioBinder",
+          "url": "https://studiobinder.com/blog/model-release-form-template",
+          "description": "StudioBinder's guide and template for model releases, covering when to get one and what it should contain.",
+          "keyPoints": [
+            "Get a signed release before the shoot, paid or not",
+            "In the US, filming in public is generally legal, but commercial use needs a release",
+            "At least one legal guardian must sign for anyone under 18",
+            "Template includes clauses on sensitive use and digital manipulation"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Documentary Filming in India",
+          "provider": "Ministry of External Affairs, Government of India",
+          "url": "https://mea.gov.in/documentary-filming-in-india.htm",
+          "description": "Official rules for foreign crews filming documentaries in India, including visa, restricted areas and ASI monument permission.",
+          "keyPoints": [
+            "Foreign agencies need approval via an Indian mission before shooting a documentary",
+            "Documentary filming is not allowed on tourist or business visas; a J visa is required",
+            "Restricted/protected areas are off-limits; railways, ports and airports need their own clearance",
+            "ASI permission, with a fee, is mandatory for filming at protected monuments"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "YouTube Privacy Guidelines",
+          "provider": "YouTube Help",
+          "url": "https://support.google.com/youtube/answer/7671399",
+          "description": "YouTube's official policy on privacy complaints: who can file one, what 'uniquely identifiable' means and how creators can respond.",
+          "keyPoints": [
+            "Complaints require the person to be uniquely identifiable, not just a fleeting image",
+            "YouTube weighs public interest, newsworthiness, consent and public availability",
+            "Creators may be given time to remove the video, edit details or blur faces",
+            "Third-party complaints are generally not accepted, except e.g. parents of minors"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Story & Shot Sequencing",
+      "level": "INTERMEDIATE",
+      "description": "How to shape a day of travel footage into a structured story with a strong opening, sequences and B-roll.",
+      "learningObjectives": [
+        "Plan a strong opening and use YouTube analytics to check whether viewers stay past the intro",
+        "Structure a vlog as an arc (setup, journey/conflict, payoff) instead of a chronological dump",
+        "Shoot and edit sequences using wide, medium and close-up shots",
+        "Use B-roll, natural sound and voiceover to connect scenes"
+      ],
+      "explainBack": {
+        "question": "How do you turn a day of travel footage into a story people watch to the end?",
+        "rubric": [
+          "Open with a hook that matches what the title and thumbnail promise; YouTube's key moments report shows what share of viewers stay past the first 30 seconds",
+          "Give the vlog an arc — setup (place, goal or problem), a middle with obstacles or discoveries, and a payoff/resolution — rather than a chronological dump",
+          "Build sequences: an establishing/wide shot for context, medium shots for the action, and plenty of close-ups for detail",
+          "Capture lots of B-roll to cover cuts and transitions, establish locations and sit under voiceover",
+          "Record natural sound and use it with voiceover to carry and connect scenes"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Must Know STORYTELLING tips for TRAVEL VLOGS",
+          "provider": "Paul Padua",
+          "url": "https://www.youtube.com/watch?v=OcuAL1ml6TE",
+          "description": "A travel filmmaker's storytelling tips aimed specifically at making travel vlogs more engaging.",
+          "keyPoints": [
+            "Storytelling approaches specific to travel vlogs",
+            "Moving beyond a simple record of the day",
+            "Creator-perspective tips on structure and engagement"
+          ],
+          "videoId": "OcuAL1ml6TE"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Measure key moments for audience retention",
+          "provider": "YouTube Help",
+          "url": "https://support.google.com/youtube/answer/9314415",
+          "description": "YouTube's explanation of the key moments retention report, including how many viewers stay past the first 30 seconds.",
+          "keyPoints": [
+            "The intro metric shows what share of viewers are still watching after 30 seconds",
+            "Dips show where viewers leave or skip; spikes show rewatched or shared parts",
+            "Strong intro retention suggests the title and thumbnail matched what viewers got",
+            "Try different opening styles to hold attention early"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "3.04: Three-Act Structure",
+          "provider": "LibreTexts (Video Production Handbook I)",
+          "author": "Jennifer Vaughn",
+          "url": "https://human.libretexts.org/Courses/City_College_of_San_Francisco/Video_Production_Handbook_I/03%3A_Scripting_and_Formats/3.04%3A_Three-Act_Structure",
+          "description": "Open-licensed video production textbook section on three-act structure and how nonfiction adapts it.",
+          "keyPoints": [
+            "Act 1 sets up characters, setting and the central conflict",
+            "Act 2 is confrontation: obstacles in the way of resolving the conflict",
+            "Act 3 resolves the conflict",
+            "Documentaries open with a hook that introduces a problem viewers care about"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Four tips for shooting video sequences",
+          "provider": "International Journalists' Network (IJNet)",
+          "url": "https://ijnet.org/en/story/four-tips-shooting-video-sequences",
+          "description": "Journalism-training article on shooting sequences with establishing, medium and close-up shots so edits flow.",
+          "keyPoints": [
+            "Combine establishing shots for context, varied medium shots and close-ups for detail",
+            "Let subjects leave the frame to avoid jump cuts",
+            "Limit pans, zooms and tilts; let the action provide movement",
+            "Know what each shot is for in the sequence"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What is B-Roll: The Difference Between A-Roll vs B-Roll Footage",
+          "provider": "StudioBinder",
+          "author": "SC Lannom",
+          "url": "https://studiobinder.com/blog/what-is-b-roll",
+          "description": "Defines B-roll and shows how it supports the main footage in documentaries, news and other formats.",
+          "keyPoints": [
+            "B-roll is supplementary footage secondary to the main (A-roll) footage",
+            "Used to cover cuts and transitions and to support voiceover",
+            "Establishing shots of a location are a common form of B-roll",
+            "Fills editorial gaps and adds context"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Shoot with your ears",
+          "provider": "NewsLab",
+          "author": "Deborah Potter",
+          "url": "https://newslab.org/?p=878",
+          "description": "Video-journalism piece on capturing natural sound and using it as structure in a story, not just filler.",
+          "keyPoints": [
+            "Every picture should have a sound that conveys what it was like to be there",
+            "Listen for sound first, then shoot visuals that match it",
+            "Get the microphone close to the action",
+            "Natural sound can be the 'glue' that holds a sequence together"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "title": "Data Management on the Road",
+      "level": "ADVANCED",
+      "description": "A backup and card-handling routine that keeps weeks of travel footage safe from card failure, theft and loss.",
+      "learningObjectives": [
+        "Apply the 3-2-1 backup rule to a travel setup",
+        "Run a daily offload routine that verifies copies before any card is formatted",
+        "Handle memory cards safely: format in camera, use several smaller cards and track used vs empty",
+        "Keep copies physically separate and use cloud upload selectively when bandwidth allows"
+      ],
+      "explainBack": {
+        "question": "How do you protect your footage while traveling for weeks?",
+        "rubric": [
+          "Follow the 3-2-1 rule: 3 copies of your files, on 2 different types of media, with 1 copy off-site (e.g. cloud or another location)",
+          "Offload cards every day and verify the copies (ideally with checksum-verifying software) before a card is formatted and reused",
+          "Format cards in the camera rather than deleting files on a computer, and stop using a card that shows errors",
+          "Carry several smaller cards rather than one huge card, and keep them in a case with a system to tell used from empty",
+          "Keep backup drives in different bags, and upload to the cloud when bandwidth allows (often selected files or proxies while travelling)"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "3-2-1 Backup Rule for Photographers and Videographers",
+          "provider": "Taylor Jackson",
+          "url": "https://www.youtube.com/watch?v=45ikFeZMs4k",
+          "description": "A photographer explains how the 3-2-1 backup rule applies to photo and video files.",
+          "keyPoints": [
+            "What the 3-2-1 backup rule means",
+            "Applying it to camera files from real shoots",
+            "Why a single backup is not enough"
+          ],
+          "videoId": "45ikFeZMs4k"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Data Backup Strategies: Why the 3-2-1 Backup Strategy is the Best",
+          "provider": "Backblaze",
+          "author": "Yev Pusin",
+          "url": "https://www.backblaze.com/blog/the-3-2-1-backup-strategy/",
+          "description": "Backblaze's explainer on the 3-2-1 rule, with an example split across a computer, an external drive and the cloud.",
+          "keyPoints": [
+            "Keep three copies of your data",
+            "Store them on two different media",
+            "Keep one copy off-site",
+            "Example: computer + external drive + cloud"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Travel Footage Backup Guide: Solo DIT Workflow",
+          "provider": "The Post Flow",
+          "author": "Alex Bartz",
+          "url": "https://thepostflow.com/post-production/data-management-and-storage/travel-offload-and-backup-workflow/",
+          "description": "Travel-focused nightly offload routine for solo creators: checksum-verified copies, drives in separate bags, and a card labelling system.",
+          "keyPoints": [
+            "Offload nightly with checksum-verifying software, not drag-and-drop",
+            "Only return a card to rotation after both drive copies are verified",
+            "The two backup drives never travel in the same bag",
+            "Cloud upload on the road: proxies, selects and project files; full backup at home",
+            "Card case labels show empty vs shot cards"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Creator Backup Workflow: How to Protect Creative Files With the 3-2-1 Rule",
+          "provider": "Lexar",
+          "url": "https://americas.lexar.com/creator-backup-workflow-guide/",
+          "description": "Memory-card maker Lexar's backup workflow for creators, built around 3-2-1 and backup verification.",
+          "keyPoints": [
+            "3 copies, 2 types of storage media, 1 off-site or in the cloud",
+            "Never reformat cards until the transfer to two separate drives is confirmed",
+            "Test restores from cloud backups regularly",
+            "RAID is not a backup on its own"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How to Use Camera Memory Cards: 18 Essential Tips",
+          "provider": "Digital Photography School",
+          "author": "Darren Rowse",
+          "url": "https://digital-photography-school.com/13-tips-for-using-and-caring-for-memory-cards/",
+          "description": "Practical memory card habits: formatting, using several cards, organising used cards and what to do when a card errors.",
+          "keyPoints": [
+            "Format cards in the camera before each session, not on a computer",
+            "Use several smaller cards instead of one large one",
+            "Keep cards in a case and track which have been used",
+            "If a card errors, stop using it to avoid overwriting recoverable files"
+          ]
+        }
+      ]
+    }
+  ],
+  "slug": "travel-vlogging",
+  "name": "Travel Vlogging",
+  "description": "Film and publish travel vlogs responsibly: shoot planning, travel kit and battery rules, stabilization, location audio, drone rules, filming people and places, story, and protecting footage on the road.",
+  "status": "COMING_SOON"
+}

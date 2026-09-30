@@ -20,10 +20,11 @@ const BASE_SKILLS = [
     order: 1,
   },
   {
-    slug: "art-painting",
-    name: "Art & Painting",
-    description: "See, mix, and place paint so a picture holds together.",
-    image: "/skills/art.jpg",
+    slug: "travel-vlogging",
+    name: "Travel Vlogging",
+    description:
+      "Film and publish travel vlogs responsibly: shoot planning, travel kit and battery rules, stabilization, location audio, drone rules, filming people and places, story, and protecting footage on the road.",
+    image: "/skills/travel-vlogging.jpg",
     isFlagship: true,
     order: 2,
   },
@@ -37,12 +38,20 @@ const BASE_SKILLS = [
     order: 3,
   },
   {
+    slug: "art-painting",
+    name: "Art & Painting",
+    description: "See, mix, and place paint so a picture holds together.",
+    image: "/skills/art.jpg",
+    isFlagship: true,
+    order: 4,
+  },
+  {
     slug: "photography",
     name: "Photography",
     description: "Light, frame, and edit a photograph on purpose.",
     image: "/skills/photo.jpg",
     isFlagship: false,
-    order: 4,
+    order: 5,
   },
   {
     slug: "music-production",
@@ -50,9 +59,19 @@ const BASE_SKILLS = [
     description: "Arrange, record, and mix a track.",
     image: "/skills/music.jpg",
     isFlagship: false,
-    order: 5,
+    order: 6,
   },
 ]
+
+function seedStatus(skill: { slug: string; isFlagship: boolean }) {
+  if (skill.slug === "art-painting") return "COMING_SOON" as const
+  return skill.isFlagship ? ("AVAILABLE" as const) : ("COMING_SOON" as const)
+}
+
+function seedOffer(skill: { slug: string; isFlagship: boolean }) {
+  if (skill.slug === "art-painting") return "MONETIZED" as const
+  return skill.isFlagship ? ("FREE" as const) : ("MONETIZED" as const)
+}
 
 async function main() {
   const skills = [
@@ -61,7 +80,7 @@ async function main() {
       ...skill,
       image: `/skills/${skill.slug}.jpg`,
       isFlagship: false,
-      order: index + 6,
+      order: index + 7,
     })),
   ]
 
@@ -73,8 +92,8 @@ async function main() {
         description: skill.description,
         image: skill.image,
         isFlagship: skill.isFlagship,
-        status: skill.isFlagship ? "AVAILABLE" : "COMING_SOON",
-        offer: skill.isFlagship ? "FREE" : "MONETIZED",
+        status: seedStatus(skill),
+        offer: seedOffer(skill),
         nicheGroup: nicheMeta(skill.slug).group.toUpperCase() as
           | "CARE"
           | "MONEY"
@@ -88,8 +107,8 @@ async function main() {
       },
       create: {
         ...skill,
-        status: skill.isFlagship ? "AVAILABLE" : "COMING_SOON",
-        offer: skill.isFlagship ? "FREE" : "MONETIZED",
+        status: seedStatus(skill),
+        offer: seedOffer(skill),
         nicheGroup: nicheMeta(skill.slug).group.toUpperCase() as
           | "CARE"
           | "MONEY"
@@ -123,6 +142,7 @@ async function main() {
 
   await importCatalog("full-stack-web-dev", { apply: true })
   await importCatalog("content-creation", { apply: true })
+  await importCatalog("travel-vlogging", { apply: true })
 }
 
 main()

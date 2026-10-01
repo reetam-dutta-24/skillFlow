@@ -55,6 +55,7 @@ export async function saveUploadedFile(file: File, kind: string) {
   const spec = specFor(file);
   if (!spec) return { ok: false as const, error: "Use an image, a PDF, or a video." };
   if (kind === "image" && spec.kind !== "image") return { ok: false as const, error: "Use an image file." };
+  if (kind === "video" && spec.kind !== "video") return { ok: false as const, error: "Use an mp4, webm, or mov file." };
 
   const max = spec.kind === "video" ? VIDEO_BYTES : spec.kind === "doc" ? DOC_BYTES : IMAGE_BYTES;
   if (file.size > max) return { ok: false as const, error: "That file is too large." };

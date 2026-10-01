@@ -49,6 +49,9 @@ model User {
   communityRoles         CommunityRole[]         @relation("CommunityMemberRole")
   grantedCommunityRoles  CommunityRole[]         @relation("CommunityRoleGranter")
   gapReports             GapReport[]
+  creatorWorks           CreatorWork[] @relation("CreatorOwner")
+  reviewedCreatorWorks   CreatorWork[] @relation("CreatorReviewer")
+  creatorViews           CreatorView[] @relation("CreatorViewer")
 }
 
 model LearnerProfile {
@@ -148,6 +151,7 @@ model Skill {
   communityMemberships   CommunityMembership[]
   communityRoles         CommunityRole[]
   gapReports             GapReport[]
+  creatorWorks           CreatorWork[]
 
   createdAt DateTime @default(now())
 }
@@ -544,4 +548,61 @@ model GapReport {
   resolvedBy CommunityContribution?  @relation("GapResolvedBy", fields: [resolvedByContributionId], references: [id], onDelete: SetNull)
 
   @@index([skillId, status, createdAt])
+}
+
+// ── CREATOR STUDIO ──────────────────────
+
+enum CreatorWorkFormat {
+  SHORT
+  VIDEO
+}
+
+enum CreatorWorkStatus {
+  DRAFT
+  PENDING
+  LIVE
+  REJECTED
+}
+
+model CreatorWork {
+  id              String            @id @default(cuid())
+  ownerId         String
+  skillId         String
+  format          CreatorWorkFormat
+  status          CreatorWorkStatus @default(DRAFT)
+  title           String
+  description     String?           @db.Text
+  mediaUrl        String
+  durationSec     Int               @default(0)
+  rightsConfirmed Boolean           @default(false)
+  reviewNotes     String?           @db.Text
+  reviewedAt      DateTime?
+  reviewedById    String?
+  submittedAt     DateTime?
+  publishedAt     DateTime?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  owner      User         @relation("CreatorOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  skill      Skill        @relation(fields: [skillId], references: [id], onDelete: Cascade)
+  reviewedBy User?        @relation("CreatorReviewer", fields: [reviewedById], references: [id], onDelete: SetNull)
+  views      CreatorView[]
+
+  @@index([ownerId, updatedAt])
+  @@index([skillId, status])
+}
+
+model CreatorView {
+  id         String   @id @default(cuid())
+  workId     String
+  viewerId   String?
+  watchedSec Int      @default(0)
+  completed  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  work   CreatorWork @relation(fields: [workId], references: [id], onDelete: Cascade)
+  viewer User?       @relation("CreatorViewer", fields: [viewerId], references: [id], onDelete: SetNull)
+
+  @@index([workId])
 }

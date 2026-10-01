@@ -76,7 +76,7 @@ Landing, the auth carousel, and onboarding name Travel Vlogging with Full-Stack 
 - **Auth.js (NextAuth v5 beta).** Email and password today. Passwords are bcrypt hashes on `User.password`. Sessions are JWTs. `trustHost` is true. The Credentials provider needs the JWT strategy, so this app does not use database sessions. The JWT callback copies `id` and `role` onto the token. The session callback copies them onto `session.user`.
 - **`lib/prisma.ts`.** One Prisma Client for the process, stored on `globalThis` in development.
 - **`proxy.ts`.** If there is no session, a visit to a signed-in URL redirects to `/login`. Role checks are not done here. Admin pages call `requireAdmin()` themselves.
-- **`lib/data`.** Each loader starts with `import "server-only"`. Catalog, lesson, clips, dashboard, settings, submissions, and admin catalog read Prisma. Milestone (explain-back) and the Version 2 previews still read `lib/mock`.
+- **`lib/data`.** Each loader starts with `import "server-only"`. Catalog, lesson, clips, dashboard, settings, submissions, admin catalog, and creator studio read Prisma. Milestone (explain-back) and the remaining Version 2 previews still read `lib/mock`.
 
 ---
 
@@ -164,7 +164,7 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 - `/transcript/[userId]/[skillSlug]` — shareable page, `noindex`. Not built from milestone rows.
 - `/notes` — one sample note.
 - `/projects/[stageId]/review` — rubric UI. No matching.
-- `/creator` — application preview.
+- `/creator` — moved to the main nav. See V2 phase 7.
 - `/submit/byor` — mock question preview.
 - Usage-cutoff dialog — a soft stop. Not stored.
 - `/dev/routes` — screen list. It 404s in production.
@@ -431,7 +431,9 @@ The data model already has `Skill.offer` and `RoadmapStage.monetized`. Version 1
 **Status: ⬜ NOT STARTED. The rubric UI exists.**
 
 ## V2 PHASE 7 — Creators
-**Status: ⬜ NOT STARTED. `/creator` is an application preview.**
+**Status: 🔶 STUDIO IS LIVE. Profile rating and earnings are not.**
+
+A signed-in learner uploads a short clip or a longer video they own, picks one available niche, and sends it for review. `/admin/creator` approves it onto that niche’s clip feed and `/profile/[userId]`. The studio keeps drafts and shows views, watch time, and how many plays reached most of the video. The feed and the public profile do not show those numbers. Replacing the file on a live video sends it back for review. A creator rating on the profile, and any earnings, are still later.
 
 ## V2 PHASE 8 — Generated roadmaps
 **Status: ⬜ NOT STARTED. Hand-written paths stay the default.**

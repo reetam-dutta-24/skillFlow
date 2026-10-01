@@ -28,6 +28,7 @@ export async function getSettingsProfile() {
   const storedAccent = user?.learnerProfile?.accent;
 
   return {
+    userId: userId ?? "",
     name,
     email,
     initial: name.charAt(0).toUpperCase() || "?",

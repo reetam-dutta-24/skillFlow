@@ -11,6 +11,7 @@ const NAV: SidebarItem[] = [
   { id: "home", label: "Home", icon: "house", href: "/dashboard" },
   { id: "niches", label: "Niches", icon: "library", href: "/skills" },
   { id: "clips", label: "Clips", icon: "clapperboard", href: "/clips" },
+  { id: "creator", label: "Creator studio", icon: "video", href: "/creator" },
   { id: "roadmaps", label: "Roadmaps", icon: "route", href: "/roadmap" },
   { id: "open-source", label: "Open Source", icon: "git-pull-request", href: "/open-source" },
   { id: "progress", label: "Progress", icon: "chart-line", href: "/progress" },
@@ -38,6 +39,8 @@ function activeId(pathname: string) {
   if (pathname.startsWith("/open-source")) return "open-source";
   if (pathname.startsWith("/skills")) return "niches";
   if (pathname.startsWith("/clips")) return "clips";
+  if (pathname.startsWith("/creator")) return "creator";
+  if (pathname.startsWith("/profile")) return "creator";
   if (pathname.startsWith("/roadmap") || pathname.startsWith("/lesson") || pathname.startsWith("/quiz") || pathname.startsWith("/milestone")) return "roadmaps";
   if (pathname.startsWith("/analytics")) return "analytics";
   if (pathname.startsWith("/progress")) return "progress";
@@ -47,7 +50,6 @@ function activeId(pathname: string) {
     pathname.startsWith("/upgrade") ||
     pathname.startsWith("/leaderboard") ||
     pathname.startsWith("/notes") ||
-    pathname.startsWith("/creator") ||
     pathname.startsWith("/projects") ||
     pathname.startsWith("/transcript")
   ) return "";
@@ -65,7 +67,8 @@ function titleFor(pathname: string) {
   if (pathname.startsWith("/upgrade")) return "Upgrade";
   if (pathname.startsWith("/leaderboard")) return "Leaderboard";
   if (pathname.startsWith("/notes")) return "Notes";
-  if (pathname.startsWith("/creator")) return "Creator";
+  if (pathname.startsWith("/creator")) return "Creator studio";
+  if (pathname.startsWith("/profile")) return "Profile";
   if (pathname.startsWith("/projects")) return "Project review";
   if (pathname.startsWith("/transcript")) return "Transcript";
   if (pathname.startsWith("/settings")) return "Settings";

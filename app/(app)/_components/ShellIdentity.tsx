@@ -17,6 +17,7 @@ export async function ShellIdentity() {
       name={name}
       email={account?.email ?? session.user.email ?? null}
       image={account?.image ?? session.user.image ?? null}
+      profileHref={`/profile/${session.user.id}`}
     />
   );
 }

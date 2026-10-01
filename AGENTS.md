@@ -85,6 +85,7 @@ Wired to Postgres:
 - Explain-back questions and rubrics are stored on each imported stage. No quiz questions are stored. `/quiz/[stageId]` reads Prisma and shows an empty state.
 - Progress, analytics, and home stats read real attempt counts. With no attempts, those numbers are zero. The charts are not a mock learner with a streak of 12.
 - Open Source (`/open-source`) opens a contribution feed for the skills the learner follows. The side panel can narrow that set or add any other niche. A niche page has read-only Contributions, Gaps, Changelog, and Contributors tabs. Only merged contributions are public. Join, leave, and “Found this useful” write through the community services. The contribution form is at `/open-source/[slug]/contribute`. A new post stays open until a reviewer merges it. The review queue and contributor profile are not built yet. Community pages use the `community` cache tag. A join, a useful mark, a merge, or a gap change calls `invalidateCommunity()`. They do not call `invalidateCatalog()`.
+- Creator studio (`/creator`) is where a signed-in person uploads a video they own, keeps the draft, and sends it for review. Admin approval at `/admin/creator` marks it live. A live video joins that niche’s clip feed and the public profile at `/profile/[userId]`. The studio shows that creator’s views, watch time, and how many plays reached most of the video. Those numbers stay off the feed and off the profile. Replacing the file on a live video sends it back to review. A profile rating and earnings are not calculated. Publishing, withdrawing, or editing a live video calls `invalidateCatalog()`.
 
 Not wired:
 
@@ -92,7 +93,7 @@ Not wired:
 - Passing a quiz or an explain-back does not unlock the next stage. The last three stages of a free path are what stay locked.
 - Streaks do not advance from activity. `User.currentStreak` is stored and displayed. Nothing updates it on a schedule.
 - Mastery percent is not calculated from attempts.
-- Stripe, leaderboard score, transcript PDF, notes, peer review, and creator tools. Those routes are labeled previews and stay out of the main nav.
+- Stripe, leaderboard score, transcript PDF, notes, and peer review. Those routes are labeled previews and stay out of the main nav. Creator earnings and a profile rating from creator work are not calculated.
 - `requireLearner()` exists and is not used by pages. `requireAdmin()` is: no session goes to `/login`, any other role gets `notFound()`.
 
 ## Stack facts that are easy to get wrong
@@ -101,11 +102,11 @@ Not wired:
 - `cacheComponents` is on in `next.config.ts`. Shared niches, stages, resources, the niche grid, lesson screens, clips, and the submit picker use `use cache` with the `catalog` tag. Merged community lists, member counts, gaps, and the changelog use the `community` tag. The niches page shows 32 cards at a time in the browser, so the page number is not a cache key. Home and the roadmap index reuse a cached teaser of the first rows. Admin catalog saves and an approved submission call `updateTag`. Progress, streaks, settings, joined state, and “N new” stay on the request. The account menu streams beside that shell.
 - `proxy.ts` exports `export const proxy = auth(...)`. `middleware.ts` was deleted. Do not restore it. The proxy only checks that someone is signed in.
 - Postgres database name is `skillflow` on localhost:5432. `prisma.config.ts` loads `.env` with dotenv because Prisma 6 does not.
-- Migrations through `20260930160507_open_source_community` are applied. Do not create a migration unless the schema changes.
+- Migrations through `20261001104500_creator_studio` are applied. Do not create a migration unless the schema changes.
 - `tsx` top-level await fails under CommonJS. Wrap scripts in `async function main()`. PowerShell has no `&&` and no bash heredoc. It also eats `$disconnect` inside `tsx -e`. Use a temp script, then delete it.
 - Full-repo `eslint` still fails on older files. Lint the files you touched. `tsc --noEmit` and `next build` are the project checks.
 - Do not start a second `npm run dev` if one is already answering on port 3000.
-- Known failure strings, left in on purpose: catalog title `fail this save`, settings name `fail this save`, submit title `fail this submit`, review notes `fail this review`.
+- Known failure strings, left in on purpose: catalog title `fail this save`, settings name `fail this save`, submit title `fail this submit`, review notes `fail this review`, creator title `fail this upload`.
 - Placeholder video id constant is `skillflow-placeholder`. Do not use it to replace a real catalog id.
 
 ## Pages that still name Art

@@ -23,16 +23,19 @@ export async function loadPublicClips(): Promise<ClipItem[]> {
     entry.stages.filter((stage) => stage.open).map((stage) => ({ stage, skill: entry.skill })),
   );
   const byStage = new Map(open.map((item) => [item.stage.id, item]));
-  if (byStage.size === 0) return [];
+  const [rows, creatorClips] = await Promise.all([
+    byStage.size === 0
+      ? Promise.resolve([])
+      : prisma.resource.findMany({
+          where: {
+            stageId: { in: [...byStage.keys()] },
+            type: { in: ["HOOK_CLIP", "EMBEDDED_VIDEO"] },
+          },
+        }),
+    loadLiveCreatorClips(),
+  ]);
 
-  const rows = await prisma.resource.findMany({
-    where: {
-      stageId: { in: [...byStage.keys()] },
-      type: { in: ["HOOK_CLIP", "EMBEDDED_VIDEO"] },
-    },
-  });
-
-  return rows
+  const catalogClips = rows
     .flatMap((row) => {
       const owner = byStage.get(row.stageId);
       if (!owner) return [];
@@ -53,9 +56,43 @@ export async function loadPublicClips(): Promise<ClipItem[]> {
       description: row.description,
       keyPoints: row.keyPoints,
       url: row.url,
-      format: row.type === "HOOK_CLIP" ? "short" : "video",
-      lessonHref: `/lesson/${owner.stage.id}`,
+      format: row.type === "HOOK_CLIP" ? ("short" as const) : ("video" as const),
+      media: "embed" as const,
+      attributionHref: `/lesson/${owner.stage.id}`,
+      attributionLabel: "Open lesson",
     }));
+
+  return [...catalogClips, ...creatorClips];
+}
+
+async function loadLiveCreatorClips(): Promise<ClipItem[]> {
+  const rows = await prisma.creatorWork.findMany({
+    where: { status: "LIVE", skill: { status: "AVAILABLE" } },
+    orderBy: { publishedAt: "desc" },
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      format: true,
+      mediaUrl: true,
+      skill: { select: { slug: true, name: true } },
+      owner: { select: { id: true, name: true } },
+    },
+  });
+  return rows.map((row) => ({
+    id: row.id,
+    skillSlug: row.skill.slug,
+    skillName: row.skill.name,
+    stageTitle: "Creator",
+    title: row.title,
+    description: row.description,
+    keyPoints: [],
+    url: row.mediaUrl,
+    format: row.format === "SHORT" ? "short" : "video",
+    media: "file" as const,
+    attributionHref: `/profile/${row.owner.id}`,
+    attributionLabel: `By ${row.owner.name?.trim() || "Creator"}`,
+  }));
 }
 
 /** Open stages only. A locked stage does not put its clips in the feed. */

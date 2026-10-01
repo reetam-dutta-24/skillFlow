@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { AccentPicker } from "@/components/forms/AccentPicker.jsx";
@@ -14,6 +15,7 @@ import { followSkill, saveSettings, unfollowSkill } from "../actions";
 import type { SettingsSkill } from "@/lib/data/settings";
 
 export function SettingsScreen({
+  userId,
   name,
   email,
   initial,
@@ -22,6 +24,7 @@ export function SettingsScreen({
   streakReminder,
   showPreview,
 }: {
+  userId: string;
   name: string;
   email: string;
   initial: string;
@@ -99,6 +102,12 @@ export function SettingsScreen({
             <div>
               <strong>{profileName.trim() || "Account"}</strong>
               <p>{email || "No email on this session."}</p>
+              {userId ? (
+                <p className="sf-settings-links">
+                  <Link href="/creator">Creator studio</Link>
+                  <Link href={`/profile/${userId}`}>Public profile</Link>
+                </p>
+              ) : null}
             </div>
           </div>
           <label className="sf-settings-fields">

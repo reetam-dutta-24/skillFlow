@@ -62,7 +62,9 @@ export type ClipItem = {
   keyPoints: string[];
   url: string;
   format: ClipFormat;
-  lessonHref: string;
+  media: "embed" | "file";
+  attributionHref: string;
+  attributionLabel: string;
 };
 
 export type ClipFeedData = {

@@ -9,11 +9,13 @@ export function AccountMenu({
   name,
   email,
   image,
+  profileHref,
 }: {
   role: "USER" | "ADMIN";
   name: string;
   email: string | null;
   image: string | null;
+  profileHref: string;
 }) {
   return (
     <>
@@ -23,6 +25,8 @@ export function AccountMenu({
         email={email ?? undefined}
         avatarUrl={image ?? undefined}
         items={[
+          { label: "Creator studio", icon: "video", href: "/creator" },
+          { label: "Profile", icon: "user", href: profileHref },
           { label: "Settings", icon: "settings", href: "/settings" },
           { label: "Log out", icon: "log-out", danger: true },
         ]}

@@ -7,6 +7,7 @@ import type { ClipFeedSkill, ClipFormat, ClipItem } from "@/lib/types/pages";
 import { Icon } from "@/components/core/Icon.jsx";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
 import { playableSrc } from "@/lib/playable-src";
+import { LocalClip } from "../../creator/_components/LocalClip";
 
 function clipEmbed(url: string) {
   const src = playableSrc(url);
@@ -25,15 +26,42 @@ function silenceFrames(root: ParentNode | null | undefined) {
     frame.contentWindow?.postMessage(JSON.stringify({ event: "command", func: "pauseVideo", args: "" }), "*");
     frame.src = "about:blank";
   });
+  root?.querySelectorAll("video").forEach((node) => {
+    if (!(node instanceof HTMLVideoElement)) return;
+    node.pause();
+    node.removeAttribute("src");
+    node.load();
+  });
 }
 
-export function ClipFeed({ skills, clips }: { skills: ClipFeedSkill[]; clips: ClipItem[] }) {
-  const initial =
+function ClipSurface({ clip }: { clip: ClipItem }) {
+  if (clip.media === "file") return <LocalClip src={clip.url} title={clip.title} workId={clip.id} track />;
+  return (
+    <iframe
+      src={clipEmbed(clip.url)}
+      title={clip.title}
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowFullScreen
+    />
+  );
+}
+
+export function ClipFeed({
+  skills,
+  clips,
+  initialSlug = "",
+}: {
+  skills: ClipFeedSkill[];
+  clips: ClipItem[];
+  initialSlug?: string;
+}) {
+  const followed =
     skills.find((skill) => skill.followed && clips.some((clip) => clip.skillSlug === skill.slug && clip.format === "short"))?.slug ??
     skills.find((skill) => skill.followed && skill.status === "available")?.slug ??
     skills[0]?.slug ??
     "";
-  const [slug, setSlug] = useState(initial);
+  const requested = skills.find((skill) => skill.slug === initialSlug && skill.status === "available")?.slug;
+  const [slug, setSlug] = useState(requested ?? followed);
   const [format, setFormat] = useState<ClipFormat>("short");
   const [playingId, setPlayingId] = useState<string | null>(null);
   const scrollerRef = useRef<HTMLDivElement>(null);
@@ -139,12 +167,7 @@ export function ClipFeed({ skills, clips }: { skills: ClipFeedSkill[]; clips: Cl
                   <article key={clip.id} className="sf-reel">
                     <div className="sf-reel-frame">
                       {playingId === clip.id ? (
-                        <iframe
-                          src={clipEmbed(clip.url)}
-                          title={clip.title}
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                          allowFullScreen
-                        />
+                        <ClipSurface clip={clip} />
                       ) : (
                         <>
                           {poster ? <SkillImage className="sf-reel-photo" src={poster} alt="" fill sizes="(max-width: 640px) 100vw, 420px" /> : null}
@@ -161,7 +184,7 @@ export function ClipFeed({ skills, clips }: { skills: ClipFeedSkill[]; clips: Cl
                         </p>
                         <h2>{clip.title}</h2>
                         {clip.keyPoints.length ? <p>{clip.keyPoints.join(" ")}</p> : clip.description ? <p>{clip.description}</p> : null}
-                        <Link href={clip.lessonHref}>Open lesson</Link>
+                        <Link href={clip.attributionHref}>{clip.attributionLabel}</Link>
                       </div>
                     </div>
                   </article>
@@ -184,12 +207,7 @@ export function ClipFeed({ skills, clips }: { skills: ClipFeedSkill[]; clips: Cl
                 <article className="sf-video-card">
                   <div className="sf-video-thumb">
                     {playingId === clip.id ? (
-                      <iframe
-                        src={clipEmbed(clip.url)}
-                        title={clip.title}
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowFullScreen
-                      />
+                      <ClipSurface clip={clip} />
                     ) : (
                       <>
                         {poster ? <SkillImage src={poster} alt="" fill sizes="(max-width: 640px) 100vw, 360px" /> : null}
@@ -207,7 +225,7 @@ export function ClipFeed({ skills, clips }: { skills: ClipFeedSkill[]; clips: Cl
                       {clip.skillName} · {clip.stageTitle}
                     </p>
                     {clip.description ? <p>{clip.description}</p> : null}
-                    <Link href={clip.lessonHref}>Open lesson</Link>
+                    <Link href={clip.attributionHref}>{clip.attributionLabel}</Link>
                   </div>
                 </article>
               </li>

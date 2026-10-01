@@ -18,6 +18,8 @@ Signed-in learners can keep a preset accent or build their own gradient from a c
 
 Open Source is a signed-in contribution feed for the skills a learner follows. The side panel can narrow that set or open any other niche. The niche tabs, a contribution page, and the contribute form are in place. A new post stays open until a reviewer merges it.
 
+Creator studio is a signed-in library for a video the learner owns. An admin approves it onto that niche’s clip feed and the creator’s public profile. View counts stay in the studio.
+
 A dead stored link can be marked unavailable. The lesson keeps the saved title, description, and key points.
 
 ## Tech stack

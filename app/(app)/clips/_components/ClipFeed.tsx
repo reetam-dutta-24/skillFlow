@@ -36,9 +36,14 @@ export function ClipFeed({ skills, clips }: { skills: ClipFeedSkill[]; clips: Cl
 
   function step(direction: number) {
     const scroller = scrollerRef.current;
-    if (!scroller) return;
+    if (!scroller || visible.length === 0) return;
+    const height = scroller.clientHeight;
+    if (height <= 0) return;
+    const current = Math.min(visible.length - 1, Math.max(0, Math.round(scroller.scrollTop / height)));
+    const next = Math.min(visible.length - 1, Math.max(0, current + direction));
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    scroller.scrollBy({ top: direction * scroller.clientHeight, behavior: reduce ? "auto" : "smooth" });
+    scroller.scrollTo({ top: next * height, behavior: reduce ? "auto" : "smooth" });
+    setPlayingId(visible[next].id);
   }
 
   return (

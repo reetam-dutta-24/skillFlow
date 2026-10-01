@@ -2,9 +2,11 @@
 
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
+import { nextReviewId } from "@/lib/data/community-review";
 import { saveUploadedFile } from "@/lib/uploads";
 import { createContribution } from "@/lib/services/community/contributions";
 import { joinCommunity, leaveCommunity } from "@/lib/services/community/memberships";
+import { reviewContribution } from "@/lib/services/community/reviews";
 import { toggleUseful } from "@/lib/services/community/useful";
 
 async function signedInId() {
@@ -13,6 +15,9 @@ async function signedInId() {
 }
 
 export type ContributeState = { ok: false; error: string; field?: string } | null;
+export type ReviewState = { ok: false; error: string; field?: string } | null;
+
+const DONE_BY_STATUS = { MERGED: "merged", CHANGES_REQUESTED: "changes", CLOSED: "closed", OPEN: "" } as const;
 
 export async function joinCommunityAction(formData: FormData) {
   const userId = await signedInId();
@@ -83,4 +88,26 @@ export async function createContributionAction(_prev: ContributeState, formData:
   });
   if (!result.ok) return { ok: false, error: result.error, field: result.field };
   redirect(`/open-source/${slug}/c/${result.id}`);
+}
+
+/** One review decision. The service checks the role, the author, and the revision again. */
+export async function reviewContributionAction(_prev: ReviewState, formData: FormData): Promise<ReviewState> {
+  const userId = await signedInId();
+  if (!userId) return { ok: false, error: "Sign in to continue." };
+
+  const decision = String(formData.get("decision") ?? "");
+  const reason = String(formData.get("reason") ?? "");
+  const feedback = String(formData.get("feedback") ?? "").trim();
+  const result = await reviewContribution(userId, {
+    contributionId: String(formData.get("contributionId") ?? ""),
+    decision,
+    reason: decision === "APPROVE" || !reason ? undefined : reason,
+    feedback: feedback || undefined,
+    revision: String(formData.get("revision") ?? ""),
+  });
+  if (!result.ok) return { ok: false, error: result.error, field: result.field };
+
+  const done = DONE_BY_STATUS[result.status];
+  const next = await nextReviewId(userId);
+  redirect(next ? `/open-source/review/${next}?done=${done}` : `/open-source/review?done=${done}`);
 }

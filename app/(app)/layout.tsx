@@ -7,6 +7,7 @@ import { AccountMenuFallback } from "./_components/AccountMenuFallback";
 import { AppShell } from "./_components/AppShell";
 import { NotificationMenu } from "./_components/NotificationMenu";
 import { ShellIdentity } from "./_components/ShellIdentity";
+import { ShellReview } from "./_components/ShellReview";
 
 export const metadata: Metadata = {
   title: {
@@ -35,6 +36,11 @@ export default function AppGroupLayout({ children }: { children: ReactNode }) {
       notifications={
         <Suspense fallback={<NotificationBell count={0} />}>
           <ShellNotifications />
+        </Suspense>
+      }
+      review={
+        <Suspense fallback={null}>
+          <ShellReview />
         </Suspense>
       }
     >

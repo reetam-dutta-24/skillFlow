@@ -58,6 +58,26 @@ export function Sidebar({ items = SKILLFLOW_NAV, active = "home", onNavigate, br
             <>
               <Icon name={item.icon} size={16} />
               <span style={{ flex: 1, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{item.label}</span>
+              {item.badge ? (
+                <>
+                  <span
+                    aria-hidden="true"
+                    style={{
+                      minWidth: 20,
+                      padding: "1px 6px",
+                      borderRadius: "var(--radius-full)",
+                      background: "var(--accent-quiet)",
+                      color: "var(--text-accent)",
+                      fontSize: "var(--text-3xs)",
+                      fontWeight: "var(--weight-semibold)",
+                      textAlign: "center",
+                    }}
+                  >
+                    {item.badge > 99 ? "99+" : item.badge}
+                  </span>
+                  <span className="sf-sr">, {item.badge} waiting</span>
+                </>
+              ) : null}
             </>
           );
           if (item.href) {

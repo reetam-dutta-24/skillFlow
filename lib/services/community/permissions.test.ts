@@ -5,6 +5,7 @@ import {
   canModerate,
   canReview,
   canReviewContribution,
+  reviewableSkillIds,
   type CommunityActor,
 } from "@/lib/services/community/permissions";
 
@@ -20,6 +21,14 @@ describe("community permissions", () => {
     expect(canReview(learner, "skill")).toBe(false);
     expect(canReviewContribution(reviewer, "skill", "author")).toBe(true);
     expect(canReviewContribution(reviewer, "skill", "reviewer")).toBe(false);
+    expect(canReviewContribution(reviewer, "skill", null)).toBe(true);
+  });
+
+  it("lists the niches a person reviews", () => {
+    expect(reviewableSkillIds(admin)).toBe("all");
+    expect(reviewableSkillIds(reviewer)).toEqual(["skill"]);
+    expect(reviewableSkillIds(maintainer)).toEqual(["skill"]);
+    expect(reviewableSkillIds(learner)).toEqual([]);
   });
 
   it("lets maintainers moderate one niche and admins moderate all of them", () => {

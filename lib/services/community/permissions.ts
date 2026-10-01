@@ -21,10 +21,16 @@ export function canReview(actor: CommunityActor, skillId: string): boolean {
   return isAdmin(actor) || nicheRole(actor, skillId) !== null;
 }
 
-/** A person cannot review their own contribution. */
+/** A person cannot review their own contribution. A former member's contribution can still be reviewed. */
 export function canReviewContribution(actor: CommunityActor, skillId: string, authorId: string | null): boolean {
-  if (!authorId || authorId === actor.id) return false;
+  if (authorId === actor.id) return false;
   return canReview(actor, skillId);
+}
+
+/** Niches this person reviews. Admins review every niche. An empty list means no review queue. */
+export function reviewableSkillIds(actor: CommunityActor): "all" | string[] {
+  if (isAdmin(actor)) return "all";
+  return [...new Set(actor.roles.map((role) => role.skillId))];
 }
 
 /** Unmerge, close gaps, label good-first gaps, and grant or revoke reviewers. */

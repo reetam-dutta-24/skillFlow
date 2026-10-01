@@ -103,12 +103,16 @@ export async function loadCommunityNiches(): Promise<CommunityNiche[]> {
   }));
 }
 
-function encodeCursor(sort: "newest" | "useful", row: { id: string; createdAt: Date; usefulCount: number }) {
-  if (sort === "useful") return `u.${row.usefulCount}.${row.id}`;
+/** `oldest` is the review queue. The other two are the public lists. */
+export type CursorSort = "newest" | "useful" | "oldest";
+
+export function encodeCursor(sort: CursorSort, row: { id: string; createdAt: Date; usefulCount?: number }) {
+  if (sort === "useful") return `u.${row.usefulCount ?? 0}.${row.id}`;
+  if (sort === "oldest") return `o.${row.createdAt.getTime()}.${row.id}`;
   return `n.${row.createdAt.getTime()}.${row.id}`;
 }
 
-function decodeCursor(sort: "newest" | "useful", cursor: string) {
+export function decodeCursor(sort: CursorSort, cursor: string) {
   if (!cursor) return null;
   const [kind, raw, ...rest] = cursor.split(".");
   const id = rest.join(".");
@@ -118,7 +122,7 @@ function decodeCursor(sort: "newest" | "useful", cursor: string) {
     if (!Number.isInteger(usefulCount)) return null;
     return { usefulCount, id };
   }
-  if (sort === "newest" && kind === "n") {
+  if ((sort === "newest" && kind === "n") || (sort === "oldest" && kind === "o")) {
     const time = Number(raw);
     if (!Number.isFinite(time)) return null;
     return { createdAt: new Date(time), id };

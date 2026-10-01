@@ -17,20 +17,47 @@ export function disclosureLabel(disclosure: string) {
   return null;
 }
 
+const CONTRIBUTION_STATUS: Record<string, string> = {
+  OPEN: "Open",
+  CHANGES_REQUESTED: "Changes requested",
+  MERGED: "Merged",
+  CLOSED: "Closed",
+};
+
+export function contributionStatusLabel(status: string) {
+  return CONTRIBUTION_STATUS[status] ?? status;
+}
+
+const LINK_STATUS: Record<string, string> = {
+  OK: "Links reachable",
+  UNREACHABLE: "A link could not be reached",
+  NOT_CHECKED: "Links not checked",
+};
+
+export function linkStatusLabel(status: string) {
+  return LINK_STATUS[status] ?? status;
+}
+
+export function linkStatusTone(status: string): "pass" | "fail" | "neutral" {
+  if (status === "OK") return "pass";
+  if (status === "UNREACHABLE") return "fail";
+  return "neutral";
+}
+
+export const REVIEW_REASON_OPTIONS = [
+  { id: "OFF_TOPIC", label: "Off topic" },
+  { id: "LOW_QUALITY", label: "Low quality" },
+  { id: "DUPLICATE", label: "Duplicate" },
+  { id: "BROKEN_LINK", label: "Broken link" },
+  { id: "UNDISCLOSED_PROMOTION", label: "Undisclosed promotion" },
+  { id: "INACCURATE", label: "Inaccurate" },
+  { id: "OTHER", label: "Other" },
+] as const;
+
 const REVIEW_DECISIONS: Record<string, string> = {
   APPROVE: "Approve",
   REQUEST_CHANGES: "Request changes",
   CLOSE: "Close",
-};
-
-const REVIEW_REASONS: Record<string, string> = {
-  OFF_TOPIC: "Off topic",
-  LOW_QUALITY: "Low quality",
-  DUPLICATE: "Duplicate",
-  BROKEN_LINK: "Broken link",
-  UNDISCLOSED_PROMOTION: "Undisclosed promotion",
-  INACCURATE: "Inaccurate",
-  OTHER: "Other",
 };
 
 export function reviewDecisionLabel(decision: string) {
@@ -38,7 +65,7 @@ export function reviewDecisionLabel(decision: string) {
 }
 
 export function reviewReasonLabel(reason: string) {
-  return REVIEW_REASONS[reason] ?? reason;
+  return REVIEW_REASON_OPTIONS.find((item) => item.id === reason)?.label ?? reason;
 }
 
 export function formatWhen(iso: string) {

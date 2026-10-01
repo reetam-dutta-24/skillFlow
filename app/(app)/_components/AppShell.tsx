@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { Icon } from "@/components/core/Icon.jsx";
 import { Sidebar, type SidebarItem } from "@/components/navigation/Sidebar.jsx";
 import { Topbar } from "@/components/navigation/Topbar.jsx";
-import { ShellRoleProvider, useShellRole } from "./shell-role";
+import { ShellRoleProvider, useShellReview, useShellRole } from "./shell-role";
 
 const NAV: SidebarItem[] = [
   { id: "home", label: "Home", icon: "house", href: "/dashboard" },
@@ -27,15 +27,26 @@ const ADMIN_ITEM: SidebarItem = {
   href: "/admin/submissions",
 };
 
+/** Shown to admins and niche reviewers only, right after Open Source. */
+const REVIEW_ITEM: SidebarItem = {
+  id: "review",
+  label: "Review",
+  icon: "git-pull-request",
+  href: "/open-source/review",
+};
+
 type ShellProps = {
   account: ReactNode;
   notifications: ReactNode;
+  /** Streams the per-person review count into the nav. Renders nothing visible. */
+  review: ReactNode;
   children: ReactNode;
 };
 
 function activeId(pathname: string) {
   if (pathname.startsWith("/dev")) return "";
   if (pathname.startsWith("/admin")) return "admin";
+  if (pathname.startsWith("/open-source/review")) return "review";
   if (pathname.startsWith("/open-source")) return "open-source";
   if (pathname.startsWith("/skills")) return "niches";
   if (pathname.startsWith("/clips")) return "clips";
@@ -58,6 +69,7 @@ function activeId(pathname: string) {
 
 function titleFor(pathname: string) {
   if (pathname.startsWith("/admin")) return "Admin";
+  if (pathname.startsWith("/open-source/review")) return "Review";
   if (pathname.startsWith("/open-source")) return "Open Source";
   if (pathname.startsWith("/skills")) return "Niches";
   if (pathname.startsWith("/clips")) return "Clips";
@@ -83,8 +95,11 @@ function titleFor(pathname: string) {
   return "Home";
 }
 
-function navItems(role: "USER" | "ADMIN") {
-  return role === "ADMIN" ? [...NAV, ADMIN_ITEM] : NAV;
+function navItems(role: "USER" | "ADMIN", review: number | null) {
+  const items = review === null
+    ? NAV
+    : NAV.flatMap((item) => (item.id === "open-source" ? [item, { ...REVIEW_ITEM, badge: review }] : [item]));
+  return role === "ADMIN" ? [...items, ADMIN_ITEM] : items;
 }
 
 function PathTitle() {
@@ -93,7 +108,7 @@ function PathTitle() {
 
 function LiveSidebar({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = usePathname();
-  return <Sidebar items={navItems(useShellRole())} active={activeId(pathname)} onNavigate={onNavigate} />;
+  return <Sidebar items={navItems(useShellRole(), useShellReview())} active={activeId(pathname)} onNavigate={onNavigate} />;
 }
 
 function CloseMenuOnNavigate({ close }: { close: () => void }) {
@@ -107,9 +122,10 @@ function CloseMenuOnNavigate({ close }: { close: () => void }) {
   return null;
 }
 
-export function AppShell({ account, notifications, children }: ShellProps) {
+export function AppShell({ account, notifications, review, children }: ShellProps) {
   return (
     <ShellRoleProvider>
+      {review}
       <AppShellFrame account={account} notifications={notifications}>
         {children}
       </AppShellFrame>
@@ -117,7 +133,7 @@ export function AppShell({ account, notifications, children }: ShellProps) {
   );
 }
 
-function AppShellFrame({ account, notifications, children }: ShellProps) {
+function AppShellFrame({ account, notifications, children }: Omit<ShellProps, "review">) {
   const [menuOpen, setMenuOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);

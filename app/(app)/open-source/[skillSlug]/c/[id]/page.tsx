@@ -1,41 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
-import { Chip } from "@/components/core/Chip.jsx";
 import { auth } from "@/lib/auth";
-import { COMMUNITY_LABEL, contributionTypeLabel, disclosureLabel, formatWhen, reviewDecisionLabel, reviewReasonLabel } from "@/lib/community-copy";
+import { COMMUNITY_LABEL, formatWhen, reviewDecisionLabel, reviewReasonLabel } from "@/lib/community-copy";
 import { myUsefulMarks } from "@/lib/data/community";
 import { communityActor } from "@/lib/services/community/actor";
 import { getContribution } from "@/lib/services/community/contributions";
 import { canReview } from "@/lib/services/community/permissions";
 import { recordContributionView } from "@/lib/services/community/views";
-import { CommunityMarkdown } from "../../../_components/CommunityMarkdown";
+import { ContributionBody } from "../../../_components/ContributionBody";
 import { UsefulButton } from "../../../_components/UsefulButton";
 
 type PageProps = { params: Promise<{ skillSlug: string; id: string }> };
-
-const STATUS_LABEL = {
-  OPEN: "Open",
-  CHANGES_REQUESTED: "Changes requested",
-  MERGED: "Merged",
-  CLOSED: "Closed",
-} as const;
-
-function learningSteps(value: unknown) {
-  if (!Array.isArray(value)) return [];
-  return value.flatMap((step) => {
-    if (!step || typeof step !== "object") return [];
-    const row = step as { title?: unknown; url?: unknown; note?: unknown };
-    if (typeof row.title !== "string" || !row.title.trim()) return [];
-    return [
-      {
-        title: row.title,
-        url: typeof row.url === "string" && row.url ? row.url : null,
-        note: typeof row.note === "string" && row.note ? row.note : null,
-      },
-    ];
-  });
-}
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { id } = await params;
@@ -59,8 +35,6 @@ export default async function ContributionPage({ params }: PageProps) {
   const view = row.status === "MERGED" ? await recordContributionView(session.user.id, row.id) : { counted: false };
   const views = row.viewCount + (view.counted ? 1 : 0);
   const marked = row.status === "MERGED" ? await myUsefulMarks(session.user.id, [row.id]) : [];
-  const disclosure = disclosureLabel(row.disclosure);
-  const steps = learningSteps(row.steps);
   const showReviews = (isAuthor || reviewer) && row.reviews.length > 0;
 
   return (
@@ -76,51 +50,7 @@ export default async function ContributionPage({ params }: PageProps) {
       </header>
 
       <div className="sf-community-detail">
-        <article className="sf-community-body">
-          <span className="sf-community-chips">
-            <Chip tone="neutral">{contributionTypeLabel(row.type)}</Chip>
-            <Chip tone="neutral">{STATUS_LABEL[row.status]}</Chip>
-            {row.stage ? <Chip tone="neutral">Relevant to Stage {row.stage.order}</Chip> : null}
-            {disclosure ? <Chip tone={row.disclosure === "AFFILIATE_OR_SPONSORED" ? "warn" : "accent"}>{disclosure}</Chip> : null}
-            {row.tags.map((tag) => (
-              <Chip key={tag} tone="neutral">
-                {tag}
-              </Chip>
-            ))}
-          </span>
-          {row.imageUrl ? <img className="sf-community-photo" src={row.imageUrl} alt="" /> : null}
-          {row.body ? <CommunityMarkdown text={row.body} /> : <p>{row.summary}</p>}
-          {steps.length > 0 ? (
-            <ol className="sf-community-steps">
-              {steps.map((step) => (
-                <li key={step.title}>
-                  <strong>{step.title}</strong>
-                  {step.note ? <p>{step.note}</p> : null}
-                  {step.url ? (
-                    <a href={step.url} rel="nofollow ugc noopener noreferrer" target="_blank">
-                      {step.url}
-                    </a>
-                  ) : null}
-                </li>
-              ))}
-            </ol>
-          ) : null}
-          {row.sources.length > 0 ? (
-            <section>
-              <h2>Sources</h2>
-              <ul>
-                {row.sources.map((source) => (
-                  <li key={source}>
-                    <a href={source} rel="nofollow ugc noopener noreferrer" target="_blank">
-                      {source}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ) : null}
-          {row.linkStatus === "UNREACHABLE" ? <p>A source could not be reached when this was saved.</p> : null}
-        </article>
+        <ContributionBody row={row} />
 
         <aside className="sf-community-side">
           <h2>Created by</h2>
@@ -146,6 +76,11 @@ export default async function ContributionPage({ params }: PageProps) {
             </p>
           )}
           {row.status !== "MERGED" ? <p>This stays hidden until it is merged.</p> : null}
+          {row.status === "OPEN" && reviewer && !isAuthor ? (
+            <Link className="sf-community-text-link" href={`/open-source/review/${row.id}`}>
+              Review this contribution
+            </Link>
+          ) : null}
         </aside>
       </div>
 

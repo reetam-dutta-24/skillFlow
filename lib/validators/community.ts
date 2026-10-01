@@ -70,10 +70,15 @@ export const reviewSchema = z
     decision: reviewDecisionSchema,
     reason: reviewReasonSchema.optional(),
     feedback: z.string().trim().max(500, "Keep the note to 500 characters.").optional(),
+    /** The revision the reviewer had open. A newer one means the author changed it since. */
+    revision: z.coerce.number("Reload the page and try again.").int().min(1, "Reload the page and try again."),
   })
   .superRefine((value, ctx) => {
     if (value.decision !== "APPROVE" && !value.reason) {
       ctx.addIssue({ code: "custom", path: ["reason"], message: "Choose a reason." });
+    }
+    if (value.decision === "REQUEST_CHANGES" && !value.feedback) {
+      ctx.addIssue({ code: "custom", path: ["feedback"], message: "Tell the author what to change." });
     }
   });
 

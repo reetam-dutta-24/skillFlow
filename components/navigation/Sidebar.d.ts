@@ -7,7 +7,14 @@ import * as React from "react";
  *
  * @startingPoint section="Navigation" subtitle="App navigation rail" viewport="700x400"
  */
-export interface SidebarItem { id: string; label: string; icon: string; href?: string }
+export interface SidebarItem {
+  id: string;
+  label: string;
+  icon: string;
+  href?: string;
+  /** Small count after the label. Hidden at 0. */
+  badge?: number;
+}
 export interface SidebarProps extends React.HTMLAttributes<HTMLElement> {
   items?: SidebarItem[];
   active?: string;

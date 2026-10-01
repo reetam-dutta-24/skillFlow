@@ -8,13 +8,14 @@ import {
   formatWhen,
   linkStatusLabel,
   linkStatusTone,
-  reviewDecisionLabel,
+  reviewEventLabel,
   reviewReasonLabel,
 } from "@/lib/community-copy";
 import { loadReviewItem, reviewAccess } from "@/lib/data/community-review";
 import { ContributionBody } from "../../_components/ContributionBody";
 import { ReviewForm, type Decision } from "../../_components/ReviewForm";
-import { ReviewDone } from "../_components/ReviewDone";
+import { UnmergeForm } from "../../_components/UnmergeForm";
+import { DoneNote } from "../../_components/DoneNote";
 
 export const metadata: Metadata = { title: "Review · Open Source" };
 
@@ -63,7 +64,7 @@ export default async function ReviewItemPage({ params, searchParams }: PageProps
         </p>
       </header>
 
-      <ReviewDone done={one(query.done)} next />
+      <DoneNote done={one(query.done)} next />
 
       <div className="sf-community-detail">
         <ContributionBody row={row} />
@@ -155,7 +156,7 @@ export default async function ReviewItemPage({ params, searchParams }: PageProps
             {row.reviews.map((review) => (
               <li key={review.id}>
                 <p>
-                  {reviewDecisionLabel(review.decision)}
+                  {reviewEventLabel(review.decision, review.unmerge)}
                   {review.reason ? ` · ${reviewReasonLabel(review.reason)}` : ""} · Revision {review.revision} ·{" "}
                   {review.reviewer?.name ?? "Former reviewer"}
                 </p>
@@ -173,6 +174,11 @@ export default async function ReviewItemPage({ params, searchParams }: PageProps
         <h2 id="review-decision">Your decision</h2>
         {row.isOwn ? (
           <p>You can&apos;t review your own contribution.</p>
+        ) : row.status === "MERGED" && row.canModerate ? (
+          <>
+            <p>This contribution is merged. As a maintainer you can unmerge it.</p>
+            <UnmergeForm contributionId={row.id} />
+          </>
         ) : allowed.length === 0 ? (
           <p>This contribution is {contributionStatusLabel(row.status).toLowerCase()}. There is nothing to decide.</p>
         ) : (

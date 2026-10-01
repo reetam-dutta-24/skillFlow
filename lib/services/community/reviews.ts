@@ -5,7 +5,7 @@ import { communityActor } from "@/lib/services/community/actor";
 import { canModerate, canReviewContribution } from "@/lib/services/community/permissions";
 import { fail } from "@/lib/services/community/result";
 import { reviewTransition, unmergeTransition } from "@/lib/services/community/transitions";
-import { issueOf, reviewSchema } from "@/lib/validators/community";
+import { issueOf, reviewSchema, unmergeSchema } from "@/lib/validators/community";
 
 export const STALE_REVIEW = "This contribution changed since you opened it. Reload to see the latest version.";
 
@@ -73,34 +73,51 @@ export async function reviewContribution(userId: string, raw: unknown) {
   return { ok: true as const, id: current.id, status: next.status };
 }
 
-export async function unmergeContribution(userId: string, contributionId: string, reason: string) {
+/** Maintainer or admin hides a merged contribution. Merge date and useful marks stay as history. */
+export async function unmergeContribution(userId: string, raw: unknown) {
+  const parsed = unmergeSchema.safeParse(raw);
+  if (!parsed.success) return fail(issueOf(parsed.error).error, issueOf(parsed.error).field);
+  const input = parsed.data;
+
   const actor = await communityActor(userId);
   if (!actor) return fail("Sign in to continue.");
   const current = await prisma.communityContribution.findUnique({
-    where: { id: contributionId },
-    select: { id: true, skillId: true, status: true, revision: true },
+    where: { id: input.contributionId },
+    select: { id: true, skillId: true, status: true, revision: true, skill: { select: { slug: true } } },
   });
   if (!current) return fail("That contribution is not here.");
   if (!canModerate(actor, current.skillId)) return fail("You cannot unmerge this contribution.");
   const next = unmergeTransition(current.status);
-  if (!next.ok) return fail(next.error);
-  const note = reason.trim();
-  if (!note) return fail("Add a reason.", "reason");
-  if (note.length > 500) return fail("Keep the note to 500 characters.", "feedback");
+  if (!next.ok) return fail(STALE_REVIEW);
 
-  await prisma.$transaction(async (tx) => {
-    await tx.contributionReview.create({
-      data: {
-        contributionId: current.id,
-        reviewerId: userId,
-        decision: "CLOSE",
-        reason: "OTHER",
-        feedback: note,
-        revision: current.revision,
-      },
+  try {
+    await prisma.$transaction(async (tx) => {
+      const moved = await tx.communityContribution.updateMany({
+        where: { id: current.id, status: "MERGED" },
+        data: { status: next.status },
+      });
+      if (moved.count === 0) throw new StaleReview();
+      await tx.contributionReview.create({
+        data: {
+          contributionId: current.id,
+          reviewerId: userId,
+          decision: "CLOSE",
+          reason: input.reason,
+          feedback: input.feedback || null,
+          revision: current.revision,
+          unmerge: true,
+        },
+      });
+      await tx.gapReport.updateMany({
+        where: { resolvedByContributionId: current.id },
+        data: { status: "OPEN", resolvedByContributionId: null },
+      });
     });
-    await tx.communityContribution.update({ where: { id: current.id }, data: { status: next.status } });
-  });
+  } catch (error) {
+    if (error instanceof StaleReview) return fail(STALE_REVIEW);
+    throw error;
+  }
+
   invalidateCommunity();
-  return { ok: true as const, status: next.status };
+  return { ok: true as const, id: current.id, slug: current.skill.slug, status: next.status };
 }

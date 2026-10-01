@@ -470,12 +470,15 @@ model ContributionReview {
   reason         ReviewReason?
   feedback       String?        @db.Text
   revision       Int
+  /// A maintainer or admin hid a merged contribution. The decision is still CLOSE.
+  unmerge        Boolean        @default(false)
   createdAt      DateTime       @default(now())
 
   contribution CommunityContribution @relation(fields: [contributionId], references: [id], onDelete: Cascade)
   reviewer     User?                 @relation("CommunityReviewer", fields: [reviewerId], references: [id], onDelete: SetNull)
 
   @@index([contributionId, createdAt])
+  @@index([unmerge, createdAt])
 }
 
 model UsefulMark {

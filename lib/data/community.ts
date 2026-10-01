@@ -4,7 +4,7 @@ import { Prisma, type ContributionType, type Disclosure } from "@prisma/client";
 import { COMMUNITY_TAG } from "@/lib/cache/tags";
 import { prisma } from "@/lib/prisma";
 import { nicheChangelog, type ChangelogWeek } from "@/lib/services/community/changelog";
-import { nicheContributors } from "@/lib/services/community/contributors";
+import { contributorProfile, nicheContributors, type ContributorProfile } from "@/lib/services/community/contributors";
 
 export const MERGED_PAGE_SIZE = 12;
 
@@ -50,10 +50,12 @@ export type PublicGap = {
   id: string;
   title: string;
   description: string;
-  status: "OPEN" | "RESOLVED";
+  status: "OPEN" | "RESOLVED" | "CLOSED";
   goodFirst: boolean;
   createdAt: string;
   stage: { order: number; title: string } | null;
+  /** The merged contribution that resolved it. */
+  resolvedBy: { id: string; title: string } | null;
 };
 
 const TYPES = new Set<string>(["RESOURCE", "CONCEPT_NOTE", "LEARNING_PATH", "FOLLOW"]);
@@ -278,14 +280,15 @@ export async function loadMergedFeed(query: { skillIds: string; sort: string; cu
   };
 }
 
-/** Open gaps first, with good-first gaps ahead of the other open ones. */
+/** Open gaps first (good-first ahead), then resolved, then closed. Newest first inside each group. */
 export async function loadCommunityGaps(skillId: string): Promise<PublicGap[]> {
   "use cache";
   cacheLife("hours");
   cacheTag(COMMUNITY_TAG);
 
   const rows = await prisma.gapReport.findMany({
-    where: { skillId, status: { in: ["OPEN", "RESOLVED"] } },
+    where: { skillId },
+    orderBy: { createdAt: "desc" },
     select: {
       id: true,
       title: true,
@@ -294,27 +297,23 @@ export async function loadCommunityGaps(skillId: string): Promise<PublicGap[]> {
       goodFirst: true,
       createdAt: true,
       stage: { select: { order: true, title: true } },
+      resolvedBy: { select: { id: true, title: true, status: true } },
     },
   });
 
-  const rank = (status: string, goodFirst: boolean) => (status === "OPEN" ? (goodFirst ? 0 : 1) : 2);
+  const rank = (status: string, goodFirst: boolean) => (status === "OPEN" ? (goodFirst ? 0 : 1) : status === "RESOLVED" ? 2 : 3);
   return rows
     .sort((a, b) => rank(a.status, a.goodFirst) - rank(b.status, b.goodFirst) || b.createdAt.getTime() - a.createdAt.getTime())
-    .flatMap((row) =>
-      row.status === "OPEN" || row.status === "RESOLVED"
-        ? [
-            {
-              id: row.id,
-              title: row.title,
-              description: row.description,
-              status: row.status,
-              goodFirst: row.goodFirst,
-              createdAt: row.createdAt.toISOString(),
-              stage: row.stage,
-            },
-          ]
-        : [],
-    );
+    .map((row) => ({
+      id: row.id,
+      title: row.title,
+      description: row.description,
+      status: row.status,
+      goodFirst: row.goodFirst,
+      createdAt: row.createdAt.toISOString(),
+      stage: row.stage,
+      resolvedBy: row.resolvedBy && row.resolvedBy.status === "MERGED" ? { id: row.resolvedBy.id, title: row.resolvedBy.title } : null,
+    }));
 }
 
 export async function loadCommunityChangelog(skillId: string): Promise<ChangelogWeek[]> {
@@ -329,6 +328,14 @@ export async function loadCommunityContributors(skillId: string) {
   cacheLife("hours");
   cacheTag(COMMUNITY_TAG);
   return nicheContributors(skillId);
+}
+
+/** Open Source section of a public profile. Merged work only, the same for every visitor. */
+export async function loadContributorProfile(userId: string): Promise<ContributorProfile | null> {
+  "use cache";
+  cacheLife("hours");
+  cacheTag(COMMUNITY_TAG);
+  return contributorProfile(userId);
 }
 
 /** Skills this person follows. Stays on the request. */

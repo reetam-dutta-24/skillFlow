@@ -6,6 +6,7 @@ import {
   canReview,
   canReviewContribution,
   reviewableSkillIds,
+  roleChangeBlock,
   type CommunityActor,
 } from "@/lib/services/community/permissions";
 
@@ -22,6 +23,27 @@ describe("community permissions", () => {
     expect(canReviewContribution(reviewer, "skill", "author")).toBe(true);
     expect(canReviewContribution(reviewer, "skill", "reviewer")).toBe(false);
     expect(canReviewContribution(reviewer, "skill", null)).toBe(true);
+  });
+
+  it("treats someone with both rows as a maintainer", () => {
+    const both: CommunityActor = {
+      id: "both",
+      appRole: "USER",
+      roles: [
+        { skillId: "skill", role: "REVIEWER" },
+        { skillId: "skill", role: "MAINTAINER" },
+      ],
+    };
+    expect(canModerate(both, "skill")).toBe(true);
+  });
+
+  it("lets admins change any role, maintainers change reviewers here, and nobody change their own", () => {
+    expect(roleChangeBlock(admin, "someone", "skill", "MAINTAINER")).toBeNull();
+    expect(roleChangeBlock(maintainer, "someone", "skill", "REVIEWER")).toBeNull();
+    expect(roleChangeBlock(maintainer, "someone", "other", "REVIEWER")).not.toBeNull();
+    expect(roleChangeBlock(maintainer, "someone", "skill", "MAINTAINER")).not.toBeNull();
+    expect(roleChangeBlock(reviewer, "someone", "skill", "REVIEWER")).not.toBeNull();
+    expect(roleChangeBlock(admin, "admin", "skill", "REVIEWER")).not.toBeNull();
   });
 
   it("lists the niches a person reviews", () => {

@@ -7,7 +7,7 @@ import { EmptyState } from "@/components/feedback/EmptyState.jsx";
 import { auth } from "@/lib/auth";
 import { CONTRIBUTION_TYPES, contributionTypeLabel, disclosureLabel, formatWhen, linkStatusLabel, linkStatusTone } from "@/lib/community-copy";
 import { loadReviewQueue, reviewAccess, reviewNiches } from "@/lib/data/community-review";
-import { ReviewDone } from "./_components/ReviewDone";
+import { DoneNote } from "../_components/DoneNote";
 
 export const metadata: Metadata = { title: "Review · Open Source" };
 
@@ -53,7 +53,7 @@ export default async function ReviewQueuePage({
         <p>Open contributions in the niches you review, oldest first. Your own contributions are not listed.</p>
       </header>
 
-      <ReviewDone done={one(query.done)} />
+      <DoneNote done={one(query.done)} />
 
       <form className="sf-community-filters" method="get" action="/open-source/review">
         <label>

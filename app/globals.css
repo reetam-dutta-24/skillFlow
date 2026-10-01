@@ -5444,6 +5444,396 @@ html:has(.sf-browse) {
   }
 }
 
+/* Open Source: author pages, roles, gaps, admin, and the contributor heatmap */
+.sf-os-warning {
+  margin: 0;
+  padding: 10px 14px;
+  border: 1px solid var(--border-default);
+  border-left: 3px solid var(--border-accent);
+  border-radius: 12px;
+  background: var(--surface-card);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+}
+.sf-os-form .sf-os-check {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-primary);
+  font-weight: var(--weight-regular);
+}
+.sf-os-form .sf-os-check input {
+  width: auto;
+  padding: 0;
+  accent-color: var(--accent);
+}
+.sf-os-person {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+}
+.sf-os-person > span:last-child {
+  overflow-wrap: anywhere;
+}
+.sf-os-avatar {
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+}
+.sf-os-avatar-fallback {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-quiet);
+  color: var(--text-accent);
+  font-size: var(--text-xs);
+}
+.sf-os-person-link {
+  color: inherit;
+  text-decoration: none;
+  border-radius: 8px;
+}
+.sf-os-person-link:hover .sf-os-person > span:last-child {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+/* The title link covers the card, so the card stays one click. The author link sits above it. */
+.sf-community-card:has(.sf-os-card-link) {
+  position: relative;
+}
+.sf-os-card-link {
+  color: inherit;
+  text-decoration: none;
+}
+.sf-os-card-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+.sf-os-card-link:focus-visible {
+  outline: none;
+}
+.sf-community-card:has(.sf-os-card-link:focus-visible) {
+  outline: 2px solid var(--border-accent);
+  outline-offset: 2px;
+}
+.sf-os-author-link {
+  position: relative;
+  z-index: 1;
+  color: var(--text-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.sf-os-mine-row h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+.sf-os-mine-row h3 a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.sf-os-history {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sf-community-reviews .sf-os-history li {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.sf-os-history li:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+.sf-os-history p,
+.sf-os-history blockquote {
+  margin: 0;
+}
+.sf-os-history blockquote {
+  padding-left: 12px;
+  border-left: 3px solid var(--border-accent);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  overflow-wrap: anywhere;
+}
+.sf-os-panel-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.sf-os-panel-head h2 {
+  margin: 0;
+  font-size: var(--text-subtitle);
+}
+.sf-os-gap-form {
+  flex: 1 1 100%;
+}
+.sf-os-group-head {
+  margin: 24px 0 12px;
+  font-size: var(--text-sm);
+}
+.sf-os-closed {
+  margin-top: 20px;
+}
+.sf-os-closed summary {
+  cursor: pointer;
+  margin-bottom: 12px;
+  color: var(--text-accent);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+}
+.sf-os-queue-line {
+  margin: 0 0 20px;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
+.sf-os-team {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sf-community-people .sf-os-team li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  background: var(--surface-card);
+}
+.sf-os-role-action {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.sf-os-admin-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 28px;
+}
+.sf-os-admin-section h2 {
+  margin: 0;
+  font-size: var(--text-subtitle);
+}
+.sf-os-grant {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.sf-os-grant-found {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-tile);
+  background: var(--surface-card);
+}
+.sf-os-table th[scope="row"] {
+  font-weight: var(--weight-semibold);
+}
+.sf-os-table a {
+  color: var(--text-accent);
+}
+.sf-profile-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+.sf-profile-section > h2 {
+  margin: 0;
+  font-size: var(--text-subtitle);
+}
+.sf-profile-niches {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.sf-profile-niches > section {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-tile);
+  background: var(--surface-card);
+}
+.sf-profile-niches h3 {
+  margin: 0 0 10px;
+  font-size: var(--text-sm);
+}
+.sf-profile-niches h3 a,
+.sf-profile-contributions a {
+  color: var(--text-accent);
+  overflow-wrap: anywhere;
+}
+.sf-profile-contributions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sf-profile-contributions li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: var(--text-sm);
+}
+
+/* Heatmap. The grid scrolls inside its own box so the page never scrolls sideways. */
+.sf-heatmap {
+  --heat-cell: 11px;
+  --heat-gap: 3px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  margin: 0;
+  padding: 16px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-tile);
+  background: var(--surface-card);
+}
+.sf-heatmap-total {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+}
+.sf-heatmap-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  border-radius: 8px;
+}
+.sf-heatmap-months,
+.sf-heatmap-grid {
+  display: grid;
+  column-gap: var(--heat-gap);
+  width: max-content;
+}
+.sf-heatmap-months {
+  margin-bottom: 4px;
+  color: var(--text-muted);
+  font-size: var(--text-3xs);
+}
+.sf-heatmap-months span {
+  white-space: nowrap;
+}
+.sf-heatmap-grid {
+  grid-template-rows: repeat(7, var(--heat-cell));
+  grid-auto-flow: column;
+  grid-auto-columns: var(--heat-cell);
+  row-gap: var(--heat-gap);
+}
+.sf-heatmap-cell {
+  display: block;
+  width: var(--heat-cell);
+  height: var(--heat-cell);
+  border-radius: 2px;
+  background: var(--border-subtle);
+}
+.sf-heatmap-cell[data-level="1"] {
+  background: var(--accent);
+  opacity: 0.3;
+}
+.sf-heatmap-cell[data-level="2"] {
+  background: var(--accent);
+  opacity: 0.5;
+}
+.sf-heatmap-cell[data-level="3"] {
+  background: var(--accent);
+  opacity: 0.75;
+}
+.sf-heatmap-cell[data-level="4"] {
+  background: var(--accent);
+}
+.sf-heatmap-legend {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-muted);
+  font-size: var(--text-3xs);
+}
+
+@media (max-width: 960px) {
+  .sf-profile-niches {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+/* Tables become stacked cards on phones. Each cell shows its column name. */
+@media (max-width: 640px) {
+  .sf-os-table,
+  .sf-os-table tbody,
+  .sf-os-table tr,
+  .sf-os-table th,
+  .sf-os-table td {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .sf-os-table {
+    border: 0;
+    background: transparent;
+  }
+  .sf-os-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .sf-os-table tr {
+    margin-bottom: 12px;
+    padding: 8px 0;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-tile);
+    background: var(--surface-card);
+  }
+  .sf-os-table th[data-label],
+  .sf-os-table td[data-label] {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px;
+    border-bottom: 0;
+  }
+  .sf-os-table th[data-label]::before,
+  .sf-os-table td[data-label]::before {
+    content: attr(data-label);
+    color: var(--text-muted);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+  }
+  .sf-community-people .sf-os-team li {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
 .sf-creator-page {
   display: flex;
   flex-direction: column;

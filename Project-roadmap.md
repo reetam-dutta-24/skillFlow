@@ -11,7 +11,7 @@ Tick a box only when that exact piece is really finished. A screen that looks do
 
 `AGENTS.md` is the short context a new session should read. This file is the longer record.
 
-Last aligned with the working tree on 30 September 2026.
+Last aligned with the working tree on 1 October 2026.
 
 ---
 
@@ -22,7 +22,7 @@ Last aligned with the working tree on 30 September 2026.
 | Product shape, tokens, component kit | Done | Dark/light theme, accent presets, shared buttons, cards, charts |
 | Public pages | Done | Landing, login, signup, privacy, terms. Landing names Travel Vlogging with the other two free paths |
 | Database schema and local Postgres | Done | Prisma models and migrations, through the open-source community tables |
-| Open Source browse | In progress | The signed-in page is a contribution feed for followed skills, with a niche filter beside it. Niche tabs and contribution pages read the community tables. The contribute form is in place. A new post stays open until a reviewer merges it. The review queue is not built |
+| Open Source community | Done | Contribute, review (approve, request changes, close), author edit, resubmit and withdraw, unmerge, roles, gaps, the maintainers panel, `/admin/community`, and a contributor profile with a heatmap. Only merged work is public |
 | Auth | Done for email/password | Auth.js, bcrypt passwords, JWT session, route protection. Google is configured in code. The login screen is email and password |
 | Onboarding | Done and saved | Skill, pace, goal, and accent are written to Postgres |
 | Niches and roadmaps | Done for three paths | Full-Stack, Travel Vlogging, and Content Creation are free and available. Art stays a coming-soon flagship |
@@ -100,6 +100,8 @@ Progress, streaks, follow state, quiz history, and the account menu stay on the 
 
 Roadmap stage status (passed, in progress, ready) stays personal, so the roadmap page is not one cached component. It reads the cached catalog and overlays that person's progress.
 
+Public Open Source data (merged lists, member counts, gaps, the changelog, contributors, contributor profiles) is cached with the `community` tag. A merge, an unmerge, a resubmission, a role change, a gap change, a join, or a useful mark calls `invalidateCommunity()`. The review queue, the sidebar Review count, the author's own pages, the maintainers panel, and `/admin/community` stay on the request.
+
 There is no Redis layer. The cache is Next's own store. `ioredis` is in the dependencies and is unused.
 
 ---
@@ -169,6 +171,8 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 - Usage-cutoff dialog — a soft stop. Not stored.
 - `/dev/routes` — screen list. It 404s in production.
 
+**Open Source.** Each niche is a community that works like pull requests. A learner shares a resource, a concept note, a learning path, or someone to follow, optionally for a reported gap. It stays hidden until a reviewer decides: approve (merged and public), request changes (with a note), or close. `/open-source/me` lists the author's own work with status filters and a count of items waiting on them. The author can edit while it is open, resubmit a merged one (it leaves the public lists until reviewed again), or withdraw. Reviewers work from `/open-source/review`, oldest first, never their own. Maintainers unmerge, label and close gaps, and grant reviewers from the niche's Maintainers tab, which also suggests people with 3 merged contributions. Admins grant any role by exact email at `/admin/community`. A profile shows merged work by niche and a 12-month heatmap. There are no comments, likes, or chat. A review is one structured decision.
+
 **Errors and empty screens.** Root and in-app `not-found` and `error` pages are themed. Dev-only routes can throw those states: `/dev/error`, `/dev/missing`, `/dev/root-error`, `/dev/root-missing`.
 
 ---
@@ -213,6 +217,7 @@ Stage photos were generated for all 10 Content Creation stages and all 8 Travel 
 - **Art stayed a flagship.** Travel took its place as the third free path. Art is coming soon so a card does not promise a path that has no stages.
 - **The importer must not own availability.** A researched file can say coming soon while the product decision is to open the path. Status is set on the row, and the seed special-cases Art so a later seed does not undo that.
 - **Do not run the full seed to reload one path.** Use the importer, then a targeted update for status and offer.
+- **Open Source is review-gated, not a forum.** Contributions never enter the catalog tables. A review is one decision with a reason, not a thread. Every decision only applies if the status and revision still match what the reviewer opened, so two reviewers cannot both act on one item.
 - **AniVerse was a structural reference.** The magenta palette, likes, and follower counts were not copied.
 
 ---
@@ -364,6 +369,21 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 
 The mock catalog in `lib/mock/catalog.ts` is leftover sample data for the screens that are not wired. It is not the seed.
 
+## OPEN SOURCE — Community contributions
+**Status: ✅ COMPLETE**
+
+- [x] Contribute form with type, sources, stage, gap, tags, and disclosure. Links are normalized and checked; duplicates against the niche and the official roadmap are refused
+- [x] Review queue and review page with duplicates, author record, and history. Approve, request changes, close, with a check that nothing changed since the page was opened
+- [x] Author pages: list, owner view with reasons in plain words, edit, resubmit, withdraw
+- [x] Unmerge with a reason. A resolved gap reopens
+- [x] Roles: admin grants either role, maintainers grant reviewers, nobody changes their own. Suggested reviewers in two groups
+- [x] Maintainers tab and `/admin/community` (niche load, grant by email, revoke, recent unmerges)
+- [x] Gaps: report (3 a day), good-first label, close, reopen, contribute to a gap
+- [x] Contributor section on the public profile with a 12-month heatmap
+- [x] `community` cache tag for public data; per-request queue, counts, and author pages
+- [ ] Notify an author when a decision lands
+- [ ] Integration tests for review, edit, and unmerge
+
 ## PHASE 8 — Testing
 **Status: ⬜ NOT STARTED**
 
@@ -453,4 +473,4 @@ The extra niches are in the database and show as coming soon. A new path is a re
 
 ---
 
-**Right now.** Phases 0, 1, 2, 3, and 7 are done for the three free paths. Phase 6 is done for those screens and open for quiz and explain-back. Phases 4, 5, 8, and 9 are the remaining Version 1 backend. Next product step, when you choose it, is Phase 4: store real quiz questions and make the explain-back screen read the prompt that is already saved.
+**Right now.** Phases 0, 1, 2, 3, and 7 are done for the three free paths, and the Open Source community is complete. Phase 6 is done for those screens and open for quiz and explain-back. Phases 4, 5, 8, and 9 are the remaining Version 1 backend. Next product step, when you choose it, is Phase 4: store real quiz questions and make the explain-back screen read the prompt that is already saved.

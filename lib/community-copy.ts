@@ -68,6 +68,44 @@ export function reviewReasonLabel(reason: string) {
   return REVIEW_REASON_OPTIONS.find((item) => item.id === reason)?.label ?? reason;
 }
 
+/** What the author reads next to a decision. */
+const REVIEW_REASON_SENTENCES: Record<string, string> = {
+  OFF_TOPIC: "It does not fit this niche.",
+  LOW_QUALITY: "It needs more depth or clarity before it helps a learner.",
+  DUPLICATE: "Something very similar is already in this niche or its roadmap.",
+  BROKEN_LINK: "A link did not work when the reviewer checked it.",
+  UNDISCLOSED_PROMOTION: "It promotes something without saying so in the disclosure.",
+  INACCURATE: "Part of it is not correct.",
+  OTHER: "The reviewer explains it in the note.",
+};
+
+export function reviewReasonSentence(reason: string) {
+  return REVIEW_REASON_SENTENCES[reason] ?? reviewReasonLabel(reason);
+}
+
+/** "Unmerged" for a maintainer close of a merged contribution, otherwise the decision. */
+export function reviewEventLabel(decision: string, unmerge: boolean) {
+  return unmerge ? "Unmerged" : reviewDecisionLabel(decision);
+}
+
+export function communityRoleLabel(role: string) {
+  return role === "MAINTAINER" ? "Maintainer" : "Reviewer";
+}
+
+export const CONTRIBUTION_STATUSES = [
+  { id: "OPEN", label: "Open" },
+  { id: "CHANGES_REQUESTED", label: "Changes requested" },
+  { id: "MERGED", label: "Merged" },
+  { id: "CLOSED", label: "Closed" },
+] as const;
+
+export function contributionStatusTone(status: string): "pass" | "warn" | "fail" | "neutral" {
+  if (status === "MERGED") return "pass";
+  if (status === "CHANGES_REQUESTED") return "warn";
+  if (status === "CLOSED") return "fail";
+  return "neutral";
+}
+
 export function formatWhen(iso: string) {
   return new Intl.DateTimeFormat("en", { dateStyle: "medium", timeStyle: "short" }).format(new Date(iso));
 }

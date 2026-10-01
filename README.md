@@ -16,7 +16,7 @@ The niche list shows 32 cards a page. Home and roadmaps show the first 12, a blu
 
 Signed-in learners can keep a preset accent or build their own gradient from a color palette, a hex value, or RGB. Public pages stay on Dusk.
 
-Open Source is a signed-in contribution feed for the skills a learner follows. The side panel can narrow that set or open any other niche. The niche tabs, a contribution page, and the contribute form are in place. A new post stays open until a reviewer merges it.
+Open Source is a per-niche community that works like pull requests. A learner shares a resource, a concept note, a learning path, or someone to follow. It stays hidden until a reviewer approves it, asks for changes, or closes it. Only merged contributions are public. Authors track and edit their work at `/open-source/me`. Reviewers work from `/open-source/review`. Maintainers can unmerge, manage gaps, and grant reviewers. Admins manage every role at `/admin/community`. A public profile shows a person's merged work and a 12-month contribution heatmap.
 
 Creator studio is a signed-in library for a video the learner owns. An admin approves it onto that niche’s clip feed and the creator’s public profile. View counts stay in the studio.
 
@@ -24,7 +24,7 @@ A dead stored link can be marked unavailable. The lesson keeps the saved title, 
 
 ## Tech stack
 
-- Next.js 16.3.4, React 19, TypeScript, Tailwind CSS v4. Landing and auth pages are static. Shared catalog screens (niche grid, lessons, clips, submit picker) are cached for every visitor. Progress and the account menu stay per person
+- Next.js 16.3.4, React 19, TypeScript, Tailwind CSS v4. Landing and auth pages are static. Shared catalog screens (niche grid, lessons, clips, submit picker) are cached for every visitor under the `catalog` tag. Public community lists and contributor profiles are cached under the `community` tag. Progress, the account menu, the review queue, and a person's own contributions stay per request
 - PostgreSQL and Prisma 6
 - Auth.js v5 — email and password with bcrypt, JWT sessions. Google is configured in code and is not on the login form
 - Quizzes and explain-back grading are not connected to a model yet
@@ -67,6 +67,14 @@ npx tsx scripts/verify-catalog.ts full-stack-web-dev --from-db
 ```
 
 The Full-Stack file is `content/catalog/full-stack-web-development.json`. The live slug stays `full-stack-web-dev`.
+
+## Open Source roles
+
+Admins review, moderate, and grant roles in every niche. A maintainer reviews and moderates one niche and can grant reviewers there. A reviewer reviews one niche. Nobody reviews their own contribution or changes their own role.
+
+To make someone a reviewer or maintainer, sign in as an admin, open `/admin/community`, find the person by their exact email, choose the niche and the role, and grant it.
+
+Typing `fail this merge` as review feedback shows the review error state without saving anything.
 
 ## What is still ahead
 

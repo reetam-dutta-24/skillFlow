@@ -5,7 +5,7 @@ import { decodeCursor, encodeCursor, loadCommunityNiches } from "@/lib/data/comm
 import { normalizeCommunityUrl } from "@/lib/links/normalize-url";
 import { prisma } from "@/lib/prisma";
 import { communityActor } from "@/lib/services/community/actor";
-import { canReview, reviewableSkillIds, type CommunityActor } from "@/lib/services/community/permissions";
+import { canModerate, canReview, reviewableSkillIds, type CommunityActor } from "@/lib/services/community/permissions";
 
 // Everything in this file is per person. Nothing here is cached, and nothing here may be called inside "use cache".
 
@@ -212,6 +212,7 @@ export async function loadReviewItem(access: ReviewAccess, id: string) {
           reason: true,
           feedback: true,
           revision: true,
+          unmerge: true,
           createdAt: true,
           reviewer: { select: { name: true } },
         },
@@ -231,6 +232,7 @@ export async function loadReviewItem(access: ReviewAccess, id: string) {
   return {
     ...row,
     isOwn: row.authorId === access.actor.id,
+    canModerate: canModerate(access.actor, row.skillId),
     record,
     duplicates: { links, titles, official },
   };

@@ -2,16 +2,22 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
-import { COMMUNITY_LABEL, formatWhen, reviewDecisionLabel, reviewReasonLabel } from "@/lib/community-copy";
+import { PersonAvatar } from "@/components/community/PersonAvatar";
+import { COMMUNITY_LABEL, formatWhen, reviewEventLabel, reviewReasonLabel } from "@/lib/community-copy";
 import { myUsefulMarks } from "@/lib/data/community";
 import { communityActor } from "@/lib/services/community/actor";
 import { getContribution } from "@/lib/services/community/contributions";
-import { canReview } from "@/lib/services/community/permissions";
+import { canModerate, canReview } from "@/lib/services/community/permissions";
 import { recordContributionView } from "@/lib/services/community/views";
 import { ContributionBody } from "../../../_components/ContributionBody";
+import { DoneNote } from "../../../_components/DoneNote";
+import { UnmergeForm } from "../../../_components/UnmergeForm";
 import { UsefulButton } from "../../../_components/UsefulButton";
 
-type PageProps = { params: Promise<{ skillSlug: string; id: string }> };
+type PageProps = {
+  params: Promise<{ skillSlug: string; id: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+};
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { id } = await params;
@@ -19,7 +25,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return { title: row ? `${row.title} · Open Source` : "Open Source" };
 }
 
-export default async function ContributionPage({ params }: PageProps) {
+export default async function ContributionPage({ params, searchParams }: PageProps) {
   const session = await auth();
   if (!session?.user?.id) redirect("/login");
 
@@ -36,6 +42,9 @@ export default async function ContributionPage({ params }: PageProps) {
   const views = row.viewCount + (view.counted ? 1 : 0);
   const marked = row.status === "MERGED" ? await myUsefulMarks(session.user.id, [row.id]) : [];
   const showReviews = (isAuthor || reviewer) && row.reviews.length > 0;
+  // Per person: only maintainers of this niche and admins see Unmerge.
+  const moderator = actor ? canModerate(actor, row.skill.id) : false;
+  const done = (await searchParams).done;
 
   return (
     <div className="sf-dash">
@@ -49,13 +58,20 @@ export default async function ContributionPage({ params }: PageProps) {
         <p className="sf-community-label">{COMMUNITY_LABEL}</p>
       </header>
 
+      <DoneNote done={typeof done === "string" ? done : ""} />
+
       <div className="sf-community-detail">
         <ContributionBody row={row} />
 
         <aside className="sf-community-side">
           <h2>Created by</h2>
-          <p>{row.author?.name ?? "Former member"}</p>
-          {row.author?.email ? <p>{row.author.email}</p> : null}
+          {row.author ? (
+            <Link className="sf-os-person-link" href={`/profile/${row.author.id}`}>
+              <PersonAvatar name={row.author.name} image={row.author.image} />
+            </Link>
+          ) : (
+            <p>Former member</p>
+          )}
           <p>
             <time dateTime={row.createdAt.toISOString()}>{formatWhen(row.createdAt.toISOString())}</time>
           </p>
@@ -81,8 +97,21 @@ export default async function ContributionPage({ params }: PageProps) {
               Review this contribution
             </Link>
           ) : null}
+          {isAuthor ? (
+            <Link className="sf-community-text-link" href={`/open-source/me/${row.id}`}>
+              Manage in My contributions
+            </Link>
+          ) : null}
         </aside>
       </div>
+
+      {row.status === "MERGED" && moderator ? (
+        <section className="sf-community-reviews" aria-labelledby="community-moderate">
+          <h2 id="community-moderate">Moderation</h2>
+          <p>Unmerging closes this contribution and hides it from the niche. A gap it resolved opens again.</p>
+          <UnmergeForm contributionId={row.id} />
+        </section>
+      ) : null}
 
       {showReviews ? (
         <section className="sf-community-reviews" aria-labelledby="community-reviews">
@@ -91,7 +120,7 @@ export default async function ContributionPage({ params }: PageProps) {
             {row.reviews.map((review) => (
               <li key={review.id}>
                 <p>
-                  {review.reviewer?.name ?? "Former reviewer"} · {reviewDecisionLabel(review.decision)}
+                  {review.reviewer?.name ?? "Former reviewer"} · {reviewEventLabel(review.decision, review.unmerge)}
                   {review.reason ? ` · ${reviewReasonLabel(review.reason)}` : ""}
                 </p>
                 {review.feedback ? <p>{review.feedback}</p> : null}

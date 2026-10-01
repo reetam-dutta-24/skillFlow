@@ -14,7 +14,7 @@ export const reviewReasonSchema = z.enum([
   "UNDISCLOSED_PROMOTION",
   "INACCURATE",
   "OTHER",
-]);
+], "Choose a reason.");
 
 const tagSchema = z
   .string()
@@ -92,8 +92,23 @@ export const gapSchema = z.object({
 export const roleSchema = z.object({
   userId: id,
   skillId: id,
-  role: z.enum(["REVIEWER", "MAINTAINER"]),
+  role: z.enum(["REVIEWER", "MAINTAINER"], "Choose a role."),
 });
+
+/** Hide a merged contribution. The reason is required, the note is optional. */
+export const unmergeSchema = z.object({
+  contributionId: id,
+  reason: reviewReasonSchema,
+  feedback: z.string().trim().max(500, "Keep the note to 500 characters.").optional(),
+});
+
+export const gapModerationSchema = z.object({
+  gapId: id,
+  op: z.enum(["goodFirst", "notGoodFirst", "close", "reopen"]),
+});
+
+/** Admin lookup only. The address is matched exactly, ignoring case, and never listed. */
+export const emailLookupSchema = z.string().trim().toLowerCase().pipe(z.email("Enter the person's email address."));
 
 export type ContributionInput = z.infer<typeof contributionSchema>;
 export type ReviewInput = z.infer<typeof reviewSchema>;

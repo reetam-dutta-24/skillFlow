@@ -1,48 +1,65 @@
 import "server-only";
+import { buildHeatmap, dayKey, type Heatmap } from "@/lib/community-heatmap";
 import { prisma } from "@/lib/prisma";
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 
-export function dayKey(date: Date): string {
-  return date.toISOString().slice(0, 10);
-}
+export type ContributorNiche = {
+  slug: string;
+  name: string;
+  contributions: { id: string; title: string; type: string; mergedAt: string }[];
+};
 
-/** Public contributor page. Name and avatar only. Email stays off this page. */
-export async function contributorProfile(userId: string) {
+export type ContributorProfile = {
+  id: string;
+  name: string | null;
+  image: string | null;
+  contributor: boolean;
+  mergedCount: number;
+  roles: { role: "REVIEWER" | "MAINTAINER"; slug: string; name: string }[];
+  niches: ContributorNiche[];
+  heatmap: Heatmap;
+};
+
+/** Public contributor section. Merged work only. Name and avatar, never email. */
+export async function contributorProfile(userId: string): Promise<ContributorProfile | null> {
   const user = await prisma.user.findUnique({
     where: { id: userId },
     select: {
       id: true,
       name: true,
       image: true,
-      communityRoles: { select: { role: true, skill: { select: { slug: true, name: true } } } },
+      communityRoles: {
+        orderBy: { createdAt: "asc" },
+        select: { role: true, skill: { select: { slug: true, name: true } } },
+      },
+      communityContributions: {
+        where: { status: "MERGED", mergedAt: { not: null } },
+        orderBy: { mergedAt: "desc" },
+        select: {
+          id: true,
+          title: true,
+          type: true,
+          mergedAt: true,
+          skill: { select: { slug: true, name: true } },
+        },
+      },
     },
   });
   if (!user) return null;
 
-  const since = new Date(Date.now() - 366 * DAY_MS);
-  const merged = await prisma.communityContribution.findMany({
-    where: { authorId: userId, status: "MERGED", mergedAt: { not: null } },
-    select: {
-      id: true,
-      title: true,
-      type: true,
-      mergedAt: true,
-      skill: { select: { slug: true, name: true } },
-    },
-    orderBy: { mergedAt: "desc" },
-  });
-
-  const byNiche = new Map<string, { slug: string; name: string; contributions: { id: string; title: string; type: string; mergedAt: string }[] }>();
-  const heatmap = new Map<string, number>();
-  for (const row of merged) {
+  const now = new Date();
+  const since = new Date(now.getTime() - 366 * DAY_MS);
+  const byNiche = new Map<string, ContributorNiche>();
+  const perDay = new Map<string, number>();
+  for (const row of user.communityContributions) {
     if (!row.mergedAt) continue;
     const niche = byNiche.get(row.skill.slug) ?? { slug: row.skill.slug, name: row.skill.name, contributions: [] };
     niche.contributions.push({ id: row.id, title: row.title, type: row.type, mergedAt: row.mergedAt.toISOString() });
     byNiche.set(row.skill.slug, niche);
     if (row.mergedAt >= since) {
       const key = dayKey(row.mergedAt);
-      heatmap.set(key, (heatmap.get(key) ?? 0) + 1);
+      perDay.set(key, (perDay.get(key) ?? 0) + 1);
     }
   }
 
@@ -50,11 +67,11 @@ export async function contributorProfile(userId: string) {
     id: user.id,
     name: user.name,
     image: user.image,
-    contributor: merged.length > 0,
-    mergedCount: merged.length,
+    contributor: user.communityContributions.length > 0,
+    mergedCount: user.communityContributions.length,
     roles: user.communityRoles.map((role) => ({ role: role.role, slug: role.skill.slug, name: role.skill.name })),
     niches: [...byNiche.values()],
-    heatmap: [...heatmap.entries()].map(([day, count]) => ({ day, count })),
+    heatmap: buildHeatmap(perDay, now),
   };
 }
 

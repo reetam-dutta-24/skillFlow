@@ -7,6 +7,7 @@ import { EmptyState } from "@/components/feedback/EmptyState.jsx";
 import { auth } from "@/lib/auth";
 import { COMMUNITY_LABEL, contributionTypeLabel, disclosureLabel, formatWhen } from "@/lib/community-copy";
 import { loadCommunityNiches, loadMergedFeed, myCommunityNews, myFollowedSkillIds, myUsefulMarks } from "@/lib/data/community";
+import { myAttentionCount } from "@/lib/data/community-me";
 import { SkillImage } from "@/components/core/SkillImage";
 import { joinCommunityAction, leaveCommunityAction } from "./actions";
 import { ContributeMenu } from "./_components/ContributeMenu";
@@ -50,10 +51,11 @@ export default async function OpenSourcePage({
   const type = TYPES.some((item) => item.id === one(query.type)) ? one(query.type) : "";
   const cursor = one(query.cursor);
 
-  const [niches, followedIds, news] = await Promise.all([
+  const [niches, followedIds, news, attention] = await Promise.all([
     loadCommunityNiches(),
     myFollowedSkillIds(session.user.id),
     myCommunityNews(session.user.id),
+    myAttentionCount(session.user.id),
   ]);
   const followed = new Set(followedIds);
   const newsBySkill = new Map(news.map((row) => [row.skillId, row.count]));
@@ -104,6 +106,10 @@ export default async function OpenSourcePage({
               </Button>
             </form>
           ) : null}
+          <Link className="sf-community-text-link" href="/open-source/me">
+            My contributions
+            {attention > 0 ? ` · ${attention} ${attention === 1 ? "needs" : "need"} your attention` : ""}
+          </Link>
         </div>
       </header>
 
@@ -161,7 +167,7 @@ export default async function OpenSourcePage({
                 const disclosure = disclosureLabel(item.disclosure);
                 return (
                   <li key={item.id}>
-                    <Link className="sf-community-card sf-os-feed-card" href={`/open-source/${item.skill.slug}/c/${item.id}`}>
+                    <article className="sf-community-card sf-os-feed-card">
                       {item.skill.image ? (
                         <SkillImage className="sf-os-feed-photo" src={item.skill.image} alt="" width={72} height={72} />
                       ) : (
@@ -174,10 +180,20 @@ export default async function OpenSourcePage({
                         {item.stage ? <Chip tone="neutral">Relevant to Stage {item.stage.order}</Chip> : null}
                         {disclosure ? <Chip tone={item.disclosure === "AFFILIATE_OR_SPONSORED" ? "warn" : "accent"}>{disclosure}</Chip> : null}
                       </span>
-                      <h3>{item.title}</h3>
+                      <h3>
+                        <Link className="sf-os-card-link" href={`/open-source/${item.skill.slug}/c/${item.id}`}>
+                          {item.title}
+                        </Link>
+                      </h3>
                       <p>{item.summary}</p>
                       <p>
-                        {item.author?.name ?? "Former member"}
+                        {item.author ? (
+                          <Link className="sf-os-author-link" href={`/profile/${item.author.id}`}>
+                            {item.author.name ?? "Learner"}
+                          </Link>
+                        ) : (
+                          "Former member"
+                        )}
                         {item.mergedAt ? ` · ${formatWhen(item.mergedAt)}` : ""}
                       </p>
                       <p>
@@ -185,7 +201,7 @@ export default async function OpenSourcePage({
                         {marked.has(item.id) ? " · You found this useful" : ""}
                       </p>
                       </span>
-                    </Link>
+                    </article>
                   </li>
                 );
               })}

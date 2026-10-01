@@ -5,7 +5,7 @@ import { communityActor } from "@/lib/services/community/actor";
 import { COMMUNITY_LIMITS, limitMessage, limitReached } from "@/lib/services/community/limits";
 import { canModerate } from "@/lib/services/community/permissions";
 import { fail } from "@/lib/services/community/result";
-import { gapSchema, issueOf } from "@/lib/validators/community";
+import { gapModerationSchema, gapSchema, issueOf } from "@/lib/validators/community";
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 
@@ -43,26 +43,29 @@ export async function reportGap(userId: string, raw: unknown) {
   return { ok: true as const, id: row.id };
 }
 
-export async function setGapGoodFirst(userId: string, gapId: string, goodFirst: boolean) {
-  const actor = await communityActor(userId);
-  if (!actor) return fail("Sign in to continue.");
-  const gap = await prisma.gapReport.findUnique({ where: { id: gapId }, select: { id: true, skillId: true, status: true } });
-  if (!gap) return fail("That gap is not here.");
-  if (!canModerate(actor, gap.skillId)) return fail("You cannot label gaps in this niche.");
-  if (gap.status !== "OPEN") return fail("Label an open gap.");
-  await prisma.gapReport.update({ where: { id: gap.id }, data: { goodFirst } });
-  invalidateCommunity();
-  return { ok: true as const };
-}
+const GAP_MOVES = {
+  goodFirst: { from: "OPEN", data: { goodFirst: true }, error: "Label an open gap." },
+  notGoodFirst: { from: "OPEN", data: { goodFirst: false }, error: "Label an open gap." },
+  close: { from: "OPEN", data: { status: "CLOSED" }, error: "Close an open gap." },
+  reopen: { from: "CLOSED", data: { status: "OPEN" }, error: "Reopen a closed gap." },
+} as const;
 
-export async function closeGap(userId: string, gapId: string) {
+/** Maintainers and admins: label good-first, close an open gap, or reopen a closed one. A resolved gap only changes through its contribution. */
+export async function moderateGap(userId: string, raw: unknown) {
+  const parsed = gapModerationSchema.safeParse(raw);
+  if (!parsed.success) return fail(issueOf(parsed.error).error);
+  const { gapId, op } = parsed.data;
+
   const actor = await communityActor(userId);
   if (!actor) return fail("Sign in to continue.");
   const gap = await prisma.gapReport.findUnique({ where: { id: gapId }, select: { id: true, skillId: true, status: true } });
   if (!gap) return fail("That gap is not here.");
-  if (!canModerate(actor, gap.skillId)) return fail("You cannot close gaps in this niche.");
-  if (gap.status === "RESOLVED") return fail("That gap was resolved by a contribution.");
-  await prisma.gapReport.update({ where: { id: gap.id }, data: { status: "CLOSED" } });
+  if (!canModerate(actor, gap.skillId)) return fail("You cannot change gaps in this niche.");
+
+  const move = GAP_MOVES[op];
+  if (gap.status !== move.from) return fail(move.error);
+  const changed = await prisma.gapReport.updateMany({ where: { id: gap.id, status: move.from }, data: move.data });
+  if (changed.count === 0) return fail("That gap changed since you opened it. Reload to see the latest version.");
   invalidateCommunity();
   return { ok: true as const };
 }

@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { getMilestone } from "@/lib/data/milestone";
-import { EmptyState } from "@/components/feedback/EmptyState.jsx";
 import { ExplainBackForm } from "./_components/ExplainBackForm";
 
 type PageProps = {
@@ -15,7 +14,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const data = await getMilestone(stageId);
   if (!data) return { title: "Page not found" };
   if (data.kind === "locked") return { title: "Explain-back" };
-  if (data.kind === "quiz_required") return { title: data.stageTitle };
   return { title: data.stage.title };
 }
 
@@ -29,24 +27,6 @@ export default async function MilestonePage({ params }: PageProps) {
 
   if (data.kind === "locked") redirect(`/roadmap/${data.skillSlug}`);
 
-  if (data.kind === "quiz_required") {
-    return (
-      <div className="sf-milestone">
-        <EmptyState
-          icon="list-checks"
-          titleAs="h1"
-          title="Pass the quiz first"
-          description={`${data.skillName}. ${data.stageTitle}. The explain-back check opens after the quiz. There is no timer and no score. This is a check-in.`}
-          action={
-            <Link className="sf-quiz-cta" href={data.quizHref}>
-              Go to the quiz
-            </Link>
-          }
-        />
-      </div>
-    );
-  }
-
   if (data.kind === "passed") {
     return (
       <div className="sf-milestone">
@@ -55,7 +35,7 @@ export default async function MilestonePage({ params }: PageProps) {
             Back to the path
           </Link>
         </p>
-        <header className="sf-quiz-head">
+        <header className="sf-milestone-head">
           <p>{data.skill.name}</p>
           <h1>{data.stage.title}</h1>
         </header>
@@ -64,7 +44,7 @@ export default async function MilestonePage({ params }: PageProps) {
           <h2 id="saved-question">{data.prompt.question}</h2>
           <p>{data.acceptedExplanation}</p>
         </section>
-        <Link className="sf-quiz-cta" href={data.continueHref}>
+        <Link className="sf-milestone-cta" href={data.continueHref}>
           Continue
         </Link>
       </div>

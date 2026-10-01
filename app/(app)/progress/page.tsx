@@ -24,7 +24,7 @@ export default async function ProgressPage() {
         <ul className="sf-stat-grid">
           <li><StatCard label="Skills in progress" value={data.skillsInProgress} icon={<Icon name="route" size={14} />} /></li>
           <li><StatCard emphasis label="Milestones this week" value={data.milestonesPassedThisWeek} icon={<Icon name="flag" size={14} />} /></li>
-          <li><StatCard label="Quizzes completed" value={data.quizzesCompleted} icon={<Icon name="list-checks" size={14} />} /></li>
+          <li><StatCard label="Explain-backs passed" value={data.explainBacksPassed} icon={<Icon name="message-square-quote" size={14} />} /></li>
           <li><StatCard label="Longest streak" value={data.longestStreak} unit="days" icon={<Icon name="flame" size={14} />} /></li>
         </ul>
       </section>

@@ -3,7 +3,6 @@ import type {
   LeaderboardRowView,
   MasteryPointView,
   NotificationView,
-  QuizView,
   ResourceView,
   RoadmapStageView,
   SkillStatus,
@@ -12,7 +11,7 @@ import type {
   WeakTopicView,
 } from "@/lib/types/domain";
 
-export type LessonLaneStatus = "done" | "current" | "ready" | "quiz" | "milestone_check" | "locked";
+export type LessonLaneStatus = "done" | "current" | "ready" | "milestone_check" | "locked";
 
 export type LessonLaneItem = {
   id: string;
@@ -35,7 +34,7 @@ export type DashboardData = {
   longestStreak: number;
   skillsInProgress: number;
   milestonesPassedThisWeek: number;
-  quizzesCompleted: number;
+  explainBacksPassed: number;
   nextLesson: { title: string; skillName: string; href: string } | null;
   followed: DashboardSkillRow[];
   catalog: SkillView[];
@@ -103,19 +102,10 @@ export type LessonData =
       skill: SkillView;
       stage: RoadmapStageView;
       resources: ResourceView[];
-      /** Null when this stage has no quiz row yet. */
-      quizHref: string | null;
     };
-
-export type QuizData =
-  | { kind: "unavailable" }
-  | { kind: "locked"; skillSlug: string; skillName: string; stageTitle: string; previousStageTitle: string | null }
-  | { kind: "empty"; skillSlug: string; skillName: string; stageTitle: string }
-  | { kind: "ready"; skill: SkillView; stage: RoadmapStageView; quiz: QuizView };
 
 export type MilestoneData =
   | { kind: "locked"; skillSlug: string }
-  | { kind: "quiz_required"; quizHref: string; skillName: string; stageTitle: string }
   | {
       kind: "passed";
       skill: SkillView;
@@ -148,7 +138,7 @@ export type ProgressData = {
   longestStreak: number;
   skillsInProgress: number;
   milestonesPassedThisWeek: number;
-  quizzesCompleted: number;
+  explainBacksPassed: number;
   skills: { skill: SkillView; points: MasteryPointView[] }[];
   weakTopics: WeakTopicView[];
 };
@@ -186,7 +176,6 @@ export type TranscriptData = {
   milestones: {
     stageId: string;
     title: string;
-    quizPassedOn: string;
     explainBackPassedOn: string;
   }[];
 };

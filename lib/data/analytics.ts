@@ -11,7 +11,6 @@ export type AnalyticsData = {
   skills: { name: string; mastery: number }[];
   history: AnalyticsPoint[];
   week: { day: string; checks: number }[];
-  quizzes: { name: string; count: number }[];
   explain: { name: string; count: number }[];
   insights: { title: string; body: string }[];
   reviewHref: string | null;
@@ -39,14 +38,12 @@ export async function getAnalytics(): Promise<AnalyticsData> {
   const streak = user?.currentStreak ?? 0;
   const longest = user?.longestStreak ?? 0;
 
-  const [quizPassed, quizMissed, explainPassed, explainNeeds] = userId
+  const [explainPassed, explainNeeds] = userId
     ? await Promise.all([
-        prisma.quizAttempt.count({ where: { userId, passed: true } }),
-        prisma.quizAttempt.count({ where: { userId, passed: false } }),
         prisma.explainBackAttempt.count({ where: { userId, verdict: "PASSED" } }),
         prisma.explainBackAttempt.count({ where: { userId, verdict: "NEEDS_IMPROVEMENT" } }),
       ])
-    : [0, 0, 0, 0];
+    : [0, 0];
 
   const ranked = [...skills].sort((a, b) => b.mastery - a.mastery);
   const leader = ranked[0];
@@ -60,7 +57,7 @@ export async function getAnalytics(): Promise<AnalyticsData> {
     : leader.mastery === 0
       ? {
           title: "Mastery has not started",
-          body: `${skills.map((skill) => `${skill.name} is at 0%`).join(". ")}. A stage counts after the quiz and the explain-back both pass.`,
+          body: `${skills.map((skill) => `${skill.name} is at 0%`).join(". ")}. A stage counts once its explain-back passes.`,
         }
       : {
           title: `${leader.name.split(" ")[0]} is ahead`,
@@ -76,10 +73,6 @@ export async function getAnalytics(): Promise<AnalyticsData> {
     skills,
     history: [],
     week: [],
-    quizzes: [
-      { name: "Passed", count: quizPassed },
-      { name: "Needs another look", count: quizMissed },
-    ],
     explain: [
       { name: "Passed", count: explainPassed },
       { name: "Needs another look", count: explainNeeds },
@@ -91,8 +84,8 @@ export async function getAnalytics(): Promise<AnalyticsData> {
       },
       skillInsight,
       {
-        title: "Quizzes and explain-backs",
-        body: `${quizPassed} ${quizPassed === 1 ? "quiz" : "quizzes"} passed, and ${quizMissed} ${quizMissed === 1 ? "needs" : "need"} another look. ${explainPassed} explain-back${explainPassed === 1 ? "" : "s"} passed, and ${explainNeeds} ${explainNeeds === 1 ? "needs" : "need"} another look.`,
+        title: "Explain-backs",
+        body: `${explainPassed} explain-back${explainPassed === 1 ? "" : "s"} passed, and ${explainNeeds} ${explainNeeds === 1 ? "needs" : "need"} another look.`,
       },
     ],
     reviewHref: null,

@@ -55,7 +55,7 @@ export type SuggestedPerson = { id: string; name: string | null; image: string |
 
 /**
  * Two groups for one niche, never including people who already review or maintain it.
- * Eligible: 3 merged here, and a full pass (quiz and explain-back) on every stage when the niche has stages.
+ * Eligible: 3 merged here, and a passed explain-back on every stage when the niche has stages.
  * Strong contributors: 3 merged here, path not completed. Nobody is granted automatically.
  * Five queries, whatever the niche size.
  */
@@ -104,12 +104,12 @@ export async function suggestedReviewers(actorId: string, skillId: string) {
   return { ok: true as const, eligible, strong, note: SUGGESTION_NOTE };
 }
 
-/** People who passed the quiz and the explain-back on every one of these stages. */
+/** People who passed the explain-back on every one of these stages. */
 async function fullPasses(userIds: string[], stageIds: string[]): Promise<Set<string>> {
   if (userIds.length === 0 || stageIds.length === 0) return new Set();
   const rows = await prisma.stageCompletion.groupBy({
     by: ["userId"],
-    where: { userId: { in: userIds }, stageId: { in: stageIds }, quizPassed: true, explainBackPassed: true },
+    where: { userId: { in: userIds }, stageId: { in: stageIds }, explainBackPassed: true },
     _count: { _all: true },
   });
   return new Set(rows.flatMap((row) => (row._count._all >= stageIds.length ? [row.userId] : [])));

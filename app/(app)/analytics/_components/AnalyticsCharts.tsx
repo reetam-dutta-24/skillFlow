@@ -140,28 +140,6 @@ export function AnalyticsCharts({ data }: { data: AnalyticsData }) {
         />
       </section>
 
-      <section className="sf-chart-card" aria-labelledby="chart-quiz">
-        <header>
-          <h2 id="chart-quiz">Quiz results</h2>
-          <p>{countSentence(data.quizzes)} A miss is a reason to review, not a penalty.</p>
-        </header>
-        <div className="sf-chart-frame">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={data.quizzes}>
-              <CartesianGrid stroke="var(--chart-grid)" vertical={false} />
-              <XAxis dataKey="name" stroke="var(--chart-axis)" tick={{ fill: "var(--chart-axis)", fontSize: 12 }} />
-              <YAxis allowDecimals={false} stroke="var(--chart-axis)" tick={{ fill: "var(--chart-axis)", fontSize: 12 }} />
-              <Tooltip content={<ChartTip />} />
-              <Bar dataKey="count" name="Quizzes" radius={[8, 8, 0, 0]}>
-                {data.quizzes.map((row, index) => (
-                  <Cell key={row.name} fill={COLORS[index % COLORS.length]} />
-                ))}
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-      </section>
-
       <section className="sf-chart-card" aria-labelledby="chart-explain">
         <header>
           <h2 id="chart-explain">Explain-back</h2>

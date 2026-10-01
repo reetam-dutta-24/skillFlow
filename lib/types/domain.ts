@@ -61,35 +61,9 @@ export type RoadmapStageView = {
   status: StageStatus;
   masteryPercent: number;
   lessonCount: number;
-  hasQuiz: boolean;
   hasExplainBack: boolean;
-  quizPassed: boolean;
   explainBackPassed: boolean;
   previousStageTitle: string | null;
-};
-
-export type QuizOptionView = {
-  id: string;
-  label: string;
-};
-
-export type QuizQuestionView = {
-  id: string;
-  quizId: string;
-  prompt: string;
-  options: QuizOptionView[];
-  correctOptionId: string;
-  explanation: string;
-  order: number;
-  sourceTitle: string;
-};
-
-export type QuizView = {
-  id: string;
-  stageId: string;
-  version: number;
-  questions: QuizQuestionView[];
-  createdAt: string;
 };
 
 export type ExplainBackPromptView = {

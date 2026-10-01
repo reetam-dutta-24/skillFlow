@@ -98,7 +98,6 @@ export async function CachedLesson({ stageId }: { stageId: string }) {
         clipUrl={clip?.url}
         poster={data.skill.image}
         resource={featured ? { title: featured.title, url: featured.url, source: hostLabel(featured.url) } : undefined}
-        continueHref={data.quizHref ?? undefined}
       />
       {featured && (featured.description || featured.keyPoints.length) ? (
         <section className="sf-lesson-notes" aria-label="About this resource">

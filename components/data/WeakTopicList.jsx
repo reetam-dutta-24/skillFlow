@@ -4,7 +4,7 @@ import React from "react";
 import { Icon } from "../core/Icon.jsx";
 import { Chip } from "../core/Chip.jsx";
 
-/** Concepts flagged by low quiz / explain-back performance. */
+/** Concepts flagged by explain-back answers that need another look. */
 export function WeakTopicList({ topics = [], onReview, style, ...rest }) {
   return (
     <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: 8, ...style }} {...rest}>

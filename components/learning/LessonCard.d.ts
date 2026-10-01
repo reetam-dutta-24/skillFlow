@@ -15,9 +15,9 @@ export interface LessonCardProps extends React.HTMLAttributes<HTMLElement> {
   status?: "done" | "active" | "todo" | "locked";
   /** Mastery percentage; omit when the lesson has no verified mastery yet. */
   mastery?: number;
-  kind?: "lesson" | "quiz" | "gate";
+  kind?: "lesson" | "gate";
   thumbnail?: string;
-  /** Opens the lesson, quiz, or roadmap. Locked cards ignore it. */
+  /** Opens the lesson, the explain-back, or the roadmap. Locked cards ignore it. */
   href?: string;
   onOpen?: () => void;
 }

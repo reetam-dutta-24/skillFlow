@@ -1,6 +1,6 @@
 # SkillFlow
 
-A mastery-first learning platform. Curated roadmaps, a quiz, and an explain-back check are the product. Version 1 ships the roadmaps and the lessons. The quiz and the explain-back are not graded yet.
+A mastery-first learning platform. Curated roadmaps, your own resources, and an explain-back check are the product. Version 1 ships the roadmaps and the lessons. The explain-back is not graded yet. There is no quiz.
 
 ## Status
 
@@ -27,7 +27,7 @@ A dead stored link can be marked unavailable. The lesson keeps the saved title, 
 - Next.js 16.3.4, React 19, TypeScript, Tailwind CSS v4. Landing and auth pages are static. Shared catalog screens (niche grid, lessons, clips, submit picker) are cached for every visitor under the `catalog` tag. Public community lists and contributor profiles are cached under the `community` tag. Progress, the account menu, the review queue, and a person's own contributions stay per request
 - PostgreSQL and Prisma 6
 - Auth.js v5 — email and password with bcrypt, JWT sessions. Google is configured in code and is not on the login form
-- Quizzes and explain-back grading are not connected to a model yet
+- Explain-back grading is not connected to a model yet
 
 ## Getting started
 
@@ -78,4 +78,4 @@ Typing `fail this merge` as review feedback shows the review error state without
 
 ## What is still ahead
 
-Passing a quiz or an explain-back does not unlock a stage. The model calls, Stripe, and the leaderboard score are not running. `Project-roadmap.md` is the phase list. `AGENTS.md` is the working context for the next session.
+Passing an explain-back does not unlock a stage. The model calls, Stripe, and the leaderboard score are not running. `Project-roadmap.md` is the phase list. `AGENTS.md` is the working context for the next session.

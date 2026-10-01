@@ -43,7 +43,6 @@ async function TranscriptContent({ params }: PageProps) {
         {data.milestones.length ? data.milestones.map((item) => (
           <li key={item.title}>
             <strong>{item.title}</strong>
-            <span>Quiz {item.quizPassedOn}</span>
             <span>Explain-back {item.explainBackPassedOn}</span>
           </li>
         )) : <li>No passed milestone on this skill yet.</li>}

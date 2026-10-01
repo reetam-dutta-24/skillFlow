@@ -23,7 +23,6 @@ export const getTranscript = cache(async (skillSlug: string) => {
     skill,
     milestones: passed.map((stage) => ({
       title: stage.title,
-      quizPassedOn: stage.id === passedMilestone.stageId ? passedMilestone.quizPassedOn : "2026-08-02",
       explainBackPassedOn: stage.id === passedMilestone.stageId ? passedMilestone.explainBackPassedOn : "2026-08-04",
     })),
   };

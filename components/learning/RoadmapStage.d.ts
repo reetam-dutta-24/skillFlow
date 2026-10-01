@@ -15,7 +15,7 @@ export interface RoadmapStageProps extends React.LiHTMLAttributes<HTMLLIElement>
   description?: React.ReactNode;
   status?: "done" | "active" | "todo" | "locked";
   mastery?: number;
-  /** Factual meta line, e.g. "3 lessons · 1 quiz · explain-back gate". */
+  /** Factual meta line, e.g. "3 lessons · explain-back". */
   meta?: React.ReactNode;
   /** Required when locked, e.g. "Complete the explain-back check on Hooks & State to unlock." */
   unlockHint?: React.ReactNode;

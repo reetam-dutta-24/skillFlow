@@ -13,7 +13,7 @@ export default async function ByorPage() {
       <p className="sf-v2-label">Version 2 preview</p>
       <header className="sf-page-head">
         <h1>Bring your own resource</h1>
-        <p>Paste a lesson link. A quiz preview is generated here. Nothing is published to a roadmap.</p>
+        <p>Bring a resource you are learning from. SkillFlow turns it into an explain-back gate prompt. Nothing is published to a roadmap.</p>
       </header>
       <ByorForm />
     </div>

@@ -6,7 +6,6 @@ import type {
   LeaderboardRowView,
   MasteryPointView,
   NotificationView,
-  QuizView,
   ResourceType,
   ResourceView,
   RoadmapStageView,
@@ -22,7 +21,6 @@ export const learnerStats = {
   currentStreak: 12,
   longestStreak: 21,
   milestonesPassedThisWeek: 3,
-  quizzesCompleted: 28,
   skillsInProgress: 2,
 };
 
@@ -36,9 +34,6 @@ export const habitWeek = [
   { day: "Sat", checks: 3 },
   { day: "Sun", checks: 2 },
 ];
-
-/** 22 + 6 = quizzesCompleted. Passed means the quiz threshold was met. */
-export const quizOutcomes = { passed: 22, needsAnotherLook: 6 };
 
 /** Explain-back outcomes. Retries are not penalties. */
 export const explainOutcomes = { passed: 9, retried: 3 };
@@ -131,21 +126,20 @@ type StageSeed = {
   order: number;
   status: StageStatus;
   masteryPercent: number;
-  quizPassed: boolean;
   explainBackPassed: boolean;
 };
 
 const stageSeeds: StageSeed[] = [
-  { id: "stage_fs_1", skillId: "skill_fs", title: "React Fundamentals", description: "Components, props, and the render model.", order: 1, status: "passed", masteryPercent: 100, quizPassed: true, explainBackPassed: true },
-  { id: "stage_fs_2", skillId: "skill_fs", title: "Hooks & State", description: "State, effects, and the dependency array.", order: 2, status: "in_progress", masteryPercent: 48, quizPassed: false, explainBackPassed: false },
-  { id: "stage_fs_3", skillId: "skill_fs", title: "Server Actions", description: "Mutating data without writing API routes.", order: 3, status: "locked", masteryPercent: 0, quizPassed: false, explainBackPassed: false },
-  { id: "stage_fs_4", skillId: "skill_fs", title: "Auth & Sessions", description: "Protecting routes and managing identity.", order: 4, status: "locked", masteryPercent: 0, quizPassed: false, explainBackPassed: false },
-  { id: "stage_fs_5", skillId: "skill_fs", title: "Database & Prisma", description: "Modeling and querying relational data.", order: 5, status: "locked", masteryPercent: 0, quizPassed: false, explainBackPassed: false },
-  { id: "stage_art_1", skillId: "skill_art", title: "Value & Form", description: "Light, shadow, and how a form turns in space.", order: 1, status: "in_progress", masteryPercent: 28, quizPassed: false, explainBackPassed: false },
-  { id: "stage_art_2", skillId: "skill_art", title: "Color Theory", description: "Hue, value, and temperature in a limited palette.", order: 2, status: "locked", masteryPercent: 0, quizPassed: false, explainBackPassed: false },
-  { id: "stage_art_3", skillId: "skill_art", title: "Perspective", description: "One- and two-point perspective for solid objects.", order: 3, status: "locked", masteryPercent: 0, quizPassed: false, explainBackPassed: false },
-  { id: "stage_art_4", skillId: "skill_art", title: "Anatomy & Proportion", description: "Landmarks and proportions for a standing figure.", order: 4, status: "locked", masteryPercent: 0, quizPassed: false, explainBackPassed: false },
-  { id: "stage_art_5", skillId: "skill_art", title: "Composition", description: "Placing the subject so the eye knows where to rest.", order: 5, status: "locked", masteryPercent: 0, quizPassed: false, explainBackPassed: false },
+  { id: "stage_fs_1", skillId: "skill_fs", title: "React Fundamentals", description: "Components, props, and the render model.", order: 1, status: "passed", masteryPercent: 100, explainBackPassed: true },
+  { id: "stage_fs_2", skillId: "skill_fs", title: "Hooks & State", description: "State, effects, and the dependency array.", order: 2, status: "in_progress", masteryPercent: 48, explainBackPassed: false },
+  { id: "stage_fs_3", skillId: "skill_fs", title: "Server Actions", description: "Mutating data without writing API routes.", order: 3, status: "locked", masteryPercent: 0, explainBackPassed: false },
+  { id: "stage_fs_4", skillId: "skill_fs", title: "Auth & Sessions", description: "Protecting routes and managing identity.", order: 4, status: "locked", masteryPercent: 0, explainBackPassed: false },
+  { id: "stage_fs_5", skillId: "skill_fs", title: "Database & Prisma", description: "Modeling and querying relational data.", order: 5, status: "locked", masteryPercent: 0, explainBackPassed: false },
+  { id: "stage_art_1", skillId: "skill_art", title: "Value & Form", description: "Light, shadow, and how a form turns in space.", order: 1, status: "in_progress", masteryPercent: 28, explainBackPassed: false },
+  { id: "stage_art_2", skillId: "skill_art", title: "Color Theory", description: "Hue, value, and temperature in a limited palette.", order: 2, status: "locked", masteryPercent: 0, explainBackPassed: false },
+  { id: "stage_art_3", skillId: "skill_art", title: "Perspective", description: "One- and two-point perspective for solid objects.", order: 3, status: "locked", masteryPercent: 0, explainBackPassed: false },
+  { id: "stage_art_4", skillId: "skill_art", title: "Anatomy & Proportion", description: "Landmarks and proportions for a standing figure.", order: 4, status: "locked", masteryPercent: 0, explainBackPassed: false },
+  { id: "stage_art_5", skillId: "skill_art", title: "Composition", description: "Placing the subject so the eye knows where to rest.", order: 5, status: "locked", masteryPercent: 0, explainBackPassed: false },
 ];
 
 function resource(
@@ -221,98 +215,12 @@ function stagesFor(skillId: string): RoadmapStageView[] {
     status: stage.status,
     masteryPercent: stage.masteryPercent,
     lessonCount: resources.filter((item) => item.stageId === stage.id).length,
-    hasQuiz: true,
     hasExplainBack: true,
-    quizPassed: stage.quizPassed,
     explainBackPassed: stage.explainBackPassed,
     image: null,
     previousStageTitle: index > 0 ? seeds[index - 1].title : null,
   }));
 }
-
-const hooksQuiz: QuizView = {
-  id: "quiz_fs_2",
-  stageId: "stage_fs_2",
-  version: 1,
-  createdAt: CREATED,
-  questions: [
-    {
-      id: "q1",
-      quizId: "quiz_fs_2",
-      order: 1,
-      prompt: "What does calling a state setter do during the current render?",
-      sourceTitle: "useState",
-      correctOptionId: "q1b",
-      explanation: "From the useState page: the setter schedules a new render. The render that is already running still sees the old value.",
-      options: [
-        { id: "q1a", label: "It changes the variable immediately, so the rest of this render sees the new value." },
-        { id: "q1b", label: "It schedules another render. This render still sees the old value." },
-        { id: "q1c", label: "It writes the value to the database before the function returns." },
-        { id: "q1d", label: "It skips the next render if the component has already painted." },
-      ],
-    },
-    {
-      id: "q2",
-      quizId: "quiz_fs_2",
-      order: 2,
-      prompt: "Why does useEffect take a dependency array?",
-      sourceTitle: "useEffect",
-      correctOptionId: "q2a",
-      explanation: "From the useEffect page: the array lists the values the effect closes over, so React can skip the effect when they have not changed.",
-      options: [
-        { id: "q2a", label: "So React can re-run the effect only when those values change." },
-        { id: "q2b", label: "So the effect is allowed to update the DOM during render." },
-        { id: "q2c", label: "So React can store the effect's return value as state." },
-        { id: "q2d", label: "So the effect runs once per dependency, in parallel." },
-      ],
-    },
-    {
-      id: "q3",
-      quizId: "quiz_fs_2",
-      order: 3,
-      prompt: "When does an effect with an empty dependency array run?",
-      sourceTitle: "useEffect",
-      correctOptionId: "q3c",
-      explanation: "An empty array means none of the values are expected to change, so the effect runs after the first paint and not on later updates.",
-      options: [
-        { id: "q3a", label: "After every paint." },
-        { id: "q3b", label: "During render, before the browser paints." },
-        { id: "q3c", label: "After the first paint only." },
-        { id: "q3d", label: "Only when the component unmounts." },
-      ],
-    },
-    {
-      id: "q4",
-      quizId: "quiz_fs_2",
-      order: 4,
-      prompt: "What is the cleanup function for?",
-      sourceTitle: "useEffect",
-      correctOptionId: "q4d",
-      explanation: "Cleanup runs before the effect runs again and when the component unmounts, so a subscription or timer from the previous run does not linger.",
-      options: [
-        { id: "q4a", label: "To reset state back to its initial value." },
-        { id: "q4b", label: "To cancel the render that is currently in progress." },
-        { id: "q4c", label: "To skip the dependency array on the next update." },
-        { id: "q4d", label: "To stop work from the previous effect before the next one starts, and on unmount." },
-      ],
-    },
-    {
-      id: "q5",
-      quizId: "quiz_fs_2",
-      order: 5,
-      prompt: "What goes wrong if an effect uses a value that is missing from its dependency array?",
-      sourceTitle: "useEffect",
-      correctOptionId: "q5b",
-      explanation: "The effect keeps the value from the render that created it. Later renders change that value, but the effect still sees the old one.",
-      options: [
-        { id: "q5a", label: "React refuses to render the component." },
-        { id: "q5b", label: "The effect can keep seeing an older value from a previous render." },
-        { id: "q5c", label: "The dependency array is ignored and the effect runs twice as often." },
-        { id: "q5d", label: "The missing value is read from local storage instead." },
-      ],
-    },
-  ],
-};
 
 const explainPrompts: ExplainBackPromptView[] = [
   {
@@ -359,7 +267,7 @@ const weakTopics: WeakTopicView[] = [
     skillName: "Full-Stack Web Development",
     stageId: "stage_fs_2",
     accuracy: 0.42,
-    reason: "3 misses in 2 quizzes",
+    reason: "Explain-back needed another look twice",
   },
   {
     id: "weak_color_temp",
@@ -472,17 +380,6 @@ export function listResources(stageId: string) {
     .map((item) => ({ ...item }));
 }
 
-export function findQuiz(stageId: string) {
-  if (stageId !== hooksQuiz.stageId) return null;
-  return {
-    ...hooksQuiz,
-    questions: hooksQuiz.questions.map((question) => ({
-      ...question,
-      options: question.options.map((option) => ({ ...option })),
-    })),
-  };
-}
-
 export function findExplainPrompt(stageId: string) {
   return explainPrompts.find((prompt) => prompt.stageId === stageId) ?? null;
 }
@@ -538,7 +435,6 @@ export const passedMilestone = {
   stageId: "stage_fs_1",
   skillSlug: "full-stack-web-dev",
   title: "React Fundamentals",
-  quizPassedOn: "2026-08-02",
   explainBackPassedOn: "2026-08-04",
 };
 

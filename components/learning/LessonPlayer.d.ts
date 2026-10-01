@@ -21,7 +21,7 @@ export interface LessonPlayerProps extends React.HTMLAttributes<HTMLElement> {
   clipUrl?: string;
   onToggleWatched?: () => void;
   onContinue?: () => void;
-  /** Continues to the quiz. Locked and kit previews keep `onContinue`. */
+  /** Continues to the explain-back check. Kit previews use `onContinue`. */
   continueHref?: string;
   poster?: string;
 }

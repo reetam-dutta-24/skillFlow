@@ -1,6 +1,6 @@
 import React from "react";
 
-/** Linear progress track — mastery, quiz position, onboarding steps. */
+/** Linear progress track — mastery, onboarding steps. */
 export function ProgressBar({ value = 0, max = 100, height = 6, label, showValue = false, tone = "accent", style, ...rest }) {
   const pct = Math.max(0, Math.min(100, (value / max) * 100));
   const fill = tone === "pass" ? "var(--state-pass)" : tone === "warn" ? "var(--state-warn)" : "var(--gradient-brand)";

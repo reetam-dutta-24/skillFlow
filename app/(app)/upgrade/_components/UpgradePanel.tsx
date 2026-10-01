@@ -13,7 +13,7 @@ export function UpgradePanel({ priceLabel, premium }: { priceLabel: string; prem
           <tr><th scope="col"> </th><th scope="col">Free</th><th scope="col">Premium</th></tr>
         </thead>
         <tbody>
-          <tr><th scope="row">Roadmaps, quizzes, explain-back</th><td>Included</td><td>Included</td></tr>
+          <tr><th scope="row">Roadmaps and explain-back</th><td>Included</td><td>Included</td></tr>
           <tr><th scope="row">Deeper mentor explanations</th><td>Not included</td><td>Included</td></tr>
           <tr><th scope="row">Advanced analytics</th><td>Not included</td><td>Included</td></tr>
           <tr><th scope="row">Premium roadmaps</th><td>Not included</td><td>Included</td></tr>

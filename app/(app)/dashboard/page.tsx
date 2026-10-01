@@ -15,25 +15,23 @@ import { NicheGrid, NicheTeaserFallback } from "../skills/_components/NicheGrid"
 function cardStatus(status: LessonLaneStatus) {
   if (status === "done") return "done" as const;
   if (status === "current") return "active" as const;
-  if (status === "quiz" || status === "ready") return "todo" as const;
+  if (status === "ready") return "todo" as const;
   return "locked" as const;
 }
 
 function cardKind(status: LessonLaneStatus) {
-  if (status === "quiz") return "quiz" as const;
   if (status === "milestone_check") return "gate" as const;
   return "lesson" as const;
 }
 
 function cardMeta(status: LessonLaneStatus) {
-  if (status === "quiz") return "Quiz";
   if (status === "milestone_check") return "Explain-back";
   if (status === "locked") return "Locked";
   return undefined;
 }
 
 function canOpen(status: LessonLaneStatus) {
-  return status === "done" || status === "current" || status === "ready" || status === "quiz";
+  return status === "done" || status === "current" || status === "ready";
 }
 
 export const metadata: Metadata = {
@@ -75,7 +73,7 @@ export default async function DashboardPage() {
             />
           </li>
           <li>
-            <StatCard label="Quizzes completed" value={data.quizzesCompleted} icon={<Icon name="list-checks" size={14} />} />
+            <StatCard label="Explain-backs passed" value={data.explainBacksPassed} icon={<Icon name="message-square-quote" size={14} />} />
           </li>
           <li>
             <StatCard label="Longest streak" value={data.longestStreak} unit="days" icon={<Icon name="flame" size={14} />} />

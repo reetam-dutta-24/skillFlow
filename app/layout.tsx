@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     template: "%s · SkillFlow",
   },
   description:
-    "A mastery-first learning system with curated roadmaps, grounded quizzes, and a Socratic explain-back gate.",
+    "A mastery-first learning system with curated roadmaps, bring-your-own resources, and a Socratic explain-back gate.",
 };
 
 /** Static shell. Request data stays out of this layout so pages can be prerendered. */

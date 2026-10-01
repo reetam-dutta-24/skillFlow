@@ -86,7 +86,7 @@ export function SettingsScreen({
     }
     setRows((current) => current.map((skill) => (skill.id === id ? { ...skill, followed: false } : skill)));
     setConfirmId(null);
-    setNotice("Skill removed from the feed. Quiz and explain-back results stay on the account.");
+    setNotice("Skill removed from the feed. Explain-back results stay on the account.");
     router.refresh();
   }
 
@@ -121,7 +121,7 @@ export function SettingsScreen({
           </div>
         </div>
       </SettingsSection>
-      <SettingsSection title="Skills" subtitle="Add a skill to show it on Home. Removing one hides it from the feed. Quiz and explain-back results stay.">
+      <SettingsSection title="Skills" subtitle="Add a skill to show it on Home. Removing one hides it from the feed. Explain-back results stay.">
         <ul className="sf-settings-skills">
           {rows.map((skill) => (
             <li key={skill.id}>
@@ -134,7 +134,7 @@ export function SettingsScreen({
               {skill.followed ? (
                 confirmId === skill.id ? (
                   <div className="sf-settings-skill-actions">
-                    <p>Quiz results stay on the account.</p>
+                    <p>Explain-back results stay on the account.</p>
                     <Button type="button" size="sm" variant="outline" disabled={pending === skill.id} onClick={() => void removeSkill(skill.id)}>
                       {pending === skill.id ? "Removing..." : "Remove"}
                     </Button>

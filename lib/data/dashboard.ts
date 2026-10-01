@@ -69,9 +69,9 @@ export async function getDashboardData(): Promise<DashboardData> {
       })
     : null;
 
-  const [quizzesCompleted, milestonesPassedThisWeek] = userId
+  const [explainBacksPassed, milestonesPassedThisWeek] = userId
     ? await Promise.all([
-        prisma.quizAttempt.count({ where: { userId, passed: true } }),
+        prisma.explainBackAttempt.count({ where: { userId, verdict: "PASSED" } }),
         prisma.stageCompletion.count({
           where: { userId, explainBackPassed: true, completedAt: { gte: weekAgo() } },
         }),
@@ -83,7 +83,7 @@ export async function getDashboardData(): Promise<DashboardData> {
     longestStreak: user?.longestStreak ?? 0,
     skillsInProgress: followed.length,
     milestonesPassedThisWeek,
-    quizzesCompleted,
+    explainBacksPassed,
     nextLesson: nextStage
       ? { title: nextStage.stage.title, skillName: nextStage.skillName, href: `/lesson/${nextStage.stage.id}` }
       : null,

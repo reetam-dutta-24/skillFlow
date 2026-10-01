@@ -3,7 +3,7 @@ import * as React from "react";
 /**
  * Metric tile. AniVerse used a blue-violet gradient fill and vanity metrics;
  * SkillFlow uses a neutral surface and mastery metrics only
- * (streak, skills in progress, milestones passed, quizzes completed).
+ * (streak, skills in progress, milestones passed, explain-backs passed).
  *
  * @startingPoint section="Primitives" subtitle="Mastery metric tiles" viewport="700x150"
  */

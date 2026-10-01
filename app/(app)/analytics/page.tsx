@@ -16,7 +16,7 @@ export default async function AnalyticsPage() {
     <div className="sf-analytics">
       <header className="sf-page-head">
         <h1>Analytics</h1>
-        <p>What this account has actually passed. Streak, mastery, quizzes, and explain-backs come from the saved record, not a sample chart.</p>
+        <p>What this account has actually passed. Streak, mastery, and explain-backs come from the saved record, not a sample chart.</p>
       </header>
       <ul className="sf-insight-row">
         {data.insights.map((insight) => (

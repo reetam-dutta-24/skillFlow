@@ -16,7 +16,7 @@ Last aligned with the working tree on 1 October 2026.
 
 ## What this product is
 
-SkillFlow is a mastery-first learning app. A learner follows a skill, opens a stage of real external resources, and is meant to pass a quiz and an explain-back before moving on. Version 1 does not grade those checks yet. The free paths open every stage except the last three.
+SkillFlow is a mastery-first learning app. A learner follows a skill, opens a stage of real external resources, and is meant to pass an explain-back before moving on. Version 1 does not grade it yet. There is no quiz. A learner can also bring their own resource and get an explain-back gate prompt for it (Version 2 preview). The free paths open every stage except the last three.
 
 There is no comments, likes, view counts, or payments. Do not build Stripe.
 
@@ -77,12 +77,13 @@ Do not run `npx prisma db seed`. The seed resets admin passwords and rewrites ev
 Wired to Postgres:
 
 - Niches, roadmaps, lessons, and clips read `Skill`, `RoadmapStage`, and `Resource`.
-- Home shows one row per followed skill. Settings → Add follows an available skill and writes `UserSkillProgress`. Settings → Remove deletes that progress row and keeps quiz history. Home and the roadmap index show a short niche teaser that links to `/skills`. They do not follow a skill.
+- Home shows one row per followed skill. Settings → Add follows an available skill and writes `UserSkillProgress`. Settings → Remove deletes that progress row and keeps explain-back history. Home and the roadmap index show a short niche teaser that links to `/skills`. They do not follow a skill.
 - A niche card links to `/roadmap/[slug]` only when the skill is available and has stages. Coming-soon cards are articles.
 - Admin catalog (`/admin/catalog`) edits skills that already have stages, and lists every niche. Needs-review filter is `#catalog-review-only`.
 - Submit writes `ResourceSubmission`. Admin approval creates a `Resource`. Reject stores a note.
 - Profile name saves. Email does not. Theme and accent apply immediately. The ten presets stay. A custom gradient is `custom:#start:#end` on `LearnerProfile.accent` and the `skillflow-accent` cookie. The palette, hex, and RGB fields live on Settings and onboarding. That choice is personal: it is not part of the catalog cache, and saving it does not call `invalidateCatalog()`.
-- Explain-back questions and rubrics are stored on each imported stage. No quiz questions are stored. `/quiz/[stageId]` reads Prisma and shows an empty state.
+- Explain-back questions and rubrics are stored on each imported stage. A stage counts as passed when `StageCompletion.explainBackPassed` is true. Home and Progress show “Explain-backs passed” from `ExplainBackAttempt`.
+- The quiz feature was dropped on 1 October 2026. The explain-back gate is the only mastery check. The `Quiz`, `QuizQuestion`, and `QuizAttempt` tables and `StageCompletion.quizPassed` are still in the schema because the database was not changed. Nothing reads or writes them. Do not build on them.
 - Progress, analytics, and home stats read real attempt counts. With no attempts, those numbers are zero. The charts are not a mock learner with a streak of 12.
 - Open Source is wired end to end. It works like pull requests: a contribution is submitted, reviewed, and only `MERGED` ones are public. Community content never goes into `Resource`, `RoadmapStage`, or any catalog table, and community writes never call `invalidateCatalog()`. `/submit` (`ResourceSubmission`) is a separate feature. Coming-soon niches have communities too.
   - Routes. `/open-source` is the feed for followed skills, with a niche rail and a “My contributions” link. `/open-source/[slug]` has Contributions, Gaps, Changelog, Contributors, and a Maintainers tab that only moderators see. `/open-source/[slug]/contribute` (accepts `?gap=` to preselect a gap). `/open-source/[slug]/c/[id]` is the contribution page. `/open-source/me`, `/open-source/me/[id]`, and `/open-source/me/[id]/edit` are the author’s pages. `/open-source/review` and `/open-source/review/[id]` are the review queue. `/admin/community` is admin only. `/profile/[userId]` has an Open Source section.
@@ -96,8 +97,8 @@ Wired to Postgres:
 
 Not wired:
 
-- Quiz generation and explain-back grading. `/milestone/[stageId]` still reads `lib/mock/catalog`. Real stage ids do not resolve there. This is Version 2.
-- Passing a quiz or an explain-back does not unlock the next stage. The last three stages of a free path are what stay locked.
+- Explain-back grading. `/milestone/[stageId]` still reads `lib/mock/catalog`. Real stage ids do not resolve there. This is Version 2.
+- Passing an explain-back does not unlock the next stage. The last three stages of a free path are what stay locked.
 - Streaks do not advance from activity. `User.currentStreak` is stored and displayed. Nothing updates it on a schedule.
 - Mastery percent is not calculated from attempts.
 - Stripe, leaderboard score, transcript PDF, notes, and peer review. Those routes are labeled previews and stay out of the main nav. Creator earnings and a profile rating from creator work are not calculated.

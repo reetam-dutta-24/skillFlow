@@ -156,7 +156,7 @@ export function getLandingContent(): LandingContent {
     heroNote: "Free to start. No credit card required.",
     eyebrow: "Mastery-first learning",
     headline: "Prove you understood it, not just that you watched it.",
-    lead: "SkillFlow turns scattered tutorials into one structured roadmap, checks your understanding with quizzes built from the lesson you just studied, and unlocks each stage only when you can explain the concept in your own words.",
+    lead: "SkillFlow turns scattered tutorials into one structured roadmap, lets you bring your own resources, and opens each stage only when you can explain the concept in your own words.",
     primaryCta: { href: "/signup", label: "Create an account" },
     secondaryCta: { href: "/login", label: "Sign in" },
     skillsNote: "Full-Stack Web Development · Travel Vlogging · Content Creation",
@@ -181,8 +181,8 @@ export function getLandingContent(): LandingContent {
     factsCaption: "How SkillFlow is built, not how many people use it.",
     facts: [
       { value: "3", label: "Flagship skills at launch" },
-      { value: "2", label: "Checks per milestone: a quiz and an explain-back" },
-      { value: "100%", label: "Of quiz questions built from the lesson you just studied" },
+      { value: "1", label: "Explain-back gate per milestone, with a follow-up on what was unclear" },
+      { value: "Any", label: "Resource you bring can become an explain-back prompt" },
       { value: "0", label: "Comments, likes, or trending counters" },
     ],
     problemTitle: "Watching a tutorial is not the same as learning it.",
@@ -223,11 +223,11 @@ export function getLandingContent(): LandingContent {
         mediaLabel: "Structured Roadmaps",
       },
       {
-        id: "quiz",
-        title: "Grounded Quizzes",
-        body: "Questions come from the exact lesson you studied, with explanations that point back to the source.",
+        id: "byor",
+        title: "Bring Your Own Resource",
+        body: "Learning from a doc or a video that is not on the path? Bring it, and SkillFlow turns it into an explain-back gate prompt.",
         points: [],
-        mediaLabel: "Grounded Quizzes",
+        mediaLabel: "Bring Your Own Resource",
       },
       {
         id: "resources",
@@ -267,7 +267,7 @@ export function getLandingContent(): LandingContent {
       {
         index: "03",
         title: "Prove you understood it",
-        body: "Take a quiz built from the lesson, then explain the concept in your own words and answer a follow-up on whatever was unclear.",
+        body: "Pass the explain-back gate: explain the concept in your own words and answer a follow-up on whatever was unclear.",
       },
       {
         index: "04",
@@ -352,8 +352,8 @@ export function getLandingContent(): LandingContent {
       },
       {
         id: "content",
-        title: "The quiz stayed on the lesson",
-        quote: "It asked which part of the edit was the hook and which part was retention. Not whether the video performed.",
+        title: "The question stayed on the lesson",
+        quote: "It asked me to explain which part of the edit was the hook and which part was retention. Not whether the video performed.",
         name: "Jonah Adeyemi",
         skill: "Content technique",
         rating: 4,
@@ -387,7 +387,7 @@ export function getLandingContent(): LandingContent {
     faq: [
       {
         question: "Is SkillFlow free?",
-        answer: "Core learning features (roadmaps, quizzes, and explain-back checks) are free to start.",
+        answer: "Core learning features (roadmaps, bring-your-own resources, and explain-back checks) are free to start.",
       },
       {
         question: "How is this different from YouTube or Udemy?",
@@ -399,8 +399,8 @@ export function getLandingContent(): LandingContent {
         answer: "Specific feedback on what was missing; try again; no penalty.",
       },
       {
-        question: "Where do the quiz questions come from?",
-        answer: "Generated from the lesson just studied, not general knowledge.",
+        question: "Where do the explain-back questions come from?",
+        answer: "From the lesson you just studied, or from a resource you bring. Not general knowledge.",
       },
       {
         question: "Can I suggest resources?",

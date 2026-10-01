@@ -71,9 +71,6 @@ export const getMilestone = cache(async (stageId: string): Promise<MilestoneData
   if (stage.status === "locked") return { kind: "locked", skillSlug: skill.slug };
   const prompt = findExplainPrompt(stage.id);
   if (!prompt) return null;
-  if (!stage.quizPassed) {
-    return { kind: "quiz_required", quizHref: `/quiz/${stage.id}`, skillName: skill.name, stageTitle: stage.title };
-  }
   if (stage.explainBackPassed) {
     const stages = listStages(skill.id);
     const next = stages.find((item) => item.order === stage.order + 1);

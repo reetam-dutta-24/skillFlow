@@ -7,7 +7,7 @@ This file is two things at once:
 
 Tick a box only when that exact piece is really finished. A screen that looks done on mock data is not the same as the backend for that feature.
 
-**How to talk about it.** The product idea, the database, sign-in, onboarding, the niche list, and the three free roadmaps are real. Lessons on those paths play the stored resources. Quiz questions are not stored, and explain-back grading is still a mock screen. Streaks display a stored number and do not advance. Stripe and the leaderboard score are not running.
+**How to talk about it.** The product idea, the database, sign-in, onboarding, the niche list, and the three free roadmaps are real. Lessons on those paths play the stored resources. There is no quiz: the feature was dropped, and the explain-back gate is the only check. Explain-back grading is still a mock screen. Streaks display a stored number and do not advance. Stripe and the leaderboard score are not running.
 
 `AGENTS.md` is the short context a new session should read. This file is the longer record.
 
@@ -30,7 +30,7 @@ Last aligned with the working tree on 1 October 2026.
 | Admin catalog and submissions | Done | An admin can edit stages and resources, and an approval creates a resource |
 | Caching | Done for shared catalog and community lists | Niche grid, lessons, clips, and the submit picker share the catalog tag. Merged community pages share the community tag. Progress and the account menu stay per person |
 | Settings follow | Done | Add and remove on the settings page write `UserSkillProgress`. Home links to the niche list instead of a fake Add |
-| Quiz and explain-back AI | Not started | Prompts are stored. No quiz questions exist. The explain-back screen still reads mock data |
+| Explain-back AI | Not started | Prompts are stored. The explain-back screen still reads mock data. The quiz feature was dropped |
 | Unlock by mastery | Not in Version 1 | A free path locks its last three stages. A pass does not open the next one |
 | Tests, deploy, monitoring | Not started | No test suite, no production host, no Sentry |
 
@@ -44,12 +44,11 @@ The loop, as designed:
 
 1. Follow one or more skills. Home shows a row for each skill on the feed.
 2. Follow that skill's stages in order.
-3. Open a lesson made of real external resources (a video, a doc, a course link).
-4. Take a short quiz grounded in that lesson.
-5. Explain the idea in your own words. The product asks one follow-up on the weak part of the answer.
-6. A real pass is supposed to open the next stage.
+3. Open a lesson made of real external resources (a video, a doc, a course link), or bring your own resource.
+4. Pass the explain-back gate: explain the idea in your own words. The product asks one follow-up on the weak part of the answer.
+5. A real pass is supposed to open the next stage.
 
-Steps 4 through 6 are designed and partly stored. They are not what opens a stage today. On a free available path, every stage is open except the last three.
+There is no quiz. That feature was dropped, and the explain-back is the mastery check. Steps 4 and 5 are designed and partly stored. They are not what opens a stage today. On a free available path, every stage is open except the last three.
 
 What the product refuses: comments, likes, view counts, trending, prize leaderboards, and guilt copy when a streak breaks. Progress is meant to be verified understanding, not time spent.
 
@@ -96,7 +95,7 @@ The lifetime is `cacheLife("hours")`. The tag is `catalog` (`lib/cache/tags.ts`)
 
 The niches page does not cache each page separately. It caches the full list once, then the browser shows 4 columns by 8 rows (32 cards) and turns the page locally. Home and the roadmap index use a second cached render of that same catalog: 4 columns by 3 rows, a blurred peek of the next row, and a link to `/skills`.
 
-Progress, streaks, follow state, quiz history, and the account menu stay on the request. The account name is cached per user under `account:${userId}` and expires when that person saves their name. A cached function returns plain data. It does not call `auth()`, `cookies()`, or `headers()`.
+Progress, streaks, follow state, explain-back history, and the account menu stay on the request. The account name is cached per user under `account:${userId}` and expires when that person saves their name. A cached function returns plain data. It does not call `auth()`, `cookies()`, or `headers()`.
 
 Roadmap stage status (passed, in progress, ready) stays personal, so the roadmap page is not one cached component. It reads the cached catalog and overlays that person's progress.
 
@@ -118,10 +117,10 @@ Content tables:
 - `RoadmapStage` belongs to one skill. `@@unique([skillId, order])`. Optional `image` is the stage photo. `learningObjectives` is a string list. `monetized` defaults to false.
 - `Resource` stores a snapshot (`title`, `description`, `keyPoints`, `transcript`, `provider`, `author`, `videoId`) so a dead URL can still show what the lesson covered. `isFree`, `language`, `needsReview`, `sourceStatus` (`ACTIVE` or `UNAVAILABLE`), and `lastVerifiedAt` are the catalog fields. There is no note column. `@@unique([stageId, url])` and `@@unique([stageId, order])`.
 - `ResourceSubmission` is the waiting room. Approval creates a real `Resource` on that stage. Rejection stores the note.
-- `Quiz`, `QuizQuestion`, `QuizAttempt`. No quiz rows are loaded for the three paths. The page shows an empty state.
+- `Quiz`, `QuizQuestion`, `QuizAttempt`. Left in the schema after the quiz feature was dropped. Nothing reads or writes them.
 - `ExplainBackPrompt` is one per stage. The importer writes the question and the rubric. `ExplainBackAttempt` is ready for a later grader. The milestone screen does not read this table yet.
 - `UserSkillProgress` is one row per user per skill: `masteryPercent`, `currentStageOrder`.
-- `StageCompletion` is one row per user per stage: `quizPassed`, `explainBackPassed`, `completedAt`. The free-path lock does not read these flags.
+- `StageCompletion` is one row per user per stage: `explainBackPassed` and `completedAt` (`quizPassed` is unused). A stage counts as passed when the explain-back passed. The free-path lock does not read these flags.
 
 Migrations, in order: `20260923010253_init`, `20260925094514_add_paddword_field` (the folder name has that spelling), `20260928092404_add_learner_profile`, `20260930032000_add_niche_enum`, `20260930040000_drop_niche_enum`, `20260930043000_add_skill_image`, `20260930113000_catalog_metadata`, `20260930140000_skill_offer`, `20260930150000_stage_image`.
 
@@ -147,11 +146,11 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 
 **Clips.** Short-form resources from the database, without comments.
 
-**Quiz.** `/quiz/[stageId]` loads `Quiz` from Prisma. The three catalogs did not include questions, so the page is the empty state. A locked stage does not show a quiz.
+**No quiz.** The quiz feature was dropped. There is no `/quiz` route, no quiz stat, and no “Continue to quiz” button. The lesson's next step is the explain-back.
 
 **Explain-back.** The question and rubric are in the database for every imported stage. The screen at `/milestone/[stageId]` still looks up the old mock catalog, so a real stage id does not open it. Grading is not a model call. `review failed` is still the mock error string.
 
-**Progress and analytics.** Counts come from `QuizAttempt` and `StageCompletion`. Weak topics are empty. The analytics series is not the old mock week.
+**Progress and analytics.** Counts come from `ExplainBackAttempt` and `StageCompletion`. Home and Progress show “Explain-backs passed”. Weak topics are empty. The analytics series is not the old mock week.
 
 **Settings.** Name saves to `User`. Email is read-only. Add follows an available skill. Coming-soon skills have no Add button. Remove drops `UserSkillProgress` and keeps attempts. The daily reminder toggle is still local to the page. Theme and accent apply immediately. The accent row keeps the ten presets and adds a custom gradient: a color palette, a hex field, and R, G, and B for each stop. Log out uses the real `signOut`.
 
@@ -167,7 +166,7 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 - `/notes` — one sample note.
 - `/projects/[stageId]/review` — rubric UI. No matching.
 - `/creator` — moved to the main nav. See V2 phase 7.
-- `/submit/byor` — mock question preview.
+- `/submit/byor` — bring your own resource and get a sample explain-back gate prompt.
 - Usage-cutoff dialog — a soft stop. Not stored.
 - `/dev/routes` — screen list. It 404s in production.
 
@@ -213,7 +212,8 @@ Stage photos were generated for all 10 Content Creation stages and all 8 Travel 
 - **Public pages stay static.** `/`, `/login`, `/signup`, `/privacy`, and `/terms` do not call `auth()` in the root layout.
 - **Shared screens are one cached copy. Personal progress is not.** The niche grid, lessons, clips, and the submit picker use the `catalog` tag. Admin saves expire it at once. Follow marks, mastery, and the account menu stay on the request.
 - **The feed can hold more than one skill.** Onboarding saves one profile skill. Settings can add more available skills. Home renders one row per followed skill. The old "one skill only" rule is not what the screen does.
-- **The last three stages are the Version 1 lock.** It is not a quiz gate. Coming-soon and monetized skills open no stages.
+- **The last three stages are the Version 1 lock.** It is not a mastery gate.
+- **The quiz was dropped.** One explain-back gate per stage is the check, plus a bring-your-own-resource prompt. The quiz tables stay in the schema unused, so the database did not change. Coming-soon and monetized skills open no stages.
 - **Art stayed a flagship.** Travel took its place as the third free path. Art is coming soon so a card does not promise a path that has no stages.
 - **The importer must not own availability.** A researched file can say coming soon while the product decision is to open the path. Status is set on the row, and the seed special-cases Art so a later seed does not undo that.
 - **Do not run the full seed to reload one path.** Use the importer, then a targeted update for status and offer.
@@ -224,8 +224,9 @@ Stage photos were generated for all 10 Content Creation stages and all 8 Travel 
 
 ## Do not claim these in an interview yet
 
-- A model writes or grades quizzes and explanations.
-- Passing a quiz or an explain-back unlocks the next stage.
+- A model grades explanations.
+- Passing an explain-back unlocks the next stage.
+- SkillFlow has a quiz.
 - Streaks update from daily activity.
 - Mastery percent is calculated from attempts.
 - Stripe charges anyone, or a leaderboard score is computed.
@@ -245,8 +246,8 @@ Do not start a later phase's backend until the previous phase's open boxes are d
 - [x] **Resource-shaped writes** — Server Actions and Zod on catalog, settings, and submission writes. There is no separate REST API.
 - [x] **Separation of page and data** — pages call `lib/data`. Catalog paths do not embed the mock arrays. Milestone and Version 2 still do.
 - [x] **Shared tokens and components** — colors and type come from `globals.css`.
-- [ ] **Idempotent writes** — catalog reimport is idempotent. Quiz submit and webhooks are not built.
-- [x] **Version fields on quiz and explain-back** — columns exist. No second version has been stored.
+- [ ] **Idempotent writes** — catalog reimport is idempotent. Explain-back submit and webhooks are not built.
+- [x] **Version fields on explain-back** — columns exist. No second version has been stored.
 - [x] **Conventional commits** — history uses `feat`, `fix`, and `chore`.
 - [ ] **OWASP baseline** — passwords are hashed, secrets stay in `.env`, admin routes check role. A full threat pass is not done.
 - [ ] **Accessibility** — semantic headings, labels, and focus are in the kit. A full keyboard and contrast pass is not done.
@@ -286,7 +287,7 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 ## PHASE 2 — Data model and auth
 **Status: ✅ COMPLETE for what Version 1 uses. GitHub login and database sessions were dropped on purpose.**
 
-- [x] Prisma schema for auth, skills, stages, resources, submissions, quizzes, explain-back, progress, and `LearnerProfile`
+- [x] Prisma schema for auth, skills, stages, resources, submissions, explain-back, progress, and `LearnerProfile` (the quiz tables are unused)
 - [x] Catalog fields: offer, flagship, niche group, resource metadata, source status, stage image
 - [x] Docker Compose Postgres and `DATABASE_URL`
 - [x] `prisma.config.ts` imports `dotenv/config`
@@ -312,20 +313,17 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 - [x] YouTube links play inside the lesson
 - [ ] Tests for roadmap and resource reads
 
-## PHASE 4 — AI quiz and explain-back
+## PHASE 4 — AI explain-back
 **Status: ⬜ NOT STARTED as a backend. Prompts are stored. The grader is not.**
 
 **Already stored or on screen:**
 
 - One explain-back question and rubric per imported stage
-- Quiz page reads Prisma and shows an empty state when there are no questions
 - The old milestone screen still has text, a mocked voice path, a follow-up, pass, retry, and the `review failed` error. It does not open for a real stage id
 
 **Still open:**
 
-- [ ] Lesson text → model → stored quiz JSON
-- [ ] `Quiz.version` used for real evals
-- [ ] Miss explanation generated, not copied from a fixture
+- [ ] Resource text (catalog or brought by the learner) → model → explain-back prompt and rubric
 - [ ] Timeout and bad JSON handled without breaking the lesson
 - [ ] Milestone page reads `ExplainBackPrompt`
 - [ ] Multi-turn grading that writes `ExplainBackAttempt`
@@ -342,14 +340,13 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 - [ ] Charts drawn from those attempts rather than left empty
 
 ## PHASE 6 — Frontend on real data
-**Status: 🔶 THE LEARNING PATH IS ON REAL DATA. QUIZ, EXPLAIN-BACK, AND VERSION 2 ARE NOT**
+**Status: 🔶 THE LEARNING PATH IS ON REAL DATA. EXPLAIN-BACK AND VERSION 2 ARE NOT**
 
 - [x] App shell, home, clips, roadmaps, lesson, settings, submit, admin catalog
 - [x] Shared catalog cache for the niche grid, lessons, clips, and the submit picker. Admin saves expire it
 - [x] Loading skeletons, empty states, and the locked-stage state
 - [x] Stage photos on the three paths
 - [x] Settings follow and unfollow
-- [ ] Quiz UI calling a real quiz pipeline
 - [ ] Explain-back UI calling a real grader
 - [x] Home and roadmap no longer show a preview Add. Explore links to the niche list. Follow stays on Settings
 - [ ] A full responsive pass, including 375px
@@ -364,7 +361,6 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 - [x] Explain-back prompt on every imported stage
 - [x] Photography, Music Production, and the extra niches stay coming soon
 - [ ] Art & Painting researched and loaded, when that path is actually chosen
-- [ ] Quiz questions reviewed and stored for the three paths
 - [ ] The 403 links rechecked by a person. Do not replace them just because the bot was blocked
 
 The mock catalog in `lib/mock/catalog.ts` is leftover sample data for the screens that are not wired. It is not the seed.
@@ -389,7 +385,7 @@ The mock catalog in `lib/mock/catalog.ts` is leftover sample data for the screen
 
 - [ ] Unit tests for the open-stage rule, mastery, and streaks
 - [ ] Integration tests for catalog import and lesson reads
-- [ ] One end-to-end pass: signup → onboarding → lesson → quiz → explain-back → progress
+- [ ] One end-to-end pass: signup → onboarding → lesson → explain-back → progress
 - [ ] Manual pass of empty, error, and loading
 - [ ] Model calls mocked in tests
 
@@ -418,7 +414,7 @@ The mock catalog in `lib/mock/catalog.ts` is leftover sample data for the screen
 
 # VERSION 2 — after Version 1
 
-Do not build the backend for these until the Version 1 gaps that are still open (quiz, explain-back, streaks, tests, deploy) are done. The UI previews already exist so the product can be shown. They are not these phases.
+Do not build the backend for these until the Version 1 gaps that are still open (explain-back, streaks, tests, deploy) are done. The UI previews already exist so the product can be shown. They are not these phases.
 
 ## V2 PHASE 1 — Premium and Stripe
 **Status: ⬜ NOT STARTED. `/upgrade` is a preview. Price label is "Placeholder".**
@@ -467,10 +463,10 @@ The extra niches are in the database and show as coming soon. A new path is a re
 **Status: 🔶 UI ONLY for two of these**
 
 - [x] Usage-cutoff dialog (soft: take a break, or continue)
-- [x] Bring-your-own-resource page that pretends to generate five questions
+- [x] Bring-your-own-resource page that turns a resource into a sample explain-back gate prompt
 - [ ] Spaced repetition
 - [ ] A certificate that is lighter than the transcript
 
 ---
 
-**Right now.** Phases 0, 1, 2, 3, and 7 are done for the three free paths, and the Open Source community is complete. Phase 6 is done for those screens and open for quiz and explain-back. Phases 4, 5, 8, and 9 are the remaining Version 1 backend. Next product step, when you choose it, is Phase 4: store real quiz questions and make the explain-back screen read the prompt that is already saved.
+**Right now.** Phases 0, 1, 2, 3, and 7 are done for the three free paths, and the Open Source community is complete. Phase 6 is done for those screens and open for explain-back. Phases 4, 5, 8, and 9 are the remaining Version 1 backend. Next product step, when you choose it, is Phase 4: make the explain-back screen read the prompt that is already saved, then grade it.

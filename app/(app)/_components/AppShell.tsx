@@ -52,7 +52,7 @@ function activeId(pathname: string) {
   if (pathname.startsWith("/clips")) return "clips";
   if (pathname.startsWith("/creator")) return "creator";
   if (pathname.startsWith("/profile")) return "creator";
-  if (pathname.startsWith("/roadmap") || pathname.startsWith("/lesson") || pathname.startsWith("/quiz") || pathname.startsWith("/milestone")) return "roadmaps";
+  if (pathname.startsWith("/roadmap") || pathname.startsWith("/lesson") || pathname.startsWith("/milestone")) return "roadmaps";
   if (pathname.startsWith("/analytics")) return "analytics";
   if (pathname.startsWith("/progress")) return "progress";
   if (pathname.startsWith("/settings")) return "settings";
@@ -90,7 +90,6 @@ function titleFor(pathname: string) {
   if (pathname === "/dev/missing") return "Page not found";
   if (pathname === "/dev/error") return "Something went wrong";
   if (pathname.startsWith("/lesson")) return "Lesson";
-  if (pathname.startsWith("/quiz")) return "Quiz";
   if (pathname.startsWith("/milestone")) return "Explain-back";
   return "Home";
 }

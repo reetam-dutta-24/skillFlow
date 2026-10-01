@@ -29,7 +29,6 @@ function stageMeta(stage: RoadmapStageView) {
   const lessons =
     stage.lessonCount === 0 ? "No lessons yet" : stage.lessonCount === 1 ? "1 lesson" : `${stage.lessonCount} lessons`;
   const parts = [lessons];
-  if (stage.hasQuiz) parts.push("quiz");
   if (stage.hasExplainBack) parts.push("explain-back");
   return parts.join(" · ");
 }

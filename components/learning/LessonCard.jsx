@@ -44,7 +44,7 @@ export function LessonCard({ title, skill, meta, status = "todo", mastery, kind 
           <SkillImage src={thumbnail} alt="" fill sizes="160px" style={{ objectFit: "cover", filter: locked ? "var(--blur-lock)" : "none" }} />
         ) : (
           <span style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-faint)" }}>
-            <Icon name={kind === "quiz" ? "list-checks" : kind === "gate" ? "message-square-quote" : "play"} size={20} color="var(--text-faint)" />
+            <Icon name={kind === "gate" ? "message-square-quote" : "play"} size={20} color="var(--text-faint)" />
           </span>
         )}
         <span style={{ position: "absolute", top: 8, left: 8, display: "inline-flex", alignItems: "center", justifyContent: "center", width: 22, height: 22, borderRadius: "var(--radius-full)", background: "rgba(0,0,0,.55)" }}>

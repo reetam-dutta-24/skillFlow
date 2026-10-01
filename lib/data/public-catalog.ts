@@ -14,7 +14,6 @@ const publicInclude = {
     orderBy: { order: "asc" as const },
     include: {
       _count: { select: { resources: true } },
-      quiz: { select: { id: true } },
       explainBackPrompt: { select: { id: true } },
     },
   },
@@ -31,7 +30,6 @@ export type PublicStage = {
   order: number;
   open: boolean;
   lessonCount: number;
-  hasQuiz: boolean;
   hasExplainBack: boolean;
   previousStageTitle: string | null;
 };
@@ -103,7 +101,6 @@ function toEntry(skill: PublicRow): PublicCatalogEntry {
         order: stage.order,
         open,
         lessonCount: open ? stage._count.resources : 0,
-        hasQuiz: open && Boolean(stage.quiz),
         hasExplainBack: open && Boolean(stage.explainBackPrompt),
         previousStageTitle: index > 0 ? skill.stages[index - 1].title : null,
       };

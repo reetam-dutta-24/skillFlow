@@ -9,7 +9,7 @@ export type ProgressPayload = {
   longestStreak: number;
   skillsInProgress: number;
   milestonesPassedThisWeek: number;
-  quizzesCompleted: number;
+  explainBacksPassed: number;
   skills: { skill: SkillView; points: MasteryPointView[] }[];
   weakTopics: (WeakTopicView & { href: string })[];
 };
@@ -35,9 +35,9 @@ export async function getProgress(): Promise<ProgressPayload> {
       })
     : null;
 
-  const [quizzesCompleted, milestonesPassedThisWeek] = userId
+  const [explainBacksPassed, milestonesPassedThisWeek] = userId
     ? await Promise.all([
-        prisma.quizAttempt.count({ where: { userId, passed: true } }),
+        prisma.explainBackAttempt.count({ where: { userId, verdict: "PASSED" } }),
         prisma.stageCompletion.count({
           where: { userId, explainBackPassed: true, completedAt: { gte: weekAgo() } },
         }),
@@ -49,7 +49,7 @@ export async function getProgress(): Promise<ProgressPayload> {
     longestStreak: user?.longestStreak ?? 0,
     skillsInProgress: skills.length,
     milestonesPassedThisWeek,
-    quizzesCompleted,
+    explainBacksPassed,
     skills,
     weakTopics: [],
   };

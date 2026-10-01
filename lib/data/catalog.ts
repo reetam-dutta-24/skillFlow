@@ -11,7 +11,7 @@ export type CatalogEntry = {
 };
 
 type SkillProgress = { masteryPercent: number; currentStageOrder: number };
-type Completion = { quizPassed: boolean; explainBackPassed: boolean };
+type Completion = { explainBackPassed: boolean };
 
 type ViewerProgress = {
   skills: Map<string, SkillProgress>;
@@ -28,7 +28,7 @@ async function viewerProgress(userId: string): Promise<ViewerProgress> {
     }),
     prisma.stageCompletion.findMany({
       where: { userId },
-      select: { stageId: true, quizPassed: true, explainBackPassed: true },
+      select: { stageId: true, explainBackPassed: true },
     }),
   ]);
   return {
@@ -36,13 +36,14 @@ async function viewerProgress(userId: string): Promise<ViewerProgress> {
       skills.map((row) => [row.skillId, { masteryPercent: row.masteryPercent, currentStageOrder: row.currentStageOrder }]),
     ),
     completions: new Map(
-      completions.map((row) => [row.stageId, { quizPassed: row.quizPassed, explainBackPassed: row.explainBackPassed }]),
+      completions.map((row) => [row.stageId, { explainBackPassed: row.explainBackPassed }]),
     ),
   };
 }
 
 function applyStage(stage: PublicStage, completion: Completion | undefined, currentOrder: number | undefined): RoadmapStageView {
-  const passed = Boolean(completion?.quizPassed && completion.explainBackPassed);
+  // The explain-back is the mastery check.
+  const passed = Boolean(completion?.explainBackPassed);
   let status: StageStatus = "locked";
   if (stage.open && passed) status = "passed";
   else if (stage.open && stage.order === currentOrder) status = "in_progress";
@@ -57,9 +58,7 @@ function applyStage(stage: PublicStage, completion: Completion | undefined, curr
     status,
     masteryPercent: status === "passed" ? 100 : 0,
     lessonCount: stage.lessonCount,
-    hasQuiz: stage.hasQuiz,
     hasExplainBack: stage.hasExplainBack,
-    quizPassed: stage.open && Boolean(completion?.quizPassed),
     explainBackPassed: stage.open && Boolean(completion?.explainBackPassed),
     previousStageTitle: stage.previousStageTitle,
   };

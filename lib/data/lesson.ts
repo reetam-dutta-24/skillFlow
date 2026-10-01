@@ -22,9 +22,7 @@ function toStage(stage: PublicStage): RoadmapStageView {
     status,
     masteryPercent: 0,
     lessonCount: stage.lessonCount,
-    hasQuiz: stage.hasQuiz,
     hasExplainBack: stage.hasExplainBack,
-    quizPassed: false,
     explainBackPassed: false,
     previousStageTitle: stage.previousStageTitle,
   };
@@ -56,7 +54,6 @@ export async function loadPublicLesson(stageId: string): Promise<LessonData | nu
     skill: toSkill(entry),
     stage: toStage(stage),
     resources: await loadCachedStageResources(stage.id),
-    quizHref: stage.hasQuiz ? `/quiz/${stage.id}` : null,
   };
 }
 

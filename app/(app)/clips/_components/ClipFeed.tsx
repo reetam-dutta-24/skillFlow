@@ -1,12 +1,31 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { SkillImage } from "@/components/core/SkillImage";
 import Link from "next/link";
 import type { ClipFeedSkill, ClipFormat, ClipItem } from "@/lib/types/pages";
 import { Icon } from "@/components/core/Icon.jsx";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
 import { playableSrc } from "@/lib/playable-src";
+
+function clipEmbed(url: string) {
+  const src = playableSrc(url);
+  try {
+    const next = new URL(src);
+    next.searchParams.set("enablejsapi", "1");
+    return next.toString();
+  } catch {
+    return src;
+  }
+}
+
+function silenceFrames(root: ParentNode | null | undefined) {
+  root?.querySelectorAll("iframe").forEach((frame) => {
+    if (!(frame instanceof HTMLIFrameElement)) return;
+    frame.contentWindow?.postMessage(JSON.stringify({ event: "command", func: "pauseVideo", args: "" }), "*");
+    frame.src = "about:blank";
+  });
+}
 
 export function ClipFeed({ skills, clips }: { skills: ClipFeedSkill[]; clips: ClipItem[] }) {
   const initial =
@@ -18,17 +37,33 @@ export function ClipFeed({ skills, clips }: { skills: ClipFeedSkill[]; clips: Cl
   const [format, setFormat] = useState<ClipFormat>("short");
   const [playingId, setPlayingId] = useState<string | null>(null);
   const scrollerRef = useRef<HTMLDivElement>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
   const skill = skills.find((item) => item.slug === slug);
   const visible = clips.filter((clip) => clip.skillSlug === slug && clip.format === format);
   const poster = skill?.image;
 
+  function stopClipAudio() {
+    silenceFrames(rootRef.current);
+  }
+
+  // This page stays mounted and hidden after a client navigation. display:none does not stop YouTube audio.
+  useLayoutEffect(() => {
+    const root = rootRef.current;
+    return () => {
+      silenceFrames(root);
+      setPlayingId(null);
+    };
+  }, []);
+
   function chooseSkill(nextSlug: string) {
+    stopClipAudio();
     setSlug(nextSlug);
     setPlayingId(null);
     if (scrollerRef.current) scrollerRef.current.scrollTop = 0;
   }
 
   function chooseFormat(nextFormat: ClipFormat) {
+    stopClipAudio();
     setFormat(nextFormat);
     setPlayingId(null);
     if (scrollerRef.current) scrollerRef.current.scrollTop = 0;
@@ -42,12 +77,13 @@ export function ClipFeed({ skills, clips }: { skills: ClipFeedSkill[]; clips: Cl
     const current = Math.min(visible.length - 1, Math.max(0, Math.round(scroller.scrollTop / height)));
     const next = Math.min(visible.length - 1, Math.max(0, current + direction));
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (visible[next].id !== playingId) stopClipAudio();
     scroller.scrollTo({ top: next * height, behavior: reduce ? "auto" : "smooth" });
     setPlayingId(visible[next].id);
   }
 
   return (
-    <div className={format === "short" ? "sf-watch sf-watch-shorts" : "sf-watch sf-watch-videos"}>
+    <div ref={rootRef} className={format === "short" ? "sf-watch sf-watch-shorts" : "sf-watch sf-watch-videos"}>
       <div className="sf-watch-bar">
         <h1>Clips</h1>
         <div className="sf-watch-controls">
@@ -104,7 +140,7 @@ export function ClipFeed({ skills, clips }: { skills: ClipFeedSkill[]; clips: Cl
                     <div className="sf-reel-frame">
                       {playingId === clip.id ? (
                         <iframe
-                          src={playableSrc(clip.url)}
+                          src={clipEmbed(clip.url)}
                           title={clip.title}
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                           allowFullScreen
@@ -149,7 +185,7 @@ export function ClipFeed({ skills, clips }: { skills: ClipFeedSkill[]; clips: Cl
                   <div className="sf-video-thumb">
                     {playingId === clip.id ? (
                       <iframe
-                        src={playableSrc(clip.url)}
+                        src={clipEmbed(clip.url)}
                         title={clip.title}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowFullScreen

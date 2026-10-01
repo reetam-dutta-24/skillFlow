@@ -24,15 +24,26 @@ export function StudioEditor({
     setPending(intent);
     setError("");
     const body = new FormData(event.currentTarget);
-    body.set("intent", intent);
-    const result = await saveCreatorWork(body);
-    setPending("");
-    if (!result.ok) {
-      setError(result.error);
+    const file = body.get("file");
+    if (file instanceof File && file.size > 40 * 1024 * 1024) {
+      setPending("");
+      setError("That file is too large. Use a video under 40 MB.");
       return;
     }
-    router.push(`/creator/${result.id}`);
-    router.refresh();
+    body.set("intent", intent);
+    try {
+      const result = await saveCreatorWork(body);
+      if (!result.ok) {
+        setError(result.error);
+        return;
+      }
+      router.push(`/creator/${result.id}`);
+      router.refresh();
+    } catch {
+      setError("The video could not be sent. Try again.");
+    } finally {
+      setPending("");
+    }
   }
 
   async function withdraw() {

@@ -55,6 +55,8 @@ model User {
 
   submittedEvents Event[] @relation("EventSubmitter")
   reviewedEvents  Event[] @relation("EventReviewer")
+
+  learnerNotes LearnerNote[]
 }
 
 model LearnerProfile {
@@ -166,6 +168,7 @@ model Skill {
   creatorWorks           CreatorWork[]
   events                 Event[]
   eventFetches           EventFetch[]
+  learnerNotes           LearnerNote[]
 
   createdAt DateTime @default(now())
 }
@@ -190,6 +193,7 @@ model RoadmapStage {
   stageCompletions  StageCompletion[]
   communityContributions CommunityContribution[]
   gapReports             GapReport[]
+  learnerNotes           LearnerNote[]
 
   @@unique([skillId, order])
 }
@@ -341,6 +345,27 @@ model ExplainBackAttempt {
 
   user   User              @relation(fields: [userId], references: [id], onDelete: Cascade)
   prompt ExplainBackPrompt @relation(fields: [promptId], references: [id], onDelete: Cascade)
+}
+
+/// One accepted explain-back idea: what the learner wrote, and the review that came back.
+model LearnerNote {
+  id          String   @id @default(cuid())
+  userId      String
+  skillId     String
+  stageId     String
+  concept     String
+  explanation String   @db.Text
+  review      String   @db.Text
+  position    Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user  User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  skill Skill        @relation(fields: [skillId], references: [id], onDelete: Cascade)
+  stage RoadmapStage @relation(fields: [stageId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, stageId, concept])
+  @@index([userId, updatedAt])
 }
 
 // ── PROGRESS & MASTERY ──────────────────────

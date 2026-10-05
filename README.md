@@ -93,7 +93,7 @@ Copy the names from `.env.example`. Leave a key blank to turn that source off.
 
 ## Explain-back model
 
-The explain-back walks one idea at a time. Set `GEMINI_API_KEY`. Each step needs a written review from the model before it moves on. A timeout or a reply that is not a review saves nothing, and the stage stays open.
+The explain-back walks one idea at a time. Set `GEMINI_API_KEY`. Each step needs a written review from the model before it moves on. An idea that holds is saved under Notes. A timeout or a reply that is not a review saves nothing, and the stage stays open.
 
 - `GEMINI_API_KEY` — a free key from [aistudio.google.com/apikey](https://aistudio.google.com/apikey). No card. The app calls Gemini’s free tier (`gemini-flash-lite-latest`).
 - `GEMINI_MODEL` — optional. The default is `gemini-flash-lite-latest`.

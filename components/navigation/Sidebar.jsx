@@ -13,6 +13,7 @@ export const SKILLFLOW_NAV = [
   { id: "nearby", label: "Nearby", icon: "map-pin", href: "/nearby" },
   { id: "open-source", label: "Open Source", icon: "git-pull-request", href: "/open-source" },
   { id: "progress", label: "Progress", icon: "chart-line", href: "/progress" },
+  { id: "notes", label: "Notes", icon: "notebook-pen", href: "/notes" },
   { id: "analytics", label: "Analytics", icon: "chart-pie", href: "/analytics" },
   { id: "submit", label: "Submit a resource", icon: "file-plus", href: "/submit" },
   { id: "settings", label: "Settings", icon: "settings", href: "/settings" },

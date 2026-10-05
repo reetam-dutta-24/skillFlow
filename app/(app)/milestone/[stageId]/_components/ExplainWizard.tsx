@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ErrorState } from "@/components/feedback/ErrorState.jsx";
@@ -30,7 +31,7 @@ export function ExplainWizard({
   const [drafts, setDrafts] = useState<string[]>(() => concepts.map(() => ""));
   const [reviews, setReviews] = useState<string[]>(() => concepts.map(() => ""));
   const [held, setHeld] = useState<boolean[]>(() => concepts.map(() => false));
-  const [review, setReview] = useState<{ understood: boolean; review: string } | null>(null);
+  const [review, setReview] = useState<{ understood: boolean; review: string; noted: boolean } | null>(null);
   const [phase, setPhase] = useState<"write" | "reading" | "reviewed" | "saving" | "done">("write");
   const [notice, setNotice] = useState<string | null>(null);
   const [error, setError] = useState<StepError | null>(null);
@@ -66,7 +67,7 @@ export function ExplainWizard({
       setPhase("write");
       return;
     }
-    setReview({ understood: result.understood, review: result.review });
+    setReview({ understood: result.understood, review: result.review, noted: result.noted });
     setReviews((current) => current.map((item, itemIndex) => (itemIndex === index ? result.review : item)));
     setHeld((current) => current.map((item, itemIndex) => (itemIndex === index ? result.understood : item)));
     setPhase("reviewed");
@@ -113,7 +114,7 @@ export function ExplainWizard({
           <p>{stageLabel}</p>
           <h1>You explained this stage</h1>
         </header>
-        <p className="sf-explain-hint">Each idea was read and written back before the stage was recorded.</p>
+        <p className="sf-explain-hint">Each idea is in Notes, with the review that came back.</p>
         <ol className="sf-explain-recap">
           {concepts.map((item, itemIndex) => (
             <li key={item}>
@@ -122,16 +123,21 @@ export function ExplainWizard({
             </li>
           ))}
         </ol>
-        <button
-          type="button"
-          className="sf-milestone-cta"
-          onClick={() => {
-            router.push(continueHref);
-            router.refresh();
-          }}
-        >
-          {continueLabel}
-        </button>
+        <div className="sf-explain-actions">
+          <button
+            type="button"
+            className="sf-milestone-cta"
+            onClick={() => {
+              router.push(continueHref);
+              router.refresh();
+            }}
+          >
+            {continueLabel}
+          </button>
+          <Link className="sf-notes-textlink" href="/notes">
+            Read these in Notes
+          </Link>
+        </div>
       </motion.section>
     );
   }
@@ -207,6 +213,11 @@ export function ExplainWizard({
               >
                 <p className="sf-explain-kicker">{review.understood ? "This idea holds" : "Stay with this idea"}</p>
                 <p>{review.review}</p>
+                {review.understood && review.noted ? (
+                  <p className="sf-explain-kept">
+                    Saved to <Link href="/notes">Notes</Link>.
+                  </p>
+                ) : null}
               </motion.div>
             ) : null}
           </AnimatePresence>

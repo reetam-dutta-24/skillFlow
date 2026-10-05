@@ -5,7 +5,7 @@ const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient }
 
 function lacksCurrentModels(client: PrismaClient) {
   const fields = client as unknown as Record<string, unknown>;
-  return !("learnerProfile" in fields) || !("communityMembership" in fields) || !("event" in fields);
+  return !("learnerProfile" in fields) || !("communityMembership" in fields) || !("event" in fields) || !("learnerNote" in fields);
 }
 
 // Drop a dev client created before a model existed. The engine file can stay locked while `next dev` is running.

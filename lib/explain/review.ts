@@ -5,6 +5,7 @@ import type { ExplainReview } from "@/lib/types/pages";
 import { quoteFromAnswer, stageConcepts } from "@/lib/explain/concepts";
 import { decideExplainBack, explainModelConfig, judgeConcept, judgeExplanation } from "@/lib/explain/judge";
 import { recordExplainBack } from "@/lib/explain/record";
+import { saveLearnerNotes } from "@/lib/explain/notes";
 import { readyWizardSteps, type WizardStep } from "@/lib/explain/wizard";
 
 const LOCKED_TAIL = 3;
@@ -108,11 +109,12 @@ export async function reviewStoredExplanation(input: {
 }
 
 export type ConceptStepResult =
-  | { ok: true; understood: boolean; review: string }
+  | { ok: true; understood: boolean; review: string; noted: boolean }
   | { ok: false; error: "empty" | "unavailable" | "unconnected" };
 
-/** Grade one idea. An empty or thin reply stays on this step. Nothing is saved until every idea has passed. */
+/** Grade one idea. An accepted idea is stored as a note. The stage is recorded only after every idea has passed. */
 export async function reviewConceptStep(input: {
+  userId: string;
   stageId: string;
   concept: string;
   answer: string;
@@ -137,7 +139,15 @@ export async function reviewConceptStep(input: {
     answer,
   });
   if (!review) return { ok: false, error: "unavailable" };
-  return { ok: true, understood: review.understood, review: review.review };
+  const noted = review.understood
+    ? await saveLearnerNotes({
+        userId: input.userId,
+        skillId: stage.skillId,
+        stageId: stage.id,
+        steps: [{ concept, explanation: answer, review: review.review, position: concepts.indexOf(concept) }],
+      })
+    : false;
+  return { ok: true, understood: review.understood, review: review.review, noted };
 }
 
 /** Record the stage once every idea has a real answer and a written review, in order. */
@@ -170,6 +180,17 @@ export async function finishExplainWizard(input: {
     followUpAnswer: null,
     verdict: "PASSED",
     feedback,
+  });
+  await saveLearnerNotes({
+    userId: input.userId,
+    skillId: stage.skillId,
+    stageId: stage.id,
+    steps: steps.map((step, position) => ({
+      concept: step.concept,
+      explanation: step.answer,
+      review: step.review,
+      position,
+    })),
   });
   return { ok: true };
 }

@@ -7,7 +7,7 @@ This file is two things at once:
 
 Tick a box only when that exact piece is really finished. A screen that looks done on mock data is not the same as the backend for that feature.
 
-**How to talk about it.** The product idea, the database, sign-in, onboarding, the niche list, and the three free roadmaps are real. Lessons on those paths play the stored resources. There is no quiz: the feature was dropped, and the explain-back gate is the only check. A real stage walks one learning objective at a time. Gemini’s free tier writes a review for each answer, and the step stays put until that idea holds. The stage is recorded only when every idea has passed. That call needs an API key. Streaks display a stored number and do not advance. Stripe and the leaderboard score are not running.
+**How to talk about it.** The product idea, the database, sign-in, onboarding, the niche list, and the three free roadmaps are real. Lessons on those paths play the stored resources. There is no quiz: the feature was dropped, and the explain-back gate is the only check. A real stage walks one learning objective at a time. Gemini’s free tier writes a review for each answer, and the step stays put until that idea holds. An idea that holds is kept in Notes. The stage is recorded only when every idea has passed. That call needs an API key. Streaks display a stored number and do not advance. Stripe and the leaderboard score are not running.
 
 `AGENTS.md` is the short context a new session should read. This file is the longer record.
 
@@ -33,6 +33,7 @@ Last aligned with the working tree on 6 October 2026.
 | Nearby events | Done | Saved events per city and niche, refreshed on a cap. Community events need a review. Live search is admin-only until payments |
 | Settings follow | Done | Add and remove on the settings page write `UserSkillProgress`. Home links to the niche list instead of a fake Add |
 | Explain-back | Wizard, one idea at a time | Each learning objective is its own step. A written review comes back whether the idea holds or not. The step moves on only when it holds. The stage is recorded after the last idea. No key means no pass. The last three stages stay locked |
+| Notes | Accepted ideas | `/notes` is in the sidebar. Each idea that holds is stored with the explanation and the review. The list is personal |
 | Unlock by mastery | Not in Version 1 | A free path locks its last three stages. A pass does not open the next one |
 | Tests, deploy, monitoring | Not started | No test suite, no production host, no Sentry |
 
@@ -150,7 +151,9 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 
 **No quiz.** The quiz feature was dropped. There is no `/quiz` route, no quiz stat, and no “Continue to quiz” button. The lesson's next step is the explain-back.
 
-**Explain-back.** Every imported stage has learning objectives, a question, and a rubric. The lesson’s continue button opens `/milestone/[stageId]`. A real stage is a wizard: one objective per step, animated between steps. `GEMINI_API_KEY` sends that step to Gemini’s free tier (`gemini-flash-lite-latest`). `OPENAI_API_KEY` is used only when the Gemini key is empty. The model writes a review whether the idea holds or not. An empty answer, or one the model does not accept, stays on the step. The stage is saved only after every idea has passed: one `ExplainBackAttempt` and `StageCompletion.explainBackPassed`. The last three stages stay locked. With no key, a timeout, or a reply that is not a review, nothing is saved. `review failed` still shows the error and saves nothing. The preview id `__explain_input__` keeps the old mock walkthrough.
+**Explain-back.** Every imported stage has learning objectives, a question, and a rubric. The lesson’s continue button opens `/milestone/[stageId]`. A real stage is a wizard: one objective per step, animated between steps. `GEMINI_API_KEY` sends that step to Gemini’s free tier (`gemini-flash-lite-latest`). `OPENAI_API_KEY` is used only when the Gemini key is empty. The model writes a review whether the idea holds or not. An empty answer, or one the model does not accept, stays on the step. An accepted idea is stored as a note: the explanation and the review. The stage is saved only after every idea has passed: one `ExplainBackAttempt` and `StageCompletion.explainBackPassed`. The last three stages stay locked. With no key, a timeout, or a reply that is not a review, nothing is saved. `review failed` still shows the error and saves nothing. The preview id `__explain_input__` keeps the old mock walkthrough.
+
+**Notes.** `/notes` is in the sidebar. It lists that learner’s accepted ideas, grouped by skill and stage. Opening one shows what they wrote and the review. Search and a skill filter narrow the list. The page reads the signed-in user on the request.
 
 **Progress and analytics.** Counts come from `ExplainBackAttempt` and `StageCompletion`. Home and Progress show “Explain-backs passed”. Weak topics are empty. The analytics series is not the old mock week.
 
@@ -165,7 +168,7 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 - `/upgrade` — one premium tier. Price text is the word Placeholder. No Stripe.
 - `/leaderboard` — sample rows. Score is not calculated.
 - `/transcript/[userId]/[skillSlug]` — shareable page, `noindex`. Not built from milestone rows.
-- `/notes` — one sample note.
+- `/notes` — moved to the main nav. An accepted explain-back idea is stored with its review.
 - `/projects/[stageId]/review` — rubric UI. No matching.
 - `/creator` — moved to the main nav. See V2 phase 7.
 - `/submit/byor` — bring your own resource and get a sample explain-back gate prompt.
@@ -323,7 +326,7 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 - One explain-back question, a rubric, and learning objectives per imported stage
 - The gate is a wizard, one learning objective per step. The lesson’s continue button opens `/milestone/[stageId]`
 - A chat model writes a review for that idea, whether it holds or not. Keyword overlap cannot pass the step
-- An empty or rejected answer stays on the step. The stage is recorded only after every idea has passed
+- An empty or rejected answer stays on the step. An accepted idea is stored as a note. The stage is recorded only after every idea has passed
 - A pass sets `StageCompletion.explainBackPassed` and does not open a locked stage
 - No key, a timeout, or a reply that is not a review saves nothing
 - `lib/explain/judge.test.ts` checks that a full set of concepts can pass and a remaining gap cannot
@@ -449,7 +452,9 @@ The data model already has `Skill.offer` and `RoadmapStage.monetized`. Version 1
 **Status: ⬜ NOT STARTED as data. The page exists and is `noindex`.**
 
 ## V2 PHASE 5 — Notes
-**Status: ⬜ NOT STARTED. One mock note is on `/notes`.**
+**Status: 🔶 AN ACCEPTED EXPLAIN-BACK IDEA IS STORED. SUMMARIES AND EXPORT ARE NOT.**
+
+`/notes` is in the sidebar. When an idea holds, `LearnerNote` keeps the explanation and the written review. The page is a list and a reader. Search and a skill filter narrow the list. On a phone the list opens the note. Notes are personal and are read on the request. A short AI restatement and a file export are not built.
 
 ## V2 PHASE 6 — Peer project review
 **Status: ⬜ NOT STARTED. The rubric UI exists.**
@@ -493,4 +498,4 @@ Ticketmaster and Google Events (SerpApi) are separate adapters. A missing key tu
 
 ---
 
-**Right now.** Phases 0, 1, 2, 3, and 7 are done for the three free paths, and the Open Source community is complete. The learner map and Nearby events are live. Explain-back asks for every learning objective and passes the stage only when a model marks each one understood. Still open for Version 1: generating a prompt from a resource, streaks and a mastery formula (Phase 5), the test suite and an end-to-end pass (Phase 8), and deploy (Phase 9). Public event API keys stay last.
+**Right now.** Phases 0, 1, 2, 3, and 7 are done for the three free paths, and the Open Source community is complete. The learner map and Nearby events are live. Explain-back asks for every learning objective and passes the stage only when a model marks each one understood. An accepted idea is kept in Notes. Still open for Version 1: generating a prompt from a resource, streaks and a mastery formula (Phase 5), the test suite and an end-to-end pass (Phase 8), and deploy (Phase 9). Public event API keys stay last.

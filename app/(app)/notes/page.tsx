@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
-import { getNotes } from "@/lib/data/v2";
+import { listLearnerNotes } from "@/lib/explain/notes";
 import { NotesDesk } from "./_components/NotesDesk";
 
 export const metadata: Metadata = { title: "Notes" };
@@ -9,13 +9,12 @@ export const metadata: Metadata = { title: "Notes" };
 export default async function NotesPage() {
   const session = await auth();
   if (!session?.user?.id) redirect("/login");
-  const notes = await getNotes();
+  const notes = await listLearnerNotes(session.user.id);
   return (
-    <div className="sf-v2">
-      <p className="sf-v2-label">Version 2 preview</p>
+    <div className="sf-notes-page">
       <header className="sf-page-head">
         <h1>Notes</h1>
-        <p>Search what you wrote, then keep the note or ask for a short restatement.</p>
+        <p>Each idea you explained is kept here, with the review that came back. Open one any time.</p>
       </header>
       <NotesDesk notes={notes} />
     </div>

@@ -24,7 +24,7 @@ export async function reviewConcept(input: {
 }) {
   const session = await auth();
   if (!session?.user?.id) return { ok: false as const, error: "unavailable" as const };
-  return reviewConceptStep(input);
+  return reviewConceptStep({ ...input, userId: session.user.id });
 }
 
 export async function completeExplainWizard(input: { stageId: string; steps: WizardStep[] }) {

@@ -16,6 +16,7 @@ const NAV: SidebarItem[] = [
   { id: "nearby", label: "Nearby", icon: "map-pin", href: "/nearby" },
   { id: "open-source", label: "Open Source", icon: "git-pull-request", href: "/open-source" },
   { id: "progress", label: "Progress", icon: "chart-line", href: "/progress" },
+  { id: "notes", label: "Notes", icon: "notebook-pen", href: "/notes" },
   { id: "analytics", label: "Analytics", icon: "chart-pie", href: "/analytics" },
   { id: "submit", label: "Submit a resource", icon: "file-plus", href: "/submit" },
   { id: "settings", label: "Settings", icon: "settings", href: "/settings" },
@@ -57,12 +58,12 @@ function activeId(pathname: string) {
   if (pathname.startsWith("/roadmap") || pathname.startsWith("/lesson") || pathname.startsWith("/milestone")) return "roadmaps";
   if (pathname.startsWith("/analytics")) return "analytics";
   if (pathname.startsWith("/progress")) return "progress";
+  if (pathname.startsWith("/notes")) return "notes";
   if (pathname.startsWith("/settings")) return "settings";
   if (pathname.startsWith("/submit")) return "submit";
   if (
     pathname.startsWith("/upgrade") ||
     pathname.startsWith("/leaderboard") ||
-    pathname.startsWith("/notes") ||
     pathname.startsWith("/projects") ||
     pathname.startsWith("/transcript")
   ) return "";

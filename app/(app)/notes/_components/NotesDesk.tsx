@@ -1,96 +1,116 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { Button } from "@/components/core/Button.jsx";
+import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
+import { arrangeNotes, type LearnerNoteView } from "@/lib/explain/notes-view";
 
-export type DeskNote = {
-  id: string;
-  skillName: string;
-  stageTitle: string;
-  title: string;
-  body: string;
-};
-
-export function NotesDesk({ notes }: { notes: DeskNote[] }) {
+export function NotesDesk({ notes }: { notes: LearnerNoteView[] }) {
   const [query, setQuery] = useState("");
   const [skill, setSkill] = useState("all");
-  const [items, setItems] = useState(notes);
   const [selectedId, setSelectedId] = useState(notes[0]?.id ?? "");
-  const [pending, setPending] = useState(false);
-  const [summary, setSummary] = useState("");
-  const [notice, setNotice] = useState("");
+  const [reading, setReading] = useState(false);
   const skills = [...new Set(notes.map((note) => note.skillName))];
-  const visible = useMemo(
-    () => items.filter((note) => (skill === "all" || note.skillName === skill) && `${note.title} ${note.body}`.toLowerCase().includes(query.trim().toLowerCase())),
-    [items, skill, query],
-  );
-  const selected = visible.find((note) => note.id === selectedId) ?? visible[0] ?? null;
+  const filtered = useMemo(() => {
+    const needle = query.trim().toLowerCase();
+    return notes.filter((note) => {
+      if (skill !== "all" && note.skillName !== skill) return false;
+      if (!needle) return true;
+      return `${note.concept} ${note.explanation} ${note.review} ${note.stageTitle} ${note.skillName}`.toLowerCase().includes(needle);
+    });
+  }, [notes, query, skill]);
+  const groups = useMemo(() => arrangeNotes(filtered), [filtered]);
+  const selected = filtered.find((note) => note.id === selectedId) ?? null;
 
-  function updateBody(body: string) {
-    if (!selected) return;
-    setItems((current) => current.map((note) => (note.id === selected.id ? { ...note, body } : note)));
+  useEffect(() => {
+    if (!selected) setReading(false);
+  }, [selected]);
+
+  function openNote(id: string) {
+    setSelectedId(id);
+    setReading(true);
   }
 
-  async function summarize() {
-    if (!selected) return;
-    setPending(true);
-    setSummary("");
-    await new Promise((resolve) => setTimeout(resolve, 600));
-    setPending(false);
-    setSummary(`A short restatement: ${selected.body.split(".").slice(0, 2).join(".").trim()}.`);
+  if (notes.length === 0) {
+    return (
+      <EmptyState
+        icon="notebook-pen"
+        title="No notes yet"
+        description="When an explain-back idea holds, it is kept here with the review that came back."
+      />
+    );
   }
 
   return (
-    <div className="sf-notes">
-      <div className="sf-notes-list">
+    <div className={reading ? "sf-notes is-reading" : "sf-notes"}>
+      <aside className="sf-notes-list" aria-label="Your notes">
         <label>
           Search notes
-          <input value={query} onChange={(event) => setQuery(event.target.value)} />
+          <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="An idea, or a phrase you wrote" />
         </label>
         <label>
           Skill
           <select value={skill} onChange={(event) => setSkill(event.target.value)}>
             <option value="all">All skills</option>
-            {skills.map((name) => <option key={name} value={name}>{name}</option>)}
+            {skills.map((name) => (
+              <option key={name} value={name}>
+                {name}
+              </option>
+            ))}
           </select>
         </label>
-        {visible.length ? (
-          <ul>
-            {visible.map((note) => (
-              <li key={note.id}>
-                <button type="button" aria-current={selected?.id === note.id ? "true" : undefined} onClick={() => { setSelectedId(note.id); setSummary(""); }}>
-                  <strong>{note.title}</strong>
-                  <span>{note.skillName} · {note.stageTitle}</span>
-                </button>
-              </li>
-            ))}
-          </ul>
+        {groups.length ? (
+          groups.map((group) => (
+            <section key={group.skillName} className="sf-notes-group">
+              <h2>{group.skillName}</h2>
+              {group.stages.map((stage) => (
+                <div key={stage.stageId}>
+                  <h3>{stage.stageTitle}</h3>
+                  <ul>
+                    {stage.notes.map((note) => (
+                      <li key={note.id}>
+                        <button type="button" aria-current={selected?.id === note.id ? "true" : undefined} onClick={() => openNote(note.id)}>
+                          <strong>{note.concept}</strong>
+                          <span>{note.updatedLabel}</span>
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </section>
+          ))
         ) : (
-          <EmptyState compact icon="notebook-pen" title="No notes match" description="Try another skill or clear the search." />
+          <EmptyState compact icon="notebook-pen" title="No notes match" description="Try another skill, or clear the search." />
         )}
-      </div>
-      <div className="sf-notes-editor">
+      </aside>
+      <article className="sf-notes-reader">
         {selected ? (
           <>
-            <h2>{selected.title}</h2>
-            <p>{selected.skillName} · {selected.stageTitle}</p>
-            <label>
-              Note
-              <textarea value={selected.body} rows={8} onChange={(event) => updateBody(event.target.value)} />
-            </label>
-            <div>
-              <Button type="button" variant="outline" disabled={pending} onClick={() => void summarize()}>{pending ? "Summarizing..." : "Summarize with AI"}</Button>
-              <Button type="button" variant="ghost" onClick={() => setNotice("A Markdown export would download here.")}>Export Markdown</Button>
-              <Button type="button" variant="ghost" onClick={() => setNotice("A PDF export would download here.")}>Export PDF</Button>
-            </div>
-            {summary ? <p role="status">{summary}</p> : null}
-            {notice ? <p role="status">{notice}</p> : null}
+            <button type="button" className="sf-notes-back" onClick={() => setReading(false)}>
+              All notes
+            </button>
+            <p className="sf-explain-kicker">
+              {selected.skillName} · {selected.stageTitle}
+            </p>
+            <h2>{selected.concept}</h2>
+            <p className="sf-notes-when">{selected.updatedLabel}</p>
+            <section className="sf-notes-block">
+              <h3>What you wrote</h3>
+              <p>{selected.explanation}</p>
+            </section>
+            <section className="sf-explain-review is-pass">
+              <h3 className="sf-explain-kicker">Review</h3>
+              <p>{selected.review}</p>
+            </section>
+            <Link className="sf-notes-textlink" href={`/milestone/${selected.stageId}`}>
+              Open this stage
+            </Link>
           </>
         ) : (
-          <EmptyState compact icon="notebook-pen" title="Nothing to edit" description="Notes you write on a lesson will land in this list." />
+          <EmptyState compact icon="notebook-pen" title="No notes match" description="Try another skill, or clear the search." />
         )}
-      </div>
+      </article>
     </div>
   );
 }

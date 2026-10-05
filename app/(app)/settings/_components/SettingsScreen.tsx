@@ -12,6 +12,7 @@ import { Button } from "@/components/core/Button.jsx";
 import { Chip } from "@/components/core/Chip.jsx";
 import { UsageCutoffDialog } from "@/components/feedback/UsageCutoffDialog";
 import { followSkill, saveSettings, unfollowSkill } from "../actions";
+import { LocationCard } from "./LocationCard";
 import type { SettingsSkill } from "@/lib/data/settings";
 
 export function SettingsScreen({
@@ -23,6 +24,7 @@ export function SettingsScreen({
   accent,
   streakReminder,
   showPreview,
+  map,
 }: {
   userId: string;
   name: string;
@@ -32,6 +34,7 @@ export function SettingsScreen({
   accent: string;
   streakReminder: boolean;
   showPreview: boolean;
+  map: { hasProfile: boolean; city: string | null; country: string | null; showOnMap: boolean };
 }) {
   const router = useRouter();
   const [profileName, setProfileName] = useState(name);
@@ -156,6 +159,7 @@ export function SettingsScreen({
           ))}
         </ul>
       </SettingsSection>
+      <LocationCard map={map} />
       <SettingsSection title="Notifications" subtitle="One reminder. No badges and no counts.">
         <SettingsToggle label="Daily streak reminder" description="A quiet note if the streak is still open." checked={reminder} onChange={setReminder} />
         <p className="sf-settings-note">This reminder stays on this screen. It is not stored on the account yet.</p>

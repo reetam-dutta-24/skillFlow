@@ -20,11 +20,13 @@ Open Source is a per-niche community that works like pull requests. A learner sh
 
 Creator studio is a signed-in library for a video the learner owns. An admin approves it onto that niche’s clip feed and the creator’s public profile. View counts stay in the studio.
 
+The learner map counts people who opted in, one number per city. Settings stores the city, the country, and the city centre. The map does not show names. Set `MAP_MIN_LEARNERS` to hide cities below that count (the default is 5). Use `1` on your machine while you are the only person on the map. City search uses OpenStreetMap Nominatim. A `GEOCODER_USER_AGENT` value with a way to reach you is the polite way to call it.
+
 A dead stored link can be marked unavailable. The lesson keeps the saved title, description, and key points.
 
 ## Tech stack
 
-- Next.js 16.3.4, React 19, TypeScript, Tailwind CSS v4. Landing and auth pages are static. Shared catalog screens (niche grid, lessons, clips, submit picker) are cached for every visitor under the `catalog` tag. Public community lists and contributor profiles are cached under the `community` tag. Progress, the account menu, the review queue, and a person's own contributions stay per request
+- Next.js 16.3.4, React 19, TypeScript, Tailwind CSS v4. Landing and auth pages are static. Shared catalog screens (niche grid, lessons, clips, submit picker) are cached for every visitor under the `catalog` tag. Public community lists and contributor profiles are cached under the `community` tag. Learner-map totals are cached under the `learner-map` tag, and city search under `geocode`. Progress, the account menu, the review queue, and a person's own contributions stay per request
 - PostgreSQL and Prisma 6
 - Auth.js v5 — email and password with bcrypt, JWT sessions. Google is configured in code and is not on the login form
 - Explain-back grading is not connected to a model yet
@@ -75,6 +77,17 @@ Admins review, moderate, and grant roles in every niche. A maintainer reviews an
 To make someone a reviewer or maintainer, sign in as an admin, open `/admin/community`, find the person by their exact email, choose the niche and the role, and grant it.
 
 Typing `fail this merge` as review feedback shows the review error state without saving anything.
+
+## Learner map demo
+
+This only runs against a database on this machine, and it refuses to run when `NODE_ENV` is production. It does not run the seed.
+
+```bash
+npx tsx scripts/map-demo.ts add
+npx tsx scripts/map-demo.ts remove
+```
+
+`add` puts six learners in Lisbon, Porto, Tokyo, and Bengaluru, and two in Reykjavik. Reykjavik stays hidden while `MAP_MIN_LEARNERS` is 5. Lisbon and Porto are close enough to form one bubble until you zoom in. In development, refresh `/map` and the new counts are there. In production they refresh when someone saves a city, or within an hour.
 
 ## What is still ahead
 

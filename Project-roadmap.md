@@ -11,7 +11,7 @@ Tick a box only when that exact piece is really finished. A screen that looks do
 
 `AGENTS.md` is the short context a new session should read. This file is the longer record.
 
-Last aligned with the working tree on 1 October 2026.
+Last aligned with the working tree on 5 October 2026.
 
 ---
 
@@ -28,7 +28,8 @@ Last aligned with the working tree on 1 October 2026.
 | Niches and roadmaps | Done for three paths | Full-Stack, Travel Vlogging, and Content Creation are free and available. Art stays a coming-soon flagship |
 | Lessons and clips | Done for stored resources | The player reads `Resource` rows. YouTube watch links are rewritten into an embed |
 | Admin catalog and submissions | Done | An admin can edit stages and resources, and an approval creates a resource |
-| Caching | Done for shared catalog and community lists | Niche grid, lessons, clips, and the submit picker share the catalog tag. Merged community pages share the community tag. Progress and the account menu stay per person |
+| Caching | Done for shared catalog and community lists | Niche grid, lessons, clips, and the submit picker share the catalog tag. Merged community pages share the community tag. The learner map shares city totals. Progress and the account menu stay per person |
+| Learner map | Done | Opt-in city counts on a world map. No names. Cities under the env minimum stay hidden |
 | Settings follow | Done | Add and remove on the settings page write `UserSkillProgress`. Home links to the niche list instead of a fake Add |
 | Explain-back AI | Not started | Prompts are stored. The explain-back screen still reads mock data. The quiz feature was dropped |
 | Unlock by mastery | Not in Version 1 | A free path locks its last three stages. A pass does not open the next one |
@@ -469,4 +470,11 @@ The extra niches are in the database and show as coming soon. A new path is a re
 
 ---
 
-**Right now.** Phases 0, 1, 2, 3, and 7 are done for the three free paths, and the Open Source community is complete. Phase 6 is done for those screens and open for explain-back. Phases 4, 5, 8, and 9 are the remaining Version 1 backend. Next product step, when you choose it, is Phase 4: make the explain-back screen read the prompt that is already saved, then grade it.
+## Learner map
+**Status: ✅ DONE. Counts only. No names.**
+
+Settings can store one city: the name, the country, and the city centre from OpenStreetMap Nominatim. “Show me on the learner map” is off until the learner turns it on. `/map` draws those cities with MapLibre. A bubble is a count. Zoomed out, nearby cities cluster and the number is the sum of learners. A niche filter lists followed niches first. A city with fewer opted-in learners than `MAP_MIN_LEARNERS` (default 5) is left off. `scripts/map-demo.ts` adds and removes fake learners on this machine only.
+
+---
+
+**Right now.** Phases 0, 1, 2, 3, and 7 are done for the three free paths, and the Open Source community is complete. The learner map is live. Phase 6 is done for those screens and open for explain-back. Phases 4, 5, 8, and 9 are the remaining Version 1 backend. Next product step, when you choose it, is Phase 4: make the explain-back screen read the prompt that is already saved, then grade it.

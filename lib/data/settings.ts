@@ -18,7 +18,11 @@ export async function getSettingsProfile() {
     userId
       ? prisma.user.findUnique({
           where: { id: userId },
-          select: { name: true, email: true, learnerProfile: { select: { accent: true } } },
+          select: {
+            name: true,
+            email: true,
+            learnerProfile: { select: { accent: true, city: true, country: true, showOnMap: true } },
+          },
         })
       : Promise.resolve(null),
   ]);
@@ -41,6 +45,12 @@ export async function getSettingsProfile() {
     })),
     accent: isStoredAccent(storedAccent) ? storedAccent : "tide",
     streakReminder: true,
+    map: {
+      hasProfile: Boolean(user?.learnerProfile),
+      city: user?.learnerProfile?.city ?? null,
+      country: user?.learnerProfile?.country ?? null,
+      showOnMap: user?.learnerProfile?.showOnMap ?? false,
+    },
   };
 }
 

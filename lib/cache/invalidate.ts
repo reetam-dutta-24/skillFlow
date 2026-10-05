@@ -1,5 +1,5 @@
 import { updateTag } from "next/cache";
-import { accountTag, CATALOG_TAG, COMMUNITY_TAG } from "@/lib/cache/tags";
+import { accountTag, CATALOG_TAG, COMMUNITY_TAG, MAP_TAG } from "@/lib/cache/tags";
 
 /** Drop the shared catalog immediately after an admin write. */
 export function invalidateCatalog() {
@@ -14,4 +14,9 @@ export function invalidateAccount(userId: string) {
 /** Drop shared community pages after a join, a useful mark, or a public count change. */
 export function invalidateCommunity() {
   updateTag(COMMUNITY_TAG);
+}
+
+/** Drop city counts after someone saves a city or changes the map toggle. */
+export function invalidateMap() {
+  updateTag(MAP_TAG);
 }

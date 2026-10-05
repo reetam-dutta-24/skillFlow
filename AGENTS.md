@@ -12,7 +12,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 Read this after the Next.js block. `Project-roadmap.md` is the phase list. `README.md` is how to run the app. The files in `content/catalog/_review/` are generated link-check reports. Do not rewrite them by hand.
 
-Last aligned with the working tree on 1 October 2026.
+Last aligned with the working tree on 5 October 2026.
 
 ## What this product is
 
@@ -94,6 +94,7 @@ Wired to Postgres:
   - Gaps. Any signed-in learner reports one (title 120, description 1,000, optional stage of that skill, 3 per 24 hours). Moderators label good-first, close an open gap, and reopen a closed one. A resolved gap changes only through its contribution.
   - Cache. Merged lists, member counts, gaps, the changelog, contributors, and contributor profiles use `use cache` with the `community` tag. Every write that changes them calls `invalidateCommunity()`. An edit that is not a resubmission changes nothing public. The review queue, the sidebar count, the author’s pages, the maintainers panel, and `/admin/community` are per request.
 - Creator studio (`/creator`) is where a signed-in person uploads a video they own, keeps the draft, and sends it for review. Admin approval at `/admin/creator` marks it live. A live video joins that niche’s clip feed and the public profile at `/profile/[userId]`. The studio shows that creator’s views, watch time, and how many plays reached most of the video. Those numbers stay off the feed and off the profile. Replacing the file on a live video sends it back to review. A profile rating and earnings are not calculated. Publishing, withdrawing, or editing a live video calls `invalidateCatalog()`.
+- Learner map (`/map`) counts opted-in learners per city. Settings stores a city, a country, and the city-centre coordinates, plus “Show me on the learner map”. Saving a city before onboarding creates a profile with placeholder path fields. The map never receives names or one pin per person. Cities under `MAP_MIN_LEARNERS` (default 5) are omitted. A niche filter puts followed niches first; that order is personal and stays outside the cache. City totals use `use cache`, `cacheLife("hours")`, and `MAP_TAG`. Saving a city or the toggle calls `invalidateMap()`. Nominatim search uses `use cache`, `cacheLife("days")`, and `GEOCODE_TAG`. In development the totals are read fresh so `scripts/map-demo.ts` shows up on refresh. That script refuses to run in production or against a database that is not on this machine. Clustering lives in `app/(app)/map/_components/MapCanvas.tsx`. The geocoding cache lives in `lib/geo/nominatim.ts`.
 
 Not wired:
 
@@ -107,10 +108,10 @@ Not wired:
 ## Stack facts that are easy to get wrong
 
 - Next.js 16.3.4, React 19.2.8, Tailwind v4, Prisma 6.19.3, NextAuth v5 beta.32. `trustHost: true`. Sessions are JWT. Credentials needs JWT. Do not describe database sessions or a finished Google button. Google is configured in `lib/auth.ts` only.
-- `cacheComponents` is on in `next.config.ts`. Shared niches, stages, resources, the niche grid, lesson screens, clips, and the submit picker use `use cache` with the `catalog` tag. Merged community lists, member counts, gaps, the changelog, contributors, and contributor profiles use the `community` tag. The niches page shows 32 cards at a time in the browser, so the page number is not a cache key. Home and the roadmap index reuse a cached teaser of the first rows. Admin catalog saves and an approved submission call `updateTag`. Progress, streaks, settings, joined state, and “N new” stay on the request. The account menu streams beside that shell.
+- `cacheComponents` is on in `next.config.ts`. Shared niches, stages, resources, the niche grid, lesson screens, clips, and the submit picker use `use cache` with the `catalog` tag. Merged community lists, member counts, gaps, the changelog, contributors, and contributor profiles use the `community` tag. Learner-map city totals use the `learner-map` tag. Nominatim city search uses the `geocode` tag. The niches page shows 32 cards at a time in the browser, so the page number is not a cache key. Home and the roadmap index reuse a cached teaser of the first rows. Admin catalog saves and an approved submission call `updateTag`. Progress, streaks, settings, joined state, and “N new” stay on the request. The account menu streams beside that shell. A learner’s own city and map toggle stay on the request.
 - `proxy.ts` exports `export const proxy = auth(...)`. `middleware.ts` was deleted. Do not restore it. The proxy only checks that someone is signed in.
 - Postgres database name is `skillflow` on localhost:5432. `prisma.config.ts` loads `.env` with dotenv because Prisma 6 does not.
-- Migrations through `20261001104500_creator_studio` are applied, plus the `community_unmerge_flag` migration that adds `ContributionReview.unmerge`. Do not create a migration unless the schema changes.
+- Migrations through `20261001104500_creator_studio` are applied, plus the `community_unmerge_flag` migration that adds `ContributionReview.unmerge`, and `20261005193000_learner_map` for the opt-in city. Do not create a migration unless the schema changes. Do not run `prisma migrate reset`.
 - `tsx` top-level await fails under CommonJS. Wrap scripts in `async function main()`. PowerShell has no `&&` and no bash heredoc. It also eats `$disconnect` inside `tsx -e`. Use a temp script, then delete it.
 - Full-repo `eslint` still fails on older files. Lint the files you touched. `tsc --noEmit` and `next build` are the project checks.
 - Do not start a second `npm run dev` if one is already answering on port 3000.

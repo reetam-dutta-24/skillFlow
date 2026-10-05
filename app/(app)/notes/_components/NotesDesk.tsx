@@ -107,7 +107,9 @@ export function NotesDesk({ notes }: { notes: LearnerNoteView[] }) {
           <article className="sf-notebook-page" aria-labelledby="notebook-stage">
             <header className="sf-notebook-page-head">
               <p>
-                Stage {chapterIndex + 1} of {chapters.length}
+                {chapter.stageId.startsWith("practice:")
+                  ? "Practice"
+                  : `Stage ${chapters.slice(0, chapterIndex + 1).filter((item) => !item.stageId.startsWith("practice:")).length} of ${chapters.filter((item) => !item.stageId.startsWith("practice:")).length}`}
                 <span>
                   {chapter.notes.length} {chapter.notes.length === 1 ? "idea" : "ideas"}
                 </span>
@@ -149,7 +151,7 @@ export function NotesDesk({ notes }: { notes: LearnerNoteView[] }) {
               <button type="button" disabled={chapterIndex === 0} onClick={() => { setStageId(chapters[chapterIndex - 1].stageId); setSummary(null); setSummaryNote(""); }}>
                 Previous stage
               </button>
-              <Link href={`/milestone/${chapter.stageId}`}>Open this stage</Link>
+              {chapter.stageId.startsWith("practice:") ? null : <Link href={`/milestone/${chapter.stageId}`}>Open this stage</Link>}
               <button type="button" disabled={chapterIndex === chapters.length - 1} onClick={() => { setStageId(chapters[chapterIndex + 1].stageId); setSummary(null); setSummaryNote(""); }}>
                 Next stage
               </button>

@@ -28,6 +28,7 @@ const ROUTES = [
   ["/upgrade", "Upgrade"],
   ["/upgrade?plan=premium", "Manage subscription"],
   ["/notes", "Notes"],
+  ["/notes/practice", "Practice an idea"],
   ["/creator", "Creator studio"],
   ["/creator/new", "Upload a video"],
   ["/admin/creator", "Creator review"],

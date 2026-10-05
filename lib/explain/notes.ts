@@ -1,6 +1,7 @@
 import "server-only";
 import { prisma } from "@/lib/prisma";
 import { notesFromPassedAttempt, type LearnerNoteView } from "@/lib/explain/notes-view";
+import { PRACTICE_STAGE_ORDER, practiceKey, practiceStageId } from "@/lib/explain/practice";
 
 const LABEL = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric" });
 
@@ -34,6 +35,43 @@ export async function saveLearnerNotes(input: {
   } catch (error) {
     const message = error instanceof Error ? error.message : "save failed";
     console.error("learner note save failed", message.slice(0, 180));
+    return false;
+  }
+}
+
+/** An accepted practice idea. It is not attached to a stage and does not pass one. */
+export async function savePracticeNote(input: {
+  userId: string;
+  skillId: string;
+  concept: string;
+  explanation: string;
+  review: string;
+}): Promise<boolean> {
+  const concept = input.concept.trim().slice(0, 200);
+  const explanation = input.explanation.trim().slice(0, 8000);
+  const review = input.review.trim().slice(0, 4000);
+  if (!concept || !explanation || review.length < 20) return false;
+  const key = practiceKey(input.userId, input.skillId, concept);
+  try {
+    await prisma.learnerNote.upsert({
+      where: { practiceKey: key },
+      create: {
+        userId: input.userId,
+        skillId: input.skillId,
+        stageId: null,
+        kind: "practice",
+        practiceKey: key,
+        concept,
+        explanation,
+        review,
+        position: 0,
+      },
+      update: { explanation, review, concept, skillId: input.skillId },
+    });
+    return true;
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "save failed";
+    console.error("practice note save failed", message.slice(0, 180));
     return false;
   }
 }
@@ -75,18 +113,21 @@ export async function listLearnerNotes(userId: string): Promise<LearnerNoteView[
       stage: { select: { title: true, order: true } },
     },
   });
-  return rows.map((row) => ({
-    id: row.id,
-    skillName: row.skill.name,
-    skillOrder: row.skill.order,
-    stageId: row.stageId,
-    stageTitle: row.stage.title,
-    stageOrder: row.stage.order,
-    concept: row.concept,
-    explanation: row.explanation,
-    review: row.review,
-    position: row.position,
-    updatedAt: row.updatedAt.toISOString(),
-    updatedLabel: LABEL.format(row.updatedAt),
-  }));
+  return rows.map((row) => {
+    const practice = row.kind === "practice" || !row.stage;
+    return {
+      id: row.id,
+      skillName: row.skill.name,
+      skillOrder: row.skill.order,
+      stageId: practice ? practiceStageId(row.skillId) : row.stageId!,
+      stageTitle: practice ? "Practice" : row.stage!.title,
+      stageOrder: practice ? PRACTICE_STAGE_ORDER : row.stage!.order,
+      concept: row.concept,
+      explanation: row.explanation,
+      review: row.review,
+      position: row.position,
+      updatedAt: row.updatedAt.toISOString(),
+      updatedLabel: LABEL.format(row.updatedAt),
+    };
+  });
 }

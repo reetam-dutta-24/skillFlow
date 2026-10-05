@@ -316,3 +316,47 @@ export async function judgeConcept(input: {
   }
   return review;
 }
+
+const PRACTICE_SYSTEM = [
+  "You review one idea a learner is practicing from text they brought themselves.",
+  "The provided text is the only source. Do not add facts that are not in that text.",
+  "Understood is true when their explanation agrees with the provided text and covers the named idea. A clear restatement still counts.",
+  "A name, a label, or a single clause is not understood. A claim the text does not support is not understood. Do not reject an answer only because its wording stays close to the text.",
+  "The review is always written, whether they understood or not. Two to four sentences.",
+  "If they understood, name what they got right from the text.",
+  "If they did not, say what is missing or confused. Do not hand them the full answer, and do not teach from outside the text.",
+  "No score, no tick, no pass or fail label.",
+  "Reply with JSON only. understood is true or false. review is the two to four sentences you just wrote, in full. Do not leave a field as a type name.",
+].join(" ");
+
+/** Grade one practice idea against the learner's own text. This does not pass a stage. */
+export async function judgePractice(input: { skillName: string; concept: string; source: string; answer: string }): Promise<ConceptReview | null> {
+  const config = explainModelConfig();
+  if (!config) return null;
+  const lines = [
+    `Niche: ${input.skillName}`,
+    `The idea they must explain: ${input.concept}`,
+    `Text they brought:\n${input.source}`,
+    `Their explanation:\n${input.answer}`,
+  ];
+  const payload = {
+    model: config.model,
+    response_format: { type: "json_object" },
+    temperature: 0.2,
+    ...(config.provider === "gemini" ? { reasoning_effort: "low" } : {}),
+    messages: [
+      { role: "system", content: PRACTICE_SYSTEM },
+      { role: "user", content: lines.join("\n\n") },
+    ],
+  };
+  let content = await modelContent(config, payload);
+  if (content == null) return null;
+  let review = parseConceptReview(content);
+  if (!review) {
+    content = await modelContent(config, payload);
+    if (content == null) return null;
+    review = parseConceptReview(content);
+  }
+  if (!review) console.error("practice note reply was not a review");
+  return review;
+}

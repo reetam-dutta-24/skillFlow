@@ -113,4 +113,4 @@ npx tsx scripts/map-demo.ts remove
 
 ## What is still ahead
 
-Passing an explain-back records the stage and does not unlock the last three stages of a free path. Mastery is the share of open stages passed. A streak day is a UTC day with a saved explain-back or a saved note. Notes download as Word or PDF, and a stage summary uses only those notes. There is no leaderboard and no peer review. Stripe is not running. `Project-roadmap.md` is the phase list. `AGENTS.md` is the working context for the next session.
+Passing an explain-back records the stage and does not unlock the last three stages of a free path. Mastery is the share of open stages passed. A streak day is a UTC day with a saved explain-back or a saved note. Notes download as Word or PDF, and a stage summary uses only those notes. `/notes/practice` reviews an idea against text the learner brings and does not pass a stage. There is no leaderboard and no peer review. Stripe is not running. `Project-roadmap.md` is the phase list. `AGENTS.md` is the working context for the next session.

@@ -329,7 +329,7 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 
 **Still open:**
 
-- [ ] Resource text (catalog or brought by the learner) → model → explain-back prompt and rubric
+- [ ] Catalog resource text → model → explain-back prompt and rubric (stage prompts stay authored; `/notes/practice` already grades an idea against text the learner brings)
 - [x] Timeout and bad JSON leave the stage unpassed instead of inventing a grade
 - [x] Milestone page reads the stage concepts
 - [x] After every idea passes, one `ExplainBackAttempt` is saved
@@ -444,9 +444,9 @@ There is no `/leaderboard` route. Verified understanding stays on the learner’
 **Status: ⬜ NOT STARTED as data. The page exists and is `noindex`.**
 
 ## V2 PHASE 5 — Notes
-**Status: ✅ STORED, EXPORTABLE, AND SUMMARIZED PER STAGE. A CUSTOM PRACTICE LANE IS NOT BUILT.**
+**Status: ✅ STORED, EXPORTABLE, AND SUMMARIZED. PRACTICE NOTES STAY OFF THE PATH.**
 
-`/notes` is in the sidebar. When an idea holds, `LearnerNote` keeps the explanation and the written review. A pass recorded before that still becomes notes the next time the page is opened. The page is a notebook: one skill, its stages in path order, and every idea on that stage with the review under it. Download Word and Download PDF save that notebook. Summarize this stage asks the same model for a short restatement of that stage’s notes and nothing outside them. Notes are personal and are read on the request. A separate practice lane, where the learner brings their own text and an answer, is not built. It must not pass a stage or enter the catalog.
+`/notes` is in the sidebar. When an idea holds, `LearnerNote` keeps the explanation and the written review. A pass recorded before that still becomes notes the next time the page is opened. The page is a notebook: one skill, its stages in path order, and every idea on that stage with the review under it. Practice notes sit in a Practice chapter after the stages. Download Word and Download PDF save that notebook. Summarize this stage asks the same model for a short restatement of that stage’s notes and nothing outside them. `/notes/practice` lets a learner drop or paste their own text, name a concept, and get the same kind of review. An idea that holds is saved. It does not pass a stage or enter the catalog. Notes are personal and are read on the request.
 
 ## V2 PHASE 6 — Peer project review
 **Status: 🚫 REMOVED.**
@@ -492,4 +492,4 @@ Ticketmaster and Google Events (SerpApi) are separate adapters. A missing key tu
 
 ---
 
-**Right now.** Phases 0, 1, 2, 3, 5, and 7 are done for the three free paths, and the Open Source community is complete. The learner map and Nearby events are live. Explain-back asks for every learning objective and passes the stage only when a model marks each one understood. An accepted idea is kept in Notes, and that notebook can be downloaded or summarized from those notes alone. Mastery, streaks, weak topics, and the progress charts read those attempts. A score leaderboard and peer review are not part of the product. A creator rating and earnings are not either. Still open for Version 1: the rest of the test suite and an end-to-end pass (Phase 8), and deploy (Phase 9). A separate notes practice lane, where a learner brings their own text, is the agreed shape for grading an idea outside the catalog, and it is not built. Public event API keys stay last.
+**Right now.** Phases 0, 1, 2, 3, 5, and 7 are done for the three free paths, and the Open Source community is complete. The learner map and Nearby events are live. Explain-back asks for every learning objective and passes the stage only when a model marks each one understood. An accepted idea is kept in Notes, and that notebook can be downloaded or summarized from those notes alone. `/notes/practice` grades an idea against text the learner brings, and saves it without passing a stage. Mastery, streaks, weak topics, and the progress charts read explain-back attempts. A score leaderboard and peer review are not part of the product. A creator rating and earnings are not either. Still open for Version 1: the rest of the test suite and an end-to-end pass (Phase 8), and deploy (Phase 9). Public event API keys stay last.

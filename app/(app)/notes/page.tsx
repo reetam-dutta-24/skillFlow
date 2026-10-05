@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { listLearnerNotes } from "@/lib/explain/notes";
@@ -15,12 +16,15 @@ export default async function NotesPage() {
       <header className="sf-page-head">
         <h1>Notes</h1>
         <p>Read a stage the way you would a notebook. Each idea keeps what you wrote, then the review that came back. A stage summary uses only those notes.</p>
-        {notes.length ? (
-          <p className="sf-notes-actions">
-            <a href="/notes/export?format=docx">Download Word</a>
-            <a href="/notes/export?format=pdf">Download PDF</a>
-          </p>
-        ) : null}
+        <p className="sf-notes-actions">
+          {notes.length ? (
+            <>
+              <a href="/notes/export?format=docx">Download Word</a>
+              <a href="/notes/export?format=pdf">Download PDF</a>
+            </>
+          ) : null}
+          <Link href="/notes/practice">Practice an idea</Link>
+        </p>
       </header>
       <NotesDesk notes={notes} />
     </div>

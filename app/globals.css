@@ -4162,6 +4162,56 @@ a.sf-source:hover {
   border-radius: var(--radius-card);
   background: var(--surface-card);
 }
+.sf-practice {
+  display: grid;
+  gap: 14px;
+  max-width: 720px;
+  min-width: 0;
+}
+.sf-practice label {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+.sf-practice input,
+.sf-practice select,
+.sf-practice textarea {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border: 1px solid var(--border-default);
+  border-radius: 10px;
+  background: var(--bg-app);
+  color: var(--text-primary);
+  font: inherit;
+}
+.sf-practice textarea.is-over {
+  border-color: var(--accent);
+}
+.sf-practice-file {
+  width: fit-content;
+  max-width: 100%;
+}
+.sf-practice button[type="submit"] {
+  justify-self: start;
+  min-height: 40px;
+  padding: 0 16px;
+  border: none;
+  border-radius: var(--radius-full);
+  background-image: var(--gradient-brand);
+  color: var(--text-on-accent);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+}
+.sf-practice button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
 .sf-notes-actions {
   display: flex;
   flex-wrap: wrap;

@@ -347,12 +347,16 @@ model ExplainBackAttempt {
   prompt ExplainBackPrompt @relation(fields: [promptId], references: [id], onDelete: Cascade)
 }
 
-/// One accepted explain-back idea: what the learner wrote, and the review that came back.
+/// One accepted idea: an explain-back on a stage, or a practice note the learner brought themselves.
 model LearnerNote {
   id          String   @id @default(cuid())
   userId      String
   skillId     String
-  stageId     String
+  stageId     String?
+  /// "stage" for an explain-back idea. "practice" for a note graded from the learner's own text.
+  kind        String   @default("stage")
+  /// Set only for practice notes, so the same idea updates instead of duplicating. Stage notes leave this empty.
+  practiceKey String?  @unique
   concept     String
   explanation String   @db.Text
   review      String   @db.Text
@@ -360,9 +364,9 @@ model LearnerNote {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  user  User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  skill Skill        @relation(fields: [skillId], references: [id], onDelete: Cascade)
-  stage RoadmapStage @relation(fields: [stageId], references: [id], onDelete: Cascade)
+  user  User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  skill Skill         @relation(fields: [skillId], references: [id], onDelete: Cascade)
+  stage RoadmapStage? @relation(fields: [stageId], references: [id], onDelete: Cascade)
 
   @@unique([userId, stageId, concept])
   @@index([userId, updatedAt])

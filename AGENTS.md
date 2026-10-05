@@ -82,7 +82,7 @@ Wired to Postgres:
 - Admin catalog (`/admin/catalog`) edits skills that already have stages, and lists every niche. Needs-review filter is `#catalog-review-only`.
 - Submit writes `ResourceSubmission`. Admin approval creates a `Resource`. Reject stores a note.
 - Profile name saves. Email does not. Theme and accent apply immediately. The ten presets stay. A custom gradient is `custom:#start:#end` on `LearnerProfile.accent` and the `skillflow-accent` cookie. The palette, hex, and RGB fields live on Settings and onboarding. That choice is personal: it is not part of the catalog cache, and saving it does not call `invalidateCatalog()`.
-- Explain-back questions and rubrics are stored on each imported stage. A stage counts as passed when `StageCompletion.explainBackPassed` is true. Home and Progress show “Explain-backs passed” from `ExplainBackAttempt`.
+- Explain-back questions and rubrics are stored on each imported stage. Submitting on a real stage asks one follow-up, then writes `ExplainBackAttempt`. A pass sets `StageCompletion.explainBackPassed`. Home and Progress show “Explain-backs passed” from those attempts. The last three stages stay locked.
 - The quiz feature was dropped on 1 October 2026. The explain-back gate is the only mastery check. The `Quiz`, `QuizQuestion`, and `QuizAttempt` tables and `StageCompletion.quizPassed` are still in the schema because the database was not changed. Nothing reads or writes them. Do not build on them.
 - Progress, analytics, and home stats read real attempt counts. With no attempts, those numbers are zero. The charts are not a mock learner with a streak of 12.
 - Open Source is wired end to end. It works like pull requests: a contribution is submitted, reviewed, and only `MERGED` ones are public. Community content never goes into `Resource`, `RoadmapStage`, or any catalog table, and community writes never call `invalidateCatalog()`. `/submit` (`ResourceSubmission`) is a separate feature. Coming-soon niches have communities too.
@@ -102,7 +102,7 @@ Wired to Postgres:
 
 Not wired:
 
-- Explain-back grading. `/milestone/[stageId]` still reads `lib/mock/catalog`. Real stage ids do not resolve there. This is Version 2.
+- Generating an explain-back prompt from resource text. Grading is wired: a real stage reads `ExplainBackPrompt`, asks one follow-up, and writes `ExplainBackAttempt`. A pass sets `StageCompletion.explainBackPassed` and does not unlock the last three stages. With no `EXPLAIN_MODEL_URL`, the stored rubric grades the answer. A timeout or bad JSON from a configured model falls back to that rubric. The preview id `__explain_input__` still uses the mock walkthrough.
 - Passing an explain-back does not unlock the next stage. The last three stages of a free path are what stay locked.
 - Streaks do not advance from activity. `User.currentStreak` is stored and displayed. Nothing updates it on a schedule.
 - Mastery percent is not calculated from attempts.

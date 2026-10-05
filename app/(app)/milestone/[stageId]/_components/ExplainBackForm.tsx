@@ -32,7 +32,7 @@ export function ExplainBackForm({
   const [result, setResult] = useState<"pass" | "needs-improvement" | undefined>(undefined);
   const [feedback, setFeedback] = useState("");
   const [reviewing, setReviewing] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<"unavailable" | "unconnected" | false>(false);
   const [mode, setMode] = useState<"text" | "voice">("text");
   const [phase, setPhase] = useState<"idle" | "recording" | "transcribing">("idle");
   const [voiceNote, setVoiceNote] = useState("");
@@ -103,7 +103,7 @@ export function ExplainBackForm({
     try {
       const outcome = await reviewExplanation({ stageId, answer });
       if (!outcome.ok) {
-        if (outcome.error === "unavailable") setError(true);
+        if (outcome.error === "unavailable" || outcome.error === "unconnected") setError(outcome.error);
         return;
       }
       if (outcome.kind === "follow-up") {
@@ -111,7 +111,7 @@ export function ExplainBackForm({
         setFollowUp(outcome.question);
       }
     } catch {
-      setError(true);
+      setError("unavailable");
     } finally {
       setReviewing(false);
     }
@@ -124,7 +124,7 @@ export function ExplainBackForm({
     try {
       const outcome = await reviewExplanation({ stageId, answer, followUpAnswer });
       if (!outcome.ok) {
-        if (outcome.error === "unavailable") setError(true);
+        if (outcome.error === "unavailable" || outcome.error === "unconnected") setError(outcome.error);
         return;
       }
       if (outcome.kind === "pass" || outcome.kind === "needs-improvement") {
@@ -132,7 +132,7 @@ export function ExplainBackForm({
         setFeedback(outcome.feedback);
       }
     } catch {
-      setError(true);
+      setError("unavailable");
     } finally {
       setReviewing(false);
     }
@@ -193,8 +193,8 @@ export function ExplainBackForm({
         <ErrorState
           compact
           role="alert"
-          title="We could not review your explanation."
-          description="Your answer is saved."
+          title={error === "unconnected" ? "The explain-back check is not connected yet." : "We could not review your explanation."}
+          description={error === "unconnected" ? "Your words stay in the box. Nothing was saved." : "Your answer is saved."}
           retryLabel="Try again"
           onRetry={() => setError(false)}
         />

@@ -7,7 +7,7 @@ This file is two things at once:
 
 Tick a box only when that exact piece is really finished. A screen that looks done on mock data is not the same as the backend for that feature.
 
-**How to talk about it.** The product idea, the database, sign-in, onboarding, the niche list, and the three free roadmaps are real. Lessons on those paths play the stored resources. There is no quiz: the feature was dropped, and the explain-back gate is the only check. Explain-back grading is still a mock screen. Streaks display a stored number and do not advance. Stripe and the leaderboard score are not running.
+**How to talk about it.** The product idea, the database, sign-in, onboarding, the niche list, and the three free roadmaps are real. Lessons on those paths play the stored resources. There is no quiz: the feature was dropped, and the explain-back gate is the only check. A real stage grades the explanation against the stored rubric, asks one follow-up, and saves the attempt. An optional model can grade instead when its URL and key are set. Streaks display a stored number and do not advance. Stripe and the leaderboard score are not running.
 
 `AGENTS.md` is the short context a new session should read. This file is the longer record.
 
@@ -32,7 +32,7 @@ Last aligned with the working tree on 5 October 2026.
 | Learner map | Done | Opt-in city counts on Nearby → Learners. No names. Cities under the env minimum stay hidden |
 | Nearby events | Done | Saved events per city and niche, refreshed on a cap. Community events need a review. Live search is admin-only until payments |
 | Settings follow | Done | Add and remove on the settings page write `UserSkillProgress`. Home links to the niche list instead of a fake Add |
-| Explain-back AI | Not started | Prompts are stored. The explain-back screen still reads mock data. The quiz feature was dropped |
+| Explain-back | Grading is live | A real stage shows the stored question, asks one follow-up, and saves the attempt. The rubric grades it unless a model URL is set. A pass does not open the last three stages |
 | Unlock by mastery | Not in Version 1 | A free path locks its last three stages. A pass does not open the next one |
 | Tests, deploy, monitoring | Not started | No test suite, no production host, no Sentry |
 
@@ -77,7 +77,7 @@ Landing, the auth carousel, and onboarding name Travel Vlogging with Full-Stack 
 - **Auth.js (NextAuth v5 beta).** Email and password today. Passwords are bcrypt hashes on `User.password`. Sessions are JWTs. `trustHost` is true. The Credentials provider needs the JWT strategy, so this app does not use database sessions. The JWT callback copies `id` and `role` onto the token. The session callback copies them onto `session.user`.
 - **`lib/prisma.ts`.** One Prisma Client for the process, stored on `globalThis` in development.
 - **`proxy.ts`.** If there is no session, a visit to a signed-in URL redirects to `/login`. Role checks are not done here. Admin pages call `requireAdmin()` themselves.
-- **`lib/data`.** Each loader starts with `import "server-only"`. Catalog, lesson, clips, dashboard, settings, submissions, admin catalog, and creator studio read Prisma. Milestone (explain-back) and the remaining Version 2 previews still read `lib/mock`.
+- **`lib/data`.** Each loader starts with `import "server-only"`. Catalog, lesson, clips, dashboard, settings, submissions, admin catalog, creator studio, and the explain-back milestone read Prisma. The preview id `__explain_input__` and the remaining Version 2 previews still read `lib/mock`.
 
 ---
 
@@ -120,7 +120,7 @@ Content tables:
 - `Resource` stores a snapshot (`title`, `description`, `keyPoints`, `transcript`, `provider`, `author`, `videoId`) so a dead URL can still show what the lesson covered. `isFree`, `language`, `needsReview`, `sourceStatus` (`ACTIVE` or `UNAVAILABLE`), and `lastVerifiedAt` are the catalog fields. There is no note column. `@@unique([stageId, url])` and `@@unique([stageId, order])`.
 - `ResourceSubmission` is the waiting room. Approval creates a real `Resource` on that stage. Rejection stores the note.
 - `Quiz`, `QuizQuestion`, `QuizAttempt`. Left in the schema after the quiz feature was dropped. Nothing reads or writes them.
-- `ExplainBackPrompt` is one per stage. The importer writes the question and the rubric. `ExplainBackAttempt` is ready for a later grader. The milestone screen does not read this table yet.
+- `ExplainBackPrompt` is one per stage. The importer writes the question and the rubric. A finished explain-back writes `ExplainBackAttempt`, and a pass sets `StageCompletion.explainBackPassed`.
 - `UserSkillProgress` is one row per user per skill: `masteryPercent`, `currentStageOrder`.
 - `StageCompletion` is one row per user per stage: `explainBackPassed` and `completedAt` (`quizPassed` is unused). A stage counts as passed when the explain-back passed. The free-path lock does not read these flags.
 
@@ -150,7 +150,7 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 
 **No quiz.** The quiz feature was dropped. There is no `/quiz` route, no quiz stat, and no “Continue to quiz” button. The lesson's next step is the explain-back.
 
-**Explain-back.** The question and rubric are in the database for every imported stage. The screen at `/milestone/[stageId]` still looks up the old mock catalog, so a real stage id does not open it. Grading is not a model call. `review failed` is still the mock error string.
+**Explain-back.** Every imported stage has a question and a rubric. The lesson’s continue button opens `/milestone/[stageId]` on that question. The first answer gets one follow-up about the thinnest rubric line. The second answer is saved as `ExplainBackAttempt`. A pass sets `StageCompletion.explainBackPassed` and, when that stage is the learner’s current one, moves `currentStageOrder` to the next open stage. The last three stages stay locked. With no `EXPLAIN_MODEL_URL`, the rubric grades the answer. A configured model that times out or returns bad JSON falls back to the same rubric, so the check still finishes. `review failed` still shows the error and saves nothing. The preview id `__explain_input__` keeps the old mock walkthrough.
 
 **Progress and analytics.** Counts come from `ExplainBackAttempt` and `StageCompletion`. Home and Progress show “Explain-backs passed”. Weak topics are empty. The analytics series is not the old mock week.
 
@@ -316,21 +316,25 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 - [ ] Tests for roadmap and resource reads
 
 ## PHASE 4 — AI explain-back
-**Status: ⬜ NOT STARTED as a backend. Prompts are stored. The grader is not.**
+**Status: 🔶 THE CHECK IS GRADED. PROMPTS ARE STILL AUTHORED, NOT GENERATED.**
 
 **Already stored or on screen:**
 
 - One explain-back question and rubric per imported stage
-- The old milestone screen still has text, a mocked voice path, a follow-up, pass, retry, and the `review failed` error. It does not open for a real stage id
+- A real stage opens `/milestone/[stageId]` on the stored question. The lesson’s continue button goes there
+- The first answer gets one follow-up. The second answer writes `ExplainBackAttempt`. A pass sets `StageCompletion.explainBackPassed` and does not open a locked stage
+- The rubric grades the answer. `EXPLAIN_MODEL_URL` plus `EXPLAIN_MODEL_KEY` can grade instead. A timeout or bad JSON falls back to the rubric
+- `lib/explain/rubric.test.ts` is the eval set: a full Flexbox answer passes, a thin one does not
+- The preview id `__explain_input__` still has the mocked voice path, follow-up, pass, retry, and the `review failed` error
 
 **Still open:**
 
 - [ ] Resource text (catalog or brought by the learner) → model → explain-back prompt and rubric
-- [ ] Timeout and bad JSON handled without breaking the lesson
-- [ ] Milestone page reads `ExplainBackPrompt`
-- [ ] Multi-turn grading that writes `ExplainBackAttempt`
-- [ ] An eval set of good and thin answers
-- [ ] A pass that updates `StageCompletion` — only if the product chooses to gate on it. Version 1 does not
+- [x] Timeout and bad JSON handled without breaking the lesson
+- [x] Milestone page reads `ExplainBackPrompt`
+- [x] Multi-turn grading that writes `ExplainBackAttempt`
+- [x] An eval set of good and thin answers
+- [x] A pass updates `StageCompletion`. Version 1 does not unlock the last three stages
 
 ## PHASE 5 — Mastery, streaks, progress data
 **Status: 🔶 COUNTS ARE REAL. THE FORMULAS ARE NOT**
@@ -342,14 +346,14 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 - [ ] Charts drawn from those attempts rather than left empty
 
 ## PHASE 6 — Frontend on real data
-**Status: 🔶 THE LEARNING PATH IS ON REAL DATA. EXPLAIN-BACK AND VERSION 2 ARE NOT**
+**Status: 🔶 THE LEARNING PATH AND EXPLAIN-BACK ARE ON REAL DATA. VERSION 2 IS NOT**
 
 - [x] App shell, home, clips, roadmaps, lesson, settings, submit, admin catalog
 - [x] Shared catalog cache for the niche grid, lessons, clips, and the submit picker. Admin saves expire it
 - [x] Loading skeletons, empty states, and the locked-stage state
 - [x] Stage photos on the three paths
 - [x] Settings follow and unfollow
-- [ ] Explain-back UI calling a real grader
+- [x] Explain-back UI calling a real grader
 - [x] Home and roadmap no longer show a preview Add. Explore links to the niche list. Follow stays on Settings
 - [ ] A full responsive pass, including 375px
 - [x] Landing, auth carousel, and onboarding name Travel Vlogging instead of Art
@@ -487,4 +491,4 @@ Ticketmaster and Google Events (SerpApi) are separate adapters. A missing key tu
 
 ---
 
-**Right now.** Phases 0, 1, 2, 3, and 7 are done for the three free paths, and the Open Source community is complete. The learner map is live. Phase 6 is done for those screens and open for explain-back. Phases 4, 5, 8, and 9 are the remaining Version 1 backend. Next product step, when you choose it, is Phase 4: make the explain-back screen read the prompt that is already saved, then grade it.
+**Right now.** Phases 0, 1, 2, 3, and 7 are done for the three free paths, and the Open Source community is complete. The learner map and Nearby events are live. Explain-back grades a real stage against its rubric and saves the attempt. Still open for Version 1: generating a prompt from a resource, streaks and a mastery formula (Phase 5), the test suite and an end-to-end pass (Phase 8), and deploy (Phase 9). Public event API keys stay last.

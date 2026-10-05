@@ -131,7 +131,7 @@ export type ExplainReview =
   | { ok: true; kind: "follow-up"; question: string; quote: string }
   | { ok: true; kind: "pass"; feedback: string }
   | { ok: true; kind: "needs-improvement"; feedback: string }
-  | { ok: false; error: "unavailable" | "empty" };
+  | { ok: false; error: "unavailable" | "empty" | "unconnected" };
 
 export type ProgressData = {
   currentStreak: number;

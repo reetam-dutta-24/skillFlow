@@ -1,6 +1,6 @@
 # SkillFlow
 
-A mastery-first learning platform. Curated roadmaps, your own resources, and an explain-back check are the product. Version 1 ships the roadmaps and the lessons. The explain-back is not graded yet. There is no quiz.
+A mastery-first learning platform. Curated roadmaps, your own resources, and an explain-back check are the product. Version 1 ships the roadmaps, the lessons, and a rubric-graded explain-back. There is no quiz.
 
 ## Status
 
@@ -91,6 +91,14 @@ Copy the names from `.env.example`. Leave a key blank to turn that source off.
 - `EVENTS_CRON_PAIRS` — how many city and niche pairs that cron route refreshes. The default is 20.
 - `GEOCODER_USER_AGENT` — already used by city search. Put an email or a site you control in it.
 
+## Explain-back model
+
+Leave these blank and the check is graded from the stage rubric. Set both to use an OpenAI-compatible chat endpoint instead. A timeout or a reply that is not the expected JSON falls back to the rubric, and the attempt is still saved.
+
+- `EXPLAIN_MODEL_URL` — the chat completions URL, such as `https://api.openai.com/v1/chat/completions`.
+- `EXPLAIN_MODEL_KEY` — the bearer token for that endpoint.
+- `EXPLAIN_MODEL_NAME` — optional. The default is `gpt-4o-mini`.
+
 ## Learner map demo
 
 This only runs against a database on this machine, and it refuses to run when `NODE_ENV` is production. It does not run the seed.
@@ -104,4 +112,4 @@ npx tsx scripts/map-demo.ts remove
 
 ## What is still ahead
 
-Passing an explain-back does not unlock a stage. The model calls, Stripe, and the leaderboard score are not running. `Project-roadmap.md` is the phase list. `AGENTS.md` is the working context for the next session.
+Passing an explain-back records the stage and does not unlock the last three stages of a free path. Streaks, a mastery formula, Stripe, and the leaderboard score are not running. `Project-roadmap.md` is the phase list. `AGENTS.md` is the working context for the next session.

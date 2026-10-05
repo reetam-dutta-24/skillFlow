@@ -3,6 +3,9 @@ import { cache } from "react";
 import { EXPLAIN_INPUT_PREVIEW_STAGE_ID, EXPLAIN_NEEDS_WORK_PHRASE, EXPLAIN_REVIEW_FAILURE_TEXT } from "@/lib/mock/config";
 import { devDelay } from "@/lib/mock/delay";
 import { acceptedExplanations, explainNeedsWork, explainSamples, findExplainPrompt, findStage, listStages } from "@/lib/mock/catalog";
+import { reviewStoredExplanation } from "@/lib/explain/review";
+import { prisma } from "@/lib/prisma";
+import type { RoadmapStageView, SkillView } from "@/lib/types/domain";
 import type { ExplainReview, MilestoneData } from "@/lib/types/pages";
 
 const REVIEW_MS = 600;
@@ -41,11 +44,138 @@ function openMilestone(stageId: string): MilestoneData | null {
   };
 }
 
+const LOCKED_TAIL = 3;
+
+function openLimit(stageCount: number) {
+  if (stageCount <= 1) return stageCount;
+  return Math.max(1, stageCount - LOCKED_TAIL);
+}
+
+/** A real stage reads the stored prompt. The preview id still uses the mock walkthrough. */
+async function loadStoredMilestone(stageId: string, userId?: string): Promise<MilestoneData | null> {
+  const stage = await prisma.roadmapStage.findUnique({
+    where: { id: stageId },
+    include: {
+      skill: true,
+      explainBackPrompt: true,
+      resources: { select: { id: true } },
+    },
+  });
+  if (!stage?.explainBackPrompt) return null;
+
+  const stageCount = await prisma.roadmapStage.count({ where: { skillId: stage.skillId } });
+  const previous = await prisma.roadmapStage.findFirst({
+    where: { skillId: stage.skillId, order: stage.order - 1 },
+    select: { title: true },
+  });
+  const next = await prisma.roadmapStage.findFirst({
+    where: { skillId: stage.skillId, order: stage.order + 1 },
+    select: { id: true, title: true, order: true, monetized: true },
+  });
+
+  const skill: SkillView = {
+    id: stage.skill.id,
+    slug: stage.skill.slug,
+    name: stage.skill.name,
+    description: stage.skill.description,
+    image: stage.skill.image,
+    isFlagship: stage.skill.isFlagship,
+    order: stage.skill.order,
+    status: stage.skill.status === "AVAILABLE" ? "available" : "coming_soon",
+    offer: stage.skill.offer,
+    followed: false,
+    masteryPercent: 0,
+    createdAt: stage.skill.createdAt.toISOString(),
+  };
+  const limit = openLimit(stageCount);
+  const open =
+    stage.skill.status === "AVAILABLE" &&
+    stage.skill.offer === "FREE" &&
+    !stage.monetized &&
+    stage.order <= limit;
+  if (!open) return { kind: "locked", skillSlug: skill.slug };
+
+  const view: RoadmapStageView = {
+    id: stage.id,
+    skillId: stage.skillId,
+    title: stage.title,
+    description: stage.description,
+    image: stage.image,
+    order: stage.order,
+    status: "ready",
+    masteryPercent: 0,
+    lessonCount: stage.resources.length,
+    hasExplainBack: true,
+    explainBackPassed: false,
+    previousStageTitle: previous?.title ?? null,
+  };
+  const prompt = {
+    id: stage.explainBackPrompt.id,
+    stageId: stage.id,
+    version: stage.explainBackPrompt.version,
+    question: stage.explainBackPrompt.question,
+    rubric: stage.explainBackPrompt.rubric,
+  };
+  const nextOpen =
+    next &&
+    stage.skill.status === "AVAILABLE" &&
+    stage.skill.offer === "FREE" &&
+    !next.monetized &&
+    next.order <= limit;
+  const continueHref = nextOpen ? `/lesson/${next.id}` : `/roadmap/${skill.slug}`;
+  const continueLabel = nextOpen ? `Continue to ${next.title}` : "Continue to the roadmap";
+
+  if (userId) {
+    const completion = await prisma.stageCompletion.findUnique({
+      where: { userId_stageId: { userId, stageId: stage.id } },
+      select: { explainBackPassed: true },
+    });
+    if (completion?.explainBackPassed) {
+      const attempt = await prisma.explainBackAttempt.findFirst({
+        where: { userId, promptId: prompt.id, verdict: "PASSED" },
+        orderBy: { createdAt: "desc" },
+        select: { initialExplanation: true },
+      });
+      return {
+        kind: "passed",
+        skill,
+        stage: { ...view, status: "passed", explainBackPassed: true },
+        prompt,
+        acceptedExplanation: attempt?.initialExplanation ?? "",
+        continueHref,
+      };
+    }
+  }
+
+  return {
+    kind: "open",
+    skill,
+    stage: view,
+    prompt,
+    passedSampleFeedback: "",
+    needsWorkFeedback: "",
+    followUpQuestion: "",
+    followUpQuote: "",
+    continueHref,
+    continueLabel,
+  };
+}
+
 export async function reviewMilestone(input: {
   stageId: string;
   answer: string;
   followUpAnswer?: string;
+  userId?: string;
 }): Promise<ExplainReview> {
+  if (input.stageId !== EXPLAIN_INPUT_PREVIEW_STAGE_ID && !findStage(input.stageId)) {
+    if (!input.userId) return { ok: false, error: "unavailable" };
+    return reviewStoredExplanation({
+      userId: input.userId,
+      stageId: input.stageId,
+      answer: input.answer,
+      followUpAnswer: input.followUpAnswer,
+    });
+  }
   await new Promise((resolve) => setTimeout(resolve, REVIEW_MS));
   const answer = input.answer.trim();
   const followUpAnswer = input.followUpAnswer?.trim() ?? "";
@@ -62,7 +192,10 @@ export async function reviewMilestone(input: {
     : { ok: true, kind: "pass", feedback: sample.feedback };
 }
 
-export const getMilestone = cache(async (stageId: string): Promise<MilestoneData | null> => {
+export const getMilestone = cache(async (stageId: string, userId?: string): Promise<MilestoneData | null> => {
+  if (stageId !== EXPLAIN_INPUT_PREVIEW_STAGE_ID && !findStage(stageId)) {
+    return loadStoredMilestone(stageId, userId);
+  }
   await devDelay();
   if (stageId === EXPLAIN_INPUT_PREVIEW_STAGE_ID) return openMilestone("stage_fs_2");
   const found = findStage(stageId);

@@ -22,7 +22,7 @@ export default async function MilestonePage({ params }: PageProps) {
   if (!session?.user?.id) redirect("/login");
 
   const { stageId } = await params;
-  const data = await getMilestone(stageId);
+  const data = await getMilestone(stageId, session.user.id);
   if (!data) notFound();
 
   if (data.kind === "locked") redirect(`/roadmap/${data.skillSlug}`);

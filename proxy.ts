@@ -24,6 +24,7 @@ const protectedRoutes = [
   "/admin",
   "/open-source",
   "/map",
+  "/nearby",
 ];
 
 export const proxy = auth((req) => {
@@ -82,5 +83,7 @@ export const config = {
     "/open-source/:path*",
     "/map",
     "/map/:path*",
+    "/nearby",
+    "/nearby/:path*",
   ],
 };

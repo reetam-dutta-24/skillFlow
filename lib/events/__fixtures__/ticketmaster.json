@@ -1,0 +1,46 @@
+{
+  "_embedded": {
+    "events": [
+      {
+        "id": "vvG1",
+        "name": "Lisbon Hack Night",
+        "url": "https://www.ticketmaster.com/lisbon-hack-night/event/vvG1",
+        "info": "A one-evening build.",
+        "dates": {
+          "start": { "dateTime": "2026-11-02T18:00:00Z" },
+          "end": { "dateTime": "2026-11-02T21:00:00Z" }
+        },
+        "images": [
+          { "url": "https://img.example/small.jpg", "width": 100 },
+          { "url": "https://img.example/large.jpg", "width": 640 }
+        ],
+        "_embedded": {
+          "venues": [
+            {
+              "name": "LX Factory",
+              "address": { "line1": "Rua Rodrigues de Faria" },
+              "city": { "name": "Lisbon" },
+              "country": { "countryCode": "PT" },
+              "location": { "latitude": "38.703", "longitude": "-9.178" }
+            }
+          ]
+        }
+      },
+      {
+        "id": "old1",
+        "name": "Last month's meetup",
+        "url": "https://www.ticketmaster.com/old",
+        "dates": { "start": { "dateTime": "2020-01-01T18:00:00Z" } }
+      },
+      {
+        "id": "on1",
+        "name": "Virtual creator hour",
+        "url": "https://www.ticketmaster.com/virtual-creator-hour",
+        "dates": { "start": { "dateTime": "2026-11-08T16:00:00Z" } },
+        "_embedded": {
+          "venues": [{ "name": "Online" }]
+        }
+      }
+    ]
+  }
+}

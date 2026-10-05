@@ -52,6 +52,9 @@ model User {
   creatorWorks           CreatorWork[] @relation("CreatorOwner")
   reviewedCreatorWorks   CreatorWork[] @relation("CreatorReviewer")
   creatorViews           CreatorView[] @relation("CreatorViewer")
+
+  submittedEvents Event[] @relation("EventSubmitter")
+  reviewedEvents  Event[] @relation("EventReviewer")
 }
 
 model LearnerProfile {
@@ -161,6 +164,8 @@ model Skill {
   communityRoles         CommunityRole[]
   gapReports             GapReport[]
   creatorWorks           CreatorWork[]
+  events                 Event[]
+  eventFetches           EventFetch[]
 
   createdAt DateTime @default(now())
 }
@@ -617,4 +622,80 @@ model CreatorView {
   viewer User?       @relation("CreatorViewer", fields: [viewerId], references: [id], onDelete: SetNull)
 
   @@index([workId])
+}
+
+// ── NEARBY EVENTS ──────────────────────
+// Saved per city and niche. Visitors read these rows. They do not call Ticketmaster or SerpApi.
+
+enum EventSource {
+  TICKETMASTER
+  GOOGLE_EVENTS
+  COMMUNITY
+}
+
+enum EventStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model Event {
+  id            String      @id @default(cuid())
+  source        EventSource
+  externalId    String?
+  skillId       String
+  title         String
+  description   String?
+  startsAt      DateTime
+  endsAt        DateTime?
+  venueName     String?
+  address       String?
+  city          String?
+  countryCode   String?
+  lat           Float?
+  lng           Float?
+  url           String
+  imageUrl      String?
+  isOnline      Boolean     @default(false)
+  status        EventStatus @default(PENDING)
+  submittedById String?
+  reviewedById  String?
+  reviewNote    String?
+  fetchedAt     DateTime?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  skill       Skill @relation(fields: [skillId], references: [id], onDelete: Cascade)
+  submittedBy User? @relation("EventSubmitter", fields: [submittedById], references: [id], onDelete: SetNull)
+  reviewedBy  User? @relation("EventReviewer", fields: [reviewedById], references: [id], onDelete: SetNull)
+
+  @@unique([source, externalId, skillId])
+  @@index([lat, lng])
+  @@index([skillId, status, startsAt])
+  @@index([status, createdAt])
+  @@index([submittedById, createdAt])
+}
+
+model EventFetch {
+  id          String      @id @default(cuid())
+  skillId     String
+  cityKey     String
+  source      EventSource
+  fetchedAt   DateTime    @default(now())
+  resultCount Int         @default(0)
+  ok          Boolean     @default(false)
+  error       String?
+
+  skill Skill @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  @@unique([skillId, cityKey, source])
+}
+
+model ApiUsage {
+  id       String @id @default(cuid())
+  provider String
+  period   String
+  count    Int    @default(0)
+
+  @@unique([provider, period])
 }

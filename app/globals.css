@@ -6006,4 +6006,210 @@ html.dark .sf-map-canvas .maplibregl-canvas {
   border-color: var(--text-accent);
   background: var(--accent-quiet);
 }
+.sf-map-pin.is-selected {
+  outline: 3px solid var(--text-accent);
+  outline-offset: 2px;
+}
+.sf-map-pin:empty {
+  min-width: 1rem;
+  width: 1rem;
+  height: 1rem;
+  padding: 0;
+}
+.sf-nearby-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 var(--space-4);
+}
+.sf-nearby-tabs a {
+  padding: 8px 14px;
+  border: 1px solid var(--border-default);
+  border-radius: 999px;
+  color: var(--text-secondary);
+  font-weight: var(--weight-semibold);
+  text-decoration: none;
+}
+.sf-nearby-tabs a[aria-current="page"] {
+  border-color: transparent;
+  background: var(--gradient-brand);
+  color: #fff;
+}
+.sf-event-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 16px;
+  align-items: end;
+  margin-bottom: var(--space-4);
+  min-width: 0;
+}
+.sf-event-toolbar .sf-map-filter {
+  width: auto;
+  flex: 1 1 200px;
+}
+.sf-event-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 16px;
+  min-width: 0;
+}
+.sf-event-filters label,
+.sf-event-form label {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  flex: 1 1 140px;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+.sf-event-filters select,
+.sf-event-form input,
+.sf-event-form select,
+.sf-event-form textarea {
+  width: 100%;
+  max-width: 420px;
+  padding: 10px 12px;
+  border: 1px solid var(--border-default);
+  border-radius: 10px;
+  background: var(--bg-app);
+  color: var(--text-primary);
+  font: inherit;
+}
+.sf-event-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sf-event-check input {
+  width: auto;
+  max-width: none;
+}
+.sf-event-form {
+  display: grid;
+  gap: 12px;
+  max-width: 520px;
+  min-width: 0;
+}
+.sf-event-form button,
+.sf-event-review button {
+  width: fit-content;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--gradient-brand);
+  color: #fff;
+  font: inherit;
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+}
+.sf-event-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(240px, 0.8fr);
+  gap: var(--space-4);
+  min-width: 0;
+  align-items: start;
+}
+@media (max-width: 959px) {
+  .sf-event-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.sf-event-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  max-height: 520px;
+  overflow: auto;
+}
+@media (max-width: 959px) {
+  .sf-event-list {
+    max-height: none;
+  }
+}
+.sf-event-card {
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  background: var(--surface-card);
+}
+.sf-event-card.is-selected {
+  border-color: var(--text-accent);
+}
+.sf-event-card h2,
+.sf-event-card h3 {
+  margin: 0 0 6px;
+  overflow-wrap: anywhere;
+}
+.sf-event-card p {
+  margin: 0 0 4px;
+  color: var(--text-muted);
+  overflow-wrap: anywhere;
+}
+.sf-event-card p span + span::before {
+  content: " · ";
+}
+.sf-event-card a,
+.sf-event-links a {
+  color: var(--text-accent);
+  font-weight: var(--weight-semibold);
+}
+.sf-event-select {
+  display: block;
+  width: 100%;
+  margin: 0 0 8px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.sf-event-online {
+  margin-top: 24px;
+  min-width: 0;
+}
+.sf-event-online h2,
+.sf-event-live h2 {
+  margin: 0 0 8px;
+}
+.sf-event-online-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+@media (max-width: 639px) {
+  .sf-event-online-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.sf-event-sources,
+.sf-event-empty,
+.sf-event-links {
+  color: var(--text-muted);
+}
+.sf-event-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+.sf-event-error {
+  margin: 0;
+  color: var(--text-danger, #b42318);
+}
+.sf-event-live {
+  margin-top: 24px;
+}
+.sf-event-review {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+}
+.sf-event-review-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
 

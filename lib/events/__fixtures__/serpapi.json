@@ -1,0 +1,24 @@
+{
+  "events_results": [
+    {
+      "title": "Porto Creator Meetup",
+      "date": { "start_date": "Nov 4", "when": "Wed, Nov 4, 7:00 PM" },
+      "address": ["Ribeira", "Porto"],
+      "link": "https://events.example/porto-creator",
+      "description": "An evening for people who publish.",
+      "thumbnail": "https://img.example/porto.jpg",
+      "venue": { "name": "Ribeira" }
+    },
+    {
+      "title": "Online editing workshop",
+      "date": { "start_date": "2026-12-01", "when": "Tue, Dec 1, 6:00 PM" },
+      "address": ["Online event"],
+      "link": "https://events.example/online-editing"
+    },
+    {
+      "title": "No date yet",
+      "address": ["Somewhere"],
+      "link": "https://events.example/undated"
+    }
+  ]
+}

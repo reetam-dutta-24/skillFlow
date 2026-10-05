@@ -29,6 +29,7 @@ function refreshMap() {
   invalidateMap();
   revalidatePath("/settings");
   revalidatePath("/map");
+  revalidatePath("/nearby");
 }
 
 export async function searchMapCities(query: string) {

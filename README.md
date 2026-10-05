@@ -20,13 +20,15 @@ Open Source is a per-niche community that works like pull requests. A learner sh
 
 Creator studio is a signed-in library for a video the learner owns. An admin approves it onto that niche’s clip feed and the creator’s public profile. View counts stay in the studio.
 
-The learner map counts people who opted in, one number per city. Settings stores the city, the country, and the city centre. The map does not show names. Set `MAP_MIN_LEARNERS` to hide cities below that count (the default is 5). Use `1` on your machine while you are the only person on the map. City search uses OpenStreetMap Nominatim. A `GEOCODER_USER_AGENT` value with a way to reach you is the polite way to call it.
+The learner map counts people who opted in, one number per city. It lives under Nearby → Learners. Settings stores the city, the country, and the city centre. The map does not show names, and it does not use GPS. Set `MAP_MIN_LEARNERS` to hide cities below that count (the default is 5). Use `1` on your machine while you are the only person on the map. City search uses OpenStreetMap Nominatim. A `GEOCODER_USER_AGENT` value with a way to reach you is the polite way to call it.
+
+Nearby → Events lists upcoming events for that saved city. Ticketmaster and Google Events are optional. Leave a key empty and that source stays off. Community events need a review. Visitors read a saved copy that refreshes at most every 12 hours. Live search is for an admin until payments exist.
 
 A dead stored link can be marked unavailable. The lesson keeps the saved title, description, and key points.
 
 ## Tech stack
 
-- Next.js 16.3.4, React 19, TypeScript, Tailwind CSS v4. Landing and auth pages are static. Shared catalog screens (niche grid, lessons, clips, submit picker) are cached for every visitor under the `catalog` tag. Public community lists and contributor profiles are cached under the `community` tag. Learner-map totals are cached under the `learner-map` tag, and city search under `geocode`. Progress, the account menu, the review queue, and a person's own contributions stay per request
+- Next.js 16.3.4, React 19, TypeScript, Tailwind CSS v4. Landing and auth pages are static. Shared catalog screens (niche grid, lessons, clips, submit picker) are cached for every visitor under the `catalog` tag. Public community lists and contributor profiles are cached under the `community` tag. Learner-map totals are cached under the `learner-map` tag, city search under `geocode`, and saved nearby events under `nearby-events`. Progress, the account menu, the review queue, and a person's own contributions stay per request
 - PostgreSQL and Prisma 6
 - Auth.js v5 — email and password with bcrypt, JWT sessions. Google is configured in code and is not on the login form
 - Explain-back grading is not connected to a model yet
@@ -77,6 +79,17 @@ Admins review, moderate, and grant roles in every niche. A maintainer reviews an
 To make someone a reviewer or maintainer, sign in as an admin, open `/admin/community`, find the person by their exact email, choose the niche and the role, and grant it.
 
 Typing `fail this merge` as review feedback shows the review error state without saving anything.
+
+## Nearby event keys
+
+Copy the names from `.env.example`. Leave a key blank to turn that source off.
+
+- `TICKETMASTER_API_KEY` — a free Consumer Key from [developer.ticketmaster.com](https://developer.ticketmaster.com/). Create an app, then copy the Consumer Key. The free tier is 5,000 calls a day. The app stops at that number.
+- `SERPAPI_API_KEY` — a private key from [serpapi.com](https://serpapi.com/) (Dashboard → Your Private API Key). The free plan includes 250 searches a month. The app stops at 200.
+- `CRON_SECRET` — any long random string. `openssl rand -hex 32` is enough. Call `GET /api/cron/events` with `Authorization: Bearer <that secret>` when you want to refresh the popular city and niche pairs.
+- `EVENTS_TTL_HOURS` — how long a saved city and niche stays fresh. The default is 12.
+- `EVENTS_CRON_PAIRS` — how many city and niche pairs that cron route refreshes. The default is 20.
+- `GEOCODER_USER_AGENT` — already used by city search. Put an email or a site you control in it.
 
 ## Learner map demo
 

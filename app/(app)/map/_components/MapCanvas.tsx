@@ -5,16 +5,25 @@ import Supercluster from "supercluster";
 import type { Map as MapLibreMap, Marker, Popup } from "maplibre-gl";
 import type { MapCity } from "@/lib/geo/cities";
 
-type CityProps = { city: string; country: string; count: number };
+export type MapPoint = {
+  id: string;
+  lat: number;
+  lng: number;
+  count: number;
+  title: string;
+  detail: string;
+};
+
+type PointProps = MapPoint;
 type ClusterProps = { count: number };
 type MapLibre = typeof import("maplibre-gl");
 
 /**
  * Zoomed-out bubbles are supercluster groups.
- * `map` / `reduce` sum the learner counts, so a bubble shows people, not how many cities it swallowed.
+ * `map` / `reduce` sum `count`, so a learner bubble shows people and an event bubble shows events.
  */
-function buildIndex(cities: MapCity[]) {
-  const index = new Supercluster<CityProps, ClusterProps>({
+function buildIndex(points: MapPoint[]) {
+  const index = new Supercluster<PointProps, ClusterProps>({
     radius: 56,
     maxZoom: 14,
     minPoints: 2,
@@ -24,10 +33,10 @@ function buildIndex(cities: MapCity[]) {
     },
   });
   index.load(
-    cities.map((city) => ({
+    points.map((point) => ({
       type: "Feature" as const,
-      geometry: { type: "Point" as const, coordinates: [city.lng, city.lat] },
-      properties: { city: city.city, country: city.country, count: city.count },
+      geometry: { type: "Point" as const, coordinates: [point.lng, point.lat] },
+      properties: point,
     })),
   );
   return index;
@@ -48,17 +57,18 @@ function rasterStyle() {
   };
 }
 
-function learnerLabel(count: number) {
-  return count === 1 ? "1 learner" : `${count} learners`;
+function plural(count: number, noun: "learner" | "event") {
+  const word = count === 1 ? noun : `${noun}s`;
+  return `${count} ${word}`;
 }
 
-function fitCities(map: MapLibreMap, cities: MapCity[]) {
-  if (cities.length === 0) return;
+function fitPoints(map: MapLibreMap, points: MapPoint[], maxZoom: number) {
+  if (points.length === 0) return;
   let west = 180;
   let south = 90;
   let east = -180;
   let north = -90;
-  for (const point of cities) {
+  for (const point of points) {
     west = Math.min(west, point.lng);
     south = Math.min(south, point.lat);
     east = Math.max(east, point.lng);
@@ -69,19 +79,52 @@ function fitCities(map: MapLibreMap, cities: MapCity[]) {
       [west, south],
       [east, north],
     ],
-    { padding: 56, maxZoom: 4, duration: 0 },
+    { padding: 56, maxZoom, duration: 0 },
   );
 }
 
-export function MapCanvas({ cities }: { cities: MapCity[] }) {
+export function citiesToPoints(cities: MapCity[]): MapPoint[] {
+  return cities.map((city) => ({
+    id: `${city.city}|${city.country}`,
+    lat: city.lat,
+    lng: city.lng,
+    count: city.count,
+    title: city.country ? `${city.city}, ${city.country}` : city.city,
+    detail: plural(city.count, "learner"),
+  }));
+}
+
+export function MapCanvas({
+  cities,
+  points,
+  selectedId = null,
+  onSelect,
+  noun = "learner",
+  fitMaxZoom = 4,
+  ariaLabel = "World map of learner cities",
+}: {
+  cities?: MapCity[];
+  points?: MapPoint[];
+  selectedId?: string | null;
+  onSelect?: (id: string) => void;
+  noun?: "learner" | "event";
+  fitMaxZoom?: number;
+  ariaLabel?: string;
+}) {
+  const resolved = points ?? citiesToPoints(cities ?? []);
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<MapLibreMap | null>(null);
   const libRef = useRef<MapLibre | null>(null);
-  const indexRef = useRef<Supercluster<CityProps, ClusterProps> | null>(null);
+  const indexRef = useRef<Supercluster<PointProps, ClusterProps> | null>(null);
   const markersRef = useRef<Marker[]>([]);
   const popupRef = useRef<Popup | null>(null);
-  const citiesRef = useRef(cities);
+  const pointsRef = useRef(resolved);
+  const signatureRef = useRef("");
+  const selectedRef = useRef(selectedId);
+  const onSelectRef = useRef(onSelect);
+  const nounRef = useRef(noun);
   const fittedRef = useRef(false);
+  const fitZoomRef = useRef(fitMaxZoom);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -110,27 +153,34 @@ export function MapCanvas({ cities }: { cities: MapCity[] }) {
         const count = typeof props.count === "number" ? props.count : 0;
         const button = document.createElement("button");
         button.type = "button";
+        const showCount = nounRef.current === "learner" || clustered;
         button.className = clustered ? "sf-map-pin is-cluster" : "sf-map-pin";
-        button.textContent = String(count);
+        button.textContent = showCount ? String(count) : "";
 
         if (clustered && "cluster_id" in props) {
           const clusterId = Number(props.cluster_id);
-          button.setAttribute("aria-label", `Group of ${learnerLabel(count)}. Zoom in.`);
+          button.setAttribute("aria-label", `Group of ${plural(count, nounRef.current)}. Zoom in.`);
           button.addEventListener("click", () => {
             map.easeTo({ center: [lng, lat], zoom: index.getClusterExpansionZoom(clusterId) });
           });
-        } else if ("city" in props && "country" in props) {
-          const city = String(props.city);
-          const country = String(props.country);
-          button.setAttribute("aria-label", `${city}, ${country}, ${learnerLabel(count)}`);
+        } else if ("id" in props && "title" in props) {
+          const id = String(props.id);
+          const title = String(props.title);
+          const detail = String(props.detail ?? "");
+          if (id === selectedRef.current) button.classList.add("is-selected");
+          button.setAttribute("aria-label", detail ? `${title}. ${detail}` : title);
           button.addEventListener("click", () => {
+            onSelectRef.current?.(id);
             popupRef.current?.remove();
             const body = document.createElement("div");
-            const title = document.createElement("strong");
-            title.textContent = country ? `${city}, ${country}` : city;
-            const line = document.createElement("p");
-            line.textContent = learnerLabel(count);
-            body.append(title, line);
+            const heading = document.createElement("strong");
+            heading.textContent = title;
+            body.append(heading);
+            if (detail) {
+              const line = document.createElement("p");
+              line.textContent = detail;
+              body.append(line);
+            }
             popupRef.current = new lib.Popup({ offset: 18, closeButton: true, className: "sf-map-popup" })
               .setLngLat([lng, lat])
               .setDOMContent(body)
@@ -155,10 +205,10 @@ export function MapCanvas({ cities }: { cities: MapCity[] }) {
       });
       map.addControl(new lib.NavigationControl({ showCompass: false }), "top-right");
       mapRef.current = map;
-      indexRef.current = buildIndex(citiesRef.current);
+      indexRef.current = buildIndex(pointsRef.current);
       map.on("load", () => {
-        if (!fittedRef.current && citiesRef.current.length > 0) {
-          fitCities(map, citiesRef.current);
+        if (!fittedRef.current && pointsRef.current.length > 0) {
+          fitPoints(map, pointsRef.current, fitZoomRef.current);
           fittedRef.current = true;
         }
         paint();
@@ -182,16 +232,33 @@ export function MapCanvas({ cities }: { cities: MapCity[] }) {
   }, []);
 
   useEffect(() => {
-    citiesRef.current = cities;
-    indexRef.current = buildIndex(cities);
+    const signature = resolved.map((point) => point.id).join("\n");
+    if (signatureRef.current !== signature) {
+      signatureRef.current = signature;
+      fittedRef.current = false;
+    }
+    pointsRef.current = resolved;
+    selectedRef.current = selectedId;
+    onSelectRef.current = onSelect;
+    nounRef.current = noun;
+    fitZoomRef.current = fitMaxZoom;
+    indexRef.current = buildIndex(resolved);
     const map = mapRef.current;
     if (!map) return;
-    if (!fittedRef.current && cities.length > 0 && map.loaded()) {
-      fitCities(map, cities);
+    if (!fittedRef.current && resolved.length > 0 && map.loaded()) {
+      fitPoints(map, resolved, fitMaxZoom);
       fittedRef.current = true;
     }
     map.fire("moveend");
-  }, [cities]);
+  }, [resolved, selectedId, onSelect, noun, fitMaxZoom]);
 
-  return <div ref={containerRef} className="sf-map-canvas" role="region" aria-label="World map of learner cities" />;
+  useEffect(() => {
+    if (!selectedId) return;
+    const point = resolved.find((item) => item.id === selectedId);
+    const map = mapRef.current;
+    if (!point || !map) return;
+    map.easeTo({ center: [point.lng, point.lat], zoom: Math.max(map.getZoom(), 11) });
+  }, [selectedId, resolved]);
+
+  return <div ref={containerRef} className="sf-map-canvas" role="region" aria-label={ariaLabel} />;
 }

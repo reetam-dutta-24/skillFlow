@@ -13,7 +13,7 @@ const NAV: SidebarItem[] = [
   { id: "clips", label: "Clips", icon: "clapperboard", href: "/clips" },
   { id: "creator", label: "Creator studio", icon: "video", href: "/creator" },
   { id: "roadmaps", label: "Roadmaps", icon: "route", href: "/roadmap" },
-  { id: "map", label: "Map", icon: "map", href: "/map" },
+  { id: "nearby", label: "Nearby", icon: "map-pin", href: "/nearby" },
   { id: "open-source", label: "Open Source", icon: "git-pull-request", href: "/open-source" },
   { id: "progress", label: "Progress", icon: "chart-line", href: "/progress" },
   { id: "analytics", label: "Analytics", icon: "chart-pie", href: "/analytics" },
@@ -53,7 +53,7 @@ function activeId(pathname: string) {
   if (pathname.startsWith("/clips")) return "clips";
   if (pathname.startsWith("/creator")) return "creator";
   if (pathname.startsWith("/profile")) return "creator";
-  if (pathname.startsWith("/map")) return "map";
+  if (pathname.startsWith("/nearby") || pathname.startsWith("/map")) return "nearby";
   if (pathname.startsWith("/roadmap") || pathname.startsWith("/lesson") || pathname.startsWith("/milestone")) return "roadmaps";
   if (pathname.startsWith("/analytics")) return "analytics";
   if (pathname.startsWith("/progress")) return "progress";
@@ -75,7 +75,7 @@ function titleFor(pathname: string) {
   if (pathname.startsWith("/open-source")) return "Open Source";
   if (pathname.startsWith("/skills")) return "Niches";
   if (pathname.startsWith("/clips")) return "Clips";
-  if (pathname.startsWith("/map")) return "Map";
+  if (pathname.startsWith("/nearby") || pathname.startsWith("/map")) return "Nearby";
   if (pathname.startsWith("/roadmap")) return "Roadmaps";
   if (pathname.startsWith("/analytics")) return "Analytics";
   if (pathname.startsWith("/progress")) return "Progress";

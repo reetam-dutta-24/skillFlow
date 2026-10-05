@@ -29,7 +29,8 @@ Last aligned with the working tree on 5 October 2026.
 | Lessons and clips | Done for stored resources | The player reads `Resource` rows. YouTube watch links are rewritten into an embed |
 | Admin catalog and submissions | Done | An admin can edit stages and resources, and an approval creates a resource |
 | Caching | Done for shared catalog and community lists | Niche grid, lessons, clips, and the submit picker share the catalog tag. Merged community pages share the community tag. The learner map shares city totals. Progress and the account menu stay per person |
-| Learner map | Done | Opt-in city counts on a world map. No names. Cities under the env minimum stay hidden |
+| Learner map | Done | Opt-in city counts on Nearby → Learners. No names. Cities under the env minimum stay hidden |
+| Nearby events | Done | Saved events per city and niche, refreshed on a cap. Community events need a review. Live search is admin-only until payments |
 | Settings follow | Done | Add and remove on the settings page write `UserSkillProgress`. Home links to the niche list instead of a fake Add |
 | Explain-back AI | Not started | Prompts are stored. The explain-back screen still reads mock data. The quiz feature was dropped |
 | Unlock by mastery | Not in Version 1 | A free path locks its last three stages. A pass does not open the next one |
@@ -473,7 +474,16 @@ The extra niches are in the database and show as coming soon. A new path is a re
 ## Learner map
 **Status: ✅ DONE. Counts only. No names.**
 
-Settings can store one city: the name, the country, and the city centre from OpenStreetMap Nominatim. “Show me on the learner map” is off until the learner turns it on. `/map` draws those cities with MapLibre. A bubble is a count. Zoomed out, nearby cities cluster and the number is the sum of learners. A niche filter lists followed niches first. A city with fewer opted-in learners than `MAP_MIN_LEARNERS` (default 5) is left off. `scripts/map-demo.ts` adds and removes fake learners on this machine only.
+Settings can store one city: the name, the country, and the city centre from OpenStreetMap Nominatim. “Show me on the learner map” is off until the learner turns it on. Nearby → Learners draws those cities with MapLibre. `/map` redirects there. A bubble is a count. Zoomed out, nearby cities cluster and the number is the sum of learners. A niche filter lists followed niches first. A city with fewer opted-in learners than `MAP_MIN_LEARNERS` (default 5) is left off. `scripts/map-demo.ts` adds and removes fake learners on this machine only.
+
+---
+
+## Nearby events
+**Status: ✅ DONE. Links only. No booking.**
+
+The sidebar item is Nearby. Learners is the map above. Events is a second tab: pins on the same map, cards beside it, and online events in their own list. The city is the one saved in Settings. There is no GPS.
+
+Ticketmaster and Google Events (SerpApi) are separate adapters. A missing key turns that source off. Community events are the third source: three submissions a day, approved by an admin or that niche’s Open Source reviewers. Free visitors read saved rows. A city and niche refresh at most every 12 hours, in the background, and a secret cron route can refresh the popular pairs. API usage is counted so the free caps hold. Live search is not saved. `canUseLiveSearch()` allows an admin until payments exist. Everyone else sees Premium · coming soon.
 
 ---
 

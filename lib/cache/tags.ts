@@ -10,6 +10,9 @@ export const MAP_TAG = "learner-map";
 /** Nominatim city search. The same result for every visitor who types the same city. */
 export const GEOCODE_TAG = "geocode";
 
+/** Saved nearby events for a niche. The same list for every visitor. A person's city stays outside the cache. */
+export const EVENTS_TAG = "nearby-events";
+
 export function accountTag(userId: string) {
   return `account:${userId}`;
 }

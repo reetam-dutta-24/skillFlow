@@ -1,5 +1,5 @@
 import { updateTag } from "next/cache";
-import { accountTag, CATALOG_TAG, COMMUNITY_TAG, MAP_TAG } from "@/lib/cache/tags";
+import { accountTag, CATALOG_TAG, COMMUNITY_TAG, EVENTS_TAG, MAP_TAG } from "@/lib/cache/tags";
 
 /** Drop the shared catalog immediately after an admin write. */
 export function invalidateCatalog() {
@@ -19,4 +19,9 @@ export function invalidateCommunity() {
 /** Drop city counts after someone saves a city or changes the map toggle. */
 export function invalidateMap() {
   updateTag(MAP_TAG);
+}
+
+/** Drop saved event lists after a refresh or a community decision. */
+export function invalidateEvents() {
+  updateTag(EVENTS_TAG);
 }

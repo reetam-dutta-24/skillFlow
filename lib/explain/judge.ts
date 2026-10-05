@@ -18,20 +18,42 @@ export type ExplainDecision =
   | { kind: "follow-up"; question: string }
   | { kind: "needs-improvement"; feedback: string };
 
+const GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions";
+const GEMINI_MODEL = "gemini-flash-lite-latest";
+
 type ModelConfig = {
+  provider: "gemini" | "openai";
   url: string;
   key: string;
   model: string;
 };
 
 export function explainModelConfig(env: Record<string, string | undefined> = process.env): ModelConfig | null {
-  const key = env.EXPLAIN_MODEL_KEY || env.OPENAI_API_KEY;
-  if (!key) return null;
-  return {
-    key,
-    url: env.EXPLAIN_MODEL_URL || "https://api.openai.com/v1/chat/completions",
-    model: env.EXPLAIN_MODEL_NAME || "gpt-4o-mini",
-  };
+  if (env.EXPLAIN_MODEL_KEY) {
+    return {
+      provider: "openai",
+      key: env.EXPLAIN_MODEL_KEY,
+      url: env.EXPLAIN_MODEL_URL || "https://api.openai.com/v1/chat/completions",
+      model: env.EXPLAIN_MODEL_NAME || "gpt-4o-mini",
+    };
+  }
+  if (env.GEMINI_API_KEY) {
+    return {
+      provider: "gemini",
+      key: env.GEMINI_API_KEY,
+      url: GEMINI_URL,
+      model: env.GEMINI_MODEL || GEMINI_MODEL,
+    };
+  }
+  if (env.OPENAI_API_KEY) {
+    return {
+      provider: "openai",
+      key: env.OPENAI_API_KEY,
+      url: "https://api.openai.com/v1/chat/completions",
+      model: env.EXPLAIN_MODEL_NAME || "gpt-4o-mini",
+    };
+  }
+  return null;
 }
 
 function asRecord(value: unknown): Record<string, unknown> | null {
@@ -44,8 +66,9 @@ export function parseJudgeReply(raw: unknown, concepts: string[]): JudgeReply | 
   if (concepts.length === 0) return null;
   let data: unknown = raw;
   if (typeof raw === "string") {
+    const trimmed = raw.trim().replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/, "");
     try {
-      data = JSON.parse(raw);
+      data = JSON.parse(trimmed);
     } catch {
       return null;
     }
@@ -105,6 +128,18 @@ export type JudgeInput = {
   followUpAnswer?: string;
 };
 
+function postModel(config: ModelConfig, payload: unknown) {
+  return fetch(config.url, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${config.key}`,
+    },
+    signal: AbortSignal.timeout(TIMEOUT_MS),
+    body: JSON.stringify(payload),
+  });
+}
+
 export async function judgeExplanation(input: JudgeInput): Promise<JudgeReply | null> {
   const config = explainModelConfig();
   if (!config) return null;
@@ -121,28 +156,37 @@ export async function judgeExplanation(input: JudgeInput): Promise<JudgeReply | 
     input.followUpAnswer ? `Their follow-up answer:\n${input.followUpAnswer}` : "",
   ].filter(Boolean);
 
+  const payload = {
+    model: config.model,
+    response_format: { type: "json_object" },
+    temperature: 0.2,
+    ...(config.provider === "gemini" ? { reasoning_effort: "low" } : {}),
+    messages: [
+      { role: "system", content: SYSTEM },
+      { role: "user", content: lines.join("\n\n") },
+    ],
+  };
+
   try {
-    const response = await fetch(config.url, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${config.key}`,
-      },
-      signal: AbortSignal.timeout(TIMEOUT_MS),
-      body: JSON.stringify({
-        model: config.model,
-        response_format: { type: "json_object" },
-        temperature: 0.2,
-        messages: [
-          { role: "system", content: SYSTEM },
-          { role: "user", content: lines.join("\n\n") },
-        ],
-      }),
-    });
-    if (!response.ok) return null;
-    const body = (await response.json()) as { choices?: { message?: { content?: unknown } }[] };
-    return parseJudgeReply(body.choices?.[0]?.message?.content, input.concepts);
-  } catch {
+    let response = await postModel(config, payload);
+    if (response.status === 503) response = await postModel(config, payload);
+    const raw = (await response.json()) as unknown;
+    const body = (Array.isArray(raw) ? raw[0] : raw) as {
+      error?: { message?: string };
+      choices?: { message?: { content?: unknown } }[];
+    };
+    if (!response.ok) {
+      const message = (body?.error?.message ?? "").replaceAll(config.key, "[key]").slice(0, 180);
+      console.error("explain-back model request failed", response.status, config.model, message);
+      return null;
+    }
+    const content = body?.choices?.[0]?.message?.content;
+    const reply = parseJudgeReply(content, input.concepts);
+    if (!reply) console.error("explain-back model reply was not a concept list");
+    return reply;
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "request failed";
+    console.error("explain-back model request failed", message.slice(0, 180));
     return null;
   }
 }

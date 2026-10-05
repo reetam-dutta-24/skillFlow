@@ -71,11 +71,19 @@ describe("judge replies", () => {
 describe("model config", () => {
   it("stays off until a key is set, and defaults to an OpenAI chat endpoint", () => {
     expect(explainModelConfig({})).toBeNull();
+    expect(explainModelConfig({ GEMINI_API_KEY: "test-key" })).toMatchObject({
+      provider: "gemini",
+      key: "test-key",
+      url: "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
+      model: "gemini-flash-lite-latest",
+    });
     expect(explainModelConfig({ OPENAI_API_KEY: "test-key" })).toMatchObject({
+      provider: "openai",
       key: "test-key",
       url: "https://api.openai.com/v1/chat/completions",
       model: "gpt-4o-mini",
     });
+    expect(explainModelConfig({ GEMINI_API_KEY: "gemini", OPENAI_API_KEY: "openai" })?.model).toBe("gemini-flash-lite-latest");
     const custom = explainModelConfig({
       EXPLAIN_MODEL_KEY: "other",
       EXPLAIN_MODEL_URL: "https://example.com/v1/chat/completions",

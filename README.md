@@ -93,12 +93,12 @@ Copy the names from `.env.example`. Leave a key blank to turn that source off.
 
 ## Explain-back model
 
-The explain-back does not pass a stage until a model has reviewed it. Set one key. A timeout or a reply that is not the concept list saves nothing, and the stage stays open.
+The explain-back does not pass a stage until a model has reviewed it. Set `GEMINI_API_KEY`. A timeout or a reply that is not the concept list saves nothing, and the stage stays open.
 
-- `OPENAI_API_KEY` — a key from [platform.openai.com](https://platform.openai.com/). This uses `https://api.openai.com/v1/chat/completions` and `gpt-4o-mini`.
-- `EXPLAIN_MODEL_KEY` — use this instead of `OPENAI_API_KEY` for another OpenAI-compatible endpoint.
-- `EXPLAIN_MODEL_URL` — that endpoint’s chat completions URL. The OpenAI URL above is the default.
-- `EXPLAIN_MODEL_NAME` — optional model name. The default is `gpt-4o-mini`.
+- `GEMINI_API_KEY` — a free key from [aistudio.google.com/apikey](https://aistudio.google.com/apikey). No card. The app calls Gemini’s free tier (`gemini-flash-lite-latest`).
+- `GEMINI_MODEL` — optional. The default is `gemini-flash-lite-latest`.
+- `OPENAI_API_KEY` — a paid key from [platform.openai.com](https://platform.openai.com/). Used only when `GEMINI_API_KEY` is empty.
+- `EXPLAIN_MODEL_KEY`, `EXPLAIN_MODEL_URL`, and `EXPLAIN_MODEL_NAME` — another OpenAI-compatible endpoint. These win when `EXPLAIN_MODEL_KEY` is set.
 
 ## Learner map demo
 

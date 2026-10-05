@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { feedbackForGaps, followUpForGaps, stageConcepts } from "@/lib/explain/concepts";
-import { decideExplainBack, explainModelConfig, parseJudgeReply } from "@/lib/explain/judge";
+import { decideExplainBack, explainModelConfig, parseConceptReview, parseJudgeReply } from "@/lib/explain/judge";
+import { readyWizardSteps } from "@/lib/explain/wizard";
 
 const CONCEPTS = [
   "Box model and box-sizing",
@@ -90,5 +91,47 @@ describe("model config", () => {
       EXPLAIN_MODEL_NAME: "gpt-4o",
     });
     expect(custom?.model).toBe("gpt-4o");
+  });
+});
+
+describe("concept review", () => {
+  it("keeps a written review when the idea holds and when it does not", () => {
+    const held = parseConceptReview({
+      understood: true,
+      review: "You explained a value as the data a program holds, and a type as the rules for what you can do with it. The sharper point is that JavaScript still runs when the type is wrong.",
+    });
+    expect(held?.understood).toBe(true);
+    expect(held?.review).toMatch(/sharper point/);
+
+    const retry = parseConceptReview({ understood: false, review: "Too short." });
+    expect(retry?.understood).toBe(false);
+    expect(retry?.review.length).toBeGreaterThan(40);
+    expect(retry?.review).not.toBe("Too short.");
+    expect(parseConceptReview("not json")).toBeNull();
+    expect(parseConceptReview('{"understood":true,"review":string}')).toBeNull();
+    expect(parseConceptReview({ understood: "false", review: "You named the idea and stopped. Say what a value is, and what a type changes about how you use it." })?.understood).toBe(false);
+  });
+
+  it("records the stage only when every idea is present, in order, with a written review", () => {
+    const concepts = ["Values", "Functions"];
+    const review = "You explained what a value is and why the type changes what you can do with it.";
+    expect(
+      readyWizardSteps(concepts, [
+        { concept: "Values", answer: "A value is data.", review },
+        { concept: "Functions", answer: "", review },
+      ]),
+    ).toBeNull();
+    expect(
+      readyWizardSteps(concepts, [
+        { concept: "Functions", answer: "A function is a reusable step.", review },
+        { concept: "Values", answer: "A value is data.", review },
+      ]),
+    ).toBeNull();
+    expect(
+      readyWizardSteps(concepts, [
+        { concept: "Values", answer: "A value is data the program holds.", review },
+        { concept: "Functions", answer: "A function groups steps you can run again.", review },
+      ]),
+    ).toHaveLength(2);
   });
 });

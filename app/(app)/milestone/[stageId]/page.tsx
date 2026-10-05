@@ -4,6 +4,7 @@ import { notFound, redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { getMilestone } from "@/lib/data/milestone";
 import { ExplainBackForm } from "./_components/ExplainBackForm";
+import { ExplainWizard } from "./_components/ExplainWizard";
 
 type PageProps = {
   params: Promise<{ stageId: string }>;
@@ -58,14 +59,24 @@ export default async function MilestonePage({ params }: PageProps) {
           Back to the path
         </Link>
       </p>
-      <ExplainBackForm
-        stageId={data.stage.id}
-        stageLabel={`${data.skill.name} · ${data.stage.title}`}
-        question={data.prompt.question}
-        concepts={data.concepts}
-        continueHref={data.continueHref}
-        continueLabel={data.continueLabel}
-      />
+      {data.concepts.length > 0 ? (
+        <ExplainWizard
+          stageId={data.stage.id}
+          stageLabel={`${data.skill.name} · ${data.stage.title}`}
+          concepts={data.concepts}
+          continueHref={data.continueHref}
+          continueLabel={data.continueLabel}
+        />
+      ) : (
+        <ExplainBackForm
+          stageId={data.stage.id}
+          stageLabel={`${data.skill.name} · ${data.stage.title}`}
+          question={data.prompt.question}
+          concepts={data.concepts}
+          continueHref={data.continueHref}
+          continueLabel={data.continueLabel}
+        />
+      )}
     </div>
   );
 }

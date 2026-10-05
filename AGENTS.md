@@ -12,11 +12,11 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 Read this after the Next.js block. `Project-roadmap.md` is the phase list. `README.md` is how to run the app. The files in `content/catalog/_review/` are generated link-check reports. Do not rewrite them by hand.
 
-Last aligned with the working tree on 5 October 2026.
+Last aligned with the working tree on 6 October 2026.
 
 ## What this product is
 
-SkillFlow is a mastery-first learning app. A learner follows a skill, opens a stage of real external resources, and is meant to pass an explain-back before moving on. Version 1 does not grade it yet. There is no quiz. A learner can also bring their own resource and get an explain-back gate prompt for it (Version 2 preview). The free paths open every stage except the last three.
+SkillFlow is a mastery-first learning app. A learner follows a skill, opens a stage of real external resources, and passes an explain-back before the stage is recorded. Version 1 grades a real stage one idea at a time. There is no quiz. A learner can also bring their own resource and get an explain-back gate prompt for it (Version 2 preview). The free paths open every stage except the last three.
 
 There is no comments, likes, view counts, or payments. Do not build Stripe.
 
@@ -82,7 +82,7 @@ Wired to Postgres:
 - Admin catalog (`/admin/catalog`) edits skills that already have stages, and lists every niche. Needs-review filter is `#catalog-review-only`.
 - Submit writes `ResourceSubmission`. Admin approval creates a `Resource`. Reject stores a note.
 - Profile name saves. Email does not. Theme and accent apply immediately. The ten presets stay. A custom gradient is `custom:#start:#end` on `LearnerProfile.accent` and the `skillflow-accent` cookie. The palette, hex, and RGB fields live on Settings and onboarding. That choice is personal: it is not part of the catalog cache, and saving it does not call `invalidateCatalog()`.
-- Explain-back on a real stage asks the learner to explain every learning objective of that stage. `GEMINI_API_KEY` sends the answer to Gemini’s free tier (`gemini-flash-lite-latest`). `OPENAI_API_KEY` is the paid fallback when that key is empty. A pass requires every concept to be understood, not keyword overlap. A missing concept gets one follow-up. If it is still missing after that, the attempt is saved as needs-improvement and the stage stays open. A pass writes `ExplainBackAttempt` and sets `StageCompletion.explainBackPassed`. The last three stages stay locked. With no key, the check saves nothing and does not pass the stage. The preview id `__explain_input__` still uses the mock walkthrough.
+- Explain-back on a real stage is a step wizard, one learning objective at a time. Each step sends that idea to Gemini’s free tier (`GEMINI_API_KEY`, `gemini-flash-lite-latest`). `OPENAI_API_KEY` is the paid fallback when that key is empty. An empty answer stays on the step. A wrong or thin answer stays on the step and shows a written review. A sound answer shows a written review too, then the next idea. The stage is recorded only after every idea has passed: one `ExplainBackAttempt` and `StageCompletion.explainBackPassed`. The last three stages stay locked. With no key, a timeout, or a reply that is not a review, nothing is saved. The preview id `__explain_input__` still uses the mock walkthrough.
 - The quiz feature was dropped on 1 October 2026. The explain-back gate is the only mastery check. The `Quiz`, `QuizQuestion`, and `QuizAttempt` tables and `StageCompletion.quizPassed` are still in the schema because the database was not changed. Nothing reads or writes them. Do not build on them.
 - Progress, analytics, and home stats read real attempt counts. With no attempts, those numbers are zero. The charts are not a mock learner with a streak of 12.
 - Open Source is wired end to end. It works like pull requests: a contribution is submitted, reviewed, and only `MERGED` ones are public. Community content never goes into `Resource`, `RoadmapStage`, or any catalog table, and community writes never call `invalidateCatalog()`. `/submit` (`ResourceSubmission`) is a separate feature. Coming-soon niches have communities too.

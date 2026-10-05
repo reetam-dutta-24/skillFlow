@@ -140,6 +140,28 @@ function postModel(config: ModelConfig, payload: unknown) {
   });
 }
 
+async function modelContent(config: ModelConfig, payload: unknown): Promise<unknown | null> {
+  try {
+    let response = await postModel(config, payload);
+    if (response.status === 503) response = await postModel(config, payload);
+    const raw = (await response.json()) as unknown;
+    const body = (Array.isArray(raw) ? raw[0] : raw) as {
+      error?: { message?: string };
+      choices?: { message?: { content?: unknown } }[];
+    };
+    if (!response.ok) {
+      const message = (body?.error?.message ?? "").replaceAll(config.key, "[key]").slice(0, 180);
+      console.error("explain-back model request failed", response.status, config.model, message);
+      return null;
+    }
+    return body?.choices?.[0]?.message?.content ?? null;
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "request failed";
+    console.error("explain-back model request failed", message.slice(0, 180));
+    return null;
+  }
+}
+
 export async function judgeExplanation(input: JudgeInput): Promise<JudgeReply | null> {
   const config = explainModelConfig();
   if (!config) return null;
@@ -167,26 +189,111 @@ export async function judgeExplanation(input: JudgeInput): Promise<JudgeReply | 
     ],
   };
 
-  try {
-    let response = await postModel(config, payload);
-    if (response.status === 503) response = await postModel(config, payload);
-    const raw = (await response.json()) as unknown;
-    const body = (Array.isArray(raw) ? raw[0] : raw) as {
-      error?: { message?: string };
-      choices?: { message?: { content?: unknown } }[];
-    };
-    if (!response.ok) {
-      const message = (body?.error?.message ?? "").replaceAll(config.key, "[key]").slice(0, 180);
-      console.error("explain-back model request failed", response.status, config.model, message);
+  const content = await modelContent(config, payload);
+  if (content == null) return null;
+  const reply = parseJudgeReply(content, input.concepts);
+  if (!reply) console.error("explain-back model reply was not a concept list");
+  return reply;
+}
+
+export type ConceptReview = {
+  understood: boolean;
+  review: string;
+};
+
+const MIN_REVIEW = 40;
+const PASS_REVIEW =
+  "That explanation holds. You said what this idea is and why it matters, in your own words. Keep that version as you move to the next idea.";
+const RETRY_REVIEW =
+  "That does not yet explain the idea. Say what it is, and when you would use it, in your own words. Naming it is not enough to move on.";
+
+function understoodFlag(value: unknown): boolean | null {
+  if (value === true || value === false) return value;
+  if (typeof value === "string") {
+    const text = value.trim().toLowerCase();
+    if (text === "true" || text === "yes") return true;
+    if (text === "false" || text === "no") return false;
+  }
+  return null;
+}
+
+/** A written review for one idea. A short or missing review is replaced so the step never returns only a tick or a cross. */
+export function parseConceptReview(raw: unknown): ConceptReview | null {
+  let data: unknown = raw;
+  if (typeof raw === "string") {
+    const trimmed = raw.trim().replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/, "");
+    try {
+      data = JSON.parse(trimmed);
+    } catch {
       return null;
     }
-    const content = body?.choices?.[0]?.message?.content;
-    const reply = parseJudgeReply(content, input.concepts);
-    if (!reply) console.error("explain-back model reply was not a concept list");
-    return reply;
-  } catch (error) {
-    const message = error instanceof Error ? error.message : "request failed";
-    console.error("explain-back model request failed", message.slice(0, 180));
-    return null;
   }
+  const record = asRecord(data);
+  if (!record) return null;
+  const nested = asRecord(record.result) ?? asRecord(record.review) ?? record;
+  const understood = understoodFlag(nested.understood ?? record.understood);
+  if (understood === null) return null;
+  const reviewSource = [nested.review, record.review, nested.feedback, record.feedback].find((item) => typeof item === "string");
+  const given = typeof reviewSource === "string" ? reviewSource.trim().slice(0, 900) : "";
+  return { understood, review: given.length >= MIN_REVIEW ? given : understood ? PASS_REVIEW : RETRY_REVIEW };
+}
+
+const CONCEPT_SYSTEM = [
+  "You review one idea in a learning stage, the way a teacher writes back after reading a student's explanation.",
+  "Understood is true only when they explain the idea in their own words: what it is, and why it matters or when they would use it.",
+  "A name, a label, or a single clause is not understood. A wrong or confused explanation is not understood.",
+  "Do not demand jargon the stage notes do not require. Grade only the idea named for this step.",
+  "The review is always written, whether they understood or not. Two to four sentences.",
+  "If they understood, name what they got right and add one sharper observation they can keep.",
+  "If they did not, say what is missing or confused and ask them to try that part again. Do not hand them the full answer.",
+  "No score, no tick, no pass or fail label.",
+  "Reply with JSON only. understood is true or false. review is the two to four sentences you just wrote, in full. Do not leave a field as a type name.",
+].join(" ");
+
+export async function judgeConcept(input: {
+  title: string;
+  description: string | null;
+  concept: string;
+  others: string[];
+  notes: string[];
+  answer: string;
+}): Promise<ConceptReview | null> {
+  const config = explainModelConfig();
+  if (!config) return null;
+  const lines = [
+    `Stage: ${input.title}`,
+    input.description ? `What this stage is about: ${input.description}` : "",
+    `The idea they must explain now: ${input.concept}`,
+    input.others.length
+      ? `Other ideas in this stage, for context only:\n${input.others.map((item) => `- ${item}`).join("\n")}`
+      : "",
+    input.notes.length ? `Reference notes from the lesson:\n${input.notes.map((line) => `- ${line}`).join("\n")}` : "",
+    `Their explanation of this idea:\n${input.answer}`,
+  ].filter(Boolean);
+  const payload = {
+    model: config.model,
+    response_format: { type: "json_object" },
+    temperature: 0.2,
+    ...(config.provider === "gemini" ? { reasoning_effort: "low" } : {}),
+    messages: [
+      { role: "system", content: CONCEPT_SYSTEM },
+      { role: "user", content: lines.join("\n\n") },
+    ],
+  };
+  let content = await modelContent(config, payload);
+  if (content == null) return null;
+  let review = parseConceptReview(content);
+  if (!review) {
+    content = await modelContent(config, payload);
+    if (content == null) return null;
+    review = parseConceptReview(content);
+  }
+  if (!review) {
+    const preview = (typeof content === "string" ? content : JSON.stringify(content))
+      .replace(/AIza[\w-]+/g, "[key]")
+      .replace(/AQ\.[A-Za-z0-9_-]+/g, "[key]")
+      .slice(0, 240);
+    console.error("explain-back model reply was not a concept review", preview);
+  }
+  return review;
 }

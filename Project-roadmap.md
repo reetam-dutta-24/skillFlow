@@ -7,11 +7,11 @@ This file is two things at once:
 
 Tick a box only when that exact piece is really finished. A screen that looks done on mock data is not the same as the backend for that feature.
 
-**How to talk about it.** The product idea, the database, sign-in, onboarding, the niche list, and the three free roadmaps are real. Lessons on those paths play the stored resources. There is no quiz: the feature was dropped, and the explain-back gate is the only check. A real stage asks for every learning objective. Gemini’s free tier decides whether each idea is understood. A missing idea gets one follow-up, and a stage does not pass while an idea is still missing. That call needs an API key. Streaks display a stored number and do not advance. Stripe and the leaderboard score are not running.
+**How to talk about it.** The product idea, the database, sign-in, onboarding, the niche list, and the three free roadmaps are real. Lessons on those paths play the stored resources. There is no quiz: the feature was dropped, and the explain-back gate is the only check. A real stage walks one learning objective at a time. Gemini’s free tier writes a review for each answer, and the step stays put until that idea holds. The stage is recorded only when every idea has passed. That call needs an API key. Streaks display a stored number and do not advance. Stripe and the leaderboard score are not running.
 
 `AGENTS.md` is the short context a new session should read. This file is the longer record.
 
-Last aligned with the working tree on 5 October 2026.
+Last aligned with the working tree on 6 October 2026.
 
 ---
 
@@ -32,7 +32,7 @@ Last aligned with the working tree on 5 October 2026.
 | Learner map | Done | Opt-in city counts on Nearby → Learners. No names. Cities under the env minimum stay hidden |
 | Nearby events | Done | Saved events per city and niche, refreshed on a cap. Community events need a review. Live search is admin-only until payments |
 | Settings follow | Done | Add and remove on the settings page write `UserSkillProgress`. Home links to the niche list instead of a fake Add |
-| Explain-back | Model grades the whole stage | The gate lists every learning objective. A chat model must mark each one understood before the stage passes. One follow-up covers whatever was missed. No key means no pass. The last three stages stay locked |
+| Explain-back | Wizard, one idea at a time | Each learning objective is its own step. A written review comes back whether the idea holds or not. The step moves on only when it holds. The stage is recorded after the last idea. No key means no pass. The last three stages stay locked |
 | Unlock by mastery | Not in Version 1 | A free path locks its last three stages. A pass does not open the next one |
 | Tests, deploy, monitoring | Not started | No test suite, no production host, no Sentry |
 
@@ -47,7 +47,7 @@ The loop, as designed:
 1. Follow one or more skills. Home shows a row for each skill on the feed.
 2. Follow that skill's stages in order.
 3. Open a lesson made of real external resources (a video, a doc, a course link), or bring your own resource.
-4. Pass the explain-back gate: explain the idea in your own words. The product asks one follow-up on the weak part of the answer.
+4. Pass the explain-back gate: one idea at a time, with a written review on every step. A step moves on only when that idea holds.
 5. A real pass is supposed to open the next stage.
 
 There is no quiz. That feature was dropped, and the explain-back is the mastery check. Steps 4 and 5 are designed and partly stored. They are not what opens a stage today. On a free available path, every stage is open except the last three.
@@ -150,7 +150,7 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 
 **No quiz.** The quiz feature was dropped. There is no `/quiz` route, no quiz stat, and no “Continue to quiz” button. The lesson's next step is the explain-back.
 
-**Explain-back.** Every imported stage has learning objectives, a question, and a rubric. The lesson’s continue button opens `/milestone/[stageId]`, and the gate asks the learner to explain every objective of that stage. `GEMINI_API_KEY` sends the answer to Gemini’s free tier (`gemini-flash-lite-latest`). `OPENAI_API_KEY` is used only when the Gemini key is empty. The model marks each concept understood or not. A name without the idea does not count. If anything is missing, the learner gets one follow-up about those ideas and does not pass yet. After the follow-up, every concept still has to be understood. A pass writes `ExplainBackAttempt` and sets `StageCompletion.explainBackPassed`. A miss is saved as needs-improvement and the stage stays open. The last three stages stay locked either way. With no key, a timeout, or JSON that is not a concept list, nothing is saved and the stage does not pass. `review failed` still shows the error and saves nothing. The preview id `__explain_input__` keeps the old mock walkthrough.
+**Explain-back.** Every imported stage has learning objectives, a question, and a rubric. The lesson’s continue button opens `/milestone/[stageId]`. A real stage is a wizard: one objective per step, animated between steps. `GEMINI_API_KEY` sends that step to Gemini’s free tier (`gemini-flash-lite-latest`). `OPENAI_API_KEY` is used only when the Gemini key is empty. The model writes a review whether the idea holds or not. An empty answer, or one the model does not accept, stays on the step. The stage is saved only after every idea has passed: one `ExplainBackAttempt` and `StageCompletion.explainBackPassed`. The last three stages stay locked. With no key, a timeout, or a reply that is not a review, nothing is saved. `review failed` still shows the error and saves nothing. The preview id `__explain_input__` keeps the old mock walkthrough.
 
 **Progress and analytics.** Counts come from `ExplainBackAttempt` and `StageCompletion`. Home and Progress show “Explain-backs passed”. Weak topics are empty. The analytics series is not the old mock week.
 
@@ -316,16 +316,16 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 - [ ] Tests for roadmap and resource reads
 
 ## PHASE 4 — AI explain-back
-**Status: 🔶 A MODEL GRADES THE WHOLE STAGE. PROMPTS ARE STILL AUTHORED, NOT GENERATED.**
+**Status: 🔶 ONE IDEA AT A TIME, WITH A WRITTEN REVIEW. PROMPTS ARE STILL AUTHORED, NOT GENERATED.**
 
 **Already stored or on screen:**
 
 - One explain-back question, a rubric, and learning objectives per imported stage
-- The gate asks for every learning objective. The lesson’s continue button opens `/milestone/[stageId]`
-- A chat model marks each concept understood or not. Keyword overlap cannot pass the stage
-- A missing concept gets one follow-up. The stage passes only when every concept is understood after that
-- A pass sets `StageCompletion.explainBackPassed` and does not open a locked stage. A miss stays needs-improvement
-- No key, a timeout, or a reply that is not the concept list saves nothing
+- The gate is a wizard, one learning objective per step. The lesson’s continue button opens `/milestone/[stageId]`
+- A chat model writes a review for that idea, whether it holds or not. Keyword overlap cannot pass the step
+- An empty or rejected answer stays on the step. The stage is recorded only after every idea has passed
+- A pass sets `StageCompletion.explainBackPassed` and does not open a locked stage
+- No key, a timeout, or a reply that is not a review saves nothing
 - `lib/explain/judge.test.ts` checks that a full set of concepts can pass and a remaining gap cannot
 - The preview id `__explain_input__` still has the mocked voice path, follow-up, pass, retry, and the `review failed` error
 
@@ -334,7 +334,7 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 - [ ] Resource text (catalog or brought by the learner) → model → explain-back prompt and rubric
 - [x] Timeout and bad JSON leave the stage unpassed instead of inventing a grade
 - [x] Milestone page reads the stage concepts
-- [x] A follow-up, then `ExplainBackAttempt`
+- [x] After every idea passes, one `ExplainBackAttempt` is saved
 - [x] An eval set: every concept understood passes; a gap does not
 - [x] A pass updates `StageCompletion`. Version 1 does not unlock the last three stages
 

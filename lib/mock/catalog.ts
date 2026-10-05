@@ -3,7 +3,6 @@ import { YOUTUBE_PLACEHOLDER_ID } from "@/lib/mock/config";
 import type {
   ExplainBackPromptView,
   ExplainBackSample,
-  LeaderboardRowView,
   MasteryPointView,
   NotificationView,
   ResourceType,
@@ -334,19 +333,6 @@ const submissionSeeds: SubmissionSeed[] = [
   { id: "sub_7", stageId: "stage_fs_2", skillName: "Full-Stack Web Development", stageTitle: "Hooks & State", type: "DOC_LINK", url: "https://example.com/hooks-news", title: "Hooks, explained by a news desk", description: "A news recap of a conference talk.", status: "REJECTED", reviewNotes: "This link is a news article, not a lesson. Send a documentation page instead.", reviewedAt: "2026-09-15T00:00:00.000Z", createdAt: "2026-09-14T00:00:00.000Z" },
 ];
 
-const leaderboardOthers: { name: string; city: string | null; score: number }[] = [
-  { name: "Avery Lang", city: "Lisbon", score: 91 },
-  { name: "Mina Cho", city: "Seoul", score: 88 },
-  { name: "Jules Ortega", city: null, score: 84 },
-  { name: "Placeholder Learner", city: null, score: 81 },
-  { name: "Samir Adeyemi", city: "Lagos", score: 79 },
-  { name: "Priya Nair", city: "Pune", score: 74 },
-  { name: "Leo Marin", city: null, score: 71 },
-  { name: "Hana Sato", city: "Osaka", score: 66 },
-  { name: "Owen Blake", city: "Leeds", score: 61 },
-  { name: "Noor Haddad", city: "Amman", score: 55 },
-];
-
 export function listSkills() {
   return skills.map((skill) => ({ ...skill }));
 }
@@ -416,19 +402,6 @@ export function listSubmissions(viewer: { id: string; name: string | null }): Su
     submittedById: viewer.id,
     submitterName,
   }));
-}
-
-export function leaderboardWithViewer(viewer: { name: string | null }): LeaderboardRowView[] {
-  return leaderboardOthers.map((row, index) => {
-    const isViewer = index === 3;
-    return {
-      rank: index + 1,
-      name: isViewer ? viewer.name?.trim() || "You" : row.name,
-      city: isViewer ? null : row.city,
-      score: row.score,
-      isViewer,
-    };
-  });
 }
 
 export const passedMilestone = {

@@ -1,6 +1,5 @@
 import type {
   ExplainBackPromptView,
-  LeaderboardRowView,
   MasteryPointView,
   NotificationView,
   ResourceView,
@@ -166,11 +165,6 @@ export type UpgradeData = {
   isPremium: boolean;
 };
 
-export type LeaderboardData = {
-  rows: LeaderboardRowView[];
-  optedOut: boolean;
-};
-
 export type TranscriptData = {
   learnerName: string;
   skill: SkillView;
@@ -179,25 +173,6 @@ export type TranscriptData = {
     title: string;
     explainBackPassedOn: string;
   }[];
-};
-
-export type NotesData = {
-  notes: {
-    id: string;
-    skillSlug: string;
-    skillName: string;
-    stageId: string;
-    stageTitle: string;
-    title: string;
-    body: string;
-    updatedAt: string;
-  }[];
-};
-
-export type ProjectReviewData = {
-  stageTitle: string;
-  skillName: string;
-  waitingForPeer: boolean;
 };
 
 export type CreatorData = {

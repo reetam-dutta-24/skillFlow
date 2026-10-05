@@ -4162,6 +4162,39 @@ a.sf-source:hover {
   border-radius: var(--radius-card);
   background: var(--surface-card);
 }
+.sf-notes-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 0;
+}
+.sf-notes-actions a,
+.sf-notes-actions button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--text-primary);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  text-decoration: none;
+  cursor: pointer;
+}
+.sf-notes-actions button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.sf-note-summary {
+  margin: 0;
+  padding: 12px 14px;
+  border-left: 2px solid var(--accent);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
 .sf-notebook-page-head p {
   display: flex;
   flex-wrap: wrap;

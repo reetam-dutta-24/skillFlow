@@ -4,11 +4,15 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
 import { arrangeNotes, type LearnerNoteView } from "@/lib/explain/notes-view";
+import { summarizeStage } from "../actions";
 
 export function NotesDesk({ notes }: { notes: LearnerNoteView[] }) {
   const [query, setQuery] = useState("");
   const [skillName, setSkillName] = useState("");
   const [stageId, setStageId] = useState(notes[0]?.stageId ?? "");
+  const [summary, setSummary] = useState<{ stageId: string; text: string } | null>(null);
+  const [summaryNote, setSummaryNote] = useState("");
+  const [summarizing, setSummarizing] = useState(false);
   const groups = useMemo(() => arrangeNotes(notes), [notes]);
   const skillNames = groups.map((group) => group.skillName);
   const activeSkill = groups.find((group) => group.skillName === skillName) ?? groups[0] ?? null;
@@ -38,6 +42,26 @@ export function NotesDesk({ notes }: { notes: LearnerNoteView[] }) {
     const next = groups.find((group) => group.skillName === name);
     setStageId(next?.stages[0]?.stageId ?? "");
     setQuery("");
+    setSummary(null);
+    setSummaryNote("");
+  }
+
+  async function onSummarize() {
+    if (!chapter || summarizing) return;
+    setSummarizing(true);
+    setSummaryNote("");
+    const result = await summarizeStage(chapter.stageId);
+    setSummarizing(false);
+    if (!result.ok) {
+      setSummary(null);
+      setSummaryNote(
+        result.error === "unconnected"
+          ? "A model key is needed before this stage can be summarized."
+          : "The summary did not come back. Try again.",
+      );
+      return;
+    }
+    setSummary({ stageId: chapter.stageId, text: result.summary });
   }
 
   if (notes.length === 0) {
@@ -70,7 +94,7 @@ export function NotesDesk({ notes }: { notes: LearnerNoteView[] }) {
           <ol className="sf-notebook-chapters" aria-label="Stages">
             {chapters.map((stage, index) => (
               <li key={stage.stageId}>
-                <button type="button" aria-current={stage.stageId === chapter.stageId ? "true" : undefined} onClick={() => setStageId(stage.stageId)}>
+                <button type="button" aria-current={stage.stageId === chapter.stageId ? "true" : undefined} onClick={() => { setStageId(stage.stageId); setSummary(null); setSummaryNote(""); }}>
                   <span>{String(index + 1).padStart(2, "0")}</span>
                   <strong>{stage.stageTitle}</strong>
                   <em>
@@ -90,6 +114,13 @@ export function NotesDesk({ notes }: { notes: LearnerNoteView[] }) {
               </p>
               <h2 id="notebook-stage">{chapter.stageTitle}</h2>
             </header>
+            <div className="sf-notes-actions">
+              <button type="button" onClick={onSummarize} disabled={summarizing}>
+                {summarizing ? "Summarizing this stage" : "Summarize this stage"}
+              </button>
+            </div>
+            {summary?.stageId === chapter.stageId ? <p className="sf-note-summary">{summary.text}</p> : null}
+            {summaryNote ? <p className="sf-note-summary">{summaryNote}</p> : null}
             <nav className="sf-note-jump" aria-label="Ideas in this stage">
               {chapter.notes.map((note, index) => (
                 <a key={note.id} href={`#note-${note.id}`}>
@@ -115,11 +146,11 @@ export function NotesDesk({ notes }: { notes: LearnerNoteView[] }) {
               ))}
             </div>
             <footer className="sf-notebook-turn">
-              <button type="button" disabled={chapterIndex === 0} onClick={() => setStageId(chapters[chapterIndex - 1].stageId)}>
+              <button type="button" disabled={chapterIndex === 0} onClick={() => { setStageId(chapters[chapterIndex - 1].stageId); setSummary(null); setSummaryNote(""); }}>
                 Previous stage
               </button>
               <Link href={`/milestone/${chapter.stageId}`}>Open this stage</Link>
-              <button type="button" disabled={chapterIndex === chapters.length - 1} onClick={() => setStageId(chapters[chapterIndex + 1].stageId)}>
+              <button type="button" disabled={chapterIndex === chapters.length - 1} onClick={() => { setStageId(chapters[chapterIndex + 1].stageId); setSummary(null); setSummaryNote(""); }}>
                 Next stage
               </button>
             </footer>

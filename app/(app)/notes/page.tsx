@@ -14,7 +14,13 @@ export default async function NotesPage() {
     <div className="sf-notes-page">
       <header className="sf-page-head">
         <h1>Notes</h1>
-        <p>Read a stage the way you would a notebook. Each idea keeps what you wrote, then the review that came back.</p>
+        <p>Read a stage the way you would a notebook. Each idea keeps what you wrote, then the review that came back. A stage summary uses only those notes.</p>
+        {notes.length ? (
+          <p className="sf-notes-actions">
+            <a href="/notes/export?format=docx">Download Word</a>
+            <a href="/notes/export?format=pdf">Download PDF</a>
+          </p>
+        ) : null}
       </header>
       <NotesDesk notes={notes} />
     </div>

@@ -162,6 +162,25 @@ async function modelContent(config: ModelConfig, payload: unknown): Promise<unkn
   }
 }
 
+/** Plain text from the same model the explain-back gate uses. */
+export async function askModelText(system: string, user: string): Promise<string | null> {
+  const config = explainModelConfig();
+  if (!config) return null;
+  const payload = {
+    model: config.model,
+    temperature: 0.2,
+    ...(config.provider === "gemini" ? { reasoning_effort: "low" } : {}),
+    messages: [
+      { role: "system", content: system },
+      { role: "user", content: user },
+    ],
+  };
+  const content = await modelContent(config, payload);
+  if (typeof content !== "string") return null;
+  const text = content.trim();
+  return text.length > 0 ? text.slice(0, 2000) : null;
+}
+
 export async function judgeExplanation(input: JudgeInput): Promise<JudgeReply | null> {
   const config = explainModelConfig();
   if (!config) return null;

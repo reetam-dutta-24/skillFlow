@@ -2,16 +2,11 @@ import "server-only";
 import { cache } from "react";
 import { devDelay } from "@/lib/mock/delay";
 import { PREMIUM_PRICE_LABEL } from "@/lib/mock/config";
-import { findSkill, leaderboardWithViewer, listStages, noteSeeds, passedMilestone } from "@/lib/mock/catalog";
+import { findSkill, listStages, passedMilestone } from "@/lib/mock/catalog";
 
 export async function getUpgrade() {
   await devDelay();
   return { priceLabel: PREMIUM_PRICE_LABEL };
-}
-
-export async function getLeaderboard(name: string | null) {
-  await devDelay();
-  return leaderboardWithViewer({ name });
 }
 
 export const getTranscript = cache(async (skillSlug: string) => {
@@ -27,13 +22,3 @@ export const getTranscript = cache(async (skillSlug: string) => {
     })),
   };
 });
-
-export async function getNotes() {
-  await devDelay();
-  return noteSeeds.map((note) => ({ ...note }));
-}
-
-export async function getProjectReview(stageId: string) {
-  await devDelay();
-  return { stageId, waiting: stageId === "stage_fs_5" };
-}

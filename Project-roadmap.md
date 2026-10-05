@@ -7,7 +7,7 @@ This file is two things at once:
 
 Tick a box only when that exact piece is really finished. A screen that looks done on mock data is not the same as the backend for that feature.
 
-**How to talk about it.** The product idea, the database, sign-in, onboarding, the niche list, and the three free roadmaps are real. Lessons on those paths play the stored resources. There is no quiz: the feature was dropped, and the explain-back gate is the only check. A real stage walks one learning objective at a time. Gemini’s free tier writes a review for each answer, and the step stays put until that idea holds. An idea that holds is kept in Notes. The stage is recorded only when every idea has passed. That call needs an API key. Streaks display a stored number and do not advance. Stripe and the leaderboard score are not running.
+**How to talk about it.** The product idea, the database, sign-in, onboarding, the niche list, and the three free roadmaps are real. Lessons on those paths play the stored resources. There is no quiz: the feature was dropped, and the explain-back gate is the only check. A real stage walks one learning objective at a time. Gemini’s free tier writes a review for each answer, and the step stays put until that idea holds. An idea that holds is kept in Notes. The notebook can download those notes as Word or PDF, and a stage can be summarized from those notes alone. The stage is recorded only when every idea has passed. That call needs an API key. Mastery is the share of open stages passed. A streak day is a UTC day with a saved explain-back or a saved note. There is no leaderboard and no peer review. Stripe is not running. A creator rating and earnings are not part of the product.
 
 `AGENTS.md` is the short context a new session should read. This file is the longer record.
 
@@ -53,7 +53,7 @@ The loop, as designed:
 
 There is no quiz. That feature was dropped, and the explain-back is the mastery check. Steps 4 and 5 are designed and partly stored. They are not what opens a stage today. On a free available path, every stage is open except the last three.
 
-What the product refuses: comments, likes, view counts, trending, prize leaderboards, and guilt copy when a streak breaks. Progress is meant to be verified understanding, not time spent.
+What the product refuses: comments, likes, view counts, trending, a score leaderboard, peer review, and guilt copy when a streak breaks. Progress is meant to be verified understanding, not time spent.
 
 **Version 1 free flagships**
 
@@ -153,9 +153,9 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 
 **Explain-back.** Every imported stage has learning objectives, a question, and a rubric. The lesson’s continue button opens `/milestone/[stageId]`. A real stage is a wizard: one objective per step, animated between steps. `GEMINI_API_KEY` sends that step to Gemini’s free tier (`gemini-flash-lite-latest`). `OPENAI_API_KEY` is used only when the Gemini key is empty. The model writes a review whether the idea holds or not. An empty answer, or one the model does not accept, stays on the step. An accepted idea is stored as a note: the explanation and the review. The stage is saved only after every idea has passed: one `ExplainBackAttempt` and `StageCompletion.explainBackPassed`. The last three stages stay locked. With no key, a timeout, or a reply that is not a review, nothing is saved. `review failed` still shows the error and saves nothing. The preview id `__explain_input__` keeps the old mock walkthrough.
 
-**Notes.** `/notes` is in the sidebar. It lists that learner’s accepted ideas, grouped by skill and stage. Opening one shows what they wrote and the review. Search and a skill filter narrow the list. The page reads the signed-in user on the request.
+**Notes.** `/notes` is in the sidebar. It lists that learner’s accepted ideas, grouped by skill and stage. Opening one shows what they wrote and the review. Search and a skill filter narrow the list. Download Word and Download PDF save the notebook. Summarize this stage writes a short restatement of that stage’s notes and nothing else. The page reads the signed-in user on the request.
 
-**Progress and analytics.** Counts come from `ExplainBackAttempt` and `StageCompletion`. Home and Progress show “Explain-backs passed”. Weak topics are empty. The analytics series is not the old mock week.
+**Progress and analytics.** Counts, mastery, streaks, weak topics, and the charts come from `ExplainBackAttempt` and `StageCompletion`. Home and Progress show “Explain-backs passed”.
 
 **Settings.** Name saves to `User`. Email is read-only. Add follows an available skill. Coming-soon skills have no Add button. Remove drops `UserSkillProgress` and keeps attempts. The daily reminder toggle is still local to the page. Theme and accent apply immediately. The accent row keeps the ten presets and adds a custom gradient: a color palette, a hex field, and R, G, and B for each stop. Log out uses the real `signOut`.
 
@@ -166,11 +166,8 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 **Version 2 previews, not linked from the main nav.** Each one is labeled "Version 2 preview".
 
 - `/upgrade` — one premium tier. Price text is the word Placeholder. No Stripe.
-- `/leaderboard` — sample rows. Score is not calculated.
 - `/transcript/[userId]/[skillSlug]` — shareable page, `noindex`. Not built from milestone rows.
-- `/notes` — moved to the main nav. An accepted explain-back idea is stored with its review.
-- `/projects/[stageId]/review` — rubric UI. No matching.
-- `/creator` — moved to the main nav. See V2 phase 7.
+- `/notes` — in the main nav. An accepted explain-back idea is stored with its review. The notebook downloads as Word or PDF, and each stage can be summarized from those notes only.
 - `/submit/byor` — bring your own resource and get a sample explain-back gate prompt.
 - Usage-cutoff dialog — a soft stop. Not stored.
 - `/dev/routes` — screen list. It 404s in production.
@@ -229,13 +226,11 @@ Stage photos were generated for all 10 Content Creation stages and all 8 Travel 
 
 ## Do not claim these in an interview yet
 
-- A model grades explanations.
 - Passing an explain-back unlocks the next stage.
-- SkillFlow has a quiz.
-- Streaks update from daily activity.
-- Mastery percent is calculated from attempts.
-- Stripe charges anyone, or a leaderboard score is computed.
-- The app is deployed, monitored, or covered by tests.
+- SkillFlow has a quiz, a score leaderboard, or peer review.
+- Stripe charges anyone.
+- A creator has a rating or earnings.
+- The app is deployed, monitored, or covered by an end-to-end test.
 - Every accent and a 375px phone width were fully audited.
 - Art & Painting has a roadmap. It does not.
 
@@ -438,12 +433,9 @@ The data model already has `Skill.offer` and `RoadmapStage.monetized`. Version 1
 - [ ] No card fields on our origin
 
 ## V2 PHASE 2 — Score and leaderboard
-**Status: ⬜ NOT STARTED. `/leaderboard` is sample rows.**
+**Status: 🚫 REMOVED. A score ranking is the FOMO the product refuses.**
 
-- [ ] Formula from verified actions only
-- [ ] Optional self-reported city, not geolocation
-- [ ] Score updated when a stage is completed, not in the browser
-- [ ] No prizes
+There is no `/leaderboard` route. Verified understanding stays on the learner’s own progress.
 
 ## V2 PHASE 3 — Explanations reused as lessons
 **Status: ⬜ NOT STARTED. Needs real explain-back volume.**
@@ -452,17 +444,19 @@ The data model already has `Skill.offer` and `RoadmapStage.monetized`. Version 1
 **Status: ⬜ NOT STARTED as data. The page exists and is `noindex`.**
 
 ## V2 PHASE 5 — Notes
-**Status: 🔶 AN ACCEPTED EXPLAIN-BACK IDEA IS STORED. SUMMARIES AND EXPORT ARE NOT.**
+**Status: ✅ STORED, EXPORTABLE, AND SUMMARIZED PER STAGE. A CUSTOM PRACTICE LANE IS NOT BUILT.**
 
-`/notes` is in the sidebar. When an idea holds, `LearnerNote` keeps the explanation and the written review. A pass recorded before that still becomes notes the next time the page is opened. The page is a notebook: one skill, its stages in path order, and every idea on that stage with the review under it. Notes are personal and are read on the request. A short AI restatement and a file export are not built.
+`/notes` is in the sidebar. When an idea holds, `LearnerNote` keeps the explanation and the written review. A pass recorded before that still becomes notes the next time the page is opened. The page is a notebook: one skill, its stages in path order, and every idea on that stage with the review under it. Download Word and Download PDF save that notebook. Summarize this stage asks the same model for a short restatement of that stage’s notes and nothing outside them. Notes are personal and are read on the request. A separate practice lane, where the learner brings their own text and an answer, is not built. It must not pass a stage or enter the catalog.
 
 ## V2 PHASE 6 — Peer project review
-**Status: ⬜ NOT STARTED. The rubric UI exists.**
+**Status: 🚫 REMOVED.**
+
+There is no `/projects` route. Learners are not matched to review each other’s work.
 
 ## V2 PHASE 7 — Creators
-**Status: 🔶 STUDIO IS LIVE. Profile rating and earnings are not.**
+**Status: ✅ STUDIO IS LIVE. A RATING AND EARNINGS ARE NOT PART OF THE PRODUCT.**
 
-A signed-in learner uploads a short clip or a longer video they own, picks one available niche, and sends it for review. `/admin/creator` approves it onto that niche’s clip feed and `/profile/[userId]`. The studio keeps drafts and shows views, watch time, and how many plays reached most of the video. The feed and the public profile do not show those numbers. Replacing the file on a live video sends it back for review. A creator rating on the profile, and any earnings, are still later.
+A signed-in learner uploads a short clip or a longer video they own, picks one available niche, and sends it for review. `/admin/creator` approves it onto that niche’s clip feed and `/profile/[userId]`. The studio keeps drafts and shows views, watch time, and how many plays reached most of the video. The feed and the public profile do not show those numbers. Replacing the file on a live video sends it back for review. A creator rating and earnings are not part of the product.
 
 ## V2 PHASE 8 — Generated roadmaps
 **Status: ⬜ NOT STARTED. Hand-written paths stay the default.**
@@ -498,4 +492,4 @@ Ticketmaster and Google Events (SerpApi) are separate adapters. A missing key tu
 
 ---
 
-**Right now.** Phases 0, 1, 2, 3, 5, and 7 are done for the three free paths, and the Open Source community is complete. The learner map and Nearby events are live. Explain-back asks for every learning objective and passes the stage only when a model marks each one understood. An accepted idea is kept in Notes. Mastery, streaks, weak topics, and the progress charts read those attempts. Still open for Version 1: generating a prompt from a resource, the rest of the test suite and an end-to-end pass (Phase 8), and deploy (Phase 9). Public event API keys stay last.
+**Right now.** Phases 0, 1, 2, 3, 5, and 7 are done for the three free paths, and the Open Source community is complete. The learner map and Nearby events are live. Explain-back asks for every learning objective and passes the stage only when a model marks each one understood. An accepted idea is kept in Notes, and that notebook can be downloaded or summarized from those notes alone. Mastery, streaks, weak topics, and the progress charts read those attempts. A score leaderboard and peer review are not part of the product. A creator rating and earnings are not either. Still open for Version 1: the rest of the test suite and an end-to-end pass (Phase 8), and deploy (Phase 9). A separate notes practice lane, where a learner brings their own text, is the agreed shape for grading an idea outside the catalog, and it is not built. Public event API keys stay last.

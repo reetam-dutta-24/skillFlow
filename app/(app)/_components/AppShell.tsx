@@ -63,8 +63,6 @@ function activeId(pathname: string) {
   if (pathname.startsWith("/submit")) return "submit";
   if (
     pathname.startsWith("/upgrade") ||
-    pathname.startsWith("/leaderboard") ||
-    pathname.startsWith("/projects") ||
     pathname.startsWith("/transcript")
   ) return "";
   return "home";
@@ -81,11 +79,9 @@ function titleFor(pathname: string) {
   if (pathname.startsWith("/analytics")) return "Analytics";
   if (pathname.startsWith("/progress")) return "Progress";
   if (pathname.startsWith("/upgrade")) return "Upgrade";
-  if (pathname.startsWith("/leaderboard")) return "Leaderboard";
   if (pathname.startsWith("/notes")) return "Notes";
   if (pathname.startsWith("/creator")) return "Creator studio";
   if (pathname.startsWith("/profile")) return "Profile";
-  if (pathname.startsWith("/projects")) return "Project review";
   if (pathname.startsWith("/transcript")) return "Transcript";
   if (pathname.startsWith("/settings")) return "Settings";
   if (pathname.startsWith("/submit/byor")) return "Bring your own resource";

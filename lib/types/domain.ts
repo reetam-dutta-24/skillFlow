@@ -120,11 +120,3 @@ export type SubmissionView = {
   submitterName: string;
   createdAt: string;
 };
-
-export type LeaderboardRowView = {
-  rank: number;
-  name: string;
-  city: string | null;
-  score: number;
-  isViewer: boolean;
-};

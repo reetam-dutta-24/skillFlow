@@ -3,6 +3,7 @@ import { cache } from "react";
 import { EXPLAIN_INPUT_PREVIEW_STAGE_ID, EXPLAIN_NEEDS_WORK_PHRASE, EXPLAIN_REVIEW_FAILURE_TEXT } from "@/lib/mock/config";
 import { devDelay } from "@/lib/mock/delay";
 import { acceptedExplanations, explainNeedsWork, explainSamples, findExplainPrompt, findStage, listStages } from "@/lib/mock/catalog";
+import { explainQuestion, stageConcepts } from "@/lib/explain/concepts";
 import { reviewStoredExplanation } from "@/lib/explain/review";
 import { prisma } from "@/lib/prisma";
 import type { RoadmapStageView, SkillView } from "@/lib/types/domain";
@@ -41,6 +42,7 @@ function openMilestone(stageId: string): MilestoneData | null {
     followUpQuote: sample?.followUpQuote ?? explainNeedsWork.followUpQuote,
     continueHref: next.continueHref,
     continueLabel: next.continueLabel,
+    concepts: [],
   };
 }
 
@@ -109,11 +111,12 @@ async function loadStoredMilestone(stageId: string, userId?: string): Promise<Mi
     explainBackPassed: false,
     previousStageTitle: previous?.title ?? null,
   };
+  const concepts = stageConcepts(stage.learningObjectives, stage.explainBackPrompt.rubric);
   const prompt = {
     id: stage.explainBackPrompt.id,
     stageId: stage.id,
     version: stage.explainBackPrompt.version,
-    question: stage.explainBackPrompt.question,
+    question: concepts.length > 0 ? explainQuestion(stage.title) : stage.explainBackPrompt.question,
     rubric: stage.explainBackPrompt.rubric,
   };
   const nextOpen =
@@ -158,12 +161,14 @@ async function loadStoredMilestone(stageId: string, userId?: string): Promise<Mi
     followUpQuote: "",
     continueHref,
     continueLabel,
+    concepts,
   };
 }
 
 export async function reviewMilestone(input: {
   stageId: string;
   answer: string;
+  followUpQuestion?: string;
   followUpAnswer?: string;
   userId?: string;
 }): Promise<ExplainReview> {
@@ -173,6 +178,7 @@ export async function reviewMilestone(input: {
       userId: input.userId,
       stageId: input.stageId,
       answer: input.answer,
+      followUpQuestion: input.followUpQuestion,
       followUpAnswer: input.followUpAnswer,
     });
   }

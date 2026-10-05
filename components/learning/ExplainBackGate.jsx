@@ -33,7 +33,7 @@ function Field({ id, value, onChange, placeholder, voice, onVoice, rows = 5, dis
 
 /** The explain-back milestone gate — SkillFlow's core differentiator. */
 export function ExplainBackGate({
-  stage, concept, prompt,
+  stage, concept, concepts, prompt,
   answer = "", onAnswerChange, onSubmitAnswer,
   followUp, followUpAnswer = "", onFollowUpChange, onSubmitFollowUp,
   result, resultFeedback, onContinue, onRetry,
@@ -52,6 +52,13 @@ export function ExplainBackGate({
         <Label>{stage} · Explain-back check</Label>
         <h1 style={{ margin: 0, fontSize: "var(--text-title)", lineHeight: "var(--text-title-lh)", fontWeight: "var(--weight-bold)", letterSpacing: "var(--tracking-tight)", color: "var(--text-primary)" }}>{concept}</h1>
         {prompt ? <p style={{ margin: 0, fontSize: "var(--text-subtitle)", lineHeight: "var(--text-subtitle-lh)", color: "var(--text-muted)", textWrap: "pretty" }}>{prompt}</p> : null}
+        {Array.isArray(concepts) && concepts.length > 0 ? (
+          <ul className="sf-explain-concepts">
+            {concepts.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        ) : null}
       </header>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>

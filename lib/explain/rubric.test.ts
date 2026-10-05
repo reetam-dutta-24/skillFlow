@@ -1,5 +1,4 @@
 import { describe, expect, it } from "vitest";
-import { parseModelGrade } from "@/lib/explain/model";
 import { coverRubric, feedbackFor, followUpFor, passesRubric } from "@/lib/explain/rubric";
 
 const FLEXBOX = [
@@ -46,27 +45,3 @@ describe("rubric coverage", () => {
   });
 });
 
-describe("model replies", () => {
-  it("keeps a reply whose verdict matches the coverage", () => {
-    const grade = parseModelGrade(
-      JSON.stringify({
-        covered: [true, true, false, false],
-        verdict: "PASSED",
-        feedback: "You named Flexbox and the box model.",
-      }),
-      4,
-    );
-    expect(grade?.verdict).toBe("PASSED");
-  });
-
-  it("drops bad JSON, a short list, and a verdict that disagrees", () => {
-    expect(parseModelGrade("not json", 4)).toBeNull();
-    expect(parseModelGrade({ covered: [true], verdict: "PASSED", feedback: "ok" }, 4)).toBeNull();
-    expect(
-      parseModelGrade(
-        { covered: [false, false, false, false], verdict: "PASSED", feedback: "Looks good." },
-        4,
-      ),
-    ).toBeNull();
-  });
-});

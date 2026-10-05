@@ -7,6 +7,7 @@ import type { ExplainReview } from "@/lib/types/pages";
 export async function reviewExplanation(input: {
   stageId: string;
   answer: string;
+  followUpQuestion?: string;
   followUpAnswer?: string;
 }): Promise<ExplainReview> {
   const session = await auth();

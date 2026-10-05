@@ -15,12 +15,14 @@ export function ExplainBackForm({
   stageId,
   stageLabel,
   question,
+  concepts = [],
   continueHref,
   continueLabel,
 }: {
   stageId: string;
   stageLabel: string;
   question: string;
+  concepts?: string[];
   continueHref: string;
   continueLabel: string;
 }) {
@@ -109,6 +111,11 @@ export function ExplainBackForm({
       if (outcome.kind === "follow-up") {
         setQuote(outcome.quote);
         setFollowUp(outcome.question);
+        return;
+      }
+      if (outcome.kind === "pass" || outcome.kind === "needs-improvement") {
+        setResult(outcome.kind);
+        setFeedback(outcome.feedback);
       }
     } catch {
       setError("unavailable");
@@ -122,7 +129,7 @@ export function ExplainBackForm({
     setReviewing(true);
     setError(false);
     try {
-      const outcome = await reviewExplanation({ stageId, answer, followUpAnswer });
+      const outcome = await reviewExplanation({ stageId, answer, followUpQuestion: followUp, followUpAnswer });
       if (!outcome.ok) {
         if (outcome.error === "unavailable" || outcome.error === "unconnected") setError(outcome.error);
         return;
@@ -159,11 +166,12 @@ export function ExplainBackForm({
       <ExplainBackGate
         stage={stageLabel}
         concept={question}
-        prompt="There is no timer and no score. This is a check-in."
+        concepts={concepts}
+        prompt={concepts.length > 0 ? "This check covers the whole stage. You pass only when every idea below is explained in your own words." : "There is no timer and no score. This is a check-in."}
         answer={answer}
         onAnswerChange={setAnswer}
         onSubmitAnswer={error || followUp ? undefined : () => void submitAnswer()}
-        hint="A short paragraph, in your own words, is enough."
+        hint={concepts.length > 0 ? "Explain each idea: what it is, and when you would use it. Naming it is not enough to pass." : "A short paragraph, in your own words, is enough."}
         followUp={
           followUp ? (
             <>
@@ -193,8 +201,8 @@ export function ExplainBackForm({
         <ErrorState
           compact
           role="alert"
-          title={error === "unconnected" ? "The explain-back check is not connected yet." : "We could not review your explanation."}
-          description={error === "unconnected" ? "Your words stay in the box. Nothing was saved." : "Your answer is saved."}
+          title={error === "unconnected" ? "The explain-back model is not connected yet." : "We could not review your explanation."}
+          description={error === "unconnected" ? "Nothing was saved, and this stage stays open." : "Your answer is saved."}
           retryLabel="Try again"
           onRetry={() => setError(false)}
         />

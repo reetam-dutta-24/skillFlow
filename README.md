@@ -1,6 +1,6 @@
 # SkillFlow
 
-A mastery-first learning platform. Curated roadmaps, your own resources, and an explain-back check are the product. Version 1 ships the roadmaps, the lessons, and a rubric-graded explain-back. There is no quiz.
+A mastery-first learning platform. Curated roadmaps, your own resources, and an explain-back check are the product. Version 1 ships the roadmaps, the lessons, and an explain-back that a model grades against the whole stage. There is no quiz.
 
 ## Status
 
@@ -93,11 +93,12 @@ Copy the names from `.env.example`. Leave a key blank to turn that source off.
 
 ## Explain-back model
 
-Leave these blank and the check is graded from the stage rubric. Set both to use an OpenAI-compatible chat endpoint instead. A timeout or a reply that is not the expected JSON falls back to the rubric, and the attempt is still saved.
+The explain-back does not pass a stage until a model has reviewed it. Set one key. A timeout or a reply that is not the concept list saves nothing, and the stage stays open.
 
-- `EXPLAIN_MODEL_URL` — the chat completions URL, such as `https://api.openai.com/v1/chat/completions`.
-- `EXPLAIN_MODEL_KEY` — the bearer token for that endpoint.
-- `EXPLAIN_MODEL_NAME` — optional. The default is `gpt-4o-mini`.
+- `OPENAI_API_KEY` — a key from [platform.openai.com](https://platform.openai.com/). This uses `https://api.openai.com/v1/chat/completions` and `gpt-4o-mini`.
+- `EXPLAIN_MODEL_KEY` — use this instead of `OPENAI_API_KEY` for another OpenAI-compatible endpoint.
+- `EXPLAIN_MODEL_URL` — that endpoint’s chat completions URL. The OpenAI URL above is the default.
+- `EXPLAIN_MODEL_NAME` — optional model name. The default is `gpt-4o-mini`.
 
 ## Learner map demo
 

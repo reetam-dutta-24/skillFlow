@@ -2960,6 +2960,21 @@ a.sf-path-card:hover {
 .sf-milestone q {
   color: var(--text-secondary);
 }
+.sf-explain-concepts {
+  margin: 0;
+  padding: 0 0 0 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.sf-explain-concepts li {
+  font-size: var(--text-body);
+  line-height: 1.5;
+  color: var(--text-primary);
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
 .sf-review-live {
   position: absolute;
   width: 1px;

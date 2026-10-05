@@ -16,8 +16,8 @@ export async function recordExplainBack(input: {
   stageCount: number;
   promptId: string;
   answer: string;
-  followUpQuestion: string;
-  followUpAnswer: string;
+  followUpQuestion: string | null;
+  followUpAnswer: string | null;
   verdict: "PASSED" | "NEEDS_IMPROVEMENT";
   feedback: string;
 }) {

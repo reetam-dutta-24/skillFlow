@@ -62,6 +62,7 @@ export default async function MilestonePage({ params }: PageProps) {
         stageId={data.stage.id}
         stageLabel={`${data.skill.name} · ${data.stage.title}`}
         question={data.prompt.question}
+        concepts={data.concepts}
         continueHref={data.continueHref}
         continueLabel={data.continueLabel}
       />

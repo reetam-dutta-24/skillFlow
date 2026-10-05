@@ -1,3 +1,4 @@
+/** Keyword overlap kept for comparison. A stage pass comes from lib/explain/judge.ts. */
 const STOP = new Set([
   "a", "an", "the", "and", "or", "of", "to", "in", "on", "for", "with", "from", "that", "this",
   "these", "those", "is", "are", "was", "were", "be", "as", "by", "it", "its", "into", "than",

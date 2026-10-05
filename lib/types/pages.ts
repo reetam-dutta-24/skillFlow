@@ -125,6 +125,7 @@ export type MilestoneData =
       followUpQuote: string;
       continueHref: string;
       continueLabel: string;
+      concepts: string[];
     };
 
 export type ExplainReview =

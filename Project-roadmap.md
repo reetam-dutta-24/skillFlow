@@ -7,7 +7,7 @@ This file is two things at once:
 
 Tick a box only when that exact piece is really finished. A screen that looks done on mock data is not the same as the backend for that feature.
 
-**How to talk about it.** The product idea, the database, sign-in, onboarding, the niche list, and the three free roadmaps are real. Lessons on those paths play the stored resources. There is no quiz: the feature was dropped, and the explain-back gate is the only check. A real stage grades the explanation against the stored rubric, asks one follow-up, and saves the attempt. An optional model can grade instead when its URL and key are set. Streaks display a stored number and do not advance. Stripe and the leaderboard score are not running.
+**How to talk about it.** The product idea, the database, sign-in, onboarding, the niche list, and the three free roadmaps are real. Lessons on those paths play the stored resources. There is no quiz: the feature was dropped, and the explain-back gate is the only check. A real stage asks for every learning objective. A chat model decides whether each idea is understood. A missing idea gets one follow-up, and a stage does not pass while an idea is still missing. That call needs an API key. Streaks display a stored number and do not advance. Stripe and the leaderboard score are not running.
 
 `AGENTS.md` is the short context a new session should read. This file is the longer record.
 
@@ -32,7 +32,7 @@ Last aligned with the working tree on 5 October 2026.
 | Learner map | Done | Opt-in city counts on Nearby → Learners. No names. Cities under the env minimum stay hidden |
 | Nearby events | Done | Saved events per city and niche, refreshed on a cap. Community events need a review. Live search is admin-only until payments |
 | Settings follow | Done | Add and remove on the settings page write `UserSkillProgress`. Home links to the niche list instead of a fake Add |
-| Explain-back | Grading is live | A real stage shows the stored question, asks one follow-up, and saves the attempt. The rubric grades it unless a model URL is set. A pass does not open the last three stages |
+| Explain-back | Model grades the whole stage | The gate lists every learning objective. A chat model must mark each one understood before the stage passes. One follow-up covers whatever was missed. No key means no pass. The last three stages stay locked |
 | Unlock by mastery | Not in Version 1 | A free path locks its last three stages. A pass does not open the next one |
 | Tests, deploy, monitoring | Not started | No test suite, no production host, no Sentry |
 
@@ -150,7 +150,7 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 
 **No quiz.** The quiz feature was dropped. There is no `/quiz` route, no quiz stat, and no “Continue to quiz” button. The lesson's next step is the explain-back.
 
-**Explain-back.** Every imported stage has a question and a rubric. The lesson’s continue button opens `/milestone/[stageId]` on that question. The first answer gets one follow-up about the thinnest rubric line. The second answer is saved as `ExplainBackAttempt`. A pass sets `StageCompletion.explainBackPassed` and, when that stage is the learner’s current one, moves `currentStageOrder` to the next open stage. The last three stages stay locked. With no `EXPLAIN_MODEL_URL`, the rubric grades the answer. A configured model that times out or returns bad JSON falls back to the same rubric, so the check still finishes. `review failed` still shows the error and saves nothing. The preview id `__explain_input__` keeps the old mock walkthrough.
+**Explain-back.** Every imported stage has learning objectives, a question, and a rubric. The lesson’s continue button opens `/milestone/[stageId]`, and the gate asks the learner to explain every objective of that stage. `OPENAI_API_KEY` or `EXPLAIN_MODEL_KEY` sends the answer to a chat model (OpenAI-compatible, `gpt-4o-mini` unless `EXPLAIN_MODEL_NAME` is set). The model marks each concept understood or not. A name without the idea does not count. If anything is missing, the learner gets one follow-up about those ideas and does not pass yet. After the follow-up, every concept still has to be understood. A pass writes `ExplainBackAttempt` and sets `StageCompletion.explainBackPassed`. A miss is saved as needs-improvement and the stage stays open. The last three stages stay locked either way. With no key, a timeout, or JSON that is not a concept list, nothing is saved and the stage does not pass. `review failed` still shows the error and saves nothing. The preview id `__explain_input__` keeps the old mock walkthrough.
 
 **Progress and analytics.** Counts come from `ExplainBackAttempt` and `StageCompletion`. Home and Progress show “Explain-backs passed”. Weak topics are empty. The analytics series is not the old mock week.
 
@@ -316,24 +316,26 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 - [ ] Tests for roadmap and resource reads
 
 ## PHASE 4 — AI explain-back
-**Status: 🔶 THE CHECK IS GRADED. PROMPTS ARE STILL AUTHORED, NOT GENERATED.**
+**Status: 🔶 A MODEL GRADES THE WHOLE STAGE. PROMPTS ARE STILL AUTHORED, NOT GENERATED.**
 
 **Already stored or on screen:**
 
-- One explain-back question and rubric per imported stage
-- A real stage opens `/milestone/[stageId]` on the stored question. The lesson’s continue button goes there
-- The first answer gets one follow-up. The second answer writes `ExplainBackAttempt`. A pass sets `StageCompletion.explainBackPassed` and does not open a locked stage
-- The rubric grades the answer. `EXPLAIN_MODEL_URL` plus `EXPLAIN_MODEL_KEY` can grade instead. A timeout or bad JSON falls back to the rubric
-- `lib/explain/rubric.test.ts` is the eval set: a full Flexbox answer passes, a thin one does not
+- One explain-back question, a rubric, and learning objectives per imported stage
+- The gate asks for every learning objective. The lesson’s continue button opens `/milestone/[stageId]`
+- A chat model marks each concept understood or not. Keyword overlap cannot pass the stage
+- A missing concept gets one follow-up. The stage passes only when every concept is understood after that
+- A pass sets `StageCompletion.explainBackPassed` and does not open a locked stage. A miss stays needs-improvement
+- No key, a timeout, or a reply that is not the concept list saves nothing
+- `lib/explain/judge.test.ts` checks that a full set of concepts can pass and a remaining gap cannot
 - The preview id `__explain_input__` still has the mocked voice path, follow-up, pass, retry, and the `review failed` error
 
 **Still open:**
 
 - [ ] Resource text (catalog or brought by the learner) → model → explain-back prompt and rubric
-- [x] Timeout and bad JSON handled without breaking the lesson
-- [x] Milestone page reads `ExplainBackPrompt`
-- [x] Multi-turn grading that writes `ExplainBackAttempt`
-- [x] An eval set of good and thin answers
+- [x] Timeout and bad JSON leave the stage unpassed instead of inventing a grade
+- [x] Milestone page reads the stage concepts
+- [x] A follow-up, then `ExplainBackAttempt`
+- [x] An eval set: every concept understood passes; a gap does not
 - [x] A pass updates `StageCompletion`. Version 1 does not unlock the last three stages
 
 ## PHASE 5 — Mastery, streaks, progress data
@@ -491,4 +493,4 @@ Ticketmaster and Google Events (SerpApi) are separate adapters. A missing key tu
 
 ---
 
-**Right now.** Phases 0, 1, 2, 3, and 7 are done for the three free paths, and the Open Source community is complete. The learner map and Nearby events are live. Explain-back grades a real stage against its rubric and saves the attempt. Still open for Version 1: generating a prompt from a resource, streaks and a mastery formula (Phase 5), the test suite and an end-to-end pass (Phase 8), and deploy (Phase 9). Public event API keys stay last.
+**Right now.** Phases 0, 1, 2, 3, and 7 are done for the three free paths, and the Open Source community is complete. The learner map and Nearby events are live. Explain-back asks for every learning objective and passes the stage only when a model marks each one understood. Still open for Version 1: generating a prompt from a resource, streaks and a mastery formula (Phase 5), the test suite and an end-to-end pass (Phase 8), and deploy (Phase 9). Public event API keys stay last.

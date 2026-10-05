@@ -14,6 +14,8 @@ export interface ExplainBackGateProps extends React.HTMLAttributes<HTMLElement> 
   stage: React.ReactNode;
   /** The concept being checked. */
   concept: React.ReactNode;
+  /** Every idea in the stage. The learner has to explain each one. */
+  concepts?: string[];
   prompt?: React.ReactNode;
   answer?: string;
   onAnswerChange?: (value: string) => void;

@@ -454,7 +454,7 @@ The data model already has `Skill.offer` and `RoadmapStage.monetized`. Version 1
 ## V2 PHASE 5 — Notes
 **Status: 🔶 AN ACCEPTED EXPLAIN-BACK IDEA IS STORED. SUMMARIES AND EXPORT ARE NOT.**
 
-`/notes` is in the sidebar. When an idea holds, `LearnerNote` keeps the explanation and the written review. The page is a list and a reader. Search and a skill filter narrow the list. On a phone the list opens the note. Notes are personal and are read on the request. A short AI restatement and a file export are not built.
+`/notes` is in the sidebar. When an idea holds, `LearnerNote` keeps the explanation and the written review. A pass recorded before that still becomes notes the next time the page is opened. The page is a notebook: one skill, its stages in path order, and every idea on that stage with the review under it. Notes are personal and are read on the request. A short AI restatement and a file export are not built.
 
 ## V2 PHASE 6 — Peer project review
 **Status: ⬜ NOT STARTED. The rubric UI exists.**

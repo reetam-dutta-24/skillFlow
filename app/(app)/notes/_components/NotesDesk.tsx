@@ -7,28 +7,37 @@ import { arrangeNotes, type LearnerNoteView } from "@/lib/explain/notes-view";
 
 export function NotesDesk({ notes }: { notes: LearnerNoteView[] }) {
   const [query, setQuery] = useState("");
-  const [skill, setSkill] = useState("all");
-  const [selectedId, setSelectedId] = useState(notes[0]?.id ?? "");
-  const [reading, setReading] = useState(false);
-  const skills = [...new Set(notes.map((note) => note.skillName))];
-  const filtered = useMemo(() => {
-    const needle = query.trim().toLowerCase();
-    return notes.filter((note) => {
-      if (skill !== "all" && note.skillName !== skill) return false;
-      if (!needle) return true;
-      return `${note.concept} ${note.explanation} ${note.review} ${note.stageTitle} ${note.skillName}`.toLowerCase().includes(needle);
-    });
-  }, [notes, query, skill]);
-  const groups = useMemo(() => arrangeNotes(filtered), [filtered]);
-  const selected = filtered.find((note) => note.id === selectedId) ?? null;
+  const [skillName, setSkillName] = useState("");
+  const [stageId, setStageId] = useState(notes[0]?.stageId ?? "");
+  const groups = useMemo(() => arrangeNotes(notes), [notes]);
+  const skillNames = groups.map((group) => group.skillName);
+  const activeSkill = groups.find((group) => group.skillName === skillName) ?? groups[0] ?? null;
+
+  const needle = query.trim().toLowerCase();
+  const chapters = useMemo(() => {
+    if (!activeSkill) return [];
+    return activeSkill.stages
+      .map((stage) => ({
+        ...stage,
+        notes: needle
+          ? stage.notes.filter((note) => `${note.concept} ${note.explanation} ${note.review} ${stage.stageTitle}`.toLowerCase().includes(needle))
+          : stage.notes,
+      }))
+      .filter((stage) => stage.notes.length > 0);
+  }, [activeSkill, needle]);
+
+  const chapterIndex = Math.max(0, chapters.findIndex((stage) => stage.stageId === stageId));
+  const chapter = chapters[chapterIndex] ?? null;
 
   useEffect(() => {
-    if (!selected) setReading(false);
-  }, [selected]);
+    if (!chapter && chapters[0]) setStageId(chapters[0].stageId);
+  }, [chapter, chapters]);
 
-  function openNote(id: string) {
-    setSelectedId(id);
-    setReading(true);
+  function chooseSkill(name: string) {
+    setSkillName(name);
+    const next = groups.find((group) => group.skillName === name);
+    setStageId(next?.stages[0]?.stageId ?? "");
+    setQuery("");
   }
 
   if (notes.length === 0) {
@@ -42,75 +51,81 @@ export function NotesDesk({ notes }: { notes: LearnerNoteView[] }) {
   }
 
   return (
-    <div className={reading ? "sf-notes is-reading" : "sf-notes"}>
-      <aside className="sf-notes-list" aria-label="Your notes">
-        <label>
-          Search notes
-          <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="An idea, or a phrase you wrote" />
-        </label>
-        <label>
-          Skill
-          <select value={skill} onChange={(event) => setSkill(event.target.value)}>
-            <option value="all">All skills</option>
-            {skills.map((name) => (
-              <option key={name} value={name}>
-                {name}
-              </option>
+    <div className="sf-notebook">
+      <div className="sf-notebook-skills" role="tablist" aria-label="Skills">
+        {skillNames.map((name) => (
+          <button key={name} type="button" role="tab" aria-selected={activeSkill?.skillName === name} onClick={() => chooseSkill(name)}>
+            {name}
+          </button>
+        ))}
+      </div>
+      <label className="sf-notebook-search">
+        Search this skill
+        <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="An idea, or a phrase you wrote" />
+      </label>
+      {chapters.length === 0 || !chapter ? (
+        <EmptyState compact icon="notebook-pen" title="No notes match" description="Try another phrase, or clear the search." />
+      ) : (
+        <div className="sf-notebook-body">
+          <ol className="sf-notebook-chapters" aria-label="Stages">
+            {chapters.map((stage, index) => (
+              <li key={stage.stageId}>
+                <button type="button" aria-current={stage.stageId === chapter.stageId ? "true" : undefined} onClick={() => setStageId(stage.stageId)}>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <strong>{stage.stageTitle}</strong>
+                  <em>
+                    {stage.notes.length} {stage.notes.length === 1 ? "idea" : "ideas"}
+                  </em>
+                </button>
+              </li>
             ))}
-          </select>
-        </label>
-        {groups.length ? (
-          groups.map((group) => (
-            <section key={group.skillName} className="sf-notes-group">
-              <h2>{group.skillName}</h2>
-              {group.stages.map((stage) => (
-                <div key={stage.stageId}>
-                  <h3>{stage.stageTitle}</h3>
-                  <ul>
-                    {stage.notes.map((note) => (
-                      <li key={note.id}>
-                        <button type="button" aria-current={selected?.id === note.id ? "true" : undefined} onClick={() => openNote(note.id)}>
-                          <strong>{note.concept}</strong>
-                          <span>{note.updatedLabel}</span>
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+          </ol>
+          <article className="sf-notebook-page" aria-labelledby="notebook-stage">
+            <header className="sf-notebook-page-head">
+              <p>
+                Stage {chapterIndex + 1} of {chapters.length}
+                <span>
+                  {chapter.notes.length} {chapter.notes.length === 1 ? "idea" : "ideas"}
+                </span>
+              </p>
+              <h2 id="notebook-stage">{chapter.stageTitle}</h2>
+            </header>
+            <nav className="sf-note-jump" aria-label="Ideas in this stage">
+              {chapter.notes.map((note, index) => (
+                <a key={note.id} href={`#note-${note.id}`}>
+                  {index + 1}
+                </a>
               ))}
-            </section>
-          ))
-        ) : (
-          <EmptyState compact icon="notebook-pen" title="No notes match" description="Try another skill, or clear the search." />
-        )}
-      </aside>
-      <article className="sf-notes-reader">
-        {selected ? (
-          <>
-            <button type="button" className="sf-notes-back" onClick={() => setReading(false)}>
-              All notes
-            </button>
-            <p className="sf-explain-kicker">
-              {selected.skillName} · {selected.stageTitle}
-            </p>
-            <h2>{selected.concept}</h2>
-            <p className="sf-notes-when">{selected.updatedLabel}</p>
-            <section className="sf-notes-block">
-              <h3>What you wrote</h3>
-              <p>{selected.explanation}</p>
-            </section>
-            <section className="sf-explain-review is-pass">
-              <h3 className="sf-explain-kicker">Review</h3>
-              <p>{selected.review}</p>
-            </section>
-            <Link className="sf-notes-textlink" href={`/milestone/${selected.stageId}`}>
-              Open this stage
-            </Link>
-          </>
-        ) : (
-          <EmptyState compact icon="notebook-pen" title="No notes match" description="Try another skill, or clear the search." />
-        )}
-      </article>
+            </nav>
+            <div className="sf-note-sheets">
+              {chapter.notes.map((note, index) => (
+                <section key={note.id} id={`note-${note.id}`} className="sf-note-sheet">
+                  <div className="sf-note-title">
+                    <p className="sf-note-index">{index + 1}</p>
+                    <div>
+                      <h3>{note.concept}</h3>
+                      <p className="sf-notes-when">{note.updatedLabel}</p>
+                    </div>
+                  </div>
+                  <h4>Your note</h4>
+                  <p>{note.explanation}</p>
+                  <h4>Review</h4>
+                  <blockquote>{note.review}</blockquote>
+                </section>
+              ))}
+            </div>
+            <footer className="sf-notebook-turn">
+              <button type="button" disabled={chapterIndex === 0} onClick={() => setStageId(chapters[chapterIndex - 1].stageId)}>
+                Previous stage
+              </button>
+              <Link href={`/milestone/${chapter.stageId}`}>Open this stage</Link>
+              <button type="button" disabled={chapterIndex === chapters.length - 1} onClick={() => setStageId(chapters[chapterIndex + 1].stageId)}>
+                Next stage
+              </button>
+            </footer>
+          </article>
+        </div>
+      )}
     </div>
   );
 }

@@ -14,7 +14,7 @@ export default async function NotesPage() {
     <div className="sf-notes-page">
       <header className="sf-page-head">
         <h1>Notes</h1>
-        <p>Each idea you explained is kept here, with the review that came back. Open one any time.</p>
+        <p>Read a stage the way you would a notebook. Each idea keeps what you wrote, then the review that came back.</p>
       </header>
       <NotesDesk notes={notes} />
     </div>

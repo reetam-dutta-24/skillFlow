@@ -6,6 +6,7 @@ import { quoteFromAnswer, stageConcepts } from "@/lib/explain/concepts";
 import { decideExplainBack, explainModelConfig, judgeConcept, judgeExplanation } from "@/lib/explain/judge";
 import { recordExplainBack } from "@/lib/explain/record";
 import { saveLearnerNotes } from "@/lib/explain/notes";
+import { notesFromPassedAttempt } from "@/lib/explain/notes-view";
 import { readyWizardSteps, type WizardStep } from "@/lib/explain/wizard";
 
 const LOCKED_TAIL = 3;
@@ -102,6 +103,15 @@ export async function reviewStoredExplanation(input: {
     verdict: decision.kind === "pass" ? "PASSED" : "NEEDS_IMPROVEMENT",
     feedback: decision.feedback,
   });
+
+  if (decision.kind === "pass") {
+    await saveLearnerNotes({
+      userId: input.userId,
+      skillId: stage.skillId,
+      stageId: stage.id,
+      steps: notesFromPassedAttempt({ stageTitle: stage.title, explanation: answer, feedback: decision.feedback }),
+    });
+  }
 
   return decision.kind === "pass"
     ? { ok: true, kind: "pass", feedback: decision.feedback }

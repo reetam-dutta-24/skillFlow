@@ -17,7 +17,9 @@ export default async function ProgressPage() {
     <div className="sf-progress">
       <header className="sf-page-head">
         <h1>Progress</h1>
-        <p>Mastery comes from verified understanding, not watch time. The current streak is {data.currentStreak} days.</p>
+        <p>
+          Mastery is the share of open stages with a passed explain-back. The last three stages of a free path stay out of that count. The current streak is {data.currentStreak} {data.currentStreak === 1 ? "day" : "days"}.
+        </p>
       </header>
       <section className="sf-dash-stats" aria-labelledby="progress-stats">
         <h2 id="progress-stats">This account</h2>
@@ -25,7 +27,7 @@ export default async function ProgressPage() {
           <li><StatCard label="Skills in progress" value={data.skillsInProgress} icon={<Icon name="route" size={14} />} /></li>
           <li><StatCard emphasis label="Milestones this week" value={data.milestonesPassedThisWeek} icon={<Icon name="flag" size={14} />} /></li>
           <li><StatCard label="Explain-backs passed" value={data.explainBacksPassed} icon={<Icon name="message-square-quote" size={14} />} /></li>
-          <li><StatCard label="Longest streak" value={data.longestStreak} unit="days" icon={<Icon name="flame" size={14} />} /></li>
+          <li><StatCard label="Longest streak" value={data.longestStreak} unit={data.longestStreak === 1 ? "day" : "days"} icon={<Icon name="flame" size={14} />} /></li>
         </ul>
       </section>
       <ProgressBoard data={data} />

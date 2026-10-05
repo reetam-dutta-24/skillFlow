@@ -1,7 +1,7 @@
 import "server-only";
 import { auth } from "@/lib/auth";
 import { loadCatalog } from "@/lib/data/catalog";
-import { prisma } from "@/lib/prisma";
+import { loadProgressStats } from "@/lib/progress/stats";
 import type { MasteryPointView, SkillView, WeakTopicView } from "@/lib/types/domain";
 
 export type ProgressPayload = {
@@ -14,43 +14,22 @@ export type ProgressPayload = {
   weakTopics: (WeakTopicView & { href: string })[];
 };
 
-function weekAgo() {
-  const start = new Date();
-  start.setDate(start.getDate() - 7);
-  return start;
-}
-
 export async function getProgress(): Promise<ProgressPayload> {
   const session = await auth();
   const userId = session?.user?.id;
   const catalog = await loadCatalog();
+  const stats = userId ? await loadProgressStats(userId, catalog) : null;
   const skills = catalog
     .filter((entry) => entry.skill.followed)
-    .map((entry) => ({ skill: entry.skill, points: [] }));
-
-  const user = userId
-    ? await prisma.user.findUnique({
-        where: { id: userId },
-        select: { currentStreak: true, longestStreak: true },
-      })
-    : null;
-
-  const [explainBacksPassed, milestonesPassedThisWeek] = userId
-    ? await Promise.all([
-        prisma.explainBackAttempt.count({ where: { userId, verdict: "PASSED" } }),
-        prisma.stageCompletion.count({
-          where: { userId, explainBackPassed: true, completedAt: { gte: weekAgo() } },
-        }),
-      ])
-    : [0, 0];
+    .map((entry) => ({ skill: entry.skill, points: stats?.pointsBySkillId.get(entry.skill.id) ?? [] }));
 
   return {
-    currentStreak: user?.currentStreak ?? 0,
-    longestStreak: user?.longestStreak ?? 0,
+    currentStreak: stats?.currentStreak ?? 0,
+    longestStreak: stats?.longestStreak ?? 0,
     skillsInProgress: skills.length,
-    milestonesPassedThisWeek,
-    explainBacksPassed,
+    milestonesPassedThisWeek: stats?.milestonesPassedThisWeek ?? 0,
+    explainBacksPassed: stats?.explainBacksPassed ?? 0,
     skills,
-    weakTopics: [],
+    weakTopics: stats?.weakTopics ?? [],
   };
 }

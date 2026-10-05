@@ -1,5 +1,6 @@
 import "server-only";
 import { prisma } from "@/lib/prisma";
+import { touchLearnerProgress } from "@/lib/progress/stats";
 
 const LOCKED_TAIL = 3;
 
@@ -65,4 +66,10 @@ export async function recordExplainBack(input: {
       data: { currentStageOrder: nextOrder },
     });
   });
+  try {
+    await touchLearnerProgress(input.userId);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "progress update failed";
+    console.error("learner progress update failed", message.slice(0, 180));
+  }
 }

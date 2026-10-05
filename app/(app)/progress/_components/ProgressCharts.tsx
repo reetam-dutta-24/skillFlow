@@ -34,13 +34,13 @@ export function ProgressCharts({ data }: { data: ProgressPayload }) {
     <>
       <div className="sf-progress-donuts">
         {data.skills.map((skill) => (
-          <ChartPanel key={skill.skill.id} title={skill.skill.name} subtitle="Verified mastery">
+          <ChartPanel key={skill.skill.id} title={skill.skill.name} subtitle="Open stages passed">
             <DonutChart value={skill.skill.masteryPercent} label={skill.skill.name} />
           </ChartPanel>
         ))}
       </div>
       {hasHistory ? (
-        <ChartPanel title="Mastery over six months" subtitle="Each line is one skill.">
+        <ChartPanel title="Mastery over six months" subtitle="Share of open stages passed by the end of each month. Locked stages stay out.">
           <LineChart data={rows} series={series} yMax={100} />
           <details className="sf-chart-details">
             <summary>View as table</summary>
@@ -93,7 +93,7 @@ export function ProgressCharts({ data }: { data: ProgressPayload }) {
             }}
           />
         ) : (
-          <EmptyState compact icon="circle-check" title="No weak topics yet. Keep going." description="Misses and retries will show up here when a topic needs another look." />
+          <EmptyState compact icon="circle-check" title="No weak topics yet. Keep going." description="A stage shows up here when an explain-back needs another look and the stage is still open." />
         )}
       </section>
     </>

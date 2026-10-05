@@ -1,7 +1,7 @@
 import "server-only";
 import { auth } from "@/lib/auth";
 import { loadCatalog } from "@/lib/data/catalog";
-import { prisma } from "@/lib/prisma";
+import { loadProgressStats } from "@/lib/progress/stats";
 import type { RoadmapStageView } from "@/lib/types/domain";
 import type { DashboardData, LessonLaneItem, LessonLaneStatus } from "@/lib/types/pages";
 
@@ -23,12 +23,6 @@ function laneFor(skillSlug: string, stages: RoadmapStageView[]): LessonLaneItem[
       mastery: stage.masteryPercent > 0 ? stage.masteryPercent : undefined,
     };
   });
-}
-
-function weekAgo() {
-  const start = new Date();
-  start.setDate(start.getDate() - 7);
-  return start;
 }
 
 export async function getDashboardData(): Promise<DashboardData> {
@@ -62,28 +56,14 @@ export async function getDashboardData(): Promise<DashboardData> {
     })
     .find((item) => item !== null);
 
-  const user = userId
-    ? await prisma.user.findUnique({
-        where: { id: userId },
-        select: { currentStreak: true, longestStreak: true },
-      })
-    : null;
-
-  const [explainBacksPassed, milestonesPassedThisWeek] = userId
-    ? await Promise.all([
-        prisma.explainBackAttempt.count({ where: { userId, verdict: "PASSED" } }),
-        prisma.stageCompletion.count({
-          where: { userId, explainBackPassed: true, completedAt: { gte: weekAgo() } },
-        }),
-      ])
-    : [0, 0];
+  const stats = userId ? await loadProgressStats(userId, catalog) : null;
 
   return {
-    currentStreak: user?.currentStreak ?? 0,
-    longestStreak: user?.longestStreak ?? 0,
+    currentStreak: stats?.currentStreak ?? 0,
+    longestStreak: stats?.longestStreak ?? 0,
     skillsInProgress: followed.length,
-    milestonesPassedThisWeek,
-    explainBacksPassed,
+    milestonesPassedThisWeek: stats?.milestonesPassedThisWeek ?? 0,
+    explainBacksPassed: stats?.explainBacksPassed ?? 0,
     nextLesson: nextStage
       ? { title: nextStage.stage.title, skillName: nextStage.skillName, href: `/lesson/${nextStage.stage.id}` }
       : null,

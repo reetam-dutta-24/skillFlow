@@ -3,6 +3,7 @@ import { cache } from "react";
 import { auth } from "@/lib/auth";
 import { loadCachedStageResources, loadPublicCatalog, type PublicCatalogEntry, type PublicStage } from "@/lib/data/public-catalog";
 import { prisma } from "@/lib/prisma";
+import { masteryShare } from "@/lib/progress/formula";
 import type { ResourceView, RoadmapStageView, SkillView, StageStatus } from "@/lib/types/domain";
 
 export type CatalogEntry = {
@@ -10,7 +11,7 @@ export type CatalogEntry = {
   stages: RoadmapStageView[];
 };
 
-type SkillProgress = { masteryPercent: number; currentStageOrder: number };
+type SkillProgress = { currentStageOrder: number };
 type Completion = { explainBackPassed: boolean };
 
 type ViewerProgress = {
@@ -24,7 +25,7 @@ async function viewerProgress(userId: string): Promise<ViewerProgress> {
   const [skills, completions] = await Promise.all([
     prisma.userSkillProgress.findMany({
       where: { userId },
-      select: { skillId: true, masteryPercent: true, currentStageOrder: true },
+      select: { skillId: true, currentStageOrder: true },
     }),
     prisma.stageCompletion.findMany({
       where: { userId },
@@ -33,7 +34,7 @@ async function viewerProgress(userId: string): Promise<ViewerProgress> {
   ]);
   return {
     skills: new Map(
-      skills.map((row) => [row.skillId, { masteryPercent: row.masteryPercent, currentStageOrder: row.currentStageOrder }]),
+      skills.map((row) => [row.skillId, { currentStageOrder: row.currentStageOrder }]),
     ),
     completions: new Map(
       completions.map((row) => [row.stageId, { explainBackPassed: row.explainBackPassed }]),
@@ -66,14 +67,16 @@ function applyStage(stage: PublicStage, completion: Completion | undefined, curr
 
 function applyEntry(entry: PublicCatalogEntry, progress: ViewerProgress): CatalogEntry {
   const skillProgress = progress.skills.get(entry.skill.id);
-  const openOrders = entry.stages.filter((stage) => stage.open).map((stage) => stage.order);
+  const openStages = entry.stages.filter((stage) => stage.open);
+  const openOrders = openStages.map((stage) => stage.order);
   const progressOrder = skillProgress?.currentStageOrder ?? openOrders[0] ?? 1;
   const currentOrder = openOrders.includes(progressOrder) ? progressOrder : openOrders[0];
+  const passedOpen = openStages.filter((stage) => progress.completions.get(stage.id)?.explainBackPassed).length;
   return {
     skill: {
       ...entry.skill,
       followed: Boolean(skillProgress),
-      masteryPercent: Math.round(skillProgress?.masteryPercent ?? 0),
+      masteryPercent: masteryShare(passedOpen, openStages.length),
     },
     stages: entry.stages.map((stage) => applyStage(stage, progress.completions.get(stage.id), currentOrder)),
   };

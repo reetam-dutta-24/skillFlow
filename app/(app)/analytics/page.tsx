@@ -16,7 +16,9 @@ export default async function AnalyticsPage() {
     <div className="sf-analytics">
       <header className="sf-page-head">
         <h1>Analytics</h1>
-        <p>What this account has actually passed. Streak, mastery, and explain-backs come from the saved record, not a sample chart.</p>
+        <p>
+          Mastery is the share of open stages with a passed explain-back. A streak day is a UTC day with a saved explain-back or a saved note.
+        </p>
       </header>
       <ul className="sf-insight-row">
         {data.insights.map((insight) => (
@@ -27,7 +29,7 @@ export default async function AnalyticsPage() {
         ))}
       </ul>
       <p className="sf-analytics-note">
-        Current streak {data.streak} days. Longest streak {data.longest} days.
+        Current streak {data.streak} {data.streak === 1 ? "day" : "days"}. Longest streak {data.longest} {data.longest === 1 ? "day" : "days"}.
         {data.reviewHref ? (
           <>
             {" "}

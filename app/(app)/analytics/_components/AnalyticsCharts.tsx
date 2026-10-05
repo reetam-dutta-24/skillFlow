@@ -6,6 +6,8 @@ import {
   CartesianGrid,
   Cell,
   Legend,
+  Line,
+  LineChart,
   Pie,
   PieChart,
   ResponsiveContainer,
@@ -42,6 +44,7 @@ function countSentence(rows: { name: string; count: number }[]) {
 export function AnalyticsCharts({ data }: { data: AnalyticsData }) {
   const leading = [...data.skills].sort((a, b) => b.mastery - a.mastery)[0];
   const showPie = data.skills.some((skill) => skill.mastery > 0);
+  const history = data.history.map((row) => ({ month: row.month, ...row.values }));
   return (
     <div className="sf-analytics-grid">
       <section className="sf-chart-card" aria-labelledby="chart-mastery">
@@ -98,8 +101,8 @@ export function AnalyticsCharts({ data }: { data: AnalyticsData }) {
 
       <section className="sf-chart-card" aria-labelledby="chart-week">
         <header>
-          <h2 id="chart-week">Check-ins this week</h2>
-          <p>The account stores a streak count. It does not store a check-in for each weekday.</p>
+          <h2 id="chart-week">Explain-backs this week</h2>
+          <p>Each bar is an explain-back saved on that UTC day. A day with none stays at zero.</p>
         </header>
         {data.week.length ? (
           <div className="sf-chart-frame">
@@ -122,7 +125,7 @@ export function AnalyticsCharts({ data }: { data: AnalyticsData }) {
             compact
             icon="calendar"
             title="No daily check-ins yet"
-            description="The streak on this page is the saved count. A weekday chart starts once each day is recorded."
+            description="A weekday chart appears once this account has a saved explain-back."
           />
         )}
       </section>
@@ -130,14 +133,39 @@ export function AnalyticsCharts({ data }: { data: AnalyticsData }) {
       <section className="sf-chart-card sf-chart-wide" aria-labelledby="chart-growth">
         <header>
           <h2 id="chart-growth">Mastery over time</h2>
-          <p>A month-by-month line needs a history of verified mastery. This account does not have one yet.</p>
+          <p>Each point is the share of open stages passed by the end of that month. Locked stages stay out of the count.</p>
         </header>
-        <EmptyState
-          compact
-          icon="chart-line"
-          title="No mastery history yet"
-          description="Current mastery is the number on the skill. A line starts once that number is stored over time."
-        />
+        {data.series.length ? (
+          <div className="sf-chart-frame">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={history}>
+                <CartesianGrid stroke="var(--chart-grid)" vertical={false} />
+                <XAxis dataKey="month" stroke="var(--chart-axis)" tick={{ fill: "var(--chart-axis)", fontSize: 12 }} />
+                <YAxis domain={[0, 100]} allowDecimals={false} stroke="var(--chart-axis)" tick={{ fill: "var(--chart-axis)", fontSize: 12 }} />
+                <Tooltip content={<ChartTip />} />
+                <Legend />
+                {data.series.map((item, index) => (
+                  <Line
+                    key={item.key}
+                    type="monotone"
+                    dataKey={item.key}
+                    name={item.name}
+                    stroke={COLORS[index % COLORS.length]}
+                    strokeWidth={2}
+                    dot={{ r: 3 }}
+                  />
+                ))}
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        ) : (
+          <EmptyState
+            compact
+            icon="chart-line"
+            title="No skill followed yet"
+            description="A line appears here once a skill is saved on the account."
+          />
+        )}
       </section>
 
       <section className="sf-chart-card" aria-labelledby="chart-explain">

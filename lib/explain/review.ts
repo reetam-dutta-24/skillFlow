@@ -131,7 +131,7 @@ export async function reviewConceptStep(input: {
 }): Promise<ConceptStepResult> {
   const loaded = await loadOpenExplainStage(input.stageId);
   if (!loaded) return { ok: false, error: "unavailable" };
-  const { stage, concepts, notes } = loaded;
+  const { stage, prompt, stageCount, concepts, notes } = loaded;
   const concept = input.concept.trim();
   if (!concepts.includes(concept)) return { ok: false, error: "unavailable" };
   if (!explainModelConfig()) return { ok: false, error: "unconnected" };
@@ -149,14 +149,33 @@ export async function reviewConceptStep(input: {
     answer,
   });
   if (!review) return { ok: false, error: "unavailable" };
-  const noted = review.understood
-    ? await saveLearnerNotes({
+  if (!review.understood) {
+    try {
+      await recordExplainBack({
         userId: input.userId,
-        skillId: stage.skillId,
         stageId: stage.id,
-        steps: [{ concept, explanation: answer, review: review.review, position: concepts.indexOf(concept) }],
-      })
-    : false;
+        skillId: stage.skillId,
+        stageOrder: stage.order,
+        stageCount,
+        promptId: prompt.id,
+        answer: `${concept}\n${answer}`.slice(0, MAX_CHARS),
+        followUpQuestion: concept,
+        followUpAnswer: null,
+        verdict: "NEEDS_IMPROVEMENT",
+        feedback: review.review,
+      });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "miss save failed";
+      console.error("explain-back miss save failed", message.slice(0, 180));
+    }
+    return { ok: true, understood: false, review: review.review, noted: false };
+  }
+  const noted = await saveLearnerNotes({
+    userId: input.userId,
+    skillId: stage.skillId,
+    stageId: stage.id,
+    steps: [{ concept, explanation: answer, review: review.review, position: concepts.indexOf(concept) }],
+  });
   return { ok: true, understood: review.understood, review: review.review, noted };
 }
 

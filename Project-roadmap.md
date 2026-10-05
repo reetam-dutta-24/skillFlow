@@ -342,13 +342,13 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 - [x] A pass updates `StageCompletion`. Version 1 does not unlock the last three stages
 
 ## PHASE 5 — Mastery, streaks, progress data
-**Status: 🔶 COUNTS ARE REAL. THE FORMULAS ARE NOT**
+**Status: ✅ WIRED TO EXPLAIN-BACK**
 
-- [x] Progress, analytics, and home read `User` streak fields and attempt counts
-- [ ] A formula for mastery percent that can be explained
-- [ ] Weak topics computed from attempts
-- [ ] A streak update from `lastActivityDate`
-- [ ] Charts drawn from those attempts rather than left empty
+- [x] Progress, analytics, and home read real explain-back attempts
+- [x] Mastery is the share of open stages with a passed explain-back. Locked stages stay out of the count
+- [x] Weak topics are stages with a needs-another-look attempt that are not passed yet
+- [x] A streak is consecutive UTC days with a saved explain-back or a saved note, stored on `lastActivityDate`
+- [x] Week and month charts are drawn from those attempts
 
 ## PHASE 6 — Frontend on real data
 **Status: 🔶 THE LEARNING PATH AND EXPLAIN-BACK ARE ON REAL DATA. VERSION 2 IS NOT**
@@ -392,9 +392,9 @@ The mock catalog in `lib/mock/catalog.ts` is leftover sample data for the screen
 - [ ] Integration tests for review, edit, and unmerge
 
 ## PHASE 8 — Testing
-**Status: ⬜ NOT STARTED**
+**Status: 🔶 MASTERY AND STREAK TESTS EXIST. THE REST DOES NOT**
 
-- [ ] Unit tests for the open-stage rule, mastery, and streaks
+- [x] Unit tests for the open-stage rule, mastery, and streaks
 - [ ] Integration tests for catalog import and lesson reads
 - [ ] One end-to-end pass: signup → onboarding → lesson → explain-back → progress
 - [ ] Manual pass of empty, error, and loading
@@ -498,4 +498,4 @@ Ticketmaster and Google Events (SerpApi) are separate adapters. A missing key tu
 
 ---
 
-**Right now.** Phases 0, 1, 2, 3, and 7 are done for the three free paths, and the Open Source community is complete. The learner map and Nearby events are live. Explain-back asks for every learning objective and passes the stage only when a model marks each one understood. An accepted idea is kept in Notes. Still open for Version 1: generating a prompt from a resource, streaks and a mastery formula (Phase 5), the test suite and an end-to-end pass (Phase 8), and deploy (Phase 9). Public event API keys stay last.
+**Right now.** Phases 0, 1, 2, 3, 5, and 7 are done for the three free paths, and the Open Source community is complete. The learner map and Nearby events are live. Explain-back asks for every learning objective and passes the stage only when a model marks each one understood. An accepted idea is kept in Notes. Mastery, streaks, weak topics, and the progress charts read those attempts. Still open for Version 1: generating a prompt from a resource, the rest of the test suite and an end-to-end pass (Phase 8), and deploy (Phase 9). Public event API keys stay last.

@@ -1,15 +1,16 @@
 import "server-only";
 import { auth } from "@/lib/auth";
 import { loadCatalog } from "@/lib/data/catalog";
-import { prisma } from "@/lib/prisma";
+import { loadProgressStats, type ProgressStats } from "@/lib/progress/stats";
 
-export type AnalyticsPoint = { month: string; fullStack: number; art: number };
+export type AnalyticsHistoryRow = { month: string; values: Record<string, number> };
 
 export type AnalyticsData = {
   streak: number;
   longest: number;
   skills: { name: string; mastery: number }[];
-  history: AnalyticsPoint[];
+  history: AnalyticsHistoryRow[];
+  series: { key: string; name: string }[];
   week: { day: string; checks: number }[];
   explain: { name: string; count: number }[];
   insights: { title: string; body: string }[];
@@ -24,26 +25,15 @@ export async function getAnalytics(): Promise<AnalyticsData> {
   const session = await auth();
   const userId = session?.user?.id;
   const catalog = await loadCatalog();
+  const stats: ProgressStats | null = userId ? await loadProgressStats(userId, catalog) : null;
   const skills = catalog
     .filter((entry) => entry.skill.followed)
     .map((entry) => ({ name: entry.skill.name, mastery: entry.skill.masteryPercent }));
 
-  const user = userId
-    ? await prisma.user.findUnique({
-        where: { id: userId },
-        select: { currentStreak: true, longestStreak: true },
-      })
-    : null;
-
-  const streak = user?.currentStreak ?? 0;
-  const longest = user?.longestStreak ?? 0;
-
-  const [explainPassed, explainNeeds] = userId
-    ? await Promise.all([
-        prisma.explainBackAttempt.count({ where: { userId, verdict: "PASSED" } }),
-        prisma.explainBackAttempt.count({ where: { userId, verdict: "NEEDS_IMPROVEMENT" } }),
-      ])
-    : [0, 0];
+  const streak = stats?.currentStreak ?? 0;
+  const longest = stats?.longestStreak ?? 0;
+  const explainPassed = stats?.explainBacksPassed ?? 0;
+  const explainNeeds = stats?.explainBacksNeedsWork ?? 0;
 
   const ranked = [...skills].sort((a, b) => b.mastery - a.mastery);
   const leader = ranked[0];
@@ -71,8 +61,9 @@ export async function getAnalytics(): Promise<AnalyticsData> {
     streak,
     longest,
     skills,
-    history: [],
-    week: [],
+    history: stats?.history ?? [],
+    series: stats?.series ?? [],
+    week: stats?.week ?? [],
     explain: [
       { name: "Passed", count: explainPassed },
       { name: "Needs another look", count: explainNeeds },
@@ -80,7 +71,10 @@ export async function getAnalytics(): Promise<AnalyticsData> {
     insights: [
       {
         title: streak === 0 ? "No streak yet" : `${streak} ${days(streak)} in a row`,
-        body: `The longest streak on this account is ${longest} ${days(longest)}.`,
+        body:
+          streak === 0
+            ? "A UTC day counts when an explain-back or a note is saved. Nothing on this account lands on consecutive days yet."
+            : `A UTC day counts when an explain-back or a note is saved. The longest run is ${longest} ${days(longest)}.`,
       },
       skillInsight,
       {
@@ -88,6 +82,6 @@ export async function getAnalytics(): Promise<AnalyticsData> {
         body: `${explainPassed} explain-back${explainPassed === 1 ? "" : "s"} passed, and ${explainNeeds} ${explainNeeds === 1 ? "needs" : "need"} another look.`,
       },
     ],
-    reviewHref: null,
+    reviewHref: stats?.reviewHref ?? null,
   };
 }

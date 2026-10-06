@@ -166,7 +166,8 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 **Version 2 previews, not linked from the main nav.** Each one is labeled "Version 2 preview".
 
 - `/upgrade` — one premium tier. Price text is the word Placeholder. No Stripe.
-- `/transcript/[userId]/[skillSlug]` — shareable page, `noindex`. Not built from milestone rows.
+- `/transcript/[userId]/[skillSlug]` — the stages this learner has passed, with the real dates. PDF download. `noindex`.
+- `/certificate/[userId]/[skillSlug]` — issued only when every stage on that path is passed, including the locked tail. SkillFlow’s own record. `noindex`.
 - `/notes` — in the main nav. An accepted explain-back idea is stored with its review. The notebook downloads as Word or PDF, and each stage can be summarized from those notes only.
 - `/submit/byor` — bring your own resource and get a sample explain-back gate prompt.
 - Usage-cutoff dialog — a soft stop. Not stored.
@@ -314,7 +315,7 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 - [ ] Tests for roadmap and resource reads
 
 ## PHASE 4 — AI explain-back
-**Status: 🔶 ONE IDEA AT A TIME, WITH A WRITTEN REVIEW. PROMPTS ARE STILL AUTHORED, NOT GENERATED.**
+**Status: ✅ ONE IDEA AT A TIME. THE GATE IS WRITTEN FROM THE STAGE’S RESOURCES.**
 
 **Already stored or on screen:**
 
@@ -329,7 +330,7 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 
 **Still open:**
 
-- [ ] Catalog resource text → model → explain-back prompt and rubric (stage prompts stay authored; `/notes/practice` already grades an idea against text the learner brings)
+- [x] Opening a stage writes the explain-back ideas from that stage’s resources. Every key point is kept. A blocked article is skipped. With no model key, the catalog questions stay.
 - [x] Timeout and bad JSON leave the stage unpassed instead of inventing a grade
 - [x] Milestone page reads the stage concepts
 - [x] After every idea passes, one `ExplainBackAttempt` is saved
@@ -443,7 +444,9 @@ There is no `/leaderboard` route. Verified understanding stays on the learner’
 An accepted explanation stays in Notes. It is not turned into a lesson for other learners. The shared path stays the researched catalog. A learner who wants to share a concept uses Open Source.
 
 ## V2 PHASE 4 — Transcript
-**Status: ⬜ NOT STARTED as data. The page exists and is `noindex`.**
+**Status: ✅ BUILT FROM PASSED STAGES.**
+
+`/transcript/[userId]/[skillSlug]` lists the stages this learner has passed and the date each one was recorded. It does not include the written explanations. Progress links to it after the first pass on a followed path. The PDF is a download of that list.
 
 ## V2 PHASE 5 — Notes
 **Status: ✅ STORED, EXPORTABLE, AND SUMMARIZED. PRACTICE NOTES STAY OFF THE PATH.**
@@ -483,7 +486,7 @@ The extra niches are in the database and show as coming soon. A new path is a re
 - [x] Usage-cutoff dialog (soft: take a break, or continue)
 - [x] Bring-your-own-resource page that turns a resource into a sample explain-back gate prompt
 - [x] Spaced repetition: each passed idea comes back twice, 18 hours apart. A card locks the app until any written answer. Retention on Progress is the average of those answers. The stage pass stays.
-- [ ] A certificate that is lighter than the transcript
+- [x] A certificate when every stage on a path is passed. It is SkillFlow’s own record of those explain-backs, and it is not a license or a degree.
 
 ---
 
@@ -503,4 +506,4 @@ Ticketmaster and Google Events (SerpApi) are separate adapters. A missing key tu
 
 ---
 
-**Right now.** Phases 0, 1, 2, 3, 5, and 7 are done for the three free paths, and the Open Source community is complete. The learner map and Nearby events are live. Explain-back asks for every learning objective and passes the stage only when a model marks each one understood. An accepted idea is kept in Notes, and that notebook can be downloaded or summarized from those notes alone. `/notes/practice` grades an idea against a public page, a text file, or a pasted passage, and saves it without passing a stage. A followed skill can have a personal plan built in code from that learner's preferences. Mastery, streaks, weak topics, and the progress charts read explain-back attempts. A score leaderboard and peer review are not part of the product. A creator rating and earnings are not either. Still open for Version 1: the rest of the test suite and an end-to-end pass (Phase 8), and deploy (Phase 9). Public event API keys stay last.
+**Right now.** Phases 0, 1, 2, 3, 4, 5, and 7 are done for the three free paths, and the Open Source community is complete. The learner map and Nearby events are live. Explain-back asks for every idea written from that stage’s resources and passes the stage only when a model marks each one understood. An accepted idea is kept in Notes, and that notebook can be downloaded or summarized from those notes alone. A transcript lists the stages a learner has passed. A certificate is issued when every stage on a path is passed. `/notes/practice` grades an idea against a public page, a text file, or a pasted passage, and saves it without passing a stage. A followed skill can have a personal plan built in code from that learner's preferences. Mastery, streaks, weak topics, and the progress charts read explain-back attempts. A score leaderboard and peer review are not part of the product. A creator rating and earnings are not either. Still open for Version 1: the rest of the test suite and an end-to-end pass (Phase 8), and deploy (Phase 9). Public event API keys stay last.

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { BuiltPlan } from "@/lib/plan/build";
+import { undoPlan, usePlan } from "../preferences/actions";
 
 const LABEL = {
   study: "Study",
@@ -14,7 +15,35 @@ function hours(minutes: number) {
   return `${value} h`;
 }
 
-export function PlanBoard({ slug, plan }: { slug: string; plan: BuiltPlan }) {
+export function PlanBoard({
+  slug,
+  skillId,
+  plan,
+  applied,
+}: {
+  slug: string;
+  skillId: string;
+  plan: BuiltPlan;
+  applied: boolean;
+}) {
+  if (!applied) {
+    return (
+      <section className="sf-plan-board" aria-label="Original roadmap">
+        <header>
+          <h2>Original roadmap</h2>
+          <p>These are the shared stages and resources. Your plan is still saved, and nothing was removed from the path.</p>
+          <div className="sf-notes-actions">
+            <form action={usePlan}>
+              <input type="hidden" name="skillId" value={skillId} />
+              <button type="submit">Use my plan</button>
+            </form>
+            <Link href={`/roadmap/${slug}/preferences`}>Edit preferences</Link>
+          </div>
+        </header>
+      </section>
+    );
+  }
+
   return (
     <section className="sf-plan-board" aria-label="Your plan">
       <header>
@@ -24,9 +53,14 @@ export function PlanBoard({ slug, plan }: { slug: string; plan: BuiltPlan }) {
           {plan.assumed ? " (some lengths are estimates)" : ""}
           {plan.weeklyMinutes ? ` · ${plan.weeklyMinutes} min a week` : ""}
         </p>
-        <p className="sf-notes-actions">
+        <div className="sf-notes-actions">
           <Link href={`/roadmap/${slug}/preferences`}>Edit preferences</Link>
-        </p>
+          <form action={undoPlan}>
+            <input type="hidden" name="skillId" value={skillId} />
+            <button type="submit">Undo</button>
+          </form>
+        </div>
+        <p>Undo shows the original stages again. The shared resources stay as they are.</p>
       </header>
       {plan.warning ? <p className="sf-note-summary">{plan.warning}</p> : null}
       {plan.schedule.length ? (

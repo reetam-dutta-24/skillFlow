@@ -107,6 +107,7 @@ export function PlanForm({ skillId, initial }: { skillId: string; initial: PlanP
       lowData,
       captionsNeeded,
       knownTopics: knownTopics.split(",").map((topic) => topic.trim()).filter(Boolean).slice(0, 12),
+      applied: true,
     };
     setBusy("save");
     setNotice("");

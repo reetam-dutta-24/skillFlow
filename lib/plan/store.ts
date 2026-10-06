@@ -111,7 +111,23 @@ export async function saveLearningPreferences(userId: string, skillId: string, i
   return { ok: true as const, preferences: parsed.preferences, plan };
 }
 
-export async function readLearningPlan(userId: string, skillId: string): Promise<{ preferences: PlanPreferences; plan: BuiltPlan } | null> {
+/** Hide or show the personal schedule. The shared stages and resources are not changed. */
+export async function setLearningPlanApplied(userId: string, skillId: string, applied: boolean) {
+  const row = await prisma.learningPlan.findUnique({
+    where: { userId_skillId: { userId, skillId } },
+    select: { id: true, preferences: true },
+  });
+  if (!row) return { ok: false as const, error: "There is no plan to change." };
+  const parsed = parsePreferences(row.preferences);
+  if (!parsed.ok) return parsed;
+  await prisma.learningPlan.update({
+    where: { id: row.id },
+    data: { preferences: { ...parsed.preferences, applied } },
+  });
+  return { ok: true as const };
+}
+
+export async function readLearningPlan(userId: string, skillId: string): Promise<{ preferences: PlanPreferences; plan: BuiltPlan; applied: boolean } | null> {
   const row = await prisma.learningPlan.findUnique({ where: { userId_skillId: { userId, skillId } } });
   if (!row) return null;
   const parsed = parsePreferences(row.preferences);
@@ -120,12 +136,12 @@ export async function readLearningPlan(userId: string, skillId: string): Promise
   if (!loaded) return null;
   const stamp = catalogStamp(loaded.stages);
   if (row.version === PLAN_SHAPE && row.catalogStamp === stamp && isPlan(row.plan)) {
-    return { preferences: parsed.preferences, plan: row.plan };
+    return { preferences: parsed.preferences, plan: row.plan, applied: parsed.preferences.applied };
   }
   const plan = buildLearningPlan(loaded.stages, parsed.preferences);
   await prisma.learningPlan.update({
     where: { id: row.id },
     data: { plan, catalogStamp: stamp, version: PLAN_SHAPE },
   });
-  return { preferences: parsed.preferences, plan };
+  return { preferences: parsed.preferences, plan, applied: parsed.preferences.applied };
 }

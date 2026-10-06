@@ -31,6 +31,7 @@ export const preferenceSchema = z
     lowData: z.boolean(),
     captionsNeeded: z.boolean(),
     knownTopics: z.array(z.string().trim().min(1).max(80)).max(12),
+    applied: z.boolean().default(true),
   })
   .superRefine((value, context) => {
     if (value.deadline === "custom" && value.customWeeks == null) {
@@ -57,6 +58,7 @@ export const DEFAULT_PREFERENCES: PlanPreferences = {
   lowData: false,
   captionsNeeded: false,
   knownTopics: [],
+  applied: true,
 };
 
 export function deadlineWeeks(preferences: PlanPreferences): number | null {

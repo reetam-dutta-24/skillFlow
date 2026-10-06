@@ -4253,6 +4253,10 @@ a.sf-source:hover {
 .sf-plan-board a {
   justify-self: start;
 }
+.sf-plan-board .sf-notes-actions form {
+  display: flex;
+  margin: 0;
+}
 .sf-plan-form button {
   min-height: 40px;
   padding: 0 16px;

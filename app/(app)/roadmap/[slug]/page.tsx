@@ -55,7 +55,8 @@ export default async function RoadmapDetailPage({ params }: PageProps) {
   const data = await getRoadmap(slug);
   if (!data) notFound();
   const learning = data.skill.followed ? await readLearningPlan(session.user.id, data.skill.id) : null;
-  const planById = new Map(learning?.plan.stages.map((stage) => [stage.id, stage]) ?? []);
+  const showPlan = Boolean(learning?.applied);
+  const planById = new Map(showPlan ? learning?.plan.stages.map((stage) => [stage.id, stage]) ?? [] : []);
 
   const summary = data.stages.length
     ? [data.skill.offer === "FREE" ? "This path is free." : null, data.skill.description, `${data.currentPosition}. ${data.skill.masteryPercent}% mastery.`]
@@ -83,7 +84,7 @@ export default async function RoadmapDetailPage({ params }: PageProps) {
           </p>
         ) : null}
       </header>
-      {learning ? <PlanBoard slug={slug} plan={learning.plan} /> : null}
+      {learning ? <PlanBoard slug={slug} skillId={data.skill.id} plan={learning.plan} applied={learning.applied} /> : null}
       {data.stages.length === 0 ? (
         <EmptyState
           icon="route"

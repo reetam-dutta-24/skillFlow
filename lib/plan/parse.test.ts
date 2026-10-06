@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { DEFAULT_PREFERENCES, preferencesFromModelText } from "@/lib/plan/preferences";
+import { DEFAULT_PREFERENCES, parsePreferences, preferencesFromModelText } from "@/lib/plan/preferences";
 import { interpretLearningDescription, preferenceMessages } from "@/lib/plan/parse";
 
 describe("preference parsing", () => {
@@ -15,6 +15,13 @@ describe("preference parsing", () => {
       expect(parsed.preferences.language).toBe("hi");
       expect(parsed.preferences).not.toHaveProperty("system");
     }
+  });
+
+  it("shows the plan unless undo has hidden it", () => {
+    const shown = parsePreferences({ ...DEFAULT_PREFERENCES, applied: undefined });
+    const hidden = parsePreferences({ ...DEFAULT_PREFERENCES, applied: false });
+    expect(shown.ok && shown.preferences.applied).toBe(true);
+    expect(hidden.ok && hidden.preferences.applied).toBe(false);
   });
 
   it("treats the description as data and does not call the model for an empty box", async () => {

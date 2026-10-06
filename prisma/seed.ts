@@ -156,6 +156,8 @@ async function main() {
   await importCatalog("public-speaking", { apply: true })
   await importCatalog("sound-design", { apply: true })
   await importCatalog("nutrition", { apply: true })
+  await importCatalog("psychology", { apply: true })
+  await importCatalog("podcasting", { apply: true })
 }
 
 main()

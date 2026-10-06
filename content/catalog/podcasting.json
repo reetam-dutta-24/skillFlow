@@ -1,0 +1,430 @@
+{
+  "stages": [
+    {
+      "order": 1,
+      "title": "Planning a Show",
+      "level": "BEGINNER",
+      "description": "A show starts with a story you can finish. Decide the format, the roles, and the plan before anyone presses record.",
+      "learningObjectives": [
+        "Pick a format and an idea that fits your time and access",
+        "Split the work into producer, writer, host, and editor roles",
+        "Plan a structure and a list of the sounds you need",
+        "Write narration that sounds like talking, not reading"
+      ],
+      "explainBack": {
+        "question": "You and two friends want to make a ten-minute episode about your town's oldest shop in three weeks. Explain how you would check that the idea works, how you would split the jobs, what you would plan before recording, and how you would write the narration.",
+        "rubric": [
+          "Podcast formats vary widely, from interviews to narrated stories, and the format should fit the story",
+          "Check the idea is realistic: you can reach the people and places you need within the timeline",
+          "Split roles such as producer, writer, host, and editor",
+          "Plan the structure and list the sounds and interviews you need before recording",
+          "A script marks where narration and clips go",
+          "Narration should sound natural and energetic, like talking to a friend, with shorter sentences"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Starting Your Podcast: A Guide For Students",
+          "provider": "NPR",
+          "url": "https://www.npr.org/2018/11/15/662070097/starting-your-podcast-a-guide-for-students",
+          "description": "NPR's step-by-step guide to planning, recording, and scripting a first podcast.",
+          "keyPoints": [
+            "Podcast formats vary widely, and a smartphone plus a computer is enough to start",
+            "Divide the work into roles: producer, writer, host, and editor",
+            "Brainstorm, then check the idea is realistic and fits the timeline",
+            "Plan the structure and the list of sounds you need",
+            "Prepare interviews with research and open-ended questions, record somewhere quiet, and have the guest introduce themselves on tape",
+            "Script where narration and clips go, and write shorter sentences so the host sounds natural, like talking to a friend"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Microphones & the Room",
+      "level": "BEGINNER",
+      "description": "The microphone and the room shape the sound more than any later fix. Choose gear for your setup and treat the space around your voice.",
+      "learningObjectives": [
+        "Compare USB microphones with an interface setup",
+        "Choose between dynamic and condenser microphones",
+        "Control pops, thumps, and room echo",
+        "Monitor with headphones and check the levels"
+      ],
+      "explainBack": {
+        "question": "You will record weekly in a bedroom with bare walls. Explain what microphone type you would choose and why, how you would set it up, and what you would do to the room and your monitoring to get a clean recording.",
+        "rubric": [
+          "A USB mic is simple but ties you to a computer and is awkward with several mics; an interface with XLR mics scales better",
+          "Dynamic mics reject more of the room; condensers are more sensitive and pick up more room sound",
+          "Use a stand that does not sit on the table and a pop filter to avoid thumps and plosives",
+          "Cut echo by covering hard surfaces and putting soft material such as blankets or clothes around and behind you",
+          "Wear closed headphones while recording",
+          "Hearing yourself through direct monitoring does not prove the computer is recording, so watch the input meters"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Podcasting Basics, Part 1: Voice Recording Gear",
+          "provider": "Transom",
+          "author": "Jeff Towne",
+          "url": "https://www.transom.org/2015/podcasting-basics-part-1-voice-recording-gear/",
+          "description": "A public-radio guide to microphones, interfaces, headphones, and the recording space.",
+          "keyPoints": [
+            "A podcast is an audio file delivered to subscribers through an RSS feed",
+            "USB mics are simple but limited to a computer, with weaker preamps and trouble running several mics at once",
+            "Direct monitoring lets you hear yourself, but only the input meters show the computer is actually recording",
+            "Dynamic mics have lower output and reject the room better; condensers are hotter and pick up more room sound",
+            "Avoid table stands that pass on thumps, and use a mesh pop filter",
+            "Wear closed headphones, put soft material behind you as well as behind the mic, and remember the mic is the biggest factor in final sound"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "How To Sound Great | Student Podcast Challenge Guide To Sound | NPR",
+          "provider": "NPR",
+          "url": "https://www.youtube.com/watch?v=sfgbtBBumjo",
+          "videoId": "sfgbtBBumjo",
+          "description": "NPR producers show cheap ways to make a room sound better.",
+          "keyPoints": [
+            "Hard, bare surfaces make a recording echo",
+            "Covering hard surfaces with soft material cuts the echo",
+            "A pillow fort or a closet full of clothes is a cheap recording booth",
+            "Listen to a test recording before the real one"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Recording Interviews",
+      "level": "BEGINNER",
+      "description": "A good interview is a prepared conversation with a well-placed microphone. Put the guest at ease, get close, and stay quiet while they talk.",
+      "learningObjectives": [
+        "Prepare for a guest's role in the story",
+        "Set the guest at ease with the equipment",
+        "Place the microphone to avoid pops and room noise",
+        "Get every answer you need in one session"
+      ],
+      "explainBack": {
+        "question": "You are about to interview a nervous local expert in their kitchen. Explain how you would prepare, set up the room and microphone, put them at ease, and run the conversation so the tape is usable.",
+        "rubric": [
+          "Prepare by thinking about the guest's role in the story and what you want from the conversation",
+          "Remove noise first: unplug noisy appliances and silence phones",
+          "Set levels and do a test run; get the mic close and slightly off-axis to avoid plosive pops",
+          "Make the mic feel normal by handling it casually and keeping it below eye level",
+          "Start with light conversation, and ask the expert to explain as if you know nothing",
+          "Stay quiet while they answer, wait until they finish, and ask everything now because a later phone call will sound different"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Feign ignorance, demystify the mic and other audio interview tips",
+          "provider": "NPR Training",
+          "url": "https://www.npr.org/sections/npr-training/2025/05/28/g-s1-64689/feign-ignorance-demystify-the-mic-and-other-audio-interview-tips",
+          "description": "NPR Training's advice for preparing guests and getting a usable audio interview.",
+          "keyPoints": [
+            "Prepare by thinking about the role each source will play in the story, but leave room to be surprised",
+            "Make the equipment less daunting by handling it casually before the interview",
+            "Keep the mic below eye level and stop checking the equipment mid-conversation",
+            "Start with light conversation instead of grilling the source",
+            "Feign ignorance so experts explain simply for listeners",
+            "Treat it as the only chance to talk, because a phone follow-up sounds different from the original tape"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Hunting For Sound | Student Podcast Challenge Guide To Sound | NPR",
+          "provider": "NPR",
+          "url": "https://www.youtube.com/watch?v=K_TnCUo7UrM",
+          "videoId": "K_TnCUo7UrM",
+          "description": "NPR producers on microphone pickup patterns, placement, and gathering sound.",
+          "keyPoints": [
+            "A cardioid mic picks up mostly what is in front of it; an omni mic picks up all around",
+            "Set levels and do a test run before the interview",
+            "Get close to the speaker and angle the mic to cut plosive pops",
+            "Stay quiet and wait until the subject has finished speaking"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Choosing Editing Software",
+      "level": "INTERMEDIATE",
+      "description": "The right editor depends on how many voices and layers your show has. Learn what separates a simple recorder from a multitrack workstation.",
+      "learningObjectives": [
+        "Decide when a simple recorder is enough",
+        "Explain what a multitrack DAW adds",
+        "Contrast destructive and non-destructive editing",
+        "Name editing tools built for spoken word"
+      ],
+      "explainBack": {
+        "question": "A friend asks which free or cheap software to edit a weekly two-host show with music and sound effects. Explain the difference between a simple recorder and a multitrack editor, what destructive editing means, and which tools you would consider.",
+        "rubric": [
+          "A simple recorder or editor suits one or two voices with little layering",
+          "A multitrack DAW lets you place voices, music, and effects on separate tracks and mix them",
+          "Destructive editing changes the audio file itself; non-destructive editing keeps the original and can be undone",
+          "Audacity is free and cross-platform but edits destructively",
+          "GarageBand is free on Macs; Hindenburg is built for spoken word with loudness tools"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Podcast Basics Part 2: Software",
+          "provider": "Transom",
+          "author": "Jeff Towne",
+          "url": "https://transom.org/2015/podcast-basics-part-2-software/",
+          "description": "A comparison of recording and editing software for spoken-word shows.",
+          "keyPoints": [
+            "Simple recording apps are enough for one or two voices",
+            "A multitrack DAW is needed when you layer voices, music, and effects",
+            "Audacity is free but uses destructive editing",
+            "GarageBand comes free with Macs and handles multitrack work",
+            "Hindenburg was designed by radio people and can normalise loudness on export"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Levels, Loudness & Processing",
+      "level": "INTERMEDIATE",
+      "description": "Peaks are not loudness. Clean the recording, compress it gently, and set the whole episode to a consistent loudness target.",
+      "learningObjectives": [
+        "Explain the difference between peak level and loudness",
+        "Set a loudness target in LUFS for a podcast",
+        "Use gentle compression, a limiter, and a high-pass filter",
+        "Choose a sensible bitrate and file format for speech"
+      ],
+      "explainBack": {
+        "question": "Your episode peaks near 0 dB, yet listeners say it is quieter than other shows and the guest is much louder than you. Explain why peak normalising did not fix it, and what processing and loudness target you would use instead.",
+        "rubric": [
+          "Peak normalising only sets the loudest moment; it does not make the overall program loud or even",
+          "Loudness is measured in LUFS, and about -16 LUFS is a common podcast target",
+          "Gentle compression evens out levels between voices",
+          "A limiter on the master stops peaks from clipping",
+          "A high-pass filter removes rumble and some plosive pops; noise reduction can leave artifacts, so cut noise before recording",
+          "Mono speech can use a lower bitrate than stereo, and you export a full-quality WAV before encoding"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Podcasting Basics, Part 3: Audio Levels and Processing",
+          "provider": "Transom",
+          "author": "Jeff Towne",
+          "url": "https://transom.org/2015/podcasting-basics-part-3-audio-levels-and-processing/",
+          "description": "How to get a podcast loud, even, and clean before it is encoded.",
+          "keyPoints": [
+            "Eliminate noise before recording, because noise reduction leaves artifacts",
+            "Peak normalising does not equal loudness",
+            "Aim for about -16 LUFS for podcasts, louder than the -24 used in broadcast",
+            "Use gentle compression of a few dB and a limiter on the master to catch peaks",
+            "A high-pass filter cuts rumble and plosive pops",
+            "Mono files are half the size of stereo, and around 64 kbps MP3 works for mono speech; export WAV first, then encode"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "title": "Delivery Specs",
+      "level": "INTERMEDIATE",
+      "description": "Podcast apps have published audio specs. Hit the loudness and peak target, and pick a codec and bitrate that players expect.",
+      "learningObjectives": [
+        "State Apple's loudness and true-peak targets",
+        "Choose between AAC and MP3",
+        "Pick bitrates for mono and stereo shows",
+        "Explain why loudness is set before encoding"
+      ],
+      "explainBack": {
+        "question": "You are about to export your first episode for Apple Podcasts. Explain the loudness and peak targets you would hit, the codec and bitrate you would choose for a mono interview show, and why you set loudness before encoding.",
+        "rubric": [
+          "Aim for about -16 LKFS integrated loudness, within about 1 dB",
+          "Keep true peak at or below -1 dBFS",
+          "Set loudness before encoding, because encoding can raise peaks",
+          "AAC is recommended over MP3 for the same quality at a lower bitrate",
+          "Mono shows can use about 64 to 128 kbps and stereo about 128 to 256 kbps"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Audio requirements",
+          "provider": "Apple Podcasts for Creators",
+          "url": "https://podcasters.apple.com/support/893-audio-requirements",
+          "description": "Apple's published loudness, codec, and bitrate guidance for podcast audio.",
+          "keyPoints": [
+            "Target about -16 dB LKFS integrated loudness, within plus or minus 1 dB",
+            "Keep true peak at or below -1 dBFS, measured as in ITU-R BS.1770",
+            "Set loudness before encoding",
+            "AAC is recommended over MP3",
+            "Mono episodes use about 64 to 128 kbps and stereo about 128 to 256 kbps, at 44.1 or 48 kHz"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "title": "RSS, Hosting & Distribution",
+      "level": "ADVANCED",
+      "description": "A podcast is an audio file plus an RSS feed that points to it. A host stores both, and directories read the feed.",
+      "learningObjectives": [
+        "Explain how an RSS feed and enclosure deliver episodes",
+        "List what a valid episode entry needs",
+        "Explain what a podcast host does",
+        "Validate a feed before submitting it"
+      ],
+      "explainBack": {
+        "question": "A friend uploaded an MP3 to their website and asks why it is not showing up in podcast apps. Explain what an RSS feed is, what each episode entry needs, what a podcast host does, and what they should check before submitting to Apple Podcasts.",
+        "rubric": [
+          "A podcast is an audio file plus an RSS (XML) feed; each episode is listed as an enclosure pointing to the file",
+          "The feed must be RSS 2.0 and publicly reachable, and the server must allow HEAD and byte-range requests",
+          "Each episode needs an enclosure with url, length, and type, and a GUID that never changes",
+          "A host stores the audio and feed, handles bandwidth, and provides statistics",
+          "Validate the feed before submitting; tags are case sensitive and characters like & must be escaped",
+          "Submitting to Apple needs a Podcasts Connect account, required tags, at least one episode, and cover art"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Podcasting Basics, Part 4: Hosting & Distribution",
+          "provider": "Transom",
+          "author": "Jeff Towne",
+          "url": "https://transom.org/2016/podcasting-basics-part-4-hosting-distribution/",
+          "description": "How RSS feeds, hosts, and directories fit together.",
+          "keyPoints": [
+            "A podcast has two parts: the audio file and the XML (RSS) feed that lists it",
+            "The RSS enclosure that made podcasting possible appeared around 2003",
+            "Directories add their own tags, and players may only show a limited number of episodes",
+            "Keep the feed small and validate it before submitting",
+            "Hosts such as Libsyn, SoundCloud, Archive.org, or S3 store files, and hosts help with bandwidth and statistics"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Podcast RSS feed requirements",
+          "provider": "Apple Podcasts for Creators",
+          "url": "https://podcasters.apple.com/support/823-podcast-requirements",
+          "description": "Apple's technical rules for a feed it will accept.",
+          "keyPoints": [
+            "The feed must be RSS 2.0 and publicly addressable",
+            "The server must support HEAD requests and byte-range requests",
+            "Each episode needs a unique enclosure with url, length, and type, and a GUID that never changes",
+            "Use ASCII file names, case-sensitive tags, RFC 2822 dates, and escape & as &amp;",
+            "Submitting needs an Apple Podcasts Connect account, the required tags, at least one episode, and artwork"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "title": "Cover Art & Rights",
+      "level": "ADVANCED",
+      "description": "Cover art has to meet a spec to be listed, and every clip or song you use has to be yours to use. Fair use is a judgment, not a time limit.",
+      "learningObjectives": [
+        "Meet the cover art size and file rules",
+        "Explain the four fair use factors",
+        "Explain why there is no safe number of seconds",
+        "Decide when to get permission instead"
+      ],
+      "explainBack": {
+        "question": "You want to open each episode with 15 seconds of a popular song and use a film still in your cover art. Explain the cover art rules you would follow, how fair use is decided, and why \"under 30 seconds is fine\" is not a rule.",
+        "rubric": [
+          "Cover art should be a square 3000 by 3000 pixel JPG or PNG",
+          "Cover art must not have transparency or an alpha channel",
+          "Fair use is decided case by case on four factors: purpose and character, nature of the work, amount used, and effect on the market",
+          "Transformative use such as commentary or criticism favours fair use more than using a song as decoration",
+          "There is no fixed number of seconds or percentage that is automatically fair use",
+          "When in doubt, use licensed or original material, or get permission"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Show cover template",
+          "provider": "Apple Podcasts for Creators",
+          "url": "https://podcasters.apple.com/support/5514-show-cover-template",
+          "description": "Apple's size and file rules for podcast cover art.",
+          "keyPoints": [
+            "Use a square image of 3000 by 3000 pixels",
+            "Submit JPG or PNG",
+            "Do not use transparency or an alpha channel",
+            "Do not use Apple logos or imply Apple endorsement"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "U.S. Copyright Office Fair Use Index",
+          "provider": "U.S. Copyright Office",
+          "url": "https://www.copyright.gov/fair-use/",
+          "description": "How U.S. law decides whether using someone else's work is fair use.",
+          "keyPoints": [
+            "Fair use is weighed under Section 107 on four factors",
+            "Purpose and character: transformative, nonprofit, or educational uses are more likely to be fair",
+            "Nature of the work: using creative work is less likely to be fair than using factual work",
+            "Amount and substantiality: using the heart of a work weighs against fair use even if it is short",
+            "Effect on the market for the original",
+            "There is no set number of words, seconds, or percentage that is automatically fair use"
+          ]
+        }
+      ]
+    }
+  ],
+  "slug": "podcasting",
+  "name": "Podcasting",
+  "description": "Plan a show, record clean voices and interviews, edit and set loudness, export to spec, publish through an RSS feed, and use cover art and other people's material within the rules.",
+  "status": "COMING_SOON"
+}

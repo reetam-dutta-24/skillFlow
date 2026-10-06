@@ -1,0 +1,450 @@
+{
+  "stages": [
+    {
+      "order": 1,
+      "title": "What Psychology Is",
+      "level": "BEGINNER",
+      "description": "Psychology is the scientific study of the mind and behavior. It tests ideas against what can be measured, not against what feels true.",
+      "learningObjectives": [
+        "Define psychology as a science of mind and behavior",
+        "Separate a hypothesis from a theory",
+        "Explain why a claim has to be measurable to be tested",
+        "Name the early schools that shaped the field"
+      ],
+      "explainBack": {
+        "question": "A friend says psychology is just common sense and opinions about people. Explain what makes psychology a science, how a psychologist would test a claim like \"people sing because they are happy\", and why some versions of that claim cannot be tested.",
+        "rubric": [
+          "Psychology is the scientific study of the mind and behavior, and it uses the scientific method",
+          "A hypothesis is a tentative, testable explanation; a theory is a broad explanation consistently supported by evidence over time",
+          "Psychology is empirical: it relies on observation and measurement rather than argument or authority",
+          "Minds cannot be observed directly, so psychologists infer mental processes from behavior, biological measures, and self-reports",
+          "A claim has to be measurable to be tested, so a bird's happiness cannot be tested, but people can report why they sing",
+          "Results are published so others can replicate or build on them"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "1.1 What Is Psychology?",
+          "provider": "OpenStax, Psychology 2e",
+          "url": "https://openstax.org/books/psychology-2e/pages/1-1-what-is-psychology",
+          "description": "A free university textbook's definition of psychology and how it uses the scientific method.",
+          "keyPoints": [
+            "Psychology is the scientific study of the mind and behavior",
+            "A hypothesis is a tentative explanation; a theory is a broad explanation consistently supported by evidence over time",
+            "Science tests what is perceivable and measurable, so a bird's happiness cannot be tested but its brain state can",
+            "Mental processes are studied indirectly through behavior, biological indicators, and self-reports",
+            "Psychology became its own academic discipline in the late 1800s and is both a natural and a social science",
+            "Critical thinking means skepticism, recognising internal biases, logical thinking, and asking good questions"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Intro to Psychology: Crash Course Psychology #1",
+          "provider": "CrashCourse",
+          "url": "https://www.youtube.com/watch?v=vo4pMVb0R6M",
+          "videoId": "vo4pMVb0R6M",
+          "description": "A ten-minute tour of where psychology came from and its early schools of thought.",
+          "keyPoints": [
+            "Psychology today is described as the science of behavior and mental processes",
+            "Structuralism tried to break consciousness into its basic elements",
+            "Functionalism asked what mental processes are for",
+            "Freud's psychoanalysis focused on the unconscious mind",
+            "Behaviorism studied only observable behavior, and many other approaches followed"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": "How Psychologists Gather Evidence",
+      "level": "BEGINNER",
+      "description": "Case studies, observation, surveys, and archival records each answer some questions well and others badly. None of them can show cause and effect.",
+      "learningObjectives": [
+        "Compare case studies, naturalistic observation, surveys, and archival research",
+        "Explain why a method's sample limits what it can claim",
+        "Contrast longitudinal and cross-sectional designs",
+        "State why these methods are correlational"
+      ],
+      "explainBack": {
+        "question": "You want to know whether teenagers who sleep less get lower grades. Explain two different research methods you could use, what each one is good and bad at, and why neither one could prove that less sleep causes lower grades.",
+        "rubric": [
+          "A case study gives very rich detail about one or a few people but is hard to generalise",
+          "Naturalistic observation watches behavior in its natural setting, and the observer must be unobtrusive because people change when watched",
+          "Surveys reach large samples easily but rely on self-reports, which can be inaccurate",
+          "Archival research uses existing records cheaply, but the researcher has no control over how the data were collected",
+          "Longitudinal designs follow the same people over time; cross-sectional designs compare age groups at once and are affected by cohort differences",
+          "All of these are correlational, so they can show a relationship but not cause and effect"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "2.2 Approaches to Research",
+          "provider": "OpenStax, Psychology 2e",
+          "url": "https://openstax.org/books/psychology-2e/pages/2-2-approaches-to-research",
+          "description": "The main research methods in psychology and the strengths and weaknesses of each.",
+          "keyPoints": [
+            "Case studies give unmatched detail about a few individuals, but those people are often unusual, so results are hard to generalise",
+            "In naturalistic observation the observer must stay inconspicuous, because people behave differently when they know they are watched",
+            "Surveys reach large samples but depend on self-reported data",
+            "Archival research uses existing records, so the researcher has no control over how the data were collected",
+            "Longitudinal research retests the same people over years; cross-sectional research compares groups at one time and can confuse age with cohort",
+            "These methods are correlational; only an experiment can support a cause-and-effect claim"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Psychological Research: Crash Course Psychology #2",
+          "provider": "CrashCourse",
+          "url": "https://www.youtube.com/watch?v=hFV71QPvX2I",
+          "videoId": "hFV71QPvX2I",
+          "description": "How the scientific method is applied to questions about people.",
+          "keyPoints": [
+            "Research starts by turning a general question into a measurable, testable one (operationalizing it)",
+            "Case studies look in depth at one individual and can be misleading if generalised",
+            "Naturalistic observation, surveys, and interviews each have their own biases",
+            "Experiments with careful controls help researchers avoid bias"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Correlation, Experiments & Replication",
+      "level": "BEGINNER",
+      "description": "A correlation shows that two things move together. Only a controlled experiment can show one causes the other, and only replication shows the result holds.",
+      "learningObjectives": [
+        "Read the strength and direction of a correlation coefficient",
+        "Explain confounding variables and illusory correlations",
+        "Describe random assignment, control groups, and blinding",
+        "Explain what replication adds to a single study"
+      ],
+      "explainBack": {
+        "question": "A headline says \"Coffee drinkers live longer\", and another says a single experiment proved a new study method raises grades. Explain what each kind of study can and cannot claim, what a well-designed experiment needs, and why you would want the result repeated.",
+        "rubric": [
+          "A correlation coefficient runs from -1 to +1; the number shows strength and the sign shows direction",
+          "Correlation does not imply causation, because a confounding variable can drive both things",
+          "An experiment manipulates an independent variable and measures a dependent variable",
+          "Random assignment to experimental and control groups makes the groups similar before the manipulation",
+          "Placebos and single- or double-blind designs guard against participant expectations and experimenter bias",
+          "A finding should be replicated: a large replication project found many published psychology results had weaker or no effects when repeated"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "2.3 Analyzing Findings",
+          "provider": "OpenStax, Psychology 2e",
+          "url": "https://openstax.org/books/psychology-2e/pages/2-3-analyzing-findings",
+          "description": "Correlation, causation, and how a controlled experiment is built.",
+          "keyPoints": [
+            "A correlation coefficient (r) runs from -1 to +1; closer to 1 in either direction means a stronger relationship",
+            "A confounding variable can explain a correlation, such as temperature behind ice cream sales and crime",
+            "Illusory correlations, such as the full moon changing behavior, come from unsystematic observation and confirmation bias",
+            "In an experiment the independent variable is manipulated and the dependent variable is measured",
+            "Random assignment gives every participant an equal chance of being in either group",
+            "Single-blind and double-blind designs and placebos control for experimenter bias and the placebo effect; significance usually means less than a 5% chance of a false positive"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Estimating the reproducibility of psychological science",
+          "provider": "Science",
+          "author": "Open Science Collaboration",
+          "url": "https://www.science.org/doi/10.1126/science.aac4716",
+          "description": "A large project that repeated 100 published psychology studies to see how many held up.",
+          "keyPoints": [
+            "Researchers repeated 100 studies published in three psychology journals",
+            "Almost all of the original studies reported significant results, but only about a third of the replications did",
+            "Effects in the replications were on average about half the size of the original effects",
+            "A single significant result is weaker evidence than it looks; repeated, independent results are stronger"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Neurons & Neurotransmitters",
+      "level": "INTERMEDIATE",
+      "description": "Every thought rides on neurons. An electrical signal travels down the cell, and a chemical message crosses the gap to the next one.",
+      "learningObjectives": [
+        "Name the main parts of a neuron and what each does",
+        "Explain the action potential and why it is all or none",
+        "Describe how neurotransmitters cross the synapse and are cleared",
+        "Explain agonists, antagonists, and reuptake inhibitors"
+      ],
+      "explainBack": {
+        "question": "Explain how one neuron passes a message to the next, from the dendrites to the synapse, and then explain how an SSRI antidepressant changes that process, and why such drugs are not an instant fix.",
+        "rubric": [
+          "Dendrites receive signals, the soma holds the nucleus, and the axon carries the signal to the terminal buttons",
+          "Myelin insulates the axon and speeds the signal, which jumps between the nodes of Ranvier",
+          "When the charge reaches the threshold of excitation an action potential fires, and it is all or none",
+          "At the terminal buttons neurotransmitters are released into the synaptic cleft and bind to matching receptors like a key in a lock",
+          "Leftover neurotransmitter is broken down or taken back up (reuptake)",
+          "SSRIs block reuptake of serotonin so it stays active longer; they often take weeks to help and work best combined with therapy"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "3.2 Cells of the Nervous System",
+          "provider": "OpenStax, Psychology 2e",
+          "url": "https://openstax.org/books/psychology-2e/pages/3-2-cells-of-the-nervous-system",
+          "description": "Neuron structure, the action potential, and how drugs act on neurotransmitters.",
+          "keyPoints": [
+            "The nervous system is made of neurons and glial cells, possibly in a nearly 1:1 ratio",
+            "Dendrites receive signals, the axon carries them, and terminal buttons release neurotransmitters",
+            "Myelin insulates the axon; the signal jumps between gaps called nodes of Ranvier",
+            "The action potential fires only when the threshold of excitation is reached and is all or none",
+            "Neurotransmitters cross the synaptic cleft and bind to specific receptors; reuptake clears the synapse",
+            "Agonists mimic a neurotransmitter, antagonists block it, and SSRIs prevent serotonin reuptake"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "title": "How We Learn",
+      "level": "INTERMEDIATE",
+      "description": "We learn by linking events together and by the consequences of what we do. The same rules train a dog, shape a child's habits, and keep a gambler playing.",
+      "learningObjectives": [
+        "Explain classical conditioning with its four terms",
+        "Separate reinforcement from punishment, and positive from negative",
+        "Describe shaping",
+        "Explain why a variable-ratio schedule is hard to extinguish"
+      ],
+      "explainBack": {
+        "question": "Your phone buzzes before every message, and now you reach for it at any buzz. You also keep refreshing an app that only sometimes shows something new. Explain which kind of learning is behind each habit, using the correct terms, and why the second one is so hard to stop.",
+        "rubric": [
+          "Classical conditioning pairs a neutral stimulus with an unconditioned stimulus until the neutral stimulus alone triggers a conditioned response",
+          "In Pavlov's dogs, food was the unconditioned stimulus and the tone became the conditioned stimulus for salivation",
+          "Operant conditioning changes behavior through its consequences: reinforcement increases a behavior and punishment decreases it",
+          "Positive means something is added and negative means something is taken away, so negative reinforcement is not punishment",
+          "Shaping rewards successive approximations of a target behavior",
+          "A variable-ratio schedule rewards after an unpredictable number of responses, gives high steady responding, and is very slow to extinguish, as in gambling"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "6.2 Classical Conditioning",
+          "provider": "OpenStax, Psychology 2e",
+          "url": "https://openstax.org/books/psychology-2e/pages/6-2-classical-conditioning",
+          "description": "Pavlov's discovery and the terms used to describe learning by association.",
+          "keyPoints": [
+            "Classical conditioning is learning to associate stimuli and so anticipate events",
+            "An unconditioned stimulus, such as food, triggers an unconditioned response, such as salivation, without learning",
+            "A neutral stimulus presented just before the unconditioned stimulus becomes a conditioned stimulus",
+            "The conditioned stimulus alone then triggers a conditioned response",
+            "Acquisition, extinction, spontaneous recovery, generalisation, and discrimination describe how the link forms and fades",
+            "Pairing a new stimulus with an existing conditioned stimulus is higher-order conditioning"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "6.3 Operant Conditioning",
+          "provider": "OpenStax, Psychology 2e",
+          "url": "https://openstax.org/books/psychology-2e/pages/6-3-operant-conditioning",
+          "description": "Learning from consequences: reinforcement, punishment, shaping, and schedules.",
+          "keyPoints": [
+            "Skinner built on Thorndike's law of effect: behavior is shaped by its consequences",
+            "Positive means adding and negative means removing; reinforcement increases behavior and punishment decreases it",
+            "A seatbelt chime that stops when you buckle up is negative reinforcement",
+            "Shaping rewards successive approximations of a target behavior",
+            "Variable-ratio reinforcement, as in gambling, gives high steady responding and is the slowest to extinguish"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "title": "When Memory Fails",
+      "level": "INTERMEDIATE",
+      "description": "Memory rebuilds the past instead of replaying it. Brain injury can erase it, and a suggestive question can rewrite it.",
+      "learningObjectives": [
+        "Contrast anterograde and retrograde amnesia",
+        "Explain suggestibility and the misinformation effect",
+        "Explain why a confident eyewitness can be wrong",
+        "Describe how investigators can avoid contaminating memory"
+      ],
+      "explainBack": {
+        "question": "A witness was unsure at first but is completely certain by the trial. Explain how memory could have changed in between, what research on misinformation shows, and why confidence is not proof of accuracy.",
+        "rubric": [
+          "Memory is reconstructed each time it is recalled, so it can change",
+          "Suggestibility means misinformation from outside sources can create false memories",
+          "Loftus's misinformation effect shows that information received after an event can change how it is remembered",
+          "Suggestive identification procedures and feedback can raise a witness's confidence without making them more accurate",
+          "Eyewitness misidentification is a leading cause of wrongful convictions later overturned by DNA evidence",
+          "Anterograde amnesia blocks new memories and retrograde amnesia removes past ones; both differ from everyday distortion"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "8.3 Problems with Memory",
+          "provider": "OpenStax, Psychology 2e",
+          "url": "https://openstax.org/books/psychology-2e/pages/8-3-problems-with-memory",
+          "description": "Amnesia, suggestibility, eyewitness error, and false memories.",
+          "keyPoints": [
+            "Anterograde amnesia prevents forming new memories; retrograde amnesia loses memories from before the injury",
+            "Suggestibility is misinformation from outside sources creating false memories",
+            "Eyewitness misidentification is a leading cause of wrongful convictions overturned by DNA evidence",
+            "In the Ronald Cotton case a victim became certain of the wrong man after suggestive identification, and he served over a decade before DNA cleared him",
+            "Elizabeth Loftus's misinformation effect shows later information can make people misremember an original event"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Thinking Shortcuts & Biases",
+      "level": "ADVANCED",
+      "description": "Heuristics save time and usually work, but they leave predictable blind spots. Knowing the common biases is the first defence against them.",
+      "learningObjectives": [
+        "Contrast an algorithm with a heuristic",
+        "Explain mental set and functional fixedness",
+        "Recognise anchoring, confirmation, hindsight, representative, and availability biases",
+        "Name the conditions that push people toward shortcuts"
+      ],
+      "explainBack": {
+        "question": "A friend is house-hunting: the agent shows three bad houses first, then one great house over budget, and your friend only reads reviews that agree with their favourite area. Explain which biases are at work, how a heuristic differs from an algorithm, and when people lean on shortcuts most.",
+        "rubric": [
+          "An algorithm is a step-by-step procedure that gives the same result every time; a heuristic is a mental shortcut or rule of thumb",
+          "People use heuristics most with too much information, little time, little information, or an unimportant decision",
+          "Anchoring bias is focusing on one piece of information, such as a price, when deciding",
+          "Confirmation bias is focusing on information that confirms what you already believe",
+          "Availability judges by the examples that come to mind most easily, and hindsight bias makes outcomes seem predictable afterwards",
+          "Mental set and functional fixedness keep people stuck on approaches or uses that worked before"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "7.3 Problem Solving",
+          "provider": "OpenStax, Psychology 2e",
+          "url": "https://openstax.org/books/psychology-2e/pages/7-3-problem-solving",
+          "description": "Problem-solving strategies and the biases that derail decisions.",
+          "keyPoints": [
+            "Trial and error, algorithms, and heuristics are different problem-solving strategies",
+            "An algorithm gives step-by-step instructions; a heuristic is a general framework or mental shortcut",
+            "Heuristics are used most with too much information, limited time, an unimportant decision, or very little information",
+            "A mental set is persisting with an approach that no longer works; functional fixedness is seeing an object only for its usual use",
+            "Anchoring, confirmation, hindsight, and representative biases distort decisions",
+            "The availability heuristic bases a decision on whatever example comes to mind most easily"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "title": "The Power of the Situation",
+      "level": "ADVANCED",
+      "description": "People blame character for what the situation caused. Classic studies show how far a group or an authority can move ordinary people.",
+      "learningObjectives": [
+        "Explain the fundamental attribution error and actor-observer bias",
+        "Describe the Asch conformity study and what reduces conformity",
+        "Separate normative and informational social influence",
+        "Describe Milgram's obedience study and its variations"
+      ],
+      "explainBack": {
+        "question": "After a scandal, people say the employees who went along with it must simply be bad people. Using social psychology, explain why that explanation is often incomplete, what the Asch and Milgram studies showed, and what makes people more likely to resist.",
+        "rubric": [
+          "The fundamental attribution error is overestimating personality and underestimating the situation when explaining others' behavior",
+          "Actor-observer bias means we explain our own behavior by the situation and others' by their character",
+          "In Asch's line study, 76% of participants conformed to an obviously wrong majority at least once",
+          "Normative influence is conforming to be accepted; informational influence is conforming because the group seems to know better",
+          "In Milgram's study 65% of participants obeyed to the maximum shock, and obedience fell when the setting or closeness changed",
+          "One other dissenter sharply reduces conformity"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "12.1 What Is Social Psychology?",
+          "provider": "OpenStax, Psychology 2e",
+          "url": "https://openstax.org/books/psychology-2e/pages/12-1-what-is-social-psychology",
+          "description": "Situational and dispositional explanations, and the attribution errors people make.",
+          "keyPoints": [
+            "Behavior comes from both the situation and the person",
+            "The fundamental attribution error is over-explaining others' behavior by their traits and under-weighting the situation",
+            "In the quizmaster study, contestants rated question-writers as smarter, ignoring that they wrote the questions",
+            "People in individualistic cultures make the fundamental attribution error more than people in collectivistic cultures",
+            "Actor-observer bias, self-serving bias, and the just-world hypothesis shape how we explain outcomes"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "12.4 Conformity, Compliance, and Obedience",
+          "provider": "OpenStax, Psychology 2e",
+          "url": "https://openstax.org/books/psychology-2e/pages/12-4-conformity-compliance-and-obedience",
+          "description": "The Asch and Milgram studies and the group processes they revealed.",
+          "keyPoints": [
+            "In Asch's line-judgment study, 76% of participants conformed to the wrong group answer at least once",
+            "Majority size, another dissenter, and public answers affect conformity; one dissenter drops it to near zero",
+            "Normative social influence is conforming to fit in; informational social influence is conforming because others seem to know more",
+            "In Milgram's obedience study 65% of participants continued to the maximum shock",
+            "Obedience fell in variations, such as 48% when the study moved to an off-campus office",
+            "Groupthink, social facilitation, and social loafing describe how groups change performance and decisions"
+          ]
+        }
+      ]
+    }
+  ],
+  "slug": "psychology",
+  "name": "Psychology",
+  "description": "Learn how a study is designed and what a result is allowed to claim about people: the science of mind and behavior, research methods, correlation and experiments, neurons, learning, memory errors, thinking biases, and social influence.",
+  "status": "COMING_SOON"
+}

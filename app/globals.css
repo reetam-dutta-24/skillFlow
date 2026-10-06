@@ -6924,7 +6924,7 @@ html.dark .sf-map-canvas .maplibregl-canvas {
 }
 .sf-event-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(240px, 0.8fr);
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
   gap: var(--space-4);
   min-width: 0;
   align-items: start;
@@ -6989,13 +6989,14 @@ html.dark .sf-map-canvas .maplibregl-canvas {
 }
 .sf-event-poster {
   display: grid;
+  flex-shrink: 0;
   gap: 0;
   min-width: 0;
   overflow: hidden;
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-card);
   background: var(--surface-card);
-  transition: transform 160ms ease, box-shadow 160ms ease;
+  transition: box-shadow 160ms ease, border-color 160ms ease;
 }
 .sf-event-poster.is-selected {
   border-color: var(--text-accent);
@@ -7083,8 +7084,8 @@ html.dark .sf-map-canvas .maplibregl-canvas {
   overflow-wrap: anywhere;
 }
 .sf-event-poster:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 18px 36px rgb(0 0 0 / 0.28);
+  border-color: color-mix(in srgb, var(--text-accent) 45%, var(--border-subtle));
+  box-shadow: 0 16px 32px rgb(0 0 0 / 0.28);
 }
 .sf-event-meta {
   display: grid;

@@ -1,0 +1,914 @@
+{
+  "stages": [
+    {
+      "order": 1,
+      "title": "Materials & Surfaces",
+      "level": "BEGINNER",
+      "description": "What separates watercolor, gouache, acrylic and oil paint, and how to choose and prepare brushes, paper and canvas for each.",
+      "learningObjectives": [
+        "Name the binder of watercolor, gouache, acrylic and oil paint and how each dries",
+        "Explain opacity and rewettability differences between watercolor, gouache and acrylic",
+        "Choose a suitable brush type and cleanup solvent for acrylic versus oil",
+        "Prepare a support correctly: sizing/priming canvas and selecting watercolor paper weight and surface"
+      ],
+      "explainBack": {
+        "question": "You are setting up to paint in watercolor, gouache, acrylic and oil. For each, what holds the pigment, how does it dry, and how would you prepare the paper or canvas?",
+        "rubric": [
+          "Watercolor and gouache both use gum arabic as binder and stay rewettable when dry; watercolor is transparent, gouache is opaque and matte",
+          "Acrylic is pigment in a polymer binder: water-soluble while wet, dries fast (about an hour) and becomes water-resistant; it looks lighter wet than dry",
+          "Oil paint is pigment in a drying oil (linseed is most common) that forms a film on exposure to air; it dries slowly and is thinned/cleaned with mineral spirits or turpentine",
+          "Raw canvas must be sized/primed before oil; acrylic gesso needs no sizing and accepts both acrylic and oil, but acrylic should not go over an oil ground",
+          "Watercolor paper comes as hot-pressed (smooth), cold-pressed/NOT (medium) and rough; sheets lighter than about 356 gsm (260 lb), such as 300 gsm/140 lb, should be stretched to avoid warping"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "What is the difference between oil paint, acrylic paint, watercolour paint, and gouache?",
+          "provider": "Irene Ruby, Makings and Musings",
+          "url": "https://www.youtube.com/watch?v=xW1GdFyml30",
+          "description": "A side-by-side introduction to the four common paint types and how they behave on the page.",
+          "keyPoints": [
+            "Compares oil, acrylic, watercolour and gouache",
+            "Covers how each paint type handles and dries",
+            "Aimed at beginners choosing a first medium"
+          ],
+          "videoId": "xW1GdFyml30"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Gouache vs. Watercolor: What's the Difference?",
+          "provider": "Blick Art Materials",
+          "url": "https://www.dickblick.com/learning-resources/how-to/gouache-vs-watercolor/",
+          "description": "Explains why gouache is opaque and matte while watercolor is transparent, though both use gum arabic.",
+          "keyPoints": [
+            "Both traditionally bound with gum arabic",
+            "Gouache has a higher pigment load, often with chalk or white as opacifier",
+            "Watercolor is transparent and dries lighter than it looks wet",
+            "Both stay rewettable after drying, unlike acrylic"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Notes on Acrylic Painting",
+          "provider": "Art Studio Chalkboard (University of Evansville)",
+          "url": "https://studiochalkboard.evansville.edu/p-acrylic.html",
+          "description": "University studio notes on how acrylic behaves, which brushes to use and how to thin it.",
+          "keyPoints": [
+            "Pigment in a polymer binder that dissolves in water until dry",
+            "Dries in about an hour; tools wash with soap and water",
+            "Binder is milky when wet, so colors look lighter wet than dry",
+            "Use synthetic brushes; natural bristles swell and break down"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Oil paint",
+          "provider": "Tate",
+          "url": "https://www.tate.org.uk/art/art-terms/o/oil-paint",
+          "description": "Museum glossary entry defining oil paint and explaining why it dries slowly.",
+          "keyPoints": [
+            "Pigment suspended in a drying oil that forms a tough film in air",
+            "Linseed is the most used oil; poppy, safflower and walnut also used",
+            "Thin layers diluted with turpentine dry in days; oil-rich layers harden over years"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Preparation of the Painting Ground",
+          "provider": "Art Studio Chalkboard (University of Evansville)",
+          "url": "https://studiochalkboard.evansville.edu/p-grounds.html",
+          "description": "How to size and prime canvas or panel, and when acrylic gesso can be used.",
+          "keyPoints": [
+            "Oil in direct contact with canvas causes deterioration, so size first",
+            "Traditional route: rabbitskin glue size then oil ground",
+            "Acrylic gesso needs no sizing and takes both acrylic and oil",
+            "Acrylic paint will not go over an oil surface"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Watercolour Paper",
+          "provider": "UCL Slade School of Fine Art",
+          "url": "https://www.ucl.ac.uk/slade/know/1818",
+          "description": "Art-school materials note on watercolour paper weights, surfaces and when to stretch paper.",
+          "keyPoints": [
+            "Common weights: 190 gsm (90 lb), 300 gsm (140 lb), 356 gsm (260 lb), 638 gsm (300 lb)",
+            "Paper under 356 gsm should be stretched or it is likely to warp",
+            "Surfaces: rough, hot-pressed (smooth) and cold-pressed/NOT (in between)",
+            "Acid-free papers yellow less over time"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Drawing Fundamentals: Line & Proportion",
+      "level": "BEGINNER",
+      "description": "Using line and simple shapes, and measuring by sighting, to draw what you see in correct proportion.",
+      "learningObjectives": [
+        "Sight and measure proportions with a pencil held at arm's length",
+        "Check angles and alignments with sighted angles and plumb/organizational lines",
+        "Block in a subject big-to-small using simple enclosing shapes",
+        "Use contour, cross-contour and line weight deliberately"
+      ],
+      "explainBack": {
+        "question": "Describe how you would measure and block in a still life so its proportions are accurate, and how you would then use line to describe it.",
+        "rubric": [
+          "Sighting: hold the pencil at arm's length with the elbow locked and one eye closed so the measuring distance stays constant",
+          "Pick one part as a unit (marked with the thumb on the pencil) and compare other heights and widths as multiples of it",
+          "Angles are sighted by matching the pencil to an edge and transferring that angle; plumb (vertical) and horizontal lines check alignments",
+          "Work big to small: enclose the subject in a simple proportioned shape or box, then subdivide before adding detail",
+          "Contour lines describe edges, cross-contour lines travel across a form to show volume, and heavier line weight tends to read as nearer"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Drawing Measuring Techniques",
+          "provider": "Proko",
+          "url": "https://www.youtube.com/watch?v=tZtnKp4fAPk",
+          "description": "Stan Prokopenko demonstrates several ways to measure proportions while drawing from observation.",
+          "keyPoints": [
+            "Pencil sighting at arm's length",
+            "Using a unit to compare sizes",
+            "Checking alignments and angles"
+          ],
+          "videoId": "tZtnKp4fAPk"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How to Draw Accurate Proportions",
+          "provider": "Proko",
+          "url": "https://www.proko.com/course-lesson/how-to-draw-accurate-proportions",
+          "description": "Free lesson page summarising sighting, plumb lines, angles, units and big-to-small block-in.",
+          "keyPoints": [
+            "Locked elbow, one eye closed, pencil tip and thumb mark a unit",
+            "Plumb lines find vertical/horizontal alignments",
+            "Angles relate any two points, not just aligned ones",
+            "Start with the envelope, then break into smaller shapes; check negative shapes"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Observation",
+          "provider": "Foundations of Drawing (Palomar College, open textbook)",
+          "url": "https://pressbooks.palomar.edu/art102/chapter/observation/",
+          "description": "Open-textbook chapter on sighting, angle measurement, plumb/axis lines and the proportion box.",
+          "keyPoints": [
+            "Sighting tool at arm's length, locked elbow, one eye closed",
+            "Thumb marks a unit for comparing height, width and spacing",
+            "Match pencil to an edge to read its angle",
+            "Proportion box: ratio of height to width sets the starting rectangle"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Line",
+          "provider": "Foundations of Drawing (Palomar College, open textbook)",
+          "url": "https://pressbooks.palomar.edu/art102/chapter/line/",
+          "description": "Open-textbook chapter on kinds of line and how line weight communicates space and surface.",
+          "keyPoints": [
+            "Contour, blind contour and modified contour lines",
+            "Cross-contour lines run across a form to show volume",
+            "Heavier lines tend to come forward, lighter lines recede"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Value, Light & Shadow",
+      "level": "BEGINNER",
+      "description": "Reading and rendering light on form with a value scale and the standard light and shadow zones.",
+      "learningObjectives": [
+        "Build a step value scale from white to black",
+        "Explain how a plane's angle to the light sets its value",
+        "Identify highlight, light, halftone, terminator/core shadow, reflected light, form shadow and cast shadow"
+      ],
+      "explainBack": {
+        "question": "A white ball sits on a table under one lamp. Name the light and shadow areas you would render and explain what causes each.",
+        "rubric": [
+          "A value scale runs from white to black in steps (a common scale has nine values) or as a smooth gradient",
+          "Value depends on plane orientation: planes facing the light are lightest and planes turned further away receive less light and get darker",
+          "Form shadow is on the object where planes turn away from the light; cast shadow is where the object blocks light from another surface",
+          "The core shadow is the darker band along the terminator; reflected light bounced from nearby surfaces lightens the shadow side",
+          "The highlight is a reflection of the light source and shifts with the viewer's position, distinct from the plane facing the light"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Shading Light and Form - Basics",
+          "provider": "Proko",
+          "url": "https://www.youtube.com/watch?v=V3WmrWUEIJo",
+          "description": "Introductory lesson naming the zones of light and shadow on simple forms.",
+          "keyPoints": [
+            "Terminator divides light from shadow",
+            "Form shadow vs cast shadow",
+            "Core shadow, reflected light and highlight"
+          ],
+          "videoId": "V3WmrWUEIJo"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Shading Light and Form – Basics",
+          "provider": "Proko",
+          "url": "https://www.proko.com/lesson/shading-light-and-form-basics",
+          "description": "Lesson notes defining each light and shadow zone with short explanations.",
+          "keyPoints": [
+            "Form shadow: planes turned away from the light",
+            "Cast shadow: one form blocks light from another",
+            "Core shadow: darker band along the terminator",
+            "Highlight is a reflection of the source and moves with the viewer"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Value",
+          "provider": "Foundations of Drawing (Palomar College, open textbook)",
+          "url": "https://pressbooks.palomar.edu/art102/chapter/value/",
+          "description": "Open-textbook chapter on value scales, the parts of light on form, hatching and chiaroscuro.",
+          "keyPoints": [
+            "Standard nine-step scale from white to black",
+            "Step scales vs gradient scales",
+            "Highlight, light, core shadow, reflected light, cast and form shadow",
+            "Hatching and cross-hatching build value"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Grayscale and Planar Changes in Value",
+          "provider": "Art Studio Chalkboard (University of Evansville)",
+          "url": "https://studiochalkboard.evansville.edu/s-grays.html",
+          "description": "Explains how value changes as planes turn relative to the light source.",
+          "keyPoints": [
+            "A plane at 45 degrees to the light gets less light than one facing it",
+            "Even white objects contain many grays",
+            "Background value changes how the object's value is read"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Perspective",
+      "level": "INTERMEDIATE",
+      "description": "Creating depth with linear perspective (one-, two- and three-point) and atmospheric perspective.",
+      "learningObjectives": [
+        "Place a horizon line at eye level and locate vanishing points on it",
+        "Choose between one-, two- and three-point perspective for a given view",
+        "Apply atmospheric perspective to push distant forms back"
+      ],
+      "explainBack": {
+        "question": "Explain how you would draw a box seen straight on, a building seen from its corner, and a skyscraper seen from the street, then make distant hills recede.",
+        "rubric": [
+          "The horizon line is the viewer's eye level; vanishing points sit on it and receding parallel lines (orthogonals) converge to them",
+          "One-point: one vanishing point, used when the object's faces are parallel/perpendicular to the viewer (head-on)",
+          "Two-point: used when looking at an object's corner; two vanishing points on the horizon, and verticals stay at 90 degrees to the horizon",
+          "Three-point adds a third vanishing point above the horizon (worm's-eye) or below it (bird's-eye), so verticals also converge",
+          "Atmospheric perspective: distant objects show less contrast, detail and saturation and shift toward a bluer gray"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Two-Point Perspective Drawing Made Simple",
+          "provider": "Proko",
+          "url": "https://www.youtube.com/watch?v=9-Y4K4hqZwo",
+          "description": "Walkthrough of setting up a horizon and two vanishing points and building boxes in two-point perspective.",
+          "keyPoints": [
+            "Horizon line and two vanishing points",
+            "Constructing boxes seen from a corner",
+            "Keeping verticals vertical"
+          ],
+          "videoId": "9-Y4K4hqZwo"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Perspective",
+          "provider": "Foundations of Drawing (Palomar College, open textbook)",
+          "url": "https://pressbooks.palomar.edu/art102/chapter/perspective/",
+          "description": "Open-textbook chapter on horizon line, vanishing points and the three linear perspective systems.",
+          "keyPoints": [
+            "Horizon line = eye level",
+            "Orthogonals converge to vanishing points",
+            "One-, two- and three-point systems compared",
+            "Overlap, scale and atmospheric perspective add depth"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Introduction to Linear Perspective",
+          "provider": "Art Studio Chalkboard (University of Evansville)",
+          "url": "https://studiochalkboard.evansville.edu/lp-intro.html",
+          "description": "Defines horizon line, vanishing point and convergence lines for one-point perspective.",
+          "keyPoints": [
+            "Horizon line always stays at your eye level",
+            "Receding parallels meet at the vanishing point",
+            "One-point needs planes parallel or perpendicular to you"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Exteriors (Two Point)",
+          "provider": "Art Studio Chalkboard (University of Evansville)",
+          "url": "https://studiochalkboard.evansville.edu/lp-ex2.html",
+          "description": "How to find the two vanishing points when viewing an object's corner.",
+          "keyPoints": [
+            "Use two-point when looking at an object's corner",
+            "Verticals are 90 degrees to the horizon in one- and two-point",
+            "Vanishing points may fall outside the picture"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Three-Point Perspective",
+          "provider": "Art Studio Chalkboard (University of Evansville)",
+          "url": "https://studiochalkboard.evansville.edu/lp-ex3.html",
+          "description": "Explains the third vanishing point for worm's-eye and bird's-eye views.",
+          "keyPoints": [
+            "Third VP above the horizon for worm's-eye views",
+            "Third VP below the horizon for bird's-eye views",
+            "Used for extreme heights such as tall buildings"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Depth and Atmosphere (Aerial Perspective)",
+          "provider": "Art Studio Chalkboard (University of Evansville)",
+          "url": "https://studiochalkboard.evansville.edu/ap-aerial.html",
+          "description": "How atmosphere changes contrast, color and detail with distance.",
+          "keyPoints": [
+            "Contrast and detail drop with distance",
+            "Whites and blacks drift toward a bluer gray",
+            "Saturation decreases with distance"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Color Theory & Mixing",
+      "level": "INTERMEDIATE",
+      "description": "Describing color by hue, value and saturation, and using the color wheel, complements and temperature to mix paint.",
+      "learningObjectives": [
+        "Describe any color by hue, value and saturation (chroma)",
+        "Use the color wheel to find complements and explain what mixing them does",
+        "Explain why mixtures lose intensity and how to keep mixes clean",
+        "Treat color temperature as relative and set up warm and cool primaries"
+      ],
+      "explainBack": {
+        "question": "Your mixed green looks dull and a red area looks too loud. Using hue, value, saturation, complements and temperature, explain what is happening and how you would fix each.",
+        "rubric": [
+          "Hue is the color name, value is its lightness or darkness, and saturation/chroma is its intensity",
+          "Complements sit opposite each other on the color wheel; mixing a color with its complement neutralizes (lowers the saturation of) it",
+          "Every pigment mix loses intensity, so a pure pigment (e.g. a tube green) is more saturated than a blue-yellow mix",
+          "Adding white (tint) or black (shade) changes value; a tone can match a hue's value while being less vivid",
+          "Color temperature is relative (a blue can read warm or cool next to another blue); a practical palette has a warm and a cool version of each primary"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Color Theory Basics for Digital Painters",
+          "provider": "Proko",
+          "url": "https://www.youtube.com/watch?v=P0P8iGs2jWI",
+          "description": "Marco Bucci explains hue, saturation and value as the three properties of any color.",
+          "keyPoints": [
+            "Hue is the name of the color",
+            "Saturation is intensity",
+            "Value is lightness and carries form"
+          ],
+          "videoId": "P0P8iGs2jWI"
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Learning Color Temperature Will Change How You Paint",
+          "provider": "Proko",
+          "url": "https://www.youtube.com/watch?v=vdvOGfWYxqk",
+          "description": "Lesson on warm and cool color and how temperature shifts are used in painting.",
+          "keyPoints": [
+            "What makes a color warm or cool",
+            "Temperature as a relationship",
+            "Using temperature shifts in light and shadow"
+          ],
+          "videoId": "vdvOGfWYxqk"
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Color",
+          "provider": "Foundations of Drawing (Palomar College, open textbook)",
+          "url": "https://pressbooks.palomar.edu/art102/chapter/color/",
+          "description": "Open-textbook chapter on color properties, the 12-hue wheel, temperature and color schemes.",
+          "keyPoints": [
+            "Hue, value and saturation defined",
+            "Primary, secondary and tertiary hues on a 12-part wheel",
+            "Complements neutralize each other when mixed",
+            "Analogous, triadic and monochromatic schemes"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "The Color Wheel and Color Complements",
+          "provider": "Art Studio Chalkboard (University of Evansville)",
+          "url": "https://studiochalkboard.evansville.edu/c-wheel.html",
+          "description": "Explains primaries, secondaries and complementary pairs, including how complements interact side by side.",
+          "keyPoints": [
+            "Complements sit opposite and contrast most strongly",
+            "Itten's balancing ratios for complement pairs",
+            "Adjacent complements can appear to vibrate"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Color Chroma and Intensity",
+          "provider": "Art Studio Chalkboard (University of Evansville)",
+          "url": "https://studiochalkboard.evansville.edu/c-chroma.html",
+          "description": "Explains chroma versus value and why mixtures lose intensity.",
+          "keyPoints": [
+            "The pure hue has the highest chroma",
+            "Tints add white, shades add black",
+            "Mixing pigments lowers intensity; buy pure green for max saturation"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Understanding warm and cool colours",
+          "provider": "Winsor & Newton",
+          "url": "https://www.winsornewton.com/blogs/guides/understanding-warm-and-cool-colours",
+          "description": "Manufacturer guide arguing color temperature is relative and recommending warm and cool primaries.",
+          "keyPoints": [
+            "No fixed warm/cool list; temperature depends on neighbors",
+            "Closer to red reads warmer, closer to green cooler",
+            "Choose the warmest and coolest version of each primary",
+            "Paint your own wheel to learn your colors"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "title": "Composition & Value Planning",
+      "level": "INTERMEDIATE",
+      "description": "Arranging a picture with a clear focal point, balance and eye movement, planned through small notan thumbnails.",
+      "learningObjectives": [
+        "Place focal points using the rule of thirds",
+        "Create emphasis and guide the eye with contrast, placement and line",
+        "Balance a picture asymmetrically",
+        "Plan value structure with small two- or three-value notan thumbnails"
+      ],
+      "explainBack": {
+        "question": "Before painting a landscape, how would you plan its composition so the viewer looks where you want and the design holds together?",
+        "rubric": [
+          "Rule of thirds: two horizontal and two vertical lines divide the picture into nine parts; key elements go on the lines or their four intersections rather than the center",
+          "A focal point is created through emphasis such as the strongest contrast, color, lighting or placement",
+          "Diagonal and directional lines imply movement and lead the eye through the picture",
+          "Asymmetrical balance offsets visual weight, e.g. one large dark shape balancing several smaller ones",
+          "Notan thumbnails simplify the scene into two (or three) values in small sketches that design big shapes without detail"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Using Notan Sketches to Strengthen Composition",
+          "provider": "Anne Livingston Art",
+          "url": "https://www.youtube.com/watch?v=TbNOt0FA4y8",
+          "description": "Painter demonstrates simplifying a scene into light and dark notan sketches before painting.",
+          "keyPoints": [
+            "What a notan sketch is",
+            "Reducing a reference to big light and dark shapes",
+            "Using the sketch to plan a painting"
+          ],
+          "videoId": "TbNOt0FA4y8"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Learning Activity: The Rule of Thirds",
+          "provider": "Georgia O'Keeffe Museum",
+          "url": "https://www.okeeffemuseum.org/resources/learning-activity-the-rule-of-thirds",
+          "description": "Museum activity explaining the rule of thirds grid with an O'Keeffe example.",
+          "keyPoints": [
+            "Four lines divide the picture into nine equal sections",
+            "The four intersections are visual hot spots",
+            "Placing subjects off-center draws the eye into the work"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Elements of Art & Principles of Design",
+          "provider": "Foundations of Drawing (Palomar College, open textbook)",
+          "url": "https://pressbooks.palomar.edu/art102/chapter/elements-of-art-principles-of-design/",
+          "description": "Open-textbook chapter on balance, emphasis, movement, unity, variety, contrast and scale.",
+          "keyPoints": [
+            "Symmetrical, asymmetrical and radial balance",
+            "Emphasis via color, lighting, placement or contrast",
+            "Diagonal and radiating lines imply movement",
+            "Unity and variety work together"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "General Compositional Layout",
+          "provider": "Art Studio Chalkboard (University of Evansville)",
+          "url": "https://studiochalkboard.evansville.edu/cm-visual.html",
+          "description": "Short guide to asymmetrical balance and leading the viewer's eye.",
+          "keyPoints": [
+            "Good compositions are often asymmetrical or lead the eye around",
+            "One heavy shape can balance several light ones",
+            "Vary size and value rather than repeating identical areas"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Project - Notan Master Thumbnails",
+          "provider": "Proko",
+          "url": "https://proko.com/course-lesson/project-notan-master-thumbnails",
+          "description": "Assignment page explaining notan and how to make small value thumbnails.",
+          "keyPoints": [
+            "Notan: sort everything into lights or darks around a threshold",
+            "Optionally add a mid-tone for 3 values",
+            "Keep thumbnails small to avoid detail",
+            "Design large shapes and assign each a value"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Painting Techniques & Layering",
+      "level": "ADVANCED",
+      "description": "Building paintings in sound layers: oil layering rules, glazing, impasto and watercolor wet-on-wet versus wet-on-dry.",
+      "learningObjectives": [
+        "Apply fat over lean, thick over thin and slow-drying over fast-drying in oil",
+        "Distinguish a glaze from a scumble and use impasto deliberately",
+        "Choose wet-on-wet or wet-on-dry watercolor for the edge you want",
+        "Layer watercolor washes light to dark and correct by lifting"
+      ],
+      "explainBack": {
+        "question": "Explain how you would layer an oil painting so it will not crack, and how you would get both soft and crisp edges in a watercolor.",
+        "rubric": [
+          "Fat over lean: each oil layer has more oil/medium than the one beneath, so upper layers are more flexible and less likely to crack",
+          "Thick over thin and slow-drying over fast-drying: thin, fast-drying paint goes underneath; impasto and slow-drying colors go last",
+          "A glaze is a transparent film over a lighter layer that modifies its color; a thin layer lighter than what is beneath is a scumble; impasto is thick paint showing brush or knife marks",
+          "Wet-on-wet (paint into wet paper) gives soft, diffused edges and dilutes color, so mix darker; wet-on-dry gives crisp, controlled edges",
+          "Watercolor is built light to dark, letting each wash dry before the next; a damp brush can lift dried paint to lighten or soften"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Wet-On-Wet Watercolour Tips & Techniques: Winsor & Newton Masterclass",
+          "provider": "Cowling & Wilcox Ltd.",
+          "url": "https://www.youtube.com/watch?v=e2Ss7codlhI",
+          "description": "Winsor & Newton masterclass demonstration of painting wet-on-wet in watercolour.",
+          "keyPoints": [
+            "Wetting paper before adding color",
+            "Soft blends and diffused edges",
+            "Controlling water and timing"
+          ],
+          "videoId": "e2Ss7codlhI"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What are the three oil painting rules?",
+          "provider": "Winsor & Newton",
+          "url": "https://winsornewton.com/blogs/masterclass/fat-over-lean-rule-explained",
+          "description": "Manufacturer guide to fat over lean, thick over thin and slow-drying over fast-drying.",
+          "keyPoints": [
+            "Each layer should contain more oil/medium than the one below",
+            "Fat over lean = flexible over less flexible, to prevent cracking",
+            "Thick over thin: thin layers dry faster, so they go first",
+            "Use fast-drying colors for underpainting, slow ones last"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Glaze",
+          "provider": "The National Gallery, London",
+          "url": "https://www.nationalgallery.org.uk/paintings/glossary/glaze",
+          "description": "Museum glossary entry defining a glaze and distinguishing it from a scumble.",
+          "keyPoints": [
+            "Transparent or translucent paint film in an oil or oil-resin medium",
+            "Applied over a lighter layer to modify its color",
+            "A thin layer lighter than what is beneath is a scumble"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Impasto",
+          "provider": "Tate",
+          "url": "https://www.tate.org.uk/art/art-terms/i/impasto",
+          "description": "Museum glossary entry on impasto and its history.",
+          "keyPoints": [
+            "An area of thick paint or texture",
+            "Brush or knife marks stay visible",
+            "Prominent from Titian and Rubens to Auerbach"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Working wet on wet in watercolour",
+          "provider": "Ken Bromley Art Supplies",
+          "url": "https://www.artsupplies.co.uk/a/working-wet-on-wet-in-watercolour",
+          "description": "Demonstration article contrasting wet-on-wet with wet-on-dry watercolor.",
+          "keyPoints": [
+            "Wet-on-wet: color moves and mixes on pre-wetted paper",
+            "Soft diffused edges vs sharper wet-on-dry edges",
+            "Mix tones slightly darker because water dilutes them",
+            "Some pigments separate on wet paper"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Wet Media",
+          "provider": "Foundations of Drawing (Palomar College, open textbook)",
+          "url": "https://pressbooks.palomar.edu/art102/chapter/wet-media/",
+          "description": "Open-textbook chapter on washes, layering and lifting with water-based media.",
+          "keyPoints": [
+            "Build washes from light to dark",
+            "Let each wash dry before adding another to avoid bleeding",
+            "Lift with a damp brush to lighten or soften",
+            "Cold-press paper of at least 140 lb recommended"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "title": "Studio Safety, Varnishing & Permanence",
+      "level": "ADVANCED",
+      "description": "Working safely with solvents and pigments, reading safety and lightfastness labels, and varnishing finished work.",
+      "learningObjectives": [
+        "Handle solvents, oily rags and pigments safely",
+        "Read AP/CL safety seals and ASTM lightfastness ratings",
+        "Decide when and why to varnish a painting"
+      ],
+      "explainBack": {
+        "question": "You have finished an oil painting. Describe how you clean up safely, how you check your paints will last, and when and why you would varnish it.",
+        "rubric": [
+          "Oily rags can spontaneously combust: hang them flat to dry rather than leaving them crumpled",
+          "Ventilate when using solvents, wash hands, do not eat or drink while painting, and do not inhale dust when sanding pigmented layers",
+          "ACMI's AP seal marks products certified non-toxic; the CL seal marks products safe only when used as labeled (ASTM D4236)",
+          "ASTM lightfastness I (excellent) and II (very good) are suitable for lasting art; III or worse is not recommended",
+          "Varnish forms a removable protective layer that unifies sheen; apply only when paint is dry and firm in its thickest areas (weeks for Gamvar; about six months for traditional resin varnishes)"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Studio Health and Safety with Mary Tevlin from Gamblin",
+          "provider": "Todd M. Casey",
+          "url": "https://www.youtube.com/watch?v=JLoSE5DQ8dg",
+          "description": "Interview with a Gamblin representative about health and safety practices in the oil painting studio.",
+          "keyPoints": [
+            "Safer solvent use and ventilation",
+            "Handling pigments and studio hygiene",
+            "Oily rag disposal"
+          ],
+          "videoId": "JLoSE5DQ8dg"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Studio Safety: Create Without Compromise",
+          "provider": "Gamblin Artists Colors",
+          "url": "https://gamblincolors.com/studio-safety/studio-safety-create-without-compromise/",
+          "description": "Manufacturer guide to solvent choice, ventilation, oily rags and pigment handling.",
+          "keyPoints": [
+            "Hang oily rags flat to dry to avoid spontaneous combustion",
+            "Room air exchange plus open windows/fans for ventilation",
+            "Do not inhale dust when sanding cadmium or cobalt layers",
+            "Wash hands; no eating or drinking in the studio"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "ACMI Seals",
+          "provider": "Art & Creative Materials Institute (ACMI)",
+          "url": "https://www.acmiart.org/acmi-seals",
+          "description": "Explains the AP and CL certification seals on art materials.",
+          "keyPoints": [
+            "AP: toxicologist-reviewed, no materials in toxic quantities",
+            "CL: safe when used as directed with cautionary label",
+            "Smell is not a reliable guide to toxicity",
+            "Certified products conform to ASTM D4236"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How to Test for Lightfastness",
+          "provider": "Just Paint (Golden Artist Colors)",
+          "url": "https://justpaint.org/how-to-test-for-lightfastness/",
+          "description": "Explains ASTM lightfastness ratings and how to test a paint's fading with blue wool standards.",
+          "keyPoints": [
+            "ASTM I = excellent, II = very good (about 100 years museum conditions)",
+            "Ratings worse than II are not recommended for lasting art",
+            "Blue wool scale 1-8 used as a comparison standard",
+            "Simple test: half-exposed sample in a window"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Varnishing Help",
+          "provider": "Gamblin Artists Colors",
+          "url": "https://gamblincolors.com/varnishing-help/",
+          "description": "Guide to why, when and how to varnish oil and acrylic paintings.",
+          "keyPoints": [
+            "Varnish protects, unifies sheen and can be removed for conservation",
+            "Gamvar once paint is dry to the touch and firm in thickest areas",
+            "Thin work: 2-3 weeks; impasto: 1-2 months",
+            "Traditional resin varnishes need 6+ months; apply one thin coat"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Notes on Oil Painting",
+          "provider": "Art Studio Chalkboard (University of Evansville)",
+          "url": "https://studiochalkboard.evansville.edu/p-oils.html",
+          "description": "University studio notes on oil handling, solvents and varnish timing.",
+          "keyPoints": [
+            "Clean with mineral spirits or turpentine, or baby oil then soap",
+            "Do not varnish until six months after touch-dry",
+            "Paint keeps drying beneath the surface"
+          ]
+        }
+      ]
+    }
+  ],
+  "slug": "art-painting",
+  "name": "Art & Painting",
+  "description": "Learn traditional drawing and painting: materials, measuring, value, perspective, color, composition, acrylic/watercolor/oil techniques, and safe, archival studio practice.",
+  "status": "COMING_SOON"
+}

@@ -13,11 +13,12 @@ const STATUS = {
   locked: { icon: "lock", color: "var(--state-lock)", chip: "lock", label: "Locked" },
 };
 
-/** One stage in a skill roadmap. Locked stages blur the preview and explain why. */
-export function RoadmapStage({ index, title, image, description, status = "todo", mastery, meta, unlockHint, last = false, href, onOpen, style, ...rest }) {
+/** One stage in a skill roadmap. A locked stage shows a lock. Only the last two stages on a path are blurred. */
+export function RoadmapStage({ index, title, image, description, status = "todo", mastery, meta, unlockHint, conceal = false, last = false, href, onOpen, style, ...rest }) {
   const [hover, setHover] = React.useState(false);
   const s = STATUS[status] || STATUS.todo;
   const locked = status === "locked";
+  const veiled = locked && conceal;
   const open = Boolean(href) && !locked;
   const panelStyle = {
     position: "relative",
@@ -28,7 +29,7 @@ export function RoadmapStage({ index, title, image, description, status = "todo"
     overflow: "hidden",
     cursor: locked || (!open && !onOpen) ? "default" : "pointer",
     borderRadius: "var(--radius-card)",
-    background: locked ? "var(--surface-lock)" : "var(--surface-card)",
+    background: veiled ? "var(--surface-lock)" : "var(--surface-card)",
     border: "1px solid " + (!locked && hover ? "var(--border-accent)" : "var(--border-subtle)"),
     transition: "border-color var(--dur-base) var(--ease-in-out)",
     textDecoration: "none",
@@ -36,15 +37,16 @@ export function RoadmapStage({ index, title, image, description, status = "todo"
   };
   const panel = (
     <>
-      <div className="sf-stage-body" style={{ filter: locked ? "var(--blur-lock)" : "none", opacity: locked ? 0.5 : 1, userSelect: locked ? "none" : "auto" }}>
+      <div className="sf-stage-body" style={{ filter: veiled ? "var(--blur-lock)" : "none", opacity: veiled ? 0.5 : 1, userSelect: veiled ? "none" : "auto" }}>
         <div className="sf-stage-copy">
-          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4, flexWrap: "wrap" }}>
             <span style={{ fontSize: "var(--text-2xs)", fontWeight: "var(--weight-semibold)", letterSpacing: "var(--tracking-wide)", textTransform: "uppercase", color: "var(--text-faint)" }}>Stage {index}</span>
             {mastery != null && !locked ? <Chip tone="accent">{mastery}% mastery</Chip> : null}
-            {!locked ? <Chip tone={s.chip}>{s.label}</Chip> : null}
+            {!veiled ? <Chip tone={s.chip}>{s.label}</Chip> : null}
           </div>
           <h3 style={{ margin: 0, fontSize: "var(--text-sm)", fontWeight: "var(--weight-semibold)", color: "var(--text-primary)" }}>{title}</h3>
           {description ? <p className="sf-stage-desc">{description}</p> : null}
+          {locked && !veiled && unlockHint ? <p className="sf-stage-meta">{unlockHint}</p> : null}
           {meta ? <p className="sf-stage-meta">{meta}</p> : null}
         </div>
         {image ? (
@@ -53,7 +55,7 @@ export function RoadmapStage({ index, title, image, description, status = "todo"
           </span>
         ) : null}
       </div>
-      {locked ? (
+      {veiled ? (
         <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8, padding: 20, textAlign: "center" }}>
           <Icon name="lock" size={18} color="var(--state-lock)" />
           <p style={{ margin: 0, maxWidth: 380, fontSize: "var(--text-xs)", color: "var(--text-secondary)", textWrap: "pretty" }}>{unlockHint}</p>

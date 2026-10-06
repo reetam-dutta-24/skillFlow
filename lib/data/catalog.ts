@@ -4,7 +4,7 @@ import { auth } from "@/lib/auth";
 import { loadCachedStageResources, loadPublicCatalog, type PublicCatalogEntry, type PublicStage } from "@/lib/data/public-catalog";
 import { prisma } from "@/lib/prisma";
 import { masteryShare } from "@/lib/progress/formula";
-import { SEQUENCE_LOCK, stageOpenForLearner } from "@/lib/progress/sequence";
+import { stageOpenForLearner } from "@/lib/progress/sequence";
 import type { ResourceView, RoadmapStageView, SkillView, StageStatus } from "@/lib/types/domain";
 
 export type CatalogEntry = {
@@ -52,6 +52,7 @@ function applyStage(
   // The explain-back is the mastery check. A later stage stays shut until the earlier ones are passed.
   const passed = Boolean(completion?.explainBackPassed);
   const open = stage.open && reached;
+  const personalLock = stage.open && !reached;
   let status: StageStatus = "locked";
   if (open && passed) status = "passed";
   else if (open && stage.order === currentOrder) status = "in_progress";
@@ -60,15 +61,16 @@ function applyStage(
     id: stage.id,
     skillId: stage.skillId,
     title: stage.title,
-    description: open ? stage.description : stage.open ? SEQUENCE_LOCK : stage.description,
+    description: stage.description,
     image: stage.image,
     order: stage.order,
     status,
     masteryPercent: status === "passed" ? 100 : 0,
-    lessonCount: open ? stage.lessonCount : 0,
-    hasExplainBack: open && stage.hasExplainBack,
+    lessonCount: stage.open ? stage.lessonCount : 0,
+    hasExplainBack: stage.open && stage.hasExplainBack,
     explainBackPassed: open && passed,
     previousStageTitle: stage.previousStageTitle,
+    personalLock,
   };
 }
 

@@ -5,7 +5,6 @@ import { auth } from "@/lib/auth";
 import { loadPublicCatalog, publicSkillName } from "@/lib/data/public-catalog";
 import { getRoadmap } from "@/lib/data/roadmap";
 import { readLearningPlan } from "@/lib/plan/store";
-import { SEQUENCE_LOCK } from "@/lib/progress/sequence";
 import type { RoadmapStageView, StageStatus } from "@/lib/types/domain";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
 import { RoadmapStage } from "@/components/learning/RoadmapStage.jsx";
@@ -28,7 +27,7 @@ function stageStatus(status: StageStatus) {
 }
 
 function stageMeta(stage: RoadmapStageView, planNote: string) {
-  if (stage.status === "locked") return "Locked";
+  if (stage.status === "locked" && !stage.personalLock) return "";
   const lessons =
     stage.lessonCount === 0 ? "No lessons yet" : stage.lessonCount === 1 ? "1 lesson" : `${stage.lessonCount} lessons`;
   const parts = [lessons];
@@ -38,7 +37,7 @@ function stageMeta(stage: RoadmapStageView, planNote: string) {
 }
 
 function unlockHint(stage: RoadmapStageView) {
-  if (stage.description === SEQUENCE_LOCK && stage.previousStageTitle) {
+  if (stage.personalLock && stage.previousStageTitle) {
     return `Pass ${stage.previousStageTitle} to open this stage.`;
   }
   if (stage.previousStageTitle) return "The last part of this free path stays locked.";
@@ -121,6 +120,7 @@ export default async function RoadmapDetailPage({ params }: PageProps) {
                 mastery={stage.masteryPercent > 0 ? stage.masteryPercent : undefined}
                 meta={stageMeta(stage, status === "locked" ? "" : note)}
                 unlockHint={status === "locked" ? unlockHint(stage) : undefined}
+                conceal={index >= data.stages.length - 2}
                 last={index === data.stages.length - 1}
                 href={status === "locked" ? undefined : `/lesson/${stage.id}`}
               />

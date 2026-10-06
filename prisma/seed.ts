@@ -142,6 +142,7 @@ async function main() {
   await importCatalog("full-stack-web-dev", { apply: true })
   await importCatalog("content-creation", { apply: true })
   await importCatalog("travel-vlogging", { apply: true })
+  await importCatalog("music-production", { apply: true })
 }
 
 main()

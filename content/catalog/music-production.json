@@ -1,0 +1,968 @@
+{
+  "stages": [
+    {
+      "order": 1,
+      "title": "DAW Basics and Signal Flow",
+      "level": "BEGINNER",
+      "description": "How a DAW session is organised: audio vs MIDI tracks, instruments that turn MIDI into sound, and how signals flow through group, return and main tracks.",
+      "learningObjectives": [
+        "Explain the difference between audio tracks and MIDI tracks",
+        "Describe how a software instrument turns MIDI data into audio",
+        "Trace a track's signal to the main (master) output using input/output routing",
+        "Use group tracks (buses) and return tracks fed by sends"
+      ],
+      "explainBack": {
+        "question": "What is the difference between a MIDI track and an audio track, and how does sound travel from a track to the speakers in a DAW?",
+        "rubric": [
+          "Audio tracks hold recorded sound (audio is sound); MIDI holds performance data such as which notes, how long and velocity, and contains no sound itself",
+          "A software instrument on a MIDI track converts MIDI into audio, so MIDI parts can still be edited non-destructively (transpose, quantize, swap the instrument)",
+          "Every track's output is routed (via its input/output routing choosers) to the Main/master track by default",
+          "Group tracks sum several tracks into one bus/submix that has its own mixer controls and can host effects",
+          "Return tracks receive signal from the send controls on other tracks, so one effect can be shared by many tracks"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "AUDIO vs MIDI - What's the difference??",
+          "provider": "DSoundman",
+          "url": "https://www.youtube.com/watch?v=9nyW7GFLQtE",
+          "description": "A short explainer contrasting audio recordings with MIDI note data inside a DAW.",
+          "keyPoints": [
+            "Compares audio and MIDI as two kinds of track content",
+            "Explains why MIDI parts stay editable",
+            "Aimed at producers new to DAWs"
+          ],
+          "videoId": "9nyW7GFLQtE"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Beginner's Guide: MIDI vs Audio",
+          "provider": "DJ Mag",
+          "author": "E.M.M.A.",
+          "url": "https://djmag.com/features/beginner-s-guide-midi-vs-audio",
+          "description": "Explains that audio is sound while MIDI is performance data that tells instruments what to play, and lists what that means for editing.",
+          "keyPoints": [
+            "Audio is sound; a MIDI signal contains no sound",
+            "MIDI stores which notes were played, their length and velocity",
+            "MIDI edits are non-destructive: change instrument, quantize, transpose",
+            "MIDI cables carry only data, so hardware synths also need audio cables",
+            "MIDI has 16 channels for addressing multiple instruments"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Routing and I/O",
+          "provider": "Ableton Reference Manual (Live 12)",
+          "url": "https://www.ableton.com/en/live-manual/12/routing-and-i-o/",
+          "description": "The official Live manual chapter on how tracks get their input and where they send their output, including sends, returns and group routing.",
+          "keyPoints": [
+            "Audio tracks have an audio input; MIDI tracks have a MIDI input",
+            "Instruments convert MIDI to audio",
+            "The track In/Out section acts as a patchbay for sources and destinations",
+            "Return tracks receive their input from the corresponding sends"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Mixing",
+          "provider": "Ableton Reference Manual (Live 12)",
+          "url": "https://www.ableton.com/en/live-manual/12/mixing/",
+          "description": "Describes Live's mixer: audio/MIDI tracks, group tracks as summing containers, return tracks for shared effects, and the Main track as the default destination.",
+          "keyPoints": [
+            "The Main track is the default destination for all other tracks",
+            "Group Tracks sum tracks, have mixer controls and can host audio effects",
+            "Return tracks process audio sent from many tracks via Send controls",
+            "Mixer controls include volume, pan, mute (Track Activator), solo and arm"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Rhythm and Drum Programming",
+      "level": "BEGINNER",
+      "description": "Programming drum patterns on a grid: tempo in BPM, beats and bars, time signatures, common kick/snare patterns, quantization and velocity.",
+      "learningObjectives": [
+        "Explain tempo (BPM) and how it relates to genre",
+        "Read a time signature and relate beats to bars",
+        "Program a four-on-the-floor kick with a backbeat",
+        "Use quantization and velocity to control timing and dynamics"
+      ],
+      "explainBack": {
+        "question": "How would you program a basic house-style drum beat in a DAW, and how do tempo, time signature, quantization and velocity affect it?",
+        "rubric": [
+          "Tempo is measured in beats per minute (BPM) and helps define genre, e.g. house roughly 115-130 BPM vs drum and bass roughly 160-180 BPM",
+          "In a time signature the top number is the number of beats per bar and the bottom number is the note value that gets the beat; 4/4 = four quarter-note beats per bar",
+          "A four-on-the-floor pattern puts the kick on every beat (steps 1, 5, 9, 13 of a 16-step bar); a backbeat puts the snare or clap on beats 2 and 4",
+          "Quantizing moves MIDI notes onto the grid; a quantize Amount below 100% moves notes only part of the way to keep a less mechanical feel",
+          "Velocity sets how loud/hard each note plays, and varying it adds dynamics to a pattern"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Make your first beat in Ableton Live | Beginner Series Ep. 1",
+          "provider": "Ableton",
+          "url": "https://www.youtube.com/watch?v=eji6fRuVNUw",
+          "description": "Ableton's beginner series episode on building a first beat from MIDI drum patterns and audio loops.",
+          "keyPoints": [
+            "Builds a beat from MIDI drum patterns",
+            "Combines programmed drums with audio loops",
+            "First episode of Ableton's official beginner series"
+          ],
+          "videoId": "eji6fRuVNUw"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Beat and Tempo",
+          "provider": "Ableton Learning Music",
+          "url": "https://learningmusic.ableton.com/make-beats/beat-and-tempo.html",
+          "description": "Interactive lesson defining the beat as a steady pulse and tempo as its speed in beats per minute, with a four-on-the-floor exercise.",
+          "keyPoints": [
+            "A beat can mean a drum pattern or the steady underlying pulse",
+            "Tempo is measured in beats per minute (BPM)",
+            "Kick notes at steps 1, 5, 9 and 13 make a four-on-the-floor pattern"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Tempo and Genre",
+          "provider": "Ableton Learning Music",
+          "url": "https://learningmusic.ableton.com/make-beats/tempo-and-genre.html",
+          "description": "Shows how changing tempo changes the feel of the same pattern and lists typical BPM ranges for common genres.",
+          "keyPoints": [
+            "Genre depends on sounds, patterns and tempo",
+            "House is about 115-130 BPM; techno/trance about 120-140",
+            "Hip-hop about 60-100 BPM; drum and bass about 160-180"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Backbeats",
+          "provider": "Ableton Learning Music",
+          "url": "https://learningmusic.ableton.com/make-beats/backbeats.html",
+          "description": "Interactive lesson combining a four-on-the-floor kick with claps or snares on beats 2 and 4.",
+          "keyPoints": [
+            "A backbeat is a clap or snare on the second and fourth beats",
+            "Four-on-the-floor places the kick on every beat",
+            "The combination is common in techno and house"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Simple Meter and Time Signatures",
+          "provider": "Open Music Theory",
+          "url": "https://viva.pressbooks.pub/openmusictheory/chapter/simple-meter-and-time-signatures/",
+          "description": "Open textbook chapter explaining what each number in a time signature means, with common examples.",
+          "keyPoints": [
+            "Top number: how many beats are in each measure",
+            "Bottom number: which note value gets the beat (4 = quarter note)",
+            "4/4 has four quarter-note beats per measure; 3/4 has three",
+            "A time signature is not a fraction"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Editing MIDI",
+          "provider": "Ableton Reference Manual (Live 12)",
+          "url": "https://www.ableton.com/en/live-manual/12/editing-midi/",
+          "description": "Official manual chapter on editing MIDI notes, including the grid, quantizing and velocity editing.",
+          "keyPoints": [
+            "Quantizing aligns notes to the grid; Ctrl/Cmd+U quantizes selected notes",
+            "The Amount control moves notes only a percentage of the way to the grid",
+            "Velocity represents note loudness and is shown by note colour",
+            "Velocities can be drawn, ramped, randomized or given deviation"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Music Theory for Producers",
+      "level": "BEGINNER",
+      "description": "The theory you need to write parts in a piano roll: keys and scales, building major and minor triads, and reading chord progressions in Roman numerals.",
+      "learningObjectives": [
+        "Explain what a key, tonic and scale are",
+        "Build a major scale from its whole/half-step pattern",
+        "Build major and minor triads from a scale",
+        "Read and use a Roman-numeral chord progression such as I-V-vi-IV"
+      ],
+      "explainBack": {
+        "question": "How would you pick notes and chords for a song in C major, and what makes a chord major or minor?",
+        "rubric": [
+          "A key centres on a tonic ('home' note); a scale is the set of notes used, e.g. C major has no sharps or flats",
+          "A major scale follows the step pattern whole-whole-half-whole-whole-whole-half",
+          "A triad stacks the 3rd and 5th scale notes above a root: C major = C-E-G, C minor = C-Eb-G",
+          "Major triads tend to sound bright/happy and minor triads dark/sad",
+          "Progressions are written with Roman numerals for scale degrees; I-V-vi-IV underpins hundreds of pop songs"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Write a chord progression in Ableton Live | Beginner Series Ep. 2",
+          "provider": "Ableton",
+          "url": "https://www.youtube.com/watch?v=icKK0S7f8B8",
+          "description": "Ableton's beginner series episode on writing a chord progression for a track.",
+          "keyPoints": [
+            "Writes chords in a DAW piano roll",
+            "Builds a progression to sit with the drums from episode 1",
+            "Part of Ableton's official beginner series"
+          ],
+          "videoId": "icKK0S7f8B8"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Keys and Scales",
+          "provider": "Ableton Learning Music",
+          "url": "https://learningmusic.ableton.com/notes-and-scales/keys-and-scales.html",
+          "description": "Interactive lesson introducing the tonic, keys and scales as a palette of notes.",
+          "keyPoints": [
+            "A key has a tonic, the most stable 'home' note",
+            "A scale is an ordered subset of notes, like a palette",
+            "Major scales are usually heard as bright; minor as darker"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Building Major Scales",
+          "provider": "Ableton Learning Music",
+          "url": "https://learningmusic.ableton.com/advanced-topics/building-major-scales.html",
+          "description": "Lesson showing that every major scale uses the same pattern of whole and half steps from any tonic.",
+          "keyPoints": [
+            "Major scales have seven notes before the octave",
+            "Pattern: whole-whole-half-whole-whole-whole-half",
+            "Each letter name appears once per scale",
+            "C major is the only major scale with no sharps or flats"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Major Triads",
+          "provider": "Ableton Learning Music",
+          "url": "https://learningmusic.ableton.com/chords/major-triads.html",
+          "description": "Lesson building triads by adding the third and fifth scale notes above a root.",
+          "keyPoints": [
+            "Triads add the 3rd and 5th scale notes above a root",
+            "The C major triad is C, E and G",
+            "Major triads are usually heard as happy or uplifting"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Minor Triads",
+          "provider": "Ableton Learning Music",
+          "url": "https://learningmusic.ableton.com/chords/minor-triads.html",
+          "description": "Lesson building minor triads from the minor scale, contrasting them with major triads.",
+          "keyPoints": [
+            "The C minor triad is C, Eb and G",
+            "Built from the 1st, 3rd and 5th notes of the minor scale",
+            "Minor triads are usually heard as sad or dark"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "1-5-6-4",
+          "provider": "Ableton Learning Music",
+          "url": "https://learningmusic.ableton.com/chords/1-5-6-4.html",
+          "description": "Lesson on the I-V-vi-IV progression and how many pop songs share it.",
+          "keyPoints": [
+            "I-V-vi-IV forms the basis of hundreds of pop songs",
+            "Demonstrated in D major",
+            "Invites rearranging chords to hear tension and resolution"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Recording Audio at Home",
+      "level": "INTERMEDIATE",
+      "description": "Capturing clean recordings: setting input gain, choosing sample rate and bit depth, managing latency with buffer size, and placing a microphone.",
+      "learningObjectives": [
+        "Set input gain to get a healthy level without clipping",
+        "Choose a sample rate and bit depth and explain what each controls",
+        "Adjust buffer size to balance latency against CPU load",
+        "Place a vocal microphone with awareness of proximity effect and room sound"
+      ],
+      "explainBack": {
+        "question": "You're about to record vocals at home. How do you set up levels, session format, latency and the mic?",
+        "rubric": [
+          "Sets input gain for a healthy signal above the noise floor without clipping; at 24-bit you can leave generous headroom (e.g. averages around -18 dBFS rather than peaks near 0)",
+          "Sample rate sets the highest recordable frequency (about half the sample rate), so 44.1/48 kHz covers the ~20 kHz hearing range; 48 kHz at 24-bit is a common choice",
+          "Each bit adds about 6 dB of dynamic range: 16-bit about 96 dB, 24-bit about 144 dB, so 24-bit lowers the noise floor",
+          "Smaller buffer sizes give lower latency but use more CPU and can cause dropouts; larger buffers are more stable but add latency",
+          "Close miking gives a drier sound with less room but very close placement adds bass (proximity effect); room sound captured at a distance cannot be removed later"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Everything you need to record vocals at home (Logic Pro X, Garageband, Ableton, Etc..)",
+          "provider": "Splice",
+          "url": "https://www.youtube.com/watch?v=ht1nL_Af3s8",
+          "description": "Walkthrough of a home vocal recording setup: mic, shock mount, pop shield, cable and connecting to a DAW.",
+          "keyPoints": [
+            "Explains each piece of a vocal recording kit",
+            "Shows assembling and connecting a condenser mic",
+            "Applies to any interface and DAW"
+          ],
+          "videoId": "ht1nL_Af3s8"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Q. Should I gain-stage to -6dBFS or -18dBFS?",
+          "provider": "Sound On Sound",
+          "author": "Matt Houghton",
+          "url": "https://www.soundonsound.com/sound-advice/q-should-gain-stage-6dbfs-or-18dbfs",
+          "description": "Explains recording vs mixing level targets: aim for a healthy signal without clipping, and why 24-bit allows more headroom.",
+          "keyPoints": [
+            "When recording, aim for a healthy level relative to noise without clipping",
+            "At 24-bit the noise floor is low enough to leave plenty of headroom",
+            "-18 dBFS refers to average (RMS) level, not peaks",
+            "Floating-point DAW mixers can't clip internally, but the output must stay under 0 dBFS"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Gain staging: what it is and how to do it",
+          "provider": "iZotope",
+          "author": "Nick Messitte",
+          "url": "https://www.izotope.com/en/learn/gain-staging-what-it-is-and-how-to-do-it.html",
+          "description": "Defines gain staging as keeping each stage at an optimal level to minimise noise and distortion, with -18 dBFS as a common reference.",
+          "keyPoints": [
+            "Gain staging balances noise floor against distortion",
+            "About -18 dBFS is a common calibration level; some use -20",
+            "Exported files must stay below 0 dBFS to avoid permanent clipping"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Digital audio basics: audio sample rate and bit depth",
+          "provider": "iZotope",
+          "author": "Ian Stewart",
+          "url": "https://www.izotope.com/en/learn/sampling-rate.html",
+          "description": "Explains how sample rate limits the highest frequency and how bit depth sets the noise floor and dynamic range.",
+          "keyPoints": [
+            "Recording frequency f needs a sample rate of at least 2f",
+            "Each bit adds about 6 dB: 16-bit ~96 dB, 24-bit ~144 dB",
+            "48 or 96 kHz at 24-bit suits most music production",
+            "Higher sample rates don't make low frequencies 'smoother'"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How to reduce latency",
+          "provider": "Ableton Help Center",
+          "url": "https://help.ableton.com/hc/en-us/articles/209072289-How-to-reduce-latency",
+          "description": "Official support article on audio buffer size, sample rate, drivers and plug-in latency.",
+          "keyPoints": [
+            "Audio is processed in parcels of time called buffers",
+            "Smaller buffers lower latency but use more CPU and risk dropouts",
+            "Use ASIO drivers on Windows and avoid Bluetooth/Wi-Fi audio",
+            "Some plug-ins add latency; delay compensation keeps tracks in sync"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Q. At what distance from my mic should I record my voice?",
+          "provider": "Sound On Sound",
+          "author": "Sam Inglis",
+          "url": "https://www.soundonsound.com/sound-advice/q-what-distance-my-mic-should-record-my-voice",
+          "description": "Compares close and distant vocal miking, covering proximity effect, room sound, low-cut filters and polar patterns.",
+          "keyPoints": [
+            "Close miking gives a dry vocal you can add reverb to later",
+            "Very close placement sounds artificially bassy (proximity effect)",
+            "Farther away captures room reverb and noise you can't remove later",
+            "Cardioid favours the front; omni picks up all directions"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Synthesis Basics",
+      "level": "INTERMEDIATE",
+      "description": "How a subtractive synth makes sound: oscillators and waveforms, filters, ADSR envelopes and LFO modulation.",
+      "learningObjectives": [
+        "Describe common oscillator waveforms and their tone",
+        "Use a filter's cutoff and resonance to shape tone",
+        "Shape a sound over time with an ADSR envelope",
+        "Use an LFO to add movement (vibrato, tremolo, filter sweeps)"
+      ],
+      "explainBack": {
+        "question": "Explain how you would design a simple synth bass or pad using an oscillator, filter, envelope and LFO.",
+        "rubric": [
+          "The oscillator generates the raw waveform: sine is the purest, sawtooth contains all harmonics and is bright, square is edgy/hollow, triangle is soft",
+          "Subtractive synthesis starts from a harmonically rich wave and filters it: a low-pass filter removes frequencies above the cutoff and resonance boosts frequencies around the cutoff",
+          "ADSR: attack is time to reach peak, decay is time to fall to the sustain level, sustain is a level held while the key is down, release is the fade time after the key is released",
+          "An LFO is a sub-audio oscillator that modulates another parameter: on pitch it gives vibrato, on amplitude tremolo, on filter cutoff a wah/sweep"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Synthesizer Tutorial for Beginners // Synth Programming 101",
+          "provider": "Starsky Carr",
+          "url": "https://www.youtube.com/watch?v=c_igLDC-G0Y",
+          "description": "Beginner synth programming tutorial covering oscillators, filters, envelopes and LFOs, then building bass, acid and pad sounds.",
+          "keyPoints": [
+            "Covers the shared building blocks of most synths",
+            "Explains oscillators, filters and envelopes",
+            "Demonstrates LFO modulation and example patches"
+          ],
+          "videoId": "c_igLDC-G0Y"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Learning Synths: Get Started",
+          "provider": "Ableton Learning Synths",
+          "url": "https://learningsynths.ableton.com/en/get-started",
+          "description": "Browser-based interactive synth from Ableton with lessons on oscillators, filter, envelopes and LFO.",
+          "keyPoints": [
+            "Play a synth in the browser and learn its parts",
+            "Lessons on oscillators, filter, envelopes and LFO",
+            "Requires JavaScript in a modern browser"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Soft Synth Essentials: Oscillators, Envelopes, and Filters",
+          "provider": "iZotope",
+          "author": "Josh Kipersztok",
+          "url": "https://www.izotope.com/community/blog/soft-synth-essentials-osillators-envelopes-and-filters",
+          "description": "Introduces oscillator waveforms, ADSR envelopes, filter types with resonance, and LFOs in software synths.",
+          "keyPoints": [
+            "Sawtooth contains all harmonic overtones and sounds bright",
+            "Triangle is softer, closer to a sine; square is edgy",
+            "Low-pass removes highs, high-pass removes lows, band-pass keeps the middle",
+            "Resonance emphasises the level at the cutoff"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Analog Synthesizer Basics: Oscillators, Filters, Envelopes, More",
+          "provider": "B&H Explora",
+          "author": "Gabby Bloch",
+          "url": "https://www.bhphotovideo.com/explora/node/120941",
+          "description": "Overview of the main subtractive-synth sections: oscillators, filters with cutoff and resonance, ADSR envelopes and LFOs.",
+          "keyPoints": [
+            "Oscillators produce sine, square, sawtooth and triangle waves",
+            "Subtractive synthesis shapes sound by removing harmonic content",
+            "Cutoff sets where filtering happens; resonance emphasises it",
+            "LFOs run below hearing range to modulate other parameters"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "ADSR envelopes",
+          "provider": "synth notes (UC San Diego)",
+          "url": "https://synthnotes.ucsd.edu/wp4/?p=276",
+          "description": "University course notes defining the four ADSR stages and how note-on and note-off trigger them.",
+          "keyPoints": [
+            "Attack rises to peak; decay falls to the sustain level",
+            "Sustain is a level, not a time",
+            "Release starts at note-off and falls to zero",
+            "Envelopes can control gain, brightness, vibrato and more"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Chapter 11: A Basic Synthesis Model",
+          "provider": "An Introduction to Music Technology (CSUN)",
+          "author": "Dan Hosken",
+          "url": "https://www.csun.edu/~dwh50750/IntroToMusicTech/Ch11-synthesis_model.html",
+          "description": "Companion page to a music-technology textbook presenting the oscillator-filter-amplifier model with envelope and LFO modulation examples.",
+          "keyPoints": [
+            "Model: oscillator, filter, amplifier with envelope, modulation",
+            "LFO on pitch creates vibrato; on amplitude, tremolo",
+            "Modulating filter cutoff gives wah-like sweeps",
+            "Also covers PWM, detuning, ring modulation and sync"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "title": "Mixing Fundamentals",
+      "level": "INTERMEDIATE",
+      "description": "Balancing a mix with levels and panning, shaping tone with EQ, controlling dynamics with compression, and adding space with reverb and delay on send/return tracks.",
+      "learningObjectives": [
+        "Balance levels and position sounds with panning",
+        "Use EQ filters to remove problems and separate instruments",
+        "Set a compressor's threshold, ratio, attack, release and makeup gain",
+        "Apply reverb and delay through sends and return tracks"
+      ],
+      "explainBack": {
+        "question": "Walk through how you'd mix a simple track: balance, EQ, compression and reverb.",
+        "rubric": [
+          "Volume faders set each track's level and pan positions its output in the stereo field",
+          "EQ boosts or cuts frequencies: high-pass filters remove unwanted lows, bell filters have frequency, gain and Q, and EQ is judged in context of the whole mix",
+          "Compression reduces gain above the threshold by the ratio (at 3:1, 3 dB over the threshold comes out as 1 dB over); attack/release set how fast it reacts and recovers, and makeup/output gain restores level",
+          "Reverb/delay go on a return (aux) track fed by sends, the return effect is set 100% wet, and each track's send level sets how much effect it gets",
+          "More reverb pushes a sound further back in the mix; less brings it forward"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Mix and automate your track in Ableton Live | Beginner Series Ep. 7",
+          "provider": "Ableton",
+          "url": "https://www.youtube.com/watch?v=xPHX-zDsjuo",
+          "description": "Ableton's beginner series episode on mixing a track and adding automation.",
+          "keyPoints": [
+            "Balances a finished arrangement in the mixer",
+            "Applies effects while mixing",
+            "Introduces automation for mix moves"
+          ],
+          "videoId": "xPHX-zDsjuo"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Mixing",
+          "provider": "Ableton Reference Manual (Live 12)",
+          "url": "https://www.ableton.com/en/live-manual/12/mixing/",
+          "description": "Official chapter on the mixer: volume, pan, meters, sends, return tracks with pre/post options, and group tracks.",
+          "keyPoints": [
+            "Pan positions a track's output in the stereo field",
+            "Meters show peak and RMS levels",
+            "Send controls set how much of a track feeds a return track",
+            "Pre/Post toggles tap the send before or after the volume/pan stage"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Introduction to EQ",
+          "provider": "FabFilter Learn",
+          "author": "Maarten de Boer",
+          "url": "https://www.fabfilter.com/learn/equalization/introduction-to-eq",
+          "description": "Introduces EQ filter types (high/low pass, shelf, bell) and three uses: removing problems, balancing instruments and enhancing character.",
+          "keyPoints": [
+            "High-pass (low cut) removes lows; low-pass (high cut) removes highs",
+            "Bell filters have frequency, gain and Q (bandwidth)",
+            "Shelves suit broad tonal changes",
+            "Always EQ sounds in context, not in isolation"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Live Audio Effect Reference",
+          "provider": "Ableton Reference Manual (Live 12)",
+          "url": "https://www.ableton.com/en/live-manual/12/live-audio-effect-reference/",
+          "description": "Official reference for Live's audio effects; the Compressor section defines threshold, ratio, attack, release and output gain.",
+          "keyPoints": [
+            "Threshold sets where compression begins",
+            "Ratio 3: 3 dB more input above threshold gives only 1 dB more output",
+            "Attack: time to reach full compression; release: time to recover",
+            "Output gain restores level after compression reduces peaks"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What is Reverb in Music?",
+          "provider": "Berklee Online",
+          "author": "Erik Hawkins",
+          "url": "https://online.berklee.edu/takenote/what-is-reverb-in-music/",
+          "description": "Berklee instructor's guide to using one bus reverb across a mix, at 100% wet, to create depth.",
+          "keyPoints": [
+            "Put reverb on a bus and send each track to it",
+            "Keep the reverb's dry/wet at 100% processed",
+            "Control the amount per track with its send level",
+            "More reverb pushes a part back; less brings it forward"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Arrangement and Song Structure",
+      "level": "ADVANCED",
+      "description": "Turning a loop into a full track: song sections and their jobs, common forms, building tension into a drop, and using automation to shape energy.",
+      "learningObjectives": [
+        "Organise a track into sections built from 4/8/16-bar blocks",
+        "Explain the roles of intro, verse, pre-chorus, chorus, bridge and outro",
+        "Build tension into a drop or chorus with build-up techniques",
+        "Record or draw automation to change parameters over time"
+      ],
+      "explainBack": {
+        "question": "How would you turn an 8-bar loop into a complete song with a satisfying structure and energy curve?",
+        "rubric": [
+          "Sections are built from patterns that repeat in multiples of 4, 8 or 16 bars and then combined (arranging)",
+          "A verse repeats its music with new lyrics; a chorus repeats the same lyrics and hook and is the peak; a pre-chorus builds into it; a bridge contrasts and usually comes once, after the second chorus",
+          "A common pop form is intro, verse, pre-chorus, chorus, verse, pre-chorus, chorus, bridge, chorus, (outro)",
+          "A build-up creates tension before a drop using automation such as filter sweeps/high-passing, risers, pitch rises and accelerating snare rolls, reduced bass, and often a brief silence; 8 bars is a common length",
+          "Automation records or draws a parameter's movement over the timeline (e.g. with Automation Arm or by drawing breakpoints)"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Turn your loop into a track in Ableton Live | Beginner Series Ep. 5",
+          "provider": "Ableton",
+          "url": "https://www.youtube.com/watch?v=a4CJH5waOBY",
+          "description": "Ableton's beginner series episode on arranging a loop into a full track.",
+          "keyPoints": [
+            "Expands a loop into song sections",
+            "Shows arranging in the Arrangement timeline",
+            "Part of Ableton's official beginner series"
+          ],
+          "videoId": "a4CJH5waOBY"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Song Structure",
+          "provider": "Ableton Learning Music",
+          "url": "https://learningmusic.ableton.com/song-structure/song-structure.html",
+          "description": "Interactive lesson on how songs are built from smaller blocks of time combined into sections.",
+          "keyPoints": [
+            "A song is a block of time broken into smaller blocks",
+            "Patterns usually repeat in multiples of 4, 8 or 16 bars",
+            "Arranging means combining sections into a full piece"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Song structure",
+          "provider": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Song_structure",
+          "description": "Encyclopedia overview of the standard sections of popular songs and the most common verse-chorus layouts.",
+          "keyPoints": [
+            "Verse music returns with new lyrics each time",
+            "Chorus keeps the same lyrics and carries the hook",
+            "Pre-chorus builds toward the chorus; bridge contrasts, often after chorus 2",
+            "Common form: intro, verse, pre-chorus, chorus, verse, pre-chorus, chorus, bridge, chorus"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How to Write a Bridge to a Song",
+          "provider": "Berklee Online",
+          "author": "Andrea Stolpe",
+          "url": "https://online.berklee.edu/takenote/writing-bridges-for-your-songs-can-be-much-easier/",
+          "description": "Berklee songwriting instructor explains where the bridge falls in a typical song and how it creates musical and lyrical contrast.",
+          "keyPoints": [
+            "Bridge usually appears after the second chorus",
+            "Bridges give musical contrast: new chords, dynamics, melody or rhythm",
+            "A bridge can extend or exceed the second chorus's high point"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "The Ultimate Guide to Build-ups",
+          "provider": "EDMProd",
+          "author": "Sam Matla",
+          "url": "https://www.edmprod.com/ultimate-guide-build-ups/",
+          "description": "Guide to building tension before a drop in electronic music using automation, risers, snare rolls and contrast.",
+          "keyPoints": [
+            "Build-ups create tension that makes the drop hit harder",
+            "Automation (filter sweeps, reverb, pitch) is the main tool",
+            "Snare rolls that speed up and risers signal the change",
+            "8 bars is a reliable build-up length; silence before a drop adds contrast"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Automation and Editing Envelopes",
+          "provider": "Ableton Reference Manual (Live 12)",
+          "url": "https://www.ableton.com/en/live-manual/12/automation-and-editing-envelopes/",
+          "description": "Official chapter on recording automation with Automation Arm and drawing or editing automation envelopes.",
+          "keyPoints": [
+            "Automation is a control's movement along the timeline",
+            "Enable Automation Arm to record control changes",
+            "Draw and edit breakpoints in Automation Mode",
+            "Re-Enable Automation restores overridden automation"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "title": "Mastering and Delivery",
+      "level": "ADVANCED",
+      "description": "Finishing a track for release: measuring loudness in LUFS, limiting, true-peak headroom, streaming normalization and exporting the right file format.",
+      "learningObjectives": [
+        "Measure loudness with LUFS (integrated, short-term, momentary)",
+        "Explain how streaming services normalize loudness",
+        "Use a limiter and set a true-peak ceiling",
+        "Export a master in an appropriate format, bit depth and dither"
+      ],
+      "explainBack": {
+        "question": "How would you prepare and export a finished track for Spotify and other streaming services?",
+        "rubric": [
+          "LUFS measures perceived loudness; integrated LUFS is the average over the whole song (used by streaming services), short-term uses a 3 s window and momentary 400 ms",
+          "Streaming services normalize playback: Spotify's default is -14 LUFS (louder tracks turned down, quieter ones turned up), Apple Music about -16 and YouTube about -14",
+          "A limiter is a brick-wall, high-ratio compressor that stops peaks exceeding a set ceiling and is used to raise loudness; over-limiting causes distortion and dulled transients",
+          "Spotify recommends keeping true peak below -1 dBTP, or below -2 dBTP if the master is louder than -14 LUFS, because inter-sample peaks can distort after lossy encoding",
+          "Export the master as lossless WAV/AIFF/FLAC (24-bit, or 16-bit with dither); dither is applied only once, on the final reduction in bit depth"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "LUFS Explained – SIMPLE! (Mastering for Spotify)",
+          "provider": "EDM Tips",
+          "url": "https://www.youtube.com/watch?v=vidK3mE5Mn0",
+          "description": "Short explainer on LUFS and how loudness targets apply when mastering for Spotify.",
+          "keyPoints": [
+            "Explains what LUFS measures",
+            "Relates LUFS to Spotify's loudness normalization",
+            "Aimed at producers mastering their own music"
+          ],
+          "videoId": "vidK3mE5Mn0"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What are LUFS? The complete guide",
+          "provider": "iZotope",
+          "url": "https://www.izotope.com/en/learn/what-are-lufs.html",
+          "description": "Explains LUFS and the momentary, short-term, integrated, loudness-range and true-peak readings on a loudness meter.",
+          "keyPoints": [
+            "LUFS = loudness units relative to full scale, K-weighted",
+            "Momentary uses a 400 ms window; short-term a 3 s window",
+            "Integrated is the average over the whole song",
+            "True peak uses oversampling to catch peaks between samples"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Loudness normalization on Spotify",
+          "provider": "Spotify for Artists",
+          "url": "https://support.spotify.com/au/artists/article/loudness-normalization/",
+          "description": "Spotify's official explanation of its loudness normalization targets, limiter behaviour and true-peak recommendations.",
+          "keyPoints": [
+            "Default normalization is -14 LUFS (ITU 1770)",
+            "Loud setting is -11 LUFS, Quiet is -19 LUFS",
+            "Keep masters below -1 dBTP; below -2 dBTP if louder than -14 LUFS",
+            "Albums are normalized as a whole to keep relative levels"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How to master for streaming platforms: normalization, LUFS, and loudness",
+          "provider": "iZotope",
+          "author": "Ian Stewart",
+          "url": "https://www.izotope.com/en/learn/mastering-for-streaming-platforms.html",
+          "description": "Explains loudness normalization across platforms and why it is a listener convenience rather than a mastering target.",
+          "keyPoints": [
+            "Spotify -14, Apple Music -16, YouTube -14, Deezer -15 LUFS",
+            "Normalization exists so listeners don't keep adjusting volume",
+            "Keep true peaks around -1 dBTP to avoid codec distortion",
+            "Master for the best sound, not a number"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "An introduction to limiters (and how to use them)",
+          "provider": "iZotope",
+          "author": "Nick Messitte",
+          "url": "https://www.izotope.com/community/blog/an-introduction-to-limiters-and-how-to-use-them",
+          "description": "Explains what a limiter does in mastering, its ceiling, gain and release controls, true-peak modes and signs of over-limiting.",
+          "keyPoints": [
+            "A limiter applies brick-wall compression to stop peaks passing the ceiling",
+            "Mastering ceilings are typically set between -1.0 and -0.1 dBFS",
+            "True-peak modes catch peaks between samples",
+            "Over-limiting causes distortion, dull transients and lost groove"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Managing Files and Sets",
+          "provider": "Ableton Reference Manual (Live 12)",
+          "url": "https://www.ableton.com/en/live-manual/12/managing-files-and-sets/",
+          "description": "Official chapter including audio export: file types, sample rate conversion, bit depth and dither options.",
+          "keyPoints": [
+            "Exports WAV, AIFF and FLAC, plus MP3 at 320 kbps CBR",
+            "Bit depth options are 16, 24 or 32-bit",
+            "Dither should be applied only once to any file",
+            "Export at 32-bit if more processing will follow"
+          ]
+        }
+      ]
+    }
+  ],
+  "slug": "music-production",
+  "name": "Music Production",
+  "description": "Make music at home in a DAW, from tracks, beats and basic theory through recording, synthesis, mixing, arrangement and mastering for streaming.",
+  "status": "COMING_SOON"
+}

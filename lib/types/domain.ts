@@ -64,6 +64,8 @@ export type RoadmapStageView = {
   hasExplainBack: boolean;
   explainBackPassed: boolean;
   previousStageTitle: string | null;
+  /** Shut until earlier explain-backs are passed. The card stays readable. */
+  personalLock?: boolean;
 };
 
 export type ExplainBackPromptView = {

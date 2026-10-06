@@ -6,6 +6,7 @@ import { getNotifications } from "@/lib/data/notifications";
 import { AccountMenuFallback } from "./_components/AccountMenuFallback";
 import { AppShell } from "./_components/AppShell";
 import { NotificationMenu } from "./_components/NotificationMenu";
+import { RecallLock } from "./_components/RecallLock";
 import { ShellIdentity } from "./_components/ShellIdentity";
 import { ShellReview } from "./_components/ShellReview";
 
@@ -27,7 +28,11 @@ async function ShellNotifications() {
 
 export default function AppGroupLayout({ children }: { children: ReactNode }) {
   return (
-    <AppShell
+    <>
+      <Suspense fallback={null}>
+        <RecallLock />
+      </Suspense>
+      <AppShell
       account={
         <Suspense fallback={<AccountMenuFallback />}>
           <ShellIdentity />
@@ -44,7 +49,8 @@ export default function AppGroupLayout({ children }: { children: ReactNode }) {
         </Suspense>
       }
     >
-      {children}
-    </AppShell>
+        {children}
+      </AppShell>
+    </>
   );
 }

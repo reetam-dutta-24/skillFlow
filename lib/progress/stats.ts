@@ -54,7 +54,7 @@ function emptyStats(now: Date): ProgressStats {
  * Read on the request. Writing the stored streak and mastery does not touch the catalog cache.
  */
 export async function loadProgressStats(userId: string, catalog: CatalogEntry[], now = new Date()): Promise<ProgressStats> {
-  const [user, attempts, notes, completions] = await Promise.all([
+  const [user, attempts, notes, completions, recalls] = await Promise.all([
     prisma.user.findUnique({
       where: { id: userId },
       select: { currentStreak: true, longestStreak: true, lastActivityDate: true },
@@ -88,11 +88,19 @@ export async function loadProgressStats(userId: string, catalog: CatalogEntry[],
       where: { userId, explainBackPassed: true },
       select: { stageId: true, completedAt: true },
     }),
+    prisma.recallCheck.findMany({
+      where: { userId },
+      select: { createdAt: true },
+    }),
   ]);
 
   if (!user) return emptyStats(now);
 
-  const activityDates = [...attempts.map((row) => row.createdAt), ...notes.map((row) => row.createdAt)];
+  const activityDates = [
+    ...attempts.map((row) => row.createdAt),
+    ...notes.map((row) => row.createdAt),
+    ...recalls.map((row) => row.createdAt),
+  ];
   const streak = streakFromDays(activityDates.map(utcDay), utcDay(now));
   const lastAt = activityDates.reduce<Date | null>((latest, date) => {
     if (!latest || date.getTime() > latest.getTime()) return date;

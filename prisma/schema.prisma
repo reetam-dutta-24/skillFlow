@@ -58,6 +58,7 @@ model User {
 
   learnerNotes LearnerNote[]
   learningPlans LearningPlan[]
+  recallChecks  RecallCheck[]
 }
 
 model LearnerProfile {
@@ -381,9 +382,30 @@ model LearnerNote {
   user  User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   skill Skill         @relation(fields: [skillId], references: [id], onDelete: Cascade)
   stage RoadmapStage? @relation(fields: [stageId], references: [id], onDelete: Cascade)
+  recallChecks RecallCheck[]
 
   @@unique([userId, stageId, concept])
   @@index([userId, updatedAt])
+}
+
+/// One written recall of a passed stage idea. Two per idea, then it stops. The stage pass is untouched.
+model RecallCheck {
+  id        String   @id @default(cuid())
+  userId    String
+  noteId    String
+  answer    String   @db.Text
+  /// strong, partial, or weak.
+  quality   String
+  /// 100, 55, or 20. Retention is the average of these.
+  score     Int
+  review    String   @db.Text
+  createdAt DateTime @default(now())
+
+  user User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  note LearnerNote @relation(fields: [noteId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([noteId, createdAt])
 }
 
 // ── PERSONAL LEARNING PLAN ──────────────────────

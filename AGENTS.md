@@ -103,7 +103,7 @@ Wired to Postgres:
 Not wired:
 
 - Passing an explain-back does not unlock the next stage. The last three stages of a free path are what stay locked.
-- Stripe and the transcript PDF. Those routes are labeled previews and stay out of the main nav. There is no leaderboard and no peer review. A creator rating and earnings are not part of the product. Notes from an accepted explain-back idea are stored at `/notes`, can be downloaded as Word or PDF, and a stage can be summarized from those notes alone.
+- Stripe and the transcript PDF. Those routes are labeled previews and stay out of the main nav. There is no leaderboard and no peer review. A creator rating and earnings are not part of the product. Notes from an accepted explain-back idea are stored at `/notes`, can be downloaded as Word or PDF, and a stage can be summarized from those notes alone. Those notes are not turned into lessons. A passed stage idea comes back twice, 18 hours apart, as a card over the app until the learner writes an answer. A thin answer still opens the app and lowers Retention on Progress. The stage pass stays. Closing the browser is what clears the hold for the next idea.
 - `requireLearner()` exists and is not used by pages. `requireAdmin()` is: no session goes to `/login`, any other role gets `notFound()`.
 
 ## Stack facts that are easy to get wrong

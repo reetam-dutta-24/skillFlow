@@ -438,7 +438,9 @@ The data model already has `Skill.offer` and `RoadmapStage.monetized`. Version 1
 There is no `/leaderboard` route. Verified understanding stays on the learner’s own progress.
 
 ## V2 PHASE 3 — Explanations reused as lessons
-**Status: ⬜ NOT STARTED. Needs real explain-back volume.**
+**Status: 🚫 REMOVED.**
+
+An accepted explanation stays in Notes. It is not turned into a lesson for other learners. The shared path stays the researched catalog. A learner who wants to share a concept uses Open Source.
 
 ## V2 PHASE 4 — Transcript
 **Status: ⬜ NOT STARTED as data. The page exists and is `noindex`.**
@@ -480,7 +482,7 @@ The extra niches are in the database and show as coming soon. A new path is a re
 
 - [x] Usage-cutoff dialog (soft: take a break, or continue)
 - [x] Bring-your-own-resource page that turns a resource into a sample explain-back gate prompt
-- [ ] Spaced repetition
+- [x] Spaced repetition: each passed idea comes back twice, 18 hours apart. A card locks the app until any written answer. Retention on Progress is the average of those answers. The stage pass stays.
 - [ ] A certificate that is lighter than the transcript
 
 ---

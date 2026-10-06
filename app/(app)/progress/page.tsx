@@ -28,6 +28,7 @@ export default async function ProgressPage() {
           <li><StatCard emphasis label="Milestones this week" value={data.milestonesPassedThisWeek} icon={<Icon name="flag" size={14} />} /></li>
           <li><StatCard label="Explain-backs passed" value={data.explainBacksPassed} icon={<Icon name="message-square-quote" size={14} />} /></li>
           <li><StatCard label="Longest streak" value={data.longestStreak} unit={data.longestStreak === 1 ? "day" : "days"} icon={<Icon name="flame" size={14} />} /></li>
+          <li><StatCard label="Retention" value={data.retention ?? "—"} unit={data.retention == null ? undefined : "of 100"} hint={data.retention == null ? "Shows after the first recall" : "Average of recall answers"} icon={<Icon name="message-square-quote" size={14} />} /></li>
         </ul>
       </section>
       <ProgressBoard data={data} />

@@ -1,0 +1,568 @@
+{
+  "stages": [
+    {
+      "order": 1,
+      "title": "The Screenplay Page",
+      "level": "BEGINNER",
+      "description": "How a film script is laid out so a reader, and later a crew, can see the scene: sluglines, action, character cues and dialogue.",
+      "learningObjectives": [
+        "Name the main elements of a screenplay page",
+        "Write a scene heading that states interior or exterior, place and time",
+        "Keep action to what can be seen or heard, written in the present tense",
+        "Distinguish a spec script from a shooting script"
+      ],
+      "explainBack": {
+        "question": "You are formatting the opening of a short film: two people argue in a kitchen at night, then one steps outside. Describe the elements you would put on the page, and how a spec script differs from a shooting script.",
+        "rubric": [
+          "A slugline starts each scene and states INT. or EXT., the location and the time of day; stepping outside begins a new scene",
+          "Action is written in the present tense and is limited to what the audience can see or hear",
+          "Dialogue is the words the characters speak, set apart from the action",
+          "One page is only a rough estimate of one minute, and the standard type is 12-point Courier",
+          "A spec script is written to be sold with no upfront payment; a shooting script is where the sluglines are numbered"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Anatomy of a Screenplay — Movie Script Format Explained (And Why It Matters)",
+          "provider": "StudioBinder",
+          "url": "https://www.youtube.com/watch?v=6PLSJBTzaGw",
+          "videoId": "6PLSJBTzaGw",
+          "description": "StudioBinder walks through the six basic screenplay elements, starting with the slugline, action and character cues.",
+          "keyPoints": [
+            "A slugline holds location and time: EXT. outside, INT. inside, INT./EXT. when both",
+            "Keep a scene heading to one line; time can be DAY, NIGHT, CONTINUOUS or MOMENTS LATER",
+            "Action is what is seen or heard; a character name is uppercase before dialogue",
+            "Extensions such as voice-over and off-screen sit with the character name"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Medium and Format",
+          "provider": "BBC Writers",
+          "url": "https://www.bbc.co.uk/writers/resources/medium-and-format/",
+          "description": "BBC Writers explains why film, television and radio each have a format, and what a single film script is expected to be.",
+          "keyPoints": [
+            "Formats exist because of the medium: a correct layout helps a reader and the later rewrite",
+            "A single film is a complete story, usually 75 to 120 minutes, sent as a full script",
+            "TV series, serials and singles are different submissions: a series needs a pilot plus a short outline of later episodes",
+            "Produced BBC scripts in the Script Library show the formats in use"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Screenplay",
+          "provider": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Screenplay",
+          "description": "What a screenplay contains, why one page is treated as about a minute, and how a spec script differs from a shooting script.",
+          "keyPoints": [
+            "A screenplay describes movement, action, expression and dialogue in a set format",
+            "One page is a rough estimate of one minute of screen time, and the standard font is 12-point Courier",
+            "Action is written in the present tense and limited to what can be seen or heard; dialogue is the spoken words",
+            "A slugline starts each scene with INT. or EXT., the location and the time of day",
+            "A spec script is written to sell with no upfront payment; a shooting script numbers the sluglines"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Scene Headings (Sluglines)",
+          "provider": "Ensemble",
+          "url": "https://ensemblewriter.com/docs/scene-headings",
+          "description": "What a slugline tells a reader and a crew: interior or exterior, where, and when.",
+          "keyPoints": [
+            "A scene heading is one line in capitals: INT. or EXT., location, then time of day",
+            "INT. is indoors and EXT. is outdoors; the split matters for light, sound and location",
+            "DAY and NIGHT are the common times and tell the reader how the light should feel",
+            "A heading without INT. or EXT. is a secondary heading, not a new primary scene"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Three-Act Structure",
+      "level": "BEGINNER",
+      "description": "Setup, confrontation and resolution: the inciting incident, the turn into act two, and the climax that answers the dramatic question.",
+      "learningObjectives": [
+        "Name the three acts and what each one is for",
+        "Define the inciting incident and the first plot point",
+        "Explain why act two raises the stakes before the protagonist can resolve them",
+        "State what the climax answers"
+      ],
+      "explainBack": {
+        "question": "Outline a feature in three acts. Where do the inciting incident and the first plot point sit, what happens to the protagonist in the middle, and what must the climax settle?",
+        "rubric": [
+          "Syd Field named the three acts Setup, Confrontation and Resolution in Screenplay (1979)",
+          "Act one establishes characters, relationships and the world, then an inciting incident confronts the protagonist",
+          "The first plot point ends act one, changes the protagonist's life and raises a dramatic question",
+          "Act two is rising action: attempts to solve the problem get worse until the protagonist changes",
+          "The climax brings the main tension to its peak and answers the dramatic question"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "THREE ACT STORY STRUCTURE EXAMPLES - Story Structure For Film - Juno - Filmmaking 101",
+          "provider": "Merle Becker",
+          "url": "https://www.youtube.com/watch?v=I1edJ10La9Q",
+          "videoId": "I1edJ10La9Q",
+          "description": "A film-by-film walkthrough of setup, confrontation and resolution, using Juno as the example.",
+          "keyPoints": [
+            "Act one is the setup, act two the confrontation, act three the resolution",
+            "The inciting incident confronts the main character; their decision leads into act two",
+            "Act two is rising action and is where a character arc can take hold",
+            "The climax is the most dramatic scene, and it answers the question the inciting incident raised"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Three-act structure",
+          "provider": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Three-act_structure",
+          "description": "The encyclopedia account of setup, confrontation and resolution, including Field's terms and the dramatic question.",
+          "keyPoints": [
+            "The three acts are often called the Setup, the Confrontation and the Resolution",
+            "Syd Field described the model in his 1979 book Screenplay",
+            "The inciting incident leads to a first plot point that ends act one and raises a dramatic question",
+            "Act two is rising action; the protagonist lacks the skill to win until they change",
+            "The climax answers the dramatic question"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Three Act Structure in Film: Definition and Examples",
+          "provider": "StudioBinder",
+          "url": "https://www.studiobinder.com/blog/three-act-structure/",
+          "description": "StudioBinder's account of beginning, middle and end, with Field's Setup, Confrontation and Resolution.",
+          "keyPoints": [
+            "Act one sets up the world, the goal and the obstacles, often the first 20 to 30 minutes",
+            "The inciting incident kickstarts the story",
+            "Act two raises the stakes and often leads to the worst thing that can happen",
+            "Act three resolves the goal, whether the ending is happy or sad"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Character Change",
+      "level": "INTERMEDIATE",
+      "description": "How a protagonist starts as one kind of person and is forced to change because they cannot yet overcome the opposition.",
+      "learningObjectives": [
+        "Define a character arc",
+        "Explain why the protagonist often cannot win at the start",
+        "Place the arc against the three acts",
+        "Tell a change of self-awareness from a change of skill"
+      ],
+      "explainBack": {
+        "question": "A protagonist begins the film unable to deal with the problem. Describe what a character arc is, how it moves through the three acts, and what kind of change the climax is for.",
+        "rubric": [
+          "A character arc is the inner change across the story: the person begins as one sort of person and becomes another",
+          "They often cannot overcome the opposition yet because they lack skill, knowledge, resources or allies",
+          "Act one establishes the arc; the inciting incident and first turning point make life unable to stay the same",
+          "Act two is where they learn skills and, sometimes late, raise their self-awareness",
+          "At the climax the dramatic question is answered and the emphasis shifts to who they are becoming"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Character arc",
+          "provider": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Character_arc",
+          "description": "How a lead character transforms across a story, set beside the three-act narrative.",
+          "keyPoints": [
+            "A character arc is the transformation of a character over the story",
+            "Lead characters are the ones most likely to arc, though lesser characters can change too",
+            "The protagonist often cannot win at first and must learn, or find a mentor, to go on",
+            "Act two develops the arc through worsening situations; the climax gives a new sense of who they are becoming",
+            "In episodic television an arc can run past a single episode and keep viewers returning"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Screenplay Primers",
+          "provider": "Writers Guild Foundation",
+          "url": "https://www.wgfoundation.org/screenplay-primers",
+          "description": "Short craft notes from the Writers Guild Foundation library, including the note that every character sounds the same.",
+          "keyPoints": [
+            "The primers cover formatting and craft with examples from produced scripts",
+            "They answer notes such as bigger stakes and characters who all sound the same",
+            "Getting a reader to invest takes on-page craft, not only the idea",
+            "They are meant as a quick lesson when there is no time to read a full screenplay"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Scenes and Action",
+      "level": "INTERMEDIATE",
+      "description": "How a scene heading starts a unit of drama, and how action lines stay on what the camera can record.",
+      "learningObjectives": [
+        "Read a BBC film scene heading and the action under it",
+        "Limit an action paragraph and say why",
+        "Keep thoughts and back-story out of the action",
+        "Say what a spec film script omits that a shooting script includes"
+      ],
+      "explainBack": {
+        "question": "Rewrite the idea 'she remembers her father and feels afraid' as a screenplay scene. What goes in the heading, what goes in the action, and what does not belong on a spec page?",
+        "rubric": [
+          "A scene heading is in capitals and states interior or exterior, the location, and day or night",
+          "Action deals only with what is happening on the screen and must not narrate thoughts or back-story",
+          "An action paragraph is kept to about four or five lines, each paragraph a beat",
+          "A new scene is separated from the last, and a heading is followed by a line of action",
+          "Scene numbers and camera directions belong on a shooting script, not a spec film script"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Screenplay format",
+          "provider": "BBC Writers",
+          "url": "https://downloads.bbc.co.uk/writersroom/scripts/screenplay.pdf",
+          "description": "The BBC Writersroom sample of film screenplay format, from the opening FADE IN through action and the end of a spec script.",
+          "keyPoints": [
+            "Scene headings are in capitals and state interior or exterior, location, and day or night",
+            "Action is what is happening on screen and must not stray into thoughts or back-story",
+            "Limit an action paragraph to four or five lines; treat each paragraph as a beat",
+            "Scene numbers and camera directions are for shooting scripts, not a spec film script",
+            "A film script signs off with FADE OUT. and THE END; page one is the first scene, not the title page"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Understanding screenplay elements",
+          "provider": "StudioBinder",
+          "url": "https://support.studiobinder.com/en/articles/2941370-understanding-screenplay-elements",
+          "description": "StudioBinder's support note on scene headings, action, character, extensions and parentheticals.",
+          "keyPoints": [
+            "A scene heading is INT or EXT, location, and time of day",
+            "Action sits under the heading and describes what will be seen or heard",
+            "Extensions such as V.O. and O.S. sit next to the character name",
+            "A parenthetical under the name is a note on how the line is performed"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Screenplay format for TV shows",
+          "provider": "BBC Writers",
+          "url": "https://downloads.bbc.co.uk/writersroom/scripts/screenplaytv.pdf",
+          "description": "How a filmed television script marks a teaser and acts, and how that differs from an unbroken feature.",
+          "keyPoints": [
+            "Teasers and acts begin with FADE IN: and a scene heading",
+            "Action still describes only the screen, in short paragraphs",
+            "FADE OUT. appears at the end of an act and at the end of the script",
+            "Page one begins with the teaser, not the title page"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Dialogue and Subtext",
+      "level": "INTERMEDIATE",
+      "description": "Spoken lines that do more than one job, and the meaning that stays under the words.",
+      "learningObjectives": [
+        "Define subtext",
+        "Give a line more than one job",
+        "Use a parenthetical only when the line needs it",
+        "Show unspoken meaning in action and in what is not said"
+      ],
+      "explainBack": {
+        "question": "Two characters talk about the weather while one is about to deliver bad news. Explain what subtext is, how the spoken line should earn its place, and where a parenthetical helps or gets in the way.",
+        "rubric": [
+          "Subtext is meaning that is not stated and must be inferred; a meaning said outright is not subtext",
+          "Dialogue that states exactly what the character means is often called on the nose and flattens tension",
+          "A line should advance the plot, reveal character, or create conflict",
+          "A parenthetical is a short direction between the cue and the line; film can show what a play would have to say",
+          "Body language, a leading question, or a too-quiet answer can carry the unspoken meaning"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Writing Subtext  — The Secret to Writing What's Under the Surface",
+          "provider": "StudioBinder",
+          "url": "https://www.youtube.com/watch?v=wrR8ggeD4h4",
+          "videoId": "wrR8ggeD4h4",
+          "description": "StudioBinder on three ways to write the unspoken meaning: in the dialogue, in the action, and in the performance.",
+          "keyPoints": [
+            "Subtext is the unspoken or secondary meaning under what is said and done",
+            "The same line changes when the context around it changes",
+            "Dialogue can leave the direct threat unsaid, as in an offer he cannot refuse",
+            "Action and parentheticals can carry meaning, and the writer should not direct every performance"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Subtext",
+          "provider": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Subtext",
+          "description": "The underlying meaning an audience infers, including how film puts that meaning in behaviour as well as words.",
+          "keyPoints": [
+            "Subtext is implicit meaning that is understood without being stated",
+            "A meaning stated explicitly is not subtext",
+            "Writing that says exactly what it means is often called on the nose",
+            "Body language, a leading question, or a one-word answer can carry the hidden meaning",
+            "Stanislavski developed the idea of unspoken intention beneath dialogue"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Dialogue and Parentheticals",
+          "provider": "Ensemble",
+          "url": "https://ensemblewriter.com/docs/dialogue-and-parentheticals",
+          "description": "How film dialogue can stay lean because the camera can show what a stage play would have to speak.",
+          "keyPoints": [
+            "Film dialogue can be leaner than stage dialogue because the camera communicates",
+            "A line should advance the plot, reveal character, or create conflict",
+            "A parenthetical is a brief lowercase note between the character cue and the speech",
+            "Subtext is the real subject under a surface conversation the characters can say aloud"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "title": "Fountain, a Plain-Text Script",
+      "level": "ADVANCED",
+      "description": "Fountain is a plain-text way to write a formatted screenplay in any editor, merged from two earlier projects.",
+      "learningObjectives": [
+        "Say what Fountain is and what it lets a writer use",
+        "Name the two projects it was merged from",
+        "Name the writers who joined those projects",
+        "Give examples of software that can read it"
+      ],
+      "explainBack": {
+        "question": "A writer wants to draft a screenplay in an ordinary text editor. Explain what Fountain is, where it came from, and why that is enough to produce a formatted script.",
+        "rubric": [
+          "Fountain is a free, open-source plain-text markup language for writing a formatted screenplay in any text editor",
+          "The name comes from Fountain Avenue, the Hollywood shortcut",
+          "It was inspired by Markdown and merged two projects: Scrippets, by John August and Nima Yousefi, and Screenplay Markdown, by Stu Maschwitz",
+          "August and Maschwitz combined those projects into Fountain",
+          "Editors and screenwriting apps that implement it include Scrivener, Slugline, Trelby and Vim"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Fountain (markup language)",
+          "provider": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Fountain_(markup_language)",
+          "description": "What Fountain is, the two projects it joined, and the editors that can turn that plain text into a screenplay.",
+          "keyPoints": [
+            "Fountain is a free open-source plain-text markup language for a formatted screenplay in any text editor",
+            "The name comes from Fountain Avenue, the Hollywood shortcut",
+            "It was inspired by Markdown",
+            "It merged Scrippets (John August and Nima Yousefi) with Screenplay Markdown (Stu Maschwitz)",
+            "Implementations include Scrivener, Slugline, Trelby, Vim and Visual Studio Code"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "title": "The First Page and What to Send",
+      "level": "ADVANCED",
+      "description": "Why the opening page has to earn the next one, and how a submission stays inside a readable length and layout.",
+      "learningObjectives": [
+        "Say what the first page of a feature is expected to do",
+        "Give the BBC's page-count window for a submitted script",
+        "Name the font they recommend for film and TV",
+        "Avoid layout tricks that inflate the page count"
+      ],
+      "explainBack": {
+        "question": "A reader opens your feature. What must page one do, and how would you lay out a BBC submission so the length and the type stay within their guidance?",
+        "rubric": [
+          "Page one has to show what the film is about, show cinematic writing, and make the reader turn the page",
+          "Seasoned readers often decide from the first page, even when the old advice allowed ten pages",
+          "BBC submissions are 30 to 130 dialogue pages, excluding the title page and other front matter",
+          "Film and TV scripts should use Courier 12-point, with ordinary margins",
+          "Do not start a new page for every scene, and do not widen the margins to stretch the page count"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Writing Your Screenplay: Page One",
+          "provider": "Writers Guild Foundation",
+          "url": "https://www.wgfoundation.org/blog/2020/10/8/writing-your-screenplay-while-social-distancing-page-one",
+          "description": "The Writers Guild Foundation on why the first page of a feature has to hook a reader.",
+          "keyPoints": [
+            "Reading scripts is treated as essential to becoming a better writer",
+            "Page one should say what the movie is about, prove cinematic writing, and compel the next page",
+            "The generous advice is ten pages to hook a reader; seasoned readers often decide on page one",
+            "The series is about words on the page of a feature draft, not an outline"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "BBC Writers Script Submission Style Guide",
+          "provider": "BBC Writers",
+          "url": "https://www.bbc.co.uk/writers/documents/bbc-writers-script-submission-style-guide.pdf",
+          "description": "BBC guidance on length, Courier 12-point, margins and continuous scenes for a script submission.",
+          "keyPoints": [
+            "Submitted scripts must be 30 to 130 pages of dialogue, not counting the title page",
+            "There is no single correct format; the guide is a readable default",
+            "TV and film scripts should use Courier 12-point",
+            "Keep standard margins and do not give each scene its own page",
+            "Number the scenes and the pages"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Resource Center",
+          "provider": "Writers Guild Foundation",
+          "url": "https://www.wgfoundation.org/resource-center",
+          "description": "The Foundation's index of free craft and business material, including where to find scripts and which fellowships exist.",
+          "keyPoints": [
+            "The center collects vetted material on the craft and the business of screenwriting",
+            "It points to videos, TV format notes, script libraries and writing classes",
+            "Fellowship programmes are listed alongside the craft primers",
+            "Suggestions for additions go to the Foundation"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "title": "Copyright in the Script",
+      "level": "ADVANCED",
+      "description": "What copyright already covers when a script is written, and what marking the pages does and does not change.",
+      "learningObjectives": [
+        "State when UK copyright arises",
+        "Name the uses copyright can stop",
+        "Say what the copyright symbol changes",
+        "Note that protection can extend abroad"
+      ],
+      "explainBack": {
+        "question": "You finish an original short-film script in the UK. Explain what copyright you already have, what other people cannot do with it, and whether registering or printing a © line is what creates the right.",
+        "rubric": [
+          "Copyright is automatic: there is no application, no fee, and no UK register of copyright works",
+          "Original dramatic work, which includes a script, is protected when it is created",
+          "Other people cannot copy it, share copies, perform or show it in public, adapt it, or put it on the internet without permission",
+          "Adding ©, a name and a year does not change how strong the protection is",
+          "International agreements such as the Berne Convention can protect the work in other countries"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How copyright protects your work",
+          "provider": "GOV.UK",
+          "url": "https://www.gov.uk/copyright",
+          "description": "The UK government overview of automatic copyright in original dramatic work, including what a © mark does not change.",
+          "keyPoints": [
+            "Protection is automatic; you do not apply or pay, and the UK has no copyright register",
+            "Original literary, dramatic, musical and artistic work is covered when you create it",
+            "Others cannot copy, distribute, perform, adapt or upload the work without permission",
+            "Marking © with your name and the year does not change the level of protection",
+            "The Berne Convention can protect the work in other countries"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "TV Format Fundamentals",
+          "provider": "Writers Guild Foundation",
+          "url": "https://www.wgfoundation.org/tv-format-fundamentals",
+          "description": "A Foundation series on how television formats differ in act structure, from single-camera sitcom to serialized drama.",
+          "keyPoints": [
+            "The series looks at the act structure of current and classic television formats",
+            "The aim is to notice the conventions of a format and apply them in a spec",
+            "Separate posts cover single-camera sitcoms, serialized drama and animated sitcoms",
+            "A companion spec-primer series breaks down individual series"
+          ]
+        }
+      ]
+    }
+  ],
+  "slug": "screenwriting",
+  "name": "Screenwriting",
+  "description": "Learn to write a script someone could shoot: the screenplay page, three-act structure, character change, scenes, dialogue and subtext, plain-text Fountain, and what copyright already covers.",
+  "status": "COMING_SOON"
+}

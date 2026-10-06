@@ -1,0 +1,516 @@
+{
+  "stages": [
+    {
+      "order": 1,
+      "title": "What Graphic Design Is For",
+      "level": "BEGINNER",
+      "description": "Graphic design as visual communication: ordering a message so a specific group can receive it, with type and image doing work that words alone do not.",
+      "learningObjectives": [
+        "Define graphic design as a profession and an applied art",
+        "Explain the designer's role in encoding a message",
+        "Distinguish giving order to information from advertising's aim to sell",
+        "Name a few of the objects the profession actually produces"
+      ],
+      "explainBack": {
+        "question": "Someone asks you to 'make a logo and a poster.' Explain what graphic design is doing in that job, how it differs from advertising's purpose, and why type and image are part of the message.",
+        "rubric": [
+          "Graphic design creates visual communications meant to carry a specific message to a specific group",
+          "The designer interprets, orders and presents that message; a linguistic brief becomes a graphic form",
+          "Typography and the arrangement of text, ornament and image convey ideas beyond language alone",
+          "Advertising's objective is the sale; graphic design's essence is to give order to information and form to ideas",
+          "The work includes logos, packaging, posters, signage, editorial pages and websites, not only sketches"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Graphic design",
+          "provider": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Graphic_design",
+          "description": "Encyclopedia overview of graphic design as visual communication, its history in print, and what the profession produces.",
+          "keyPoints": [
+            "Graphic design creates visual communications that transmit a specific message to a social group",
+            "The designer encodes the message: interpretation, ordering and presentation",
+            "Type, ornament and image convey ideas beyond what language alone expresses",
+            "Meggs's formulation: the essence is to give order to information and form to ideas, which is distinct from advertising's aim to sell",
+            "The term appears in print by 1908, and a Graphic Design and Lettering course was advertised in 1917"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Figma For Beginners: Create designs (2/4)",
+          "provider": "Figma",
+          "url": "https://www.youtube.com/watch?v=wvFd-z7jSaA",
+          "videoId": "wvFd-z7jSaA",
+          "description": "Figma's beginner lesson on turning a wireframe into a design, including color, type, images and alignment.",
+          "keyPoints": [
+            "The same layer tools used for wireframes carry into a higher-fidelity design",
+            "Color and typography are introduced alongside precision and accessibility",
+            "Place Image, or the shortcut, fills a shape with a picture",
+            "There is more than one path from a blank frame to a finished design"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Ultimate Guide to Typography in Design",
+          "provider": "Figma",
+          "url": "https://www.figma.com/resource-library/typography-in-design/",
+          "description": "How alignment and a clear size order help a reader move through a poster, a screen or an infographic.",
+          "keyPoints": [
+            "Aligning a logo, image, heading and body to one edge makes the path down the page easier to follow",
+            "Headings should be larger than subheadings, and subheadings larger than body text",
+            "Website body text is typically 16px, with an H1 often around 48px",
+            "A typeface should match the tone: a plain sans for a professional voice, a decorative face used sparingly"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Type Size, Measure and Line Height",
+      "level": "BEGINNER",
+      "description": "Choosing a typeface on purpose, then setting how long a line is and how much air sits between lines.",
+      "learningObjectives": [
+        "Separate a typeface from a font",
+        "Give a useful range for line length",
+        "Explain why line height should open up as the line gets longer",
+        "Start a type system from body text rather than from the display size"
+      ],
+      "explainBack": {
+        "question": "You are setting a paragraph on a phone and the same paragraph on a wide desktop. Explain how you would choose the type, how long each line should be, and how line height should change.",
+        "rubric": [
+          "A typeface is what you see; a font is the file you use",
+          "Bringhurst's satisfactory line is about 45 to 75 characters for a single column of serif text; Material Design suggests about 40 to 60 on screen",
+          "As the measure gets wider, the line height should get more open so the eye can find the next line",
+          "A practical line height for Latin text often sits between 115% and 150% of the font size",
+          "Start with body text at the narrowest viewport, then adjust as the line length changes"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Fonts Knowledge",
+          "provider": "Google Fonts",
+          "url": "https://fonts.google.com/knowledge",
+          "description": "Google Fonts' library of guides for choosing and using type, including the glossary that separates a typeface from a font.",
+          "keyPoints": [
+            "The guides are for choosing and using type with a purpose, not only picking a favourite from a menu",
+            "A typeface is what you see; a font is what you use",
+            "X-height is the height of lowercase letters without ascenders or descenders, and it changes how large the type looks",
+            "Readability, legibility and accessibility are treated as the point of setting type"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Understanding measure and line length",
+          "provider": "Google Fonts",
+          "url": "https://fonts.google.com/knowledge/using_type/understanding_measure_line_length",
+          "description": "Why a line that is too long or too short is hard to read, with Bringhurst's and Material Design's ranges.",
+          "keyPoints": [
+            "Measure is line length, and flexible web layouts made overly long lines common",
+            "Bringhurst calls 45 to 75 characters a satisfactory line for a single column of serif text",
+            "Material Design suggests about 40 to 60 characters for body text on screen",
+            "As the measure grows wider, the leading should grow too"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Choosing a suitable line height",
+          "provider": "Google Fonts",
+          "url": "https://fonts.google.com/knowledge/using_type/choosing_a_suitable_line_height",
+          "description": "How line height relates to font size and to the length of the line.",
+          "keyPoints": [
+            "A line height of 150% multiplies the font size by 1.5",
+            "For Latin text, a useful range is often 115% to 150%",
+            "Languages with many diacritics usually need more leading",
+            "Wider measures need more open line height",
+            "Start from body text at the narrowest screen, then adjust"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Kick-start your typography system in Figma",
+          "provider": "Figma",
+          "url": "https://www.figma.com/best-practices/typography-systems-in-figma/",
+          "description": "How a small set of sizes and line heights, often on an 8-point grid, stays usable across screens.",
+          "keyPoints": [
+            "A type system needs enough sizes for display and body text, and not so many that nobody knows which to use",
+            "Decorative faces can be reserved for large text; a legible face carries the body copy",
+            "An 8-point grid spaces and sizes elements in multiples of 8, often with a 4-point baseline for type",
+            "Line heights in multiples of 4 keep vertical rhythm and alignment across columns"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Color for Screens and for Print",
+      "level": "INTERMEDIATE",
+      "description": "Why screen color is light and print color is ink, and why text contrast is a light-dark ratio rather than a hue.",
+      "learningObjectives": [
+        "Contrast RGB with CMYK",
+        "Explain why black ink is added to cyan, magenta and yellow",
+        "State the WCAG minimum contrast for body text and for large text",
+        "Say which text is exempt from that ratio"
+      ],
+      "explainBack": {
+        "question": "A poster will be printed, and the same words will also sit on a website. Explain which color model each uses, and what contrast the body text and the large title each need on screen.",
+        "rubric": [
+          "RGB is additive: colors are emitted light, white is all primaries together, and black is the absence of light",
+          "CMYK is subtractive printing: cyan, magenta, yellow and black ink reduce light reflected from the paper",
+          "Black ink is the key plate; combining cyan, magenta and yellow alone makes a poor black and uses more ink",
+          "WCAG 2.1 requires at least 4.5:1 for ordinary text and 3:1 for large-scale text",
+          "Incidental text, decoration, and text that is part of a logo or brand name have no contrast requirement"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "CMYK color model",
+          "provider": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/CMYK_color_model",
+          "description": "How four-color printing uses cyan, magenta, yellow and black, and how that differs from light on a screen.",
+          "keyPoints": [
+            "CMYK is a subtractive model used in color printing",
+            "Inks reduce light reflected from a white background; white is the paper",
+            "RGB is additive: white is all primaries and black is no light",
+            "The K plate is black, used for sharper text and a more consistent dark than cyan, magenta and yellow alone",
+            "Halftoning varies dot size and spacing so a printer can suggest tones between the inks"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Understanding Success Criterion 1.4.3: Contrast (Minimum)",
+          "provider": "W3C",
+          "url": "https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html",
+          "description": "The WCAG explanation of minimum text contrast, including large text, logos and decoration.",
+          "keyPoints": [
+            "Ordinary text needs a contrast ratio of at least 4.5:1 against its background",
+            "Large-scale text needs at least 3:1; 18 point, or 14 point bold, is the usual threshold",
+            "The ratio is about light and dark, not hue, so it still applies for many kinds of color vision deficiency",
+            "Inactive controls, pure decoration and text inside a logo have no contrast requirement",
+            "4.499:1 does not meet 4.5:1; the threshold is not rounded up"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Typography",
+          "provider": "Material Design",
+          "url": "https://m1.material.io/style/typography.html",
+          "description": "Material Design's notes on line length and on keeping text contrast high enough to read.",
+          "keyPoints": [
+            "Text that is too close to the background is hard to read, and extreme contrast can be hard as well",
+            "Material asks for at least 4.5:1, and prefers 7:1",
+            "About 60 characters per line is a readable measure for body text",
+            "A line that is too long is hard to track; a line that is too short breaks the reading rhythm"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Layout Grids",
+      "level": "INTERMEDIATE",
+      "description": "Using columns, rows and a baseline so type, images and spacing line up, including when the frame changes size.",
+      "learningObjectives": [
+        "Say what a grid contributes to hierarchy and rhythm",
+        "Name Figma's three layout-grid forms",
+        "Describe a baseline grid and the 4-point interval used with an 8-point system",
+        "Explain how constraints behave differently once a layout grid is present"
+      ],
+      "explainBack": {
+        "question": "You are laying out a poster in Figma that also has to become a phone screen. Explain what you would put a grid on, which kinds of grid you can stack, and how a baseline grid relates to the type.",
+        "rubric": [
+          "A grid defines structure, hierarchy and rhythm and removes guesswork from position, size and spacing",
+          "In Figma a layout grid applies to a frame, and a frame can hold more than one grid",
+          "The three forms are a uniform grid, columns and rows",
+          "A baseline grid repeats vertically from the lines type sits on; an 8-point system often uses a 4-point baseline",
+          "With a layout grid, constraints pin an object to the nearest column rather than only to the frame edge"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Figma Tutorial: Layout Grids",
+          "provider": "Figma",
+          "url": "https://www.youtube.com/watch?v=zd8wrAdURN0",
+          "videoId": "zd8wrAdURN0",
+          "description": "Figma's own lesson on adding column and row grids, gutters, margins and stretch, center or left behavior.",
+          "keyPoints": [
+            "A frame can hold columns, rows, or both",
+            "Gutter is the space between columns or rows; margin is the space at the outer edge",
+            "Stretch makes a column grow and shrink with the frame; Center and Left allow a set width",
+            "Layout grids can be shown or hidden for the whole file"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Everything you need to know about layout grids in Figma",
+          "provider": "Figma",
+          "url": "https://www.figma.com/best-practices/everything-you-need-to-know-about-layout-grids/",
+          "description": "How columns, rows, baseline grids and constraints keep a layout consistent from print habits to many screen sizes.",
+          "keyPoints": [
+            "A suitable grid defines structure, hierarchy and rhythm",
+            "Layout grids apply only to frames, and one frame can hold several",
+            "The three forms are a uniform grid, columns and rows",
+            "Many 8-point systems use a 4-point baseline so type size and line height stay scalable",
+            "Constraints inside a layout grid relate to the nearest column, which keeps gutters stable when the frame resizes"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Vectors, Pixels and Type Outlines",
+      "level": "INTERMEDIATE",
+      "description": "Why a logo wants geometry that can scale, and why a photograph does not.",
+      "learningObjectives": [
+        "Define vector graphics against raster graphics",
+        "Name the basic geometric primitives",
+        "Explain why vectors suit logos and type, and rasters suit photographs",
+        "Describe a glyph outline as Bézier curves that are later rasterized"
+      ],
+      "explainBack": {
+        "question": "A client wants a logo that will be printed on a pen and on a building, plus a photograph of the product. Explain which should be vector, which should be a bitmap, and what happens to a font outline on screen.",
+        "rubric": [
+          "Vector images are built from geometric shapes such as points, lines, curves and polygons on a coordinate plane",
+          "A square, a line, or a curve can be stored as a few vertices; the software fills in the rest",
+          "Vectors are preferred where precision and scaling matter, including typography; photographs are a raster job",
+          "A digital glyph is drawn with Bézier curves, which keep their shape when scaled because they are coordinates",
+          "On screen those outlines are rasterized into pixels; hinting helps that grid at small sizes"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Vector graphics",
+          "provider": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Vector_graphics",
+          "description": "How vector images store geometry instead of a grid of pixels, and where that model fits or fails.",
+          "keyPoints": [
+            "Vector graphics build images from points, lines, curves and polygons",
+            "They are an alternative to raster graphics, and each fits different jobs",
+            "Primitives include a point, a line segment, a polyline and a polygon, plus curves such as Bézier curves",
+            "Typography and logos want that precision; photography is a raster problem",
+            "Converting between vector formats can be lossless when both formats support the same primitives"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Outlines",
+          "provider": "Google Fonts",
+          "url": "https://googlefonts.github.io/gf-guide/outlines.html",
+          "description": "How a glyph is drawn with Bézier curves and then turned into pixels or print dots.",
+          "keyPoints": [
+            "A glyph is the drawn shape of a character",
+            "Digital type usually draws those shapes as Bézier curves, which scale without losing the coordinates",
+            "What you see is a rendering: pixels on screen, dots in print",
+            "Contour direction tells the rasterizer what is filled and what is a counter",
+            "Hinting adds instructions so small sizes still look like the design"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "title": "Reusable Color and Text Styles",
+      "level": "ADVANCED",
+      "description": "Saving a fill and a text treatment once so a change updates every place that treatment is used.",
+      "learningObjectives": [
+        "Explain what a style is separate from the object it is applied to",
+        "Create a color style from a fill",
+        "Say what a text style is for",
+        "Note that a style belongs to the file until it is published"
+      ],
+      "explainBack": {
+        "question": "You have used the same gray and the same heading size in twenty frames. Explain how Figma styles let you change them once, and what is left behind if you delete one of the frames.",
+        "rubric": [
+          "A style is a named set of properties that can be reused",
+          "A color style is created from a fill and then applied to objects; the object is not the style",
+          "Deleting the object does not delete the style, because the style belongs to the file",
+          "Text styles define a typographic scale and can be applied to a whole text layer",
+          "Using a style in another file requires publishing it as a library"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Figma Tutorial: Creating Styles",
+          "provider": "Figma",
+          "url": "https://www.youtube.com/watch?v=gtQ_A3imzsg",
+          "videoId": "gtQ_A3imzsg",
+          "description": "Figma's lesson on saving a fill as a color style that lives in the file, not on the shape.",
+          "keyPoints": [
+            "A repeated fill is worth saving as a color style so it can be reused",
+            "The style is created from the fill and given a name",
+            "The shape on the canvas uses the style; deleting the shape does not delete the style",
+            "Local styles belong to the file and can be edited or deleted from the style list"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Create and apply text styles",
+          "provider": "Figma",
+          "url": "https://help.figma.com/hc/en-us/articles/360039957034-Create-and-apply-text-styles",
+          "description": "Figma's help page on text styles as a reusable typographic scale.",
+          "keyPoints": [
+            "A style is a set of properties reused across files and projects",
+            "Text styles define the typographic scale",
+            "A text style can apply to a whole layer",
+            "A style in the current file can be reused there; another file needs the style published as a library"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Sharing a Grid Across Frames",
+      "level": "ADVANCED",
+      "description": "Turning a column plan, a baseline and a padding guide into a style a team can apply again.",
+      "learningObjectives": [
+        "Use a grid to visualize padding",
+        "Nest a grid inside a frame that already has a grid",
+        "Combine grids into one shared style",
+        "Say why the same grid idea still matters on screens of different sizes"
+      ],
+      "explainBack": {
+        "question": "A desktop frame and a phone frame need the same margins and column logic. Explain how you would build that in Figma and hand the same grids to the rest of the team.",
+        "rubric": [
+          "Grids still matter on screens because they keep a layout consistent across viewport sizes",
+          "A single-column and single-row grid with the gutter at 0 and a margin set to the spacing value can show padding",
+          "A grid can sit on a nested frame, so one area of a layout can have its own grid",
+          "Several grids can be saved as one grid style and shared from a team library"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Layout grids: padding, nesting and styles",
+          "provider": "Figma",
+          "url": "https://www.figma.com/best-practices/everything-you-need-to-know-about-layout-grids/",
+          "description": "The same Figma article's later sections on padding guides, nested grids and publishing a grid style. Used here for those sections.",
+          "keyPoints": [
+            "Print grid ideas still matter on screen, where the viewport changes",
+            "A one-column and one-row grid with zero gutter and a set margin visualizes padding",
+            "Nested frames can each carry their own grid",
+            "Several grids can be combined into one style and shared from a team library"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "title": "Who the Work Belongs To",
+      "level": "ADVANCED",
+      "description": "Copyright in an original artistic work, including a design, and what a copyright line does not add.",
+      "learningObjectives": [
+        "State that UK copyright in an original artistic work is automatic",
+        "List uses that need permission",
+        "Explain the effect of adding ©",
+        "Note overseas protection in outline"
+      ],
+      "explainBack": {
+        "question": "You design an original poster in the UK for a client, and you also keep a version in your portfolio. Explain what copyright exists in the artwork, what other people cannot do with it, and whether a © mark is what creates the right.",
+        "rubric": [
+          "Original artistic work, including illustration, is protected automatically when it is created",
+          "There is no UK application, fee or register",
+          "Copying, distributing, showing the work in public, adapting it or putting it on the internet needs permission",
+          "Adding ©, a name and the year does not change the level of protection",
+          "Agreements such as the Berne Convention can protect the work in other countries"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How copyright protects your work",
+          "provider": "GOV.UK",
+          "url": "https://www.gov.uk/copyright",
+          "description": "The UK overview of automatic copyright, including original artistic work such as illustration.",
+          "keyPoints": [
+            "Protection is automatic and there is no UK copyright register",
+            "Original artistic work, including illustration and photography, is covered",
+            "Others cannot copy, distribute, show, adapt or upload the work without permission",
+            "A © mark with a name and year does not change the strength of the right",
+            "The Berne Convention can extend protection abroad"
+          ]
+        }
+      ]
+    }
+  ],
+  "slug": "graphic-design",
+  "name": "Graphic Design",
+  "description": "Learn to give a message a visual form: what graphic design is for, type size and line length, color for print and screens, layout grids, vectors, reusable styles, and the copyright in the work.",
+  "status": "COMING_SOON"
+}

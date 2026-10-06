@@ -146,6 +146,8 @@ async function main() {
   await importCatalog("self-grooming", { apply: true })
   await importCatalog("animation", { apply: true })
   await importCatalog("iot-robot-automation", { apply: true })
+  await importCatalog("screenwriting", { apply: true })
+  await importCatalog("graphic-design", { apply: true })
 }
 
 main()

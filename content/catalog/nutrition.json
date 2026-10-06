@@ -1,0 +1,622 @@
+{
+  "stages": [
+    {
+      "order": 1,
+      "title": "What a Healthy Diet Looks Like",
+      "level": "BEGINNER",
+      "description": "Public health guides agree on the shape of a plate: mostly vegetables, fruit, and whole grains, healthy protein, unsaturated oils, and fewer foods high in fat, salt, and sugar.",
+      "learningObjectives": [
+        "Describe the proportions of a balanced plate",
+        "Name the four principles WHO uses for a healthy diet",
+        "Compare the Eatwell Guide and the Healthy Eating Plate",
+        "Place snacks and drinks within a day's eating"
+      ],
+      "explainBack": {
+        "question": "A friend wants one simple rule for what to put on their plate each day. Explain what the main food groups should look like on a plate, what to drink, and which foods to have less often, and why these guides do not count calories on every item.",
+        "rubric": [
+          "About half the plate is vegetables and fruit, and potatoes do not count as a vegetable in the Harvard plate",
+          "About a quarter is whole grains or wholegrain starchy foods, and about a quarter is healthy protein such as beans, fish, poultry, or nuts",
+          "Use unsaturated plant oils in small amounts, and have foods high in fat, salt, and sugar less often",
+          "Water is the main drink, with juice and smoothies limited to about 150 ml a day",
+          "WHO describes a healthy diet with four principles: adequacy, balance, moderation, and diversity",
+          "The guides describe a pattern over a day or a week; the type and quality of food matters, not only the number"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "The Eatwell Guide",
+          "provider": "NHS",
+          "url": "https://www.nhs.uk/live-well/eat-well/food-guidelines-and-food-labels/the-eatwell-guide/",
+          "description": "The UK's picture of a balanced diet, food group by food group.",
+          "keyPoints": [
+            "Eat at least 5 portions of fruit and vegetables a day, which is just over a third of what you eat",
+            "Base meals on starchy foods, just over a third of the diet, choosing wholegrain where possible",
+            "Have some beans, pulses, fish, eggs, and meat, including 2 portions of fish a week, one of them oily",
+            "Choose unsaturated oils and spreads in small amounts, and have foods high in fat, salt, and sugar less often",
+            "Drink 6 to 8 glasses of fluid a day, and keep juice and smoothies to 150 ml a day in total",
+            "The guide does not apply to children under 2"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Healthy Eating Plate",
+          "provider": "Harvard T.H. Chan School of Public Health, The Nutrition Source",
+          "url": "https://nutritionsource.hsph.harvard.edu/healthy-eating-plate/",
+          "description": "Harvard's plate guide and the reasoning behind each part of it.",
+          "keyPoints": [
+            "Make half the plate vegetables and fruits; potatoes and French fries do not count as vegetables",
+            "Make a quarter whole grains and a quarter healthy protein such as fish, poultry, beans, and nuts",
+            "Limit red meat and avoid processed meats such as bacon and sausage",
+            "Use healthy plant oils, avoid partially hydrogenated oils, and remember low-fat does not mean healthy",
+            "Drink water, coffee, or tea; limit milk and dairy to 1 to 2 servings and juice to a small glass a day",
+            "Stay active; the type of carbohydrate matters more than the amount"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Healthy diet",
+          "provider": "World Health Organization (WHO)",
+          "url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet",
+          "description": "WHO's fact sheet on the principles and numbers behind a healthy diet.",
+          "keyPoints": [
+            "A healthy diet rests on four principles: adequacy, balance, moderation, and diversity, and it must also be safe",
+            "Unrefined carbohydrates should supply roughly 45 to 75% of daily energy, mainly from whole grains, vegetables, fruits, and pulses",
+            "Everyone over 10 should aim for at least 400 g of fruit and vegetables and at least 25 g of naturally occurring fibre a day",
+            "Free sugars should be under 10% of energy, about 50 g on a 2,000-calorie day, and 5% may bring more benefit",
+            "Total fat should be at most about 30% of energy, saturated fat under 10%, and trans fat under 1%",
+            "Protein at 10 to 15% of energy, about 50 to 75 g a day, is generally enough for adults"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Carbohydrates & Fibre",
+      "level": "BEGINNER",
+      "description": "Carbohydrate is the body's main fuel. What matters most is the kind: whole grains, beans, and whole fruit release sugar slowly, and fibre does work refined starch cannot.",
+      "learningObjectives": [
+        "Separate sugars, starches, and fibre",
+        "Explain why refined starch and fibre-rich foods affect blood sugar differently",
+        "State the adult daily fibre target",
+        "Choose higher-fibre swaps in everyday meals"
+      ],
+      "explainBack": {
+        "question": "Someone says all carbs are bad and white bread is the same as lentils. Explain what carbohydrates do, why white bread and lentils act differently in the body, and how much fibre an adult should aim for and where to get it.",
+        "rubric": [
+          "Carbohydrates are sugars, starches, and fibre, and the body breaks most of them down into glucose for energy",
+          "Refined starch, such as white bread, is digested quickly and raises blood sugar much like sugar does (a high glycemic index)",
+          "Fibre is not broken down the same way and slows the release of glucose, so whole grains, beans, and vegetables have a lower glycemic index",
+          "Repeated large blood-sugar rises can contribute to insulin resistance",
+          "UK guidance is 30 g of fibre a day for adults, and most adults eat only about 20 g",
+          "Good sources are wholegrain foods, potatoes with skins, pulses, vegetables, fruit, nuts, and seeds; whole fruit beats juice"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Carbohydrates",
+          "provider": "Harvard T.H. Chan School of Public Health, The Nutrition Source",
+          "url": "https://nutritionsource.hsph.harvard.edu/carbohydrates/",
+          "description": "Why the quality of carbohydrate matters more than the amount.",
+          "keyPoints": [
+            "Carbohydrates include sugars, starches, and fibre, and they supply glucose for energy",
+            "The type of carbohydrate in the diet matters more than the amount",
+            "Choose whole grains over refined grains such as white bread and white rice",
+            "A useful cereal check is at least 4 g of fibre and less than 8 g of sugar per serving",
+            "Eat whole fruit instead of juice: an orange has about twice the fibre and half the sugar of a 12-ounce glass of orange juice",
+            "Beans and legumes are a better carbohydrate choice than potatoes"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How to get more fibre into your diet",
+          "provider": "NHS",
+          "url": "https://www.nhs.uk/live-well/eat-well/digestive-health/how-to-get-more-fibre-into-your-diet/",
+          "description": "How much fibre you need, why it matters, and simple ways to eat more.",
+          "keyPoints": [
+            "Adults should aim for 30 g of fibre a day, but most eat only about 20 g",
+            "Children need less: about 15 g at 2 to 5, 20 g at 5 to 11, and 25 g at 11 to 16",
+            "Plenty of fibre is linked to lower risk of heart disease, stroke, type 2 diabetes, and bowel cancer, and it helps prevent constipation",
+            "Easy swaps include wholegrain cereals and bread, potatoes with skins, pulses in stews, and more vegetables",
+            "A food with 6 g or more of fibre per 100 g counts as high fibre"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "How do carbohydrates impact your health? - Richard J. Wood",
+          "provider": "TED-Ed",
+          "url": "https://www.youtube.com/watch?v=wxzc_2c6GMg",
+          "videoId": "wxzc_2c6GMg",
+          "description": "An animated look at how starch, sugar, and fibre change blood sugar and insulin.",
+          "keyPoints": [
+            "Carbohydrates are broken down into simple sugars that cells use for energy",
+            "Starchy foods like white bread have a high glycemic index, similar to soda",
+            "Fibre's bonds are hard to break, so high-fibre foods release glucose more slowly",
+            "Insulin moves sugar from the blood into cells, and insulin resistance makes that harder",
+            "Insulin resistance is linked to metabolic syndrome, heart disease, and type 2 diabetes"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Protein & Fats",
+      "level": "BEGINNER",
+      "description": "How much protein you need is modest. What comes with it matters more. For fat, the type matters more than the amount: unsaturated helps, trans fat harms.",
+      "learningObjectives": [
+        "Estimate a day's protein need from body weight",
+        "Explain the protein package idea",
+        "Separate unsaturated, saturated, and trans fats and where each is found",
+        "Explain what saturated fat should be replaced with"
+      ],
+      "explainBack": {
+        "question": "A friend eats bacon every day for protein and avoids olive oil because it is 100% fat. Explain how much protein they actually need, why bacon and lentils are not equal protein sources, and why olive oil is not the problem.",
+        "rubric": [
+          "Adults need at least 0.8 g of protein per kg of body weight a day, about 50 g for a 140-pound person",
+          "Protein comes in a package with fats, fibre, and sodium; lentils bring fibre and almost no saturated fat or sodium",
+          "Processed and red meat are linked to higher risk of heart disease, and replacing them with beans, nuts, fish, or poultry lowers it",
+          "Unsaturated fats, found in plant oils, nuts, seeds, and fish, are the healthy fats",
+          "Saturated fat should be limited and replaced with unsaturated fat, not refined carbohydrates",
+          "Trans fat from partially hydrogenated oil is the worst type and should be avoided; the type of fat matters more than the amount"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Protein",
+          "provider": "Harvard T.H. Chan School of Public Health, The Nutrition Source",
+          "url": "https://nutritionsource.hsph.harvard.edu/what-should-you-eat/protein/",
+          "description": "How much protein you need and why the source matters more than the amount.",
+          "keyPoints": [
+            "Adults should get at least 0.8 g of protein per kilogram of body weight per day, about 50 g for a 140-pound person",
+            "Animal foods tend to supply complete protein; plant eaters can get every amino acid by eating a variety of plant proteins",
+            "Protein comes in a package with fats, fibre, and sodium, and the package makes the difference for health",
+            "A cup of cooked lentils has about 18 g of protein and 15 g of fibre with virtually no saturated fat or sodium",
+            "Red meat, and processed red meat especially, is linked to higher risk of heart disease and early death",
+            "Protein powders are not checked by the FDA for safety and can contain added sugar and other ingredients"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Types of Fat",
+          "provider": "Harvard T.H. Chan School of Public Health, The Nutrition Source",
+          "url": "https://nutritionsource.hsph.harvard.edu/what-should-you-eat/fats-and-cholesterol/types-of-fat/",
+          "description": "Unsaturated, saturated, and trans fats, where they come from, and what they do.",
+          "keyPoints": [
+            "Unsaturated fats are liquid at room temperature, come mainly from plants and fish, and improve blood cholesterol",
+            "Omega-3 fats are polyunsaturated fats the body cannot make; fish 2 to 3 times a week is a good source",
+            "US guidelines advise less than 10% of calories from saturated fat",
+            "Replacing saturated fat with refined carbohydrates brings no benefit; replacing it with unsaturated fat lowers heart risk",
+            "Trans fats from partially hydrogenated oil raise LDL, lower HDL, and cause inflammation, even in small amounts",
+            "Each extra 2% of calories from trans fat raises coronary heart disease risk by about 23%"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "What is fat? - George Zaidan",
+          "provider": "TED-Ed",
+          "url": "https://www.youtube.com/watch?v=QhUrc4BnPgg",
+          "videoId": "QhUrc4BnPgg",
+          "description": "Why the shape of a fat molecule matters more than how much fat a food has.",
+          "keyPoints": [
+            "Dietary fat is made of triglycerides, three fatty acid chains on a glycerol backbone",
+            "Saturated fatty acids have only single bonds; unsaturated ones have one or more double bonds",
+            "Trans fats are a kind of unsaturated fat that is far worse for health than saturated fat",
+            "The words partially hydrogenated in an ingredient list signal trans fat",
+            "Olive oil is 100% fat but mostly unsaturated, so the kind of fat matters more than the amount"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Vitamins & Minerals",
+      "level": "INTERMEDIATE",
+      "description": "Micronutrients are needed in tiny amounts and do big jobs. Some are stored and can build up, some are hard to get from food alone, and a few groups need extra.",
+      "learningObjectives": [
+        "Separate water-soluble and fat-soluble vitamins",
+        "Explain how vitamin D is made and when a supplement is advised",
+        "Explain heme and nonheme iron and how to absorb more",
+        "Recognise upper limits and the risk of too much"
+      ],
+      "explainBack": {
+        "question": "A vegetarian friend in a cold country feels tired in winter and wants to take high-dose vitamin D and iron to be safe. Explain how the body gets and stores these two nutrients, who is most at risk of running low, and why more is not automatically better.",
+        "rubric": [
+          "Water-soluble vitamins (B and C) are not stored well, while fat-soluble vitamins (A, D, E, K) are stored in the body",
+          "The skin makes vitamin D from sunlight, but in autumn and winter in the UK the sun is not strong enough, so a 10 microgram daily supplement is advised",
+          "People who are rarely outdoors, cover their skin, or have dark skin are at higher risk of low vitamin D",
+          "Plant foods contain nonheme iron, which is absorbed less well, so vegetarians need almost twice as much and vitamin C helps absorption",
+          "Adult women, teen girls, and pregnant people need more iron",
+          "Adults should not exceed 100 micrograms (4,000 IU) of vitamin D or 45 mg of iron a day without medical advice, because too much is harmful"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "How do vitamins work? - Ginnie Trinh Nguyen",
+          "provider": "TED-Ed",
+          "url": "https://www.youtube.com/watch?v=ISZLTJH5lYg",
+          "videoId": "ISZLTJH5lYg",
+          "description": "How water-soluble and fat-soluble vitamins enter, travel through, and leave the body.",
+          "keyPoints": [
+            "Vitamins are organic compounds the body needs in small amounts and mostly cannot make",
+            "Water-soluble vitamins, C and the B complex, are absorbed directly into the blood and excess is flushed out",
+            "Fat-soluble vitamins, A, D, E, and K, need bile and carrier proteins and are stored in the liver and fat",
+            "B vitamins help enzymes release energy from food; vitamin C helps fight infection and make collagen",
+            "Vitamin D helps build bone, vitamin E is an antioxidant, and vitamin K helps blood clot"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Vitamin D",
+          "provider": "NHS",
+          "url": "https://www.nhs.uk/conditions/vitamins-and-minerals/vitamin-d/",
+          "description": "UK advice on vitamin D from sunlight, food, and supplements.",
+          "keyPoints": [
+            "Vitamin D helps regulate calcium and phosphate for healthy bones, teeth, and muscles",
+            "From late March or early April to the end of September most people make enough from sunlight",
+            "Everyone should consider a daily 10 microgram supplement in autumn and winter",
+            "People rarely outdoors, who cover their skin, or with dark skin may need a supplement all year",
+            "Food sources include oily fish, red meat, egg yolks, and fortified foods",
+            "Adults should not take more than 100 micrograms (4,000 IU) a day; you cannot overdose from sunlight"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Vitamin D - Fact Sheet for Consumers",
+          "provider": "NIH Office of Dietary Supplements",
+          "url": "https://ods.od.nih.gov/factsheets/VitaminD-Consumer/",
+          "description": "US recommended amounts, sources, deficiency, and the risks of too much.",
+          "keyPoints": [
+            "Adults 19 to 70 need 15 mcg (600 IU) a day, and adults over 70 need 20 mcg (800 IU)",
+            "Very few foods naturally contain vitamin D; fatty fish is among the best, and fortified foods supply most in the US",
+            "Clouds, smog, age, dark skin, and sunscreen reduce how much the skin makes, and sunlight through a window does not count",
+            "Deficiency causes rickets in children and osteomalacia in adults",
+            "Too much, almost always from supplements, can cause nausea, kidney stones, and in extreme cases kidney failure"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Iron - Fact Sheet for Consumers",
+          "provider": "NIH Office of Dietary Supplements",
+          "url": "https://ods.od.nih.gov/factsheets/Iron-Consumer/",
+          "description": "What iron does, who runs short, and how to absorb it from food.",
+          "keyPoints": [
+            "Iron is used to make hemoglobin, which carries oxygen in red blood cells",
+            "Adult women 19 to 50 need 18 mg a day, adult men need 8 mg, and pregnant women need 27 mg",
+            "Vegetarians need almost twice as much because nonheme iron from plants is absorbed less well than heme iron",
+            "Eating plant iron with vitamin C foods such as citrus, peppers, or tomatoes improves absorption",
+            "Low iron leads to iron deficiency anemia, with tiredness, weakness, and poor concentration",
+            "The adult upper limit is 45 mg a day, and accidental iron overdose is a leading cause of fatal poisoning in children under 6"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Reading Food Labels",
+      "level": "INTERMEDIATE",
+      "description": "Labels give numbers per 100 g so products can be compared. Traffic lights and the ingredients list show the rest, once you know what counts as high.",
+      "learningObjectives": [
+        "Use per-100 g values to compare two products",
+        "Apply the high and low thresholds for fat, saturated fat, sugar, and salt",
+        "Read traffic-light colours and the ingredients order",
+        "Separate free sugars from total sugars on a label"
+      ],
+      "explainBack": {
+        "question": "You are comparing two breakfast cereals in a shop. Explain how you would use the label to decide which is healthier: the numbers you would check, what counts as high, what the colours and the ingredients list tell you, and why the sugar figure can mislead.",
+        "rubric": [
+          "Compare per 100 g values, because the manufacturer's portion may not match yours",
+          "High means more than 17.5 g fat, 5 g saturated fat, 22.5 g total sugars, or 1.5 g salt per 100 g",
+          "Red means high, amber medium, and green low; choose more greens and ambers and fewer reds",
+          "Ingredients are listed by weight, so the first few make up most of the product",
+          "The total sugars figure includes natural sugars from milk and fruit, but free sugars are the ones to cut",
+          "UK adults should have no more than 30 g of free sugars a day, and a can of cola can hold more than that"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Food labels",
+          "provider": "NHS",
+          "url": "https://www.nhs.uk/live-well/eat-well/food-guidelines-and-food-labels/how-to-read-food-labels/",
+          "description": "How to read the back-of-pack table, front-of-pack colours, and ingredients.",
+          "keyPoints": [
+            "Nutrition labels show energy in kJ and kcal and amounts of fat, saturates, carbohydrate, sugars, protein, and salt",
+            "Values are given per 100 g or 100 ml, and sometimes per portion",
+            "High is more than 17.5 g fat, 5 g saturated fat, 22.5 g sugars, or 1.5 g salt per 100 g",
+            "Low is 3 g fat, 1.5 g saturated fat, 5 g sugars, or 0.3 g salt or less per 100 g",
+            "Front-of-pack colours mean red high, amber medium, and green low",
+            "Ingredients are listed in descending order of weight, with allergens in bold"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Sugar: the facts",
+          "provider": "NHS",
+          "url": "https://www.nhs.uk/live-well/eat-well/food-types/how-does-sugar-in-our-diet-affect-our-health/",
+          "description": "What free sugars are, the daily limits, and how they show up on labels.",
+          "keyPoints": [
+            "Free sugars are sugars added to food and drink plus those in honey, syrups, and unsweetened juices and smoothies",
+            "Sugars naturally in milk, whole fruit, and vegetables are not free sugars, but they are included in total sugars on labels",
+            "Free sugars should be no more than 5% of daily energy: 30 g a day for adults, about 7 sugar cubes",
+            "Children aged 7 to 10 should have no more than 24 g, and 4 to 6-year-olds no more than 19 g",
+            "A can of cola can contain about 9 cubes of sugar, more than the adult daily limit",
+            "Swap sugary drinks for water, lower-fat milk, or no-added-sugar drinks, and keep juice to 150 ml a day"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "title": "Salt, Drinks & Hydration",
+      "level": "INTERMEDIATE",
+      "description": "Most salt is already in the food we buy. Most of the fluid we need can come from water, milk, tea, and coffee, and sugary drinks are the easiest sugar to cut.",
+      "learningObjectives": [
+        "State the daily salt limits from WHO and the NHS",
+        "Explain where most dietary salt comes from",
+        "Judge hydration from urine colour and circumstances",
+        "Choose healthier drinks and limit caffeine where advised"
+      ],
+      "explainBack": {
+        "question": "A friend never adds salt to their food and drinks three cans of fizzy drink a day, so they think their diet is fine. Explain where their salt is probably coming from, the daily limits, and how they should think about what they drink.",
+        "rubric": [
+          "Around three quarters of salt comes from packaged and everyday foods such as bread, cereals, meat products, and ready meals, not the salt shaker",
+          "WHO recommends less than 5 g of salt (2,000 mg sodium) a day for adults, and the NHS says no more than 6 g",
+          "Too much salt raises blood pressure, which increases the risk of heart attacks and strokes",
+          "Aim for 6 to 8 glasses of fluid a day and pale yellow urine, and drink more in heat, exercise, illness, or pregnancy",
+          "Water, lower-fat milk, tea, and coffee all count; sugary drinks should be swapped and juice kept to 150 ml",
+          "Caffeine should be moderate, and no more than 200 mg a day in pregnancy"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Salt in your diet",
+          "provider": "NHS",
+          "url": "https://www.nhs.uk/live-well/eat-well/food-types/salt-nutrition/",
+          "description": "UK salt limits by age and practical ways to cut down.",
+          "keyPoints": [
+            "Too much salt can cause high blood pressure, raising the risk of heart attack and stroke",
+            "Around three quarters of the salt we eat is already in packaged and everyday foods",
+            "Adults should have no more than 6 g of salt a day, about one level teaspoon",
+            "Children need less, from under 1 g for babies to 5 g at 7 to 10 years",
+            "Use herbs, spices, garlic, or lemon instead of salt, and check labels for green and amber",
+            "Some dissolvable tablets can be high in salt"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Sodium reduction",
+          "provider": "World Health Organization (WHO)",
+          "url": "https://www.who.int/news-room/fact-sheets/detail/sodium-reduction",
+          "description": "WHO's global picture of sodium intake and its recommendation for adults.",
+          "keyPoints": [
+            "Global mean adult intake was about 4,278 mg sodium a day (about 11 g salt) in 2021, more than double the recommendation",
+            "WHO recommends less than 2,000 mg sodium a day for adults, equal to less than 5 g of salt",
+            "High sodium raises blood pressure and the risk of cardiovascular disease",
+            "Sodium is high in processed foods such as bread, processed meat, snacks, and condiments like soy and fish sauce",
+            "Salt that is used should be iodized, and lower-sodium salt substitutes containing potassium are suggested"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Water, drinks and hydration",
+          "provider": "NHS",
+          "url": "https://www.nhs.uk/live-well/eat-well/food-guidelines-and-food-labels/water-drinks-nutrition/",
+          "description": "How much to drink, which drinks count, and which to limit.",
+          "keyPoints": [
+            "Drink enough so your urine is a clear pale yellow; the Eatwell Guide suggests 6 to 8 cups or glasses a day",
+            "You may need more if pregnant or breastfeeding, in heat, active for long periods, or ill",
+            "Water, lower-fat milk, and lower-sugar drinks, including tea and coffee, all count",
+            "Limit juice and smoothies to one 150 ml glass a day, with a meal",
+            "Children should avoid sugary fizzy drinks and juice drinks; water and milk are best",
+            "In pregnancy keep caffeine under 200 mg a day"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Energy Balance & Weight",
+      "level": "ADVANCED",
+      "description": "Weight follows the balance of energy in and energy used. BMI is a rough screen, waist size adds detail, and slow steady change lasts.",
+      "learningObjectives": [
+        "Explain energy balance in calories",
+        "Read BMI ranges and their limits",
+        "Use waist-to-height ratio as a second check",
+        "Describe a safe rate of weight loss"
+      ],
+      "explainBack": {
+        "question": "A muscular friend's BMI says overweight, and another friend wants to lose 5 kg in a week. Explain how energy balance decides weight, what BMI can and cannot tell you, what other check is useful, and what a safe rate of loss looks like.",
+        "rubric": [
+          "Weight stays steady when calories eaten match calories used; extra energy is stored as fat and a shortfall uses stored fat",
+          "As a guide an average man needs about 2,500 kcal and an average woman about 2,000 kcal a day, varying with age, size, and activity",
+          "For most adults a BMI of 25 to 29.9 is overweight and 30 or more is obese, with lower cut-offs for some ethnic groups",
+          "BMI cannot tell muscle from fat, so a muscular person can score as overweight",
+          "Keeping your waist to less than half your height is a useful second check",
+          "Aim to lose about 0.5 to 1 kg a week, and even 5 to 10% of body weight improves health"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Understanding calories",
+          "provider": "NHS",
+          "url": "https://www.nhs.uk/live-well/healthy-weight/managing-your-weight/understanding-calories/",
+          "description": "What calories measure and how they relate to body weight.",
+          "keyPoints": [
+            "Calories measure the energy in food and drink, shown as kcal or kJ",
+            "To stay the same weight, the calories you use should match the calories you eat and drink",
+            "Eating more than you use stores the extra as fat; eating less makes the body use stored fat",
+            "As a guide an average man needs 2,500 kcal and an average woman 2,000 kcal a day",
+            "Needs vary with age, weight, height, and exercise, and more vigorous activity uses more calories"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Overweight and obesity in adults",
+          "provider": "NHS",
+          "url": "https://www.nhs.uk/conditions/overweight-and-obesity/",
+          "description": "BMI, waist-to-height ratio, the health risks, and how to lose weight safely.",
+          "keyPoints": [
+            "For most adults a BMI of 25 to 29.9 is overweight and 30 or more is obese",
+            "For South Asian, Chinese, other Asian, Middle Eastern, Black African, or African-Caribbean backgrounds, the cut-offs are 23 and 27.5",
+            "BMI cannot tell the difference between muscle and fat",
+            "Keep your waist size to less than half your height",
+            "Losing 5 to 10% of body weight can improve health, and a steady 0.5 to 1 kg a week is the aim",
+            "Very low calorie diets are not safe for everyone and are used only with professional support"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "title": "Supplements & Nutrition Claims",
+      "level": "ADVANCED",
+      "description": "A supplement is not checked for effectiveness before it is sold. Learn what the label is allowed to say, where the evidence is thin, and how a supplement can do harm.",
+      "learningObjectives": [
+        "Explain how supplements are regulated differently from medicines",
+        "Separate a health claim from a structure/function claim",
+        "Name supplements with good evidence and common ones without it",
+        "Spot risks: high doses, interactions, and hidden ingredients"
+      ],
+      "explainBack": {
+        "question": "A product online says it supports immunity and promises natural results with no side effects. Explain what that claim actually means legally, what the regulator has and has not checked, and the questions you would ask before taking it.",
+        "rubric": [
+          "In the US, supplements do not need FDA approval for safety or effectiveness before they are sold; the company is responsible for that evidence",
+          "Supports immunity is a structure/function claim, which must carry a disclaimer that the FDA has not evaluated it and it does not treat or prevent disease",
+          "Some supplements have good evidence, such as folic acid against certain birth defects, while multivitamins do not make people live longer",
+          "Natural does not mean safe; some botanicals can harm the liver, and supplements can interact with medicines",
+          "Products sold for weight loss, sexual enhancement, or bodybuilding may hide prescription drugs or unlisted ingredients",
+          "Ask about benefits, risks, dose, and duration, and tell a doctor or pharmacist what you take"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Dietary Supplements: What You Need to Know",
+          "provider": "NIH Office of Dietary Supplements",
+          "url": "https://ods.od.nih.gov/factsheets/WYNTK-Consumer/",
+          "description": "What supplements can and cannot do, how they are regulated, and how to use them safely.",
+          "keyPoints": [
+            "Supplements can help fill gaps but cannot replace a varied diet",
+            "Some have good evidence, such as calcium and vitamin D for bones and folic acid against certain birth defects",
+            "The FDA does not decide whether a supplement works before it is marketed",
+            "Side effects are most likely at high doses, when replacing prescribed medicines, or when taking many supplements",
+            "Structure/function claims must carry the disclaimer that the FDA has not evaluated them",
+            "Natural does not always mean safe, and quality seals do not guarantee safety or effectiveness"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Using Dietary Supplements Wisely",
+          "provider": "National Center for Complementary and Integrative Health (NCCIH)",
+          "url": "https://www.nccih.nih.gov/health/using-dietary-supplements-wisely",
+          "description": "What the evidence says about supplements and how to judge their claims.",
+          "keyPoints": [
+            "The evidence varies widely: melatonin may help jet lag, while ginkgo shows little benefit for dementia",
+            "Most research shows multivitamins do not help people live longer or prevent cancer, heart disease, or diabetes",
+            "Products in stores may differ from the ones tested in studies",
+            "Supplements for weight loss, sexual enhancement, and bodybuilding may contain hidden prescription drugs",
+            "Labels cannot claim to diagnose, treat, cure, or prevent disease; health claims and structure/function claims are different",
+            "The FDA can act against an unsafe supplement only after it is on the market"
+          ]
+        }
+      ]
+    }
+  ],
+  "slug": "nutrition",
+  "name": "Nutrition",
+  "description": "Learn what a meal needs to do, past the label on the box: a balanced plate, carbohydrates and fibre, protein and fats, vitamins and minerals, food labels, salt and drinks, energy balance, and how to judge supplements.",
+  "status": "COMING_SOON"
+}

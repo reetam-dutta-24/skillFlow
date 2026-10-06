@@ -154,6 +154,8 @@ async function main() {
   await importCatalog("digital-marketing", { apply: true })
   await importCatalog("personal-finance", { apply: true })
   await importCatalog("public-speaking", { apply: true })
+  await importCatalog("sound-design", { apply: true })
+  await importCatalog("nutrition", { apply: true })
 }
 
 main()

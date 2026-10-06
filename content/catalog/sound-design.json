@@ -1,0 +1,638 @@
+{
+  "stages": [
+    {
+      "order": 1,
+      "title": "How Sound Works",
+      "level": "BEGINNER",
+      "description": "Sound is a vibration measured in hertz and decibels. Pitch and loudness are what the ear makes of those numbers, and loud sound damages hearing for good.",
+      "learningObjectives": [
+        "Connect frequency in hertz to the pitch a listener hears",
+        "Read the decibel scale as a ratio, not a straight line",
+        "Separate measured intensity from perceived loudness",
+        "State the exposure levels that put hearing at risk"
+      ],
+      "explainBack": {
+        "question": "A friend turns a sound up by 10 dB and says it is now just a little louder. Explain what changed physically, how pitch and loudness relate to the numbers, and when that level starts to put their hearing at risk.",
+        "rubric": [
+          "Frequency is the number of vibrations per second, measured in hertz, and the ear perceives it as pitch",
+          "Humans hear roughly 20 Hz to 20,000 Hz, and doubling the frequency raises the pitch by one octave",
+          "The decibel scale is logarithmic: each +10 dB is ten times the intensity, and 0 dB is the threshold of hearing",
+          "Loudness is a perception; the ear is most sensitive in the middle frequencies, so equal intensity does not sound equally loud",
+          "Long or repeated exposure at or above 85 dBA can cause permanent noise-induced hearing loss, because damaged hair cells do not grow back"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Pitch and Frequency",
+          "provider": "The Physics Classroom",
+          "url": "https://www.physicsclassroom.com/class/sound/Lesson-2/Pitch-and-Frequency",
+          "description": "What frequency is, how the ear turns it into pitch, and the range of human hearing.",
+          "keyPoints": [
+            "Frequency is the number of complete vibrations per second, measured in hertz (Hz)",
+            "Humans hear frequencies from about 20 Hz to about 20,000 Hz; below is infrasound and above is ultrasound",
+            "Pitch is the sensation of a frequency: a high frequency is heard as a high pitch",
+            "Two sounds with a 2:1 frequency ratio are an octave apart",
+            "Sounds whose frequencies form simple whole-number ratios tend to sound pleasant together"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Intensity and the Decibel Scale",
+          "provider": "The Physics Classroom",
+          "url": "https://www.physicsclassroom.com/class/sound/Lesson-2/Intensity-and-the-Decibel-Scale",
+          "description": "Intensity, the inverse square law, and why the decibel scale counts in powers of ten.",
+          "keyPoints": [
+            "Intensity is the energy a sound carries through an area per second, and it falls with the square of the distance from the source",
+            "0 dB is the threshold of hearing, an intensity of 1 x 10^-12 W/m^2",
+            "Each increase of 10 dB is a tenfold increase in intensity, so 20 dB is 100 times more intense than 0 dB",
+            "Normal conversation is about 60 dB and the threshold of pain is about 130 dB",
+            "Perceived loudness is subjective, and the ear is most sensitive to frequencies around 1,000 to 5,000 Hz"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Noise-Induced Hearing Loss",
+          "provider": "National Institute on Deafness and Other Communication Disorders (NIDCD)",
+          "url": "https://www.nidcd.nih.gov/health/noise-induced-hearing-loss",
+          "description": "Which levels damage hearing, why the damage is permanent, and how to prevent it.",
+          "keyPoints": [
+            "Sounds at or below 70 dBA are unlikely to harm hearing, even after long exposure",
+            "Long or repeated exposure to sounds at or above 85 dBA can cause hearing loss",
+            "Personal listening devices at maximum volume can reach roughly 94 to 110 dBA",
+            "Noise damages the sensory hair cells in the inner ear, and in humans those cells do not grow back",
+            "Noise-induced hearing loss is preventable: lower the volume, move away from the source, limit the time, and wear earplugs or earmuffs"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Digital Audio Basics",
+      "level": "BEGINNER",
+      "description": "A recording is a list of samples. Sample rate sets the highest frequency it can hold, bit depth sets the dynamic range, and anything over 0 dB clips.",
+      "learningObjectives": [
+        "Explain what a sample rate is and why it has to be more than twice the highest frequency",
+        "Connect bit depth to dynamic range",
+        "Recognise clipping and why it happens",
+        "Choose between a lossless and a lossy file for a task"
+      ],
+      "explainBack": {
+        "question": "You are setting up a session to record dialogue for a short film. Explain which sample rate and bit depth you would pick, what each number controls, what clipping is, and which file format you would keep as the master.",
+        "rubric": [
+          "Digital audio stores the waveform as samples taken at a fixed sample rate",
+          "The sample rate must be more than twice the highest frequency to be captured (the Nyquist rule); otherwise aliasing adds false tones",
+          "CD audio uses 44.1 kHz, which covers the roughly 20 kHz limit of human hearing",
+          "Bit depth sets dynamic range: 16-bit gives about 96 dB and 24-bit about 145 dB",
+          "A signal that goes above 0 dB clips and distorts, so leave headroom",
+          "Keep the master lossless (WAV or FLAC); MP3 is lossy and throws away detail using psychoacoustics"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Digital Audio Fundamentals",
+          "provider": "Audacity Manual",
+          "url": "https://manual.audacityteam.org/man/digital_audio.html",
+          "description": "Samples, sample rates, bit depth, clipping, and file formats explained by the Audacity team.",
+          "keyPoints": [
+            "Digital audio is a sequence of samples; the sample rate is how many are taken each second",
+            "To represent a frequency the sample rate must be more than twice that frequency (Nyquist); otherwise the result is aliasing",
+            "CD audio is sampled at 44,100 Hz, enough for the upper limit of human hearing",
+            "Bit depth (sample format) sets dynamic range: 16-bit is about 96 dB, 24-bit about 145 dB, and 32-bit float is effectively unlimited",
+            "Samples above 0 dB are clipped, which causes distortion",
+            "MP3 and similar formats are lossy and use psychoacoustics to discard detail; FLAC is lossless; uncompressed size is sample rate x bit depth x channels x seconds"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Recording & Microphones",
+      "level": "BEGINNER",
+      "description": "A microphone's polar pattern decides what it hears and what it rejects. Distance changes the tone. Room tone recorded on set saves the edit later.",
+      "learningObjectives": [
+        "Compare omnidirectional, cardioid, hypercardioid, figure-8, and shotgun patterns",
+        "Explain the proximity effect",
+        "Aim a microphone's null at an unwanted noise",
+        "Record usable room tone on location"
+      ],
+      "explainBack": {
+        "question": "You are recording an interview in a room with a noisy air-conditioner behind the speaker's left shoulder. Explain which microphone pattern you would choose, where you would point it, how close you would place it, and what you would record before you leave the room.",
+        "rubric": [
+          "An omnidirectional mic picks up sound equally from all directions; a directional mic favours the front",
+          "A cardioid is quieter at the sides and most rejecting directly behind, so off-axis noise is reduced",
+          "Each pattern has nulls, such as 180 degrees for cardioid, and the null should be aimed at the noise",
+          "Moving a directional mic very close raises the bass (proximity effect), so distance changes tone as well as level",
+          "Shotgun mics are used on film sets because they reject more sound from the sides",
+          "Record about 30 to 60 seconds of room tone with the same mic, placement, and settings, so gaps and cuts can be filled later"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "A Brief Guide to Microphones - What's The Pattern?",
+          "provider": "Audio-Technica",
+          "url": "https://www.audio-technica.com/en-us/support/a-brief-guide-to-microphones-whats-the-pattern/",
+          "description": "Omnidirectional and directional patterns, how much each rejects, and when to use them.",
+          "keyPoints": [
+            "An omnidirectional mic responds equally to sound from all directions; a directional mic is most sensitive at the front",
+            "A cardioid is about 6 dB less sensitive at the sides (90 degrees) and about 20 dB less sensitive at the rear (180 degrees)",
+            "A cardioid picks up about one third of the ambient sound an omni does, and can be placed about 1.7 times farther away for the same balance",
+            "Directional mics show a proximity effect: bass rises when the source is very close",
+            "Line (shotgun) mics are the most directional and suit film, video, and distant pickup",
+            "Directional pickup helps reduce feedback from loudspeakers"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Understanding & Using Directional Microphones",
+          "provider": "Sound On Sound",
+          "author": "Hugh Robjohns",
+          "url": "https://www.soundonsound.com/techniques/understanding-using-directional-microphones",
+          "description": "Why pressure and pressure-gradient designs behave differently, and how to use the nulls.",
+          "keyPoints": [
+            "Microphones work on two principles: pressure (omnidirectional) and pressure gradient (figure-8)",
+            "Combining omni and figure-8 responses gives cardioid, supercardioid, and hypercardioid patterns",
+            "Pressure-gradient designs show the proximity effect, a bass boost close to the source",
+            "The nulls sit at about 180 degrees for a cardioid, about 130 degrees either side for a hypercardioid, and at 90 degrees for a figure-8",
+            "Pointing the null at the unwanted source is often more useful than pointing the front at the wanted one"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What Is Room Tone in Film?",
+          "provider": "StudioBinder",
+          "url": "https://www.studiobinder.com/blog/what-is-room-tone/",
+          "description": "What room tone is, why the edit needs it, and how to record it on set.",
+          "keyPoints": [
+            "Room tone is the natural ambient sound of a location when nobody is speaking",
+            "It is used to fill gaps, smooth dialogue cuts, and blend ADR into the scene",
+            "Record at least 30 to 60 seconds, with the same microphone, placement, and settings used for the takes",
+            "Everyone on set stays still and quiet while it is recorded, usually after the last take",
+            "Room tone is not the same as silence and not the same as added ambience"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Foley, Sound Effects & Diegesis",
+      "level": "INTERMEDIATE",
+      "description": "Most of what you hear in a film was made after the shoot. Foley artists perform it with props, and the designer decides which sounds live inside the story.",
+      "learningObjectives": [
+        "Describe what Foley is and its three main categories",
+        "Separate diegetic from non-diegetic sound",
+        "Explain why a prop often sounds more real than the real object",
+        "Use a library sound under the right Creative Commons licence"
+      ],
+      "explainBack": {
+        "question": "A scene shows a character walking through snow while music plays. Explain which sounds would be Foley, which are diegetic and which are not, and how you could legally use a downloaded snow sound in your edit.",
+        "rubric": [
+          "Foley is everyday sound performed and recorded in post-production to match the picture",
+          "Foley is usually split into feet, moves (cloth and body), and specifics (props)",
+          "Props are chosen for how they sound, not how they look; for example, cornstarch can stand in for snow",
+          "Diegetic sound comes from inside the story world and characters could hear it, even if it is off screen",
+          "Non-diegetic sound, such as the score, is heard only by the audience",
+          "A Freesound clip is usable under its licence: CC0 needs no credit, CC BY needs credit, and NC forbids commercial use"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Foley (filmmaking)",
+          "provider": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Foley_(filmmaking)",
+          "description": "Where Foley comes from, how it is split up, and the props artists use.",
+          "keyPoints": [
+            "Foley is the reproduction of everyday sound effects added to film and video in post-production",
+            "It is named after Jack Foley, a sound-effects artist at Universal",
+            "Foley work is usually divided into feet, moves, and specifics",
+            "Foley replaces sound that was not captured well on set, or that was covered by unwanted noise",
+            "Artists use props that sound right rather than look right, such as cornstarch for snow or coconut halves for hooves"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What is Diegetic Sound",
+          "provider": "StudioBinder",
+          "url": "https://www.studiobinder.com/blog/what-is-diegetic-sound/",
+          "description": "The difference between sound inside the story and sound only the audience hears.",
+          "keyPoints": [
+            "Diegetic sound originates inside the world of the film, so characters could hear it",
+            "Dialogue, source music such as a car radio, and sound effects from on-screen action are diegetic",
+            "Diegetic sound can be off screen and still belong to the story world",
+            "Non-diegetic sound, such as the score or a narrator, is meant only for the audience",
+            "Moving a sound between diegetic and non-diegetic is a deliberate storytelling choice"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "The Magic of Making Sound",
+          "provider": "Great Big Story",
+          "url": "https://www.youtube.com/watch?v=UO3N_PRIgX0",
+          "videoId": "UO3N_PRIgX0",
+          "description": "Foley artists at Warner Bros. recreate film sounds with everyday props.",
+          "keyPoints": [
+            "Foley artists perform sounds in sync with the picture on a Foley stage",
+            "Everyday objects are used to stand in for what the picture shows",
+            "A Foley mixer records and balances the performance",
+            "Much of the sound audiences accept as real was made after the shoot"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Frequently Asked Questions",
+          "provider": "Freesound",
+          "url": "https://freesound.org/help/faq/",
+          "description": "How Freesound's Creative Commons licences work and how to credit a sound.",
+          "keyPoints": [
+            "Each sound on Freesound carries its own licence: CC0, Attribution (CC BY), or Attribution NonCommercial (CC BY-NC)",
+            "CC0 lets you use the sound for almost anything, but you cannot claim you made it",
+            "Attribution licences require you to credit the author",
+            "NonCommercial licences forbid using the sound to make money",
+            "A credit names the sound, the user, a link, and the licence"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Editing & Cleanup",
+      "level": "INTERMEDIATE",
+      "description": "Clean steady noise with a noise profile, and do it gently. Heavy reduction leaves artifacts that sound worse than the hiss.",
+      "learningObjectives": [
+        "Pick which kinds of noise noise reduction can remove",
+        "Take a noise profile from a noise-only section",
+        "Set reduction, sensitivity, and smoothing and listen for artifacts",
+        "Order cleanup steps in an edit"
+      ],
+      "explainBack": {
+        "question": "Your dialogue recording has a constant fan hum and one passing car. Explain what noise reduction can and cannot fix here, the two steps to apply it, how you would check you have not overdone it, and what you would do before and after it.",
+        "rubric": [
+          "Noise reduction is meant for constant background noise such as hum, hiss, or a fan, not for one-off sounds like a passing car",
+          "Step one is Get Noise Profile from a section that contains only the noise",
+          "Step two is selecting the audio and applying the reduction",
+          "Start with moderate settings, such as the default 6 dB, and listen to the Residue to hear what is being removed",
+          "Too much reduction causes artifacts such as watery musical noise",
+          "Clicks or a narrow hum may be better handled with click removal or a notch filter first, and compression comes after cleanup"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Noise Reduction",
+          "provider": "Audacity Manual",
+          "url": "https://manual.audacityteam.org/man/noise_reduction.html",
+          "description": "The two-step noise profile method, what each setting does, and its limits.",
+          "keyPoints": [
+            "Noise Reduction works on constant background noise such as hum, hiss, whine, or fan noise, not on clicks or traffic",
+            "Step 1 is Get Noise Profile from a region that contains only noise, at least 2048 samples long",
+            "Step 2 is selecting the audio and applying the effect with Noise Reduction (dB), Sensitivity, and Frequency Smoothing",
+            "The Residue option lets you hear what is being removed",
+            "Too much reduction produces artifacts, including musical noise",
+            "Notch filtering or click removal can go before it, and compression after it"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "🔊 How to use Audacity to Record & Edit Audio | Beginners Tutorial",
+          "provider": "Kevin Stratvert",
+          "url": "https://www.youtube.com/watch?v=yzJ2VyYkmaA",
+          "videoId": "yzJ2VyYkmaA",
+          "description": "A beginner walkthrough of recording, cleaning, and polishing a voice in Audacity.",
+          "keyPoints": [
+            "Record a few seconds of room noise so you have a clean noise profile",
+            "Use Get Noise Profile and then Noise Reduction on the recording",
+            "Trim and fade clips so cuts do not click",
+            "Apply a compressor to even out the voice after cleanup"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "title": "EQ, Dynamics & Space",
+      "level": "INTERMEDIATE",
+      "description": "EQ shapes which frequencies come through, a compressor controls how far the level swings, and reverb places a sound in a room.",
+      "learningObjectives": [
+        "Boost and cut frequency bands with an EQ curve",
+        "Explain threshold, ratio, attack, release, and make-up gain",
+        "Shape reverb with room size, pre-delay, reverberance, and wet/dry",
+        "Avoid clipping while processing"
+      ],
+      "explainBack": {
+        "question": "A voice-over sounds thin, jumps between whispering and shouting, and feels too dry next to a scene recorded in a hall. Explain how you would use EQ, a compressor, and reverb to fix each problem, with the settings that matter.",
+        "rubric": [
+          "EQ boosts or cuts frequency ranges, and cutting low rumble or harsh highs is often cleaner than boosting",
+          "Normalize or leave headroom before boosting so the EQ does not clip",
+          "A compressor reduces dynamic range: above the threshold, the ratio sets how much the level is turned down",
+          "Attack and release set how quickly the compressor reacts and lets go, and make-up gain restores the level afterwards",
+          "Reverb room size, pre-delay, and reverberance set the size of the space and how long the tail lasts",
+          "Wet and dry levels set how much of the effect is mixed with the original, so the voice can match the hall without washing out"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Filter Curve EQ",
+          "provider": "Audacity Manual",
+          "url": "https://manual.audacityteam.org/man/filter_curve_eq.html",
+          "description": "Drawing an EQ curve to boost or cut frequencies, with a worked radio example.",
+          "keyPoints": [
+            "An equalizer boosts or cuts chosen frequency ranges",
+            "The curve is usually viewed on a logarithmic frequency scale, matching how we hear pitch",
+            "A worked example imitates AM radio by cutting below about 100 Hz and above about 6,000 Hz",
+            "Normalizing to around -3 dB first leaves headroom so a boost does not clip"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Compressor",
+          "provider": "Audacity Manual",
+          "url": "https://manual.audacityteam.org/man/compressor.html",
+          "description": "How a compressor reduces dynamic range and what each control changes.",
+          "keyPoints": [
+            "A compressor reduces the dynamic range of audio by turning down the loud parts",
+            "The threshold is the level above which compression starts, and the ratio sets how strongly it applies",
+            "With a -10 dB threshold and a 10:1 ratio, a 0 dB peak comes out at -9 dB",
+            "Attack and release times set how fast gain reduction starts and stops; lookahead lets it react before a peak",
+            "Make-up gain raises the result back up after compression, and the knee softens the transition at the threshold"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Reverb",
+          "provider": "Audacity Manual",
+          "url": "https://manual.audacityteam.org/man/reverb.html",
+          "description": "The controls that turn a dry recording into one that sounds like it was in a room.",
+          "keyPoints": [
+            "Room Size sets the size of the simulated space",
+            "Pre-delay delays the start of the reverb, up to 200 ms",
+            "Reverberance sets how long the reverb tail lasts, and Damping softens its high frequencies",
+            "Wet Gain and Dry Gain set the balance between the effect and the original",
+            "Add silence at the end of a clip so the tail is not cut off"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Synthesis for Sound Design",
+      "level": "ADVANCED",
+      "description": "Many designed sounds start in a synthesizer: a rich oscillator, a filter that carves it, and envelopes that shape it over time.",
+      "learningObjectives": [
+        "Describe the four stages of an ADSR envelope",
+        "Explain subtractive synthesis from oscillator to filter",
+        "Apply an envelope to amplitude, filter, or pitch",
+        "Build a sound by ear in a synth playground"
+      ],
+      "explainBack": {
+        "question": "You need a short plucked sound and a slow swelling pad from the same synthesizer. Explain how subtractive synthesis builds a sound, and how you would set the envelope for each of the two sounds.",
+        "rubric": [
+          "Subtractive synthesis starts with a harmonically rich oscillator, such as a sawtooth or square wave, or noise",
+          "A filter, often low-pass, removes overtones to shape the tone",
+          "An envelope changes a parameter over time, such as amplitude, filter cutoff, or pitch",
+          "Attack is the time to reach peak, decay the time to fall to the sustain level, sustain the level held while the key is down, and release the time to fade after it is let go",
+          "A pluck uses a fast attack, short decay, and low sustain; a pad uses a slow attack and a long release"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Envelope (music)",
+          "provider": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Envelope_(music)",
+          "description": "The ADSR envelope and what it controls in a sound.",
+          "keyPoints": [
+            "An envelope describes how a sound changes over time",
+            "Attack is the time from nothing to the peak level",
+            "Decay is the time from the peak down to the sustain level",
+            "Sustain is a level held until the key is released, and release is the time back to nothing",
+            "Robert Moog's envelope generator in the 1960s made this control standard; envelopes can drive amplitude, filter cutoff, or pitch"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Subtractive synthesis",
+          "provider": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Subtractive_synthesis",
+          "description": "How filtering a rich source produces a new timbre.",
+          "keyPoints": [
+            "Subtractive synthesis attenuates the overtones of a harmonically rich source with a filter",
+            "Typical sources are sawtooth or square-like waves and noise",
+            "A common signal path is oscillator, then filter, then an amplifier shaped by an envelope",
+            "A plucked string can be imitated by quickly closing a low-pass filter",
+            "It was the dominant method on analog synthesizers"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Learning Synths",
+          "provider": "Ableton",
+          "url": "https://learningsynths.ableton.com/",
+          "description": "An interactive browser playground for oscillators, filters, envelopes, and LFOs.",
+          "keyPoints": [
+            "Runs in the browser with no download",
+            "Lessons introduce oscillators, filters, envelopes, and LFOs one at a time",
+            "Every control can be heard immediately, so you learn by ear",
+            "A free playground lets you build and change a sound yourself"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "title": "Mixing, Loudness & Interactive Audio",
+      "level": "ADVANCED",
+      "description": "Finished sound meets a loudness target for where it will play. In games it has to react to the player, so the mix is built to change.",
+      "learningObjectives": [
+        "Explain LUFS loudness targets for broadcast and streaming",
+        "Separate integrated loudness from true peak",
+        "Describe how a game engine places and mixes sound",
+        "Explain why game audio has to be adaptive"
+      ],
+      "explainBack": {
+        "question": "The same sound design has to ship as a broadcast trailer, a Spotify release, and the audio for a small game. Explain the loudness targets you would aim for, why a game needs a different approach, and which tools help with it.",
+        "rubric": [
+          "Loudness is measured in LUFS; EBU R 128 sets a programme loudness target of -23 LUFS for broadcast",
+          "Spotify normalizes playback to about -14 LUFS, so a louder master is turned down",
+          "True peak should stay below about -1 dBTP to avoid distortion after encoding",
+          "Game events happen in an unpredictable order, so the sound has to be dynamic and adaptive",
+          "In Unity an Audio Source plays sound and an Audio Listener, usually on the camera, hears it in 3D space",
+          "Middleware such as FMOD Studio lets a designer build adaptive events and mix while the game runs"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "R 128 - Loudness normalisation and permitted maximum level of audio signals",
+          "provider": "European Broadcasting Union (EBU)",
+          "url": "https://tech.ebu.ch/publications/r128",
+          "description": "The broadcast loudness recommendation used across Europe.",
+          "keyPoints": [
+            "EBU R 128 sets a programme loudness target of -23 LUFS",
+            "It measures loudness over the whole programme rather than by peak level",
+            "It adds Loudness Range and Maximum True Peak Level as descriptors",
+            "A small tolerance around the target is allowed",
+            "The recommendation has been revised several times, most recently as version 5.0"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Loudness normalization",
+          "provider": "Spotify for Artists",
+          "url": "https://support.spotify.com/us/artists/article/loudness-normalization/",
+          "description": "How Spotify adjusts playback loudness and how to master for it.",
+          "keyPoints": [
+            "Spotify normalizes playback to -14 dB LUFS by default, measured with ITU 1770",
+            "Premium listeners can pick Loud (-11), Normal (-14), or Quiet (-19)",
+            "A louder master is turned down, so extra loudness gains nothing",
+            "Master at about -14 LUFS integrated with true peak below -1 dBTP, or below -2 dBTP for louder masters",
+            "Albums are normalized as a whole so the relative levels of tracks stay the same"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Audio overview",
+          "provider": "Unity Manual",
+          "url": "https://docs.unity3d.com/Manual/AudioOverview.html",
+          "description": "How Unity plays, positions, and mixes sound in a 3D scene.",
+          "keyPoints": [
+            "An Audio Source plays a clip from a GameObject, and an Audio Listener, usually on the camera, hears it",
+            "Unity simulates distance, position, and the Doppler effect for 3D sound",
+            "Reverb Zones and filters such as Echo add environmental effects",
+            "The Audio Mixer groups and balances sources",
+            "Unity imports AIFF, WAV, MP3, and Ogg files"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Welcome to FMOD Studio",
+          "provider": "FMOD",
+          "url": "https://www.fmod.com/docs/2.03/studio/welcome-to-fmod-studio.html",
+          "description": "The adaptive audio tool designers use to build game sound without programming.",
+          "keyPoints": [
+            "FMOD Studio is built for creating adaptive audio for games",
+            "Its interface is similar to a DAW, so sound designers can work without writing code",
+            "Events react to what happens in the game",
+            "Designers can mix and adjust audio live while the game runs, and profile it"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Sound design",
+          "provider": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Sound_design",
+          "description": "Sound design across film, television, theatre, and games.",
+          "keyPoints": [
+            "Sound design is used in film, television, theatre, music, and video games",
+            "Walter Murch was the first person credited as Sound Designer, in 1969",
+            "Game sound has to be dynamic and adaptive because events happen in an unpredictable order",
+            "Theatre sound designers place cues in the show and often run them with software such as QLab"
+          ]
+        }
+      ]
+    }
+  ],
+  "slug": "sound-design",
+  "name": "Sound Design",
+  "description": "Learn how to hear, record, and build sound for a scene: the physics of sound, digital audio, microphones and room tone, Foley and diegesis, cleanup, EQ and dynamics, synthesis, and loudness for film, streaming, and games.",
+  "status": "COMING_SOON"
+}

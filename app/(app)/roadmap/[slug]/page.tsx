@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
+import { viewerHasPremium } from "@/lib/billing/access";
 import { loadPublicCatalog, publicSkillName } from "@/lib/data/public-catalog";
 import { getRoadmap } from "@/lib/data/roadmap";
 import { readLearningPlan } from "@/lib/plan/store";
@@ -40,7 +41,6 @@ function unlockHint(stage: RoadmapStageView) {
   if (stage.personalLock && stage.previousStageTitle) {
     return `Pass ${stage.previousStageTitle} to open this stage.`;
   }
-  if (stage.previousStageTitle) return "The last part of this free path stays locked.";
   return "This stage is not open yet.";
 }
 
@@ -57,6 +57,7 @@ export default async function RoadmapDetailPage({ params }: PageProps) {
   const { slug } = await params;
   const data = await getRoadmap(slug);
   if (!data) notFound();
+  if (data.skill.offer === "MONETIZED" && !(await viewerHasPremium())) redirect("/upgrade");
   const learning = data.skill.followed ? await readLearningPlan(session.user.id, data.skill.id) : null;
   const showPlan = Boolean(learning?.applied);
   const planById = new Map(showPlan ? learning?.plan.stages.map((stage) => [stage.id, stage]) ?? [] : []);
@@ -91,10 +92,10 @@ export default async function RoadmapDetailPage({ params }: PageProps) {
       {data.stages.length === 0 ? (
         <EmptyState
           icon="route"
-          title={data.skill.offer === "MONETIZED" ? "Premium" : "This path is not ready yet"}
+          title={data.skill.offer === "MONETIZED" ? "Premium path" : "This path is not ready yet"}
           description={
             data.skill.offer === "MONETIZED"
-              ? "This path is Premium."
+              ? "This path is on your account. Stages are not in the catalog yet."
               : "Stages for this skill are not available yet."
           }
         />
@@ -120,7 +121,6 @@ export default async function RoadmapDetailPage({ params }: PageProps) {
                 mastery={stage.masteryPercent > 0 ? stage.masteryPercent : undefined}
                 meta={stageMeta(stage, status === "locked" ? "" : note)}
                 unlockHint={status === "locked" ? unlockHint(stage) : undefined}
-                conceal={index >= data.stages.length - 2}
                 last={index === data.stages.length - 1}
                 href={status === "locked" ? undefined : `/lesson/${stage.id}`}
               />

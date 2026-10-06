@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { SettingsSection } from "@/components/forms/SettingsSection.jsx";
 import { SettingsToggle } from "@/components/forms/SettingsToggle.jsx";
@@ -15,7 +16,7 @@ type SavedCity = {
   showOnMap: boolean;
 };
 
-export function LocationCard({ map }: { map: SavedCity }) {
+export function LocationCard({ map, canShare }: { map: SavedCity; canShare: boolean }) {
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [hits, setHits] = useState<CityHit[]>([]);
@@ -165,12 +166,19 @@ export function LocationCard({ map }: { map: SavedCity }) {
           </Button>
         ) : null}
       </div>
-      <SettingsToggle
-        label="Show me on the learner map"
-        description="The map shows how many learners are in your city. It never shows your name."
-        checked={visible}
-        onChange={(next: boolean) => void toggle(next)}
-      />
+      {canShare ? (
+        <SettingsToggle
+          label="Show me on the learner map"
+          description="The map shows how many learners are in your city. It never shows your name."
+          checked={visible}
+          onChange={(next: boolean) => void toggle(next)}
+        />
+      ) : (
+        <p className="sf-settings-note">
+          Saving a city stays free, so Nearby can open on it. Appearing on the learner map is part of Premium.{" "}
+          <Link href="/upgrade">Upgrade</Link>
+        </p>
+      )}
     </SettingsSection>
   );
 }

@@ -20,6 +20,17 @@ async function queryMapCities(skillSlug: string | null, minimum: number): Promis
       country: { not: null },
       lat: { not: null },
       lng: { not: null },
+      OR: [
+        { user: { role: "ADMIN" } },
+        {
+          user: {
+            subscription: {
+              status: { in: ["ACTIVE", "TRIALING"] },
+              OR: [{ currentPeriodEnd: null }, { currentPeriodEnd: { gt: new Date() } }],
+            },
+          },
+        },
+      ],
       ...(skill ? { user: { skillProgress: { some: { skillId: skill.id } } } } : {}),
     },
     select: { city: true, country: true, lat: true, lng: true },

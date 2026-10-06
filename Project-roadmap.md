@@ -7,11 +7,11 @@ This file is two things at once:
 
 Tick a box only when that exact piece is really finished. A screen that looks done on mock data is not the same as the backend for that feature.
 
-**How to talk about it.** The product idea, the database, sign-in, onboarding, the niche list, and thirty free paths are real. All thirty of those paths have catalogs, and lessons on them play the stored resources. Every niche outside that list is Premium and has no resources. Payments are not built. There is no quiz: the feature was dropped, and the explain-back gate is the only check. A real stage walks one learning objective at a time. Gemini’s free tier writes a review for each answer, and the step stays put until that idea holds. An idea that holds is kept in Notes. The notebook can download those notes as Word or PDF, and a stage can be summarized from those notes alone. The stage is recorded only when every idea has passed. That call needs an API key. Mastery is the share of open stages passed. A streak day is a UTC day with a saved explain-back or a saved note. There is no leaderboard and no peer review. Stripe is not running. A creator rating and earnings are not part of the product.
+**How to talk about it.** The product idea, the database, sign-in, onboarding, the niche list, and thirty free paths are real. All thirty of those paths have catalogs, and lessons on them play the stored resources. Every niche outside that list is Premium and has no resources. Premium is one Stripe subscription: niches outside the thirty, and appearing on the learner map. There is no quiz: the feature was dropped, and the explain-back gate is the only check. A real stage walks one learning objective at a time. Gemini’s free tier writes a review for each answer, and the step stays put until that idea holds. An idea that holds is kept in Notes. The notebook can download those notes as Word or PDF, and a stage can be summarized from those notes alone. The stage is recorded only when every idea has passed. That call needs an API key. Mastery is the share of open stages passed. A streak day is a UTC day with a saved explain-back or a saved note. There is no leaderboard and no peer review. Stripe Checkout is wired. Missing keys do not charge anyone. A creator rating and earnings are not part of the product.
 
 `AGENTS.md` is the short context a new session should read. This file is the longer record.
 
-Last aligned with the working tree on 6 October 2026.
+Last aligned with the working tree on 7 October 2026.
 
 ---
 
@@ -21,21 +21,22 @@ Last aligned with the working tree on 6 October 2026.
 | --- | --- | --- |
 | Product shape, tokens, component kit | Done | Dark/light theme, accent presets, shared buttons, cards, charts |
 | Public pages | Done | Landing, login, signup, privacy, terms. Landing names Travel Vlogging with the other two free paths |
-| Database schema and local Postgres | Done | Prisma models and migrations, through the open-source community tables |
+| Database schema and local Postgres | Done | Prisma models and migrations, through creator studio, the learner map, and nearby events |
 | Open Source community | Done | Contribute, review (approve, request changes, close), author edit, resubmit and withdraw, unmerge, roles, gaps, the maintainers panel, `/admin/community`, and a contributor profile with a heatmap. Only merged work is public |
 | Auth | Done for email/password | Auth.js, bcrypt passwords, JWT session, route protection. Google is configured in code. The login screen is email and password |
 | Onboarding | Done and saved | Skill, pace, goal, and accent are written to Postgres |
-| Niches and roadmaps | Done for three paths | Full-Stack, Travel Vlogging, and Content Creation are free and available. Art stays a coming-soon flagship |
-| Lessons and clips | Done for stored resources | The player reads `Resource` rows. YouTube watch links are rewritten into an embed |
+| Niches and roadmaps | Done for all thirty free paths | Every free path has a catalog and is available. Art stays a flagship and has stages. Every other niche is Premium and has no stages |
+| Lessons and clips | Done for all thirty free paths | The player reads `Resource` rows. YouTube watch links are rewritten into an embed |
 | Admin catalog and submissions | Done | An admin can edit stages and resources, and an approval creates a resource |
 | Caching | Done for shared catalog and community lists | Niche grid, lessons, clips, and the submit picker share the catalog tag. Merged community pages share the community tag. The learner map shares city totals. Progress and the account menu stay per person |
-| Learner map | Done | Opt-in city counts on Nearby → Learners. No names. Cities under the env minimum stay hidden |
-| Nearby events | Done | Saved events per city and niche, refreshed on a cap. The map opens on the saved city, and each pin is a venue. Community events need a review. Live search is admin-only until payments |
-| Settings follow | Done | Add and remove on the settings page write `UserSkillProgress`. Home links to the niche list instead of a fake Add |
-| Explain-back | Wizard, one idea at a time | Each learning objective is its own step. A written review comes back whether the idea holds or not. The step moves on only when it holds. The stage is recorded after the last idea. No key means no pass. The last three stages stay locked |
+| Learner map | Done | Opt-in city counts on Nearby → Learners. Saving a city is free. Appearing on the map is Premium. No names. Cities under the env minimum stay hidden |
+| Nearby events | Done | Saved events per city and niche, refreshed on a cap. The map opens on the saved city, and each pin is a venue. Community events need a review. Live search stays admin-only |
+| Settings follow | Done | Add and remove on the settings page write `UserSkillProgress`. A Premium niche can be followed only with an active subscription. Home links to the niche list instead of a fake Add |
+| Explain-back | Wizard, one idea at a time | Each learning objective is its own step. A written review comes back whether the idea holds or not. The step moves on only when it holds. The stage is recorded after the last idea. No key means no pass. Every stage on a free path can be passed |
 | Notes | Accepted ideas | `/notes` is in the sidebar. Each idea that holds is stored with the explanation and the review. The list is personal |
-| Unlock by mastery | The next stage | A pass opens the next stage for that learner. The last three stages of a free path stay locked |
-| Tests, deploy, monitoring | Not started | No test suite, no production host, no Sentry |
+| Unlock by mastery | The next stage | A pass opens the next stage for that learner. Every stage on a free path is structurally open, so the certificate can be earned |
+| Premium | Stripe Checkout | One subscription. It opens niches outside the thirty and appearing on the learner map. The card form stays on Stripe. Missing keys do not pretend a charge happened |
+| Tests, deploy, monitoring | Unit tests only | Mastery, streaks, explain-back judging, plans, events, and community rules have unit tests. No end-to-end pass, no production host, no Sentry |
 
 ---
 
@@ -51,7 +52,7 @@ The loop, as designed:
 4. Pass the explain-back gate: one idea at a time, with a written review on every step. A step moves on only when that idea holds.
 5. A real pass is supposed to open the next stage.
 
-There is no quiz. That feature was dropped, and the explain-back is the mastery check. A pass opens the next stage for that learner. The last three stages of a free path stay locked for everyone.
+There is no quiz. That feature was dropped, and the explain-back is the mastery check. A pass opens the next stage for that learner. Every stage on a free path is open.
 
 What the product refuses: comments, likes, view counts, trending, a score leaderboard, peer review, and guilt copy when a streak breaks. Progress is meant to be verified understanding, not time spent.
 
@@ -116,7 +117,7 @@ Public pages are static. `/`, `/login`, `/signup`, `/privacy`, and `/terms` do n
 Signed-in pages are not fully static. Follow marks, mastery, and the account menu differ per person. `cacheComponents` is on in `next.config.ts`. The part that is the same for every visitor is cached with `"use cache"`:
 
 - The niche grid, including the card template
-- Lesson screens, including a locked stage. The last three stages of a free path are locked for everyone. A later stage also stays shut until this learner has passed the earlier ones
+- Lesson screens, including a stage that is waiting on the previous explain-back. Every stage on a free path can be opened. A later stage stays shut until this learner has passed the earlier ones
 - Clip items from open stages
 - The submit-a-resource skill picker
 - The public catalog those screens read (`lib/data/public-catalog.ts`)
@@ -126,6 +127,8 @@ The lifetime is `cacheLife("hours")`. The tag is `catalog` (`lib/cache/tags.ts`)
 The niches page does not cache each page separately. It caches the full list once, then the browser shows 4 columns by 8 rows (32 cards) and turns the page locally. Home and the roadmap index use a second cached render of that same catalog: 4 columns by 3 rows, a blurred peek of the next row, and a link to `/skills`.
 
 Progress, streaks, follow state, explain-back history, and the account menu stay on the request. The account name is cached per user under `account:${userId}` and expires when that person saves their name. A cached function returns plain data. It does not call `auth()`, `cookies()`, or `headers()`.
+
+Other shared caches, each with its own tag: merged community lists (`community`), learner-map city totals (`learner-map`), Nominatim city search (`geocode`, lifetime `days`), saved nearby events (`nearby-events`), and text read from a public page for a practice note (`practice-source`). A write that changes one of those calls the matching invalidate function. Development reads map totals and events fresh.
 
 Roadmap stage status (passed, in progress, ready) stays personal, so the roadmap page is not one cached component. It reads the cached catalog and overlays that person's progress.
 
@@ -152,7 +155,7 @@ Content tables:
 - `UserSkillProgress` is one row per user per skill: `masteryPercent`, `currentStageOrder`.
 - `StageCompletion` is one row per user per stage: `explainBackPassed` and `completedAt` (`quizPassed` is unused). A stage counts as passed when the explain-back passed. The free-path lock does not read these flags.
 
-Migrations, in order: `20260923010253_init`, `20260925094514_add_paddword_field` (the folder name has that spelling), `20260928092404_add_learner_profile`, `20260930032000_add_niche_enum`, `20260930040000_drop_niche_enum`, `20260930043000_add_skill_image`, `20260930113000_catalog_metadata`, `20260930140000_skill_offer`, `20260930150000_stage_image`.
+Migrations run from `20260923010253_init` through `20261001104500_creator_studio`, plus `community_unmerge_flag` (`ContributionReview.unmerge`), `20261005193000_learner_map`, and `20261005220000_nearby_events`. The folder `20260925094514_add_paddword_field` has that spelling. Do not create a migration unless the schema changes. Do not run `prisma migrate reset`.
 
 Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Painting, Photography, and Music Production, then the extra niches. Every skill is available. Offer is free when the slug is one of the thirty free paths, and Premium otherwise. The seed then imports the Full-Stack, Content Creation, Travel Vlogging, Music Production, Self Grooming, Animation, IoT, Screenwriting, Graphic Design, SEO, AI Tools, Cybersecurity, Digital Marketing, Personal Finance, Public Speaking, Sound Design, Nutrition, Psychology, Podcasting, Guitar, Chess, Art & Painting, Photography, Emergency Preparedness, Badminton, Relationships, Socializing, Interior Design, Freelancing, and Travel Planning catalog files. The dead links in Art & Painting, Photography, Emergency Preparedness, and Badminton stay until a working page is chosen. Do not run it against a database that already has accounts. It resets admin passwords.
 
@@ -162,15 +165,15 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 
 **Account.** Sign up with name, email, and password. Log in with email and password. Log out from the account menu. After signup the app sends them to onboarding, then home.
 
-**Onboarding.** Pick a skill, a pace, a goal, and an accent. Save writes `LearnerProfile` and a `UserSkillProgress` row when that skill exists. Pace does not decide which stages are open. The last-three lock does. The skill choices are Full-Stack, Travel Vlogging, Content Creation, Photography, and Music Production.
+**Onboarding.** Pick a skill, a pace, a goal, and an accent. Save writes `LearnerProfile` and a `UserSkillProgress` row when that skill exists. Pace does not decide which stages are open. The skill choices are Full-Stack, Travel Vlogging, Content Creation, Photography, and Music Production.
 
-**Shell.** Every signed-in page sits in `app/(app)`. The URL does not contain `(app)`. Desktop shows a fixed sidebar from 960px up. Below that, the sidebar is a dialog drawer. Main nav includes Home, Clips, Roadmaps, Progress, Analytics, Submit a resource, and Settings. Admin appears only when `role === ADMIN`.
+**Shell.** Every signed-in page sits in `app/(app)`. The URL does not contain `(app)`. Desktop shows a fixed sidebar from 960px up. Below that, the sidebar is a dialog drawer. Main nav is Home, Niches, Clips, Creator studio, Roadmaps, Nearby, Open Source, Progress, Notes, Analytics, Submit a resource, and Settings. Admin appears only when `role === ADMIN`. Review appears for admins and community role holders, with an open count.
 
-**Niches (`/skills`).** Search and group filters, then 32 cards a page (4 columns by 8 rows). A free skill with stages is a link to its roadmap. Open means the thirty free paths. Travel shows "Free · 8 stages". A free path with no stages yet shows "Free". Every other niche shows "Premium" and is not a link. Narrow screens stack the same 32 cards into fewer columns.
+**Niches (`/skills`).** Search and group filters, then 32 cards a page (4 columns by 8 rows). A free skill with stages is a link to its roadmap. Open means the thirty free paths. Every free path has stages, so the card says "Free · N stages". Every other niche shows "Premium". A free account is not a link to that roadmap. A subscriber is. Narrow screens stack the same 32 cards into fewer columns.
 
 **Home.** Streak banner, four stats from the signed-in user (zeros until there are attempts), and one horizontal row per followed skill. Open stages link to the lesson. Locked stages do not. Explore shows 4 columns by 3 rows of niche cards, a blurred peek of the next row, and Explore all the niches. The real follow is Settings.
 
-**Roadmaps.** The index says thirty paths are free, the next stage opens after the explain-back, and the last few stages stay locked. A followed skill has Continue and Open path. More skills is the same short niche teaser as Home. A path page shows the stage photo and the real description. A stage they have not reached yet stays readable, with a lock and "Pass the previous stage to open this one." The last two stages on the path stay blurred. The tail says "This part of the path stays locked." A Premium path with no stages says Premium. Stage photos are 16:9 files in `public/uploads`. That folder is gitignored, so a clone does not include them.
+**Roadmaps.** The index says thirty paths are free, the next stage opens after the explain-back, and every stage on a free path is open. A followed skill has Continue and Open path. More skills is the same short niche teaser as Home. A path page shows the stage photo and the real description. A stage they have not reached yet stays readable, with a lock and "Pass the previous stage to open this one." A stage they have not reached yet stays readable, with a lock. A Premium path with no stages says the catalog is not ready yet. Stage photos are 16:9 files in `public/uploads`. That folder is gitignored, so a clone does not include them.
 
 **Lesson.** The first video is the clip. Other resources are sources. A course link is labeled "Course". Pressing play loads `youtube-nocookie.com/embed/...`. A locked lesson shows the stage title and the skill name, and does not include the resource text. Direct visits to a locked stage id behave the same way.
 
@@ -178,7 +181,7 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 
 **No quiz.** The quiz feature was dropped. There is no `/quiz` route, no quiz stat, and no “Continue to quiz” button. The lesson's next step is the explain-back.
 
-**Explain-back.** Every imported stage has learning objectives, a question, and a rubric. The lesson’s continue button opens `/milestone/[stageId]`. A real stage is a wizard: one objective per step, animated between steps. `GEMINI_API_KEY` sends that step to Gemini’s free tier (`gemini-flash-lite-latest`). `OPENAI_API_KEY` is used only when the Gemini key is empty. The model writes a review whether the idea holds or not. An empty answer, or one the model does not accept, stays on the step. An accepted idea is stored as a note: the explanation and the review. The stage is saved only after every idea has passed: one `ExplainBackAttempt` and `StageCompletion.explainBackPassed`. The next stage stays shut until this one is passed. The last three stages stay locked. With no key, a timeout, or a reply that is not a review, nothing is saved. `review failed` still shows the error and saves nothing. The preview id `__explain_input__` keeps the old mock walkthrough.
+**Explain-back.** Every imported stage has learning objectives, a question, and a rubric. The lesson’s continue button opens `/milestone/[stageId]`. A real stage is a wizard: one objective per step, animated between steps. `GEMINI_API_KEY` sends that step to Gemini’s free tier (`gemini-flash-lite-latest`). `OPENAI_API_KEY` is used only when the Gemini key is empty. The model writes a review whether the idea holds or not. An empty answer, or one the model does not accept, stays on the step. An accepted idea is stored as a note: the explanation and the review. The stage is saved only after every idea has passed: one `ExplainBackAttempt` and `StageCompletion.explainBackPassed`. The next stage stays shut until this one is passed. Every stage on a free path can be passed. With no key, a timeout, or a reply that is not a review, nothing is saved. `review failed` still shows the error and saves nothing. The preview id `__explain_input__` keeps the old mock walkthrough.
 
 **Notes.** `/notes` is in the sidebar. It lists that learner’s accepted ideas, grouped by skill and stage. Opening one shows what they wrote and the review. Search and a skill filter narrow the list. Download Word and Download PDF save the notebook. Summarize this stage writes a short restatement of that stage’s notes and nothing else. The page reads the signed-in user on the request.
 
@@ -188,13 +191,15 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 
 **Submit and admin.** Submit writes `ResourceSubmission`. Approve appends a `Resource` on that stage. Reject requires a note. `fail this submit` and `fail this review` are the built-in error cases. A non-admin who opens an admin URL gets not-found.
 
-**Admin catalog.** Lists every niche, with Flagship and Available or Coming soon. The stage editor includes skills that already have stages: Full-Stack, Travel Vlogging, Content Creation, Music Production, Self Grooming, Animation & VFX, IoT & Robot Automation, Screenwriting, Graphic Design, SEO, AI Tools, Cybersecurity, Digital Marketing, and Personal Finance. Needs review only filters the resource list. Saving a resource titled `fail this save` is the built-in error.
+**Admin catalog.** Lists every niche, with Flagship and Available or Coming soon. The stage editor includes every skill that already has stages, which is all thirty free paths. Needs review only filters the resource list. Saving a resource titled `fail this save` is the built-in error.
+
+**Personal plan.** A followed skill can store preferences on `LearningPlan`. Plain code builds a schedule from the shared stages. Gemini only turns a written description into those preferences, or suggests resource tags for an admin to review. Undo hides the schedule and shows the shared stages again.
 
 **Version 2 previews, not linked from the main nav.** Each one is labeled "Version 2 preview".
 
-- `/upgrade` — one premium tier. Price text is the word Placeholder. No Stripe.
+- `/upgrade` — Stripe Checkout for one Premium tier. The card form stays on Stripe. Without keys, the page says Stripe is not configured.
 - `/transcript/[userId]/[skillSlug]` — the stages this learner has passed, with the real dates. PDF download. `noindex`.
-- `/certificate/[userId]/[skillSlug]` — issued only when every stage on that path is passed, including the locked tail. SkillFlow’s own record. `noindex`.
+- `/certificate/[userId]/[skillSlug]` — issued only when every stage on that path is passed. SkillFlow’s own record. `noindex`.
 - `/notes` — in the main nav. An accepted explain-back idea is stored with its review. The notebook downloads as Word or PDF, and each stage can be summarized from those notes only.
 - `/submit/byor` — bring your own resource and get a sample explain-back gate prompt.
 - Usage-cutoff dialog — a soft stop. Not stored.
@@ -230,7 +235,7 @@ Link check results worth remembering:
 
 `needsReview` is for the `[CONFIRM]` items, which are the videos. A 403 is "needs manual check" in the report. It does not by itself set `needsReview`.
 
-Stage photos were generated for all 10 Content Creation stages and all 8 Travel stages, and Full-Stack already had them. The importer leaves `image` unset so a reimport does not clear the photo.
+Stage photos were generated for all 10 Content Creation stages and all 8 Travel stages, and Full-Stack already had them. The other free paths have no committed stage photos. The importer leaves `image` unset so a reimport does not clear a photo.
 
 ---
 
@@ -242,9 +247,9 @@ Stage photos were generated for all 10 Content Creation stages and all 8 Travel 
 - **Public pages stay static.** `/`, `/login`, `/signup`, `/privacy`, and `/terms` do not call `auth()` in the root layout.
 - **Shared screens are one cached copy. Personal progress is not.** The niche grid, lessons, clips, and the submit picker use the `catalog` tag. Admin saves expire it at once. Follow marks, mastery, and the account menu stay on the request.
 - **The feed can hold more than one skill.** Onboarding saves one profile skill. Settings can add more available skills. Home renders one row per followed skill. The old "one skill only" rule is not what the screen does.
-- **The last three stages stay locked on a free path.** A pass opens the next stage before that tail.
+- **Every stage on a free path is open.** A pass opens the next stage. Passing all of them earns the certificate.
 - **The quiz was dropped.** One explain-back gate per stage is the check, plus a bring-your-own-resource prompt. The quiz tables stay in the schema unused, so the database did not change. Coming-soon and monetized skills open no stages.
-- **Art stayed a flagship.** Travel took its place as the third free path. Art is coming soon so a card does not promise a path that has no stages.
+- **Four flagships.** Full-Stack, Travel Vlogging, Content Creation, and Art & Painting are flagships. All four have catalogs. The other twenty-six free paths are not flagships.
 - **The importer must not own availability.** A researched file can say coming soon while the product decision is to open the path. Status is set on the row, and the seed special-cases Art so a later seed does not undo that.
 - **Do not run the full seed to reload one path.** Use the importer, then a targeted update for status and offer.
 - **Open Source is review-gated, not a forum.** Contributions never enter the catalog tables. A review is one decision with a reason, not a thread. Every decision only applies if the status and revision still match what the reviewer opened, so two reviewers cannot both act on one item.
@@ -254,13 +259,12 @@ Stage photos were generated for all 10 Content Creation stages and all 8 Travel 
 
 ## Do not claim these in an interview yet
 
-- Passing an explain-back unlocks the next stage.
 - SkillFlow has a quiz, a score leaderboard, or peer review.
-- Stripe charges anyone.
+- A Premium niche has a catalog. It does not. Stripe charges someone when the keys are missing. It does not.
 - A creator has a rating or earnings.
 - The app is deployed, monitored, or covered by an end-to-end test.
 - Every accent was checked for contrast on both themes.
-- Art & Painting has a roadmap. It does not.
+- Onboarding offers all thirty paths. It offers five. Settings can follow any free path.
 
 ---
 
@@ -274,13 +278,13 @@ Do not start a later phase's backend until the previous phase's open boxes are d
 - [x] **Resource-shaped writes** — Server Actions and Zod on catalog, settings, and submission writes. There is no separate REST API.
 - [x] **Separation of page and data** — pages call `lib/data`. Catalog paths do not embed the mock arrays. Milestone and Version 2 still do.
 - [x] **Shared tokens and components** — colors and type come from `globals.css`.
-- [ ] **Idempotent writes** — catalog reimport is idempotent. Explain-back submit and webhooks are not built.
+- [x] **Idempotent writes** — catalog reimport is idempotent. A passed explain-back writes one attempt. The Stripe webhook upserts one subscription per account.
 - [x] **Version fields on explain-back** — columns exist. No second version has been stored.
 - [x] **Conventional commits** — history uses `feat`, `fix`, and `chore`.
 - [ ] **OWASP baseline** — passwords are hashed, secrets stay in `.env`, admin routes check role. A full threat pass is not done.
 - [ ] **Accessibility** — semantic headings, labels, and focus are in the kit. A full keyboard and contrast pass is not done.
-- [ ] **Tests** — none yet.
-- [x] **README and agent context** — `README.md`, `AGENTS.md`, and this file match the three free paths and the shared-content cache. The case study is not written.
+- [ ] **Tests** — unit tests cover mastery, streaks, explain-back judging, plans, events, and community rules. Integration tests and an end-to-end pass are not written.
+- [x] **README and agent context** — `README.md`, `AGENTS.md`, and this file match the thirty free paths and the shared-content cache. The case study is not written.
 
 ## Non-functional requirements
 
@@ -297,7 +301,7 @@ Do not start a later phase's backend until the previous phase's open boxes are d
 ## PHASE 0 — Setup and foundation
 **Status: ✅ COMPLETE**
 
-- [x] Feature list locked. The three free Version 1 paths are Full-Stack, Travel Vlogging, and Content Creation. Art remains a named flagship and is coming soon
+- [x] Feature list locked. The first three free paths were Full-Stack, Travel Vlogging, and Content Creation. The free list is now thirty paths, and all thirty have catalogs. Art remains a flagship and has stages
 - [x] Repo, Next.js 16, TypeScript, git
 - [x] Dependencies: Prisma, Auth.js, bcrypt, Tailwind, Recharts
 
@@ -320,7 +324,7 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 - [x] Docker Compose Postgres and `DATABASE_URL`
 - [x] `prisma.config.ts` imports `dotenv/config`
 - [x] Migrations listed above are applied
-- [x] Seed knows the three catalogs and the Art exception. Do not re-run it casually
+- [x] Seed imports all thirty free catalogs. Art stays a flagship. Do not re-run it casually
 - [x] Email/password sign-in and sign-up
 - [x] `proxy.ts` redirects anonymous visitors
 - [x] JWT session strategy
@@ -330,14 +334,14 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 **Interview bugs already hit.** Prisma 6 does not auto-load `.env`. Docker named volumes keep the first Postgres password forever.
 
 ## PHASE 3 — Catalog, roadmap, and admin
-**Status: ✅ COMPLETE for the three free paths**
+**Status: ✅ COMPLETE for all thirty free paths**
 
 - [x] Roadmap, lesson, clips, home, and niches read Prisma
 - [x] Admin catalog editor for stages, resources, explain-back prompts, and the needs-review filter
 - [x] Niche list with available and coming soon
 - [x] Submit creates `ResourceSubmission`. Approval creates `Resource`
 - [x] Zod on those writes
-- [x] Free paths lock the last three stages without hiding the titles
+- [x] Free paths used to hold the last three stages. Those stages are open now, so a finished path can earn the certificate
 - [x] YouTube links play inside the lesson
 - [ ] Tests for roadmap and resource reads
 
@@ -362,7 +366,7 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 - [x] Milestone page reads the stage concepts
 - [x] After every idea passes, one `ExplainBackAttempt` is saved
 - [x] An eval set: every concept understood passes; a gap does not
-- [x] A pass updates `StageCompletion`. Version 1 does not unlock the last three stages
+- [x] A pass updates `StageCompletion` and opens the next stage, including the last three
 
 ## PHASE 5 — Mastery, streaks, progress data
 **Status: ✅ WIRED TO EXPLAIN-BACK**
@@ -374,12 +378,12 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 - [x] Week and month charts are drawn from those attempts
 
 ## PHASE 6 — Frontend on real data
-**Status: 🔶 THE LEARNING PATH AND EXPLAIN-BACK ARE ON REAL DATA. VERSION 2 IS NOT**
+**Status: ✅ THE LEARNING PATH, EXPLAIN-BACK, NOTES, PLANS, MAP, AND EVENTS ARE ON REAL DATA. STRIPE IS NOT**
 
 - [x] App shell, home, clips, roadmaps, lesson, settings, submit, admin catalog
 - [x] Shared catalog cache for the niche grid, lessons, clips, and the submit picker. Admin saves expire it
 - [x] Loading skeletons, empty states, and the locked-stage state
-- [x] Stage photos on the three paths
+- [x] Stage photos on Full-Stack, Content Creation, and Travel Vlogging. The other free paths have no committed stage photos
 - [x] Settings follow and unfollow
 - [x] Explain-back UI calling a real grader
 - [x] Home and roadmap no longer show a preview Add. Explore links to the niche list. Follow stays on Settings
@@ -387,15 +391,13 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 - [x] Landing, auth carousel, and onboarding name Travel Vlogging instead of Art
 
 ## PHASE 7 — Content seeding
-**Status: ✅ COMPLETE for the three Version 1 paths. Art is intentionally empty.**
+**Status: ✅ COMPLETE for all thirty free paths.**
 
-- [x] Full-Stack path loaded from `content/catalog/full-stack-web-development.json`
-- [x] Content Creation loaded from `content/catalog/content-creation.json`
-- [x] Travel Vlogging loaded from `content/catalog/travel-vlogging.json`
+- [x] All thirty free catalogs loaded from `content/catalog/`. Full-Stack uses `full-stack-web-development.json`. The live slug stays `full-stack-web-dev`. Animation uses `animation.json`. The live slug stays `animation`
 - [x] Explain-back prompt on every imported stage
-- [x] Photography, Music Production, and the extra niches stay coming soon
-- [ ] Art & Painting researched and loaded with the remaining niches, not before
-- [ ] The 403 links rechecked by a person when those remaining niches get resources. Do not replace a link just because the bot was blocked
+- [x] Art & Painting is loaded and stays a flagship
+- [ ] Five dead URLs still need a working page: ACMI seals, the UCL Slade page, the Nikon focal-length article, the NDMA earthquake page, and the Western Australia badminton court page. Do not swap them until that page is chosen
+- [ ] The 403 links still need a person to confirm the page. Do not replace a link just because the bot was blocked. That includes RAINN, Pima, Boise State, the four State Department travel pages, and the OWASP prompt-injection page
 
 The mock catalog in `lib/mock/catalog.ts` is leftover sample data for the screens that are not wired. It is not the seed.
 
@@ -437,7 +439,7 @@ The mock catalog in `lib/mock/catalog.ts` is leftover sample data for the screen
 ## PHASE 10 — Documentation and case study
 **Status: 🔶 THE WORKING DOCS MATCH THE APP. THE CASE STUDY IS NOT WRITTEN**
 
-- [x] README aligned with the three free paths and the catalog commands
+- [x] README aligned with the thirty free paths and the catalog commands
 - [x] `AGENTS.md` aligned so a new chat does not revive the mock-catalog story
 - [x] This file aligned
 - [ ] Case study: the problem, what existing products optimize for, and what SkillFlow refused to copy
@@ -448,17 +450,18 @@ The mock catalog in `lib/mock/catalog.ts` is leftover sample data for the screen
 
 # VERSION 2 — after Version 1
 
-Do not build the backend for these until the Version 1 gaps that are still open (explain-back, streaks, tests, deploy) are done. The UI previews already exist so the product can be shown. They are not these phases.
+Explain-back, streaks, notes, transcripts, certificates, personal plans, creator studio, the learner map, and nearby events are built. Stripe Checkout is wired. A real charge still needs the keys in the environment. Tests and deploy are still open.
 
 ## V2 PHASE 1 — Premium and Stripe
-**Status: ⬜ NOT STARTED. `/upgrade` is a preview. Price label is "Placeholder".**
+**Status: 🔄 IN PROGRESS. Checkout, the webhook, and the two Premium gates are in the app. A charge starts only when the Stripe keys are set.**
 
-The data model already has `Skill.offer` and `RoadmapStage.monetized`. Version 1 uses that only to keep non-free skills closed. It is not a checkout.
+Premium is the niches outside the thirty free paths, and appearing on the learner map. Those niches still have zero stages.
 
-- [ ] Stripe test keys, customer and subscription ids
-- [ ] Checkout session, webhook with signature check, idempotent upgrades and downgrades
-- [ ] Premium features gated on the server
-- [ ] No card fields on our origin
+- [x] Stripe customer and subscription ids on `Subscription`
+- [x] Checkout session, webhook with signature check, idempotent upgrades and downgrades
+- [x] Premium features gated on the server
+- [x] No card fields on our origin
+- [ ] A live test charge against Stripe test keys
 
 ## V2 PHASE 2 — Score and leaderboard
 **Status: 🚫 REMOVED. A score ranking is the FOMO the product refuses.**
@@ -503,9 +506,9 @@ Preferences are per learner and per skill: level, time, deadline, resource types
 The plan itself is plain code. It does not skip stages or explain-backs. Earlier open stages can be labeled Test out when the learner's level is past them, and passing that stage's explain-back still completes it. A missing language falls back to English with a note. A short deadline marks extra resources Optional and says when the core path does not fit. The saved row is `LearningPlan`. It is rebuilt when the preferences or the catalog change. Undo on the roadmap hides that schedule and shows the shared stages again. It does not change those stages or their resources. Opening a stage uses that same selection: preferred language and type first, extra resources marked Optional. Resource tags (`durationMinutes`, `depth`, `isCore`, `captionLanguages`) are optional on the catalog import. An admin can ask Gemini to suggest them, then save. A suggestion never replaces a value the admin already saved. `scripts/suggest-resource-tags.ts` writes a dry-run report and applies only with `--apply`.
 
 ## V2 PHASE 9 — More niches
-**Status: 🔶 NAMES EXIST. PATHS DO NOT**
+**Status: ✅ THE THIRTY FREE PATHS HAVE CATALOGS. PREMIUM NICHES DO NOT.**
 
-The extra niches are in the database and show as coming soon. A new path is a researched JSON file plus an import, not a generated roadmap. Art is the named flagship still waiting for that file.
+Every slug in `FREE_PATH_SLUGS` has a researched JSON file and is imported. A niche outside that list is Premium: available, monetized, and zero stages. A subscriber can open the card and follow it. Do not invent those catalogs. Stripe Checkout is the payment. Without keys, the upgrade page says it is not configured.
 
 ## V2 PHASE 10 — Smaller extras
 **Status: 🔶 UI ONLY for two of these**
@@ -533,4 +536,4 @@ Ticketmaster and Google Events (SerpApi) are separate adapters. A missing key tu
 
 ---
 
-**Right now.** Thirty paths are free. Full-Stack, Travel Vlogging, Content Creation, Music Production, Self Grooming, Animation & VFX, IoT & Robot Automation, Screenwriting, Graphic Design, SEO, AI Tools, Cybersecurity, Digital Marketing, Personal Finance, Public Speaking, Sound Design, Nutrition, Psychology, Podcasting, Guitar, Chess, Art & Painting, Photography, Emergency Preparedness, Badminton, Relationships, Socializing, Interior Design, Freelancing, and Travel Planning have catalogs. Every other niche is Premium, with no resources and no payments. A pass opens the next stage, and the last three stages of a free path stay locked. Phases 0, 1, 2, 3, 4, 5, and 7 are done for the three catalog paths, and the Open Source community is complete. The learner map and Nearby events are live. Explain-back asks for every idea written from that stage’s resources and passes the stage only when a model marks each one understood. An accepted idea is kept in Notes, and that notebook can be downloaded or summarized from those notes alone. A transcript lists the stages a learner has passed. A certificate is issued when every stage on a path is passed. `/notes/practice` grades an idea against a public page, a text file, or a pasted passage, and saves it without passing a stage. A followed skill can have a personal plan built in code from that learner's preferences. Mastery, streaks, weak topics, and the progress charts read explain-back attempts. A score leaderboard and peer review are not part of the product. A creator rating and earnings are not either. Still open for Version 1: the rest of the test suite and an end-to-end pass (Phase 8), and deploy (Phase 9). Public event API keys stay last.
+**Right now.** Thirty paths are free. Full-Stack, Travel Vlogging, Content Creation, Music Production, Self Grooming, Animation & VFX, IoT & Robot Automation, Screenwriting, Graphic Design, SEO, AI Tools, Cybersecurity, Digital Marketing, Personal Finance, Public Speaking, Sound Design, Nutrition, Psychology, Podcasting, Guitar, Chess, Art & Painting, Photography, Emergency Preparedness, Badminton, Relationships, Socializing, Interior Design, Freelancing, and Travel Planning have catalogs. Every other niche is Premium, with no resources, until a subscription opens it. A pass opens the next stage, and passing every stage earns the certificate. Phases 0, 1, 2, 3, 4, 5, and 7 are done for all thirty free paths, and the Open Source community is complete. The learner map and Nearby events are live. Explain-back asks for every idea written from that stage’s resources and passes the stage only when a model marks each one understood. An accepted idea is kept in Notes, and that notebook can be downloaded or summarized from those notes alone. A transcript lists the stages a learner has passed. A certificate is issued when every stage on a path is passed. `/notes/practice` grades an idea against a public page, a text file, or a pasted passage, and saves it without passing a stage. A followed skill can have a personal plan built in code from that learner's preferences. Mastery, streaks, weak topics, and the progress charts read explain-back attempts. A score leaderboard and peer review are not part of the product. A creator rating and earnings are not either. Still open for Version 1: the rest of the test suite and an end-to-end pass (Phase 8), and deploy (Phase 9). Public event API keys stay last.

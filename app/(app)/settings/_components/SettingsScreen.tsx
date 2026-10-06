@@ -25,6 +25,7 @@ export function SettingsScreen({
   streakReminder,
   showPreview,
   map,
+  premium,
 }: {
   userId: string;
   name: string;
@@ -35,6 +36,7 @@ export function SettingsScreen({
   streakReminder: boolean;
   showPreview: boolean;
   map: { hasProfile: boolean; city: string | null; country: string | null; showOnMap: boolean };
+  premium: boolean;
 }) {
   const router = useRouter();
   const [profileName, setProfileName] = useState(name);
@@ -150,18 +152,22 @@ export function SettingsScreen({
                     <Button type="button" size="sm" variant="quiet" onClick={() => setConfirmId(skill.id)}>Remove</Button>
                   </div>
                 )
-              ) : skill.status === "available" && skill.offer === "FREE" ? (
+              ) : skill.status === "available" && (skill.offer === "FREE" || premium) ? (
                 <div className="sf-settings-skill-actions">
                   <Button type="button" size="sm" variant="outline" disabled={pending === skill.id} onClick={() => void addSkill(skill.id)}>
                     {pending === skill.id ? "Adding..." : "Add"}
                   </Button>
+                </div>
+              ) : skill.status === "available" && skill.offer === "MONETIZED" ? (
+                <div className="sf-settings-skill-actions">
+                  <Link href="/upgrade">Upgrade to add</Link>
                 </div>
               ) : null}
             </li>
           ))}
         </ul>
       </SettingsSection>
-      <LocationCard map={map} />
+      <LocationCard map={map} canShare={premium} />
       <SettingsSection title="Notifications" subtitle="One reminder. No badges and no counts.">
         <SettingsToggle label="Daily streak reminder" description="A quiet note if the streak is still open." checked={reminder} onChange={setReminder} />
         <p className="sf-settings-note">This reminder stays on this screen. It is not stored on the account yet.</p>

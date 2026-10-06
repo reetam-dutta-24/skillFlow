@@ -68,9 +68,7 @@ export async function LessonView({ stageId, userId }: { stageId: string; userId:
   if (data.kind === "locked") {
     const hint = data.sequence && data.previousStageTitle
       ? `Pass ${data.previousStageTitle} to open this stage.`
-      : data.previousStageTitle
-        ? "The last part of this free path stays locked."
-        : "This stage is not open yet.";
+      : "This stage is not open yet.";
     return (
       <div className="sf-lesson">
         <p>

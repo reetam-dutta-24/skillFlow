@@ -41,6 +41,7 @@ export async function NicheGrid({ mode = "page" }: { mode?: "page" | "teaser" })
       description: entry.skill.description ?? "",
       status: entry.skill.status,
       offer: entry.skill.offer,
+      slug: entry.skill.slug,
       followed: false,
       stageCount: entry.stages.length,
       image: entry.skill.image,

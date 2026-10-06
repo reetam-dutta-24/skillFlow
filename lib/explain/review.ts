@@ -9,16 +9,11 @@ import { decideExplainBack, explainModelConfig, judgeConcept, judgeExplanation }
 import { recordExplainBack } from "@/lib/explain/record";
 import { saveLearnerNotes } from "@/lib/explain/notes";
 import { notesFromPassedAttempt } from "@/lib/explain/notes-view";
+import { openStageLimit } from "@/lib/progress/formula";
 import { readyWizardSteps, type WizardStep } from "@/lib/explain/wizard";
 
-const LOCKED_TAIL = 3;
 const MAX_CHARS = 8000;
 const NOTE_LIMIT = 24;
-
-function openLimit(stageCount: number) {
-  if (stageCount <= 1) return stageCount;
-  return Math.max(1, stageCount - LOCKED_TAIL);
-}
 
 async function loadOpenExplainStage(stageId: string, userId: string) {
   await ensureGateConcepts(stageId);
@@ -34,7 +29,7 @@ async function loadOpenExplainStage(stageId: string, userId: string) {
   if (!stage || !prompt) return null;
 
   const stageCount = await prisma.roadmapStage.count({ where: { skillId: stage.skillId } });
-  const limit = openLimit(stageCount);
+  const limit = openStageLimit(stageCount);
   const open =
     stage.skill.status === "AVAILABLE" &&
     stage.skill.offer === "FREE" &&

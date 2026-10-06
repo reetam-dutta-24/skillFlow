@@ -22,7 +22,7 @@ export default async function ProgressPage() {
       <header className="sf-page-head">
         <h1>Progress</h1>
         <p>
-          Mastery is the share of open stages with a passed explain-back. The last three stages of a free path stay out of that count. The current streak is {data.currentStreak} {data.currentStreak === 1 ? "day" : "days"}.
+          Mastery is the share of stages with a passed explain-back. Passing every stage on a path earns the certificate. The current streak is {data.currentStreak} {data.currentStreak === 1 ? "day" : "days"}.
         </p>
       </header>
       <section className="sf-dash-stats" aria-labelledby="progress-stats">

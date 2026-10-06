@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { invalidateMap } from "@/lib/cache/invalidate";
 import { auth } from "@/lib/auth";
+import { userHasPremium } from "@/lib/billing/access";
 import { roundCityCoord } from "@/lib/geo/cities";
 import { searchCities } from "@/lib/geo/nominatim";
 import { prisma } from "@/lib/prisma";
@@ -82,6 +83,9 @@ export async function setMapVisibility(showOnMap: boolean) {
   if (typeof showOnMap !== "boolean") return { ok: false as const, error: "Choose on or off." };
 
   if (showOnMap) {
+    const role = session.user.role;
+    const premium = role === "ADMIN" || (await userHasPremium(session.user.id));
+    if (!premium) return { ok: false as const, error: "Appearing on the learner map is part of Premium." };
     const row = await prisma.learnerProfile.findUnique({
       where: { userId: session.user.id },
       select: { city: true },

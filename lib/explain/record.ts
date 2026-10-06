@@ -1,13 +1,7 @@
 import "server-only";
 import { prisma } from "@/lib/prisma";
+import { openStageLimit } from "@/lib/progress/formula";
 import { touchLearnerProgress } from "@/lib/progress/stats";
-
-const LOCKED_TAIL = 3;
-
-function openLimit(stageCount: number) {
-  if (stageCount <= 1) return stageCount;
-  return Math.max(1, stageCount - LOCKED_TAIL);
-}
 
 export async function recordExplainBack(input: {
   userId: string;
@@ -22,7 +16,7 @@ export async function recordExplainBack(input: {
   verdict: "PASSED" | "NEEDS_IMPROVEMENT";
   feedback: string;
 }) {
-  const limit = openLimit(input.stageCount);
+  const limit = openStageLimit(input.stageCount);
   await prisma.$transaction(async (tx) => {
     await tx.explainBackAttempt.create({
       data: {

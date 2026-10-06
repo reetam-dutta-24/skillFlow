@@ -29,7 +29,7 @@ function toStage(stage: PublicStage): RoadmapStageView {
   };
 }
 
-/** One lesson body for every learner. The tail lock is shared. A personal pass is applied in getLesson. */
+/** One lesson body for every learner. A personal pass is applied in getLesson. */
 export async function loadPublicLesson(stageId: string): Promise<LessonData | null> {
   "use cache";
   cacheLife("hours");

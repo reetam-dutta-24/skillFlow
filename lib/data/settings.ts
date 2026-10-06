@@ -2,6 +2,7 @@ import "server-only";
 import { Prisma } from "@prisma/client";
 import { isStoredAccent } from "@/lib/accent";
 import { auth } from "@/lib/auth";
+import { userHasPremium } from "@/lib/billing/access";
 import { loadCatalog } from "@/lib/data/catalog";
 import { prisma } from "@/lib/prisma";
 import type { SkillStatus } from "@/lib/types/domain";
@@ -52,6 +53,7 @@ export async function getSettingsProfile() {
       country: user?.learnerProfile?.country ?? null,
       showOnMap: user?.learnerProfile?.showOnMap ?? false,
     },
+    premium: userId ? session?.user?.role === "ADMIN" || (await userHasPremium(userId)) : false,
   };
 }
 
@@ -81,7 +83,13 @@ export async function followSkillRecord(userId: string, skillId: string) {
   });
   if (!skill) return { ok: false as const, error: "Choose a skill that exists." };
   if (skill.status !== "AVAILABLE") return { ok: false as const, error: "That skill is not open yet." };
-  if (skill.offer !== "FREE") return { ok: false as const, error: "That path is Premium." };
+  if (skill.offer !== "FREE") {
+    const premium = await userHasPremium(userId);
+    const role = await prisma.user.findUnique({ where: { id: userId }, select: { role: true } });
+    if (role?.role !== "ADMIN" && !premium) {
+      return { ok: false as const, error: "That path is Premium. Upgrade to follow it." };
+    }
+  }
 
   try {
     await prisma.userSkillProgress.upsert({

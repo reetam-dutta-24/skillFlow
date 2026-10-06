@@ -1,6 +1,17 @@
-/** Explainable progress math. A day is a UTC calendar day. Locked stages are not in the mastery count. */
+/** Explainable progress math. A day is a UTC calendar day. Stages that are not open are not in the mastery count. */
 
-const LOCKED_TAIL = 3;
+/**
+ * No stages are held back on a free path. Every stage can be passed, so the
+ * certificate can be earned when the path is finished. The next stage still
+ * waits on this learner's explain-back.
+ */
+export const LOCKED_TAIL = 0;
+
+/** Highest stage order that is structurally open on a path of this length. */
+export function openStageLimit(stageCount: number) {
+  if (stageCount <= 1) return stageCount;
+  return Math.max(1, stageCount - LOCKED_TAIL);
+}
 
 export function utcDay(date: Date): string {
   return date.toISOString().slice(0, 10);
@@ -17,7 +28,7 @@ export function masteryShare(passedOpen: number, openCount: number): number {
   return Math.round((100 * passedOpen) / openCount);
 }
 
-/** Same open-stage rule as the catalog: available, free, not monetized, and not in the locked tail. */
+/** Same open-stage rule as the catalog: available, free, and not monetized. */
 export function stageCountsAsOpen(input: {
   skillStatus: string;
   skillOffer: string;
@@ -27,8 +38,7 @@ export function stageCountsAsOpen(input: {
 }): boolean {
   if (input.skillStatus !== "AVAILABLE" || input.skillOffer !== "FREE") return false;
   if (input.monetized) return false;
-  const limit = input.stageCount <= 1 ? input.stageCount : Math.max(1, input.stageCount - LOCKED_TAIL);
-  return input.order <= limit;
+  return input.order <= openStageLimit(input.stageCount);
 }
 
 /**

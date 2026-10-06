@@ -1,6 +1,6 @@
 # SkillFlow
 
-A mastery-first learning platform. Curated roadmaps, your own resources, and an explain-back check are the product. Version 1 ships the roadmaps, the lessons, and an explain-back that a model grades against the whole stage. There is no quiz.
+A mastery-first learning platform. Curated roadmaps, your own resources, and an explain-back check are the product. Version 1 ships the roadmaps, the lessons, and an explain-back that walks one idea at a time. There is no quiz.
 
 ## Status
 
@@ -37,7 +37,7 @@ Thirty paths are free. All thirty have catalogs:
 - Freelancing — 8 stages, 8 resources. Stages 1–5 are the open stretch.
 - Travel Planning — 8 stages, 8 resources. Stages 1–5 are the open stretch.
 
-The next stage on a free path opens after the explain-back. The last three stages stay locked. A stage waiting on that pass stays readable, with a lock. The last two stages on the path stay blurred. Art & Painting stays a flagship. Every other niche is Premium, with no stages and no resources. Payments are not built.
+The next stage on a free path opens after the explain-back. Every stage is open, so finishing the path can earn the certificate. A stage waiting on that pass stays readable, with a lock. Art & Painting stays a flagship. Every other niche is Premium, with no stages and no resources, until a subscription opens it.
 
 The niche list shows 32 cards a page. Home and roadmaps show the first 12, a blurred peek of the next row, and a link to the full list.
 
@@ -58,7 +58,7 @@ A dead stored link can be marked unavailable. The lesson keeps the saved title, 
 - Next.js 16.3.4, React 19, TypeScript, Tailwind CSS v4. Landing and auth pages are static. Shared catalog screens (niche grid, lessons, clips, submit picker) are cached for every visitor under the `catalog` tag. Public community lists and contributor profiles are cached under the `community` tag. Learner-map totals are cached under the `learner-map` tag, city search under `geocode`, and saved nearby events under `nearby-events`. Progress, the account menu, the review queue, and a person's own contributions stay per request
 - PostgreSQL and Prisma 6
 - Auth.js v5 — email and password with bcrypt, JWT sessions. Google is configured in code and is not on the login form
-- Explain-back grading is not connected to a model yet
+- Explain-back grading uses Gemini’s free tier when `GEMINI_API_KEY` is set. `OPENAI_API_KEY` is the fallback when that key is empty. With no key, the catalog questions stay and a stage cannot be passed
 
 ## Getting started
 
@@ -76,12 +76,10 @@ Do not re-run the seed on a database that already has people in it. The seed res
 
 ## Catalog
 
-Check the researched file. This does not change stored resources:
+Check a researched file. This does not change stored resources. `<slug>` is any of the thirty free paths. The Full-Stack slug is `full-stack-web-dev` and its file is `content/catalog/full-stack-web-development.json`.
 
 ```bash
-npx tsx scripts/verify-catalog.ts full-stack-web-dev
-npx tsx scripts/verify-catalog.ts content-creation
-npx tsx scripts/verify-catalog.ts travel-vlogging
+npx tsx scripts/verify-catalog.ts <slug>
 ```
 
 Load a path. The first command prints the plan. The second writes it.
@@ -118,6 +116,16 @@ Copy the names from `.env.example`. Leave a key blank to turn that source off.
 - `EVENTS_CRON_PAIRS` — how many city and niche pairs that cron route refreshes. The default is 20.
 - `GEOCODER_USER_AGENT` — already used by city search. Put an email or a site you control in it.
 
+## Stripe
+
+Premium is one subscription. Checkout and the customer portal run on Stripe. The app never collects a card. Leave the keys blank and `/upgrade` says Stripe is not configured.
+
+- `STRIPE_SECRET_KEY` — the secret key from the Stripe dashboard.
+- `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` — the publishable key. The upgrade button loads Stripe.js with it, then sends the browser to Checkout.
+- `STRIPE_PRICE_ID` — the price for that subscription.
+- `STRIPE_WEBHOOK_SECRET` — the signing secret for `POST /api/stripe/webhook`.
+- `STRIPE_PRICE_LABEL` — optional words shown on the upgrade page. Checkout shows the real price.
+
 ## Explain-back model
 
 The explain-back walks one idea at a time. Set `GEMINI_API_KEY`. Opening a stage writes those ideas from the stage’s resources and keeps every key point. With no key, the questions already in the catalog stay. Each step needs a written review from the model before it moves on. An idea that holds is saved under Notes. A timeout or a reply that is not a review saves nothing, and the stage stays open.
@@ -138,6 +146,10 @@ npx tsx scripts/map-demo.ts remove
 
 `add` puts six learners in Lisbon, Porto, Tokyo, and Bengaluru, and two in Reykjavik. Reykjavik stays hidden while `MAP_MIN_LEARNERS` is 5. Lisbon and Porto are close enough to form one bubble until you zoom in. In development, refresh `/map` and the new counts are there. In production they refresh when someone saves a city, or within an hour.
 
+## Also live
+
+Passing an explain-back records the stage and opens the next one. Every stage on a free path counts toward mastery and toward the certificate. A streak day is a UTC day with a saved explain-back or a saved note. Notes download as Word or PDF, and a stage summary uses only those notes. Progress links to a transcript of the stages already passed. A certificate is issued only when every stage on the path is passed. A passed idea comes back twice, 18 hours apart, and stays on screen until the learner writes an answer. Retention on Progress is the average of those answers. The stage pass stays. `/notes/practice` reads a public page, a text file, or a pasted passage, reviews an idea against that text, and does not pass a stage. A learner can save preferences for a skill they follow. The roadmap then shows a personal schedule built from the shared stages. Undo shows those shared stages again and leaves the resources in place. Opening a stage uses the same selection while the plan is on. The model does not invent that path. Onboarding offers five skills. Settings can follow any free path, and a Premium niche while the subscription is active. There is no leaderboard and no peer review. Stripe Checkout is at `/upgrade`. Premium is the niches outside the thirty, plus appearing on the learner map. The card form stays on Stripe. Without the keys, the page says Stripe is not configured.
+
 ## What is still ahead
 
-Passing an explain-back records the stage and opens the next one. The last three stages of a free path stay locked. Mastery is the share of open stages passed. A streak day is a UTC day with a saved explain-back or a saved note. Notes download as Word or PDF, and a stage summary uses only those notes. Progress links to a transcript of the stages already passed. A certificate is issued only when every stage on the path is passed. A passed idea comes back twice, 18 hours apart, and stays on screen until the learner writes an answer. Retention on Progress is the average of those answers. The stage pass stays. `/notes/practice` reads a public page, a text file, or a pasted passage, reviews an idea against that text, and does not pass a stage. A learner can save preferences for a skill they follow. The roadmap then shows a personal schedule built from the shared stages. Undo shows those shared stages again and leaves the resources in place. Opening a stage uses the same selection while the plan is on. The model does not invent that path. There is no leaderboard and no peer review. Stripe is not running. `Project-roadmap.md` is the phase list. `AGENTS.md` is the working context for the next session.
+Replace the five dead catalog URLs when a working page is chosen. Confirm the pages that returned HTTP 403. Stage photos exist for Full-Stack, Content Creation, and Travel Vlogging only. Integration tests and an end-to-end pass are not written. Deploy, CI, and error monitoring are not started. The case study is not written. Premium niches have no catalogs. `Project-roadmap.md` is the phase list. `AGENTS.md` is the working context for the next session.

@@ -7,6 +7,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Icon } from "@/components/core/Icon.jsx";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
 import { NICHE_PAGE_SIZE, NICHE_TEASER_CLEAR, NICHE_TEASER_PEEK } from "./niche-layout";
+import { usePremiumAccess } from "../../_components/premium-access";
 
 const FILTERS = [
   { id: "all", label: "All" },
@@ -29,6 +30,7 @@ export type BrowseSkill = {
   description: string;
   status: "available" | "coming_soon";
   offer: "FREE" | "MONETIZED";
+  slug: string;
   followed: boolean;
   stageCount: number;
   image: string | null;
@@ -229,8 +231,12 @@ export function SkillBrowse({ skills, mode = "page" }: { skills: BrowseSkill[]; 
 
 function SkillCard({ skill, preview = false }: { skill: BrowseSkill; preview?: boolean }) {
   const followedIds = useContext(FollowedIdsContext);
+  const premium = usePremiumAccess();
   const followed = followedIds ? followedIds.has(skill.id) : skill.followed;
   const view = followed === skill.followed ? skill : { ...skill, followed };
+  const href =
+    view.href ??
+    (premium && view.status === "available" && view.offer === "MONETIZED" ? `/roadmap/${view.slug}` : null);
   const body = (
     <>
       {view.image ? (
@@ -253,21 +259,26 @@ function SkillCard({ skill, preview = false }: { skill: BrowseSkill; preview?: b
         </span>
         <strong>{view.name}</strong>
         {view.description ? <span>{view.description}</span> : null}
-        {!view.href && view.communityHref ? (
+        {!href && view.communityHref ? (
           <Link href={view.communityHref} className="sf-skill-os">
             Open Source
+          </Link>
+        ) : null}
+        {!href && view.offer === "MONETIZED" && view.status === "available" ? (
+          <Link href="/upgrade" className="sf-skill-os">
+            Upgrade
           </Link>
         ) : null}
       </span>
     </>
   );
 
-  if (preview || !view.href) {
-    return <article className={view.href ? "sf-skill-tile" : "sf-skill-tile is-soon"}>{body}</article>;
+  if (preview || !href) {
+    return <article className={href ? "sf-skill-tile" : "sf-skill-tile is-soon"}>{body}</article>;
   }
 
   return (
-    <Link className="sf-skill-tile" href={view.href}>
+    <Link className="sf-skill-tile" href={href}>
       {body}
     </Link>
   );

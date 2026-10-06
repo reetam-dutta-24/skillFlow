@@ -23,9 +23,10 @@ describe("mastery share", () => {
 describe("open stages", () => {
   const base = { skillStatus: "AVAILABLE", skillOffer: "FREE", monetized: false, stageCount: 12 };
 
-  it("keeps the last three stages of a free path out of the count", () => {
+  it("counts every stage on a free path, including the last three", () => {
     expect(stageCountsAsOpen({ ...base, order: 9 })).toBe(true);
-    expect(stageCountsAsOpen({ ...base, order: 10 })).toBe(false);
+    expect(stageCountsAsOpen({ ...base, order: 10 })).toBe(true);
+    expect(stageCountsAsOpen({ ...base, order: 12 })).toBe(true);
   });
 
   it("opens nothing on a coming-soon or monetized path", () => {
@@ -34,10 +35,10 @@ describe("open stages", () => {
     expect(stageCountsAsOpen({ ...base, monetized: true, order: 1 })).toBe(false);
   });
 
-  it("opens the only stage when a path has one, and only the first when it has two", () => {
+  it("opens every stage when a path has one or two", () => {
     expect(stageCountsAsOpen({ ...base, stageCount: 1, order: 1 })).toBe(true);
     expect(stageCountsAsOpen({ ...base, stageCount: 2, order: 1 })).toBe(true);
-    expect(stageCountsAsOpen({ ...base, stageCount: 2, order: 2 })).toBe(false);
+    expect(stageCountsAsOpen({ ...base, stageCount: 2, order: 2 })).toBe(true);
   });
 });
 

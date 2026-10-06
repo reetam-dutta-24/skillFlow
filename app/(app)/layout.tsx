@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Suspense } from "react";
 import { NotificationBell } from "@/components/navigation/NotificationBell.jsx";
+import { viewerHasPremium } from "@/lib/billing/access";
 import { getNotifications } from "@/lib/data/notifications";
 import { AccountMenuFallback } from "./_components/AccountMenuFallback";
 import { AppShell } from "./_components/AppShell";
 import { NotificationMenu } from "./_components/NotificationMenu";
+import { PremiumAccessProvider } from "./_components/premium-access";
 import { RecallLock } from "./_components/RecallLock";
 import { ShellIdentity } from "./_components/ShellIdentity";
 import { ShellReview } from "./_components/ShellReview";
@@ -26,9 +28,10 @@ async function ShellNotifications() {
   return <NotificationMenu items={items} />;
 }
 
-export default function AppGroupLayout({ children }: { children: ReactNode }) {
+export default async function AppGroupLayout({ children }: { children: ReactNode }) {
+  const premium = await viewerHasPremium();
   return (
-    <>
+    <PremiumAccessProvider premium={premium}>
       <Suspense fallback={null}>
         <RecallLock />
       </Suspense>
@@ -51,6 +54,6 @@ export default function AppGroupLayout({ children }: { children: ReactNode }) {
     >
         {children}
       </AppShell>
-    </>
+    </PremiumAccessProvider>
   );
 }

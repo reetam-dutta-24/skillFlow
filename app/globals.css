@@ -3862,6 +3862,10 @@ a.sf-source:hover {
 .sf-upgrade {
   display: grid;
   gap: 16px;
+  min-width: 0;
+}
+.sf-upgrade {
+  overflow-x: auto;
 }
 .sf-settings-profile,
 .sf-settings-skills li,

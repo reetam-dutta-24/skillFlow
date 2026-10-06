@@ -8,6 +8,7 @@ import { conceptsForGate } from "@/lib/explain/gate-concepts";
 import { ensureGateConcepts } from "@/lib/explain/gate-store";
 import { reviewStoredExplanation } from "@/lib/explain/review";
 import { prisma } from "@/lib/prisma";
+import { openStageLimit } from "@/lib/progress/formula";
 import type { RoadmapStageView, SkillView } from "@/lib/types/domain";
 import type { ExplainReview, MilestoneData } from "@/lib/types/pages";
 
@@ -48,13 +49,6 @@ function openMilestone(stageId: string): MilestoneData | null {
   };
 }
 
-const LOCKED_TAIL = 3;
-
-function openLimit(stageCount: number) {
-  if (stageCount <= 1) return stageCount;
-  return Math.max(1, stageCount - LOCKED_TAIL);
-}
-
 /** A real stage reads the stored prompt. The preview id still uses the mock walkthrough. */
 async function loadStoredMilestone(stageId: string, userId?: string): Promise<MilestoneData | null> {
   await ensureGateConcepts(stageId);
@@ -92,7 +86,7 @@ async function loadStoredMilestone(stageId: string, userId?: string): Promise<Mi
     masteryPercent: 0,
     createdAt: stage.skill.createdAt.toISOString(),
   };
-  const limit = openLimit(stageCount);
+  const limit = openStageLimit(stageCount);
   const open =
     stage.skill.status === "AVAILABLE" &&
     stage.skill.offer === "FREE" &&

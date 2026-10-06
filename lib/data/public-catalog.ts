@@ -3,11 +3,10 @@ import type { Prisma, Resource } from "@prisma/client";
 import { cacheLife, cacheTag } from "next/cache";
 import { CATALOG_TAG } from "@/lib/cache/tags";
 import { prisma } from "@/lib/prisma";
+import { openStageLimit } from "@/lib/progress/formula";
 import type { ResourceView, SkillOffer, SkillStatus } from "@/lib/types/domain";
 
-/** On a free path, this many stages at the end stay locked. Same window for every learner. */
-const LOCKED_TAIL = 3;
-const LOCKED_PREVIEW = "This part of the path stays locked.";
+const LOCKED_PREVIEW = "This stage is not open yet.";
 
 const publicInclude = {
   stages: {
@@ -64,11 +63,6 @@ function skillStatus(status: PublicRow["status"]): SkillStatus {
   return status === "AVAILABLE" ? "available" : "coming_soon";
 }
 
-function openLimit(stageCount: number) {
-  if (stageCount <= 1) return stageCount;
-  return Math.max(1, stageCount - LOCKED_TAIL);
-}
-
 function stageIsOpen(skill: PublicRow, stage: PublicRow["stages"][number], limit: number) {
   if (skill.status !== "AVAILABLE" || skill.offer !== "FREE") return false;
   if (stage.monetized) return false;
@@ -76,7 +70,7 @@ function stageIsOpen(skill: PublicRow, stage: PublicRow["stages"][number], limit
 }
 
 function toEntry(skill: PublicRow): PublicCatalogEntry {
-  const limit = openLimit(skill.stages.length);
+  const limit = openStageLimit(skill.stages.length);
   return {
     skill: {
       id: skill.id,

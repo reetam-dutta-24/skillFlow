@@ -366,8 +366,8 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 - [x] Travel Vlogging loaded from `content/catalog/travel-vlogging.json`
 - [x] Explain-back prompt on every imported stage
 - [x] Photography, Music Production, and the extra niches stay coming soon
-- [ ] Art & Painting researched and loaded, when that path is actually chosen
-- [ ] The 403 links rechecked by a person. Do not replace them just because the bot was blocked
+- [ ] Art & Painting researched and loaded with the remaining niches, not before
+- [ ] The 403 links rechecked by a person when those remaining niches get resources. Do not replace a link just because the bot was blocked
 
 The mock catalog in `lib/mock/catalog.ts` is leftover sample data for the screens that are not wired. It is not the seed.
 
@@ -383,7 +383,7 @@ The mock catalog in `lib/mock/catalog.ts` is leftover sample data for the screen
 - [x] Maintainers tab and `/admin/community`
 - [x] Contributor section on the public profile with a 12-month heatmap
 - [x] `community` cache tag for public data; per-request queue, counts, and author pages
-- [ ] Notify an author when a decision lands
+- Author is not notified when a decision lands. The result shows on My contributions.
 - [ ] Integration tests for review, edit, and hide
 
 ## PHASE 8 — Testing

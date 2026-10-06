@@ -1,0 +1,466 @@
+{
+  "stages": [
+    {
+      "order": 1,
+      "title": "What the Chat Is Doing",
+      "level": "BEGINNER",
+      "description": "A chat tool is a large language model: a network trained on text, usually to predict the next word, then tuned to follow instructions.",
+      "learningObjectives": [
+        "Define a large language model",
+        "Separate pretraining from instruction tuning",
+        "Say what a generative model produces",
+        "Name a few jobs the model is built for, and the limit of a plausible sentence"
+      ],
+      "explainBack": {
+        "question": "Someone treats the chat box like a database that looks up the right fact. Explain what the model was trained to do, and what kind of thing it is generating.",
+        "rubric": [
+          "A large language model is a neural network trained on a vast amount of text, especially for generating language",
+          "Modern chatbots such as ChatGPT, Claude, and Gemini are built on these models",
+          "A generative pre-trained transformer is pretrained to predict the next word, then often fine-tuned to follow instructions",
+          "Before that fine-tuning, most of these models are next-token predictors; biased or inaccurate training data makes the output less reliable",
+          "Generative AI produces new text, images, or other data from patterns in its training data, in response to a prompt"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Large language model",
+          "provider": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Large_language_model",
+          "description": "What an LLM is, how GPT-style models are trained, and what inference means.",
+          "keyPoints": [
+            "A large language model is typically a neural network trained on a vast amount of text for language tasks, especially generation",
+            "These models are the basis of chatbots such as ChatGPT, Claude, Gemini, Grok, and DeepSeek",
+            "They are typically transformers; a generative pre-trained transformer is pretrained to predict the next word, then often fine-tuned to follow instructions",
+            "Before fine-tuning, most LLMs are next-token predictors; fine-tuning can use instruction tuning or reinforcement learning from human feedback",
+            "Biased or inaccurate training data can make the output less reliable; inference is sending an input and receiving generated text or other files"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Introduction to Generative AI",
+          "provider": "Google Cloud Tech",
+          "url": "https://www.youtube.com/watch?v=G2fqAlgmoPo",
+          "videoId": "G2fqAlgmoPo",
+          "description": "Google Cloud's short course on what generative AI produces and what a prompt is.",
+          "keyPoints": [
+            "Generative AI creates new content from patterns it learned in existing content",
+            "A generative language model predicts what comes next and can produce new combinations of text",
+            "Large language models are one type of generative AI",
+            "A prompt is a short piece of text given to the model as input, and it is how you steer the output"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Introduction to Large Language Models",
+          "provider": "Google Cloud",
+          "url": "https://www.youtube.com/watch?v=RBzXsQHjptQ",
+          "videoId": "RBzXsQHjptQ",
+          "description": "Google Cloud's introduction to what an LLM is trained to do and how the kinds of models differ.",
+          "keyPoints": [
+            "Large language models are large, general-purpose language models that are pretrained and then fine-tuned",
+            "They are a subset of deep learning and are used for classification, question answering, summarization, and text generation",
+            "They are almost exclusively based on transformer models",
+            "The course separates generic language models, instruction-tuned models, and dialog-tuned models, and each kind is prompted differently"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": "A Prompt That Names the Job",
+      "level": "BEGINNER",
+      "description": "Say what you want, who it is for, and what the answer should look like. An example beats a vague request.",
+      "learningObjectives": [
+        "State the task, the constraints, and the output format",
+        "Add the reason for a rule when the rule would otherwise look arbitrary",
+        "Use an example when the shape of the answer matters",
+        "Tell a zero-shot prompt from a prompt that includes examples"
+      ],
+      "explainBack": {
+        "question": "Your prompt is 'write something about our product.' Rewrite the idea of that prompt, and explain why the vague version fails.",
+        "rubric": [
+          "A prompt is the input that asks the model for a response; its quality changes the output",
+          "Be specific about the output format and the constraints; show the prompt to a colleague, and if they would be confused, the model will be too",
+          "Explaining why a rule matters helps the model more than a bare 'never'",
+          "A few relevant, diverse examples are one of the most reliable ways to steer format and tone",
+          "Zero-shot is an instruction with no example; few-shot gives one or more input-output examples first"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Prompting best practices",
+          "provider": "Anthropic",
+          "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices",
+          "description": "Anthropic's current guide: clear instructions, context, examples, and a role.",
+          "keyPoints": [
+            "Be clear and direct; specify the output format and the constraints instead of hoping the model infers them",
+            "The golden rule is to show the prompt to a colleague with little context; if they would be confused, the model will be too",
+            "Explain why a behavior matters; the model can generalize from the reason",
+            "Examples are one of the most reliable ways to steer format, tone, and structure; make them relevant, diverse, and easy to tell apart from the instructions",
+            "A role, even one sentence in the system prompt, focuses behavior and tone"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Prompt engineering: overview and guide",
+          "provider": "Google Cloud",
+          "url": "https://cloud.google.com/discover/what-is-prompt-engineering",
+          "description": "What a prompt is, and the difference between asking with no example and asking with several.",
+          "keyPoints": [
+            "Prompt engineering is designing prompts so a model understands the intent and produces the response you want",
+            "A prompt is the input, from a short question to instructions, code, or a writing sample",
+            "Context and examples in the prompt help the model match the task",
+            "Zero-shot prompting is a direct instruction with no example, such as 'summarize this'",
+            "Few-shot prompting gives one or more examples of the desired input and output before the real request; chain-of-thought asks the model to show intermediate steps"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Tips to becoming a world-class Prompt Engineer",
+          "provider": "Google Cloud Tech",
+          "url": "https://www.youtube.com/watch?v=RywP7cCYUWE",
+          "videoId": "RywP7cCYUWE",
+          "description": "A short Google Cloud video: specific instructions, context, examples, and a persona.",
+          "keyPoints": [
+            "Prompt engineering here means using natural language to ask a large language model to summarize, generate, or review",
+            "Be specific: 'blueberry muffins' does not say that you need fifty and that they must be vegan",
+            "Add context so the model can interpret the request",
+            "Examples give the model a frame, and trying a persona is one way to retune the prompt"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Check the Answer Before You Use It",
+      "level": "BEGINNER",
+      "description": "A fluent answer can still be false. The model can invent a citation and present it as a fact.",
+      "learningObjectives": [
+        "Define an AI hallucination",
+        "Expect fabricated citations",
+        "Treat a confident tone as unrelated to truth",
+        "Check claims that matter against a source you trust"
+      ],
+      "explainBack": {
+        "question": "The model gives you a quotation, a paper title, and a confident explanation. Explain what can be wrong with that answer, and what you would do before you repeat it.",
+        "rubric": [
+          "A hallucination is a response that contains false or misleading information presented as fact",
+          "Chatbots can embed plausible falsehoods, including fabricated citations",
+          "OpenAI has described the tendency as inventing facts in moments of uncertainty, and as fabricating information while behaving as if stating facts",
+          "The term is disputed because it compares the model to a person; the failure is still a false or misleading output",
+          "High-stakes uses, including medical diagnostics, are where an unchecked error does the most harm, so a claim you will rely on has to be checked against a source"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Hallucination (artificial intelligence)",
+          "provider": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Hallucination_(artificial_intelligence)",
+          "description": "What researchers and labs mean when a model states something that is not true.",
+          "keyPoints": [
+            "In AI, a hallucination is a response that contains false or misleading information presented as fact",
+            "Large-language-model chatbots may embed plausible-sounding falsehoods, such as fabricated citations",
+            "Definitions in use include inventing facts in moments of uncertainty and fabricating information while behaving as if stating facts",
+            "Some engineers object to the word because it treats the computer like a person; symbolic systems generally do not fail this way",
+            "The practical problem is reliability in high-stakes work, including medical diagnostics, where a confident error is costly"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Writing With a Model",
+      "level": "BEGINNER",
+      "description": "Using a model to help write is allowed. Publishing a pile of pages mainly to rank is not. Say how the page was made when a reader would ask.",
+      "learningObjectives": [
+        "Separate assistive use from spam",
+        "Keep a person responsible for the original value",
+        "Add a byline when readers would ask who wrote it",
+        "Disclose automation when readers would ask how it was made"
+      ],
+      "explainBack": {
+        "question": "You used a chat model to draft a post, then rewrote it from your own notes. Explain how that differs from generating dozens of pages to chase search traffic, and when you would tell the reader a model was involved.",
+        "rubric": [
+          "Google ranks by the quality of the content, not by whether a person or a tool produced it",
+          "Automation, including AI, used mainly to manipulate search rankings violates the spam policies",
+          "Automation has long produced useful pages such as scores, forecasts, and transcripts; AI can also help a person make original work",
+          "Using AI does not give a page a special ranking boost; if it is not useful, original, and trustworthy, it may not do well",
+          "Use an accurate human byline where readers would ask who wrote it, and disclose AI where they would ask how it was created; do not list the model as the author"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Google Search's guidance about AI-generated content",
+          "provider": "Google Search Central",
+          "url": "https://developers.google.com/search/blog/2023/02/google-search-and-ai-content",
+          "description": "Google's 2023 note: quality matters more than whether a tool helped write the page.",
+          "keyPoints": [
+            "Ranking systems aim to reward original, high-quality content; the focus is the quality, not how the content was produced",
+            "Using automation, including AI, primarily to manipulate rankings violates the spam policies",
+            "Not all automation is spam; scores, weather, and transcripts have long been generated, and AI can help people make useful pages",
+            "Using AI does not give content any special gain in Search",
+            "Consider a byline where a reader would ask who wrote it, disclose automation where they would ask how it was made, and do not list the AI as the author"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "title": "What You Paste Into the Box",
+      "level": "BEGINNER",
+      "description": "Text you paste is part of the prompt. Hidden instructions in a page or a file can change what the model does, including what it repeats.",
+      "learningObjectives": [
+        "Separate a direct prompt injection from an indirect one",
+        "Treat a webpage or file you ask the model to read as untrusted input",
+        "Name disclosure of sensitive information as one possible result",
+        "Keep a person in the loop before a high-risk action"
+      ],
+      "explainBack": {
+        "question": "You paste a long webpage into the chat and ask for a summary. Explain how that page can change the model's behavior, and what you should not have put in the same conversation.",
+        "rubric": [
+          "Prompt injection is input that alters the model's behavior or output in a way you did not intend",
+          "A direct injection is in the prompt you type; an indirect injection is hidden in outside content such as a website or a file the model reads",
+          "The instructions do not have to be visible to a person, as long as the model parses them",
+          "One listed outcome is disclosure of sensitive information, including material from the conversation",
+          "A practical mitigation is to mark untrusted content as separate from your instructions, and to require a person to approve high-risk actions"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "LLM01:2025 Prompt Injection",
+          "provider": "OWASP",
+          "url": "https://genai.owasp.org/llmrisk/llm01-prompt-injection/",
+          "description": "How a prompt, or a page you asked the model to read, can redirect the model.",
+          "keyPoints": [
+            "Prompt injection is user input that alters the model's behavior or output in unintended ways",
+            "The input does not have to be readable by a person; it only has to be parsed by the model",
+            "Direct injection is in the prompt itself; indirect injection arrives in external content such as a website or a file",
+            "Effects include disclosing sensitive information, manipulating the content, and triggering actions the model is connected to",
+            "Mitigations include separating untrusted content from the instructions and requiring human approval for high-risk actions; a complete prevention is not claimed"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "title": "Pictures the Model Draws",
+      "level": "INTERMEDIATE",
+      "description": "An image model makes a new picture from patterns in its training data. The picture can look like a photograph of something that never happened.",
+      "learningObjectives": [
+        "Define generative AI beyond chat text",
+        "Name image and video tools as the same family of model",
+        "Treat a generated scene as invented unless you have another source",
+        "Remember that training data has included copyrighted works"
+      ],
+      "explainBack": {
+        "question": "A generated picture shows a famous bridge with a second track and a train on the wrong side. Explain what the model was doing, and why you would not publish that frame as a photo of the place.",
+        "rubric": [
+          "Generative AI uses models to produce text, images, video, audio, code, or other data from patterns in training data, usually from a prompt",
+          "Text-to-image tools such as DALL-E, Firefly, Stable Diffusion, and Midjourney, and text-to-video tools such as Sora, are in this family",
+          "A generated picture can add details that are not in the real scene; the Glenfinnan example shows a second track and trains running on the wrong side",
+          "The same systems are used for deepfakes and fake news, so a realistic frame is not evidence",
+          "Generative models have been trained on copyrighted works without the rightholders' permission"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Generative artificial intelligence",
+          "provider": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Generative_artificial_intelligence",
+          "description": "The wider field: text, images, video, and the harms that come with realistic output.",
+          "keyPoints": [
+            "Generative AI produces text, images, video, audio, code, or other data by learning patterns in training data and responding to a prompt",
+            "Chatbots are one application; text-to-image models include DALL-E, Firefly, Stable Diffusion, and Midjourney, and text-to-video models include Sora",
+            "The same tools have been used for fake news and deepfakes",
+            "Models have been trained on copyrighted works without the rightholders' permission"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Hallucination (artificial intelligence)",
+          "provider": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Hallucination_(artificial_intelligence)",
+          "description": "A generated video of a real viaduct that invents tracks, direction, and the shape of the train.",
+          "keyPoints": [
+            "A generated video of the Glenfinnan Viaduct shows a second track, trains running on the right instead of the left, and a carriage bending as it turns",
+            "The real viaduct and the real train do not match that generated frame",
+            "The word hallucination covers false or misleading output presented as if it were real, including in images and video",
+            "A realistic generated scene is not a record of the place"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "title": "When the Tool Is the Wrong Tool",
+      "level": "INTERMEDIATE",
+      "description": "The model continues a likely sentence. That is a bad instrument for a dose, a statute, a price, or any fact you cannot afford to invent.",
+      "learningObjectives": [
+        "Connect a wrong answer to next-token prediction",
+        "Refuse to treat the chat as a source for medicine or other high-stakes facts",
+        "Ask for the source and then open that source",
+        "Prefer a calculator, a current official page, or a person when the cost of being wrong is high"
+      ],
+      "explainBack": {
+        "question": "A classmate wants the model to decide a medicine dose and to quote the law that allows it. Explain why this is the wrong tool, using how the model produces text.",
+        "rubric": [
+          "Before instruction tuning, most large language models are trained to predict the next token, not to look a fact up in a database",
+          "A fluent answer can still be a falsehood presented as fact, including a fabricated citation",
+          "Medical diagnostics is one of the high-stakes settings where that failure is dangerous",
+          "Biased or inaccurate training data makes the output less reliable, and a tool such as web search is an add-on, not a guarantee",
+          "The check is to leave the chat and confirm the claim in a source that is actually responsible for it"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Large language model",
+          "provider": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Large_language_model",
+          "description": "The training objective: predict the next word, then shape the behavior with fine-tuning.",
+          "keyPoints": [
+            "GPT-style models are pretrained to predict the next word",
+            "Before fine-tuning, most LLMs are next-token predictors",
+            "Instruction tuning and reinforcement learning from human feedback change how the model behaves; they do not turn it into a database",
+            "Biased or inaccurate training data can make the output less reliable",
+            "A software harness can add tools such as web search; that is separate from the model's own generation"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Hallucination (artificial intelligence)",
+          "provider": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Hallucination_(artificial_intelligence)",
+          "description": "Why a made-up citation or a made-up medical claim is a known failure, not a rare glitch.",
+          "keyPoints": [
+            "Hallucinated output includes fabricated citations presented as real",
+            "Detecting those errors is hard enough that high-stakes deployment is a known problem",
+            "Medical diagnostics is named among the settings where a false answer does serious harm",
+            "A confident tone is part of the failure: the model behaves as if it is stating facts"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "title": "Who Owns What Comes Back",
+      "level": "INTERMEDIATE",
+      "description": "In the United States, copyright needs a human author. Typing a prompt is not enough. A human's own writing and a human's creative edit can still be protected.",
+      "learningObjectives": [
+        "State the human-authorship requirement",
+        "Explain why a prompt alone does not make you the author of the output",
+        "Name the human contributions the Copyright Office says can still count",
+        "Keep the model off the author line"
+      ],
+      "explainBack": {
+        "question": "You typed a detailed prompt and want to register the picture the model returned, with the model listed as co-author. Explain what the U.S. Copyright Office says can be protected, and what cannot.",
+        "rubric": [
+          "U.S. copyright protects original expression created by a human author",
+          "Generative output is protected only where a human has determined sufficient expressive elements",
+          "A human-authored work that remains perceptible in the output, or a human's creative arrangement or modification of the output, can qualify; the mere provision of prompts does not",
+          "Using AI to assist, or including AI material inside a larger human-authored work, does not by itself bar copyright in the human part",
+          "Do not list the AI tool or the company that provides it as an author"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Copyright and Artificial Intelligence",
+          "provider": "U.S. Copyright Office",
+          "url": "https://www.copyright.gov/ai/",
+          "description": "The Office's hub for its report on AI outputs, training, and digital replicas.",
+          "keyPoints": [
+            "The Copyright Office has been examining copyright in AI-generated works and the use of copyrighted material in training",
+            "Part 2 of the report, published on 29 January 2025, addresses whether outputs created with generative AI can be copyrighted",
+            "Part 1 addresses digital replicas; a pre-publication Part 3 addresses training on copyrighted works",
+            "The human-authorship question is the Office's, not a setting inside the chat tool"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Copyright and Artificial Intelligence, Part 2: Copyrightability",
+          "provider": "U.S. Copyright Office",
+          "url": "https://www.copyright.gov/newsnet/2025/1060.html",
+          "description": "The Office's January 2025 conclusion: prompts alone do not make the output yours.",
+          "keyPoints": [
+            "Outputs of generative AI can be protected only where a human author has determined sufficient expressive elements",
+            "That can include a human-authored work perceptible in the output, or a human's creative arrangement or modification of the output",
+            "The mere provision of prompts is not enough",
+            "Using AI as an aid, or placing AI-generated material inside a larger human-authored work, does not bar copyright in the human contribution",
+            "The Office did not recommend a new law to give extra protection to AI-generated outputs"
+          ]
+        }
+      ]
+    }
+  ],
+  "slug": "ai-tools",
+  "name": "AI Tools",
+  "description": "Learn to put a chat model on a real task: what it is predicting, how to write the prompt, how to check the answer, what you paste in, and what copyright does not give you.",
+  "status": "COMING_SOON"
+}

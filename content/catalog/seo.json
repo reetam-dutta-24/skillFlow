@@ -1,0 +1,470 @@
+{
+  "stages": [
+    {
+      "order": 1,
+      "title": "How Google Search Finds a Page",
+      "level": "BEGINNER",
+      "description": "Search is crawl, then index, then serving. Most pages are found by following links. Paying someone does not buy a higher rank.",
+      "learningObjectives": [
+        "Name the three stages a page has to pass through",
+        "Explain how Google discovers a URL",
+        "Separate crawling from indexing and from ranking",
+        "State that payment does not buy a crawl or a rank"
+      ],
+      "explainBack": {
+        "question": "A friend says they will pay to get a new page crawled more often and ranked higher. Explain what actually has to happen before that page can appear, and why the payment does not do that.",
+        "rubric": [
+          "Google Search crawls pages with automated programs, indexes what it understands, then serves results for a query",
+          "There is no central registry of every page; URLs are discovered from links already crawled, from pages already visited, or from a sitemap",
+          "Googlebot does not crawl every URL it finds, and indexing is not guaranteed even after a page is processed",
+          "Google does not accept payment to crawl a site more often or to rank it higher",
+          "A page can be indexed and still not show for a query if the content is irrelevant or low quality"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "In-depth guide to how Google Search works",
+          "provider": "Google Search Central",
+          "url": "https://developers.google.com/search/docs/fundamentals/how-search-works",
+          "description": "Google's own account of crawling, indexing, and serving, including what is not guaranteed.",
+          "keyPoints": [
+            "Search works in three stages: crawling, indexing, and serving search results, and not every page makes it through each stage",
+            "There is no central registry of web pages; Google discovers URLs from pages it already visited, from links on known pages, and from sitemaps",
+            "During a crawl Google renders the page and runs JavaScript with a recent version of Chrome, because otherwise it may not see the content",
+            "Indexing stores information about the chosen canonical page; indexing is not guaranteed",
+            "Google does not accept payment to crawl a site more frequently or to rank it higher, and ranking uses hundreds of factors including location, language, and device"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Introducing How Search Works",
+          "provider": "Google Search Central",
+          "url": "https://www.youtube.com/watch?v=5MIAugQ17ks",
+          "videoId": "5MIAugQ17ks",
+          "description": "The opening episode of Google's How Search Works series: crawling, indexing, and serving.",
+          "keyPoints": [
+            "The series walks through crawling, indexing, and serving as the three stages of Search",
+            "Crawling is how Google discovers URLs and explores the web",
+            "Indexing is how Google understands what a page is about and stores that so it can be searched",
+            "Serving is how Google returns and ranks results for a query"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "How Google Search indexes pages",
+          "provider": "Google Search Central",
+          "url": "https://www.youtube.com/watch?v=pe-NSvBTg2o",
+          "videoId": "pe-NSvBTg2o",
+          "description": "What happens after a page is crawled: reading the content and deciding whether to keep it in the index.",
+          "keyPoints": [
+            "Indexing starts after the page has been crawled and rendered",
+            "Google processes the text, key content tags, attributes, images, and video, and calculates signals",
+            "Those signals help decide whether the page should be indexed",
+            "After duplicates are dropped, index selection is the decision to keep the page or not"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Pages Written for People",
+      "level": "BEGINNER",
+      "description": "The page should be useful to a person who arrived on purpose. There is no secret word count, and repeating keywords is against the spam rules.",
+      "learningObjectives": [
+        "Describe people-first content in Google's own questions",
+        "Name signs that a page was written mainly to rank",
+        "State that E-E-A-T is not itself a ranking factor",
+        "Drop the ideas Google says not to chase"
+      ],
+      "explainBack": {
+        "question": "You are about to publish a page aimed at a search phrase. Explain how you would tell whether it is people-first, and which common SEO habits Google says not to bother with.",
+        "rubric": [
+          "People-first content is written for an audience that would find it useful if they came to the site directly",
+          "Warning signs include writing mainly to attract search visits, covering many topics without expertise, summarizing others without adding value, and chasing a supposed preferred word count",
+          "Using automation, including AI, mainly to manipulate rankings violates the spam policies",
+          "Google Search does not use the keywords meta tag, keyword stuffing is against the spam policies, and content length alone is not a ranking target",
+          "E-E-A-T is not a specific ranking factor; trust matters most, and raters do not directly set ranks"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Creating helpful, reliable, people-first content",
+          "provider": "Google Search Central",
+          "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+          "description": "Google's questions for judging whether a page was made for people or for rankings.",
+          "keyPoints": [
+            "Ranking systems are meant to prioritize helpful, reliable information created for people, not content created to manipulate rankings",
+            "People-first content has an audience that would find it useful if they came directly, and it shows first-hand knowledge",
+            "Search-engine-first warning signs include mass topics, heavy automation, summarizing others without added value, and writing to a rumored word count",
+            "SEO is useful when it helps search engines understand people-first content",
+            "E-E-A-T is not itself a ranking factor; trust is the most important of those aspects, and search raters do not directly control how pages rank"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "SEO Starter Guide: The Basics",
+          "provider": "Google Search Central",
+          "url": "https://developers.google.com/search/docs/fundamentals/seo-starter-guide",
+          "description": "Google's starter guide: useful pages, honest titles, and the tactics it says to ignore.",
+          "keyPoints": [
+            "SEO helps search engines understand content and helps people decide whether to visit; there is no secret that automatically ranks a site first",
+            "Useful content is readable, original, current, and helpful; readers may search with different words for the same thing, and Google can match related queries",
+            "Changes can take hours or months; a few weeks is a reasonable wait before judging a change",
+            "Google Search does not use the keywords meta tag, keyword stuffing violates the spam policies, and there is no magical minimum or maximum word count",
+            "Keywords in the domain or URL path barely affect ranking beyond breadcrumbs, and E-E-A-T is not a ranking factor"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Titles and Snippets",
+      "level": "BEGINNER",
+      "description": "The title link and the snippet are what a person sees before they click. Google may rewrite either one from the page itself.",
+      "learningObjectives": [
+        "Write a title that is unique to the page",
+        "Explain where Google gets a title link",
+        "Explain where a snippet comes from",
+        "Write a meta description that is specific to one URL"
+      ],
+      "explainBack": {
+        "question": "Your page's title in search results is not the title you wrote, and the snippet is a sentence from the middle of the page. Explain why that can happen, and how you would write the title and the description anyway.",
+        "rubric": [
+          "A title link is the headline of a search result; Google generates it automatically from the title element, the visible heading, other prominent text, and links that point at the page",
+          "A good title is unique, clear, concise, and accurate; vague titles, keyword stuffing, and the same boilerplate on every page are the problems Google calls out",
+          "Google may replace a title that is half-empty, obsolete, inaccurate, or in a different language from the page",
+          "Snippets are created from the page content and can differ by query; the meta description is used when it describes the page better",
+          "Each important URL should have its own description; a long string of keywords is less likely to be shown"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Influencing your title links in search results",
+          "provider": "Google Search Central",
+          "url": "https://developers.google.com/search/docs/appearance/title-link",
+          "description": "How Google builds the clickable title, and the title-writing habits that make it rewrite yours.",
+          "keyPoints": [
+            "A title link is the title of a search result; Google determines it automatically, and you can only indicate a preference",
+            "Every page should have a title element that is descriptive and concise; the title link is truncated to fit the device",
+            "Avoid keyword stuffing, the same boilerplate on every page, and a site slogan repeated on every URL",
+            "Google looks at the title element, the main visual title, headings, og:title, other prominent text, and anchor text pointing at the page",
+            "Google may rewrite a title that is half-empty, out of date, inaccurate, or written in a different script from the page"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Control your snippets in search results",
+          "provider": "Google Search Central",
+          "url": "https://developers.google.com/search/docs/appearance/snippet",
+          "description": "Where the description under a result comes from, and how to write a meta description Google might use.",
+          "keyPoints": [
+            "A snippet is the description under a result; Google creates it from page content and may show different snippets for different searches",
+            "The meta description is used when it gives a more accurate description than text taken from the page",
+            "nosnippet can prevent a snippet, and max-snippet can suggest a maximum length",
+            "Write a unique description for each page; identical descriptions across a site are not helpful",
+            "A meta description that is a long string of keywords is less likely to be displayed as the snippet"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Links People and Google Can Follow",
+      "level": "BEGINNER",
+      "description": "A link Google can crawl is an ordinary anchor with an href. The words in that link should say where it goes.",
+      "learningObjectives": [
+        "Name the HTML Google can reliably crawl as a link",
+        "Write anchor text that makes sense on its own",
+        "Give every important page a link from somewhere else on the site",
+        "Use nofollow, sponsored, or ugc for the cases Google names"
+      ],
+      "explainBack": {
+        "question": "A button on your site looks like a link, but it is a span with a click handler, and the visible words are 'click here.' Explain why that is a weak link for Google, and how you would write the link instead.",
+        "rubric": [
+          "Google generally crawls a link only when it is an a element with an href that resolves to a real URL",
+          "Spans, router attributes, and anchors that only have an onclick are not the recommended pattern",
+          "Anchor text should be descriptive, concise, and meaningful if you read it alone; 'click here' is too generic",
+          "Keyword stuffing in anchor text violates the spam policies, and there is no ideal number of links on a page",
+          "Every page you care about should be linked from at least one other page on the site; use nofollow when you do not trust the target, sponsored when you were paid, and ugc or nofollow on links visitors insert"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Link best practices for Google",
+          "provider": "Google Search Central",
+          "url": "https://developers.google.com/search/docs/crawling-indexing/links-crawlable",
+          "description": "Which links Google can extract, and how to write the text of those links.",
+          "keyPoints": [
+            "Google uses links both as a relevancy signal and to discover new pages",
+            "A crawlable link is generally an a element with an href; Google cannot reliably extract URLs from tags that only act like links because of script",
+            "javascript: hrefs are not recommended; a normal path or absolute URL is",
+            "Good anchor text is descriptive and concise; generic text such as 'click here' fails if you read the link alone",
+            "Every page you care about should have a link from at least one other page; use nofollow for untrusted targets, sponsored for paid links, and ugc or nofollow for links users insert"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "title": "See Whether Google Found the Page",
+      "level": "BEGINNER",
+      "description": "Search Console shows crawl, index, and the queries that brought people. The URL Inspection tool is the place to look at one address.",
+      "learningObjectives": [
+        "Say what Search Console is for and how often to open it",
+        "Name the first reports to check",
+        "Use URL Inspection for one address",
+        "State what the live test does not prove"
+      ],
+      "explainBack": {
+        "question": "A page you published last week is not in the results. Explain which tool you would open, what it can tell you about that one URL, and what a live test still does not prove.",
+        "rubric": [
+          "Search Console reports how Google crawls, indexes, and serves a site you have verified; you do not need to sign in every day",
+          "A sitemap can speed discovery but is not required; the performance report shows queries, pages, impressions, and clicks",
+          "URL Inspection shows Google's indexed version of one URL in the property, and it can test the live URL and request crawling",
+          "The indexed data is where you see the Google-selected canonical; the live test cannot predict the canonical",
+          "The test does not check quality guidelines, manual actions, security issues, or legal removals, and a live test does not say whether a video is indexed"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Get started with Search Console",
+          "provider": "Google Search Central",
+          "url": "https://developers.google.com/search/docs/monitor-debug/search-console-start",
+          "description": "What to do first in Search Console, and which reports answer which questions.",
+          "keyPoints": [
+            "Search Console shows how Google crawls, indexes, and serves a site, and what you can do to improve how it appears",
+            "You do not need to sign in every day; Google emails when it finds new issues, and a monthly look is enough for a stable site",
+            "Start by verifying ownership, then review index coverage, and consider submitting a sitemap even though discovery does not require one",
+            "The performance report breaks traffic down by query, page, and country, with impressions and clicks",
+            "The URL Inspection tool shows the index status of one page, can test a live URL, and can request a crawl"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "URL Inspection tool",
+          "provider": "Google",
+          "url": "https://support.google.com/webmasters/answer/9012289",
+          "description": "How to inspect one URL, what the indexed report shows, and what the test skips.",
+          "keyPoints": [
+            "The tool reports Google's indexed version of a URL in the current property and can test whether that URL might be indexable",
+            "You can see why a URL could or could not be indexed, inspect the live page, request indexing, and view a rendered screenshot",
+            "The Google-selected canonical is available on the indexed version only; the live test cannot predict it",
+            "The URL you inspect must belong to the property you have open",
+            "Results do not test quality or security guidelines, manual actions, legal removals, or whether a video is indexed; a live test only says whether a video was detected"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "URL Inspection Tool - Google Search Console Training",
+          "provider": "Google Search Central",
+          "url": "https://www.youtube.com/watch?v=Pe_-TkdbXN0",
+          "videoId": "Pe_-TkdbXN0",
+          "description": "A Search Console training video on inspecting one URL, testing it live, and asking for a crawl.",
+          "keyPoints": [
+            "The tool shows Google's indexed version and a live test of one page",
+            "Paste the full URL into the inspection box; the URL has to be in the property you have open",
+            "After the report loads you can test the live URL, ask Google to crawl the page, and view the crawled page",
+            "The tool is for web pages and reports web search"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "title": "Whether the Page Is Pleasant to Use",
+      "level": "INTERMEDIATE",
+      "description": "Page experience is several things at once. Core Web Vitals are used in ranking. A perfect score does not put a page first.",
+      "learningObjectives": [
+        "List the questions Google uses for page experience",
+        "Name LCP, INP, and CLS and the thresholds Google gives",
+        "Explain that there is no single page-experience ranking signal",
+        "Keep relevance ahead of a perfect vitals score"
+      ],
+      "explainBack": {
+        "question": "Your Core Web Vitals report is 'good,' and a slower competitor still outranks you. Explain what those metrics measure, and what they do not guarantee.",
+        "rubric": [
+          "Page experience includes Core Web Vitals, HTTPS, mobile display, ads that do not bury the content, and no intrusive interstitials",
+          "There is no single page-experience ranking signal",
+          "LCP should be within 2.5 seconds, INP under 200 milliseconds, and CLS under 0.1",
+          "Core Web Vitals are used by ranking systems, but a good score does not guarantee a top rank",
+          "Search still tries to show the most relevant content even when page experience is poor; experience matters more when many helpful pages exist"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Understanding page experience in Google Search results",
+          "provider": "Google Search Central",
+          "url": "https://developers.google.com/search/docs/appearance/page-experience",
+          "description": "Google's list of page-experience questions, and how much they matter next to relevance.",
+          "keyPoints": [
+            "Core ranking systems reward a good page experience across many aspects, not one or two tricks",
+            "The self-check covers Core Web Vitals, HTTPS, mobile display, ads that do not block the content, and avoiding intrusive interstitials",
+            "There is no single page-experience signal",
+            "Core Web Vitals are used in ranking; other page-experience aspects do not directly raise rank, though they make the page more satisfying",
+            "Search still seeks the most relevant content even if page experience is poor; experience contributes when lots of helpful content exists for the query"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Understanding Core Web Vitals and Google search results",
+          "provider": "Google Search Central",
+          "url": "https://developers.google.com/search/docs/appearance/core-web-vitals",
+          "description": "The three Core Web Vitals metrics and the numbers Google calls a good experience.",
+          "keyPoints": [
+            "Core Web Vitals measure real-world loading, interactivity, and visual stability",
+            "Largest Contentful Paint should occur within 2.5 seconds of the page starting to load",
+            "Interaction to Next Paint should be under 200 milliseconds",
+            "Cumulative Layout Shift should be under 0.1",
+            "Search Console's Core Web Vitals report shows how pages perform; a good score supports Search and is not the whole of ranking"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "title": "What Google Calls Spam",
+      "level": "INTERMEDIATE",
+      "description": "Spam is an attempt to deceive people or to push a page up. Buying links, hiding text, and generating piles of empty pages are named policies.",
+      "learningObjectives": [
+        "Define spam in Google's terms",
+        "Recognize cloaking, hidden text, and keyword stuffing",
+        "Qualify a paid link so it does not pass ranking credit",
+        "Explain scaled content abuse, including empty AI pages"
+      ],
+      "explainBack": {
+        "question": "Someone offers to sell you links, and someone else offers to generate hundreds of AI pages aimed at search. Explain which policies those offers run into, and what would make a paid link allowed.",
+        "rubric": [
+          "Spam means techniques that deceive users or manipulate Search into featuring content, including attempts to manipulate generative AI responses",
+          "Sites that violate the policies may rank lower or not appear; detection can be automated or a manual action",
+          "Cloaking shows different content to users and to search engines in order to manipulate rankings; keyword stuffing and hidden text or links are separate policies",
+          "Buying or selling links for ranking is link spam; a paid link is allowed when it uses rel=nofollow or rel=sponsored",
+          "Scaled content abuse is many pages made mainly to manipulate rankings, including generative AI pages that add little or no value for users"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Spam policies for Google web search",
+          "provider": "Google Search Central",
+          "url": "https://developers.google.com/search/docs/essentials/spam-policies",
+          "description": "The practices that can remove a page from results or push it down.",
+          "keyPoints": [
+            "Spam is techniques used to deceive users or to manipulate Search, including attempts to manipulate generative AI responses in Search",
+            "Violations can lead to a lower rank or removal, through automated systems or a manual action",
+            "Cloaking shows search engines different content from users; hidden text, keyword stuffing, and doorway pages are separate named practices",
+            "Buying or selling links to affect ranking is link spam; paid links are allowed when marked nofollow or sponsored",
+            "Scaled content abuse includes using generative AI to produce many pages that provide little or no value, however the pages were made"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "title": "Structured Data and Rich Results",
+      "level": "INTERMEDIATE",
+      "description": "Structured data is a label for what is already on the page. It can make a result eligible for a rich result. It does not promise one.",
+      "learningObjectives": [
+        "Say what structured data is for",
+        "Prefer JSON-LD when you can maintain it",
+        "Keep the markup about content the visitor can see",
+        "Test the markup and then watch Search Console"
+      ],
+      "explainBack": {
+        "question": "You add recipe markup to a page that does not show a recipe, hoping for stars in search. Explain what structured data is allowed to describe, which format Google recommends, and what a valid markup still does not guarantee.",
+        "rubric": [
+          "Structured data is a standard way to classify the content of a page, such as the ingredients and time on a recipe",
+          "It can make a page eligible for a rich result; eligibility is not a promise that the feature will show",
+          "Do not put markup on an empty page, and do not mark up information the user cannot see",
+          "Google recommends JSON-LD when it is easiest to maintain; Microdata and RDFa are also supported when valid",
+          "Required properties must be present and accurate; test with the Rich Results Test, then watch the rich result reports after the page is deployed"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Introduction to structured data markup in Google Search",
+          "provider": "Google Search Central",
+          "url": "https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data",
+          "description": "What markup does for a result, which formats Google reads, and how to tell whether it helped.",
+          "keyPoints": [
+            "Structured data gives Google explicit clues about a page, such as ingredients, time, and calories on a recipe",
+            "Valid markup can make a page eligible for rich results; it does not by itself guarantee that feature",
+            "The markup must describe content on that page that a visitor can see; do not create empty pages just to hold it",
+            "Google recommends JSON-LD; Microdata and RDFa are equally acceptable when the markup is valid",
+            "Include every required property, prefer fewer accurate fields over a pile of incomplete ones, and check the Rich Results Test before you rely on the page"
+          ]
+        }
+      ]
+    }
+  ],
+  "slug": "seo",
+  "name": "SEO",
+  "description": "Learn how Google finds a page and what you can honestly change: crawl and index, people-first writing, titles and snippets, links, Search Console, page experience, spam rules, and structured data.",
+  "status": "COMING_SOON"
+}

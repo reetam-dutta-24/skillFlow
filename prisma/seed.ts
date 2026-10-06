@@ -148,6 +148,8 @@ async function main() {
   await importCatalog("iot-robot-automation", { apply: true })
   await importCatalog("screenwriting", { apply: true })
   await importCatalog("graphic-design", { apply: true })
+  await importCatalog("seo", { apply: true })
+  await importCatalog("ai-tools", { apply: true })
 }
 
 main()

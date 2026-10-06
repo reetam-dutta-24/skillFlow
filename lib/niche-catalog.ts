@@ -20,7 +20,7 @@ export const EXTRA_NICHES: { slug: string; name: string; description: string }[]
   { slug: "ux-research", name: "UX Research", description: "Watching how people use a product and what to change because of it." },
   { slug: "graphic-design", name: "Graphic Design", description: "Learn to give a message a visual form: what graphic design is for, type size and line length, color for print and screens, layout grids, vectors, reusable styles, and the copyright in the work." },
   { slug: "digital-marketing", name: "Digital Marketing", description: "How a message finds an audience without pretending every click is a sale." },
-  { slug: "seo", name: "SEO", description: "How search engines read a page and what a writer can honestly improve." },
+  { slug: "seo", name: "SEO", description: "Learn how Google finds a page and what you can honestly change: crawl and index, people-first writing, titles and snippets, links, Search Console, page experience, spam rules, and structured data." },
   { slug: "product-management", name: "Product Management", description: "Choosing what to build, for whom, and what to leave out." },
   { slug: "project-management", name: "Project Management", description: "Scope, sequence, and how a group finishes the work it promised." },
   { slug: "cloud-fundamentals", name: "Cloud Fundamentals", description: "What runs on someone else's servers, and how access, cost, and failure work." },
@@ -177,5 +177,5 @@ export const EXTRA_NICHES: { slug: string; name: string; description: string }[]
   { slug: "shared-money", name: "Shared Money", description: "What a household shares, what stays separate, and who pays which bill." },
   { slug: "therapy-literacy", name: "Therapy Literacy", description: "How to look for a therapist, and what the first sessions are for." },
   { slug: "rest", name: "Rest", description: "A real break in the day, not only a night of sleep." },
-  { slug: "ai-tools", name: "AI Tools", description: "How to put a chat model on a real task so the work moves faster, and what you still have to check." },
+  { slug: "ai-tools", name: "AI Tools", description: "Learn to put a chat model on a real task: what it is predicting, how to write the prompt, how to check the answer, what you paste in, and what copyright does not give you." },
 ];

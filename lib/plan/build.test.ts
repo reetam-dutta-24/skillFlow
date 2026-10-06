@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildLearningPlan, explainBackCanComplete, type PlanStageInput } from "@/lib/plan/build";
+import { buildLearningPlan, explainBackCanComplete, orderedStageResources, type PlanStageInput } from "@/lib/plan/build";
 import { DEFAULT_PREFERENCES, type PlanPreferences } from "@/lib/plan/preferences";
 
 function resource(id: string, overrides: Partial<PlanStageInput["resources"][number]> = {}): PlanStageInput["resources"][number] {
@@ -99,5 +99,54 @@ describe("learning plan", () => {
     );
     expect(plan.warning).toMatch(/about 1 hour;/);
     expect(plan.stages).toHaveLength(1);
+  });
+
+  it("keeps the selected resources, in plan order, and marks the rest optional", () => {
+    const catalog = [
+      { id: "video", title: "Video" },
+      { id: "doc", title: "Doc" },
+      { id: "hindi", title: "Hindi" },
+    ];
+    const withHindi = buildLearningPlan(
+      [
+        stage(1, {
+          resources: [
+            resource("video", { type: "EMBEDDED_VIDEO", language: "en", order: 1 }),
+            resource("doc", { type: "DOC_LINK", language: "en", isCore: true, order: 2 }),
+            resource("hindi", { type: "DOC_LINK", language: "hi", order: 3 }),
+          ],
+        }),
+      ],
+      prefs({ language: "hi", languageLabel: "Hindi", englishFallback: true, resourceTypes: ["doc", "video"] }),
+    );
+    const hindiOnly = orderedStageResources(catalog, withHindi.stages[0]);
+    expect(hindiOnly.resources.map((item) => item.id)).toEqual(["hindi"]);
+    expect(hindiOnly.note).toBeNull();
+
+    const englishOnly = buildLearningPlan(
+      [
+        stage(1, {
+          resources: [
+            resource("video", { type: "EMBEDDED_VIDEO", language: "en", order: 1 }),
+            resource("doc", { type: "DOC_LINK", language: "en", isCore: true, order: 2 }),
+          ],
+        }),
+      ],
+      prefs({
+        language: "hi",
+        languageLabel: "Hindi",
+        englishFallback: true,
+        resourceTypes: ["doc", "video"],
+        deadline: "1w",
+        minutesPerDay: 10,
+        daysPerWeek: 1,
+      }),
+    );
+    const shown = orderedStageResources(catalog, englishOnly.stages[0]);
+    expect(shown.resources.map((item) => item.id)).toEqual(["doc", "video"]);
+    expect(shown.note).toMatch(/No Hindi resource yet/);
+    expect(shown.optionalIds.has("doc")).toBe(false);
+    expect(shown.optionalIds.has("video")).toBe(true);
+    expect(orderedStageResources(catalog, null).resources).toHaveLength(3);
   });
 });

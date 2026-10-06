@@ -276,3 +276,19 @@ export function catalogStamp(stages: PlanStageInput[]) {
     )
     .join(";");
 }
+
+/** The resources a learner sees inside one stage. Null keeps the shared list. */
+export function orderedStageResources<T extends { id: string }>(
+  resources: T[],
+  planned: { resources: { id: string; optional: boolean }[]; languageNote: string | null } | null,
+): { resources: T[]; optionalIds: Set<string>; note: string | null } {
+  if (!planned) return { resources, optionalIds: new Set(), note: null };
+  const byId = new Map(resources.map((resource) => [resource.id, resource]));
+  const selected = planned.resources.flatMap((item) => {
+    const resource = byId.get(item.id);
+    return resource ? [resource] : [];
+  });
+  if (selected.length === 0) return { resources, optionalIds: new Set(), note: planned.languageNote };
+  const optionalIds = new Set(planned.resources.filter((item) => item.optional).map((item) => item.id));
+  return { resources: selected, optionalIds, note: planned.languageNote };
+}

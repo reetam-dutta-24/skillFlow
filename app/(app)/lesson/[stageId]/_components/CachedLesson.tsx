@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { cacheLife, cacheTag } from "next/cache";
-import { CATALOG_TAG } from "@/lib/cache/tags";
-import { loadPublicLesson } from "@/lib/data/lesson";
+import { getLesson } from "@/lib/data/lesson";
+import { orderedStageResources } from "@/lib/plan/build";
+import { readLearningPlan } from "@/lib/plan/store";
 import type { ResourceType, ResourceView } from "@/lib/types/domain";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
 import { LessonScreen } from "./LessonScreen";
@@ -39,13 +39,30 @@ function pickFeatured(resources: ResourceView[], clipId: string | null) {
   );
 }
 
-/** Lesson screen for one stage. The resources are the same for every learner. */
-export async function CachedLesson({ stageId }: { stageId: string }) {
-  "use cache";
-  cacheLife("hours");
-  cacheTag(CATALOG_TAG);
+function arrange(resources: ResourceView[], optionalIds: Set<string>, planned: boolean) {
+  if (!planned) {
+    const clip = pickClip(resources);
+    const featured = pickFeatured(resources, clip?.id ?? null);
+    return { clip, featured, sources: resources.filter((item) => item.id !== clip?.id && item.id !== featured?.id) };
+  }
+  const required = resources.filter((item) => !optionalIds.has(item.id));
+  const primary = required[0] ?? resources[0] ?? null;
+  const primaryIsVideo = primary != null && (primary.type === "HOOK_CLIP" || primary.type === "EMBEDDED_VIDEO");
+  const clip = primaryIsVideo ? primary : null;
+  const featured = primaryIsVideo
+    ? resources.find((item) => item.id !== primary.id && item.type !== "HOOK_CLIP" && item.type !== "EMBEDDED_VIDEO") ?? null
+    : primary;
+  return { clip, featured, sources: resources.filter((item) => item.id !== clip?.id && item.id !== featured?.id) };
+}
 
-  const data = await loadPublicLesson(stageId);
+function sourceKind(item: ResourceView, optionalIds: Set<string>) {
+  const kind = `${kindLabel(item.type)} · ${item.unavailable ? "Source unavailable" : hostLabel(item.url)}`;
+  return optionalIds.has(item.id) ? `${kind} · Optional` : kind;
+}
+
+/** One stage. Shared resources come from the catalog cache. A saved plan reorders them on this request. */
+export async function LessonView({ stageId, userId }: { stageId: string; userId: string }) {
+  const data = await getLesson(stageId);
   if (!data) notFound();
 
   if (data.kind === "locked") {
@@ -62,7 +79,11 @@ export async function CachedLesson({ stageId }: { stageId: string }) {
     );
   }
 
-  if (data.resources.length === 0) {
+  const learning = await readLearningPlan(userId, data.skill.id);
+  const stagePlan = learning?.applied ? learning.plan.stages.find((stage) => stage.id === stageId) ?? null : null;
+  const selected = orderedStageResources(data.resources, stagePlan);
+
+  if (selected.resources.length === 0) {
     return (
       <div className="sf-lesson">
         <p>
@@ -80,9 +101,7 @@ export async function CachedLesson({ stageId }: { stageId: string }) {
     );
   }
 
-  const clip = pickClip(data.resources);
-  const featured = pickFeatured(data.resources, clip?.id ?? null);
-  const sources = data.resources.filter((item) => item.id !== clip?.id && item.id !== featured?.id);
+  const { clip, featured, sources } = arrange(selected.resources, selected.optionalIds, stagePlan != null);
 
   return (
     <div className="sf-lesson">
@@ -91,13 +110,22 @@ export async function CachedLesson({ stageId }: { stageId: string }) {
           Back to the path
         </Link>
       </p>
+      {selected.note ? <p className="sf-note-summary">{selected.note}</p> : null}
       <LessonScreen
-        title={clip?.title ?? data.stage.title}
+        title={clip?.title ?? featured?.title ?? data.stage.title}
         skill={data.skill.name}
         stage={data.stage.title}
         clipUrl={clip?.url}
         poster={data.skill.image}
-        resource={featured ? { title: featured.title, url: featured.url, source: hostLabel(featured.url) } : undefined}
+        resource={
+          featured
+            ? {
+                title: featured.title,
+                url: featured.url,
+                source: selected.optionalIds.has(featured.id) ? `${hostLabel(featured.url)} · Optional` : hostLabel(featured.url),
+              }
+            : undefined
+        }
         continueHref={data.stage.hasExplainBack ? `/milestone/${data.stage.id}` : undefined}
       />
       {featured && (featured.description || featured.keyPoints.length) ? (
@@ -120,7 +148,7 @@ export async function CachedLesson({ stageId }: { stageId: string }) {
               item.unavailable ? (
                 <li key={item.id}>
                   <article className="sf-source">
-                    <p className="sf-source-kind">{kindLabel(item.type)} · Source unavailable</p>
+                    <p className="sf-source-kind">{sourceKind(item, selected.optionalIds)}</p>
                     <h3>{item.title}</h3>
                     {item.description ? <p>{item.description}</p> : null}
                     {item.keyPoints.length ? <p>{item.keyPoints.join(" ")}</p> : null}
@@ -129,9 +157,7 @@ export async function CachedLesson({ stageId }: { stageId: string }) {
               ) : (
                 <li key={item.id}>
                   <a className="sf-source" href={item.url} target="_blank" rel="noreferrer">
-                    <p className="sf-source-kind">
-                      {kindLabel(item.type)} · {hostLabel(item.url)}
-                    </p>
+                    <p className="sf-source-kind">{sourceKind(item, selected.optionalIds)}</p>
                     <h3>{item.title}</h3>
                     {item.description ? <p>{item.description}</p> : null}
                   </a>

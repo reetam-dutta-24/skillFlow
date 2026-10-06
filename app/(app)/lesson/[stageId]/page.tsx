@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
+import { auth } from "@/lib/auth";
 import { loadPublicCatalog, publicStageTitle } from "@/lib/data/public-catalog";
-import { CachedLesson } from "./_components/CachedLesson";
+import { LessonView } from "./_components/CachedLesson";
 
 type PageProps = {
   params: Promise<{ stageId: string }>;
@@ -18,6 +20,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function LessonPage({ params }: PageProps) {
+  const session = await auth();
+  if (!session?.user?.id) redirect("/login");
   const { stageId } = await params;
-  return <CachedLesson stageId={stageId} />;
+  return <LessonView stageId={stageId} userId={session.user.id} />;
 }

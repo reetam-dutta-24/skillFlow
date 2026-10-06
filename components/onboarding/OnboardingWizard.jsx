@@ -76,7 +76,7 @@ export function OnboardingWizard({ name = "", initial = null }) {
       setPending(false);
       return;
     }
-    router.push("/dashboard");
+    router.push(result.preferencesHref ?? "/dashboard");
     router.refresh();
   }
 

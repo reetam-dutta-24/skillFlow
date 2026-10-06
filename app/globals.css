@@ -4218,6 +4218,103 @@ a.sf-source:hover {
   opacity: 0.6;
   cursor: default;
 }
+.sf-plan-form,
+.sf-plan-board {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+  max-width: 720px;
+}
+.sf-plan-form label,
+.sf-plan-form fieldset {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+.sf-plan-form input,
+.sf-plan-form select,
+.sf-plan-form textarea {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border: 1px solid var(--border-default);
+  border-radius: 10px;
+  background: var(--bg-app);
+  color: var(--text-primary);
+  font: inherit;
+}
+.sf-plan-form button,
+.sf-plan-board a {
+  justify-self: start;
+}
+.sf-plan-form button {
+  min-height: 40px;
+  padding: 0 16px;
+  border: none;
+  border-radius: var(--radius-full);
+  background-image: var(--gradient-brand);
+  color: var(--text-on-accent);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+}
+.sf-plan-form button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.sf-plan-checks,
+.sf-plan-check {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+}
+.sf-plan-check,
+.sf-plan-checks label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.sf-plan-check input,
+.sf-plan-checks input {
+  width: auto;
+}
+.sf-plan-weeks {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media (max-width: 640px) {
+  .sf-plan-weeks {
+    grid-template-columns: 1fr;
+  }
+}
+.sf-plan-weeks li {
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  background: var(--surface-card);
+}
+.sf-plan-weeks ul {
+  margin: 8px 0 0;
+  padding-left: 18px;
+}
+.sf-plan-weeks li li {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
 .sf-notes-actions {
   display: flex;
   flex-wrap: wrap;

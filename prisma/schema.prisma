@@ -57,6 +57,7 @@ model User {
   reviewedEvents  Event[] @relation("EventReviewer")
 
   learnerNotes LearnerNote[]
+  learningPlans LearningPlan[]
 }
 
 model LearnerProfile {
@@ -169,6 +170,7 @@ model Skill {
   events                 Event[]
   eventFetches           EventFetch[]
   learnerNotes           LearnerNote[]
+  learningPlans          LearningPlan[]
 
   createdAt DateTime @default(now())
 }
@@ -212,6 +214,12 @@ enum SourceStatus {
   UNAVAILABLE
 }
 
+enum ResourceDepth {
+  INTRO
+  STANDARD
+  DEEP
+}
+
 model Resource {
   id      String       @id @default(cuid())
   stageId String
@@ -232,6 +240,12 @@ model Resource {
   lastVerifiedAt DateTime?
   needsReview    Boolean      @default(false)
   monetized      Boolean      @default(false)
+  durationMinutes  Int?
+  depth            ResourceDepth?
+  isCore           Boolean      @default(false)
+  captionLanguages String[]     @default([])
+  /// Which tag fields were set by an admin, the catalog file, or a model suggestion.
+  tagOrigins       Json         @default("{}")
 
   stage RoadmapStage @relation(fields: [stageId], references: [id], onDelete: Cascade)
 
@@ -370,6 +384,26 @@ model LearnerNote {
 
   @@unique([userId, stageId, concept])
   @@index([userId, updatedAt])
+}
+
+// ── PERSONAL LEARNING PLAN ──────────────────────
+
+/// One learner's view of one shared skill. The catalog stays a single pool.
+model LearningPlan {
+  id           String   @id @default(cuid())
+  userId       String
+  skillId      String
+  preferences  Json
+  plan         Json
+  catalogStamp String
+  version      Int      @default(1)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  skill Skill @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, skillId])
 }
 
 // ── PROGRESS & MASTERY ──────────────────────

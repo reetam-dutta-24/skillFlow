@@ -16,6 +16,7 @@ import {
   type CatalogWrite,
 } from "@/lib/services/catalog";
 import { storedSource } from "@/lib/stored-source";
+import { readTagOrigins } from "@/lib/plan/tags";
 
 /** Live skill slug → catalog file name. The file keeps the researched slug. */
 const FILE_BY_SLUG: Record<string, string> = {
@@ -52,6 +53,10 @@ const catalogSchema = z.object({
           description: z.string().trim().min(1),
           keyPoints: z.array(z.string().trim().min(1)).min(1),
           videoId: z.string().trim().min(1).optional(),
+          durationMinutes: z.number().int().min(1).max(600).optional(),
+          depth: z.enum(["INTRO", "STANDARD", "DEEP"]).optional(),
+          isCore: z.boolean().optional(),
+          captionLanguages: z.array(z.string().trim().min(2).max(16)).max(8).optional(),
         }),
       ).min(1),
     }),
@@ -150,6 +155,11 @@ async function loadSkill(slug: string) {
               isFree: true,
               language: true,
               needsReview: true,
+              durationMinutes: true,
+              depth: true,
+              isCore: true,
+              captionLanguages: true,
+              tagOrigins: true,
             },
           },
           explainBackPrompt: { select: { question: true, rubric: true } },
@@ -209,7 +219,11 @@ function planChanges(skill: SkillRow, catalog: CatalogFile): Change[] {
         (current.videoId ?? "") !== (resource.videoId ?? "") ||
         current.isFree !== resource.isFree ||
         current.language !== resource.language ||
-        current.needsReview !== resource.needsReview;
+        current.needsReview !== resource.needsReview ||
+        (resource.durationMinutes !== undefined && current.durationMinutes !== resource.durationMinutes && readTagOrigins(current.tagOrigins).durationMinutes !== "admin") ||
+        (resource.depth !== undefined && current.depth !== resource.depth && readTagOrigins(current.tagOrigins).depth !== "admin") ||
+        (resource.isCore !== undefined && current.isCore !== resource.isCore && readTagOrigins(current.tagOrigins).isCore !== "admin") ||
+        (resource.captionLanguages !== undefined && !sameLines(current.captionLanguages, resource.captionLanguages) && readTagOrigins(current.tagOrigins).captionLanguages !== "admin");
       if (changed) changes.push({ action: "update", kind: "resource", label });
     });
 
@@ -274,6 +288,11 @@ async function writeCatalog(tx: CatalogDb, skillId: string, slug: string, catalo
             isFree: resource.isFree,
             language: resource.language,
             needsReview: resource.needsReview,
+            tagSource: "catalog",
+            ...(resource.durationMinutes !== undefined ? { durationMinutes: resource.durationMinutes } : {}),
+            ...(resource.depth !== undefined ? { depth: resource.depth } : {}),
+            ...(resource.isCore !== undefined ? { isCore: resource.isCore } : {}),
+            ...(resource.captionLanguages !== undefined ? { captionLanguages: resource.captionLanguages } : {}),
           },
           tx,
         ),

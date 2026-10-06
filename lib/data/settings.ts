@@ -6,7 +6,7 @@ import { loadCatalog } from "@/lib/data/catalog";
 import { prisma } from "@/lib/prisma";
 import type { SkillStatus } from "@/lib/types/domain";
 
-export type SettingsSkill = { id: string; name: string; status: SkillStatus; offer: "FREE" | "MONETIZED"; followed: boolean };
+export type SettingsSkill = { id: string; name: string; slug: string; status: SkillStatus; offer: "FREE" | "MONETIZED"; followed: boolean };
 
 const SIGN_IN_AGAIN = "Sign in again before saving.";
 
@@ -39,6 +39,7 @@ export async function getSettingsProfile() {
     skills: catalog.map((entry) => ({
       id: entry.skill.id,
       name: entry.skill.name,
+      slug: entry.skill.slug,
       status: entry.skill.status,
       offer: entry.skill.offer,
       followed: entry.skill.followed,

@@ -83,6 +83,11 @@ export const resourceSchema = z.object({
   needsReview: z.boolean().optional(),
   lastVerifiedAt: z.coerce.date().optional(),
   order: z.number().int().min(1).optional(),
+  durationMinutes: z.number().int().min(1).max(600).nullable().optional(),
+  depth: z.enum(["INTRO", "STANDARD", "DEEP"]).nullable().optional(),
+  isCore: z.boolean().optional(),
+  captionLanguages: z.array(z.string().trim().min(2).max(16)).max(8).optional(),
+  tagSource: z.enum(["admin", "catalog"]).optional(),
 });
 
 export const explainBackPromptSchema = z.object({

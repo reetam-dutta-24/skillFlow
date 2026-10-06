@@ -8,7 +8,7 @@ import { Chip } from "@/components/core/Chip.jsx";
 import { SourceField } from "@/components/forms/SourceField";
 import { storedSource } from "@/lib/stored-source";
 import type { CatalogEditorResource, CatalogEditorSkill, CatalogEditorStage } from "@/lib/data/catalog-admin";
-import { markReviewed, moveResources, moveStages, recheckLink, removeResource, saveResource, saveStage } from "../actions";
+import { markReviewed, moveResources, moveStages, recheckLink, removeResource, saveResource, saveStage, suggestTags } from "../actions";
 
 const TYPES = [
   { value: "DOC_LINK", label: "Documentation" },
@@ -75,6 +75,11 @@ export function CatalogEditor({ skills }: { skills: CatalogEditorSkill[] }) {
   const [language, setLanguage] = useState("en");
   const [sourceStatus, setSourceStatus] = useState("ACTIVE");
   const [needsReview, setNeedsReview] = useState(false);
+  const [durationMinutes, setDurationMinutes] = useState("");
+  const [depth, setDepth] = useState("");
+  const [isCore, setIsCore] = useState(false);
+  const [captionLanguages, setCaptionLanguages] = useState("");
+  const [tagOrigins, setTagOrigins] = useState<CatalogEditorResource["tagOrigins"]>({});
   const [lastVerifiedAt, setLastVerifiedAt] = useState<string | null>(null);
   const [reviewOnly, setReviewOnly] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -115,6 +120,11 @@ export function CatalogEditor({ skills }: { skills: CatalogEditorSkill[] }) {
     setLanguage("en");
     setSourceStatus("ACTIVE");
     setNeedsReview(false);
+    setDurationMinutes("");
+    setDepth("");
+    setIsCore(false);
+    setCaptionLanguages("");
+    setTagOrigins({});
     setLastVerifiedAt(null);
     setSavedHref("");
     setError("");
@@ -158,6 +168,11 @@ export function CatalogEditor({ skills }: { skills: CatalogEditorSkill[] }) {
     setLanguage(resource.language);
     setSourceStatus(resource.sourceStatus);
     setNeedsReview(resource.needsReview);
+    setDurationMinutes(resource.durationMinutes ? String(resource.durationMinutes) : "");
+    setDepth(resource.depth ?? "");
+    setIsCore(resource.isCore);
+    setCaptionLanguages(resource.captionLanguages);
+    setTagOrigins(resource.tagOrigins);
     setLastVerifiedAt(resource.lastVerifiedAt);
     setSavedHref("");
     setError("");
@@ -246,6 +261,7 @@ export function CatalogEditor({ skills }: { skills: CatalogEditorSkill[] }) {
     if (!title.trim()) next.title = "Add a title.";
     if (!storedSource(url)) next.url = "Upload a file, or use an https link.";
     if (!language.trim()) next.language = "Add a language.";
+    if (durationMinutes.trim() && !Number.isFinite(Number(durationMinutes))) next.duration = "Minutes need to be a number.";
     setErrors(next);
     if (Object.keys(next).length) return;
 
@@ -267,6 +283,10 @@ export function CatalogEditor({ skills }: { skills: CatalogEditorSkill[] }) {
       language,
       sourceStatus,
       needsReview,
+      durationMinutes: durationMinutes.trim() ? Number(durationMinutes) : null,
+      depth: depth === "INTRO" || depth === "STANDARD" || depth === "DEEP" ? depth : null,
+      isCore,
+      captionLanguages: captionLanguages.split("\n").map((line) => line.trim()).filter(Boolean),
     });
     setPending("");
     if (!result.ok) {
@@ -307,6 +327,24 @@ export function CatalogEditor({ skills }: { skills: CatalogEditorSkill[] }) {
     setCheckMessage(result.summary);
     setLastVerifiedAt(result.checkedAt);
     router.refresh();
+  }
+
+  async function onSuggest() {
+    if (!resourceId) return;
+    setPending("suggest");
+    setError("");
+    const result = await suggestTags(resourceId);
+    setPending("");
+    if (!result.ok) {
+      setError(result.error);
+      return;
+    }
+    const next = result.suggestion;
+    if (tagOrigins.durationMinutes !== "admin" && next.durationMinutes) setDurationMinutes(String(next.durationMinutes));
+    if (tagOrigins.depth !== "admin") setDepth(next.depth);
+    if (tagOrigins.isCore !== "admin") setIsCore(next.isCore);
+    if (tagOrigins.captionLanguages !== "admin" && next.captionLanguages.length) setCaptionLanguages(next.captionLanguages.join("\n"));
+    setCheckMessage("Review the suggested tags, then save. Fields you already set stay as they are.");
   }
 
   async function onDelete() {
@@ -538,6 +576,28 @@ export function CatalogEditor({ skills }: { skills: CatalogEditorSkill[] }) {
           </label>
           {errors.language ? <p id="catalog-language-error">{errors.language}</p> : null}
           <label>
+            Minutes
+            <input value={durationMinutes} inputMode="numeric" onChange={(event) => setDurationMinutes(event.target.value)} />
+          </label>
+          <label>
+            Depth
+            <select value={depth} onChange={(event) => setDepth(event.target.value)}>
+              <option value="">Not set</option>
+              <option value="INTRO">Intro</option>
+              <option value="STANDARD">Standard</option>
+              <option value="DEEP">Deep</option>
+            </select>
+          </label>
+          <label>
+            Caption languages
+            <textarea value={captionLanguages} rows={2} onChange={(event) => setCaptionLanguages(event.target.value)} />
+          </label>
+          <p>One language code per line, such as en or hi.</p>
+          <div className="sf-check">
+            <input id="catalog-core" type="checkbox" checked={isCore} onChange={(event) => setIsCore(event.target.checked)} />
+            <label htmlFor="catalog-core">Core resource for this stage</label>
+          </div>
+          <label>
             Link status
             <select value={sourceStatus} onChange={(event) => setSourceStatus(event.target.value)}>
               <option value="ACTIVE">Active</option>
@@ -564,6 +624,11 @@ export function CatalogEditor({ skills }: { skills: CatalogEditorSkill[] }) {
             <Button type="submit" variant="gradient" disabled={busy}>
               {pending === "save" ? "Saving..." : "Save resource"}
             </Button>
+            {resourceId ? (
+              <Button type="button" variant="quiet" disabled={busy} onClick={() => void onSuggest()}>
+                {pending === "suggest" ? "Suggesting..." : "Suggest tags with AI"}
+              </Button>
+            ) : null}
             {resourceId ? (
               <Button type="button" variant="quiet" disabled={busy} onClick={clearResource}>
                 New resource

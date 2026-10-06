@@ -121,3 +121,20 @@ export async function recheckLink(input: { id: string; stageId: string }) {
   await revalidateStage(input.stageId);
   return saved;
 }
+
+export async function suggestTags(resourceId: string) {
+  await requireAdmin();
+  const resource = await prisma.resource.findUnique({
+    where: { id: resourceId },
+    select: { title: true, description: true, keyPoints: true },
+  });
+  if (!resource) return { ok: false as const, error: "That resource is no longer there." };
+  const { suggestResourceTags } = await import("@/lib/plan/suggest");
+  const suggestion = await suggestResourceTags({
+    title: resource.title,
+    description: resource.description ?? "",
+    keyPoints: resource.keyPoints.join("\n"),
+  });
+  if (!suggestion) return { ok: false as const, error: "A suggestion did not come back. Try again." };
+  return { ok: true as const, suggestion };
+}

@@ -54,5 +54,5 @@ export async function saveLearnerProfile(input: {
     sameSite: "lax",
   });
 
-  return { ok: true as const };
+  return { ok: true as const, preferencesHref: skill && skill.status === "AVAILABLE" ? `/roadmap/${skill.slug}/preferences` : null };
 }

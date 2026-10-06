@@ -12,6 +12,7 @@ import {
   skillSchema,
   stageSchema,
 } from "@/lib/validators/catalog";
+import { mergeResourceTags, readTagOrigins, type ResourceTags } from "@/lib/plan/tags";
 
 /** A Prisma client or the transaction the importer is already inside. */
 export type CatalogDb = Prisma.TransactionClient;
@@ -212,11 +213,38 @@ export async function upsertResource(
       order: data.order,
     });
 
+    const incoming: Partial<ResourceTags> = {};
+    if (data.durationMinutes !== undefined) incoming.durationMinutes = data.durationMinutes;
+    if (data.depth !== undefined) incoming.depth = data.depth;
+    if (data.isCore !== undefined) incoming.isCore = data.isCore;
+    if (data.captionLanguages !== undefined) incoming.captionLanguages = data.captionLanguages;
+    const source = data.tagSource ?? "admin";
+
     try {
       if (data.id) {
         const existing = await tx.resource.findUnique({ where: { id: data.id }, select: { id: true, stageId: true } });
         if (!existing || existing.stageId !== stage.id) {
           return { ok: false, error: "That resource is no longer on this stage." };
+        }
+        if (Object.keys(incoming).length > 0) {
+          const current = await tx.resource.findUnique({
+            where: { id: existing.id },
+            select: { durationMinutes: true, depth: true, isCore: true, captionLanguages: true, tagOrigins: true },
+          });
+          if (current) {
+            const merged = mergeResourceTags(
+              {
+                durationMinutes: current.durationMinutes,
+                depth: current.depth,
+                isCore: current.isCore,
+                captionLanguages: current.captionLanguages,
+              },
+              readTagOrigins(current.tagOrigins),
+              incoming,
+              source,
+            );
+            Object.assign(fields, { ...merged.tags, tagOrigins: merged.origins });
+          }
         }
         const resource = await tx.resource.update({
           where: { id: existing.id },
@@ -231,6 +259,26 @@ export async function upsertResource(
         select: { id: true },
       });
       if (existing) {
+        if (Object.keys(incoming).length > 0) {
+          const current = await tx.resource.findUnique({
+            where: { id: existing.id },
+            select: { durationMinutes: true, depth: true, isCore: true, captionLanguages: true, tagOrigins: true },
+          });
+          if (current) {
+            const merged = mergeResourceTags(
+              {
+                durationMinutes: current.durationMinutes,
+                depth: current.depth,
+                isCore: current.isCore,
+                captionLanguages: current.captionLanguages,
+              },
+              readTagOrigins(current.tagOrigins),
+              incoming,
+              source,
+            );
+            Object.assign(fields, { ...merged.tags, tagOrigins: merged.origins });
+          }
+        }
         const resource = await tx.resource.update({
           where: { id: existing.id },
           data: fields,
@@ -262,6 +310,11 @@ export async function upsertResource(
           needsReview: data.needsReview ?? false,
           lastVerifiedAt: data.lastVerifiedAt ?? null,
           order: data.order ?? (last?.order ?? 0) + 1,
+          durationMinutes: incoming.durationMinutes ?? null,
+          depth: incoming.depth ?? null,
+          isCore: incoming.isCore ?? false,
+          captionLanguages: incoming.captionLanguages ?? [],
+          tagOrigins: Object.fromEntries(Object.keys(incoming).map((field) => [field, source])),
         },
         select: { id: true },
       });

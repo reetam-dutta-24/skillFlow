@@ -1,8 +1,10 @@
 import "server-only";
 import { prisma } from "@/lib/prisma";
 import { checkCatalogLink } from "@/lib/catalog-link-check";
+import { readTagOrigins } from "@/lib/plan/tags";
 import { upsertExplainBackPrompt, upsertResource, upsertStage } from "@/lib/services/catalog";
 import type { ResourceType as ResourceTypeName } from "@/lib/types/domain";
+import type { TagOrigins } from "@/lib/plan/tags";
 
 export type CatalogEditorResource = {
   id: string;
@@ -22,6 +24,11 @@ export type CatalogEditorResource = {
   needsReview: boolean;
   lastVerifiedAt: string | null;
   order: number;
+  durationMinutes: number | null;
+  depth: "INTRO" | "STANDARD" | "DEEP" | null;
+  isCore: boolean;
+  captionLanguages: string;
+  tagOrigins: TagOrigins;
 };
 
 export type CatalogEditorStage = {
@@ -60,6 +67,10 @@ export type CatalogSaveInput = {
   language: string;
   sourceStatus: string;
   needsReview: boolean;
+  durationMinutes: number | null;
+  depth: "INTRO" | "STANDARD" | "DEEP" | null;
+  isCore: boolean;
+  captionLanguages: string[];
 };
 
 export type CatalogSaveResult =
@@ -134,6 +145,11 @@ export async function getCatalogEditor(): Promise<CatalogEditorSkill[]> {
           needsReview: resource.needsReview,
           lastVerifiedAt: resource.lastVerifiedAt?.toISOString() ?? null,
           order: resource.order,
+          durationMinutes: resource.durationMinutes,
+          depth: resource.depth,
+          isCore: resource.isCore,
+          captionLanguages: resource.captionLanguages.join("\n"),
+          tagOrigins: readTagOrigins(resource.tagOrigins),
         })),
       })),
     }));
@@ -161,6 +177,11 @@ export async function saveCatalogResource(input: CatalogSaveInput): Promise<Cata
     language: input.language,
     sourceStatus: input.sourceStatus,
     needsReview: input.needsReview,
+    durationMinutes: input.durationMinutes,
+    depth: input.depth,
+    isCore: input.isCore,
+    captionLanguages: input.captionLanguages,
+    tagSource: "admin",
   });
   if (!saved.ok) return saved;
   return {

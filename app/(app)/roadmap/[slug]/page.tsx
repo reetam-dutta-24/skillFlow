@@ -4,9 +4,11 @@ import { notFound, redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { loadPublicCatalog, publicSkillName } from "@/lib/data/public-catalog";
 import { getRoadmap } from "@/lib/data/roadmap";
+import { readLearningPlan } from "@/lib/plan/store";
 import type { RoadmapStageView, StageStatus } from "@/lib/types/domain";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
 import { RoadmapStage } from "@/components/learning/RoadmapStage.jsx";
+import { PlanBoard } from "./_components/PlanBoard";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -24,12 +26,13 @@ function stageStatus(status: StageStatus) {
   return "locked" as const;
 }
 
-function stageMeta(stage: RoadmapStageView) {
+function stageMeta(stage: RoadmapStageView, planNote: string) {
   if (stage.status === "locked") return "Locked";
   const lessons =
     stage.lessonCount === 0 ? "No lessons yet" : stage.lessonCount === 1 ? "1 lesson" : `${stage.lessonCount} lessons`;
   const parts = [lessons];
   if (stage.hasExplainBack) parts.push("explain-back");
+  if (planNote) parts.push(planNote);
   return parts.join(" · ");
 }
 
@@ -51,6 +54,8 @@ export default async function RoadmapDetailPage({ params }: PageProps) {
   const { slug } = await params;
   const data = await getRoadmap(slug);
   if (!data) notFound();
+  const learning = data.skill.followed ? await readLearningPlan(session.user.id, data.skill.id) : null;
+  const planById = new Map(learning?.plan.stages.map((stage) => [stage.id, stage]) ?? []);
 
   const summary = data.stages.length
     ? [data.skill.offer === "FREE" ? "This path is free." : null, data.skill.description, `${data.currentPosition}. ${data.skill.masteryPercent}% mastery.`]
@@ -72,7 +77,13 @@ export default async function RoadmapDetailPage({ params }: PageProps) {
         </p>
         <h1>{data.skill.name}</h1>
         {summary ? <p>{summary}</p> : null}
+        {data.skill.followed && !learning ? (
+          <p className="sf-notes-actions">
+            <Link href={`/roadmap/${slug}/preferences`}>Set up your plan</Link>
+          </p>
+        ) : null}
       </header>
+      {learning ? <PlanBoard slug={slug} plan={learning.plan} /> : null}
       {data.stages.length === 0 ? (
         <EmptyState
           icon="route"
@@ -83,6 +94,13 @@ export default async function RoadmapDetailPage({ params }: PageProps) {
         <ol className="sf-roadmap">
           {data.stages.map((stage, index) => {
             const status = stageStatus(stage.status);
+            const planned = planById.get(stage.id);
+            const labelNote = planned?.label === "test_out"
+              ? "Test out"
+              : planned?.label === "review"
+                ? "Recommended to review"
+                : "";
+            const note = [labelNote, planned?.languageNote ?? ""].filter(Boolean).join(" · ");
             return (
               <RoadmapStage
                 key={stage.id}
@@ -92,7 +110,7 @@ export default async function RoadmapDetailPage({ params }: PageProps) {
                 description={stage.description}
                 status={status}
                 mastery={stage.masteryPercent > 0 ? stage.masteryPercent : undefined}
-                meta={stageMeta(stage)}
+                meta={stageMeta(stage, status === "locked" ? "" : note)}
                 unlockHint={status === "locked" ? unlockHint(stage) : undefined}
                 last={index === data.stages.length - 1}
                 href={status === "locked" ? undefined : `/lesson/${stage.id}`}

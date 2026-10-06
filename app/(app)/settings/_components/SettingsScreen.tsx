@@ -73,7 +73,8 @@ export function SettingsScreen({
       return;
     }
     setRows((current) => current.map((skill) => (skill.id === id ? { ...skill, followed: true } : skill)));
-    setNotice("Skill added. Your feed will use it on the next visit.");
+    const added = rows.find((skill) => skill.id === id);
+    router.push(added ? `/roadmap/${added.slug}/preferences` : "/settings");
     router.refresh();
   }
 
@@ -145,6 +146,7 @@ export function SettingsScreen({
                   </div>
                 ) : (
                   <div className="sf-settings-skill-actions">
+                    <Link href={`/roadmap/${skill.slug}/preferences`}>Learning plan</Link>
                     <Button type="button" size="sm" variant="quiet" onClick={() => setConfirmId(skill.id)}>Remove</Button>
                   </div>
                 )

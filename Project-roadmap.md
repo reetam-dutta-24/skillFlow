@@ -461,6 +461,15 @@ A signed-in learner uploads a short clip or a longer video they own, picks one a
 ## V2 PHASE 8 — Generated roadmaps
 **Status: ⬜ NOT STARTED. Hand-written paths stay the default.**
 
+A model does not research or compile a niche. Personal plans are a different feature: one shared catalog, and a schedule built in code from the learner's preferences.
+
+## Personalized learning plans
+**Status: ✅ ONE SHARED CATALOG, A PERSONAL SCHEDULE.**
+
+Preferences are per learner and per skill: level, time, deadline, resource types, language, goal, low data, captions, and topics they already know. They are collected when a skill is followed, and edited from the roadmap or Settings. A free-text description can be sent to Gemini, which returns those same fields for the learner to adjust. The description is data, not instructions.
+
+The plan itself is plain code. It does not skip stages or explain-backs. Earlier open stages can be labeled Test out when the learner's level is past them, and passing that stage's explain-back still completes it. A missing language falls back to English with a note. A short deadline marks extra resources Optional and says when the core path does not fit. The saved row is `LearningPlan`. It is rebuilt when the preferences or the catalog change. Resource tags (`durationMinutes`, `depth`, `isCore`, `captionLanguages`) are optional on the catalog import. An admin can ask Gemini to suggest them, then save. A suggestion never replaces a value the admin already saved. `scripts/suggest-resource-tags.ts` writes a dry-run report and applies only with `--apply`.
+
 ## V2 PHASE 9 — More niches
 **Status: 🔶 NAMES EXIST. PATHS DO NOT**
 
@@ -492,4 +501,4 @@ Ticketmaster and Google Events (SerpApi) are separate adapters. A missing key tu
 
 ---
 
-**Right now.** Phases 0, 1, 2, 3, 5, and 7 are done for the three free paths, and the Open Source community is complete. The learner map and Nearby events are live. Explain-back asks for every learning objective and passes the stage only when a model marks each one understood. An accepted idea is kept in Notes, and that notebook can be downloaded or summarized from those notes alone. `/notes/practice` grades an idea against a public page, a text file, or a pasted passage, and saves it without passing a stage. Mastery, streaks, weak topics, and the progress charts read explain-back attempts. A score leaderboard and peer review are not part of the product. A creator rating and earnings are not either. Still open for Version 1: the rest of the test suite and an end-to-end pass (Phase 8), and deploy (Phase 9). Public event API keys stay last.
+**Right now.** Phases 0, 1, 2, 3, 5, and 7 are done for the three free paths, and the Open Source community is complete. The learner map and Nearby events are live. Explain-back asks for every learning objective and passes the stage only when a model marks each one understood. An accepted idea is kept in Notes, and that notebook can be downloaded or summarized from those notes alone. `/notes/practice` grades an idea against a public page, a text file, or a pasted passage, and saves it without passing a stage. A followed skill can have a personal plan built in code from that learner's preferences. Mastery, streaks, weak topics, and the progress charts read explain-back attempts. A score leaderboard and peer review are not part of the product. A creator rating and earnings are not either. Still open for Version 1: the rest of the test suite and an end-to-end pass (Phase 8), and deploy (Phase 9). Public event API keys stay last.

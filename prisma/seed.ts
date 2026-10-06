@@ -143,6 +143,7 @@ async function main() {
   await importCatalog("content-creation", { apply: true })
   await importCatalog("travel-vlogging", { apply: true })
   await importCatalog("music-production", { apply: true })
+  await importCatalog("self-grooming", { apply: true })
 }
 
 main()

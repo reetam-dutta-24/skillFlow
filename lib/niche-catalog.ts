@@ -9,7 +9,7 @@ export function slugFromName(name: string) {
 }
 
 export const EXTRA_NICHES: { slug: string; name: string; description: string }[] = [
-  { slug: "self-grooming", name: "Self-Grooming", description: "Hair, skin, and the habits that make day-to-day presentation deliberate." },
+  { slug: "self-grooming", name: "Self Grooming", description: "Evidence-based personal care for any gender: skin, sun protection, hair, teeth, shaving, body and nails, clothing care and fit, and when to see a professional." },
   { slug: "animation", name: "Animation", description: "Movement, timing, and how a still drawing becomes a scene." },
   { slug: "story-writing", name: "Story Writing", description: "Plot, character, and revision for short and long fiction." },
   { slug: "iot-robot-automation", name: "IoT & Robot Automation", description: "Sensors, controllers, and the software that moves a physical machine." },

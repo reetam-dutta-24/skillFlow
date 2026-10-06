@@ -1,0 +1,997 @@
+{
+  "stages": [
+    {
+      "order": 1,
+      "title": "Skin Basics and Skin Types",
+      "level": "BEGINNER",
+      "description": "What the skin barrier does, the five skin types dermatologists describe, and how to recognise your own so you can choose suitable products.",
+      "learningObjectives": [
+        "Describe the skin barrier and what it protects against",
+        "Name the five skin types (normal, dry, oily, combination, sensitive) and how each looks or feels",
+        "Identify your own skin type by observing how your skin looks and feels after cleansing",
+        "Explain why products should match your skin type and why sensitive skin calls for fragrance-free options"
+      ],
+      "explainBack": {
+        "question": "What is the skin barrier, what are the five skin types, and how can you tell which type you have?",
+        "rubric": [
+          "The skin barrier is the outermost layer of skin (stratum corneum), made of dead cells plus lipids such as ceramides; it keeps water in and irritants and bacteria out",
+          "Harsh products, over-exfoliating, hot water and skipping moisturizer can damage the barrier, showing up as dryness, flaking, stinging or rough patches",
+          "Dermatologists describe five types: normal (clear, not sensitive), dry (flaky, itchy or rough), oily (shiny and greasy), combination (dry in some areas, oily in others) and sensitive (stings or burns after product use)",
+          "You can identify your type by noticing how your skin looks and feels after cleansing (optionally pressing blotting paper on the T-zone and cheeks to check oil)",
+          "Products should be chosen for your skin type; sensitive skin generally does better with fragrance-free or hypoallergenic products"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Skin care on a budget",
+          "provider": "American Academy of Dermatology",
+          "url": "https://www.youtube.com/watch?v=hXHLJ90Kjkc",
+          "description": "Short AAD video on a simple, low-cost routine built around knowing your skin type.",
+          "keyPoints": [
+            "Starts from identifying your skin type",
+            "Covers cleansing, moisturizing and sun protection as the basics",
+            "Presented by the American Academy of Dermatology"
+          ],
+          "videoId": "hXHLJ90Kjkc"
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "HOW TO KNOW YOUR SKIN TYPE 🤔 Dermatologist @DrDrayzday",
+          "provider": "Dr Dray",
+          "url": "https://www.youtube.com/watch?v=isx9ZCrdck8",
+          "description": "A board-certified dermatologist walks through how to work out whether skin is oily, dry, combination or sensitive.",
+          "keyPoints": [
+            "Explains signs of each skin type",
+            "Shows how to observe skin to classify it",
+            "From a practising dermatologist's channel"
+          ],
+          "videoId": "isx9ZCrdck8"
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Skin care on a budget",
+          "provider": "American Academy of Dermatology",
+          "url": "https://www.aad.org/public/everyday-care/skin-care-basics/care/skin-care-budget",
+          "description": "Defines the five skin types in one line each and outlines the cleanse, moisturize and protect basics.",
+          "keyPoints": [
+            "Sensitive skin may sting or burn after products; normal skin is clear and not sensitive",
+            "Dry skin is flaky, itchy or rough; oily skin is shiny and greasy",
+            "Combination skin is dry in some areas and oily in others",
+            "Core routine: gentle cleanser, moisturizer, broad-spectrum SPF 30+"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What Is My Skin Type and Why Does It Matter?",
+          "provider": "Cleveland Clinic",
+          "url": "https://health.clevelandclinic.org/understanding-skin-types",
+          "description": "Explains the skin types and how to identify yours, including the blotting-paper method and simply observing how skin looks and feels.",
+          "keyPoints": [
+            "Blotting test: wash, wait 30 minutes, press paper on T-zone and cheeks",
+            "Watching how skin looks and feels is the best indicator of type",
+            "Sensitive skin should avoid dyes and fragrance; look for fragrance-free",
+            "A dermatologist can help refine a routine"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "The Skin Barrier: Structure, Function, and Care",
+          "provider": "Cleveland Clinic",
+          "url": "https://health.clevelandclinic.org/skin-barrier",
+          "description": "Describes the barrier as a brick-and-mortar layer of dead cells and lipids, what damages it and how to protect it.",
+          "keyPoints": [
+            "Barrier = stratum corneum: corneocytes (bricks) plus lipids (mortar)",
+            "Keeps water in and chemicals and bacteria out",
+            "Damage signs: dryness, flaking, itching, stinging, rough patches",
+            "Damaged by harsh products, over-exfoliation, hot water, skipping moisturizer"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "10 skin care secrets for healthier-looking skin",
+          "provider": "American Academy of Dermatology",
+          "url": "https://www.aad.org/public/everyday-care/skin-care-basics/care/skin-care-tips-dermatologists-use",
+          "description": "Ten dermatologist habits, including matching products to skin type, avoiding scrubbing and checking skin for changes.",
+          "keyPoints": [
+            "Choose products made for your skin type and conditions",
+            "Scrubbing irritates skin and can worsen acne",
+            "Daily broad-spectrum, SPF 30+, water-resistant sunscreen",
+            "See a dermatologist for spots that change, itch or bleed"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Core Skincare Routine and Sun Protection",
+      "level": "BEGINNER",
+      "description": "A dermatologist-backed daily routine: gentle face washing, moisturizing, and choosing, applying and reapplying sunscreen correctly.",
+      "learningObjectives": [
+        "Wash the face gently with the right water temperature, cleanser and frequency",
+        "Explain when and why to moisturize",
+        "Choose a sunscreen using broad spectrum, SPF and water-resistance labels",
+        "Apply enough sunscreen and reapply it on schedule"
+      ],
+      "explainBack": {
+        "question": "Describe a basic daily skincare routine, including how to wash your face and how to choose and use sunscreen.",
+        "rubric": [
+          "Wash with lukewarm water and a gentle, non-abrasive, alcohol-free cleanser applied with the fingertips, without scrubbing, then pat dry",
+          "Limit washing to twice a day and after sweating",
+          "Moisturize, ideally on damp skin to trap water",
+          "Use a broad-spectrum (UVA and UVB) sunscreen with SPF 30 or higher, and water resistant (40 or 80 minutes), every day including cloudy days",
+          "Apply about 1 ounce (a shot glass) for the body and reapply every 2 hours and right after swimming or sweating"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Face washing 101",
+          "provider": "American Academy of Dermatology",
+          "url": "https://www.youtube.com/watch?v=AeXsfB2ud-o",
+          "description": "AAD's short demonstration of washing the face gently and how often to do it.",
+          "keyPoints": [
+            "Gentle cleanser and lukewarm water",
+            "Use fingertips rather than cloths or sponges",
+            "How often dermatologists recommend washing"
+          ],
+          "videoId": "AeXsfB2ud-o"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Face washing 101",
+          "provider": "American Academy of Dermatology",
+          "url": "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101",
+          "description": "Step-by-step face washing tips: cleanser type, water temperature, technique, drying, moisturizing and frequency.",
+          "keyPoints": [
+            "Use a gentle, non-abrasive cleanser without alcohol",
+            "Wet face with lukewarm water and apply cleanser with fingertips",
+            "Don't scrub; rinse and pat dry with a soft towel",
+            "Wash twice a day and after sweating"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "How to apply sunscreen: Dermatologist tips",
+          "provider": "American Academy of Dermatology",
+          "url": "https://www.youtube.com/watch?v=9pg-OybGGCc",
+          "description": "AAD video on how much sunscreen to use, when to apply it and when to reapply.",
+          "keyPoints": [
+            "How much sunscreen adults need",
+            "Apply before going outside",
+            "Reapply every two hours and after swimming or sweating"
+          ],
+          "videoId": "9pg-OybGGCc"
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How to select a sunscreen",
+          "provider": "American Academy of Dermatology",
+          "url": "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-select-sunscreen",
+          "description": "Explains the label terms that matter when picking a sunscreen.",
+          "keyPoints": [
+            "Broad spectrum means protection from both UVA and UVB",
+            "AAD recommends SPF 30 or higher",
+            "Water resistant means protection lasts 40 or 80 minutes when wet or sweaty"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How to apply sunscreen",
+          "provider": "American Academy of Dermatology",
+          "url": "https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen",
+          "description": "Covers amount, timing, reapplication and commonly missed areas.",
+          "keyPoints": [
+            "About 1 ounce (a shot glass) to cover the body; about a teaspoon for the face",
+            "Apply before going outdoors; it takes about 15 minutes to protect",
+            "Reapply every two hours and right after swimming or sweating",
+            "Use it in winter and on cloudy days; don't miss ears, neck, feet"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Sunscreen and sun safety",
+          "provider": "NHS",
+          "url": "https://www.nhs.uk/live-well/seasonal-health/sunscreen-and-sun-safety/",
+          "description": "UK health service guidance on choosing and using sunscreen and staying safe in the sun.",
+          "keyPoints": [
+            "Use at least SPF 30 for UVB and at least 4-star UVA protection",
+            "Adults need about 6 to 8 teaspoons to cover the whole body",
+            "Reapply every 2 hours and straight after being in water",
+            "Spend time in shade between 11am and 3pm in UK summer months"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Hair and Scalp Care",
+      "level": "BEGINNER",
+      "description": "How to wash and condition hair for your hair type, avoid heat and styling damage, and manage dandruff.",
+      "learningObjectives": [
+        "Explain how washing frequency depends on hair type and oiliness",
+        "Apply shampoo and conditioner where they do the most good",
+        "Reduce damage from heat tools, towel rubbing and tight styles",
+        "Use an anti-dandruff shampoo correctly and know when to get help"
+      ],
+      "explainBack": {
+        "question": "How should someone wash and condition their hair, protect it from damage, and deal with dandruff?",
+        "rubric": [
+          "Washing frequency depends on hair type: oily, straight hair may need daily washing, while dry, coarse or curly hair can go much longer between washes",
+          "Concentrate shampoo on the scalp rather than the full length, and use conditioner after shampooing (ends only for fine hair, full length for dry or curly hair)",
+          "Limit heat styling and use the lowest heat setting; wrap hair in a towel instead of rubbing, and avoid tight ponytails or buns that pull",
+          "Anti-dandruff shampoos contain ingredients such as zinc pyrithione, salicylic acid, selenium sulfide, ketoconazole or coal tar, and some should be left on the scalp for about 5 minutes before rinsing",
+          "Dandruff is not caused by poor hygiene; if it hasn't improved after about 4 weeks of anti-dandruff shampoo, or the scalp is red or swollen, see a doctor or dermatologist"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Healthy hair care tips from dermatologists",
+          "provider": "American Academy of Dermatology",
+          "url": "https://www.youtube.com/watch?v=cI0g68rd0-s",
+          "description": "AAD video summarising dermatologists' advice on washing, conditioning and protecting hair.",
+          "keyPoints": [
+            "Wash frequency depends on hair type",
+            "Where to apply shampoo and conditioner",
+            "Protecting hair from heat"
+          ],
+          "videoId": "cI0g68rd0-s"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Tips for healthy hair",
+          "provider": "American Academy of Dermatology",
+          "url": "https://www.aad.org/public/everyday-care/hair-scalp-care/hair/healthy-hair-tips",
+          "description": "Dermatologist tips for choosing products by hair type, how often to wash and how to condition.",
+          "keyPoints": [
+            "Oily, straight hair may need daily shampooing",
+            "Dry, textured or curly hair can be washed much less often",
+            "Apply shampoo to the scalp, not the whole length",
+            "Conditioner: ends only for fine hair, full length for dry or curly hair"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "10 hair care habits that can damage your hair",
+          "provider": "American Academy of Dermatology",
+          "url": "https://www.aad.org/public/everyday-care/hair-scalp-care/hair/habits-that-damage-hair",
+          "description": "Lists common habits that damage hair and the dermatologist fix for each.",
+          "keyPoints": [
+            "Use conditioner after every shampoo",
+            "Wrap hair in a towel instead of rubbing it dry",
+            "Use the lowest heat setting and limit hot tools",
+            "Avoid tight ponytails, buns and braids that pull on hair"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "At-home dandruff treatment: Dermatologist tips",
+          "provider": "American Academy of Dermatology",
+          "url": "https://www.youtube.com/watch?v=zKAmsPHUZ78",
+          "description": "AAD video on choosing and using dandruff shampoo at home.",
+          "keyPoints": [
+            "Active ingredients to look for",
+            "How to apply and leave on dandruff shampoo",
+            "Different approach for textured hair"
+          ],
+          "videoId": "zKAmsPHUZ78"
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How to treat dandruff",
+          "provider": "American Academy of Dermatology",
+          "url": "https://www.aad.org/public/everyday-care/hair-scalp-care/scalp/treat-dandruff",
+          "description": "How to pick and use an anti-dandruff shampoo, with separate advice for coarse or curly hair.",
+          "keyPoints": [
+            "Look for zinc pyrithione, salicylic acid, sulfur, selenium sulfide, ketoconazole or coal tar",
+            "Lather on the scalp; some should sit 5 to 10 minutes before rinsing",
+            "Textured hair: about once a week, scalp only",
+            "See a dermatologist if it persists or is severe"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Dandruff",
+          "provider": "NHS",
+          "url": "https://www.nhs.uk/conditions/dandruff/",
+          "description": "Explains common causes of dandruff, self-care and when to see a pharmacist or GP.",
+          "keyPoints": [
+            "Often linked to a yeast that naturally lives on skin; not caused by poor hygiene",
+            "Try anti-dandruff shampoo (e.g. ketoconazole, coal tar, salicylic acid)",
+            "Allow up to 4 weeks to see improvement",
+            "See a GP if no better after 4 weeks or if scalp is red or swollen"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Oral Hygiene and Fresh Breath",
+      "level": "INTERMEDIATE",
+      "description": "Brushing technique and timing, fluoride, cleaning between teeth, tongue cleaning for fresh breath, and dental check-ups.",
+      "learningObjectives": [
+        "Brush correctly: frequency, duration, angle and brush type",
+        "Explain why fluoride toothpaste matters and why not to rinse after brushing",
+        "Clean between teeth daily with floss or interdental brushes",
+        "Prevent bad breath and know when to see a dentist"
+      ],
+      "explainBack": {
+        "question": "What does a complete daily oral hygiene routine look like, and what helps prevent bad breath?",
+        "rubric": [
+          "Brush twice a day for about 2 minutes with a soft-bristled brush held at a 45-degree angle to the gums, using short strokes",
+          "Use fluoride toothpaste (NHS: at least 1,350 ppm for adults) and spit out rather than rinsing straight after brushing so the fluoride stays on teeth",
+          "Clean between teeth once a day with floss or interdental brushes",
+          "Replace the toothbrush every 3 to 4 months, or sooner if bristles are frayed",
+          "For fresher breath, clean the tongue daily as well; see a dentist if bad breath persists or gums bleed, and have check-ups at intervals the dentist sets (3 months to 2 years)"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "How to Brush Your Teeth",
+          "provider": "American Dental Association (ADA)",
+          "url": "https://www.youtube.com/watch?v=xm9c5HAUBpY",
+          "description": "The ADA's demonstration of brushing technique.",
+          "keyPoints": [
+            "Brush angle against the gumline",
+            "Short back-and-forth strokes",
+            "Covering outer, inner and chewing surfaces"
+          ],
+          "videoId": "xm9c5HAUBpY"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Brushing Your Teeth",
+          "provider": "American Dental Association (MouthHealthy)",
+          "url": "https://www.mouthhealthy.org/all-topics-a-z/brushing-your-teeth",
+          "description": "ADA consumer guidance on how to brush, what to use and how often to replace a toothbrush.",
+          "keyPoints": [
+            "Brush twice a day with a soft-bristled brush",
+            "Hold the brush at a 45-degree angle to the gums; short, tooth-wide strokes",
+            "Use fluoride toothpaste",
+            "Replace the brush every 3 to 4 months or when bristles fray"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How to keep your teeth clean",
+          "provider": "NHS",
+          "url": "https://www.nhs.uk/live-well/healthy-teeth-and-gums/how-to-keep-your-teeth-clean/",
+          "description": "NHS advice on brushing, fluoride strength, interdental cleaning and mouthwash timing.",
+          "keyPoints": [
+            "Brush twice a day for about 2 minutes, especially at night",
+            "Adults: toothpaste with at least 1,350ppm fluoride",
+            "Spit, don't rinse, after brushing",
+            "Floss or use interdental brushes; don't use mouthwash right after brushing"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "How to Floss Your Teeth",
+          "provider": "American Dental Association (ADA)",
+          "url": "https://www.youtube.com/watch?v=HhdoPXNKNm4",
+          "description": "The ADA's step-by-step flossing demonstration.",
+          "keyPoints": [
+            "How much floss to use",
+            "Curving floss into a C-shape at the gumline",
+            "Gentle motion without snapping into gums"
+          ],
+          "videoId": "HhdoPXNKNm4"
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Bad breath",
+          "provider": "NHS",
+          "url": "https://www.nhs.uk/conditions/bad-breath/",
+          "description": "Causes of bad breath and self-care steps, plus when to see a dentist.",
+          "keyPoints": [
+            "Common causes include strong foods, gum disease, dry mouth and smoking",
+            "Brush twice daily, clean the tongue once a day and floss daily",
+            "See a dentist if it persists or gums are painful, bleeding or swollen"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Dental check-ups",
+          "provider": "NHS",
+          "url": "https://www.nhs.uk/live-well/healthy-teeth-and-gums/dental-check-ups/",
+          "description": "Explains how often to have check-ups and what happens at one.",
+          "keyPoints": [
+            "Interval varies from 3 months to 2 years depending on oral health",
+            "Good oral health: often every 12 to 24 months",
+            "Dentist examines teeth, gums and mouth and discusses habits"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Shaving and Preventing Razor Bumps",
+      "level": "INTERMEDIATE",
+      "description": "Dermatologist shaving technique for face or body, razor hygiene, and how to prevent razor bumps and ingrown hairs.",
+      "learningObjectives": [
+        "Prepare skin and hair before shaving",
+        "Shave in the direction of hair growth with good technique",
+        "Look after a razor: rinsing, replacing blades and storing it dry",
+        "Explain what razor bumps and ingrown hairs are and how to reduce them"
+      ],
+      "explainBack": {
+        "question": "Walk through how to shave to minimise irritation, and explain how to reduce razor bumps and ingrown hairs.",
+        "rubric": [
+          "Soften hair first by wetting skin (e.g. after a shower or with a warm, damp cloth) and apply shaving cream or gel",
+          "Shave in the direction the hair grows and rinse the blade after each stroke",
+          "Replace disposable razors or blades after about 5 to 7 shaves and let the razor dry completely, stored in a dry place",
+          "Razor bumps/ingrown hairs happen when cut hairs curve back into the skin; they are more common with coarse or curly hair",
+          "Avoid pulling the skin taut or shaving too closely, and don't pick at bumps; see a dermatologist if bumps persist or become infected (persistent bumps can scar)"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "How to shave",
+          "provider": "American Academy of Dermatology",
+          "url": "https://www.youtube.com/watch?v=OtDshtE_100",
+          "description": "AAD's short video on shaving steps that reduce irritation.",
+          "keyPoints": [
+            "Prepare skin and hair before shaving",
+            "Shave with the grain",
+            "Razor care between shaves"
+          ],
+          "videoId": "OtDshtE_100"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Hair removal: How to shave",
+          "provider": "American Academy of Dermatology",
+          "url": "https://aad.org/public/everyday-care/skin-care-basics/hair/how-to-shave",
+          "description": "Six dermatologist steps for shaving any area with less irritation.",
+          "keyPoints": [
+            "Wet skin and hair to soften it; after a shower is ideal",
+            "Use shaving cream or gel (sensitive-skin version if needed)",
+            "Shave in the direction the hair grows; rinse after each swipe",
+            "Change blades after 5 to 7 shaves; store razor dry"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "6 razor bump prevention tips from dermatologists",
+          "provider": "American Academy of Dermatology",
+          "url": "https://www.youtube.com/watch?v=YkcOcV_LhTI",
+          "description": "AAD video summarising six ways to prevent razor bumps.",
+          "keyPoints": [
+            "What causes razor bumps",
+            "Softening hair and shaving with the grain",
+            "Razor maintenance and other options"
+          ],
+          "videoId": "YkcOcV_LhTI"
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "6 razor bump prevention tips from dermatologists",
+          "provider": "American Academy of Dermatology",
+          "url": "https://www.aad.org/public/everyday-care/skin-care-basics/hair/razor-bump-prevention",
+          "description": "Explains razor bumps and six dermatologist tips to prevent them.",
+          "keyPoints": [
+            "Razor bumps are caused when shaving irritates the skin",
+            "Shave with the grain after softening hair with warmth and moisture",
+            "Use a moisturizing shave cream",
+            "Replace disposable razors after 5 to 7 shaves; clean electric razors regularly"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Razor bump remedies for men with darker skin tones",
+          "provider": "American Academy of Dermatology",
+          "url": "https://www.aad.org/public/everyday-care/skin-care-basics/hair/razor-bump-remedies",
+          "description": "Remedies for pseudofolliculitis barbae, which is most common with coarse, curly hair.",
+          "keyPoints": [
+            "Shortened hairs curve back into the skin and cause bumps",
+            "A warm compress before shaving helps hairs swell and lift",
+            "Don't pull skin taut or pick at bumps",
+            "See a dermatologist if bumps persist; they can leave scars"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Ingrown hairs",
+          "provider": "NHS",
+          "url": "https://www.nhs.uk/conditions/ingrown-hairs/",
+          "description": "What ingrown hairs are, how to prevent them when shaving and signs of infection.",
+          "keyPoints": [
+            "More common with coarse or curly hair",
+            "Use warm water and gel; shave in the direction of growth",
+            "Don't shave too closely; avoid blunt razors",
+            "See a GP if there are signs of infection"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "title": "Body Care, Nails and Hand Hygiene",
+      "level": "INTERMEDIATE",
+      "description": "Bathing without drying out skin, deodorant versus antiperspirant, nail care basics and correct handwashing.",
+      "learningObjectives": [
+        "Bathe in a way that protects skin moisture",
+        "Explain the difference between deodorant and antiperspirant",
+        "Trim and care for fingernails and toenails safely",
+        "Wash hands correctly and know when to use hand sanitizer"
+      ],
+      "explainBack": {
+        "question": "What are the key habits for body hygiene, nail care and handwashing, and how do deodorant and antiperspirant differ?",
+        "rubric": [
+          "Keep baths and showers to about 5 to 10 minutes in warm (not hot) water with a gentle, fragrance-free cleanser, then pat dry and moisturize within minutes",
+          "Antiperspirants use aluminum salts to reduce sweating; deodorants don't stop sweat but reduce odor by targeting odor-causing bacteria and masking smell",
+          "Cut nails straight across and round the tips slightly; don't bite nails or remove cuticles, and keep nails clean and dry",
+          "Wash hands with soap and clean running water, scrubbing for at least 20 seconds, then rinse and dry with a clean towel",
+          "If soap and water aren't available, use an alcohol-based hand sanitizer with at least 60% alcohol"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Dermatologist tips for healthy nails",
+          "provider": "American Academy of Dermatology",
+          "url": "https://www.youtube.com/watch?v=FDFnCigQf2c",
+          "description": "AAD video on everyday habits that keep nails healthy.",
+          "keyPoints": [
+            "How to trim nails",
+            "Habits that damage nails",
+            "When to see a dermatologist about nails"
+          ],
+          "videoId": "FDFnCigQf2c"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Dermatologists' top tips for relieving dry skin",
+          "provider": "American Academy of Dermatology",
+          "url": "https://www.aad.org/public/everyday-care/skin-care-basics/dry/dermatologists-tips-relieve-dry-skin",
+          "description": "Bathing and moisturizing habits that prevent dry skin.",
+          "keyPoints": [
+            "Limit baths and showers to 5 to 10 minutes in warm water",
+            "Use a gentle, fragrance-free cleanser",
+            "Pat dry and moisturize within minutes of bathing",
+            "See a dermatologist if dryness persists"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Antiperspirant vs. Deodorant: What's the Difference?",
+          "provider": "Cleveland Clinic",
+          "url": "https://health.clevelandclinic.org/antiperspirant-vs-deodorant",
+          "description": "Explains how each product works, when to apply antiperspirant and safety evidence.",
+          "keyPoints": [
+            "Antiperspirants use aluminum salts to reduce sweat",
+            "Deodorants don't stop sweat; they neutralize odor-causing bacteria and mask smell",
+            "Applying antiperspirant at night can improve effectiveness",
+            "Both can irritate freshly shaved skin"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "11 dermatologists' tips for healthy nails",
+          "provider": "American Academy of Dermatology",
+          "url": "https://www.aad.org/public/everyday-care/nail-care-secrets/basics/healthy-nail-tips",
+          "description": "Eleven nail care habits for fingernails and toenails.",
+          "keyPoints": [
+            "Keep nails clean and dry",
+            "Cut nails straight across and round the tips slightly",
+            "Don't bite nails or remove cuticles",
+            "Don't dig out ingrown toenails; see a dermatologist"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "About Handwashing",
+          "provider": "CDC",
+          "url": "https://www.cdc.gov/clean-hands/about/index.html",
+          "description": "CDC's five handwashing steps, key times to wash and when to use sanitizer.",
+          "keyPoints": [
+            "Wet, lather, scrub at least 20 seconds, rinse, dry",
+            "Wash before food prep and after the toilet, coughing or sneezing",
+            "If no soap and water, use sanitizer with at least 60% alcohol"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Clothing Fit and Fabric Care",
+      "level": "ADVANCED",
+      "description": "Checking how a tailored jacket fits, reading international care-label symbols, and laundering clothes so they last.",
+      "learningObjectives": [
+        "Check the key fit points of a tailored jacket (shoulders, sleeve length, jacket length)",
+        "Read the five basic care-label symbols and their modifiers",
+        "Explain what a care label is required to tell you",
+        "Sort and wash laundry to protect fabrics"
+      ],
+      "explainBack": {
+        "question": "How can you tell whether a tailored jacket fits, and how do you read a care label and wash clothes so they last?",
+        "rubric": [
+          "A jacket's shoulder seam should end where the arm meets the shoulder, and about half an inch of shirt cuff should show past the jacket sleeve",
+          "Care labels use five basic symbols: wash tub (washing), triangle (bleaching), square (drying), iron (ironing) and circle (professional cleaning)",
+          "In the symbol system, dots or numbers indicate temperature, bars under the symbol mean a gentler process, and a cross over a symbol means do not do it",
+          "In the US, care labels must give at least one safe cleaning method and warn against procedures that would harm the garment",
+          "Sort laundry by color (whites, lights, darks) and soil level, treat stains promptly, and don't overload the machine"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "How A Suit Should Fit |  Buy A Proper Fitted Suit | What Good Fitting Suits Look Like Video Tutorial",
+          "provider": "Real Men Real Style",
+          "url": "https://www.youtube.com/watch?v=srFq9CjAn0s",
+          "description": "Visual tutorial on the fit checkpoints of a tailored suit jacket and trousers.",
+          "keyPoints": [
+            "Shoulder fit as the first check",
+            "Sleeve length and shirt cuff",
+            "Jacket length and trouser fit"
+          ],
+          "videoId": "srFq9CjAn0s"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How Should a Suit Fit? Your Easy-to-Follow Visual Guide",
+          "provider": "The Art of Manliness",
+          "author": "Antonio Centeno",
+          "url": "https://www.artofmanliness.com/style/clothing/good-fitted-suit-visual/",
+          "description": "Illustrated checklist of how a suit jacket and trousers should fit.",
+          "keyPoints": [
+            "Shoulder seam meets the sleeve where arm meets shoulder",
+            "About half an inch of shirt cuff should show",
+            "Jacket should cover the seat; lapels lie flat when buttoned",
+            "Trousers drape without pulling or sagging"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Laundry Care Symbols Explained – Your Complete Guide to Care Labels",
+          "provider": "Wunderlabel",
+          "url": "https://www.youtube.com/watch?v=1u7sscgwm_A",
+          "description": "Walkthrough of the laundry symbols found on clothing care labels.",
+          "keyPoints": [
+            "The main symbol families",
+            "What dots and bars mean",
+            "Crossed-out symbols"
+          ],
+          "videoId": "1u7sscgwm_A"
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Care labelling symbols",
+          "provider": "GINETEX",
+          "url": "https://www.ginetex.net/userfiles/files/gin_bro_gb_rz_brochure_web.pdf",
+          "description": "The international care-labelling association's explanation of its five basic symbols and their modifiers.",
+          "keyPoints": [
+            "Wash tub, triangle, square, iron and circle are the five basic symbols",
+            "Wash tub numbers show maximum temperature; bars mean milder process",
+            "Dots on dryer and iron symbols indicate temperature",
+            "A cross over any symbol means that treatment must not be used"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Clothes Captioning: Complying with the Care Labeling Rule",
+          "provider": "Federal Trade Commission",
+          "url": "https://www.ftc.gov/business-guidance/resources/clothes-captioning-complying-care-labeling-rule",
+          "description": "FTC guidance explaining what US care labels must contain.",
+          "keyPoints": [
+            "Labels must give regular care instructions for ordinary use",
+            "At least one safe method of washing or drycleaning",
+            "Warnings against procedures that would harm the item",
+            "Labels must stay legible for the garment's useful life"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Laundry on your own",
+          "provider": "Texas A&M AgriLife Extension",
+          "author": "Pamela J. Brown",
+          "url": "https://agrilifeextension.tamu.edu/wp-content/uploads/2025/04/Laundry-on-Your-Own.pdf",
+          "description": "Extension guide to reading labels, sorting, stain treatment, loading and drying.",
+          "keyPoints": [
+            "Read and keep care labels",
+            "Sort by color, fabric and soil level",
+            "Treat stains quickly; blot from the edges inward",
+            "Don't overload the washer; remove clothes from the dryer promptly"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "title": "Acne, Active Ingredients and When to See a Dermatologist",
+      "level": "ADVANCED",
+      "description": "General, evidence-based principles for acne-prone skin, the main over-the-counter actives, patch testing new products, and signs that need a professional.",
+      "learningObjectives": [
+        "Explain in general terms what causes acne",
+        "Describe what benzoyl peroxide, salicylic acid and retinoids such as adapalene do",
+        "Patch test a new skin care product",
+        "Recognise when acne or a reaction calls for a dermatologist or doctor"
+      ],
+      "explainBack": {
+        "question": "What causes acne, what do the common over-the-counter actives do, how should you test a new product, and when should you see a dermatologist?",
+        "rubric": [
+          "Acne develops when hair follicles become blocked with oil and dead skin cells, and bacteria can then cause inflammation",
+          "Benzoyl peroxide targets acne bacteria, retinoids such as adapalene unclog pores, and salicylic acid helps unclog pores; give a treatment at least 4 to 6 weeks, as clearing can take 2 to 3 months",
+          "Use non-comedogenic products, avoid scrubbing, and don't pick or pop spots",
+          "To patch test, apply the product to a small spot such as the inner arm or bend of the elbow twice daily for 7 to 10 days, and stop if a reaction develops",
+          "See a dermatologist or doctor for nodules or cysts, acne that doesn't respond to over-the-counter treatment, signs of scarring, or acne affecting mental health"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Benzoyl Peroxide or Salicylic Acid? A Dermatologist Explains",
+          "provider": "Dr. Aleksandra Brown DO, FAAD",
+          "url": "https://www.youtube.com/watch?v=gsTBZ53Vtuw",
+          "description": "A board-certified dermatologist compares two common over-the-counter acne ingredients.",
+          "keyPoints": [
+            "How benzoyl peroxide works",
+            "How salicylic acid works",
+            "Which acne types each suits"
+          ],
+          "videoId": "gsTBZ53Vtuw"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Acne",
+          "provider": "NHS",
+          "url": "https://www.nhs.uk/conditions/acne/",
+          "description": "NHS overview of acne causes, self-care, pharmacy and prescription treatments, and when to see a GP.",
+          "keyPoints": [
+            "Follicles blocked with oil and dead skin; bacteria cause inflammation",
+            "Gentle cleansing, non-comedogenic products, don't pick or squeeze",
+            "Pharmacy options include benzoyl peroxide and salicylic acid",
+            "See a GP if acne is widespread, deep, not improving, or affecting mental health"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How to treat different types of acne",
+          "provider": "American Academy of Dermatology",
+          "url": "https://www.aad.org/public/diseases/acne/diy/types-breakouts",
+          "description": "Matches acne types (blackheads, whiteheads, papules, pustules, nodules, cysts) to general treatment approaches.",
+          "keyPoints": [
+            "Blackheads/whiteheads: a retinoid such as adapalene plus benzoyl peroxide",
+            "Papules and pustules: benzoyl peroxide or salicylic acid",
+            "Allow 6 to 8 weeks before judging results",
+            "Nodules and cysts need a dermatologist to reduce scarring"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "9 things to try when acne won't clear",
+          "provider": "American Academy of Dermatology",
+          "url": "https://www.aad.org/public/diseases/acne/diy/wont-clear",
+          "description": "Dermatologist strategies when acne persists, including timelines and what to avoid.",
+          "keyPoints": [
+            "Give treatment at least 4 to 6 weeks; clearing can take 2 to 3 months",
+            "Benzoyl peroxide, adapalene and salicylic acid work in different ways",
+            "Use non-comedogenic products; don't scrub or pop pimples",
+            "See a dermatologist if acne persists or causes cysts"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "How to test skin care products at home",
+          "provider": "American Academy of Dermatology",
+          "url": "https://www.youtube.com/watch?v=-vanVFruI_0",
+          "description": "AAD video showing how to test a new product on a small area of skin.",
+          "keyPoints": [
+            "Where on the body to test",
+            "How often and for how long to apply",
+            "What to do if a reaction appears"
+          ],
+          "videoId": "-vanVFruI_0"
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How to test skin care products",
+          "provider": "American Academy of Dermatology",
+          "url": "https://www.aad.org/public/everyday-care/skin-care-secrets/prevent-skin-problems/test-skin-care-products",
+          "description": "Step-by-step at-home method for testing whether a product irritates your skin.",
+          "keyPoints": [
+            "Use a quarter-sized spot on the underside of the arm or bend of the elbow",
+            "Apply twice daily for 7 to 10 days",
+            "If a reaction develops, wash it off and stop using it",
+            "Severe reactions may need a dermatologist"
+          ]
+        }
+      ]
+    }
+  ],
+  "slug": "self-grooming",
+  "name": "Self Grooming",
+  "description": "Evidence-based personal care for any gender: skin, sun protection, hair, teeth, shaving, body and nails, clothing care and fit, and when to see a professional.",
+  "status": "COMING_SOON"
+}

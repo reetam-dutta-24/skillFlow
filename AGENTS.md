@@ -22,7 +22,7 @@ There is no comments, likes, view counts, or payments. Do not build Stripe.
 
 ## Free paths and Premium niches
 
-Thirty paths are free and available to everyone. The list is `FREE_PATH_SLUGS` in `lib/niches/tiers.ts`. Four of them have catalogs today. The other twenty-six are free and have no stages until a catalog is added through the admin CMS. Do not invent those catalogs.
+Thirty paths are free and available to everyone. The list is `FREE_PATH_SLUGS` in `lib/niches/tiers.ts`. Five of them have catalogs today. The other twenty-five are free and have no stages until a catalog is added through the admin CMS. Do not invent those catalogs.
 
 A stage is structurally open when the skill is `AVAILABLE`, the offer is `FREE`, the stage is not monetized, and `stage.order <= max(1, stageCount - 3)` (`LOCKED_TAIL = 3`). The last three stages stay locked for everyone. Their real description and resources are not sent. The tail placeholder is "This part of the path stays locked."
 
@@ -34,12 +34,15 @@ On top of that, the next stage stays shut for this learner until every earlier o
 | `travel-vlogging` | Travel Vlogging | AVAILABLE | FREE | yes | 8 | 46 | 9 | 8 |
 | `content-creation` | Content Creation | AVAILABLE | FREE | yes | 10 | 57 | 13 | 10 |
 | `music-production` | Music Production | AVAILABLE | FREE | no | 8 | 45 | 9 | 8 |
+| `self-grooming` | Self Grooming | AVAILABLE | FREE | no | 8 | 47 | 15 | 8 |
 
-Open stages: Full-Stack 1–9, Travel 1–5, Content Creation 1–7, Music Production 1–5.
+Open stages: Full-Stack 1–9, Travel 1–5, Content Creation 1–7, Music Production 1–5, Self Grooming 1–5.
 
-The other twenty-six free slugs, still with no stages: `art-painting`, `photography`, `self-grooming`, `animation`, `iot-robot-automation`, `screenwriting`, `graphic-design`, `ai-tools`, `seo`, `cybersecurity`, `digital-marketing`, `emergency-preparedness`, `personal-finance`, `badminton`, `public-speaking`, `sound-design`, `nutrition`, `psychology`, `podcasting`, `guitar`, `chess`, `interior-design`, `relationships`, `socializing`, `freelancing`, `travel-planning`.
+The other twenty-five free slugs, still with no stages: `art-painting`, `photography`, `animation`, `iot-robot-automation`, `screenwriting`, `graphic-design`, `ai-tools`, `seo`, `cybersecurity`, `digital-marketing`, `emergency-preparedness`, `personal-finance`, `badminton`, `public-speaking`, `sound-design`, `nutrition`, `psychology`, `podcasting`, `guitar`, `chess`, `interior-design`, `relationships`, `socializing`, `freelancing`, `travel-planning`.
 
 **Art & Painting** (`art-painting`) stays a flagship and one of the thirty free paths. `content/catalog/art-painting.json` is written and not imported: the link check failed on `https://www.acmiart.org/acmi-seals` (404) and `https://www.ucl.ac.uk/slade/know/1818` (502). Do not delete it. Do not swap those links.
+
+**Photography** (`photography`) is one of the thirty free paths and is not a flagship. `content/catalog/photography.json` is written and not imported: the link check failed on `https://www.nikon.co.uk/en_GB/learn-and-explore/magazine/tips-and-tricks/understanding-focal-length` (404). Do not delete it. Do not swap that link.
 
 Every slug outside that list is Premium: `AVAILABLE`, `MONETIZED`, and zero stages. The card says Premium. There is no payment, so the label is the lock. Do not invent resources for them. Settings cannot follow a Premium path. The niche list is `BASE_SKILLS` in `prisma/seed.ts` plus `EXTRA_NICHES` in `lib/niche-catalog.ts`. Travel Vlogging is a base skill. It must not also appear in `EXTRA_NICHES`, or a future seed will clear the flagship flag. `seedOffer` follows `isFreePath`. Do not run the full seed.
 
@@ -51,6 +54,7 @@ Every slug outside that list is Premium: `AVAILABLE`, `MONETIZED`, and zero stag
 | `content-creation` | `content/catalog/content-creation.json` |
 | `travel-vlogging` | `content/catalog/travel-vlogging.json` |
 | `music-production` | `content/catalog/music-production.json` |
+| `self-grooming` | `content/catalog/self-grooming.json` |
 
 `FILE_BY_SLUG` in `scripts/import-catalog.ts` and `scripts/verify-catalog.ts` maps only the Full-Stack mismatch. Do not rename the live slug `full-stack-web-dev`.
 

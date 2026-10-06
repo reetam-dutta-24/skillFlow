@@ -1,0 +1,918 @@
+{
+  "stages": [
+    {
+      "order": 1,
+      "title": "Camera Basics & Shooting Modes",
+      "level": "BEGINNER",
+      "description": "How focal length, sensor size and crop factor shape what the camera sees, and what the P, S/Tv, A/Av and M modes hand to you versus the camera.",
+      "learningObjectives": [
+        "Explain what focal length is and how it relates to angle of view and magnification",
+        "Use crop factor to work out the full-frame equivalent field of view of a lens on a smaller sensor",
+        "Describe what you set and what the camera sets in P, S/Tv, A/Av and M modes",
+        "Pick a mode to suit a goal such as controlling background blur or freezing motion"
+      ],
+      "explainBack": {
+        "question": "A friend has an APS-C camera with a 50mm lens. Explain what focal length means, how the smaller sensor changes what the lens shows, and which shooting mode they would use to control background blur and why.",
+        "rubric": [
+          "Focal length (in mm) is the distance from where light converges in the lens to the sensor; longer focal lengths give more magnification and a narrower angle of view",
+          "Crop factor is the ratio of a smaller sensor to full frame (36x24mm); multiplying focal length by it gives the full-frame equivalent field of view (50mm x 1.5 = about 75mm)",
+          "Crop factor does not change the lens's actual focal length or its aperture rating; the smaller sensor just records a narrower part of the image circle",
+          "In P the camera picks aperture and shutter speed; in S/Tv you set shutter speed and the camera sets aperture; in A/Av you set aperture and the camera sets shutter speed; in M you set both",
+          "Aperture priority (A/Av) is the mode for controlling depth of field/background blur; shutter priority (S/Tv) is for controlling motion"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Understanding Sensor Size & Crop Factor: Full Frame vs APS-C vs Micro Four Thirds",
+          "provider": "Victor Melchor",
+          "url": "https://www.youtube.com/watch?v=FmNtMTT78No",
+          "description": "A comparison of full-frame, APS-C and Micro Four Thirds sensors and how crop factor changes a lens's apparent field of view.",
+          "keyPoints": [
+            "Compares full-frame, APS-C and Micro Four Thirds sensor sizes",
+            "Explains crop factor and equivalent focal length",
+            "Shows how sensor size changes framing with the same lens"
+          ],
+          "videoId": "FmNtMTT78No"
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Camera Modes Explained: Auto, P, A, S, M (Beginner Guide)",
+          "provider": "My Photography Journey",
+          "url": "https://www.youtube.com/watch?v=f2frxlkNAKE",
+          "description": "A beginner walkthrough of the mode dial: Auto, Program, Aperture priority, Shutter priority and Manual.",
+          "keyPoints": [
+            "Covers Auto, P, A, S and M modes",
+            "Explains which settings you control in each mode",
+            "Aimed at beginners leaving Auto mode"
+          ],
+          "videoId": "f2frxlkNAKE"
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Understanding focal length",
+          "provider": "Nikon",
+          "url": "https://www.nikon.co.uk/en_GB/learn-and-explore/magazine/tips-and-tricks/understanding-focal-length",
+          "description": "Nikon defines focal length, explains how it trades magnification against angle of view, and lists typical focal length ranges and the DX crop effect.",
+          "keyPoints": [
+            "Focal length is the lens-to-sensor distance where light converges into a sharp image, in mm",
+            "Longer focal length: more magnification, narrower angle of view",
+            "Ultra-wide 8-24mm, wide 24-35mm, standard 35-70mm, super-telephoto 300mm+",
+            "DX sensors are 1.5x smaller than FX, so a 50mm lens frames like 75mm",
+            "Longer lenses compress perspective; shorter ones exaggerate distance"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Understanding Crop Factor",
+          "provider": "B&H Explora",
+          "author": "Todd Vorenkamp",
+          "url": "https://www.bhphotovideo.com/explora/photography/tips-and-solutions/understanding-crop-factor",
+          "description": "Explains where crop factor comes from, how to calculate it from sensor diagonals, and two common misconceptions about it.",
+          "keyPoints": [
+            "Full frame (24x36mm) is the reference; crop factor = full-frame diagonal / sensor diagonal",
+            "APS-C (about 15.6x23.5mm) has a crop factor of roughly 1.5x-1.6x",
+            "A 50mm lens on APS-C gives a field of view like 75mm on full frame",
+            "Crop factor does not change a lens's real focal length or its aperture rating"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Understanding Digital Camera Modes",
+          "provider": "Photography Life",
+          "url": "https://photographylife.com/understanding-digital-camera-modes",
+          "description": "Describes Program, Shutter Priority, Aperture Priority and Manual modes, what each controls, and when each is useful, plus scene modes.",
+          "keyPoints": [
+            "Program: camera chooses both aperture and shutter speed",
+            "Shutter priority (S/Tv): you set shutter speed, camera sets aperture; good for motion",
+            "Aperture priority (A/Av): you set aperture, camera sets shutter speed; good for depth of field",
+            "Manual: you set both; useful for flash, panoramas or tricky light",
+            "Scene modes are presets built on the main modes"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": "The Exposure Triangle",
+      "level": "BEGINNER",
+      "description": "How aperture, shutter speed and ISO each change brightness, the side effect each one brings, and how stops let you trade one for another.",
+      "learningObjectives": [
+        "Explain how aperture (f-number) affects light and depth of field",
+        "Explain how shutter speed affects light and the rendering of motion",
+        "Explain how ISO affects brightness and noise",
+        "Use stops to make equivalent exposures by trading one setting against another"
+      ],
+      "explainBack": {
+        "question": "Your photo at f/8, 1/125s, ISO 100 is correctly exposed but you want a blurrier background. Explain what each of the three settings does, what changing each one costs, and how you would keep the same exposure while opening the aperture.",
+        "rubric": [
+          "A smaller f-number means a larger aperture opening, more light and shallower depth of field; a larger f-number gives deeper depth of field",
+          "Fast shutter speeds freeze motion and slow shutter speeds blur moving subjects (and can show camera shake)",
+          "Higher ISO makes the camera need less light (doubling ISO = one stop) but adds noise",
+          "A stop is a doubling or halving of light; full f-stops run f/2.8, f/4, f/5.6, f/8, f/11, and 1/125s to 1/250s is one stop",
+          "To keep exposure the same, a change in one setting must be balanced by an equal number of stops in another (e.g. f/8 to f/5.6 is one stop more light, so 1/125s to 1/250s)"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Aperture, Shutter Speed, ISO - The Exposure Triangle Explained",
+          "provider": "ExpertPhotography",
+          "url": "https://www.youtube.com/watch?v=n0_EF9Empn4",
+          "description": "An introduction to the three exposure settings and how they interact.",
+          "keyPoints": [
+            "Explains aperture, shutter speed and ISO",
+            "Shows how the three settings balance each other",
+            "Covers the creative side effect of each setting"
+          ],
+          "videoId": "n0_EF9Empn4"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "The Exposure Triangle - A Beginner's Guide",
+          "provider": "Photography Life",
+          "url": "https://photographylife.com/what-is-exposure-triangle",
+          "description": "Explains aperture, shutter speed and ISO using a bucket-and-rain analogy, defines the stop, and shows how changing one setting requires changing another.",
+          "keyPoints": [
+            "Full f-stops: f/1.4, f/2, f/2.8, f/4, f/5.6, f/8, f/11, f/16, f/22",
+            "A stop doubles or halves the light",
+            "1/60s to 1/30s adds one stop; ISO 100 to 200 adds one stop",
+            "If one variable changes, another must change to keep exposure the same",
+            "Side effects: aperture-depth of field, shutter-motion, ISO-noise"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Camera Basics: Understanding Aperture",
+          "provider": "Canon SNAPSHOT",
+          "url": "https://snapshot.asia.canon/article/camera-basics-1-aperture",
+          "description": "Canon's beginner lesson on how aperture controls light, depth of field and background blur, and how f-numbers are written.",
+          "keyPoints": [
+            "Smaller f-number means a larger opening",
+            "Smaller f-number gives a shallower area in focus and larger bokeh",
+            "Each full f-stop doubles or halves the light",
+            "Many cameras adjust in 1/2- or 1/3-stop steps",
+            "Variable-aperture zooms (e.g. f/3.5-5.6) change max aperture with focal length"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Understanding Shutter Speed",
+          "provider": "Nikon USA",
+          "url": "https://www.nikonusa.com/learn-and-explore/c/tips-and-techniques/understanding-shutter-speed",
+          "description": "Defines shutter speed and shows how fast speeds freeze action while slow speeds blur moving subjects such as water.",
+          "keyPoints": [
+            "Shutter speed is how long the shutter stays open, in seconds or fractions",
+            "Fast speeds like 1/3200s freeze action in sports and wildlife",
+            "Slow speeds of several seconds blur motion, e.g. silky water",
+            "Shutter speed is one of the three exposure controls with aperture and ISO"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Understanding ISO Sensitivity",
+          "provider": "Nikon USA",
+          "url": "https://www.nikonusa.com/learn-and-explore/c/tips-and-techniques/understanding-iso-sensitivity",
+          "description": "Explains what ISO does, the doubling relationship with light, the noise trade-off, and Nikon's Auto ISO control.",
+          "keyPoints": [
+            "Doubling ISO (e.g. 200 to 400) halves the light needed for the same exposure",
+            "Low ISO (100-200) suits bright light or a tripod",
+            "Higher ISO adds digital noise, though newer sensors handle it better",
+            "Auto ISO can be capped and tied to a minimum shutter speed"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Metering, Histogram & Exposure Compensation",
+      "level": "BEGINNER",
+      "description": "How the camera's meter judges brightness, how to read a histogram for clipping, and how to correct the meter with exposure compensation.",
+      "learningObjectives": [
+        "Describe the main metering modes and when each helps",
+        "Explain why the meter misjudges very bright or very dark scenes",
+        "Read a histogram and identify clipped highlights and shadows",
+        "Apply exposure compensation in the right direction for a scene"
+      ],
+      "explainBack": {
+        "question": "You photograph a skier on bright snow in aperture priority and the snow comes out grey. Explain why the meter did this, how the histogram would show it, and what you would change.",
+        "rubric": [
+          "Reflective meters assume the scene is mid-tone grey (about 18%), so mostly white scenes are underexposed and mostly dark scenes overexposed",
+          "Matrix/evaluative metering reads a wide area of the frame; centre-weighted favours the middle; spot meters only a small area around the focus point",
+          "A histogram plots tones from dark (left) to bright (right) with pixel counts vertically; data piled against the right edge means clipped highlights, against the left edge clipped shadows",
+          "Exposure compensation works in P, S/Tv and A/Av modes; bright scenes like snow need positive compensation (about +1 to +3 stops), dark scenes negative",
+          "There is no single 'correct' histogram shape; it is mainly a tool for spotting unwanted clipping"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Canon Metering Modes Explained - Nail Exposure | Histogram Tips",
+          "provider": "Touchstone Pixels",
+          "url": "https://www.youtube.com/watch?v=1_z_Hmlw2nc",
+          "description": "Walks through Canon's metering modes and how to use the histogram to check exposure.",
+          "keyPoints": [
+            "Covers evaluative, partial, spot and centre-weighted metering",
+            "Shows when each metering mode helps",
+            "Uses the histogram to check exposure"
+          ],
+          "videoId": "1_z_Hmlw2nc"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Camera metering modes explained",
+          "provider": "Nikon",
+          "url": "https://www.nikon.co.uk/en_GB/learn-and-explore/magazine/tips-and-tricks/camera-metering-modes-explained",
+          "description": "Describes Nikon's matrix, centre-weighted, spot and highlight-weighted metering and when each suits a scene.",
+          "keyPoints": [
+            "Matrix metering averages a wide area of the frame; the default for even light",
+            "Centre-weighted prioritises the middle of the frame",
+            "Spot metering reads about 2.5% of the frame around the focus point",
+            "Highlight-weighted protects bright areas at the cost of darker shadows",
+            "Mostly white or black scenes can fool the meter"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Understanding Histograms in Photography",
+          "provider": "Photography Life",
+          "url": "https://photographylife.com/understanding-histograms",
+          "description": "Explains how to read a histogram's axes, spot highlight and shadow clipping, and interpret RGB histograms.",
+          "keyPoints": [
+            "Horizontal axis runs from dark tones (left) to bright tones (right)",
+            "Vertical axis shows how many pixels have each brightness",
+            "Data touching the right edge means blown highlights; left edge means lost shadows",
+            "RGB histograms show the three colour channels separately",
+            "There is no universally good histogram; it depends on the subject"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Exposure Compensation",
+          "provider": "Canon",
+          "url": "https://www.canon.co.uk/pro/infobank/exposure-compensation/",
+          "description": "Canon explains why meters misjudge bright and dark scenes and how to use exposure compensation in P, Av and Tv modes.",
+          "keyPoints": [
+            "Meters assume a mid-tone grey (18%) scene",
+            "Works in P, Av and Tv; in M only with Auto ISO on some EOS models",
+            "Usually set in 1/3-stop steps, up to about +/-5 EV, and stays set until reset",
+            "'If it's light, go right': +2 to +3 for snow or sand; around -1 for dark backgrounds"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Focus & Sharpness",
+      "level": "INTERMEDIATE",
+      "description": "How to choose autofocus modes and areas, control depth of field and use hyperfocal focusing, and avoid blur from camera shake.",
+      "learningObjectives": [
+        "Choose between single (AF-S) and continuous (AF-C) autofocus and an appropriate AF area",
+        "Name the factors that control depth of field",
+        "Use hyperfocal distance to keep foreground and background acceptably sharp",
+        "Apply the reciprocal rule and know when a tripod or stabilization changes it"
+      ],
+      "explainBack": {
+        "question": "You are shooting a landscape with rocks 2 m away in the morning, then a dog running on the beach with a 200mm lens on an APS-C camera. For each, explain how you would set focus and what you would do to keep the shot sharp.",
+        "rubric": [
+          "AF-S locks focus once for still subjects; AF-C keeps refocusing while the shutter is half-pressed for moving subjects",
+          "Depth of field gets shallower with a wider aperture, a longer focal length and a closer focus distance",
+          "Focusing at the hyperfocal distance gives acceptable sharpness from half that distance to infinity; a quick method is to focus at double the distance of the nearest foreground object",
+          "Reciprocal rule: handheld shutter speed should be at least 1/(focal length x crop factor), e.g. 200mm x 1.5 = 1/300s or faster",
+          "Image stabilization allows slower handheld speeds; a tripod removes camera shake, but neither freezes a moving subject"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Are You Using the RIGHT Focus Points for Your Camera?",
+          "provider": "Great Big Photography World",
+          "url": "https://www.youtube.com/watch?v=3iRmpLfIdP4",
+          "description": "Explains how to choose focus points and autofocus area settings for different subjects.",
+          "keyPoints": [
+            "Covers choosing focus points and AF areas",
+            "Matches AF settings to subject type",
+            "Aimed at photographers getting missed focus"
+          ],
+          "videoId": "3iRmpLfIdP4"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Understanding camera focus modes",
+          "provider": "Nikon",
+          "url": "https://www.nikon.co.il/en_IL/learn-and-explore/magazine/tips-and-tricks/understanding-camera-focus-modes",
+          "description": "Nikon explains AF-S, AF-C, full-time AF and manual focus, plus AF-area options and subject detection.",
+          "keyPoints": [
+            "AF-S: focus locks for each shot; for still subjects like landscapes and portraits",
+            "AF-C: keeps adjusting focus while half-pressed; for sports and wildlife",
+            "MF is often needed in very low light",
+            "AF-area options include pinpoint, dynamic area, wide area and auto area"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Depth of Field, Part I: The Basics",
+          "provider": "B&H Explora",
+          "author": "Todd Vorenkamp",
+          "url": "https://www.bhphotovideo.com/explora/photography/tips-and-solutions/depth-of-field-part-i-the-basics",
+          "description": "Defines depth of field and the circle of confusion, and explains how aperture, focal length and focus distance change it.",
+          "keyPoints": [
+            "Only the focal plane is truly sharp; DoF is what appears acceptably sharp around it",
+            "Circle of confusion sets the limit of perceived sharpness",
+            "Wider aperture, longer focal length, closer focus all give shallower DoF",
+            "Live view can preview depth of field"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Hyperfocal Distance Explained",
+          "provider": "Photography Life",
+          "url": "https://photographylife.com/hyperfocal-distance",
+          "description": "Explains hyperfocal distance and several practical ways to find it in the field without charts.",
+          "keyPoints": [
+            "Focusing at the hyperfocal distance keeps half that distance to infinity acceptably sharp",
+            "Double-the-distance method: focus at twice the distance of the nearest object",
+            "Can also find it via live view magnification or lens focus scales",
+            "If nothing is close to the camera, just focus at infinity"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "The Reciprocal Rule in Photography, Explained",
+          "provider": "Digital Photography School",
+          "author": "Adam Welch",
+          "url": "https://digital-photography-school.com/back-to-basics-what-is-the-reciprocal-rule-in-photography/",
+          "description": "Explains the reciprocal rule for handheld shutter speeds, how crop factor and stabilization adjust it, and when it does not apply.",
+          "keyPoints": [
+            "Handheld shutter speed should be at least 1/focal length",
+            "Multiply by crop factor first (1.5x, 1.6x Canon APS-C, 2x MFT)",
+            "Stabilization typically allows 3-7 stops slower",
+            "Does not apply on a tripod, and does not freeze moving subjects"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Composition",
+      "level": "INTERMEDIATE",
+      "description": "Arranging a frame with the rule of thirds, horizon placement, leading lines, framing and viewpoint so the viewer's eye goes where you intend.",
+      "learningObjectives": [
+        "Apply the rule of thirds and place horizons deliberately",
+        "Use leading lines and space in front of a subject to direct the eye",
+        "Use natural framing to isolate a subject",
+        "Change viewpoint (low or high angle) to change how a subject reads"
+      ],
+      "explainBack": {
+        "question": "You are photographing a cyclist on a tree-lined road at sunset over a lake. Describe four composition techniques you would use and what each one does for the picture.",
+        "rubric": [
+          "Rule of thirds: two horizontal and two vertical lines divide the frame into nine parts; place the subject on a line or one of the four intersections",
+          "Place the horizon off-centre (toward the top or bottom third), except when using a reflection for symmetry",
+          "Leading lines (roads, paths, railings) guide the viewer's eye toward the subject; a moving or looking subject should face into the frame with space ahead",
+          "Natural framing uses elements such as branches, doorways or archways to draw attention to and isolate the subject, often on only two or three sides",
+          "Changing viewpoint from the default standing height (low or high angle) changes how the subject is perceived"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Photography Composition Basics: Rule of Thirds, Framing, and Orientation",
+          "provider": "Common Sense Press",
+          "url": "https://www.youtube.com/watch?v=Mkt_FWoC8iE",
+          "description": "A beginner lesson on rule of thirds, framing and choosing horizontal or vertical orientation.",
+          "keyPoints": [
+            "Introduces the rule of thirds",
+            "Covers framing a subject",
+            "Discusses horizontal vs vertical orientation"
+          ],
+          "videoId": "Mkt_FWoC8iE"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "5 Easy Composition Guidelines",
+          "provider": "Nikon USA",
+          "author": "Diane Berkenfeld",
+          "url": "https://www.nikonusa.com/learn-and-explore/c/tips-and-techniques/5-easy-composition-guidelines",
+          "description": "Five beginner guidelines: rule of thirds, horizon placement, leaving space in front of subjects, leading lines, and patterns.",
+          "keyPoints": [
+            "Rule of thirds: tic-tac-toe grid, place subjects near intersections",
+            "Avoid centred horizons, except for reflection shots",
+            "Subjects should face into the frame with space ahead",
+            "Leading lines direct attention through the image",
+            "Breaking a repeating pattern creates a focal point"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Rule of thirds in photography",
+          "provider": "Adobe",
+          "url": "https://www.adobe.com/in/creativecloud/photography/discover/rule-of-thirds.html",
+          "description": "Explains the rule of thirds grid and its four intersection points, how to use the grid in camera, and when to break it.",
+          "keyPoints": [
+            "Two horizontal and two vertical lines make nine equal sections",
+            "The four intersections are where subjects are often placed",
+            "Turn on the camera or phone grid overlay",
+            "Centred compositions can break the rule on purpose",
+            "Lightroom and Photoshop crop overlays can fix framing later"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Tips for Using Natural Framing to Improve Your Composition",
+          "provider": "Digital Photography School",
+          "author": "Anthony Epes",
+          "url": "https://digital-photography-school.com/tips-for-using-natural-framing-to-improve-your-composition/",
+          "description": "Explains what natural framing is, what it does for a subject, and how to keep it from looking forced.",
+          "keyPoints": [
+            "Frames can be branches, archways, doorways, or light, shadow and fog",
+            "Framing directs attention and isolates the subject",
+            "An out-of-focus frame adds depth",
+            "Frames often work best on two or three sides, not all four"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Improve Your Composition by Changing Your Point of View",
+          "provider": "Digital Photography School",
+          "author": "Stacey Hill",
+          "url": "https://digital-photography-school.com/improve-your-composition-change-your-point-of-view/",
+          "description": "Encourages moving away from standing eye level, with examples of low angles, high angles and tight framing.",
+          "keyPoints": [
+            "Most photos are shot from standing height",
+            "Low angles create a more intimate view of animals and small subjects",
+            "High vantage points give viewers an unfamiliar perspective",
+            "Ask what the obvious angle is and what else you could try"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "title": "Light: Quality, Direction & Colour",
+      "level": "INTERMEDIATE",
+      "description": "What makes light hard or soft, how its direction shapes a subject, why golden hour looks the way it does, and how white balance handles colour temperature.",
+      "learningObjectives": [
+        "Explain what makes light hard or soft and how to soften it",
+        "Describe the effect of front, side and back light",
+        "Explain the qualities of golden hour light",
+        "Set white balance using presets, Kelvin or a custom reference card"
+      ],
+      "explainBack": {
+        "question": "You have to photograph a portrait outdoors at noon in direct sun, and again indoors under tungsten bulbs. Explain how light quality, direction and colour temperature affect each shot and what you would do about them.",
+        "rubric": [
+          "Light softness depends on the size of the source relative to the subject and its distance: larger/closer gives softer light with gradual shadows, smaller/farther gives harder light with sharp shadows",
+          "Overcast sky, large scrims, softboxes, umbrellas or bouncing off a white wall make the effective source larger and softer",
+          "Front light gives even, flat illumination; side light shows shape and texture; backlight can create silhouettes and needs exposure compensation",
+          "Golden hour (sun elevation about 6 degrees to -4 degrees) gives warm, soft, low-contrast light with long shadows",
+          "Lower Kelvin values are warmer (tungsten about 3200K) and higher are cooler (daylight about 5000-5200K, shade about 7000K); set a preset, a Kelvin value or a custom WB from a white/grey card"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Hard vs Soft light Photography | Explained",
+          "provider": "Justin Munitz",
+          "url": "https://www.youtube.com/watch?v=bWE5rOyyfRw",
+          "description": "A side-by-side look at hard and soft light and how each changes shadows on a subject.",
+          "keyPoints": [
+            "Defines hard and soft light",
+            "Compares shadow edges from each",
+            "Shows how to make light softer"
+          ],
+          "videoId": "bWE5rOyyfRw"
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Kelvin Color Temperature & White Balance Explained",
+          "provider": "jimcostafilms",
+          "url": "https://www.youtube.com/watch?v=1bEs6g5S0vY",
+          "description": "Explains the Kelvin scale and how white balance settings neutralise warm or cool light.",
+          "keyPoints": [
+            "Explains the Kelvin colour temperature scale",
+            "Shows warm vs cool light sources",
+            "Covers setting white balance in camera"
+          ],
+          "videoId": "1bEs6g5S0vY"
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How to Achieve Soft Light for Portraits",
+          "provider": "B&H Explora",
+          "author": "Cory Rice",
+          "url": "https://www.bhphotovideo.com/explora/photography/tips-and-solutions/how-achieve-soft-light-portraits",
+          "description": "Explains that light softness comes from source size and distance, corrects a common myth about diffusion, and lists practical ways to get soft light.",
+          "keyPoints": [
+            "The closer or larger the source, the softer the light",
+            "Diffusion mainly spreads light evenly; size and distance set softness",
+            "Softboxes, umbrellas and bounce surfaces enlarge the source",
+            "Overcast skies and large scrims soften sunlight outdoors"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "[Lesson 8] How Light Affects Photography",
+          "provider": "Canon SNAPSHOT",
+          "url": "https://snapshot.asia.canon/en/article/lesson-8-how-light-affects-photography",
+          "description": "Canon's lesson on front, side and back light and on strong versus weak contrast light.",
+          "keyPoints": [
+            "Front light gives even illumination with few shadows and a flatter look",
+            "Side light conveys shape and form",
+            "Backlight can create silhouettes; exposure compensation helps",
+            "Direct sun gives strong contrast; cloud gives soft, mild light"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "White Balance: definition and settings",
+          "provider": "Canon",
+          "url": "https://www.canon.co.uk/pro/infobank/white-balance/",
+          "description": "Canon explains colour temperature in Kelvin, typical white balance presets, custom white balance, and why RAW keeps WB adjustable.",
+          "keyPoints": [
+            "Warm light (candle, tungsten) sits around 2000-3200K; cool light is higher",
+            "Presets: Daylight about 5200K, Cloudy about 6000K, Shade about 7000K, Tungsten about 3200K",
+            "Custom WB uses a photo of a white or grey card as the neutral reference",
+            "Kelvin mode sets an exact temperature; RAW lets you decide WB later"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Golden Hour Photography: The Definitive Guide",
+          "provider": "PhotoPills",
+          "url": "https://www.photopills.com/articles/golden-hour-photography-guide",
+          "description": "Defines golden hour by sun elevation, explains why its light is warm and soft, and covers how its length varies by location.",
+          "keyPoints": [
+            "Golden hour is when the sun is between 6 degrees and -4 degrees elevation",
+            "Lasts about 40 minutes near the equator, longer at high latitudes",
+            "Light is warm, soft and lower in contrast with long shadows",
+            "Planning matters because the light changes quickly"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "title": "RAW vs JPEG & Editing Workflow",
+      "level": "ADVANCED",
+      "description": "Why RAW files keep more editable data than JPEGs, the core non-destructive adjustments in an editor, and how to export correctly for screens.",
+      "learningObjectives": [
+        "Explain the technical differences between RAW and JPEG files",
+        "Describe non-destructive editing and the core Basic panel adjustments",
+        "Correct white balance and exposure in post-processing",
+        "Choose export settings (format, colour space, size, metadata) for web sharing"
+      ],
+      "explainBack": {
+        "question": "You shot a backlit portrait that came out a bit dark and too blue. Explain why shooting RAW helps, which adjustments you would make in an editor like Lightroom, and how you would export it for Instagram or a website.",
+        "rubric": [
+          "RAW holds largely unprocessed sensor data at 12-14 bits per channel with lossless compression; JPEG is processed in camera, 8-bit and lossy",
+          "RAW lets you change white balance and recover exposure afterwards far better than a JPEG, at the cost of larger files that must be processed",
+          "Editing in Lightroom is non-destructive: adjustments are recorded (History panel) and can be reverted without altering the original",
+          "Basic adjustments: Exposure for overall brightness, Highlights/Shadows for bright and dark areas, Contrast, and Temperature/Tint to fix colour casts",
+          "For the web, export as JPEG in the sRGB colour space, resized to the needed dimensions, optionally limiting file size and removing location metadata"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "RAW vs JPEG Explained! Take your photography to the next level!",
+          "provider": "Nemanja Sekulic",
+          "url": "https://www.youtube.com/watch?v=wrckVlY5vwU",
+          "description": "Explains the difference between RAW and JPEG files and why RAW gives more editing room.",
+          "keyPoints": [
+            "Compares RAW and JPEG files",
+            "Shows the editing latitude of RAW",
+            "Discusses when JPEG is enough"
+          ],
+          "videoId": "wrckVlY5vwU"
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Beginners Guide to Lightroom Classic (Photo Editing Tutorial 2021) | Tutorial Tuesday",
+          "provider": "Park Cameras",
+          "url": "https://www.youtube.com/watch?v=T6BqhTEN6-s",
+          "description": "A beginner walkthrough of importing and editing photos in Lightroom Classic.",
+          "keyPoints": [
+            "Introduces the Lightroom Classic interface",
+            "Walks through basic Develop adjustments",
+            "Aimed at first-time Lightroom users"
+          ],
+          "videoId": "T6BqhTEN6-s"
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "RAW vs JPEG",
+          "provider": "Photography Life",
+          "url": "https://photographylife.com/raw-vs-jpeg",
+          "description": "A detailed comparison of RAW and JPEG covering bit depth, compression, editing latitude and file size.",
+          "keyPoints": [
+            "RAW is nearly unprocessed sensor data, like a digital negative",
+            "RAW records 12-14 bits per channel; JPEG is 8-bit (about 16.7 million colours)",
+            "RAW uses lossless compression; JPEG is lossy",
+            "RAW allows exposure and white balance recovery; JPEG errors are baked in",
+            "RAW+JPEG is a common compromise"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Basic photo editing in Lightroom Classic",
+          "provider": "Adobe",
+          "url": "https://www.adobe.com/learn/lightroom-classic/web/basic-photography-editing-techniques",
+          "description": "Adobe's tutorial on making core adjustments in the Develop module's Basic panel and using History to undo changes.",
+          "keyPoints": [
+            "Edit in the Develop module, optionally starting with Auto",
+            "Exposure sets overall brightness; Highlights and Shadows target light and dark areas",
+            "Contrast widens the gap between brights and darks",
+            "Temperature and Tint correct colour casts",
+            "History panel keeps every step so edits can be reverted"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Export files to disk or CD",
+          "provider": "Adobe Help Center",
+          "url": "https://helpx.adobe.com/in/lightroom-classic/desktop/export-photos/export-files-disk-or-cd.html",
+          "description": "Adobe's reference for Lightroom Classic export settings: formats, colour space, quality, sizing, sharpening and metadata.",
+          "keyPoints": [
+            "Use the sRGB colour space for web sharing",
+            "JPEG quality runs 0-100 and is lossy; 'Limit File Size To' caps size",
+            "Resize by dimensions, megapixels or ppi for print",
+            "Output sharpening is set for screen, matte or glossy paper",
+            "Can export copyright-only metadata or strip location data"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "title": "Copyright, Releases & Archiving",
+      "level": "ADVANCED",
+      "description": "Who owns a photo and why registration matters (US), when a model release is needed, how metadata carries rights information, and how to back up a photo library.",
+      "learningObjectives": [
+        "Explain when copyright in a photo begins and who owns it",
+        "Describe the benefits of registering photos with the US Copyright Office",
+        "Explain when a model release is needed",
+        "Describe how embedded metadata and a 3-2-1 backup protect your work"
+      ],
+      "explainBack": {
+        "question": "You photograph a friend for a local café's advertising campaign. Explain who owns the copyright, why you might register it in the US, whether you need a release, and how you would protect and archive the files.",
+        "rubric": [
+          "In the US, copyright exists automatically from the moment the photo is taken; usually the photographer owns it unless it is a work made for hire",
+          "Registration creates a public record, is required before suing over a US work in federal court, and timely registration enables statutory damages and attorney's fees",
+          "A model release is needed for commercial use (e.g. advertising) of an identifiable person, but generally not for editorial use; minors need a parent or guardian's signature",
+          "IPTC photo metadata embeds creator, copyright and rights information in the image file to help keep attribution with it",
+          "A 3-2-1 backup keeps three copies on at least two types of storage with one copy offsite"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "The Importance of Copyright Registration for Professional Photographers",
+          "provider": "Professional Photographers of America (PPA)",
+          "url": "https://www.youtube.com/watch?v=j0EVqRYrV0o",
+          "description": "A discussion from PPA on why photographers should register their images with the Copyright Office.",
+          "keyPoints": [
+            "Explains why registration matters for photographers",
+            "Discusses enforcement against infringement",
+            "From a professional photographers' association"
+          ],
+          "videoId": "j0EVqRYrV0o"
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Lost Your Photos? Here's How to Never Lose Them Again",
+          "provider": "Christopher Neal",
+          "url": "https://www.youtube.com/watch?v=l6VIDqE3an8",
+          "description": "Explains the 3-2-1 backup strategy for photographers.",
+          "keyPoints": [
+            "Introduces the 3-2-1 backup rule",
+            "Covers local and offsite copies",
+            "Aimed at photographers protecting their library"
+          ],
+          "videoId": "l6VIDqE3an8"
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What Photographers Should Know about Copyright",
+          "provider": "U.S. Copyright Office",
+          "url": "https://www.copyright.gov/engage/photographers/",
+          "description": "The US Copyright Office's guide for photographers on when protection begins, who owns it, and what registration adds.",
+          "keyPoints": [
+            "Copyright exists from the moment you take a picture",
+            "The photographer usually owns it, except for works made for hire",
+            "Registration is needed before suing over a US work",
+            "Timely registration allows statutory damages and attorney's fees",
+            "Copyright Claims Board handles smaller claims"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Model Releases in Photography: What You Need to Know (With Samples)",
+          "provider": "Digital Photography School",
+          "author": "Jeff Guyer",
+          "url": "https://digital-photography-school.com/model-releases-need-know/",
+          "description": "A former attorney explains what model releases are, when commercial versus editorial use needs one, and what a release should contain.",
+          "keyPoints": [
+            "Whether a release is needed depends on use, not content",
+            "Commercial use (ads, brochures, catalogues) needs one; editorial use usually does not",
+            "Applies when the person is identifiable",
+            "Under-18s need a parent or guardian's signature for commercial use",
+            "A release should include consideration and permission to license"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "IPTC Photo Metadata Standard",
+          "provider": "IPTC",
+          "url": "https://iptc.org/standards/photo-metadata/",
+          "description": "The standards body's overview of IPTC Photo Metadata, used to embed descriptive, administrative and copyright information in images.",
+          "keyPoints": [
+            "Industry standard for administrative, descriptive and copyright metadata",
+            "Helps rights information travel with images",
+            "Widely used by photographers, news agencies and software",
+            "Notes the problem of platforms stripping metadata"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "The Basics of Backing Up Photos, Explained",
+          "provider": "Photography Life",
+          "url": "https://photographylife.com/back-up-photos-explained",
+          "description": "Explains the 3-2-1 backup method, storage choices and habits for keeping a photo library safe.",
+          "keyPoints": [
+            "3-2-1: three copies, two storage types, one offsite",
+            "Drive failure is inevitable, not just possible",
+            "Cloud works as offsite backup but should not be the only copy",
+            "Back up to a second card or SSD while travelling"
+          ]
+        }
+      ]
+    }
+  ],
+  "slug": "photography",
+  "name": "Photography",
+  "description": "Learn still photography from camera basics and exposure to focus, composition, light, RAW editing, and protecting and archiving your photos.",
+  "status": "COMING_SOON"
+}

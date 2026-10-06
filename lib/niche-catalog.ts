@@ -1,4 +1,4 @@
-/** Niches beyond the original skills. Coming soon until a path is built. */
+/** Niches beyond the six base skills. A slug in FREE_PATH_SLUGS is free. Every other niche is Premium and has no stages. */
 export function slugFromName(name: string) {
   return name
     .toLowerCase()
@@ -177,4 +177,5 @@ export const EXTRA_NICHES: { slug: string; name: string; description: string }[]
   { slug: "shared-money", name: "Shared Money", description: "What a household shares, what stays separate, and who pays which bill." },
   { slug: "therapy-literacy", name: "Therapy Literacy", description: "How to look for a therapist, and what the first sessions are for." },
   { slug: "rest", name: "Rest", description: "A real break in the day, not only a night of sleep." },
+  { slug: "ai-tools", name: "AI Tools", description: "How to put a chat model on a real task so the work moves faster, and what you still have to check." },
 ];

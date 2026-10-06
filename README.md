@@ -4,13 +4,13 @@ A mastery-first learning platform. Curated roadmaps, your own resources, and an 
 
 ## Status
 
-Three free paths are loaded and available:
+Thirty paths are free. Three of them have catalogs:
 
-- Full-Stack Web Development — 12 stages, 64 resources. Stages 1–9 open.
-- Travel Vlogging — 8 stages, 46 resources. Stages 1–5 open.
-- Content Creation — 10 stages, 57 resources. Stages 1–7 open.
+- Full-Stack Web Development — 12 stages, 64 resources. Stages 1–9 are the open stretch.
+- Travel Vlogging — 8 stages, 46 resources. Stages 1–5 are the open stretch.
+- Content Creation — 10 stages, 57 resources. Stages 1–7 are the open stretch.
 
-On each free path the last three stages stay visible and locked. Art & Painting remains a flagship and is coming soon, with no stages. Every other niche is coming soon.
+The next stage on a free path opens after the explain-back. The last three stages stay visible and locked. The other twenty-seven free paths have no stages yet: Music Production, Art & Painting, Photography, Self-Grooming, Animation, IoT & Robot Automation, Screenwriting, Graphic Design, AI Tools, SEO, Cybersecurity, Digital Marketing, Emergency Preparedness, Personal Finance, Badminton, Public Speaking, Sound Design, Nutrition, Psychology, Podcasting, Guitar, Chess, Interior Design, Relationships, Socializing, Freelancing, and Travel Planning. Art & Painting stays a flagship. Every other niche is Premium, with no stages and no resources. Payments are not built.
 
 The niche list shows 32 cards a page. Home and roadmaps show the first 12, a blurred peek of the next row, and a link to the full list.
 
@@ -113,4 +113,4 @@ npx tsx scripts/map-demo.ts remove
 
 ## What is still ahead
 
-Passing an explain-back records the stage and does not unlock the last three stages of a free path. Mastery is the share of open stages passed. A streak day is a UTC day with a saved explain-back or a saved note. Notes download as Word or PDF, and a stage summary uses only those notes. Progress links to a transcript of the stages already passed. A certificate is issued only when every stage on the path is passed. A passed idea comes back twice, 18 hours apart, and stays on screen until the learner writes an answer. Retention on Progress is the average of those answers. The stage pass stays. `/notes/practice` reads a public page, a text file, or a pasted passage, reviews an idea against that text, and does not pass a stage. A learner can save preferences for a skill they follow. The roadmap then shows a personal schedule built from the shared stages. Undo shows those shared stages again and leaves the resources in place. Opening a stage uses the same selection while the plan is on. The model does not invent that path. There is no leaderboard and no peer review. Stripe is not running. `Project-roadmap.md` is the phase list. `AGENTS.md` is the working context for the next session.
+Passing an explain-back records the stage and opens the next one. The last three stages of a free path stay locked. Mastery is the share of open stages passed. A streak day is a UTC day with a saved explain-back or a saved note. Notes download as Word or PDF, and a stage summary uses only those notes. Progress links to a transcript of the stages already passed. A certificate is issued only when every stage on the path is passed. A passed idea comes back twice, 18 hours apart, and stays on screen until the learner writes an answer. Retention on Progress is the average of those answers. The stage pass stays. `/notes/practice` reads a public page, a text file, or a pasted passage, reviews an idea against that text, and does not pass a stage. A learner can save preferences for a skill they follow. The roadmap then shows a personal schedule built from the shared stages. Undo shows those shared stages again and leaves the resources in place. Opening a stage uses the same selection while the plan is on. The model does not invent that path. There is no leaderboard and no peer review. Stripe is not running. `Project-roadmap.md` is the phase list. `AGENTS.md` is the working context for the next session.

@@ -56,6 +56,7 @@ const META: Record<string, { group: NicheGroup; tags: string }> = {
   translation: { group: "language", tags: "interpreter bilingual meaning" },
   "research-methods": { group: "mind", tags: "study evidence method science" },
   "ai-literacy": { group: "future", tags: "chatgpt model hallucination prompt" },
+  "ai-tools": { group: "future", tags: "chatgpt llm prompts tools workflow efficiency" },
   "embedded-systems": { group: "future", tags: "microcontroller firmware hardware" },
   "climate-literacy": { group: "future", tags: "weather carbon energy climate" },
   "public-speaking": { group: "mind", tags: "speech presentation talk stage" },

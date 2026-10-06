@@ -132,7 +132,7 @@ export function SettingsScreen({
               <div className="sf-settings-skill">
                 <strong>{skill.name}</strong>
                 {skill.followed ? <Chip tone="accent">On your feed</Chip> : null}
-                {skill.offer === "FREE" ? <Chip tone="pass">Free</Chip> : null}
+                {skill.offer === "FREE" ? <Chip tone="pass">Free</Chip> : <Chip tone="lock">Premium</Chip>}
                 {skill.status === "coming_soon" ? <Chip tone="lock">Coming soon</Chip> : null}
               </div>
               {skill.followed ? (
@@ -150,7 +150,7 @@ export function SettingsScreen({
                     <Button type="button" size="sm" variant="quiet" onClick={() => setConfirmId(skill.id)}>Remove</Button>
                   </div>
                 )
-              ) : skill.status === "available" ? (
+              ) : skill.status === "available" && skill.offer === "FREE" ? (
                 <div className="sf-settings-skill-actions">
                   <Button type="button" size="sm" variant="outline" disabled={pending === skill.id} onClick={() => void addSkill(skill.id)}>
                     {pending === skill.id ? "Adding..." : "Add"}

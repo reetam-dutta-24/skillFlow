@@ -5,6 +5,7 @@ import { auth } from "@/lib/auth";
 import { loadPublicCatalog, publicSkillName } from "@/lib/data/public-catalog";
 import { getRoadmap } from "@/lib/data/roadmap";
 import { readLearningPlan } from "@/lib/plan/store";
+import { SEQUENCE_LOCK } from "@/lib/progress/sequence";
 import type { RoadmapStageView, StageStatus } from "@/lib/types/domain";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
 import { RoadmapStage } from "@/components/learning/RoadmapStage.jsx";
@@ -37,6 +38,9 @@ function stageMeta(stage: RoadmapStageView, planNote: string) {
 }
 
 function unlockHint(stage: RoadmapStageView) {
+  if (stage.description === SEQUENCE_LOCK && stage.previousStageTitle) {
+    return `Pass ${stage.previousStageTitle} to open this stage.`;
+  }
   if (stage.previousStageTitle) return "The last part of this free path stays locked.";
   return "This stage is not open yet.";
 }
@@ -88,8 +92,12 @@ export default async function RoadmapDetailPage({ params }: PageProps) {
       {data.stages.length === 0 ? (
         <EmptyState
           icon="route"
-          title="This path is not ready yet"
-          description="Stages for this skill are not available yet."
+          title={data.skill.offer === "MONETIZED" ? "Premium" : "This path is not ready yet"}
+          description={
+            data.skill.offer === "MONETIZED"
+              ? "This path is Premium."
+              : "Stages for this skill are not available yet."
+          }
         />
       ) : (
         <ol className="sf-roadmap">

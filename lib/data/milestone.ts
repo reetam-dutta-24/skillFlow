@@ -100,6 +100,27 @@ async function loadStoredMilestone(stageId: string, userId?: string): Promise<Mi
     stage.order <= limit;
   if (!open) return { kind: "locked", skillSlug: skill.slug };
 
+  const earlier = await prisma.roadmapStage.findMany({
+    where: { skillId: stage.skillId, monetized: false, order: { lt: stage.order, lte: limit } },
+    select: { id: true },
+  });
+  if (earlier.length > 0) {
+    const already = userId
+      ? await prisma.stageCompletion.findUnique({
+          where: { userId_stageId: { userId, stageId: stage.id } },
+          select: { explainBackPassed: true },
+        })
+      : null;
+    if (!already?.explainBackPassed) {
+      const passed = userId
+        ? await prisma.stageCompletion.count({
+            where: { userId, explainBackPassed: true, stageId: { in: earlier.map((item) => item.id) } },
+          })
+        : 0;
+      if (passed < earlier.length) return { kind: "locked", skillSlug: skill.slug };
+    }
+  }
+
   const view: RoadmapStageView = {
     id: stage.id,
     skillId: stage.skillId,

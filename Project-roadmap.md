@@ -7,7 +7,7 @@ This file is two things at once:
 
 Tick a box only when that exact piece is really finished. A screen that looks done on mock data is not the same as the backend for that feature.
 
-**How to talk about it.** The product idea, the database, sign-in, onboarding, the niche list, and the three free roadmaps are real. Lessons on those paths play the stored resources. There is no quiz: the feature was dropped, and the explain-back gate is the only check. A real stage walks one learning objective at a time. Gemini’s free tier writes a review for each answer, and the step stays put until that idea holds. An idea that holds is kept in Notes. The notebook can download those notes as Word or PDF, and a stage can be summarized from those notes alone. The stage is recorded only when every idea has passed. That call needs an API key. Mastery is the share of open stages passed. A streak day is a UTC day with a saved explain-back or a saved note. There is no leaderboard and no peer review. Stripe is not running. A creator rating and earnings are not part of the product.
+**How to talk about it.** The product idea, the database, sign-in, onboarding, the niche list, and thirty free paths are real. Three of those paths have catalogs, and lessons on them play the stored resources. The other twenty-seven free paths have no stages yet. Every niche outside that list is Premium and has no resources. Payments are not built. There is no quiz: the feature was dropped, and the explain-back gate is the only check. A real stage walks one learning objective at a time. Gemini’s free tier writes a review for each answer, and the step stays put until that idea holds. An idea that holds is kept in Notes. The notebook can download those notes as Word or PDF, and a stage can be summarized from those notes alone. The stage is recorded only when every idea has passed. That call needs an API key. Mastery is the share of open stages passed. A streak day is a UTC day with a saved explain-back or a saved note. There is no leaderboard and no peer review. Stripe is not running. A creator rating and earnings are not part of the product.
 
 `AGENTS.md` is the short context a new session should read. This file is the longer record.
 
@@ -34,7 +34,7 @@ Last aligned with the working tree on 6 October 2026.
 | Settings follow | Done | Add and remove on the settings page write `UserSkillProgress`. Home links to the niche list instead of a fake Add |
 | Explain-back | Wizard, one idea at a time | Each learning objective is its own step. A written review comes back whether the idea holds or not. The step moves on only when it holds. The stage is recorded after the last idea. No key means no pass. The last three stages stay locked |
 | Notes | Accepted ideas | `/notes` is in the sidebar. Each idea that holds is stored with the explanation and the review. The list is personal |
-| Unlock by mastery | Not in Version 1 | A free path locks its last three stages. A pass does not open the next one |
+| Unlock by mastery | The next stage | A pass opens the next stage for that learner. The last three stages of a free path stay locked |
 | Tests, deploy, monitoring | Not started | No test suite, no production host, no Sentry |
 
 ---
@@ -51,7 +51,7 @@ The loop, as designed:
 4. Pass the explain-back gate: one idea at a time, with a written review on every step. A step moves on only when that idea holds.
 5. A real pass is supposed to open the next stage.
 
-There is no quiz. That feature was dropped, and the explain-back is the mastery check. Steps 4 and 5 are designed and partly stored. They are not what opens a stage today. On a free available path, every stage is open except the last three.
+There is no quiz. That feature was dropped, and the explain-back is the mastery check. A pass opens the next stage for that learner. The last three stages of a free path stay locked for everyone.
 
 What the product refuses: comments, likes, view counts, trending, a score leaderboard, peer review, and guilt copy when a streak breaks. Progress is meant to be verified understanding, not time spent.
 
@@ -89,7 +89,7 @@ Public pages are static. `/`, `/login`, `/signup`, `/privacy`, and `/terms` do n
 Signed-in pages are not fully static. Follow marks, mastery, and the account menu differ per person. `cacheComponents` is on in `next.config.ts`. The part that is the same for every visitor is cached with `"use cache"`:
 
 - The niche grid, including the card template
-- Lesson screens, including a locked stage. The lock is the last three stages of a free path, so it is the same for every learner
+- Lesson screens, including a locked stage. The last three stages of a free path are locked for everyone. A later stage also stays shut until this learner has passed the earlier ones
 - Clip items from open stages
 - The submit-a-resource skill picker
 - The public catalog those screens read (`lib/data/public-catalog.ts`)
@@ -139,11 +139,11 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 
 **Shell.** Every signed-in page sits in `app/(app)`. The URL does not contain `(app)`. Desktop shows a fixed sidebar from 960px up. Below that, the sidebar is a dialog drawer. Main nav includes Home, Clips, Roadmaps, Progress, Analytics, Submit a resource, and Settings. Admin appears only when `role === ADMIN`.
 
-**Niches (`/skills`).** Search and group filters, then 32 cards a page (4 columns by 8 rows). An available skill with stages is a link to its roadmap. A coming-soon skill is a card, not a link. Travel shows "Free · 8 stages". Art shows "Coming soon". Narrow screens stack the same 32 cards into fewer columns.
+**Niches (`/skills`).** Search and group filters, then 32 cards a page (4 columns by 8 rows). A free skill with stages is a link to its roadmap. Open means the thirty free paths. Travel shows "Free · 8 stages". A free path with no stages yet shows "Free". Every other niche shows "Premium" and is not a link. Narrow screens stack the same 32 cards into fewer columns.
 
 **Home.** Streak banner, four stats from the signed-in user (zeros until there are attempts), and one horizontal row per followed skill. Open stages link to the lesson. Locked stages do not. Explore shows 4 columns by 3 rows of niche cards, a blurred peek of the next row, and Explore all the niches. The real follow is Settings.
 
-**Roadmaps.** The index says the three free paths by name. A followed skill has Continue and Open path. More skills is the same short niche teaser as Home. A path page shows the stage photo, the real description when the stage is open, and "This part of the path stays locked." when it is not. Stage photos are 16:9 files in `public/uploads`. That folder is gitignored, so a clone does not include them.
+**Roadmaps.** The index says thirty paths are free, the next stage opens after the explain-back, and the last few stages stay locked. A followed skill has Continue and Open path. More skills is the same short niche teaser as Home. A path page shows the stage photo and the real description when this learner can open the stage. A stage they have not reached yet says "Pass the previous stage to open this one." The tail says "This part of the path stays locked." A Premium path with no stages says Premium. Stage photos are 16:9 files in `public/uploads`. That folder is gitignored, so a clone does not include them.
 
 **Lesson.** The first video is the clip. Other resources are sources. A course link is labeled "Course". Pressing play loads `youtube-nocookie.com/embed/...`. A locked lesson shows the stage title and the skill name, and does not include the resource text. Direct visits to a locked stage id behave the same way.
 
@@ -151,7 +151,7 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 
 **No quiz.** The quiz feature was dropped. There is no `/quiz` route, no quiz stat, and no “Continue to quiz” button. The lesson's next step is the explain-back.
 
-**Explain-back.** Every imported stage has learning objectives, a question, and a rubric. The lesson’s continue button opens `/milestone/[stageId]`. A real stage is a wizard: one objective per step, animated between steps. `GEMINI_API_KEY` sends that step to Gemini’s free tier (`gemini-flash-lite-latest`). `OPENAI_API_KEY` is used only when the Gemini key is empty. The model writes a review whether the idea holds or not. An empty answer, or one the model does not accept, stays on the step. An accepted idea is stored as a note: the explanation and the review. The stage is saved only after every idea has passed: one `ExplainBackAttempt` and `StageCompletion.explainBackPassed`. The last three stages stay locked. With no key, a timeout, or a reply that is not a review, nothing is saved. `review failed` still shows the error and saves nothing. The preview id `__explain_input__` keeps the old mock walkthrough.
+**Explain-back.** Every imported stage has learning objectives, a question, and a rubric. The lesson’s continue button opens `/milestone/[stageId]`. A real stage is a wizard: one objective per step, animated between steps. `GEMINI_API_KEY` sends that step to Gemini’s free tier (`gemini-flash-lite-latest`). `OPENAI_API_KEY` is used only when the Gemini key is empty. The model writes a review whether the idea holds or not. An empty answer, or one the model does not accept, stays on the step. An accepted idea is stored as a note: the explanation and the review. The stage is saved only after every idea has passed: one `ExplainBackAttempt` and `StageCompletion.explainBackPassed`. The next stage stays shut until this one is passed. The last three stages stay locked. With no key, a timeout, or a reply that is not a review, nothing is saved. `review failed` still shows the error and saves nothing. The preview id `__explain_input__` keeps the old mock walkthrough.
 
 **Notes.** `/notes` is in the sidebar. It lists that learner’s accepted ideas, grouped by skill and stage. Opening one shows what they wrote and the review. Search and a skill filter narrow the list. Download Word and Download PDF save the notebook. Summarize this stage writes a short restatement of that stage’s notes and nothing else. The page reads the signed-in user on the request.
 
@@ -215,7 +215,7 @@ Stage photos were generated for all 10 Content Creation stages and all 8 Travel 
 - **Public pages stay static.** `/`, `/login`, `/signup`, `/privacy`, and `/terms` do not call `auth()` in the root layout.
 - **Shared screens are one cached copy. Personal progress is not.** The niche grid, lessons, clips, and the submit picker use the `catalog` tag. Admin saves expire it at once. Follow marks, mastery, and the account menu stay on the request.
 - **The feed can hold more than one skill.** Onboarding saves one profile skill. Settings can add more available skills. Home renders one row per followed skill. The old "one skill only" rule is not what the screen does.
-- **The last three stages are the Version 1 lock.** It is not a mastery gate.
+- **The last three stages stay locked on a free path.** A pass opens the next stage before that tail.
 - **The quiz was dropped.** One explain-back gate per stage is the check, plus a bring-your-own-resource prompt. The quiz tables stay in the schema unused, so the database did not change. Coming-soon and monetized skills open no stages.
 - **Art stayed a flagship.** Travel took its place as the third free path. Art is coming soon so a card does not promise a path that has no stages.
 - **The importer must not own availability.** A researched file can say coming soon while the product decision is to open the path. Status is set on the row, and the seed special-cases Art so a later seed does not undo that.
@@ -506,4 +506,4 @@ Ticketmaster and Google Events (SerpApi) are separate adapters. A missing key tu
 
 ---
 
-**Right now.** Phases 0, 1, 2, 3, 4, 5, and 7 are done for the three free paths, and the Open Source community is complete. The learner map and Nearby events are live. Explain-back asks for every idea written from that stage’s resources and passes the stage only when a model marks each one understood. An accepted idea is kept in Notes, and that notebook can be downloaded or summarized from those notes alone. A transcript lists the stages a learner has passed. A certificate is issued when every stage on a path is passed. `/notes/practice` grades an idea against a public page, a text file, or a pasted passage, and saves it without passing a stage. A followed skill can have a personal plan built in code from that learner's preferences. Mastery, streaks, weak topics, and the progress charts read explain-back attempts. A score leaderboard and peer review are not part of the product. A creator rating and earnings are not either. Still open for Version 1: the rest of the test suite and an end-to-end pass (Phase 8), and deploy (Phase 9). Public event API keys stay last.
+**Right now.** Thirty paths are free. Full-Stack, Travel Vlogging, and Content Creation have catalogs. The other twenty-seven free paths are waiting for a catalog and have no stages. Every other niche is Premium, with no resources and no payments. A pass opens the next stage, and the last three stages of a free path stay locked. Phases 0, 1, 2, 3, 4, 5, and 7 are done for the three catalog paths, and the Open Source community is complete. The learner map and Nearby events are live. Explain-back asks for every idea written from that stage’s resources and passes the stage only when a model marks each one understood. An accepted idea is kept in Notes, and that notebook can be downloaded or summarized from those notes alone. A transcript lists the stages a learner has passed. A certificate is issued when every stage on a path is passed. `/notes/practice` grades an idea against a public page, a text file, or a pasted passage, and saves it without passing a stage. A followed skill can have a personal plan built in code from that learner's preferences. Mastery, streaks, weak topics, and the progress charts read explain-back attempts. A score leaderboard and peer review are not part of the product. A creator rating and earnings are not either. Still open for Version 1: the rest of the test suite and an end-to-end pass (Phase 8), and deploy (Phase 9). Public event API keys stay last.

@@ -2,7 +2,9 @@ import "server-only";
 import { cache } from "react";
 import { cacheLife, cacheTag } from "next/cache";
 import { CATALOG_TAG } from "@/lib/cache/tags";
+import { loadCatalog } from "@/lib/data/catalog";
 import { loadCachedStageResources, loadPublicCatalog, type PublicCatalogEntry, type PublicStage } from "@/lib/data/public-catalog";
+import { SEQUENCE_LOCK } from "@/lib/progress/sequence";
 import type { RoadmapStageView, SkillView, StageStatus } from "@/lib/types/domain";
 import type { LessonData } from "@/lib/types/pages";
 
@@ -28,7 +30,7 @@ function toStage(stage: PublicStage): RoadmapStageView {
   };
 }
 
-/** One lesson body for every learner. The lock is the free-path tail, not a personal pass. */
+/** One lesson body for every learner. The tail lock is shared. A personal pass is applied in getLesson. */
 export async function loadPublicLesson(stageId: string): Promise<LessonData | null> {
   "use cache";
   cacheLife("hours");
@@ -57,4 +59,17 @@ export async function loadPublicLesson(stageId: string): Promise<LessonData | nu
   };
 }
 
-export const getLesson = cache(async (stageId: string): Promise<LessonData | null> => loadPublicLesson(stageId));
+export const getLesson = cache(async (stageId: string): Promise<LessonData | null> => {
+  const [shared, catalog] = await Promise.all([loadPublicLesson(stageId), loadCatalog()]);
+  const stage = catalog.flatMap((entry) => entry.stages).find((item) => item.id === stageId);
+  if (!shared || !stage || stage.status !== "locked" || stage.description !== SEQUENCE_LOCK) return shared;
+  if (shared.kind !== "open") return shared;
+  return {
+    kind: "locked",
+    skillSlug: shared.skill.slug,
+    skillName: shared.skill.name,
+    stageTitle: stage.title,
+    previousStageTitle: stage.previousStageTitle,
+    sequence: true,
+  };
+});

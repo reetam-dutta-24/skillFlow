@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs"
 import { PrismaClient } from "@prisma/client"
 import { prisma as catalogPrisma } from "../lib/prisma"
 import { EXTRA_NICHES } from "../lib/niche-catalog"
+import { isFreePath } from "../lib/niches/tiers"
 import { nicheMeta } from "../lib/niche-meta"
 import { importCatalog } from "../scripts/import-catalog"
 
@@ -63,14 +64,12 @@ const BASE_SKILLS = [
   },
 ]
 
-function seedStatus(skill: { slug: string; isFlagship: boolean }) {
-  if (skill.slug === "art-painting") return "COMING_SOON" as const
-  return skill.isFlagship ? ("AVAILABLE" as const) : ("COMING_SOON" as const)
+function seedStatus(_skill: { slug: string; isFlagship: boolean }) {
+  return "AVAILABLE" as const
 }
 
 function seedOffer(skill: { slug: string; isFlagship: boolean }) {
-  if (skill.slug === "art-painting") return "MONETIZED" as const
-  return skill.isFlagship ? ("FREE" as const) : ("MONETIZED" as const)
+  return isFreePath(skill.slug) ? ("FREE" as const) : ("MONETIZED" as const)
 }
 
 async function main() {

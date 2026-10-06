@@ -95,6 +95,7 @@ export type LessonData =
       skillName: string;
       stageTitle: string;
       previousStageTitle: string | null;
+      sequence?: boolean;
     }
   | {
       kind: "open";

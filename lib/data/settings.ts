@@ -77,10 +77,11 @@ export async function saveProfileName(userId: string, name: string) {
 export async function followSkillRecord(userId: string, skillId: string) {
   const skill = await prisma.skill.findUnique({
     where: { id: skillId },
-    select: { id: true, status: true },
+    select: { id: true, status: true, offer: true },
   });
   if (!skill) return { ok: false as const, error: "Choose a skill that exists." };
   if (skill.status !== "AVAILABLE") return { ok: false as const, error: "That skill is not open yet." };
+  if (skill.offer !== "FREE") return { ok: false as const, error: "That path is Premium." };
 
   try {
     await prisma.userSkillProgress.upsert({

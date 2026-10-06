@@ -62,7 +62,7 @@ export function PublishFollowedIds({ ids }: { ids: string[] }) {
 }
 
 function matches(skill: BrowseSkill, query: string, filter: FilterId) {
-  if (filter === "open" && skill.status !== "available") return false;
+  if (filter === "open" && (skill.status !== "available" || skill.offer !== "FREE")) return false;
   if (filter !== "all" && filter !== "open" && skill.group !== filter) return false;
   const haystack = `${skill.name} ${skill.description} ${skill.tags.join(" ")}`.toLowerCase();
   return query
@@ -249,11 +249,7 @@ function SkillCard({ skill, preview = false }: { skill: BrowseSkill; preview?: b
               ? view.stageCount
                 ? `Free · ${view.stageCount} stages`
                 : "Free"
-              : view.followed
-                ? "On your feed"
-                : view.stageCount
-                  ? `${view.stageCount} stages`
-                  : "No stages yet"}
+              : "Premium"}
         </span>
         <strong>{view.name}</strong>
         {view.description ? <span>{view.description}</span> : null}

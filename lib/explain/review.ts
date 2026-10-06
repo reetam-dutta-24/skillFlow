@@ -20,7 +20,7 @@ function openLimit(stageCount: number) {
   return Math.max(1, stageCount - LOCKED_TAIL);
 }
 
-async function loadOpenExplainStage(stageId: string) {
+async function loadOpenExplainStage(stageId: string, userId: string) {
   await ensureGateConcepts(stageId);
   const stage = await prisma.roadmapStage.findUnique({
     where: { id: stageId },
@@ -42,6 +42,23 @@ async function loadOpenExplainStage(stageId: string) {
     stage.order <= limit;
   if (!open) return null;
 
+  const earlier = await prisma.roadmapStage.findMany({
+    where: { skillId: stage.skillId, monetized: false, order: { lt: stage.order, lte: limit } },
+    select: { id: true },
+  });
+  if (earlier.length > 0) {
+    const [passed, already] = await Promise.all([
+      prisma.stageCompletion.count({
+        where: { userId, explainBackPassed: true, stageId: { in: earlier.map((item) => item.id) } },
+      }),
+      prisma.stageCompletion.findUnique({
+        where: { userId_stageId: { userId, stageId: stage.id } },
+        select: { explainBackPassed: true },
+      }),
+    ]);
+    if (passed < earlier.length && !already?.explainBackPassed) return null;
+  }
+
   const generated = Boolean(prompt.conceptSourceHash);
   const concepts = conceptsForGate(stage.learningObjectives, prompt.rubric, generated);
   const notes = [
@@ -61,7 +78,7 @@ export async function reviewStoredExplanation(input: {
   followUpQuestion?: string;
   followUpAnswer?: string;
 }): Promise<ExplainReview> {
-  const loaded = await loadOpenExplainStage(input.stageId);
+  const loaded = await loadOpenExplainStage(input.stageId, input.userId);
   if (!loaded) return { ok: false, error: "unavailable" };
   const { stage, prompt, stageCount, concepts, notes } = loaded;
 
@@ -135,7 +152,7 @@ export async function reviewConceptStep(input: {
   concept: string;
   answer: string;
 }): Promise<ConceptStepResult> {
-  const loaded = await loadOpenExplainStage(input.stageId);
+  const loaded = await loadOpenExplainStage(input.stageId, input.userId);
   if (!loaded) return { ok: false, error: "unavailable" };
   const { stage, prompt, stageCount, concepts, notes } = loaded;
   const concept = input.concept.trim();
@@ -191,7 +208,7 @@ export async function finishExplainWizard(input: {
   stageId: string;
   steps: WizardStep[];
 }): Promise<{ ok: true } | { ok: false; error: "empty" | "unavailable" | "unconnected" }> {
-  const loaded = await loadOpenExplainStage(input.stageId);
+  const loaded = await loadOpenExplainStage(input.stageId, input.userId);
   if (!loaded) return { ok: false, error: "unavailable" };
   const { stage, prompt, stageCount, concepts } = loaded;
   if (concepts.length === 0 || !explainModelConfig()) return { ok: false, error: "unconnected" };

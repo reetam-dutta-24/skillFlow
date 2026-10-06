@@ -1,0 +1,378 @@
+{
+  "stages": [
+    {
+      "order": 1,
+      "title": "Working for Yourself",
+      "level": "BEGINNER",
+      "description": "A freelance job is self-employment. You file a return, and you pay tax that an employer would have withheld.",
+      "learningObjectives": [
+        "Name who counts as self-employed",
+        "Separate self-employment tax from income tax",
+        "Say when a return is required and which schedules it uses"
+      ],
+      "explainBack": {
+        "question": "A designer takes paid client work on the side and had $600 of net profit. Using the IRS self-employed tax center, explain whether that person is self-employed, what self-employment tax is, and what they generally have to file.",
+        "rubric": [
+          "You are self-employed if you are a sole proprietor or independent contractor, a partner in a partnership that carries on a trade or business, or otherwise in business for yourself, including part-time or gig work",
+          "Self-employment tax is Social Security and Medicare tax, not income tax",
+          "Net profit is business income minus expenses; a net loss may be deductible, sometimes with limits",
+          "You generally must file if net earnings from self-employment were $400 or more; under $400, you file if another Form 1040 requirement applies",
+          "Because no employer withholds, estimated tax is paid with Form 1040-ES",
+          "The annual return uses Schedule C for profit or loss and Schedule SE for Social Security and Medicare",
+          "If you use part of your home for business, you may be able to deduct those expenses, whether you own or rent"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Self-Employed Individuals Tax Center",
+          "provider": "Internal Revenue Service",
+          "url": "https://www.irs.gov/businesses/small-businesses-self-employed/self-employed-individuals-tax-center",
+          "description": "Who is self-employed, and which forms the annual return uses.",
+          "keyPoints": [
+            "You are self-employed if you carry on a trade or business as a sole proprietor or independent contractor, as a partner in a partnership, or otherwise in business for yourself, including part-time or gig work",
+            "You generally must file an annual return and pay estimated taxes quarterly",
+            "Self-employment tax is Social Security and Medicare tax, not income tax",
+            "Net profit is business income minus expenses; a net loss may be deductible, though the deduction is sometimes limited",
+            "You must file if net earnings from self-employment were $400 or more; if they were under $400, you still file when another Form 1040 requirement applies",
+            "Estimated tax is paid with Form 1040-ES because no employer withholds; in the first year you estimate the year's income, and if that estimate was too high or too low you complete another worksheet for the next quarter",
+            "The annual return uses Schedule C (Form 1040) for profit or loss and Schedule SE for Social Security and Medicare",
+            "If you use part of your home for business, you may be able to deduct those expenses; the deduction is available to homeowners and renters",
+            "Common business structures named here are sole proprietorship, partnership, corporation, and S corporation; an LLC is a structure created under state law"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": "The 15.3 Percent Tax",
+      "level": "BEGINNER",
+      "description": "Self-employment tax is 12.4 percent for Social Security and 2.9 percent for Medicare. You can deduct the employer half from income tax, not from this tax.",
+      "learningObjectives": [
+        "Split the 15.3 percent rate",
+        "State the $400 filing line and that age does not remove it",
+        "Explain the employer-equivalent deduction"
+      ],
+      "explainBack": {
+        "question": "Someone says freelance tax is just income tax, and that it stops once they start Social Security. Using the IRS self-employment tax page, correct both claims and say how the employer-equivalent deduction works.",
+        "rubric": [
+          "On this page, self-employment tax means Social Security and Medicare taxes only",
+          "The rate is 15.3 percent: 12.4 percent for Social Security and 2.9 percent for Medicare",
+          "You calculate it on Schedule SE; you can deduct the employer-equivalent portion when figuring adjusted gross income",
+          "That deduction affects income tax only; it does not change net earnings from self-employment or the self-employment tax itself",
+          "You pay self-employment tax and file Schedule SE if net earnings from self-employment were $400 or more, or if church employee income was $108.28 or more",
+          "The rules apply no matter how old you are, including if you already receive Social Security or Medicare",
+          "For 2024, the Social Security part applies to the first $168,600 of combined wages, tips, and net earnings; the 2.9 percent Medicare part applies to all net earnings"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Self-employment tax (Social Security and Medicare taxes)",
+          "provider": "Internal Revenue Service",
+          "url": "https://www.irs.gov/businesses/small-businesses-self-employed/self-employment-tax-social-security-and-medicare-taxes",
+          "description": "The 15.3 percent Social Security and Medicare tax on net self-employment earnings.",
+          "keyPoints": [
+            "On this page, self-employment tax means Social Security and Medicare taxes only",
+            "It is similar to the Social Security and Medicare taxes withheld from most wages, and you calculate it on Schedule SE",
+            "The rate is 15.3 percent: 12.4 percent for Social Security and 2.9 percent for Medicare",
+            "For 2024, the first $168,600 of combined wages, tips, and net earnings is subject to the Social Security part; if wages already reach that amount, do not pay the 12.4 percent part on net earnings",
+            "All net earnings are subject to the 2.9 percent Medicare part",
+            "An additional 0.9 percent Medicare tax applies when wages, compensation, or self-employment income exceed the threshold for your filing status: $250,000 married filing jointly, $125,000 married filing separately, and $200,000 for single, head of household, or qualifying surviving spouse",
+            "You can deduct the employer-equivalent portion when figuring adjusted gross income; the deduction affects income tax only, not net earnings or the self-employment tax",
+            "You must pay the tax and file Schedule SE if net earnings from self-employment were $400 or more, or church employee income was $108.28 or more",
+            "The rules apply no matter your age, including if you already receive Social Security or Medicare",
+            "You pay it through quarterly estimated taxes, and you need a Social Security number or an ITIN"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Pay as the Money Comes In",
+      "level": "BEGINNER",
+      "description": "Tax on freelance income is due during the year. Estimated payments cover income tax, self-employment tax, and alternative minimum tax.",
+      "learningObjectives": [
+        "Explain why estimated tax exists",
+        "Name what those payments cover and which form to use",
+        "Say what to do when the estimate was off"
+      ],
+      "explainBack": {
+        "question": "A freelancer had a strong first quarter and a slow second quarter, and they skipped the payment because no one withheld tax. Using the IRS estimated-tax page, explain what they owe during the year and how to correct a bad estimate.",
+        "rubric": [
+          "Taxes are paid as income is earned, either by withholding or by estimated payments",
+          "Self-employed people generally must make estimated tax payments",
+          "Estimated tax pays income tax, self-employment tax, and alternative minimum tax",
+          "Sole proprietors, partners, and S corporation shareholders generally use Form 1040-ES",
+          "Use the prior-year return as a starting point",
+          "If the estimate was too high or too low, refigure the next quarter",
+          "Estimate as accurately as you can to avoid penalties",
+          "A person who also earns wages can ask the employer to withhold more on a new Form W-4 instead of paying estimated tax"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Estimated taxes",
+          "provider": "Internal Revenue Service",
+          "url": "https://www.irs.gov/businesses/small-businesses-self-employed/estimated-taxes",
+          "description": "Why self-employed people pay tax during the year, and which form they use.",
+          "keyPoints": [
+            "Taxes are paid as income is earned, by withholding or by estimated payments",
+            "Self-employed people generally must make estimated tax payments",
+            "Estimated tax is used to pay income tax, self-employment tax, and alternative minimum tax",
+            "Sole proprietors, partners, and S corporation shareholders generally use Form 1040-ES; nonresident aliens use Form 1040-ES (NR)",
+            "Use the prior-year return as a starting point for the estimate",
+            "If the estimate was too high or too low, refigure it for the next quarter",
+            "Estimate as accurately as you can so you avoid penalties",
+            "Someone who also earns wages can give the employer a new Form W-4 and have more withheld instead of paying estimated tax"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Pick a Structure Before You Register",
+      "level": "INTERMEDIATE",
+      "description": "A sole proprietorship is the default. A partnership, an LLC, or a corporation changes liability, taxes, and how you raise money.",
+      "learningObjectives": [
+        "State what a business structure changes",
+        "Contrast a sole proprietorship with an LLC and a C corporation",
+        "Explain why an S corporation is a tax status as well as a structure"
+      ],
+      "explainBack": {
+        "question": "Two people want to freelance together, keep their houses out of a lawsuit, and avoid paying tax twice on the same profit. Using the SBA page on registering a business, compare a sole proprietorship, an LLC, a C corporation, and an S corporation.",
+        "rubric": [
+          "The structure affects taxes, the ability to raise money, the paperwork, and personal liability, and you choose it before you register with the state",
+          "If you do business and do not register as another kind of business, you are automatically a sole proprietorship; there is no separate entity, and you can be held personally liable",
+          "A partnership is the simplest structure for two or more owners; in a limited partnership only the general partner has unlimited liability, and a limited liability partnership gives limited liability to every owner",
+          "An LLC usually protects personal assets such as a vehicle, house, and savings; profits can pass through without corporate tax, and members are self-employed and pay self-employment tax",
+          "A C corporation is a separate legal entity and offers the strongest protection from personal liability; it pays income tax on profits, and those profits can be taxed again when paid out as dividends",
+          "An S corporation is built to avoid that double taxation by passing profits and some losses through to the owners; you file with the IRS for S corporation status, and special limits apply",
+          "S corporation and nonprofit can also be tax statuses; an LLC can be taxed as a C corporation, an S corporation, or a nonprofit, and those setups are less common"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Register your business",
+          "provider": "U.S. Small Business Administration",
+          "url": "https://www.sba.gov/business-guide/launch-your-business/register-your-business",
+          "description": "How a sole proprietorship, partnership, LLC, and corporation differ before you register.",
+          "keyPoints": [
+            "Your business structure affects taxes, your ability to raise money, the paperwork you file, and your personal liability, and you choose it before registering with the state",
+            "You are automatically a sole proprietorship if you do business and do not register as another kind of business; there is no separate entity, so you can be held personally liable, and it is hard to raise money because you cannot sell stock",
+            "A partnership is the simplest structure for two or more owners; a limited partnership has one general partner with unlimited liability, and a limited liability partnership gives limited liability to every owner",
+            "An LLC usually keeps personal assets such as a vehicle, house, and savings from business lawsuits or bankruptcy; profits and losses can pass through without corporate tax, and members are self-employed and pay self-employment tax",
+            "A C corporation is a separate legal entity, offers the strongest protection from personal liability, and pays income tax on its profits, which can be taxed again when dividends are paid to shareholders",
+            "An S corporation lets profits and some losses pass through to the owners to avoid that double taxation; you file with the IRS for the status, and special eligibility limits apply",
+            "Designations such as S corporation and nonprofit can be a tax status as well as a structure, and an LLC can be taxed as a C corporation, an S corporation, or a nonprofit"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Write the Job Down",
+      "level": "INTERMEDIATE",
+      "description": "The FTC's contractor checklist is the shape of a written job: who, what, when, the price, and a cancellation right when the deal is signed at home.",
+      "learningObjectives": [
+        "List what a written estimate and contract should contain",
+        "Refuse full payment up front",
+        "Recognize door-to-door pressure"
+      ],
+      "explainBack": {
+        "question": "A client wants the whole fee today, in cash, and says the details can wait. Using the FTC's home-improvement guidance, say what a written estimate and contract should include and when you should not take the last payment.",
+        "rubric": [
+          "A written estimate should describe the work, the materials, the completion date, and the price",
+          "Do not automatically take the lowest bid, and ask why estimates differ a lot",
+          "Even if the state does not require a written contract, ask for one",
+          "The contract should include the contractor's name, address, phone number, and license number, an estimated start and completion date, and the promises about scope and the cost of labor and materials",
+          "If it was signed at home or somewhere other than the seller's permanent place of business, it should state the right to cancel within three business days",
+          "Fill in blank spaces, and do not pay the full amount up front; some states cap the down payment",
+          "Never make the final payment until the work is done and you are satisfied",
+          "Pressure for an immediate decision, leftover materials, cash only, or paying everything up front are signs of a scam"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How To Avoid a Home Improvement Scam",
+          "provider": "Federal Trade Commission",
+          "url": "https://consumer.ftc.gov/articles/how-avoid-home-improvement-scam",
+          "description": "What a written estimate and contract should say before money changes hands.",
+          "keyPoints": [
+            "Get more than one written estimate, covering the work, the materials, the completion date, and the price; do not automatically choose the lowest bid",
+            "Even if your state does not require a written agreement, ask for one",
+            "The contract should include the contractor's name, address, phone number, and license number, an estimated start and completion date, and promises about the scope of work and the cost of labor and materials",
+            "If you signed at home or somewhere other than the seller's permanent place of business, the contract should include a written right to cancel within three business days",
+            "Fill in blank spaces, and do not pay the full amount up front; some states limit the down payment",
+            "Never make the final payment until the work is done and you are satisfied",
+            "Door-to-door pressure, leftover materials, an immediate decision, cash only, or paying everything up front are signs of a scam"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "title": "A Guaranteed Income Is a Pitch",
+      "level": "INTERMEDIATE",
+      "description": "A coaching program that promises a proven system and a certain income is a scam pattern. There is no license required to call yourself a business coach.",
+      "learningObjectives": [
+        "Name the promises that mark a coaching scam",
+        "Ask the five questions before you pay",
+        "Stop when the program asks for more money"
+      ],
+      "explainBack": {
+        "question": "A program says you will earn a set income with a proven system, the testimonials are glowing, and the price is today only. Using the FTC's coaching-scam article, explain why that is a warning and what to ask before you pay.",
+        "rubric": [
+          "A guarantee of income, large returns, or a proven system is likely a scam",
+          "Take time and get a second opinion; search the company plus review, scam, or complaint, and check the state attorney general",
+          "Testimonials may be fake, and no license is required to be a business coach",
+          "Stop if you are asked to pay more",
+          "Before paying, answer what you would sell, how customers would find you, how it makes money, what the expenses are, and when it would profit",
+          "Turnkey and we'll take care of everything are red flags, and a high-pressure today-only offer is a scam signal",
+          "Report it at ReportFraud.ftc.gov and to the state attorney general; legitimate help can come from the SBA and SCORE"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "When a Business Offer or Coaching Program Is a Scam",
+          "provider": "Federal Trade Commission",
+          "url": "https://consumer.ftc.gov/articles/when-business-offer-or-coaching-program-scam",
+          "description": "How to spot a coaching pitch that guarantees income.",
+          "keyPoints": [
+            "A guarantee of income, large returns, or a proven system is likely a scam",
+            "Take time and get a second opinion; search the company name plus review, scam, or complaint, and check the state attorney general",
+            "Testimonials may be fake, and there is no license required to be a business coach",
+            "Stop if you are asked to pay more money",
+            "Before you pay, know what you would sell, how customers would find you, how the offer makes money, what the expenses are, and when it would profit",
+            "Turnkey and we'll take care of everything are red flags, and a high-pressure today-only deadline is a scam signal",
+            "Report it at ReportFraud.ftc.gov and to the state attorney general; the SBA and SCORE are legitimate places to get help"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Do Not Pay to Launch an Idea",
+      "level": "INTERMEDIATE",
+      "description": "An invention promoter has to show you five years of results before you sign. A large fee up front, and a promise of a global patent, are the scam.",
+      "learningObjectives": [
+        "List the five-year figures a promoter must give you",
+        "Refuse a large advance and a global-patent claim",
+        "Get every promise into the contract"
+      ],
+      "explainBack": {
+        "question": "A firm wants several thousand dollars now, says your idea is one of the few that will sell, and says the fee covers a global patent. Using the FTC's invention-marketing article, say what they must disclose and why that patent claim is false.",
+        "rubric": [
+          "Before you sign, federal law gives you the right to five years of figures: inventions evaluated, positive and negative evaluations, total clients, clients who made a net profit, and clients who licensed an invention through the firm",
+          "Check the state attorney general, the USPTO list of complaints against invention promoters, and a search of the firm name plus review, scam, or complaint",
+          "Get the total cost, including research, marketing, and licensing, before you sign, and walk away if they will not say",
+          "Do not pay several thousand dollars up front; reputable firms depend on royalties from licensing, not large advance fees",
+          "No one can guarantee success, and most ideas do not make money",
+          "There is no global patent; a U.S. patent is issued by the USPTO, usually for 20 years, needs maintenance fees, and has no effect abroad",
+          "Get verbal promises into the written contract, and ask an attorney to review it if you can"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Invention Marketing Scams",
+          "provider": "Federal Trade Commission",
+          "url": "https://consumer.ftc.gov/articles/invention-marketing-scams",
+          "description": "The disclosures an invention promoter owes you, and the upfront-fee pattern.",
+          "keyPoints": [
+            "Federal law gives you the right, before you sign, to five years of information: how many inventions the firm evaluated, how many evaluations were positive or negative, how many clients it served, how many clients made a net profit, and how many clients licensed an invention through the firm",
+            "Check your state attorney general, the USPTO list of complaints against invention promoters, and search the firm's name plus review, scam, or complaint",
+            "Ask for the total cost, including research, marketing, and licensing, and walk away if the salesperson will not tell you",
+            "Do not pay several thousand dollars up front; reputable firms usually depend on royalties from successful licensing",
+            "A mass-produced positive report is not real market research, and no one can guarantee that an invention will make money",
+            "There is no global patent; the USPTO issues U.S. patents, usually for 20 years with maintenance fees, and they have no effect abroad",
+            "Put every promise in the contract, because the salesperson and the contract often disagree"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "title": "When the Client Is the Government",
+      "level": "INTERMEDIATE",
+      "description": "A federal small-business set-aside limits how much of the work you can hand to subcontractors, and a change in the nature of the job can change the price.",
+      "learningObjectives": [
+        "State the performance percentages for services, supplies, and construction",
+        "Explain a fair adjustment when the work changes",
+        "Say how small and large fixed-price jobs are paid"
+      ],
+      "explainBack": {
+        "question": "You won a small-business services contract and want to subcontract most of the labor, then the agency changes the nature of the work. Using the SBA's contracting rules, say how much you must perform yourself and what you can ask for when the work changes.",
+        "rubric": [
+          "On a small-business set-aside above the simplified acquisition threshold, a services prime must incur at least 50 percent of the personnel cost",
+          "A supplies prime must perform at least 50 percent of the manufacturing cost, not including materials, unless it qualifies as a non-manufacturer",
+          "General construction requires at least 15 percent of the cost with the prime's own employees, not including materials; specialty construction requires at least 25 percent",
+          "You must deliver what the specifications describe, or the government may terminate the contract",
+          "If the government changes the general nature of the contract after award, you are entitled to a fair adjustment of price and delivery schedule",
+          "Accurate invoices are paid faster, and a late government payment can support a request for interest",
+          "A small single-item fixed-price contract is generally paid in one lump sum after delivery; a larger multi-item contract can be paid for partial deliveries",
+          "Progress payments require an accounting system that segregates costs, and they must be repaid if the work is not finished"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Governing rules and responsibilities",
+          "provider": "U.S. Small Business Administration",
+          "url": "https://www.sba.gov/federal-contracting/contracting-guide/governing-rules-responsibilities",
+          "description": "How much of a federal small-business contract you must perform, and how you get paid.",
+          "keyPoints": [
+            "Small-business set-asides above the simplified acquisition threshold limit subcontracting: services require the prime to provide at least 50 percent of the personnel cost",
+            "Supply contracts require the prime to perform at least 50 percent of the manufacturing cost, excluding materials, unless the business qualifies as a non-manufacturer",
+            "General construction requires at least 15 percent of the cost with the prime's own employees, excluding materials; specialty construction requires at least 25 percent",
+            "You must deliver the product or service in the specifications, or the government may terminate the contract",
+            "If the government changes the general nature of the contract after award, you are entitled to a fair adjustment in price and delivery schedule",
+            "The more accurate the invoice, the faster you are paid, and a late government payment can support a request for interest",
+            "A relatively small fixed-price contract for a single item is generally paid in one lump sum after delivery; larger multi-item contracts can pay for partial deliveries",
+            "Progress payments on larger jobs require an accounting system that segregates costs, and you must repay them if you do not finish the work"
+          ]
+        }
+      ]
+    }
+  ],
+  "slug": "freelancing",
+  "name": "Freelancing",
+  "description": "Work for yourself without guessing the paperwork: who counts as self-employed, the 15.3 percent tax, estimated payments, a business structure, a written scope, and the pitches that ask you to pay first.",
+  "status": "COMING_SOON"
+}

@@ -1,0 +1,375 @@
+{
+  "stages": [
+    {
+      "order": 1,
+      "title": "The Parts of a Room",
+      "level": "BEGINNER",
+      "description": "A room is built from a few visual parts: line, shape, volume, texture, and color. Arrangement comes later.",
+      "learningObjectives": [
+        "Separate the elements of design from the principles",
+        "Walk from a line to a volume",
+        "Define hue, saturation, and brightness"
+      ],
+      "explainBack": {
+        "question": "Someone says a room 'just feels right' and stops there. Using the Pima chapter, explain what the elements of design are, how line, shape, and volume differ, and what hue, saturation, and brightness each name.",
+        "rubric": [
+          "Design splits into elements, the physical parts, and principles, the ways those parts are arranged",
+          "A point has no dimension, a line has length, a shape has length and height, and a volume has length, height, and width",
+          "The six elements named are line, shape, mass or volume, perspective, texture, and color",
+          "Geometric shapes are regular and ordered; organic shapes are irregular",
+          "Figure is what appears in front; ground is the surface behind it; figure-ground reversal swaps which one you see",
+          "A closed form is not pierced; an open form lets empty space move through it",
+          "Actual texture can be touched; implied texture is simulated, mostly in flat work",
+          "Hue is the color name from its wavelength, saturation is purity from gray to the pure color, and brightness runs from the pure hue to black"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Chapter 2.1: Elements and Principles of Design",
+          "provider": "Pima Community College",
+          "url": "https://pimaopen.pressbooks.pub/art105/chapter/chapter-2-2-elements-and-principles-of-design-in-progress-add-images-refs/",
+          "description": "An open art textbook on the parts a design is built from, including color.",
+          "keyPoints": [
+            "The elements of design are the physical parts of the work; the principles are how those parts are arranged",
+            "Six basic elements are line, shape, mass or volume, perspective, texture, and color",
+            "A point has zero dimensions, a line has length, a shape has length and height, and a volume has length, height, and width",
+            "Geometric shapes are regular and ordered; organic shapes are irregular and often chaotic",
+            "Figure is the shape that appears in front of the ground; figure-ground reversal lets the same area read as either",
+            "A closed form is not pierced and empty space does not pass through it; an open form lets empty space move through",
+            "Before linear perspective, distance was shown by height on the surface, smaller scale, and overlap",
+            "Linear perspective uses a horizon line and a vanishing point, and it is considered accurate only inside a cone of about 60 degrees",
+            "Actual texture engages touch; implied texture simulates a surface, mostly in two-dimensional work",
+            "Hue is the wavelength and the color's name, saturation is purity from neutral gray to the pure color, and brightness runs from the pure hue to black"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": "A Path Someone Can Use",
+      "level": "BEGINNER",
+      "description": "In a public or commercial place, at least one route has to connect the entrance to the spaces people use, and that route has a minimum clear width.",
+      "learningObjectives": [
+        "Say where an accessible route is required",
+        "State the clear width and the doorway exception",
+        "Name when a private building must connect its stories"
+      ],
+      "explainBack": {
+        "question": "A new two-story shop has a 30-inch hallway and no elevator. Using the Access Board's accessible-routes guide, say what the route has to connect, how wide it has to stay, and whether this shop has to connect the two stories.",
+        "rubric": [
+          "At least one accessible route must run from site arrival points, where provided, to accessible entrances: accessible parking and passenger loading, public streets and sidewalks, and each public transportation stop",
+          "At least one accessible route must connect accessible buildings, elements, and spaces on the site, and inside a building it must connect all accessible spaces and elements",
+          "If the circulation path is interior, the accessible route must be interior too",
+          "The continuous clear width is 36 inches and may narrow to 32 inches, such as at a doorway, for no more than 24 inches",
+          "Passing space is required every 200 feet, as a 60-by-60-inch space or a T whose stems are at least 48 inches",
+          "A private-sector place of public accommodation or commercial facility does not have to connect stories when it is under three stories or under 3,000 square feet per story, unless it is a shopping center or mall with five or more sales or rental establishments, a health-care provider's office, or a transit facility or airport terminal",
+          "A two-story shop that is not one of those exceptions does not have to connect the stories, but every other standard still applies on the story that is not connected"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Chapter 4: Accessible Routes",
+          "provider": "U.S. Access Board",
+          "url": "https://www.access-board.gov/ada/guides/chapter-4-accessible-routes/",
+          "description": "Where an accessible route is required, and the clear width it has to keep.",
+          "keyPoints": [
+            "At least one accessible route must connect accessible entrances to site arrival points where provided: accessible parking and passenger loading zones, public streets and sidewalks, and each public transportation stop",
+            "At least one accessible route on the site must connect accessible buildings, facilities, elements, and spaces",
+            "Inside a building, at least one accessible route must connect all accessible spaces and elements, and an interior circulation path requires an interior accessible route",
+            "The minimum continuous clear width is 36 inches and can reduce to 32 inches at points such as doorways for a maximum of 24 inches",
+            "Passing space is required every 200 feet: a 60-by-60-inch space, or a T-shaped space whose stems are at least 48 inches long",
+            "A private-sector facility under three stories, or under 3,000 square feet per story, does not have to connect stories, except a shopping center or mall with five or more sales or rental establishments, a professional office of a health care provider, or a public transit facility or airport terminal",
+            "Stories not on an accessible route still have to meet the other applicable standards",
+            "In employee work areas of 1,000 square feet or more, common-use circulation paths must be accessible",
+            "When a primary-function area is altered, an accessible path of travel to site arrival points is required to the extent the added cost does not exceed 20 percent"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Three Kinds of Balance",
+      "level": "BEGINNER",
+      "description": "Symmetrical balance sits still. Asymmetrical balance moves. Radial balance turns around a center. Unity without variety goes dull.",
+      "learningObjectives": [
+        "Define unity and variety",
+        "Name symmetrical, asymmetrical, and radial balance",
+        "Use scale for importance and proportion for parts of one object"
+      ],
+      "explainBack": {
+        "question": "A dining table is centered under a light, the art on the left wall is larger than the art on the right, and a round rug radiates from the middle of the room. Using the Boise State chapter, name each kind of balance, and explain how scale differs from proportion.",
+        "rubric": [
+          "A principle is a dependable way of arranging elements so they produce a visual effect",
+          "Unity is the sense that the parts fit and the whole is greater than the parts; variety keeps that unity from being boring, and variety without unity is chaos",
+          "Symmetrical balance is the most stable: the design matches, or nearly matches, on either side of an axis and usually has a central anchor",
+          "Asymmetrical balance offsets elements that are not mirrors of each other, and it is the most dynamic of the three",
+          "Radial balance is organized around a center",
+          "Scale compares the size of one form with another, and it is also used for size relative to the human body",
+          "Hierarchical scale makes a more important figure larger, as Egyptian art did with pharaohs",
+          "Proportion is the relationship of parts inside one whole; an oversized head is an exaggerated proportion"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Principles of Design",
+          "provider": "Boise State University",
+          "url": "https://boisestate.pressbooks.pub/arthistory/chapter/principles/",
+          "description": "Unity, three kinds of visual balance, and the difference between scale and proportion.",
+          "keyPoints": [
+            "A principle is something that can be done repeatedly with elements to produce a visual effect in a composition",
+            "The principles in this chapter are unity and variety, balance, emphasis and subordination, scale and proportion, rhythm and repetition, and time and motion",
+            "Unity is the sense that all the parts fit; too much unity without variety is boring, and too much variety without unity is chaotic",
+            "Three basic forms of visual balance are symmetrical, asymmetrical, and radial",
+            "Symmetrical balance is the most stable and matches, or nearly matches, on either side of an axis, usually with a central anchor",
+            "Asymmetrical balance offsets elements from each other and is the most dynamic",
+            "Scale shows the relative size of one form to another and is used for size relative to the human body",
+            "Hierarchical scale makes a more important person larger than the people around them",
+            "Proportion is the relationship of parts in a whole; an oversized head is out of proportion or in an exaggerated proportion",
+            "Emphasis is the area of primary visual importance and can come from scale, isolation, location, color, value, or texture; subordination is the lesser areas"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Light for the Job",
+      "level": "INTERMEDIATE",
+      "description": "A room needs ambient light, task light, and sometimes accent light. More light is not automatically better, and daylight has a direction.",
+      "learningObjectives": [
+        "Name ambient, task, and accent lighting",
+        "Match light quantity to the job and use daylight on purpose",
+        "Choose a control that turns lights off when the room is empty"
+      ],
+      "explainBack": {
+        "question": "A kitchen is bright everywhere and still hard to see on the counter, and the lights stay on after everyone leaves. Using the Department of Energy fact sheet, explain the three lighting jobs, what to change, and which controls actually respond to people.",
+        "rubric": [
+          "Ambient light is general illumination, task light is extra light for a specific job such as a counter or a mirror, and accent light draws attention to a feature",
+          "More light is not necessarily better; visual performance depends on quality as well as quantity",
+          "Match the amount and quality of light to the function, put task lights where the work is, and lower the ambient light elsewhere",
+          "South-facing windows admit the most winter sun and, when shaded, little direct summer sun; north light is even and low-glare; east and west windows should be limited because of glare and summer heat",
+          "Consider efficient fixtures for lights on more than about two hours a day",
+          "Occupancy sensors turn lights on when someone enters and off after the last person leaves; they must see the whole room",
+          "Ultrasonic sensors detect sound; infrared sensors detect heat and motion",
+          "Timers do not respond to what people actually do, so they are a weak control for an occupied home",
+          "Outdoor security and utility light does not need to be bright to work; photosensors stop outdoor lights in daylight, and motion sensors turn them on when someone is there"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Efficient Lighting Strategies",
+          "provider": "U.S. Department of Energy",
+          "url": "https://www1.eere.energy.gov/buildings/publications/pdfs/building_america/26467.pdf",
+          "description": "A Department of Energy fact sheet on ambient, task, and accent light, daylight, and controls.",
+          "keyPoints": [
+            "Ambient lighting is general illumination, task lighting is extra light for a particular job, and accent lighting draws attention to a feature",
+            "Artificial lighting consumes almost 15 percent of household electricity, and newer technologies can cut lighting energy use by 50 to 75 percent",
+            "More light is not necessarily better; match the amount and quality of light to the job, add task lights, and reduce ambient light elsewhere",
+            "South-facing windows are best for winter sun and, if shaded, admit little direct summer sun; north light is even, with little glare and almost no unwanted summer heat; limit east and west windows because of glare and summer heat",
+            "Standard incandescent A-lamps make a warm light with excellent color rendition, about 10 to 17 lumens per watt, and last about 750 to 2,500 hours",
+            "Fluorescent lamps use about 25 to 35 percent of the energy of incandescents for the same light, at about 30 to 110 lumens per watt, and last about 7,000 to 24,000 hours",
+            "Give efficient ceiling and wall fixtures to lights that stay on more than two hours a day, and prefer dedicated compact-fluorescent fixtures over screw-in lamps in incandescent sockets",
+            "Recessed lights in a ceiling under an unconditioned space should be UL-listed, airtight, insulation-contact rated, and meet ASTM E283",
+            "Light wall colors reduce the need for artificial light",
+            "Occupancy sensors turn lights off after the room empties; ultrasonic types detect sound and infrared types detect heat and motion; timers do not follow what occupants actually do",
+            "Outdoor lighting serves aesthetics, security, or utility, and security or utility light does not need to be bright; photosensors block daylight operation and motion sensors limit on-time"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Warm Light and True Color",
+      "level": "INTERMEDIATE",
+      "description": "Kelvin says whether a lamp looks warm or cool. CRI says whether the colors in the room still look like themselves.",
+      "learningObjectives": [
+        "Read a correlated color temperature",
+        "Explain what a CRI of 80 means next to daylight",
+        "Use the 830 marking"
+      ],
+      "explainBack": {
+        "question": "Two lamps look white, but one makes skin look gray and the package says 4100K while the other says 830. Using the Department of Energy lighting guideline, explain color temperature, CRI, and what 830 is asking for.",
+        "rubric": [
+          "Color temperature measures how warm or cool a light looks",
+          "A standard incandescent bulb is about 2700K; cool white fluorescent is about 4100K",
+          "CRI measures how accurately colors are shown; daylight is 100, and a CRI of 80 is very good indoor color rendering",
+          "The guideline recommends fluorescent and LED lamps at 3000K and a CRI of 80 or higher when possible",
+          "The marking 830 means 80 CRI and 3000K"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Strategy Guideline: High Performance Residential Lighting",
+          "provider": "U.S. Department of Energy",
+          "url": "https://www1.eere.energy.gov/buildings/publications/pdfs/building_america/strategy_guideline_high_perf_lighting.pdf",
+          "description": "How to read color temperature and color rendering on a residential lamp.",
+          "keyPoints": [
+            "Fluorescent and LED lamps should be specified at 3000K correlated color temperature and a CRI of 80 or higher when possible",
+            "Those lamps give a fresh white light with good indoor color rendering, similar to a halogen lamp",
+            "CRI measures how accurately colors are shown; daylight is 100, so a CRI of 80 is very good indoor color rendering",
+            "Color temperature measures how warm or cool the light is; a standard incandescent bulb is about 2700K and cool white fluorescent is about 4100K",
+            "The number 830 printed on a bulb or package means 80 CRI and 3000K"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "title": "When the Room Is a Public Place",
+      "level": "INTERMEDIATE",
+      "description": "A private living room is not the same as a shop or a city building. New public and commercial construction has to meet the ADA standards.",
+      "learningObjectives": [
+        "Name who issues the ADA standards and which facilities they cover",
+        "Give the dates the 2010 DOJ standards were adopted and took effect",
+        "State the Access Board's role"
+      ],
+      "explainBack": {
+        "question": "A client asks whether the ADA standards apply to a new cafe and to a bedroom remodel in a private house in the same way. Using the Access Board's introduction, explain what the standards cover, who issued them, and when the 2010 DOJ standards took effect.",
+        "rubric": [
+          "ADA standards apply to places of public accommodation, commercial facilities, and state and local government facilities, in new construction, alterations, and additions",
+          "They are based on minimum guidelines from the Access Board",
+          "DOJ and DOT issue the standards; DOJ covers facilities other than public transportation, and DOT covers public transportation facilities",
+          "The Access Board gives technical assistance and training on the standards",
+          "DOJ adopted the 2010 ADA Standards on September 15, 2010, effective March 15, 2012, under titles II and III",
+          "DOT adopted its transportation standards on October 30, 2006, effective November 29, 2006"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "ADA Accessibility Standards",
+          "provider": "U.S. Access Board",
+          "url": "https://www.access-board.gov/ada/",
+          "description": "Who the ADA standards bind, and which agency issued them.",
+          "keyPoints": [
+            "ADA accessibility standards apply to places of public accommodation, commercial facilities, and state and local government facilities in new construction, alterations, and additions",
+            "The standards are based on minimum guidelines set by the Access Board",
+            "DOJ and DOT issue the standards; DOJ's standards apply to facilities other than public transportation, which is covered by DOT",
+            "The Access Board provides technical assistance and training on the standards",
+            "The Board issued updated ADA and ABA guidelines as a final rule on July 23, 2004",
+            "DOT adopted new ADA standards for transportation facilities on October 30, 2006, effective November 29, 2006",
+            "DOJ adopted the 2010 ADA Standards on September 15, 2010, effective March 15, 2012, under titles II and III"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Anchor It to the Wall",
+      "level": "INTERMEDIATE",
+      "description": "A dresser or a television that can tip is a design choice, not an accident to discover later. Anchor it.",
+      "learningObjectives": [
+        "Say what to anchor and where",
+        "Explain the fallback when a wall anchor is impossible",
+        "State what the STURDY standard changed"
+      ],
+      "explainBack": {
+        "question": "A tall bookcase cannot be screwed to the wall in a rental, and a remote usually sits on top of it. Using CPSC's Anchor It guidance, say what to do with the bookcase, the television, and the remote, and what the mandatory dresser standard requires.",
+        "rubric": [
+          "Anchor televisions and furniture such as bookcases and dressers securely to the wall",
+          "If anchoring is impossible, put the television on a sturdy low base, push it back, and keep cords out of reach",
+          "Do not store toys, remotes, or other tempting things up high where a child might climb; put heavier items on lower shelves",
+          "The Anchor It campaign began in 2015, and CPSC links it to a nearly 50 percent decline in tip-over injuries and deaths",
+          "The STURDY Act led to a mandatory standard, effective September 2023, for clothing storage units such as dressers and armoires"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "CPSC Anchor It! Campaign Marks 10 Years",
+          "provider": "U.S. Consumer Product Safety Commission",
+          "url": "https://www.cpsc.gov/Newsroom/News-Releases/2025/CPSC-AnchorIt-Campaign-Marks-10-Years-Fewer-Furniture-Tip-Overs-Lead-to-Safer-American-Households",
+          "description": "Why dressers, bookcases, and televisions get anchored, and what to do when they cannot.",
+          "keyPoints": [
+            "Anchor It began in 2015 to address deaths and injuries from televisions and furniture tipping over",
+            "CPSC reports a nearly 50 percent decline in tip-over injuries and deaths in the United States over the campaign's decade",
+            "The STURDY Act produced a mandatory stability standard for clothing storage units such as dressers and armoires, effective September 2023",
+            "Anchor televisions and furniture, including bookcases and dressers, securely to the wall",
+            "If anchoring is not possible, place the television on a sturdy low base, push it back as far as possible, and keep cords out of reach",
+            "Do not store toys, remotes, or other appealing items where a child may climb for them; store heavier items on lower shelves"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "title": "What a Stable Dresser Has to Survive",
+      "level": "INTERMEDIATE",
+      "description": "The mandatory clothing-storage rule tests carpet, open loaded drawers, and the weight of a child up to 60 pounds.",
+      "learningObjectives": [
+        "Name the three tests STURDY required",
+        "State which children the rule is written for",
+        "Repeat the consumer step that still applies after a unit meets the rule"
+      ],
+      "explainBack": {
+        "question": "A dresser meets a voluntary standard from years ago, but the floor is carpet and a child can pull two drawers open. Using CPSC's 2023 announcement, explain what the mandatory standard has to test and what you should still do at home.",
+        "rubric": [
+          "CPSC adopted ASTM F2057-23 as a mandatory standard for dressers, armoires, wardrobes, and other clothing storage units",
+          "STURDY was signed in December 2022 and is aimed at protecting children up to 72 months old",
+          "The standard has to test stability on carpet",
+          "It has to test stability with loaded drawers and with multiple drawers open",
+          "It has to simulate the weight of children up to 60 pounds interacting with the unit",
+          "Consumers should still anchor furniture, including dressers, securely to the wall"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "CPSC Adopts Final Consumer Product Safety Standard to Prevent Tip-overs",
+          "provider": "U.S. Consumer Product Safety Commission",
+          "url": "https://www.cpsc.gov/Newsroom/News-Releases/2023/CPSC-Adopts-Final-Consumer-Product-Safety-Standard-to-Prevent-Tip-overs-of-Dressers-and-Other-Clothing-Storage-Units",
+          "description": "The three stability tests the clothing-storage rule has to include.",
+          "keyPoints": [
+            "CPSC adopted ASTM F2057-23 as a mandatory safety standard for dressers, armoires, wardrobes, and other clothing storage units",
+            "STURDY, Stop Tip-overs of Unstable, Risky Dressers on Youth, was signed into law in December 2022",
+            "The standard is for protecting children up to 72 months old",
+            "It must test stability when the unit is on carpet",
+            "It must test stability with loaded drawers and with multiple drawers open",
+            "It must simulate the weight of children up to 60 pounds interacting with the unit",
+            "CPSC still recommends anchoring furniture, including dressers, securely to the wall"
+          ]
+        }
+      ]
+    }
+  ],
+  "slug": "interior-design",
+  "name": "Interior Design",
+  "description": "Arrange a room for how people use it: the visual parts, balance and scale, light for the job, lamp color, when a public room must meet the ADA standards, and how to keep furniture from tipping.",
+  "status": "COMING_SOON"
+}

@@ -1,0 +1,364 @@
+{
+  "stages": [
+    {
+      "order": 1,
+      "title": "Five Things Before You Book",
+      "level": "BEGINNER",
+      "description": "The State Department's plan is a short list: learn the place, enroll, sort the documents, think about the activities, and buy insurance.",
+      "learningObjectives": [
+        "Name the five planning steps",
+        "Add the advisory, local laws, and entry rules",
+        "State that the U.S. government does not pay your medical bills abroad"
+      ],
+      "explainBack": {
+        "question": "A friend is about to buy flights and has only checked the weather. Using the State Department's international-travel planning page, list what they should open before they go, including the five checklist steps.",
+        "rubric": [
+          "Before travel, use the checklist and review the Travel Advisory, local laws and customs, entry and exit requirements, visas, and embassy tips",
+          "The five checklist steps are learn the destination, enroll in STEP, sort documents, plan for personal needs and activity safety, and get travel insurance",
+          "The U.S. government does not pay medical bills or unexpected travel costs",
+          "Medicare and Medicaid usually do not cover care abroad",
+          "Buy travel medical insurance before the trip, including emergency care and medical evacuation"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "International travel planning",
+          "provider": "U.S. Department of State",
+          "url": "https://travel.state.gov/en/international-travel/planning.html",
+          "description": "The official before-you-go list: the advisory, the documents, and insurance.",
+          "keyPoints": [
+            "Before you travel, use the planning checklist and review the Travel Advisory, local laws and customs, entry and exit requirements, visa rules, and embassy tips",
+            "The checklist has five steps: learn about the destination, enroll in STEP, prepare your documents, plan for personal needs and the safety of your activities, and get travel insurance",
+            "The U.S. government does not pay your medical bills or unexpected travel costs abroad",
+            "Medicare and Medicaid usually do not cover care outside the United States",
+            "Buy travel medical insurance before the trip so emergency care and medical evacuation are covered"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Passport, Visa, and a Legal Medicine",
+      "level": "BEGINNER",
+      "description": "A passport can still have months left and be turned away. Some countries want six months of validity, and a U.S. prescription can be illegal abroad.",
+      "learningObjectives": [
+        "Check passport length, including a child's five-year book",
+        "Find out whether the destination wants a visa",
+        "Treat a legal U.S. medicine as possibly illegal abroad"
+      ],
+      "explainBack": {
+        "question": "An adult passport expires seven months after the trip, a child's passport is four years old, and a prescription pain medicine is packed in a pill case. Using the State Department checklist, say what to check before departure.",
+        "rubric": [
+          "Check the passport expiration date early and apply early",
+          "A child's passport, for a child under 16, is valid for only five years",
+          "Some countries, especially in Europe, require at least six months of validity after your travel dates",
+          "Some countries require a visa or an electronic travel authorization; check the destination's embassy and the Travel Information entry and exit section",
+          "Some medicines that are legal in the United States, including prescriptions, over-the-counter drugs, and narcotics, are illegal abroad",
+          "Check the health section, and bring copies of prescriptions and the original labeled bottles"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "International travel checklist",
+          "provider": "U.S. Department of State",
+          "url": "https://travel.state.gov/en/international-travel/planning/checklist.html",
+          "description": "Passport validity, visas, and medicines that can be illegal at the destination.",
+          "keyPoints": [
+            "Check your passport's expiration date early, and apply for a new one early",
+            "A passport for a child under 16 is valid for only five years",
+            "Some countries, especially in Europe, require the passport to be valid for at least six months after your travel dates",
+            "Some countries require a visa or an electronic travel authorization; check the destination embassy and the entry and exit section of the Travel Information page",
+            "Some medicines that are legal in the United States, including prescription and over-the-counter drugs and narcotics, are illegal abroad",
+            "Check the health section for the destination, and carry copies of prescriptions plus the original labeled bottles"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Tell the Embassy Where You Are",
+      "level": "BEGINNER",
+      "description": "STEP is free. It sends you security and disaster messages, and it gives the embassy a way to reach you.",
+      "learningObjectives": [
+        "Say what STEP messages cover",
+        "Enroll with or without Login.gov",
+        "Name who the program is for"
+      ],
+      "explainBack": {
+        "question": "A traveler thinks STEP is a paid service and that it is only for tourists. Using the State Department's STEP page, explain what it costs, what messages it sends, and who can enroll.",
+        "rubric": [
+          "STEP is free",
+          "You can create an account or use a guest subscription without Login.gov",
+          "With Login.gov, you register the trip's location and dates and receive messages for that period",
+          "Messages cover security, demonstrations, health, weather and disasters, the Travel Advisory, and routine embassy services",
+          "Enrollment helps the embassy reach you or an emergency contact",
+          "The audiences named include tourists, business travelers, students, and long-term residents"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Smart Traveler Enrollment Program",
+          "provider": "U.S. Department of State",
+          "url": "https://travel.state.gov/en/international-travel/travel-advisories/smart-traveler-enrollment-program.html",
+          "description": "The free enrollment that lets an embassy reach you in an emergency.",
+          "keyPoints": [
+            "The Smart Traveler Enrollment Program is free",
+            "You can create an account, or use a guest subscription without Login.gov",
+            "With Login.gov, you register where you will be and the dates, and you receive messages for that period",
+            "Messages include security alerts, demonstrations, health information, weather and natural disasters, Travel Advisories, and routine embassy-service notices",
+            "Enrollment helps the embassy reach you or an emergency contact",
+            "It is for tourists, business travelers, students, and long-term residents"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Insurance the Trip Actually Needs",
+      "level": "BEGINNER",
+      "description": "Medicare does not follow you abroad. Evacuation is a separate promise from a hospital bill, and you have to read what the policy leaves out.",
+      "learningObjectives": [
+        "State what Medicare and Medicaid do not pay",
+        "Separate medical care from medical evacuation",
+        "Use the policy checklist before you buy"
+      ],
+      "explainBack": {
+        "question": "A traveler has Medicare and a policy that pays hospital bills, and they are going somewhere with limited hospitals. Using the State Department's insurance guidance, explain the gap and what to check on a policy.",
+        "rubric": [
+          "Buy travel health insurance; Medicare and Medicaid do not pay for care outside the United States",
+          "Ask your U.S. insurer what emergency and routine care it covers abroad",
+          "A short-term policy is an option, and some policies pay the hospital directly",
+          "Medical evacuation is strongly recommended, especially where care is limited, and it can be bought separately or as an add-on",
+          "Most policies cover care and transportation; read what a policy does not cover",
+          "Check the countries, the length of the trip, emergency care, transport back to the United States, travel and lodging expenses, emergency cash, current medical conditions, planned activities, and whether there is a 24-hour help line"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Insurance coverage overseas",
+          "provider": "U.S. Department of State",
+          "url": "https://travel.state.gov/en/international-travel/planning/guidance/insurance.html",
+          "description": "Why a U.S. health plan is not enough, and what an evacuation benefit is.",
+          "keyPoints": [
+            "Buy travel health insurance before the trip; Medicare and Medicaid do not pay for care outside the United States",
+            "Ask your U.S. insurer whether it covers emergency and routine care abroad",
+            "A short-term travel policy is one option, and some policies pay hospitals directly",
+            "Medical evacuation is strongly recommended where local care is limited, and it can be a separate policy or an add-on",
+            "Most policies cover medical care and transportation; read both what is covered and what is excluded",
+            "Before you buy, check the countries on the itinerary, the length of the trip, emergency medical care, transport back to the United States, travel and lodging costs, emergency cash, existing medical conditions, planned activities, and a 24-hour help line"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Vaccines Weeks Before You Fly",
+      "level": "INTERMEDIATE",
+      "description": "Routine vaccines first, then the destination list. Some vaccines need more than one dose, so the visit is four to six weeks out.",
+      "learningObjectives": [
+        "Start with routine vaccines and the CDC destination page",
+        "Book the visit four to six weeks ahead",
+        "Get yellow fever vaccine only from an authorized center"
+      ],
+      "explainBack": {
+        "question": "Someone leaves in ten days and has never looked up the destination. Using CDC's travel-vaccine page, say what to be current on, when to see a clinician, and where a yellow fever vaccine has to come from.",
+        "rubric": [
+          "International travel raises the chance of diseases that are rare or absent in the United States",
+          "Be up to date on routine vaccines, and check the CDC page for the destination",
+          "See a clinician or travel-health specialist at least four to six weeks before departure, because some vaccines need more than one dose",
+          "Bring official immunization records",
+          "Malaria prevention pills, if prescribed, are taken before, during, and after travel",
+          "If yellow fever vaccine is recommended or required, it must come from an authorized U.S. yellow fever vaccine center"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Need travel vaccines? Plan ahead.",
+          "provider": "Centers for Disease Control and Prevention",
+          "url": "https://wwwnc.cdc.gov/travel/page/travel-vaccines",
+          "description": "Why the vaccine visit happens weeks before departure, and who can give yellow fever vaccine.",
+          "keyPoints": [
+            "International travel increases the chance of getting diseases that are rare or not found in the United States",
+            "Be up to date on routine vaccines, and check the CDC destination page for vaccines, medicines, and health risks",
+            "See a healthcare provider or travel-health specialist at least four to six weeks before you leave; some vaccines need more than one dose, so go as soon as you can",
+            "Bring a copy of your official immunization records",
+            "Malaria prevention medicine, if prescribed, is started before travel and taken as directed before, during, and after the trip",
+            "Yellow fever vaccine, when recommended or required, must be given at an authorized U.S. yellow fever vaccine center",
+            "Possible vaccines on the page include COVID-19, chickenpox, chikungunya, cholera, flu, hepatitis A, hepatitis B, Japanese encephalitis, MMR, meningococcal, monkeypox, pneumococcal, polio, rabies, shingles, Tdap, tick-borne encephalitis, typhoid, and yellow fever"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "title": "Medicine in the Original Bottle",
+      "level": "INTERMEDIATE",
+      "description": "The destination's law controls the medicine, not the U.S. prescription. Pack it in a carry-on, labeled, with extra for a delay.",
+      "learningObjectives": [
+        "Check the destination and every layover",
+        "Pack original labeled containers in a carry-on",
+        "Dose by time since the last dose in a new time zone"
+      ],
+      "explainBack": {
+        "question": "A traveler pours pills into an unmarked case, packs them in checked luggage, and plans to take the next dose at the usual local clock time. Using CDC's medicine page, explain what can go wrong and how to pack and dose instead.",
+        "rubric": [
+          "The destination's law controls the medicine; a drug that is prescription or over-the-counter in the United States can be unlicensed or controlled abroad, and the consequences include confiscation and jail",
+          "Check the destination embassy and any layover countries; many countries allow about a 30-day supply of certain medicines but want a prescription or medical certificate",
+          "If a medicine is banned, ask the clinician for an alternative and a letter describing the condition and the plan",
+          "See a clinician four to six weeks ahead and bring immunization records; if the trip is longer than 30 days, insurance may pay only a 30-day supply at a time",
+          "In a new time zone, dose by the time since the last dose, not by the local clock",
+          "Extreme temperatures reduce effectiveness; pack enough plus extra for delays, in a carry-on, in the original labeled containers",
+          "Bring written prescriptions with generic names, leave a copy at home, and ask for a note for controlled substances or injectables such as insulin or epinephrine",
+          "Counterfeit drugs are common; use the medicine you brought, and buy abroad only in an emergency"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Traveling Abroad with Medicine",
+          "provider": "Centers for Disease Control and Prevention",
+          "url": "https://wwwnc.cdc.gov/travel/page/travel-abroad-with-medicine",
+          "description": "How to carry a legal U.S. medicine into a country that may not allow it.",
+          "keyPoints": [
+            "The destination country's law controls medicines; a U.S. prescription or over-the-counter drug can be unlicensed or controlled abroad, and consequences include confiscation and jail",
+            "Check the destination embassy and any countries where you have a layover",
+            "Many countries allow a 30-day supply of certain medicines but require a prescription or a medical certificate",
+            "If a medicine is banned, ask the clinician for an alternative and a letter that describes the condition and the treatment plan",
+            "Make the appointment four to six weeks ahead and bring immunization records; on a trip longer than 30 days, insurance may pay for only a 30-day supply at a time",
+            "In a new time zone, take the next dose based on the time since the last dose, not on the local clock",
+            "Extreme heat or cold can reduce effectiveness; pack extra for delays, in a carry-on, in the original labeled containers",
+            "Bring written prescriptions that use generic names, leave a copy at home, and ask for a clinician's note for controlled substances or injectables",
+            "Counterfeit drugs are common; use medicine brought from home, and buy abroad only in an emergency"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Leave a Copy at Home",
+      "level": "INTERMEDIATE",
+      "description": "The clinician needs the itinerary. Someone at home needs copies. The embassy has a phone number that works from overseas.",
+      "learningObjectives": [
+        "Tell the clinician the trip, not only the diagnosis",
+        "Leave document copies with someone at home",
+        "Save the overseas embassy number"
+      ],
+      "explainBack": {
+        "question": "A traveler has the vaccines and nothing else: no copies at home, no embassy number, and a flight longer than four hours. Using CDC's before-you-travel page, say what still has to happen.",
+        "rubric": [
+          "Check the CDC destination page, stay current on routine vaccines, and see a clinician or travel-health specialist at least four to six weeks before departure",
+          "Tell that clinician about pregnancy, allergies, or chronic problems, the destinations, the lodging, the type of travel, the dates, and the planned activities",
+          "Take prescribed medicine as directed, bring only medicine from home plus extra for delays, and bring official immunization records",
+          "Airplane travel, especially flights longer than four hours, can raise the risk of blood clots, including deep vein thrombosis and pulmonary embolism",
+          "Find out whether health insurance covers care abroad, and consider coverage for health care and emergency evacuation",
+          "Enroll in STEP, leave copies of the itinerary, contacts, passport, and other documents with someone at home, and carry emergency contacts",
+          "From overseas, the emergency number is 00 1 202-501-4444; from the United States or Canada it is 1-888-407-4747",
+          "A travel health kit can include prescriptions, a mask, insect repellent, sunscreen of SPF 15 or higher, and the insurance card"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Before You Travel",
+          "provider": "Centers for Disease Control and Prevention",
+          "url": "https://wwwnc.cdc.gov/travel/page/before-travel",
+          "description": "The appointment, the copies left at home, and the embassy phone numbers.",
+          "keyPoints": [
+            "Check the CDC destination page, stay up to date on routine vaccines, and see a healthcare provider or travel-health specialist at least four to six weeks before you leave",
+            "Share special conditions, destinations, lodging, type of travel, timing, and planned activities so the advice can be specific",
+            "Take prescribed medicine as directed before, during, and after travel; bring only medicine from home, plus extra for delays, because counterfeit drugs are common in some countries",
+            "Flights longer than about four hours can increase the risk of blood clots, including deep vein thrombosis and pulmonary embolism",
+            "Travelers usually pay hospital bills out of pocket; consider insurance that covers health care and emergency evacuation, especially for remote areas",
+            "Enroll in STEP, monitor travel advisories, and leave copies of the itinerary, contacts, credit cards, passport, and other documents with someone at home",
+            "U.S. embassies and consulates assist U.S. citizens 24 hours a day: 1-888-407-4747 from the United States or Canada, and 00 1 202-501-4444 from overseas",
+            "A travel health kit should cover the whole trip plus delays and, depending on the destination, a mask, insect repellent, sunscreen of SPF 15 or higher, and the health insurance card"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "title": "The Health Kit and the Copies",
+      "level": "INTERMEDIATE",
+      "description": "Pack copies of the passport and the proof a border may ask for, plus a small kit: sanitizer, repellent, and sunscreen.",
+      "learningObjectives": [
+        "List the documents to copy",
+        "Choose repellent and sunscreen from the page",
+        "Check what the destination allows you to bring"
+      ],
+      "explainBack": {
+        "question": "The suitcase has clothes and a toothbrush. Using CDC's pack-smart page, name the documents to copy and three health-kit items the page specifies by ingredient or strength.",
+        "rubric": [
+          "Build a travel health kit for items that may be hard to find, and check the CDC destination page for what that place requires",
+          "Check the U.S. embassy because some countries restrict which medications you can bring",
+          "Carry copies of the passport and travel documents, a U.S. emergency contact card, lodging, the home clinician, immunization records, yellow fever proof if required, prescription copies, health and travel insurance cards, a list of local hospitals, and the U.S. embassy or consulate",
+          "Keep a print copy and a digital copy of each document when you can",
+          "Hand sanitizer should contain at least 60 percent alcohol",
+          "Insect repellent should use an active ingredient such as DEET or picaridin",
+          "Sunscreen should protect against UVA and UVB and be SPF 15 or higher",
+          "Check TSA for medicines and devices allowed in the cabin, check State Department customs and import restrictions, and enroll in STEP"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Pack Smart",
+          "provider": "Centers for Disease Control and Prevention",
+          "url": "https://wwwnc.cdc.gov/travel/page/pack-smart",
+          "description": "Which papers to copy, and what belongs in a travel health kit.",
+          "keyPoints": [
+            "Prepare a travel health kit for items that may be hard to find, and check the CDC destination page for local health risks",
+            "Some countries restrict medications, so check with the U.S. embassy for that country",
+            "Carry copies of your passport and travel documents, a U.S. emergency contact, lodging details, your home clinician, immunization records, yellow fever proof if required, prescription copies, insurance cards, a list of local hospitals, and U.S. embassy or consulate information",
+            "Keep a print version and a digital version of each document when you can",
+            "Hand sanitizer in the kit should contain at least 60 percent alcohol",
+            "Insect repellent should use an active ingredient such as DEET or picaridin",
+            "Sunscreen should offer UVA and UVB protection at SPF 15 or higher",
+            "Check TSA rules for medicines and medical devices in the cabin, check State Department customs and import restrictions, and enroll in STEP"
+          ]
+        }
+      ]
+    }
+  ],
+  "slug": "travel-planning",
+  "name": "Travel Planning",
+  "description": "Leave with the papers and the health plan already done: the State Department checklist, a passport that will be accepted, STEP, insurance that includes evacuation, and the vaccines and medicines the destination requires.",
+  "status": "COMING_SOON"
+}

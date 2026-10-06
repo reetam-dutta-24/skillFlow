@@ -172,7 +172,7 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 - Usage-cutoff dialog — a soft stop. Not stored.
 - `/dev/routes` — screen list. It 404s in production.
 
-**Open Source.** Each niche is a community that works like pull requests. A learner shares a resource, a concept note, a learning path, or someone to follow, optionally for a reported gap. It stays hidden until a reviewer decides: approve (merged and public), request changes (with a note), or close. `/open-source/me` lists the author's own work with status filters and a count of items waiting on them. The author can edit while it is open, resubmit a merged one (it leaves the public lists until reviewed again), or withdraw. Reviewers work from `/open-source/review`, oldest first, never their own. Maintainers unmerge, label and close gaps, and grant reviewers from the niche's Maintainers tab, which also suggests people with 3 merged contributions. Admins grant any role by exact email at `/admin/community`. A profile shows merged work by niche and a 12-month heatmap. There are no comments, likes, or chat. A review is one structured decision.
+**Open Source.** A learner submits a post: text, an image, and source links. It stays hidden until an admin or a niche moderator publishes it. Reject needs a note and keeps it off the list. A published post can take one question from each learner, and the author writes one answer. There is no thread, no likes, and no view count. Reviewers work from `/open-source/review` and can hide a published post. Admins grant moderators at `/admin/community`.
 
 **Errors and empty screens.** Root and in-app `not-found` and `error` pages are themed. Dev-only routes can throw those states: `/dev/error`, `/dev/missing`, `/dev/root-error`, `/dev/root-missing`.
 
@@ -374,17 +374,17 @@ The mock catalog in `lib/mock/catalog.ts` is leftover sample data for the screen
 ## OPEN SOURCE — Community contributions
 **Status: ✅ COMPLETE**
 
-- [x] Contribute form with type, sources, stage, gap, tags, and disclosure. Links are normalized and checked; duplicates against the niche and the official roadmap are refused
-- [x] Review queue and review page with duplicates, author record, and history. Approve, request changes, close, with a check that nothing changed since the page was opened
-- [x] Author pages: list, owner view with reasons in plain words, edit, resubmit, withdraw
-- [x] Unmerge with a reason. A resolved gap reopens
-- [x] Roles: admin grants either role, maintainers grant reviewers, nobody changes their own. Suggested reviewers in two groups
-- [x] Maintainers tab and `/admin/community` (niche load, grant by email, revoke, recent unmerges)
-- [x] Gaps: report (3 a day), good-first label, close, reopen, contribute to a gap
+- [x] Contribute form with type, text, an image, source links, stage, tags, and disclosure. Links are checked; duplicates against the niche and the official roadmap are shown to the reviewer
+- [x] Review queue. Approve publishes the post. Reject needs a note and keeps it off the list. The link check and possible duplicates are notes, not a decision
+- [x] Author pages: list, owner view, edit, and withdraw. Editing a published post takes it off the list until it is published again
+- [x] Hide a published post, with a reason
+- [x] One question per learner on a published post, answered once by the author. No thread and no likes
+- [x] Roles: admin grants either role, maintainers grant reviewers, nobody changes their own
+- [x] Maintainers tab and `/admin/community`
 - [x] Contributor section on the public profile with a 12-month heatmap
 - [x] `community` cache tag for public data; per-request queue, counts, and author pages
 - [ ] Notify an author when a decision lands
-- [ ] Integration tests for review, edit, and unmerge
+- [ ] Integration tests for review, edit, and hide
 
 ## PHASE 8 — Testing
 **Status: 🔶 MASTERY AND STREAK TESTS EXIST. THE REST DOES NOT**

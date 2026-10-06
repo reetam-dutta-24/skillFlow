@@ -25,7 +25,7 @@ type PageProps = {
 };
 
 const ALLOWED: Record<string, Decision[]> = {
-  OPEN: ["APPROVE", "REQUEST_CHANGES", "CLOSE"],
+  OPEN: ["APPROVE", "CLOSE"],
   CHANGES_REQUESTED: ["CLOSE"],
 };
 
@@ -74,7 +74,7 @@ export default async function ReviewItemPage({ params, searchParams }: PageProps
           <p>{row.author?.name ?? "Former member"}</p>
           {row.record ? (
             <p>
-              {row.record.merged} merged · {row.record.closed} closed in {row.skill.name}
+              {row.record.merged} published · {row.record.closed} not published in {row.skill.name}
             </p>
           ) : null}
 
@@ -92,15 +92,6 @@ export default async function ReviewItemPage({ params, searchParams }: PageProps
             <p>
               Checked <time dateTime={row.linkCheckedAt.toISOString()}>{formatWhen(row.linkCheckedAt.toISOString())}</time>
             </p>
-          ) : null}
-
-          {row.gap ? (
-            <>
-              <h2>Gap it addresses</h2>
-              <p>
-                {row.gap.title} · {row.gap.status === "OPEN" ? "Open" : row.gap.status === "RESOLVED" ? "Resolved" : "Closed"}
-              </p>
-            </>
           ) : null}
 
           <Link className="sf-community-text-link" href={contributionHref}>
@@ -176,7 +167,7 @@ export default async function ReviewItemPage({ params, searchParams }: PageProps
           <p>You can&apos;t review your own contribution.</p>
         ) : row.status === "MERGED" && row.canModerate ? (
           <>
-            <p>This contribution is merged. As a maintainer you can unmerge it.</p>
+            <p>This post is published. You can hide it.</p>
             <UnmergeForm contributionId={row.id} />
           </>
         ) : allowed.length === 0 ? (

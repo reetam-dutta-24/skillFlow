@@ -19,17 +19,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return { title: niche ? `Contribute · ${niche.name}` : "Contribute" };
 }
 
-export default async function ContributePage({ params, searchParams }: PageProps) {
+export default async function ContributePage({ params }: PageProps) {
   const session = await auth();
   if (!session?.user?.id) redirect("/login");
 
   const { skillSlug } = await params;
-  const query = await searchParams;
   const niches = await loadCommunityNiches();
   const niche = niches.find((item) => item.slug === skillSlug);
   if (!niche) notFound();
   const options = await contributeOptions({ id: niche.id, slug: niche.slug, status: niche.status });
-  const gap = Array.isArray(query.gap) ? query.gap[0] : query.gap;
 
   return (
     <div className="sf-dash">
@@ -53,8 +51,6 @@ export default async function ContributePage({ params, searchParams }: PageProps
         communityName={niche.name}
         niches={niches.map((item) => ({ slug: item.slug, name: item.name }))}
         stages={options.stages}
-        gaps={options.gaps}
-        gapId={gap}
       />
     </div>
   );

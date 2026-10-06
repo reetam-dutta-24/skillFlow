@@ -18,7 +18,7 @@ export function UnmergeForm({ contributionId }: { contributionId: string }) {
   if (!open) {
     return (
       <Button type="button" variant="outline" size="sm" onClick={() => setOpen(true)}>
-        Unmerge
+        Hide
       </Button>
     );
   }
@@ -61,17 +61,17 @@ export function UnmergeForm({ contributionId }: { contributionId: string }) {
       ) : null}
       {confirming ? (
         <p className="sf-os-hint" role="status">
-          It leaves the niche now. Its merge date and useful marks stay as history.
+          It leaves the public list now.
         </p>
       ) : null}
       <div className="sf-community-actions">
         {confirming ? (
           <Button type="submit" variant="outline" size="sm" disabled={pending || !reason}>
-            {pending ? "Unmerging…" : "Confirm unmerge"}
+            {pending ? "Hiding…" : "Confirm hide"}
           </Button>
         ) : (
           <Button type="button" variant="outline" size="sm" disabled={!reason} onClick={() => setConfirming(true)}>
-            Unmerge
+            Hide
           </Button>
         )}
         <Button

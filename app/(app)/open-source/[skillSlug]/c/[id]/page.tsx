@@ -4,15 +4,14 @@ import { notFound, redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { PersonAvatar } from "@/components/community/PersonAvatar";
 import { COMMUNITY_LABEL, formatWhen, reviewEventLabel, reviewReasonLabel } from "@/lib/community-copy";
-import { myUsefulMarks } from "@/lib/data/community";
 import { communityActor } from "@/lib/services/community/actor";
 import { getContribution } from "@/lib/services/community/contributions";
 import { canModerate, canReview } from "@/lib/services/community/permissions";
-import { recordContributionView } from "@/lib/services/community/views";
+import { listPostQuestions } from "@/lib/services/community/questions";
 import { ContributionBody } from "../../../_components/ContributionBody";
 import { DoneNote } from "../../../_components/DoneNote";
+import { PostQuestions } from "../../../_components/PostQuestions";
 import { UnmergeForm } from "../../../_components/UnmergeForm";
-import { UsefulButton } from "../../../_components/UsefulButton";
 
 type PageProps = {
   params: Promise<{ skillSlug: string; id: string }>;
@@ -38,9 +37,8 @@ export default async function ContributionPage({ params, searchParams }: PagePro
   const reviewer = actor ? canReview(actor, row.skill.id) : false;
   if (row.status !== "MERGED" && !isAuthor && !reviewer) notFound();
 
-  const view = row.status === "MERGED" ? await recordContributionView(session.user.id, row.id) : { counted: false };
-  const views = row.viewCount + (view.counted ? 1 : 0);
-  const marked = row.status === "MERGED" ? await myUsefulMarks(session.user.id, [row.id]) : [];
+  const questions = row.status === "MERGED" ? await listPostQuestions(row.id) : [];
+  const asked = questions.some((question) => question.author.id === session.user.id);
   const showReviews = (isAuthor || reviewer) && row.reviews.length > 0;
   // Per person: only maintainers of this niche and admins see Unmerge.
   const moderator = actor ? canModerate(actor, row.skill.id) : false;
@@ -77,21 +75,11 @@ export default async function ContributionPage({ params, searchParams }: PagePro
           </p>
           {row.mergedAt ? (
             <p>
-              Merged <time dateTime={row.mergedAt.toISOString()}>{formatWhen(row.mergedAt.toISOString())}</time>
+              Published <time dateTime={row.mergedAt.toISOString()}>{formatWhen(row.mergedAt.toISOString())}</time>
             </p>
           ) : null}
-          <p>
-            {views} {views === 1 ? "view" : "views"}
-          </p>
           <p>{row.skill.name}</p>
-          {row.status === "MERGED" && !isAuthor ? (
-            <UsefulButton contributionId={row.id} initialCount={row.usefulCount} marked={marked.includes(row.id)} />
-          ) : (
-            <p>
-              Found useful by {row.usefulCount} {row.usefulCount === 1 ? "learner" : "learners"}
-            </p>
-          )}
-          {row.status !== "MERGED" ? <p>This stays hidden until it is merged.</p> : null}
+          {row.status !== "MERGED" ? <p>This stays hidden until a moderator publishes it.</p> : null}
           {row.status === "OPEN" && reviewer && !isAuthor ? (
             <Link className="sf-community-text-link" href={`/open-source/review/${row.id}`}>
               Review this contribution
@@ -108,9 +96,13 @@ export default async function ContributionPage({ params, searchParams }: PagePro
       {row.status === "MERGED" && moderator ? (
         <section className="sf-community-reviews" aria-labelledby="community-moderate">
           <h2 id="community-moderate">Moderation</h2>
-          <p>Unmerging closes this contribution and hides it from the niche. A gap it resolved opens again.</p>
+          <p>Hiding takes this post off the public list.</p>
           <UnmergeForm contributionId={row.id} />
         </section>
+      ) : null}
+
+      {row.status === "MERGED" ? (
+        <PostQuestions contributionId={row.id} isAuthor={isAuthor} canAsk={!isAuthor && !asked} questions={questions} />
       ) : null}
 
       {showReviews ? (

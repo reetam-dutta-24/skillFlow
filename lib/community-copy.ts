@@ -18,10 +18,10 @@ export function disclosureLabel(disclosure: string) {
 }
 
 const CONTRIBUTION_STATUS: Record<string, string> = {
-  OPEN: "Open",
-  CHANGES_REQUESTED: "Changes requested",
-  MERGED: "Merged",
-  CLOSED: "Closed",
+  OPEN: "Waiting",
+  CHANGES_REQUESTED: "Waiting on you",
+  MERGED: "Published",
+  CLOSED: "Not published",
 };
 
 export function contributionStatusLabel(status: string) {
@@ -55,9 +55,9 @@ export const REVIEW_REASON_OPTIONS = [
 ] as const;
 
 const REVIEW_DECISIONS: Record<string, string> = {
-  APPROVE: "Approve",
-  REQUEST_CHANGES: "Request changes",
-  CLOSE: "Close",
+  APPROVE: "Published",
+  REQUEST_CHANGES: "Sent back",
+  CLOSE: "Rejected",
 };
 
 export function reviewDecisionLabel(decision: string) {
@@ -83,9 +83,9 @@ export function reviewReasonSentence(reason: string) {
   return REVIEW_REASON_SENTENCES[reason] ?? reviewReasonLabel(reason);
 }
 
-/** "Unmerged" for a maintainer close of a merged contribution, otherwise the decision. */
+/** "Hidden" when a moderator took a published post down. */
 export function reviewEventLabel(decision: string, unmerge: boolean) {
-  return unmerge ? "Unmerged" : reviewDecisionLabel(decision);
+  return unmerge ? "Hidden" : reviewDecisionLabel(decision);
 }
 
 export function communityRoleLabel(role: string) {
@@ -93,10 +93,10 @@ export function communityRoleLabel(role: string) {
 }
 
 export const CONTRIBUTION_STATUSES = [
-  { id: "OPEN", label: "Open" },
-  { id: "CHANGES_REQUESTED", label: "Changes requested" },
-  { id: "MERGED", label: "Merged" },
-  { id: "CLOSED", label: "Closed" },
+  { id: "OPEN", label: "Waiting" },
+  { id: "CHANGES_REQUESTED", label: "Waiting on you" },
+  { id: "MERGED", label: "Published" },
+  { id: "CLOSED", label: "Not published" },
 ] as const;
 
 export function contributionStatusTone(status: string): "pass" | "warn" | "fail" | "neutral" {

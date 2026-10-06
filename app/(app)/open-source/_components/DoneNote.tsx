@@ -1,13 +1,12 @@
 const MESSAGE: Record<string, string> = {
-  merged: "Merged. It is public in that niche now.",
+  merged: "Published. Anyone signed in can read it.",
   changes: "Sent back. The author can see your note.",
-  closed: "Closed.",
-  unmerged: "Unmerged. It is hidden from the niche, and a gap it resolved is open again.",
-  gap: "Gap reported. It is listed under Gaps.",
-  created: "Submitted. It stays hidden until a reviewer merges it.",
-  edited: "Saved as a new revision. It is back in the review queue.",
-  resubmitted: "Resubmitted. It is hidden from the niche until it is reviewed again.",
-  withdrawn: "Withdrawn. It is closed and stays in your list.",
+  closed: "Rejected. It stays off the public list.",
+  unmerged: "Hidden. It is off the public list.",
+  created: "Submitted. It stays hidden until a moderator publishes it.",
+  edited: "Saved. It is back in the review queue.",
+  resubmitted: "Sent again. It stays hidden until a moderator publishes it.",
+  withdrawn: "Withdrawn. It stays in your list and off the public list.",
 };
 
 /** The short note after an action. Actions redirect with `?done=` or `?saved=`. */

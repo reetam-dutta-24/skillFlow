@@ -75,12 +75,6 @@ export default async function MyContributionPage({ params, searchParams }: PageP
           </p>
           <h2>Links</h2>
           <p>{linkStatusLabel(row.linkStatus)}</p>
-          {row.gap ? (
-            <>
-              <h2>Gap it addresses</h2>
-              <p>{row.gap.title}</p>
-            </>
-          ) : null}
           {row.status === "MERGED" ? (
             <Link className="sf-community-text-link" href={`/open-source/${row.skill.slug}/c/${row.id}`}>
               Open the public page

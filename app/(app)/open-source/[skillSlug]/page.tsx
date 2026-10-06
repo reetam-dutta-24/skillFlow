@@ -7,14 +7,7 @@ import { EmptyState } from "@/components/feedback/EmptyState.jsx";
 import { PersonAvatar } from "@/components/community/PersonAvatar";
 import { auth } from "@/lib/auth";
 import { COMMUNITY_LABEL, communityRoleLabel, contributionTypeLabel, disclosureLabel, formatWhen } from "@/lib/community-copy";
-import {
-  loadCommunityChangelog,
-  loadCommunityContributors,
-  loadCommunityGaps,
-  loadCommunityNiches,
-  loadMergedPage,
-  myUsefulMarks,
-} from "@/lib/data/community";
+import { loadCommunityContributors, loadCommunityNiches, loadMergedPage } from "@/lib/data/community";
 import { loadNicheTeam } from "@/lib/data/community-admin";
 import { loadPublicCatalog } from "@/lib/data/public-catalog";
 import { communityActor } from "@/lib/services/community/actor";
@@ -23,8 +16,6 @@ import { canModerate, isAdmin, type CommunityActor } from "@/lib/services/commun
 import { suggestedReviewers, type SuggestedPerson } from "@/lib/services/community/roles";
 import { joinCommunityAction, leaveCommunityAction } from "../actions";
 import { DoneNote } from "../_components/DoneNote";
-import { GapActions } from "../_components/GapActions";
-import { GapForm } from "../_components/GapForm";
 import { RoleButton } from "../_components/RoleButton";
 
 type PageProps = {
@@ -34,8 +25,6 @@ type PageProps = {
 
 const TABS = [
   { id: "contributions", label: "Contributions" },
-  { id: "gaps", label: "Gaps" },
-  { id: "changelog", label: "Changelog" },
   { id: "contributors", label: "Contributors" },
   { id: "maintainers", label: "Maintainers" },
 ] as const;
@@ -90,7 +79,6 @@ export default async function CommunityNichePage({ params, searchParams }: PageP
   const type = one(query.type);
   const stageId = one(query.stage);
   const tag = one(query.tag);
-  const sort = one(query.sort) === "useful" ? "useful" : "newest";
   const cursor = one(query.cursor);
   const catalog = await loadPublicCatalog();
   const allStages = catalog.find((entry) => entry.skill.slug === skillSlug)?.stages ?? [];
@@ -139,17 +127,13 @@ export default async function CommunityNichePage({ params, searchParams }: PageP
         <Contributions
           slug={niche.slug}
           skillId={niche.id}
-          userId={session.user.id}
           stages={stages}
           type={type}
           stageId={stageId}
           tag={tag}
-          sort={sort}
           cursor={cursor}
         />
       ) : null}
-      {tab === "gaps" ? <Gaps skillId={niche.id} slug={niche.slug} stages={stages} moderator={moderator} /> : null}
-      {tab === "changelog" ? <Changelog slug={niche.slug} skillId={niche.id} /> : null}
       {tab === "contributors" ? <Contributors skillId={niche.id} /> : null}
       {tab === "maintainers" && actor && moderator ? <Maintainers skillId={niche.id} slug={niche.slug} actor={actor} /> : null}
     </div>
@@ -159,27 +143,22 @@ export default async function CommunityNichePage({ params, searchParams }: PageP
 async function Contributions({
   slug,
   skillId,
-  userId,
   stages,
   type,
   stageId,
   tag,
-  sort,
   cursor,
 }: {
   slug: string;
   skillId: string;
-  userId: string;
   stages: { id: string; order: number; title: string }[];
   type: string;
   stageId: string;
   tag: string;
-  sort: string;
   cursor: string;
 }) {
-  const page = await loadMergedPage({ skillId, type, stageId, tag, sort, cursor });
-  const marked = new Set(await myUsefulMarks(userId, page.items.map((item) => item.id)));
-  const kept = { type, stage: stageId, tag, sort };
+  const page = await loadMergedPage({ skillId, type, stageId, tag, sort: "newest", cursor });
+  const kept = { type, stage: stageId, tag };
 
   return (
     <section className="sf-community-panel" aria-labelledby="community-contributions">
@@ -215,29 +194,13 @@ async function Contributions({
           Tag
           <input name="tag" defaultValue={tag} maxLength={24} placeholder="A tag" />
         </label>
-        <label>
-          Sort
-          <select name="sort" defaultValue={sort}>
-            <option value="newest">Newest</option>
-            <option value="useful">Most useful</option>
-          </select>
-        </label>
         <Button type="submit" size="sm" variant="outline">
           Apply
         </Button>
       </form>
 
       {page.items.length === 0 ? (
-        <EmptyState
-          icon="git-pull-request"
-          title="No contributions yet"
-          description="Be the first — or pick a good first gap."
-          action={
-            <Link className="sf-community-text-link" href={hrefFor(slug, { tab: "gaps" })}>
-              See gaps
-            </Link>
-          }
-        />
+        <EmptyState icon="git-pull-request" title="No contributions yet" description="A published post from this niche will show up here." />
       ) : (
         <ul className="sf-community-feed">
           {page.items.map((item) => {
@@ -266,10 +229,6 @@ async function Contributions({
                     )}
                     {item.mergedAt ? ` · ${formatWhen(item.mergedAt)}` : ""}
                   </p>
-                  <p>
-                    Found useful by {item.usefulCount} {item.usefulCount === 1 ? "learner" : "learners"}
-                    {marked.has(item.id) ? " · You found this useful" : ""}
-                  </p>
                 </article>
               </li>
             );
@@ -284,107 +243,6 @@ async function Contributions({
           </Link>
         </p>
       ) : null}
-    </section>
-  );
-}
-
-async function Gaps({ skillId, slug, stages, moderator }: { skillId: string; slug: string; stages: Stage[]; moderator: boolean }) {
-  const gaps = await loadCommunityGaps(skillId);
-  const open = gaps.filter((gap) => gap.status === "OPEN");
-  const resolved = gaps.filter((gap) => gap.status === "RESOLVED");
-  const closed = gaps.filter((gap) => gap.status === "CLOSED");
-
-  function card(gap: (typeof gaps)[number]) {
-    const goodFirst = gap.goodFirst && gap.status === "OPEN";
-    return (
-      <li key={gap.id}>
-        <article className={goodFirst ? "sf-community-card is-good-first" : "sf-community-card"}>
-          <span className="sf-community-chips">
-            {goodFirst ? <Chip tone="accent">Good first contribution</Chip> : null}
-            <Chip tone={gap.status === "RESOLVED" ? "pass" : "neutral"}>
-              {gap.status === "OPEN" ? "Open" : gap.status === "RESOLVED" ? "Resolved" : "Closed"}
-            </Chip>
-            {gap.stage ? <Chip tone="neutral">Relevant to Stage {gap.stage.order}</Chip> : null}
-          </span>
-          <h3>{gap.title}</h3>
-          <p>{gap.description}</p>
-          {gap.status === "OPEN" ? (
-            <p>
-              <Link className="sf-community-text-link" href={`/open-source/${slug}/contribute?gap=${gap.id}`}>
-                Contribute to this
-              </Link>
-            </p>
-          ) : null}
-          {gap.status === "RESOLVED" && gap.resolvedBy ? (
-            <p>
-              Resolved by{" "}
-              <Link className="sf-community-text-link" href={`/open-source/${slug}/c/${gap.resolvedBy.id}`}>
-                {gap.resolvedBy.title}
-              </Link>
-            </p>
-          ) : null}
-          {moderator ? <GapActions gapId={gap.id} status={gap.status} goodFirst={gap.goodFirst} /> : null}
-        </article>
-      </li>
-    );
-  }
-
-  return (
-    <section className="sf-community-panel" aria-labelledby="community-gaps">
-      <div className="sf-os-panel-head">
-        <h2 id="community-gaps">Gaps</h2>
-        <GapForm skillId={skillId} slug={slug} stages={stages} />
-      </div>
-      {open.length === 0 && resolved.length === 0 ? (
-        <EmptyState icon="search" title="No open gaps" description="Spotted something this niche is missing? Report it, and anyone can contribute to it." />
-      ) : null}
-      {open.length > 0 ? <ul className="sf-community-feed">{open.map(card)}</ul> : null}
-      {resolved.length > 0 ? (
-        <>
-          <h3 className="sf-os-group-head">Resolved</h3>
-          <ul className="sf-community-feed">{resolved.map(card)}</ul>
-        </>
-      ) : null}
-      {closed.length > 0 ? (
-        <details className="sf-os-closed">
-          <summary>Closed gaps ({closed.length})</summary>
-          <ul className="sf-community-feed">{closed.map(card)}</ul>
-        </details>
-      ) : null}
-    </section>
-  );
-}
-
-async function Changelog({ slug, skillId }: { slug: string; skillId: string }) {
-  const weeks = await loadCommunityChangelog(skillId);
-  return (
-    <section className="sf-community-panel" aria-labelledby="community-changelog">
-      <h2 id="community-changelog" className="sf-sr">
-        Changelog
-      </h2>
-      {weeks.length === 0 ? (
-        <EmptyState icon="route" title="Nothing in the last 12 weeks" description="Merged contributions and resolved gaps will be listed here." />
-      ) : (
-        <div className="sf-community-weeks">
-          {weeks.map((week) => (
-            <section key={week.weekStart}>
-              <h3>Week of {week.weekStart}</h3>
-              <ul>
-                {week.items.map((item) => (
-                  <li key={`${item.kind}-${item.id}`}>
-                    {item.kind === "contribution" ? (
-                      <Link href={`/open-source/${slug}/c/${item.id}`}>{item.title}</Link>
-                    ) : (
-                      <span>{item.title}</span>
-                    )}
-                    <time dateTime={item.at}>{formatWhen(item.at)}</time>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ))}
-        </div>
-      )}
     </section>
   );
 }

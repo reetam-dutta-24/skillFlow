@@ -7,7 +7,6 @@ import { createContributionAction, updateContributionAction, type FormState } fr
 
 type Stage = { id: string; order: number; title: string };
 type NicheOption = { slug: string; name: string };
-type GapOption = { id: string; title: string; goodFirst: boolean };
 type Step = { title: string; url: string; note: string };
 
 /** Values of the contribution being edited. Absent for a new contribution. */
@@ -20,7 +19,6 @@ export type ContributionDraft = {
   sources: string[];
   tags: string[];
   stageId: string | null;
-  gapId: string | null;
   disclosure: string;
   steps: Step[];
   /** Merged now. Saving sends it back for review. */
@@ -38,8 +36,6 @@ export function ContributeForm({
   communityName,
   niches,
   stages,
-  gaps,
-  gapId,
   draft,
 }: {
   skillId: string;
@@ -47,9 +43,6 @@ export function ContributeForm({
   communityName: string;
   niches: NicheOption[];
   stages: Stage[];
-  gaps: GapOption[];
-  /** Preselected gap, from a gap's "Contribute to this" link. */
-  gapId?: string;
   draft?: ContributionDraft;
 }) {
   const router = useRouter();
@@ -59,7 +52,6 @@ export function ContributeForm({
   const [steps, setSteps] = useState<Step[]>(draft && draft.steps.length >= 2 ? draft.steps : EMPTY_STEPS);
   const uploadedImage = draft?.imageUrl?.startsWith("/uploads/") ? draft.imageUrl : null;
   const linkedImage = draft?.imageUrl && !uploadedImage ? draft.imageUrl : "";
-  const chosenGap = draft?.gapId ?? (gapId && gaps.some((gap) => gap.id === gapId) ? gapId : "");
 
   function updateStep(index: number, key: keyof Step, value: string) {
     setSteps((current) => current.map((step, stepIndex) => (stepIndex === index ? { ...step, [key]: value } : step)));
@@ -163,21 +155,6 @@ export function ContributeForm({
         </label>
       ) : null}
 
-      {gaps.length > 0 ? (
-        <label>
-          Addresses a gap
-          <select name="gapId" defaultValue={chosenGap} aria-invalid={state?.field === "gapId"}>
-            <option value="">None</option>
-            {gaps.map((gap) => (
-              <option key={gap.id} value={gap.id}>
-                {gap.goodFirst ? `Good first · ${gap.title}` : gap.title}
-              </option>
-            ))}
-          </select>
-          <span className="sf-os-hint">When this is merged, the gap is marked resolved.</span>
-        </label>
-      ) : null}
-
       <label>
         Tags
         <input name="tags" defaultValue={draft?.tags.join(", ")} placeholder="html, layout" aria-invalid={state?.field === "tags"} />
@@ -237,7 +214,7 @@ export function ContributeForm({
       <p className="sf-os-hint">
         {editing
           ? "Saving sends it back to the review queue as a new revision. Links are checked again only if you changed them."
-          : "It stays hidden until a reviewer merges it. You can share 5 contributions in 24 hours."}
+          : "It stays hidden until a moderator publishes it. You can share 5 contributions in 24 hours."}
       </p>
     </form>
   );

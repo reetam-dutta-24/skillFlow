@@ -16,7 +16,7 @@ The niche list shows 32 cards a page. Home and roadmaps show the first 12, a blu
 
 Signed-in learners can keep a preset accent or build their own gradient from a color palette, a hex value, or RGB. Public pages stay on Dusk.
 
-Open Source is a per-niche community that works like pull requests. A learner shares a resource, a concept note, a learning path, or someone to follow. It stays hidden until a reviewer approves it, asks for changes, or closes it. Only merged contributions are public. Authors track and edit their work at `/open-source/me`. Reviewers work from `/open-source/review`. Maintainers can unmerge, manage gaps, and grant reviewers. Admins manage every role at `/admin/community`. A public profile shows a person's merged work and a 12-month contribution heatmap.
+Open Source is a per-niche community of posts. A learner shares text, an image, and source links. The post stays hidden until a moderator publishes it or rejects it. Signed-in learners can read a published post and ask the author one question. The author writes one answer. There is no comment thread. A moderator can hide a published post. Authors track and edit their work at `/open-source/me`. Reviewers work from `/open-source/review`. Admins manage roles at `/admin/community`. A public profile shows a person's published posts. Community posts never enter the catalog.
 
 Creator studio is a signed-in library for a video the learner owns. An admin approves it onto that niche’s clip feed and the creator’s public profile. View counts stay in the studio.
 

@@ -42,7 +42,6 @@ export default async function EditContributionPage({ params }: { params: Promise
     sources: row.sources,
     tags: row.tags,
     stageId: row.stageId,
-    gapId: row.gapId,
     disclosure: row.disclosure,
     steps: draftSteps(row.steps),
     resubmit: row.status === "MERGED",
@@ -56,7 +55,7 @@ export default async function EditContributionPage({ params }: { params: Promise
             Back to the contribution
           </Link>
         </p>
-        <h1>{draft.resubmit ? "Resubmit a contribution" : "Edit contribution"}</h1>
+        <h1>{draft.resubmit ? "Edit a published post" : "Edit contribution"}</h1>
         <p className="sf-community-label">{COMMUNITY_LABEL}</p>
       </header>
       <ContributeForm
@@ -65,7 +64,6 @@ export default async function EditContributionPage({ params }: { params: Promise
         communityName={row.skill.name}
         niches={[]}
         stages={options.stages}
-        gaps={options.gaps}
         draft={draft}
       />
     </div>

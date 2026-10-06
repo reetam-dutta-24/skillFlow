@@ -49,6 +49,7 @@ model User {
   communityRoles         CommunityRole[]         @relation("CommunityMemberRole")
   grantedCommunityRoles  CommunityRole[]         @relation("CommunityRoleGranter")
   gapReports             GapReport[]
+  contributionQuestions  ContributionQuestion[] @relation("QuestionAuthor")
   creatorWorks           CreatorWork[] @relation("CreatorOwner")
   reviewedCreatorWorks   CreatorWork[] @relation("CreatorReviewer")
   creatorViews           CreatorView[] @relation("CreatorViewer")
@@ -550,6 +551,7 @@ model CommunityContribution {
   gap         GapReport?     @relation("GapCited", fields: [gapId], references: [id], onDelete: SetNull)
   mergedBy    User?          @relation("CommunityMerger", fields: [mergedById], references: [id], onDelete: SetNull)
   reviews     ContributionReview[]
+  questions   ContributionQuestion[]
   usefulMarks UsefulMark[]
   views       ContributionView[]
   resolvedGap GapReport?     @relation("GapResolvedBy")
@@ -559,6 +561,23 @@ model CommunityContribution {
   @@index([skillId, status, usefulCount])
   @@index([authorId, createdAt])
   @@index([status, createdAt])
+}
+
+/// One question on a published post. The author writes one answer. There is no thread.
+model ContributionQuestion {
+  id             String    @id @default(cuid())
+  contributionId String
+  authorId       String
+  body           String    @db.Text
+  answer         String?   @db.Text
+  createdAt      DateTime  @default(now())
+  answeredAt     DateTime?
+
+  contribution CommunityContribution @relation(fields: [contributionId], references: [id], onDelete: Cascade)
+  author       User                  @relation("QuestionAuthor", fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@unique([contributionId, authorId])
+  @@index([contributionId, createdAt])
 }
 
 model ContributionReview {

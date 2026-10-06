@@ -72,7 +72,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ userId
             compact
             icon="git-pull-request"
             title="No merged contributions yet"
-            description={mine ? "Share something in a niche you know. It shows here once a reviewer merges it." : "Merged contributions will show here."}
+            description={mine ? "Share something in a niche you know. It shows here once a moderator publishes it." : "Published posts will show here."}
           />
         ) : (
           <div className="sf-profile-niches">

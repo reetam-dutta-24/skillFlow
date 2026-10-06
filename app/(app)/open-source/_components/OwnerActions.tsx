@@ -13,13 +13,13 @@ export function OwnerActions({ contributionId, status }: { contributionId: strin
   const close = useCallback(() => setDialog(null), []);
   const editHref = `/open-source/me/${contributionId}/edit`;
 
-  if (status === "CLOSED") return <p className="sf-os-hint">This contribution is closed. It cannot be reopened.</p>;
+  if (status === "CLOSED") return <p className="sf-os-hint">This post was not published.</p>;
 
   return (
     <div className="sf-community-actions">
       {status === "MERGED" ? (
         <Button type="button" variant="outline" size="sm" onClick={() => setDialog("resubmit")}>
-          Edit as resubmission
+          Edit
         </Button>
       ) : (
         <>
@@ -32,8 +32,8 @@ export function OwnerActions({ contributionId, status }: { contributionId: strin
         </>
       )}
 
-      <ConfirmDialog open={dialog === "resubmit"} title="Edit a merged contribution?" onClose={close}>
-        <p>This will hide it from the niche until it&apos;s reviewed again.</p>
+      <ConfirmDialog open={dialog === "resubmit"} title="Edit this published post?" onClose={close}>
+        <p>It leaves the public list until a moderator publishes it again.</p>
         <div className="sf-review-actions">
           <Link className="sf-os-primary" href={editHref}>
             Continue to edit
@@ -45,7 +45,7 @@ export function OwnerActions({ contributionId, status }: { contributionId: strin
       </ConfirmDialog>
 
       <ConfirmDialog open={dialog === "withdraw"} title="Withdraw this contribution?" onClose={close}>
-        <p>It closes and leaves the review queue. You cannot reopen it later.</p>
+        <p>It leaves the review queue. You cannot reopen it later.</p>
         <form action={withdraw}>
           <input type="hidden" name="contributionId" value={contributionId} />
           {state ? (

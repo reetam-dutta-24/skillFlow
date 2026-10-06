@@ -189,6 +189,20 @@ export async function reportGapAction(_prev: FormState, formData: FormData): Pro
   redirect(`/open-source/${slug}?tab=gaps&done=gap`);
 }
 
+export async function askPostQuestionAction(contributionId: string, body: string) {
+  const userId = await signedInId();
+  if (!userId) return { ok: false as const, error: "Sign in to continue." };
+  const { askPostQuestion } = await import("@/lib/services/community/questions");
+  return askPostQuestion(userId, contributionId, body);
+}
+
+export async function answerPostQuestionAction(questionId: string, answer: string) {
+  const userId = await signedInId();
+  if (!userId) return { ok: false as const, error: "Sign in to continue." };
+  const { answerPostQuestion } = await import("@/lib/services/community/questions");
+  return answerPostQuestion(userId, questionId, answer);
+}
+
 /** Good-first label, close, or reopen. Maintainers and admins only, checked in the service. */
 export async function moderateGapAction(input: { gapId: string; op: string }) {
   const userId = await signedInId();

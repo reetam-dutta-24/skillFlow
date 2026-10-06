@@ -8,15 +8,14 @@ import { reviewContributionAction, type ReviewState } from "../actions";
 export type Decision = "APPROVE" | "REQUEST_CHANGES" | "CLOSE";
 
 const DECISIONS: { id: Decision; label: string; hint: string }[] = [
-  { id: "APPROVE", label: "Approve", hint: "Merge it. It becomes public in this niche." },
-  { id: "REQUEST_CHANGES", label: "Request changes", hint: "Send it back. The author can edit and resubmit." },
-  { id: "CLOSE", label: "Close", hint: "End it. The author cannot reopen it." },
+  { id: "APPROVE", label: "Approve", hint: "Publish it. Anyone signed in can read it." },
+  { id: "CLOSE", label: "Reject", hint: "Keep it off the public list. The author sees your note." },
 ];
 
 const SUBMIT_LABEL: Record<Decision, string> = {
-  APPROVE: "Approve and merge",
-  REQUEST_CHANGES: "Send back for changes",
-  CLOSE: "Confirm close",
+  APPROVE: "Publish",
+  REQUEST_CHANGES: "Reject",
+  CLOSE: "Reject",
 };
 
 /** `allowed` follows the status: an open contribution takes all three, one waiting on changes can only be closed. */
@@ -38,7 +37,7 @@ export function ReviewForm({
   const [feedback, setFeedback] = useState("");
   const feedbackHint = useId();
   const needsReason = decision !== "APPROVE";
-  const needsFeedback = decision === "REQUEST_CHANGES";
+  const needsFeedback = decision === "CLOSE";
 
   function choose(next: Decision) {
     setDecision(next);

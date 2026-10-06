@@ -77,8 +77,8 @@ export const reviewSchema = z
     if (value.decision !== "APPROVE" && !value.reason) {
       ctx.addIssue({ code: "custom", path: ["reason"], message: "Choose a reason." });
     }
-    if (value.decision === "REQUEST_CHANGES" && !value.feedback) {
-      ctx.addIssue({ code: "custom", path: ["feedback"], message: "Tell the author what to change." });
+    if (value.decision === "CLOSE" && !value.feedback) {
+      ctx.addIssue({ code: "custom", path: ["feedback"], message: "Tell the author why it stays off the list." });
     }
   });
 

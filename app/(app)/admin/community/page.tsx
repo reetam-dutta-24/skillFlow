@@ -38,7 +38,7 @@ export default async function AdminCommunityPage({
       <header className="sf-page-head">
         <AdminSectionNav current="community" />
         <h1>Community</h1>
-        <p>Open Source review load, roles, and recent unmerges across every niche.</p>
+        <p>Open Source review load, roles, and posts taken off the public list.</p>
       </header>
 
       <section aria-labelledby="admin-community-niches" className="sf-os-admin-section">
@@ -142,12 +142,12 @@ export default async function AdminCommunityPage({
       </section>
 
       <section aria-labelledby="admin-community-unmerges" className="sf-os-admin-section">
-        <h2 id="admin-community-unmerges">Recent unmerges</h2>
+        <h2 id="admin-community-unmerges">Recently hidden</h2>
         {data.unmerges.length === 0 ? (
-          <p className="sf-os-hint">Nothing has been unmerged.</p>
+          <p className="sf-os-hint">No published post has been hidden.</p>
         ) : (
           <table className="sf-admin-table sf-os-table">
-            <caption className="sf-sr">The last 20 unmerged contributions</caption>
+            <caption className="sf-sr">The last 20 hidden posts</caption>
             <thead>
               <tr>
                 <th scope="col">Contribution</th>

@@ -12,11 +12,10 @@ export function reviewTransition(status: ContributionStatus, decision: ReviewDec
     return { ok: true, status: "MERGED" };
   }
   if (decision === "REQUEST_CHANGES") {
-    if (status !== "OPEN") return { ok: false, error: "Ask for changes on an open contribution." };
-    return { ok: true, status: "CHANGES_REQUESTED" };
+    return { ok: false, error: "Approve or reject this post." };
   }
   if (status !== "OPEN" && status !== "CHANGES_REQUESTED") {
-    return { ok: false, error: "Close an open contribution, or unmerge one that was already approved." };
+    return { ok: false, error: "Reject a post that is still waiting." };
   }
   return { ok: true, status: "CLOSED" };
 }
@@ -41,6 +40,6 @@ export function authorTransition(status: ContributionStatus, action: "edit" | "w
 
 /** Maintainer or admin hides a merged contribution. */
 export function unmergeTransition(status: ContributionStatus): Transition {
-  if (status !== "MERGED") return { ok: false, error: "Unmerge a contribution that is public." };
+  if (status !== "MERGED") return { ok: false, error: "Hide a post that is published." };
   return { ok: true, status: "CLOSED" };
 }

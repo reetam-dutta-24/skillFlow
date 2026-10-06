@@ -6,7 +6,7 @@ import { Chip } from "@/components/core/Chip.jsx";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
 import { auth } from "@/lib/auth";
 import { COMMUNITY_LABEL, contributionTypeLabel, disclosureLabel, formatWhen } from "@/lib/community-copy";
-import { loadCommunityNiches, loadMergedFeed, myCommunityNews, myFollowedSkillIds, myUsefulMarks } from "@/lib/data/community";
+import { loadCommunityNiches, loadMergedFeed, myCommunityNews, myFollowedSkillIds } from "@/lib/data/community";
 import { myAttentionCount } from "@/lib/data/community-me";
 import { SkillImage } from "@/components/core/SkillImage";
 import { joinCommunityAction, leaveCommunityAction } from "./actions";
@@ -47,7 +47,7 @@ export default async function OpenSourcePage({
 
   const query = await searchParams;
   const custom = query.niches !== undefined;
-  const sort = one(query.sort) === "useful" ? "useful" : "newest";
+  const sort = "newest";
   const type = TYPES.some((item) => item.id === one(query.type)) ? one(query.type) : "";
   const cursor = one(query.cursor);
 
@@ -76,11 +76,9 @@ export default async function OpenSourcePage({
     .sort()
     .join(",");
   const feed = await loadMergedFeed({ skillIds, sort, cursor, type });
-  const marked = new Set(await myUsefulMarks(session.user.id, feed.items.map((item) => item.id)));
   const stats = {
     contributions: selected.reduce((sum, niche) => sum + niche.merged, 0),
     members: selected.reduce((sum, niche) => sum + niche.members, 0),
-    gaps: selected.reduce((sum, niche) => sum + niche.openGaps, 0),
   };
   const nicheParam = custom ? requested : null;
 
@@ -124,14 +122,6 @@ export default async function OpenSourcePage({
                 </Link>
               ))}
             </div>
-            <div className="sf-community-tabs" aria-label="Sort contributions">
-              <Link href={pageHref({ niches: nicheParam, sort: "newest", type })} aria-current={sort === "newest" ? "page" : undefined}>
-                Newest
-              </Link>
-              <Link href={pageHref({ niches: nicheParam, sort: "useful", type })} aria-current={sort === "useful" ? "page" : undefined}>
-                Most useful
-              </Link>
-            </div>
           </div>
 
           {selected.length === 0 ? (
@@ -159,7 +149,7 @@ export default async function OpenSourcePage({
             <EmptyState
               icon="git-pull-request"
               title="No public contributions yet"
-              description="When a contribution in these niches is merged, it shows up here."
+              description="When a moderator publishes a post in these niches, it shows up here."
             />
           ) : (
             <ul className="sf-os-feed-list">
@@ -196,10 +186,6 @@ export default async function OpenSourcePage({
                         )}
                         {item.mergedAt ? ` · ${formatWhen(item.mergedAt)}` : ""}
                       </p>
-                      <p>
-                        Found useful by {item.usefulCount} {item.usefulCount === 1 ? "learner" : "learners"}
-                        {marked.has(item.id) ? " · You found this useful" : ""}
-                      </p>
                       </span>
                     </article>
                   </li>
@@ -226,10 +212,6 @@ export default async function OpenSourcePage({
             <div>
               <dt>Members</dt>
               <dd>{stats.members}</dd>
-            </div>
-            <div>
-              <dt>Open gaps</dt>
-              <dd>{stats.gaps}</dd>
             </div>
           </dl>
           <NicheRail

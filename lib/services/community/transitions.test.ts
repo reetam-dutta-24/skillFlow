@@ -2,9 +2,9 @@ import { describe, expect, it } from "vitest";
 import { authorTransition, reviewTransition, unmergeTransition } from "@/lib/services/community/transitions";
 
 describe("contribution status", () => {
-  it("approves an open contribution and asks for changes only while it is open", () => {
+  it("publishes an open post or rejects it", () => {
     expect(reviewTransition("OPEN", "APPROVE")).toEqual({ ok: true, status: "MERGED" });
-    expect(reviewTransition("OPEN", "REQUEST_CHANGES")).toEqual({ ok: true, status: "CHANGES_REQUESTED" });
+    expect(reviewTransition("OPEN", "REQUEST_CHANGES").ok).toBe(false);
     expect(reviewTransition("CHANGES_REQUESTED", "APPROVE").ok).toBe(false);
     expect(reviewTransition("OPEN", "CLOSE")).toEqual({ ok: true, status: "CLOSED" });
     expect(reviewTransition("CHANGES_REQUESTED", "CLOSE")).toEqual({ ok: true, status: "CLOSED" });

@@ -215,6 +215,10 @@ export async function saveCatalogStage(input: StageSaveInput): Promise<{ ok: tru
         tx,
       );
       if (!prompt.ok) throw new Error(prompt.error);
+      await tx.explainBackPrompt.update({
+        where: { stageId: stage.data.id },
+        data: { conceptSourceHash: null },
+      });
       return { ok: true as const };
     });
   } catch (error) {

@@ -434,7 +434,7 @@ export function CatalogEditor({ skills }: { skills: CatalogEditorSkill[] }) {
             Objectives
             <textarea value={objectives} rows={4} aria-describedby="catalog-objectives-hint" onChange={(event) => setObjectives(event.target.value)} />
           </label>
-          <p id="catalog-objectives-hint">One objective per line.</p>
+          <p id="catalog-objectives-hint">One idea per line. Opening the gate writes these from the stage’s resources. A save here stays until those resources change, then the gate is written again.</p>
           <label>
             Explain-back question
             <textarea value={question} rows={3} onChange={(event) => setQuestion(event.target.value)} />

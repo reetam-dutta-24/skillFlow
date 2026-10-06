@@ -15,8 +15,9 @@ import {
   type CatalogDb,
   type CatalogWrite,
 } from "@/lib/services/catalog";
-import { storedSource } from "@/lib/stored-source";
+import { gateStillCurrent, type GateResourceSource } from "@/lib/explain/gate-concepts";
 import { readTagOrigins } from "@/lib/plan/tags";
+import { storedSource } from "@/lib/stored-source";
 
 /** Live skill slug → catalog file name. The file keeps the researched slug. */
 const FILE_BY_SLUG: Record<string, string> = {
@@ -118,6 +119,28 @@ function link(url: string) {
   return stored;
 }
 
+function gateHeld(
+  existing: {
+    explainBackPrompt: { conceptSourceHash: string | null } | null;
+    resources: { url: string; transcript: string | null }[];
+  },
+  stage: CatalogFile["stages"][number],
+) {
+  const transcriptByUrl = new Map(existing.resources.map((resource) => [resource.url, resource.transcript]));
+  const sources: GateResourceSource[] = stage.resources.map((resource) => ({
+    order: resource.order,
+    title: resource.title,
+    description: resource.description,
+    keyPoints: resource.keyPoints,
+    transcript: transcriptByUrl.get(link(resource.url)) ?? null,
+  }));
+  return gateStillCurrent(
+    existing.explainBackPrompt?.conceptSourceHash,
+    { title: stage.title, description: stage.description },
+    sources,
+  );
+}
+
 function must<T>(result: CatalogWrite<T>) {
   if (!result.ok) throw new Error(result.error);
   return result.data;
@@ -149,6 +172,7 @@ async function loadSkill(slug: string) {
               title: true,
               description: true,
               keyPoints: true,
+              transcript: true,
               provider: true,
               author: true,
               videoId: true,
@@ -162,7 +186,7 @@ async function loadSkill(slug: string) {
               tagOrigins: true,
             },
           },
-          explainBackPrompt: { select: { question: true, rubric: true } },
+          explainBackPrompt: { select: { question: true, rubric: true, conceptSourceHash: true } },
         },
       },
     },
@@ -186,13 +210,14 @@ function planChanges(skill: SkillRow, catalog: CatalogFile): Change[] {
 
   for (const stage of catalog.stages) {
     const existing = stagesByOrder.get(stage.order);
+    const held = existing ? gateHeld(existing, stage) : false;
     if (!existing) {
       changes.push({ action: "create", kind: "stage", label: `stage ${stage.order} — ${stage.title}` });
     } else if (
       existing.title !== stage.title ||
       (existing.description ?? "") !== stage.description ||
       existing.level !== stage.level ||
-      !sameLines(existing.learningObjectives, stage.learningObjectives)
+      (!held && !sameLines(existing.learningObjectives, stage.learningObjectives))
     ) {
       changes.push({ action: "update", kind: "stage", label: `stage ${stage.order} — ${stage.title}` });
     }
@@ -240,7 +265,7 @@ function planChanges(skill: SkillRow, catalog: CatalogFile): Change[] {
     const prompt = existing?.explainBackPrompt;
     const promptLabel = `explain-back ${stage.order}`;
     if (!prompt) changes.push({ action: "create", kind: "explain-back", label: promptLabel });
-    else if (prompt.question !== stage.explainBack.question || !sameLines(prompt.rubric, stage.explainBack.rubric)) {
+    else if (!held && (prompt.question !== stage.explainBack.question || !sameLines(prompt.rubric, stage.explainBack.rubric))) {
       changes.push({ action: "update", kind: "explain-back", label: promptLabel });
     }
   }
@@ -256,8 +281,20 @@ function planChanges(skill: SkillRow, catalog: CatalogFile): Change[] {
 
 async function writeCatalog(tx: CatalogDb, skillId: string, slug: string, catalog: CatalogFile) {
   must(await upsertSkill({ slug, name: catalog.name, description: catalog.description }, tx));
+  const stored = await tx.roadmapStage.findMany({
+    where: { skillId },
+    select: {
+      order: true,
+      learningObjectives: true,
+      explainBackPrompt: { select: { conceptSourceHash: true } },
+      resources: { select: { url: true, transcript: true } },
+    },
+  });
+  const storedByOrder = new Map(stored.map((stage) => [stage.order, stage]));
 
   for (const stage of catalog.stages) {
+    const current = storedByOrder.get(stage.order);
+    const held = current ? gateHeld(current, stage) : false;
     const saved = must(
       await upsertStage(
         {
@@ -266,7 +303,7 @@ async function writeCatalog(tx: CatalogDb, skillId: string, slug: string, catalo
           title: stage.title,
           description: stage.description,
           level: stage.level,
-          learningObjectives: stage.learningObjectives,
+          learningObjectives: held && current ? current.learningObjectives : stage.learningObjectives,
         },
         tx,
       ),
@@ -314,12 +351,14 @@ async function writeCatalog(tx: CatalogDb, skillId: string, slug: string, catalo
     });
     if (resourceIds.length > 0) must(await reorderResources({ stageId: saved.id, resourceIds }, tx));
 
-    must(
-      await upsertExplainBackPrompt(
-        { stageId: saved.id, question: stage.explainBack.question, rubric: stage.explainBack.rubric },
-        tx,
-      ),
-    );
+    if (!held) {
+      must(
+        await upsertExplainBackPrompt(
+          { stageId: saved.id, question: stage.explainBack.question, rubric: stage.explainBack.rubric },
+          tx,
+        ),
+      );
+    }
   }
 
   const orders = new Set(catalog.stages.map((stage) => stage.order));

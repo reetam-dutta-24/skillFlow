@@ -2,7 +2,9 @@ import "server-only";
 import { EXPLAIN_REVIEW_FAILURE_TEXT } from "@/lib/mock/config";
 import { prisma } from "@/lib/prisma";
 import type { ExplainReview } from "@/lib/types/pages";
-import { quoteFromAnswer, stageConcepts } from "@/lib/explain/concepts";
+import { quoteFromAnswer } from "@/lib/explain/concepts";
+import { conceptsForGate } from "@/lib/explain/gate-concepts";
+import { ensureGateConcepts } from "@/lib/explain/gate-store";
 import { decideExplainBack, explainModelConfig, judgeConcept, judgeExplanation } from "@/lib/explain/judge";
 import { recordExplainBack } from "@/lib/explain/record";
 import { saveLearnerNotes } from "@/lib/explain/notes";
@@ -19,6 +21,7 @@ function openLimit(stageCount: number) {
 }
 
 async function loadOpenExplainStage(stageId: string) {
+  await ensureGateConcepts(stageId);
   const stage = await prisma.roadmapStage.findUnique({
     where: { id: stageId },
     include: {
@@ -39,12 +42,15 @@ async function loadOpenExplainStage(stageId: string) {
     stage.order <= limit;
   if (!open) return null;
 
-  const concepts = stageConcepts(stage.learningObjectives, prompt.rubric);
-  const notes = stage.resources
-    .flatMap((resource) => resource.keyPoints)
+  const generated = Boolean(prompt.conceptSourceHash);
+  const concepts = conceptsForGate(stage.learningObjectives, prompt.rubric, generated);
+  const notes = [
+    ...stage.resources.flatMap((resource) => resource.keyPoints),
+    ...(generated ? prompt.rubric : []),
+  ]
     .map((point) => point.trim())
     .filter(Boolean)
-    .slice(0, NOTE_LIMIT);
+    .slice(0, generated ? 48 : NOTE_LIMIT);
   return { stage, prompt, stageCount, concepts, notes };
 }
 

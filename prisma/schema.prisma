@@ -333,6 +333,8 @@ model ExplainBackPrompt {
 
   question String   @db.Text
   rubric   String[] @default([])
+  /// Set when the ideas were written from this stage's resources. A resource change clears the match.
+  conceptSourceHash String?
 
   stage    RoadmapStage         @relation(fields: [stageId], references: [id], onDelete: Cascade)
   attempts ExplainBackAttempt[]

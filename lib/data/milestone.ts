@@ -3,7 +3,9 @@ import { cache } from "react";
 import { EXPLAIN_INPUT_PREVIEW_STAGE_ID, EXPLAIN_NEEDS_WORK_PHRASE, EXPLAIN_REVIEW_FAILURE_TEXT } from "@/lib/mock/config";
 import { devDelay } from "@/lib/mock/delay";
 import { acceptedExplanations, explainNeedsWork, explainSamples, findExplainPrompt, findStage, listStages } from "@/lib/mock/catalog";
-import { explainQuestion, stageConcepts } from "@/lib/explain/concepts";
+import { explainQuestion } from "@/lib/explain/concepts";
+import { conceptsForGate } from "@/lib/explain/gate-concepts";
+import { ensureGateConcepts } from "@/lib/explain/gate-store";
 import { reviewStoredExplanation } from "@/lib/explain/review";
 import { prisma } from "@/lib/prisma";
 import type { RoadmapStageView, SkillView } from "@/lib/types/domain";
@@ -55,6 +57,7 @@ function openLimit(stageCount: number) {
 
 /** A real stage reads the stored prompt. The preview id still uses the mock walkthrough. */
 async function loadStoredMilestone(stageId: string, userId?: string): Promise<MilestoneData | null> {
+  await ensureGateConcepts(stageId);
   const stage = await prisma.roadmapStage.findUnique({
     where: { id: stageId },
     include: {
@@ -111,7 +114,8 @@ async function loadStoredMilestone(stageId: string, userId?: string): Promise<Mi
     explainBackPassed: false,
     previousStageTitle: previous?.title ?? null,
   };
-  const concepts = stageConcepts(stage.learningObjectives, stage.explainBackPrompt.rubric);
+  const generated = Boolean(stage.explainBackPrompt.conceptSourceHash);
+  const concepts = conceptsForGate(stage.learningObjectives, stage.explainBackPrompt.rubric, generated);
   const prompt = {
     id: stage.explainBackPrompt.id,
     stageId: stage.id,

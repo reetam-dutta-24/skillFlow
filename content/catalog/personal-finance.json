@@ -1,0 +1,977 @@
+{
+  "stages": [
+    {
+      "order": 1,
+      "title": "Budgeting & Cash Flow",
+      "level": "BEGINNER",
+      "description": "How to compare what comes in with what goes out, separate needs from wants, track spending and use a simple framework such as 50/30/20 to plan a monthly budget.",
+      "learningObjectives": [
+        "Explain a budget as a plan comparing income with expenses, and what a surplus or deficit means",
+        "Distinguish needs from wants with everyday examples",
+        "Describe practical ways to track spending before setting a budget",
+        "Apply the 50/30/20 split to a monthly take-home (net) income as one example method"
+      ],
+      "explainBack": {
+        "question": "A friend just got their first job and keeps running out of money before month-end. Explain how they could build a simple monthly budget, including how to track spending, how to sort needs from wants, and how the 50/30/20 rule would split their take-home pay.",
+        "rubric": [
+          "A budget compares income with expenses: a positive difference is a surplus that can go to savings or paying debt; a negative one means cutting spending or raising income",
+          "Needs are essentials (e.g. housing, food, utilities, transport, insurance); wants are non-essential (e.g. dining out, entertainment, brand-name extras)",
+          "Track actual spending first (receipts, a journal or app, by category, starting with a week at a time) before setting limits",
+          "The 50/30/20 rule puts about 50% of monthly net (take-home) income toward needs, 30% toward wants and 20% toward savings; it is a guideline, not a fixed law",
+          "Saving = income minus expenditure; 'paying yourself first' means setting savings aside before spending on wants"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "The 50-30-20 Rule - Budgeting for Needs, Wants, and Savings",
+          "provider": "Miacademy & MiaPrep Learning Channel",
+          "url": "https://www.youtube.com/watch?v=OZQQMYfaBT4",
+          "description": "A short explainer on splitting income into needs, wants and savings using the 50/30/20 guideline.",
+          "keyPoints": [
+            "Introduces the 50/30/20 budgeting guideline",
+            "Explains the difference between needs and wants",
+            "Shows how a savings share fits into a monthly plan"
+          ],
+          "videoId": "OZQQMYfaBT4"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Budgeting: How to create a budget and stick with it",
+          "provider": "Consumer Financial Protection Bureau (CFPB)",
+          "url": "https://www.consumerfinance.gov/archive/blog/budgeting-how-to-create-a-budget-and-stick-with-it/",
+          "description": "A US regulator's step-by-step guide to listing income, tracking spending, mapping bill dates and building a working budget.",
+          "keyPoints": [
+            "Step 1: list every source of income",
+            "Step 2: track spending by category, starting with one week at a time",
+            "Step 3: map bill due dates against when income arrives to avoid missed payments",
+            "Step 4: combine everything into a monthly budget worksheet and set a savings goal"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Financial Literacy Booklet (Financial Education Handbook)",
+          "provider": "National Centre for Financial Education (NCFE)",
+          "url": "https://old.ncfe.org.in/images/FE_Handbook/FE_Handbook_Eng.pdf",
+          "description": "India's national financial-education body explains needs vs wants, income and expenses, budgeting, saving and other basics in plain language.",
+          "keyPoints": [
+            "Defines a need as essential and a want as a non-essential desire",
+            "A budget compares income with expenses; surplus can repay debt or raise savings",
+            "Suggests recording daily expenses and totalling them over about three months",
+            "Saving = income - expenditure; pay yourself first",
+            "Advises clearing high-interest debt before building savings"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "50/30/20 Budget (FE222h)",
+          "provider": "NDSU Extension (North Dakota State University)",
+          "url": "https://ndsu.edu/agriculture/sites/default/files/2024-08/fe222h.pdf",
+          "description": "A one-page university extension worksheet that applies the 50/30/20 split to monthly net income.",
+          "keyPoints": [
+            "50% of monthly net income for needs, 30% for wants, 20% for savings",
+            "Needs include groceries, housing, utilities, insurance and loan payments",
+            "Wants include dining out, entertainment and brand-name clothing",
+            "Unused 'wants' money can be moved to savings"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How to Make a Budget",
+          "provider": "Mississippi State University Extension",
+          "author": "Susan Collins-Smith",
+          "url": "https://extension.msstate.edu/blogs/extension-for-real-life/how-make-budget",
+          "description": "A four-step extension guide: record net income, list fixed and flexible expenses, plan for periodic costs, then compare the totals.",
+          "keyPoints": [
+            "Start from monthly net income (after taxes and deductions)",
+            "Separate fixed expenses (rent, loan EMIs) from flexible ones (food, clothing)",
+            "Divide yearly costs by 12 to set aside for them monthly",
+            "Track spending for at least a week; longer tracking gives a more accurate budget"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Emergency Fund & Banking Basics",
+      "level": "BEGINNER",
+      "description": "Why an emergency fund comes first, how big it is commonly suggested to be, where to keep it, and how deposit insurance (DICGC in India) protects bank deposits.",
+      "learningObjectives": [
+        "Explain what an emergency fund is and why it helps avoid high-cost borrowing",
+        "State the common guideline of three to six months of essential expenses and how to build towards it",
+        "Describe where to keep an emergency fund: safe, separate and easy to access",
+        "Explain DICGC deposit insurance: what is covered and the ₹5 lakh limit"
+      ],
+      "explainBack": {
+        "question": "Explain to a new earner what an emergency fund is, how much is commonly suggested, where it should be kept and how to start one. Then explain how much of their bank deposits is protected if an Indian bank fails.",
+        "rubric": [
+          "An emergency fund is money set aside for unexpected costs (job loss, medical bills, urgent repairs) so you don't have to borrow or break long-term investments",
+          "Common guidance is three to six months of basic living expenses; starting with a small first target and automatic transfers is recommended",
+          "Keep it safe, separate from everyday spending money and easily accessible, e.g. an insured savings account",
+          "In India, DICGC insures deposits (savings, fixed, recurring) up to ₹5 lakh per depositor per bank, covering principal plus interest together",
+          "Depositors pay nothing for DICGC cover; the bank pays the premium"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Emergency Funds: How Much To Save & How To Get Started",
+          "provider": "NerdWallet",
+          "url": "https://www.youtube.com/watch?v=ye8u7SYWlPk",
+          "description": "A short explainer on sizing an emergency fund and practical first steps to build one.",
+          "keyPoints": [
+            "Why emergency savings matter",
+            "How to decide how much to save",
+            "Practical steps to start and grow the fund"
+          ],
+          "videoId": "ye8u7SYWlPk"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Building an Emergency Savings Fund",
+          "provider": "Washington State Department of Financial Institutions",
+          "url": "https://dfi.wa.gov/financial-education/information/importance-having-emergency-savings-account",
+          "description": "A state regulator's guide on what an emergency fund is, how much to aim for, where to hold it and how to build it gradually.",
+          "keyPoints": [
+            "An emergency fund is money saved for unexpected costs",
+            "Common advice: three to six months of basic living costs",
+            "Start with a small first goal, then keep adding",
+            "Keep it safe, separate and accessible, e.g. an insured savings account",
+            "Automatic transfers from each paycheck make it easier"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Bank Failure? DICGC to the rescue | Mint Primer",
+          "provider": "Mint",
+          "url": "https://www.youtube.com/watch?v=XEksT3j-mn4",
+          "description": "A short explainer from Mint on how DICGC deposit insurance protects depositors when an Indian bank fails.",
+          "keyPoints": [
+            "Explains what DICGC is",
+            "Describes how deposit insurance works if a bank fails",
+            "Covers the insured limit for depositors"
+          ],
+          "videoId": "XEksT3j-mn4"
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "DICGC Information Booklet",
+          "provider": "Deposit Insurance and Credit Guarantee Corporation (DICGC)",
+          "url": "https://dicgc.org.in/sites/default/files/2025-02/dicgc-information-booklet.pdf",
+          "description": "The official booklet on which banks and deposits are insured, the coverage limit and how claims are paid.",
+          "keyPoints": [
+            "Covers commercial, small finance, payments, regional rural and cooperative banks registered with DICGC",
+            "Savings, fixed and recurring deposits are insured",
+            "Limit: ₹5 lakh per depositor per bank, principal and interest combined",
+            "Depositors pay no premium; banks pay it",
+            "Some deposits, e.g. from governments or other banks, are not covered"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Debt, Credit Cards & Credit Scores",
+      "level": "BEGINNER",
+      "description": "How credit card interest and minimum payments work, what a CIBIL credit score measures, and how to spot unauthorised digital lending apps.",
+      "learningObjectives": [
+        "Explain how credit card interest is charged and how paying in full avoids it",
+        "Explain why paying only the minimum due is costly",
+        "Describe what a CIBIL score is, its range and the main factors that affect it",
+        "Recognise the warning signs of unauthorised digital lending apps and how to verify a lender"
+      ],
+      "explainBack": {
+        "question": "A college friend has a new credit card and is getting loan offers from apps. Explain how card interest and minimum payments work, what a credit score is and what affects it, and what they should check before borrowing through an app.",
+        "rubric": [
+          "Paying the full statement balance by the due date avoids interest on purchases during the grace (interest-free) period; carried balances are charged interest, typically calculated daily",
+          "Paying only the minimum leaves a balance on which interest keeps being added, so repayment can take years and cost much more overall",
+          "A CIBIL score is a three-digit summary of credit history ranging from 300 to 900; higher scores make loan approval easier",
+          "Key score factors: on-time payment history, credit utilisation (keeping balances low), credit mix and the number of recent credit enquiries",
+          "RBI advises borrowing only from banks, RBI-regulated NBFCs or state-regulated lenders, verifying the lender, never sharing KYC documents with unverified apps, and reporting unauthorised apps (e.g. on the Sachet portal)"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Minimum Payments on Credit Cards - Personal Finance Tips",
+          "provider": "FTCvideos",
+          "url": "https://www.youtube.com/watch?v=vcWNxOX_VEs",
+          "description": "A US Federal Trade Commission short showing how paying only the minimum makes a small purchase cost far more over time.",
+          "keyPoints": [
+            "Example: a $300 purchase paid at the minimum each month",
+            "Shows interest being added to the balance monthly",
+            "Total paid ends up well above the original price"
+          ],
+          "videoId": "vcWNxOX_VEs"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Understanding minimum payments",
+          "provider": "Consumer Financial Protection Bureau (CFPB)",
+          "url": "https://files.consumerfinance.gov/f/documents/cfpb_building_block_activities_understanding-minimum-payments_guide.pdf",
+          "description": "A short CFPB learning guide on what a minimum payment is and what happens when you pay only that amount.",
+          "keyPoints": [
+            "A minimum payment is the smallest amount due each month",
+            "Interest is added to what you owe each month",
+            "Paying only the minimum can take years, even decades, on high balances",
+            "Paying more, or the full amount, lowers total interest"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How does my credit card company calculate the amount of interest I owe?",
+          "provider": "Consumer Financial Protection Bureau (CFPB)",
+          "url": "https://www.consumerfinance.gov/ask-cfpb/how-does-my-credit-card-company-calculate-the-amount-of-interest-i-owe-en-51/",
+          "description": "Explains daily interest calculation, APRs and how the grace period lets you avoid interest by paying in full.",
+          "keyPoints": [
+            "Interest is usually computed daily on the average daily balance",
+            "Different balance types (purchases, cash advances) can have different rates",
+            "A grace period applies to new purchases if you don't carry a balance",
+            "Paying the full balance by the due date avoids purchase interest"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Know The Four Factors That Influence Your CIBIL Score | TransUnion CIBIL",
+          "provider": "CIBIL",
+          "url": "https://www.youtube.com/watch?v=tbs836jV_Xs",
+          "description": "TransUnion CIBIL's own short on the four main factors behind a CIBIL score.",
+          "keyPoints": [
+            "Covers the four main score factors",
+            "Explains why repayment behaviour matters",
+            "Links everyday credit habits to the score"
+          ],
+          "videoId": "tbs836jV_Xs"
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "All You Need To Know About Your CIBIL Score And How It Is Calculated",
+          "provider": "TransUnion CIBIL",
+          "url": "https://www.cibil.com/blog/all-you-need-to-know-about-cibil-score",
+          "description": "The bureau's explainer on the 300–900 score range and the factors that raise or lower it.",
+          "keyPoints": [
+            "Score ranges from 300 to 900; above 750 is considered strong",
+            "Payment history: late payments and defaults hurt the score",
+            "High credit utilisation signals rising debt and can lower the score",
+            "Balanced credit mix helps; many recent enquiries can hurt",
+            "Check your report regularly and dispute errors"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "RBI cautions against Unauthorised Digital Lending Platforms/Mobile Apps",
+          "provider": "Reserve Bank of India",
+          "url": "https://rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx?prid=50846",
+          "description": "RBI's public warning about unauthorised loan apps, with steps to verify lenders and report problems.",
+          "keyPoints": [
+            "Unauthorised apps charge excessive interest and hidden fees",
+            "They use harsh recovery methods and misuse phone data",
+            "Legitimate lenders: banks, RBI-registered NBFCs, state-regulated lenders",
+            "Never share KYC documents with unverified apps",
+            "Report unauthorised apps on the Sachet portal or to police"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Inflation, Compounding & Time Value of Money",
+      "level": "INTERMEDIATE",
+      "description": "Why money today is worth more than money later, how inflation erodes purchasing power, how to get real return from nominal return, and how compounding and the Rule of 72 work.",
+      "learningObjectives": [
+        "Define inflation and explain how it reduces purchasing power",
+        "Calculate an approximate real return from a nominal return and inflation",
+        "Explain compound vs simple interest and why starting early matters",
+        "Use the Rule of 72 to estimate doubling time"
+      ],
+      "explainBack": {
+        "question": "Your fixed deposit pays 6% a year and inflation is 4%. Explain what inflation does to your money, what your real return is, how compounding differs from simple interest, and roughly how long money takes to double at 9% a year.",
+        "rubric": [
+          "Inflation is the rate at which prices rise over a period (commonly a year, measured by a consumer price index); it reduces what a fixed amount of money can buy",
+          "Real return ≈ nominal return − inflation: 6% − 4% ≈ 2% real; if inflation exceeds the interest rate, purchasing power falls",
+          "Compound interest earns interest on previously earned interest, while simple interest is paid only on the original principal, so compounding grows faster over time",
+          "Rule of 72: years to double ≈ 72 ÷ annual rate, so about 8 years at 9%",
+          "Time value of money: money available now is worth more than the same amount later because it can earn returns; starting early gives compounding more time"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Introduction to inflation | Inflation - measuring the cost of living | Macroeconomics | Khan Academy",
+          "provider": "Khan Academy",
+          "url": "https://www.youtube.com/watch?v=AaR1mPrdbTc",
+          "description": "Khan Academy's introduction to what inflation is and how price-level changes are measured.",
+          "keyPoints": [
+            "Defines inflation as a general rise in prices",
+            "Introduces measuring prices with a basket of goods",
+            "Shows how inflation changes what money can buy"
+          ],
+          "videoId": "AaR1mPrdbTc"
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Nominal interest, real interest, and inflation calculations | AP Macroeconomics | Khan Academy",
+          "provider": "Khan Academy",
+          "url": "https://www.youtube.com/watch?v=mFI58RRCDbs",
+          "description": "Works through the relationship between nominal interest, real interest and inflation with calculations.",
+          "keyPoints": [
+            "Defines nominal and real interest rates",
+            "Shows real rate ≈ nominal rate − inflation",
+            "Works through numeric examples"
+          ],
+          "videoId": "mFI58RRCDbs"
+        },
+        {
+          "order": 3,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Investor.gov: Knowledge Worth Celebrating (Compound Interest)",
+          "provider": "U.S. Securities and Exchange Commission",
+          "url": "https://www.youtube.com/watch?v=5d5bBmkmzRg",
+          "description": "A short SEC Investor.gov piece on how compound interest grows savings over time.",
+          "keyPoints": [
+            "Explains compound interest in simple terms",
+            "Shows the benefit of time and regular saving",
+            "Points to free Investor.gov calculators"
+          ],
+          "videoId": "5d5bBmkmzRg"
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Inflation: Prices on the Rise",
+          "provider": "International Monetary Fund (Finance & Development)",
+          "author": "Ceyda Oner",
+          "url": "https://www.imf.org/en/Publications/fandd/issues/Series/Back-to-Basics/Inflation",
+          "description": "An IMF back-to-basics article defining inflation, how the CPI measures it and who it hurts.",
+          "keyPoints": [
+            "Inflation is the rate of increase in prices over a period, usually a year",
+            "CPI tracks price changes for a fixed basket of goods and services",
+            "If income rises slower than prices, real income and purchasing power fall",
+            "Savers on fixed rates lose when inflation exceeds their interest rate"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Financial Awareness Messages (FAME)",
+          "provider": "Reserve Bank of India",
+          "url": "https://rbi.org.in/commonperson/images/FAME202426022024.pdf",
+          "description": "RBI's financial-awareness booklet covering time value of money, inflation and real return, compounding, risk and digital safety.",
+          "keyPoints": [
+            "Money now is worth more than the same amount later because it can earn",
+            "Example: 6% deposit with 4% inflation gives about 2% real return",
+            "Banks compound interest: ₹10,000 at 10% compounded quarterly for 10 years ≈ ₹26,851",
+            "Higher expected return comes with higher risk; diversify",
+            "Never share PIN, password or OTP; report fraud quickly"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What is compound interest?",
+          "provider": "Investor.gov (U.S. Securities and Exchange Commission)",
+          "url": "https://www.investor.gov/additional-resources/information/youth/teachers-classroom-resources/what-compound-interest",
+          "description": "Explains compound vs simple interest with a worked example, the Rule of 72 and why starting early helps.",
+          "keyPoints": [
+            "Compound interest is interest earned on interest",
+            "$100 at 5%: $105 after year 1, $110.25 after year 2, over $162 after 10 years",
+            "Rule of 72: divide 72 by the rate to estimate doubling time (9% ≈ 8 years)",
+            "Starting young gives compounding more time to work"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Investing Basics: Risk, Diversification & Mutual Funds",
+      "level": "INTERMEDIATE",
+      "description": "The risk-return trade-off, main asset classes, diversification, how mutual funds, SIPs and index funds work, why costs matter, and the KYC requirement.",
+      "learningObjectives": [
+        "Explain the relationship between risk and return and name the main asset classes",
+        "Explain diversification and how mutual funds provide it",
+        "Describe how a SIP works and what rupee cost averaging means",
+        "Explain what an index fund and an expense ratio are and why costs matter over time",
+        "State that KYC is required before investing in Indian securities markets"
+      ],
+      "explainBack": {
+        "question": "A friend wants to start investing ₹2,000 a month. Explain the trade-off between risk and return, why diversification matters, how a SIP in a mutual fund works, and what an index fund and expense ratio are. (General education only, not advice on any product.)",
+        "rubric": [
+          "Higher potential returns usually come with higher risk; equity is higher-risk/growth-oriented while debt is lower-risk/fixed income",
+          "Diversification ('don't put all your eggs in one basket') spreads money across and within asset classes to reduce the impact of any one investment; a mutual fund pools many investors' money into a diversified portfolio",
+          "A SIP invests a fixed amount at regular intervals; the same amount buys more units when prices are low and fewer when high (rupee cost averaging), which does not guarantee profit",
+          "An index fund passively tracks a market index; an expense ratio is the yearly percentage of fund assets used to pay operating costs, and higher fees compound into a noticeably smaller final value",
+          "KYC (identity and address verification, e.g. PAN/Aadhaar) is mandatory before investing in securities markets/mutual funds in India"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "How do I invest? | Investments and retirement | Financial Literacy | Khan Academy",
+          "provider": "Khan Academy",
+          "url": "https://www.youtube.com/watch?v=ro3v84swtZ4",
+          "description": "Khan Academy's beginner overview of getting started with investing.",
+          "keyPoints": [
+            "Overview of how individuals begin investing",
+            "Introduces investment accounts and funds",
+            "Frames investing as long-term"
+          ],
+          "videoId": "ro3v84swtZ4"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Financial Education Booklet",
+          "provider": "Securities and Exchange Board of India (SEBI)",
+          "url": "https://investor.sebi.gov.in/pdf/downloadable-documents/Financial%20Education%20Booklet%20-%20English.pdf",
+          "description": "SEBI's financial education booklet on risk and return, asset classes, mutual funds, SIPs, KYC, frauds and grievance redressal.",
+          "keyPoints": [
+            "Risk and investing go hand in hand; higher returns mean more uncertainty",
+            "Equity schemes are higher risk, debt schemes lower, hybrid in between",
+            "Don't put all eggs in one basket: diversify",
+            "SIPs invest a fixed amount regularly, from as little as ₹500 a month",
+            "KYC with PAN, Aadhaar or other ID and address proof is mandatory"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What is Rupee Cost Averaging?",
+          "provider": "AMFI (Mutual Funds Sahi Hai)",
+          "url": "https://www.mutualfundssahihai.com/en/what-rupee-cost-averaging",
+          "description": "The mutual fund industry body's explanation of how regular SIP investing averages out purchase cost.",
+          "keyPoints": [
+            "Regular SIPs buy more units when markets fall and fewer when they rise",
+            "Over long periods this can lower the average cost per unit",
+            "Removes the need to time market highs and lows",
+            "Works best with discipline over longer periods"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Index Funds",
+          "provider": "Investor.gov (U.S. Securities and Exchange Commission)",
+          "url": "https://www.investor.gov/introduction-investing/investing-basics/investment-products/mutual-funds-and-exchange-traded-4",
+          "description": "Explains what index funds are, passive management, potential cost advantages and risks such as tracking error.",
+          "keyPoints": [
+            "Index funds aim to track the return of a market index",
+            "They use a passive strategy with infrequent trading",
+            "Often cheaper, but not all index funds cost less than active funds",
+            "Risks include tracking error and inability to avoid market falls"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Expense Ratio",
+          "provider": "Investor.gov (U.S. Securities and Exchange Commission)",
+          "url": "https://www.investor.gov/introduction-investing/investing-basics/glossary/expense-ratio",
+          "description": "Glossary definition of a fund's expense ratio and where to find it.",
+          "keyPoints": [
+            "Expense ratio = share of a fund's average net assets used yearly for operating expenses",
+            "Includes management and other fees",
+            "Found in the fund's fee table (offer document)",
+            "Directly reduces investors' returns"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How Fees and Expenses Affect Your Investment Portfolio",
+          "provider": "Investor.gov (U.S. Securities and Exchange Commission)",
+          "url": "https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-bulletins/updated",
+          "description": "An SEC bulletin showing with numbers how small yearly fee differences shrink a portfolio over 20 years.",
+          "keyPoints": [
+            "Fees reduce the money left in the portfolio to earn returns",
+            "$100,000 at 4% for 20 years: ≈$208,000 with 0.25% fees",
+            "Same with 0.50% fees ≈ $198,000; with 1% fees ≈ $179,000",
+            "Compare fees before investing"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "title": "Insurance: Life & Health",
+      "level": "INTERMEDIATE",
+      "description": "How insurance transfers risk, the difference between term life and endowment plans, and key health insurance terms such as premium, deductible, co-payment, cashless claims and portability.",
+      "learningObjectives": [
+        "Explain why life insurance exists and who needs it",
+        "Distinguish term insurance from endowment plans",
+        "Define premium, deductible, co-payment and sum insured in health insurance",
+        "Explain cashless vs reimbursement claims and health insurance portability in India"
+      ],
+      "explainBack": {
+        "question": "Explain to a young earner with dependent parents the difference between a term life plan and an endowment plan, and explain the key health insurance terms premium, deductible, co-payment and sum insured, plus how cashless claims and portability work in India.",
+        "rubric": [
+          "Life insurance replaces lost income for dependents; term insurance is pure protection with no savings component, pays only if the insured dies within the term, and has the lowest premiums",
+          "An endowment plan combines insurance with savings and pays on death or survival to maturity, so it is more expensive than a term plan for the same cover",
+          "Premium is what you pay for the policy; a deductible is what you pay yourself before the insurer pays; a co-payment is a share of each claim you bear; claims reduce the sum insured available for the rest of the policy year",
+          "Cashless: the insurer pays a network hospital directly; reimbursement: you pay first and claim later (non-network hospitals are not cashless)",
+          "IRDAI portability lets you switch health insurers at renewal while keeping credit for waiting periods already served; apply at least 45 days before renewal"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Are you mixing Insurance with Investments? | Endowment Plan vs Term Insurance | What is better?",
+          "provider": "Zerodha Varsity",
+          "url": "https://www.youtube.com/watch?v=uLomQGPliWw",
+          "description": "Zerodha Varsity compares term insurance with endowment plans and the idea of keeping insurance separate from investing.",
+          "keyPoints": [
+            "Compares term insurance and endowment plans",
+            "Discusses mixing insurance with investment",
+            "Explains cost differences for similar cover"
+          ],
+          "videoId": "uLomQGPliWw"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Why Buy Life Insurance",
+          "provider": "National Centre for Financial Education (NCFE)",
+          "url": "https://ncfe.org.in/why-buy-life-insurance/",
+          "description": "NCFE explains why life insurance is needed and compares term, endowment, ULIP and money-back plans.",
+          "keyPoints": [
+            "Life insurance supports dependents if the earner dies",
+            "Term insurance: most basic, lowest premium, no savings component",
+            "Term pays only on death within the policy term",
+            "Endowment pays on death or survival and is more expensive than term"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Health insurance primer",
+          "provider": "Khan Academy",
+          "url": "https://www.youtube.com/watch?v=jdP0bBU0rV8",
+          "description": "Khan Academy's primer on how health insurance works, including premiums and deductibles.",
+          "keyPoints": [
+            "Explains how health insurance pools risk",
+            "Introduces premiums and deductibles",
+            "Shows who pays what when you make a claim"
+          ],
+          "videoId": "jdP0bBU0rV8"
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Glossary (Get Covered New Jersey)",
+          "provider": "State of New Jersey Department of Banking and Insurance",
+          "url": "https://www.nj.gov/getcoverednj/findanswers/glossary/index.shtml",
+          "description": "A state insurance regulator's glossary defining premium, deductible, copayment, coinsurance and out-of-pocket maximum.",
+          "keyPoints": [
+            "Premium: what you pay for the insurance itself",
+            "Deductible: what you pay before the plan starts paying",
+            "Copayment: a fixed amount per covered service",
+            "Coinsurance: a percentage of costs you pay after the deductible"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "You and Your Health Insurance Policy: FAQs",
+          "provider": "Insurance Regulatory and Development Authority of India (IRDAI)",
+          "url": "https://www.policyholder.gov.in/you_and_your_health_insurance_policy_faqs.aspx",
+          "description": "IRDAI's policyholder FAQ on premiums, cashless vs reimbursement claims, waiting periods, claims and co-payment.",
+          "keyPoints": [
+            "Premiums generally rise with age",
+            "Cashless: insurer pays network hospitals directly; costs above limits are yours",
+            "A claim reduces the remaining sum insured (₹2 lakh claim on ₹5 lakh leaves ₹3 lakh)",
+            "Arogya Sanjeevani standard policy has a 5% co-payment"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Portability of Health Insurance",
+          "provider": "Insurance Regulatory and Development Authority of India (IRDAI)",
+          "url": "https://policyholder.gov.in/portability-of-health-insurance",
+          "description": "IRDAI's explanation of switching health insurers without losing credit for waiting periods.",
+          "keyPoints": [
+            "You can move to another insurer or plan without losing waiting-period credit",
+            "Porting is allowed only at renewal",
+            "Apply at least 45 days before the renewal date",
+            "Keep cover continuous; a grace period applies during porting"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Taxes & Retirement Savings",
+      "level": "ADVANCED",
+      "description": "How India's old and new income tax regimes differ at a general level, how tax-saving instruments such as PPF fit in, how NPS works, and why retirement planning should start early.",
+      "learningObjectives": [
+        "Explain that the new tax regime is the default and what giving up deductions means",
+        "Describe the main features of PPF as a long-term, tax-advantaged savings scheme",
+        "Describe NPS Tier I and Tier II accounts",
+        "Explain why starting retirement saving early matters"
+      ],
+      "explainBack": {
+        "question": "A 23-year-old salaried employee asks how to think about taxes and retirement. Explain how the old and new tax regimes differ in general, what PPF and NPS are, and why starting retirement savings early makes such a difference. (General education only, not tax advice.)",
+        "rubric": [
+          "The new tax regime is the default for individuals; those who want the old regime must opt out. Salaried people without business income can choose each year when filing their return",
+          "The new regime does not allow most Chapter VI-A deductions such as 80C and 80D (and excludes HRA exemption), so tax-saving instruments matter mainly under the old regime",
+          "PPF: ₹500 minimum to ₹1.5 lakh maximum deposit per financial year, 15-year term extendable in 5-year blocks; deposits qualify under Section 80C and interest is tax-free",
+          "NPS Tier I is the retirement account with restricted withdrawals and tax benefits; Tier II is an optional, freely withdrawable account without tax benefits that needs an active Tier I",
+          "Starting early gives compounding more years to work; a longer horizon can absorb market ups and downs"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Why plan for retirement | Investments and retirement | Financial Literacy | Khan Academy",
+          "provider": "Khan Academy",
+          "url": "https://www.youtube.com/watch?v=J9lTE95LPaA",
+          "description": "Khan Academy on why retirement needs planning well in advance.",
+          "keyPoints": [
+            "Why retirement needs long-term planning",
+            "The role of time and compounding",
+            "Why starting early helps"
+          ],
+          "videoId": "J9lTE95LPaA"
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Taxes intro | Taxes and tax forms | Financial Literacy | Khan Academy",
+          "provider": "Khan Academy",
+          "url": "https://www.youtube.com/watch?v=L8zPRF3JsE4",
+          "description": "A Khan Academy introduction to what income taxes are and how they are applied to earnings.",
+          "keyPoints": [
+            "What income tax is and why it exists",
+            "How taxable income relates to gross pay",
+            "General idea of tax brackets"
+          ],
+          "videoId": "L8zPRF3JsE4"
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "FAQs on New Tax vs Old Tax Regime",
+          "provider": "Income Tax Department, Government of India",
+          "url": "https://www.incometax.gov.in/iec/foportal/help/new-tax-vs-old-tax-regime-faqs",
+          "description": "The tax department's FAQ on which regime is the default, who can switch and which deductions the new regime disallows.",
+          "keyPoints": [
+            "New regime is the default from AY 2024-25; you must opt out to use the old one",
+            "Salaried taxpayers without business income can choose each year in the ITR",
+            "Business/professional earners face stricter switching rules (Form 10-IEA)",
+            "New regime disallows most deductions such as 80C, 80D and HRA exemption"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Public Provident Fund Account",
+          "provider": "National Savings Institute (Ministry of Finance)",
+          "url": "https://www.nsiindia.gov.in/InternalPage.aspx?Id_Pk=55",
+          "description": "Official summary of PPF rules: deposit limits, term, loans, withdrawals and tax treatment.",
+          "keyPoints": [
+            "Deposit ₹500 minimum to ₹1,50,000 maximum per financial year",
+            "Matures after 15 full financial years; extendable in 5-year blocks",
+            "Loans from year 3; withdrawals from year 7",
+            "Deposits qualify under Section 80C; interest is tax-free"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "NPS - All Citizen Model",
+          "provider": "Pension Fund Regulatory and Development Authority (PFRDA)",
+          "url": "https://pfrda.org.in/web/pfrda/schemes/national-pension-system/nps-for-all-citizen-models",
+          "description": "PFRDA's overview of NPS for citizens: eligibility, Tier I and Tier II accounts, investment choices and exit rules.",
+          "keyPoints": [
+            "Open to Indian citizens, NRIs and OCIs aged 18–70",
+            "Tier I: retirement account, restricted withdrawals, tax benefits",
+            "Tier II: optional, withdraw anytime, no tax benefits, needs Tier I",
+            "Choose Active (own mix) or Auto (age-based life-cycle) investment choice"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Importance of Investing Early",
+          "provider": "Securities and Exchange Board of India (SEBI)",
+          "url": "https://investor.sebi.gov.in/early_investing_impt.html",
+          "description": "SEBI's investor page on why to start investing with your first income, using a compounding example.",
+          "keyPoints": [
+            "Start investing from your first income",
+            "₹1,000 compounding over 40 years grows to ≈₹31,409 vs ₹4,600 with simple interest",
+            "A longer horizon helps absorb market fluctuations",
+            "Early investing supports retirement security"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "title": "Protecting Yourself & Long-Term Planning",
+      "level": "ADVANCED",
+      "description": "How to spot and avoid UPI, phishing and investment scams, why nominations matter, and how to keep long-term plans on track with asset allocation and rebalancing.",
+      "learningObjectives": [
+        "Apply UPI safety rules and know where to report digital fraud in India",
+        "Identify red flags of investment scams and Ponzi-style schemes",
+        "Explain why nominations on investments matter",
+        "Explain asset allocation and when and how to rebalance a portfolio"
+      ],
+      "explainBack": {
+        "question": "Explain to a family member how to stay safe on UPI and from 'guaranteed return' investment offers, why they should add nominees to their investments, and how a long-term investor keeps their asset mix on track over the years.",
+        "rubric": [
+          "The UPI PIN is entered only to send/deduct money and is never needed to receive money; scan QR codes only to pay; never share PIN/OTP or install screen-sharing apps at a stranger's request",
+          "Report digital financial fraud quickly, e.g. on the national helpline 1930 or cybercrime.gov.in",
+          "Investment scam red flags: guaranteed/assured returns, unrealistically high returns, unregistered entities, unsolicited offers and pressure to act now; verify registration with SEBI before investing",
+          "Nomination names who can claim demat holdings or mutual fund units after the investor's death, making the claim process simpler for family; investors must either nominate or formally opt out",
+          "Asset allocation divides money among asset classes based on time horizon and risk tolerance; rebalancing restores the target mix periodically (e.g. every 6–12 months) or when it drifts beyond a set threshold"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Real world: Scams and Fraud | Teacher resources | Financial Literacy | Khan Academy",
+          "provider": "Khan Academy",
+          "url": "https://www.youtube.com/watch?v=BMrAIzCcNLk",
+          "description": "Khan Academy's look at common real-world scams and how fraud happens.",
+          "keyPoints": [
+            "Common types of scams and fraud",
+            "How scammers gain trust and create urgency",
+            "Habits that reduce the risk of being defrauded"
+          ],
+          "videoId": "BMrAIzCcNLk"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "UPI Safety Shield",
+          "provider": "National Payments Corporation of India (NPCI)",
+          "url": "https://npci.org.in/what-we-do/upi/upi-safety-shield",
+          "description": "NPCI's UPI safety rules on PINs, QR codes, verifying payees, suspicious apps and where to report fraud.",
+          "keyPoints": [
+            "Enter UPI PIN only to deduct money; it is not needed to receive money",
+            "Scan QR codes only to pay, not to receive",
+            "Check the receiver's name before paying",
+            "Avoid screen-sharing/SMS-forwarding apps requested by strangers",
+            "Report on 1930 or cybercrime.gov.in"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Lost money in a digital scam? Follow these steps to get your money back | Digital fraud | Cybercrime",
+          "provider": "Business Standard",
+          "url": "https://www.youtube.com/watch?v=dXiCQhvqtWU",
+          "description": "A Business Standard explainer on the steps to take quickly after losing money to a digital scam in India.",
+          "keyPoints": [
+            "What to do immediately after a digital fraud",
+            "Reporting channels for cyber fraud in India",
+            "Why speed of reporting matters"
+          ],
+          "videoId": "dXiCQhvqtWU"
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How to Spot a Scam",
+          "provider": "Securities and Exchange Board of India (SEBI)",
+          "url": "https://investor.sebi.gov.in/spot-any-scam.html",
+          "description": "SEBI's list of investment-scam red flags and how to check that an entity is registered.",
+          "keyPoints": [
+            "Be wary of assured or guaranteed returns: all market investments carry risk",
+            "Fraud often involves entities not registered with SEBI",
+            "Unrealistic profits and overly complex strategies are warning signs",
+            "High-pressure 'act now' tactics are a red flag",
+            "Verify registration on SEBI's website before investing"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Nomination",
+          "provider": "Securities and Exchange Board of India (SEBI)",
+          "url": "https://investor.sebi.gov.in/market-nomination.html",
+          "description": "SEBI's page on nomination for demat accounts and mutual fund folios, and the option to formally opt out.",
+          "keyPoints": [
+            "Nomination names who can claim securities or fund units after the investor's death",
+            "Investors must either submit a nomination or formally opt out",
+            "Not acting by the deadline led to folios/accounts being frozen",
+            "Nomination for trading accounts is optional"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Beginners' Guide to Asset Allocation, Diversification, and Rebalancing",
+          "provider": "Investor.gov (U.S. Securities and Exchange Commission)",
+          "url": "https://www.investor.gov/additional-resources/general-resources/publications-research/info-sheets/beginners-guide-asset",
+          "description": "The SEC's guide to choosing an asset mix by time horizon and risk tolerance, diversifying, and rebalancing.",
+          "keyPoints": [
+            "Asset allocation divides a portfolio among stocks, bonds and cash",
+            "It depends on time horizon and risk tolerance",
+            "Rebalancing restores the original mix after assets grow at different rates",
+            "Rebalance on a schedule (every 6–12 months) or when the mix drifts past a threshold"
+          ]
+        }
+      ]
+    }
+  ],
+  "slug": "personal-finance",
+  "name": "Personal Finance",
+  "description": "Money basics with an Indian focus, from budgeting and emergency funds to credit, compounding, investing, insurance, taxes, retirement and fraud safety. Educational, not financial advice.",
+  "status": "COMING_SOON"
+}

@@ -1,0 +1,891 @@
+{
+  "stages": [
+    {
+      "order": 1,
+      "title": "Know Your Risks, Alerts and Emergency Numbers",
+      "level": "BEGINNER",
+      "description": "The foundation of preparedness: knowing which hazards affect your area, how official warnings will reach you, and how to call for help (112 in India).",
+      "learningObjectives": [
+        "Identify the personal and community-wide emergencies most likely where you live",
+        "Name the official channels that deliver warnings, including India's SACHET/NDMA alerts",
+        "Explain what India's 112 ERSS number connects to and the ways to reach it",
+        "Explain why at least one household member should learn first aid, CPR and AED use"
+      ],
+      "explainBack": {
+        "question": "How would you find out which emergencies are likely where you live, how official warnings would reach you, and how you would call for help? Use India as an example and note what you would check with your local authority.",
+        "rubric": [
+          "Identify likely hazards for your area, from personal emergencies such as home fires to community-wide events such as floods or earthquakes",
+          "Know how local authorities will notify you (radio, TV, official alert apps/SMS); in India, NDMA's SACHET portal and app send geo-targeted, multilingual alerts, with SMS from the header XX-NDMAEW",
+          "112 is India's single pan-India emergency number (ERSS) connecting police, fire & rescue and health/ambulance services; check your own country's number with your local authority",
+          "112 can be reached by calling, by triple-pressing a smartphone's power button (panic call), through the 112 India app, or via state ERSS websites/email",
+          "At least one household member should take first aid and CPR training and learn to use an AED"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "India launches mobile disaster alert system",
+          "provider": "DD India",
+          "url": "https://www.youtube.com/watch?v=Fv-mwJz32Ts",
+          "description": "Short news report from India's public broadcaster on the national mobile disaster alert system.",
+          "keyPoints": [
+            "Introduces India's mobile-based disaster alerting",
+            "Shows that official warnings can arrive on ordinary phones",
+            "Context for why you should know your official alert channels"
+          ],
+          "videoId": "Fv-mwJz32Ts"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Be Informed",
+          "provider": "American Red Cross",
+          "url": "https://www.redcross.org/get-help/how-to-prepare-for-emergencies/be-informed.html",
+          "description": "Red Cross overview of the 'be informed' step: learn local risks, how you will be warned, and basic life-saving skills.",
+          "keyPoints": [
+            "Identify disasters likely where you live, from home fires to floods and earthquakes",
+            "Find out how local authorities will notify you (radio, TV, weather radio)",
+            "Learn the difference between alert types such as watches and warnings",
+            "Have at least one household member trained in first aid, CPR and AED use",
+            "Print wallet-sized emergency contact cards for each household member"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "SACHET - National Disaster Alert Portal",
+          "provider": "National Disaster Management Authority (India)",
+          "url": "https://sachet.ndma.gov.in/",
+          "description": "NDMA's official alert portal that distributes area-specific Common Alerting Protocol warnings from Indian agencies and all states/UTs.",
+          "keyPoints": [
+            "Run by NDMA; India's official disaster alert portal using the Common Alerting Protocol",
+            "Carries alerts from IMD, CWC, INCOIS and state disaster management authorities",
+            "Alerts via mobile app, SMS (header XX-NDMAEW), browser notifications and RSS",
+            "Geo-targeted and available in 12 Indian regional languages"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Emergency Response Support System (ERSS) - 112 India",
+          "provider": "Ministry of Home Affairs, Government of India",
+          "url": "https://112.gov.in/",
+          "description": "Official site of India's single emergency number 112, explaining which services it connects and the different ways to raise an SOS.",
+          "keyPoints": [
+            "112 is a pan-India single number for police, fire & rescue and health/ambulance",
+            "Smartphones: press the power button three times to trigger a panic call",
+            "Feature phones: long-press 5 or 9 to raise a panic call",
+            "Also reachable via the 112 India app, state ERSS websites and email",
+            "Caller location is shown on the dispatcher's map to speed response"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Build an Emergency Kit",
+      "level": "BEGINNER",
+      "description": "How to assemble and maintain a go-bag and a stay-at-home kit with water, food, medicines, documents and basic tools.",
+      "learningObjectives": [
+        "Calculate water and food needs per person for an evacuation kit and a stay-at-home kit",
+        "List the core items in a basic emergency kit, including medicines and documents",
+        "Customise a kit for infants, older adults, medical needs and pets",
+        "Maintain kits and decide where to keep them (home, work, vehicle)"
+      ],
+      "explainBack": {
+        "question": "Describe what goes into a go-bag versus a stay-at-home kit for your household, how much water you would store, and how you would keep the kits up to date.",
+        "rubric": [
+          "Store about one gallon (roughly 3.8 litres) of water per person per day: about a 3-day supply for an evacuation go-bag and about a 2-week supply for home, plus non-perishable food in the same quantities",
+          "Core items include a torch/flashlight with extra batteries, a battery-powered or hand-crank radio, a first aid kit, a phone with chargers, a multi-purpose tool, hygiene items and cash",
+          "Pack about a 7-day supply of medications plus copies of important documents such as ID, insurance policies, proof of address and medical information",
+          "Customise for household needs: infant supplies, medical devices, glasses, pet food and supplies",
+          "Replace expired items, reassess needs every year, and consider kits at home, at work and in the car"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "FEMA Accessible: Build A Go Kit",
+          "provider": "FEMA",
+          "url": "https://www.youtube.com/watch?v=iU5dlRRjpjo",
+          "description": "FEMA's accessible video (with ASL/captions) on putting together a go-kit you can grab when evacuating.",
+          "keyPoints": [
+            "Explains what a go-kit is and when you would grab it",
+            "Walks through typical go-kit items",
+            "Accessible format from the US emergency management agency"
+          ],
+          "videoId": "iU5dlRRjpjo"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Survival Kit Supplies",
+          "provider": "American Red Cross",
+          "url": "https://www.redcross.org/get-help/how-to-prepare-for-emergencies/survival-kit-supplies.html",
+          "description": "Red Cross checklist of basic kit supplies, with water and food quantities for evacuation and for staying at home.",
+          "keyPoints": [
+            "Water: one gallon per person per day; 3 days for evacuation, 2 weeks at home",
+            "Non-perishable, easy-to-prepare food in the same quantities",
+            "Flashlight, radio, extra batteries, first aid kit, multi-purpose tool, hygiene items",
+            "Medications (7-day supply) and copies of documents such as ID, insurance and proof of address",
+            "Add family-specific items: medical devices, baby supplies, pet supplies, extra keys"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Build A Kit",
+          "provider": "Ready.gov (FEMA)",
+          "url": "https://www.ready.gov/kit",
+          "description": "FEMA's kit-building page listing basic and additional supplies plus advice on maintaining kits and where to keep them.",
+          "keyPoints": [
+            "One gallon of water per person per day for several days, for drinking and sanitation",
+            "Basic kit: radio, flashlight, batteries, first aid kit, whistle, dust mask, can opener, phone and chargers",
+            "Add prescriptions, glasses, infant supplies, pet food, cash and copies of documents",
+            "Replace expired items and reassess family needs every year",
+            "Keep kits at home, at work and in the car"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Make a Family Emergency Plan",
+      "level": "BEGINNER",
+      "description": "Turning preparedness into a shared household plan: meeting places, an out-of-area contact, roles, and arrangements for people with specific needs and pets.",
+      "learningObjectives": [
+        "Choose meeting places for a sudden home emergency and for an evacuation",
+        "Set up a communication plan with an out-of-area contact and written contact details",
+        "Plan for household members with disabilities or medical needs using a support network",
+        "Include pets in the plan and practise it regularly"
+      ],
+      "explainBack": {
+        "question": "Walk through your household's emergency plan: where you would meet, how you would contact each other if phones are unreliable, how you would support anyone with specific needs and your pets, and how often you would practise.",
+        "rubric": [
+          "Pick two meeting places: one just outside the home for sudden emergencies like a fire, and one outside the neighbourhood in case you cannot return home",
+          "Choose an out-of-area contact (local lines may be overloaded) and have every member carry written contact details as well as numbers saved in phones",
+          "Discuss likely emergencies, assign responsibilities to each member, and practise the plan, including evacuation, about twice a year",
+          "People with disabilities or medical needs should build a personal support network and plan back-ups such as power for medical equipment",
+          "Pets evacuate with the family: pack a pet kit (food, water, medicines, records, carrier/leash) and identify pet-friendly places to stay"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Family Communications Plan and Emergency Kit",
+          "provider": "FEMA",
+          "url": "https://www.youtube.com/watch?v=LviZ4pZrqu8",
+          "description": "FEMA video on creating a family communications plan and pairing it with an emergency kit.",
+          "keyPoints": [
+            "Why families need an agreed communications plan",
+            "Recording key contacts and meeting places",
+            "Linking the plan to your emergency kit"
+          ],
+          "videoId": "LviZ4pZrqu8"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Make a Plan",
+          "provider": "American Red Cross",
+          "url": "https://www.redcross.org/get-help/how-to-prepare-for-emergencies/make-a-plan.html",
+          "description": "Red Cross three-step guide to a household disaster plan: discuss, assign responsibilities and practise.",
+          "keyPoints": [
+            "Two meeting places: right outside the home and outside the neighbourhood",
+            "Choose an out-of-area emergency contact; carry written contact information",
+            "Plan evacuation destinations and routes; practise twice a year with your kit",
+            "Consider older adults, people with disabilities, children and pets"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Disaster Safety for People with Disabilities",
+          "provider": "American Red Cross",
+          "url": "https://www.redcross.org/get-help/how-to-prepare-for-emergencies/disaster-safety-for-people-with-disabilities.html",
+          "description": "Red Cross guidance on planning for disability and access needs, built around a personal support network and needs assessment.",
+          "keyPoints": [
+            "Build a personal support network (self-help team) to assist during and after disasters",
+            "Assess needs for daily living, getting around and evacuation",
+            "Plan back-ups such as power for electricity-dependent medical devices",
+            "Public shelters may not provide personal care; plan alternatives with family or friends"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Pet Disaster Preparedness",
+          "provider": "American Red Cross",
+          "url": "https://www.redcross.org/get-help/how-to-prepare-for-emergencies/pet-disaster-preparedness.html",
+          "description": "Red Cross advice on including pets in evacuation plans and assembling a pet emergency kit.",
+          "keyPoints": [
+            "If it is not safe for you to stay, it is not safe for pets: take them with you",
+            "Pet kit: carrier/leash, food, water, bowls, medicines and records, photo with your pet",
+            "Find pet-friendly places along evacuation routes and back-up care options",
+            "Keep ID and vaccinations current; consider microchipping"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Basic First Aid: Assess, Recovery Position, Bleeding and Burns",
+      "level": "INTERMEDIATE",
+      "description": "The first-aid basics every household member should know, as published by St John Ambulance, the British Red Cross and the NHS; hands-on training is recommended.",
+      "learningObjectives": [
+        "Carry out a primary survey (DR ABC) starting with checking for danger",
+        "Place an unresponsive person who is breathing normally in the recovery position",
+        "Control heavy bleeding with direct pressure while getting emergency help",
+        "Give first aid for a burn or scald and know when it needs emergency care"
+      ],
+      "explainBack": {
+        "question": "Someone is hurt at home. Explain how you would assess them using the primary survey, when you would use the recovery position, and what the official first-aid steps are for heavy bleeding and for a burn. Note why formal training matters.",
+        "rubric": [
+          "Primary survey DR ABC: check Danger first, then Response, open the Airway (head tilt, chin lift), check Breathing for up to 10 seconds, then Circulation (severe bleeding)",
+          "If unresponsive but breathing normally, place them in the recovery position, call the emergency number (e.g. 112) and keep monitoring their breathing",
+          "For heavy bleeding, press firmly on the wound with whatever is available, call for emergency help, and keep the pressure on; do not remove an embedded object",
+          "For burns, cool under cool running water for 20 minutes, remove nearby clothing/jewellery unless stuck, then cover loosely with cling film; never use ice, creams or butter",
+          "Get emergency help for large or deep burns, burns to the face, genitals or bottom, and chemical or electrical burns"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "First aid for someone who is unresponsive but breathing | First aid training | British Red Cross",
+          "provider": "British Red Cross",
+          "url": "https://www.youtube.com/watch?v=5fK2oCiz8VU",
+          "description": "British Red Cross demonstration of what to do when someone is unresponsive but breathing.",
+          "keyPoints": [
+            "Checking response and breathing",
+            "Moving the person onto their side to keep the airway open",
+            "Calling for emergency help"
+          ],
+          "videoId": "5fK2oCiz8VU"
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "First aid for someone who is bleeding heavily | First aid training online | British Red Cross",
+          "provider": "British Red Cross",
+          "url": "https://www.youtube.com/watch?v=L6jjyikFwmA",
+          "description": "British Red Cross demonstration of first aid for heavy bleeding.",
+          "keyPoints": [
+            "Apply pressure to the wound",
+            "Call for emergency help",
+            "Keep pressure on until help arrives"
+          ],
+          "videoId": "L6jjyikFwmA"
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Primary survey",
+          "provider": "St John Ambulance",
+          "url": "https://www.sja.org.uk/first-aid-advice/primary-survey/",
+          "description": "St John Ambulance guide to the DR ABC primary survey used to find and deal with life-threatening conditions.",
+          "keyPoints": [
+            "Danger: make sure the area is safe before approaching",
+            "Response: speak to them and gently shake shoulders",
+            "Airway: head tilt and chin lift; Breathing: check for up to 10 seconds",
+            "Agonal gasping is not normal breathing",
+            "Unresponsive and breathing normally: recovery position and call 999/112"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Recovery position",
+          "provider": "St John Ambulance",
+          "url": "https://www.sja.org.uk/first-aid-advice/recovery-position/",
+          "description": "Step-by-step St John Ambulance instructions for putting an unresponsive, normally breathing adult into the recovery position.",
+          "keyPoints": [
+            "For someone who is not responding but is breathing normally",
+            "Keeps the airway open and lets vomit drain",
+            "Arm at right angle, hand to cheek, bend far knee, roll towards you, tilt head back",
+            "Call 999 or 112 and monitor them continuously"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "First aid for someone bleeding heavily",
+          "provider": "British Red Cross",
+          "url": "https://www.redcross.org.uk/first-aid/learn-first-aid/bleeding-heavily",
+          "description": "British Red Cross three-step guide for heavy bleeding with key do's and don'ts.",
+          "keyPoints": [
+            "Put pressure on the wound with whatever is available",
+            "Call the emergency number",
+            "Keep pressure on; add new material if bandages soak through",
+            "Do not remove embedded objects or wash a heavily bleeding wound"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Burns and scalds",
+          "provider": "NHS",
+          "url": "https://www.nhs.uk/conditions/burns-and-scalds/",
+          "description": "NHS guidance on immediate first aid for burns and scalds and when to seek emergency care.",
+          "keyPoints": [
+            "Cool under cool running water for 20 minutes",
+            "Remove clothing or jewellery near the burn unless stuck to the skin",
+            "Cover with cling film laid on, not wrapped around",
+            "Never use ice, creams, oils or butter",
+            "Call emergency services for large/deep, face/genital, chemical or electrical burns"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "title": "CPR, AED and Choking",
+      "level": "INTERMEDIATE",
+      "description": "Recognising cardiac arrest and giving adult CPR, using an AED, and helping an adult who is choking, following St John Ambulance, AHA and Red Cross guidance; certified training is strongly recommended.",
+      "learningObjectives": [
+        "Recognise when to start CPR on an adult and call for help",
+        "Give chest compressions at the correct rate, depth and hand position, with or without rescue breaths",
+        "Use an AED by following its prompts and resuming CPR",
+        "Help a choking adult with back blows and abdominal thrusts"
+      ],
+      "explainBack": {
+        "question": "An adult collapses and is not breathing normally. Explain what you would do, including CPR technique and using an AED. Then explain the official steps for an adult who is choking. Mention why formal training is recommended.",
+        "rubric": [
+          "If unresponsive and not breathing normally, call the emergency number (e.g. 112) and start CPR straight away; send a helper for an AED rather than leaving the casualty",
+          "Heel of hand on the middle of the chest, other hand on top; press to about 5-6 cm at 100-120 compressions per minute",
+          "Trained rescuers give 30 compressions to 2 rescue breaths; if unable or unwilling to give breaths, give continuous chest compressions (hands-only CPR)",
+          "AED: switch on and follow voice prompts, attach pads to the bare chest (upper right, lower left side), make sure no one touches the person, shock if advised, then resume CPR immediately starting with compressions",
+          "Choking adult: encourage coughing; if that fails give 5 back blows between the shoulder blades, then 5 abdominal thrusts; call the emergency number if not cleared and repeat; start CPR if they become unresponsive"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Hands-Only CPR Instructional Video",
+          "provider": "American Heart Association",
+          "url": "https://www.youtube.com/watch?v=M4ACYp75mjU",
+          "description": "AHA's instructional video on Hands-Only CPR for bystanders: call for help and push hard and fast in the centre of the chest.",
+          "keyPoints": [
+            "Two steps: call the emergency number, then push hard and fast",
+            "Compressions in the centre of the chest",
+            "Designed for untrained bystanders"
+          ],
+          "videoId": "M4ACYp75mjU"
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "How to do CPR on an Adult - First Aid Training - St John Ambulance",
+          "provider": "St John Ambulance",
+          "url": "https://www.youtube.com/watch?v=BQNNOh8c8ks",
+          "description": "St John Ambulance demonstration of adult CPR including compressions and rescue breaths.",
+          "keyPoints": [
+            "Checking response and breathing",
+            "Hand position, compression depth and rate",
+            "30 compressions to 2 rescue breaths"
+          ],
+          "videoId": "BQNNOh8c8ks"
+        },
+        {
+          "order": 3,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "First aid for someone who is choking | First aid training online | British Red Cross",
+          "provider": "British Red Cross",
+          "url": "https://www.youtube.com/watch?v=WeY4KJUnfMc",
+          "description": "British Red Cross demonstration of helping an adult who is choking.",
+          "keyPoints": [
+            "Encourage coughing",
+            "Back blows between the shoulder blades",
+            "Abdominal thrusts and calling for help"
+          ],
+          "videoId": "WeY4KJUnfMc"
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "CPR",
+          "provider": "St John Ambulance",
+          "url": "https://www.sja.org.uk/first-aid-advice/cpr/",
+          "description": "St John Ambulance written guide to adult CPR, including compression depth, rate and the hands-only option.",
+          "keyPoints": [
+            "Unresponsive and not breathing normally: call 999 or 112 and start CPR",
+            "Heel of hand in the middle of the chest, press about 5-6 cm",
+            "Rate of 100 to 120 compressions per minute",
+            "30 compressions to 2 rescue breaths, or continuous compressions if unable/unwilling",
+            "Ask a helper to fetch an AED; do not leave the casualty to find one"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "AED Steps",
+          "provider": "American Red Cross",
+          "url": "https://www.redcross.org/take-a-class/aed/using-an-aed/aed-steps",
+          "description": "Red Cross step list for using an AED on an adult or child over 8 years and 55 lb.",
+          "keyPoints": [
+            "Turn on the AED and follow the voice prompts",
+            "Bare and dry the chest; pads on upper right chest and lower left side",
+            "Make sure nobody touches the person ('Clear!') during analysis and shock",
+            "After a shock or no-shock advice, resume CPR starting with compressions"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Choking",
+          "provider": "St John Ambulance",
+          "url": "https://www.sja.org.uk/first-aid-advice/choking/",
+          "description": "St John Ambulance steps for helping a choking adult.",
+          "keyPoints": [
+            "Encourage them to cough if they can",
+            "Five sharp back blows between the shoulder blades",
+            "Five abdominal thrusts: fist between navel and chest, pull in and up",
+            "Call 999 or 112 if not cleared; repeat cycles; prepare for CPR if unresponsive"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "title": "Home Fire Safety",
+      "level": "INTERMEDIATE",
+      "description": "Preventing, detecting and escaping home fires: smoke alarms, an escape plan, safe extinguisher use and what to do if clothes catch fire.",
+      "learningObjectives": [
+        "Install, test and replace smoke alarms correctly",
+        "Make and practise a home fire escape plan",
+        "Choose and use a portable fire extinguisher only for small fires",
+        "Respond if clothing catches fire"
+      ],
+      "explainBack": {
+        "question": "Explain how you would protect your household from fire: smoke alarms, your escape plan, when and how you would use a fire extinguisher, and what to do if someone's clothes catch fire. Note what to check with your local fire service.",
+        "rubric": [
+          "Smoke alarms inside and outside each sleeping area and on every level; test monthly; replace the alarm 10 years from its manufacture date; interconnected alarms all sound together",
+          "You may have less than 2 minutes to escape: map two ways out of every room, choose an outside meeting place, practise about twice a year, and once out stay out and call for help",
+          "Use an extinguisher only on a small fire (about trash-can size) using PASS: Pull the pin, Aim low at the base, Squeeze the lever, Sweep side to side; if in doubt, get out and call the fire service",
+          "Extinguisher classes: A ordinary combustibles (paper, wood), B flammable liquids, C electrical, D metals, K cooking oils/fats; most home units are multipurpose ABC",
+          "If clothes catch fire: stop (do not run), cover your face, drop to the ground and roll; then cool the burn with cool running water for 20 minutes"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "How To Prevent A Home Fire | American Red Cross",
+          "provider": "American Red Cross",
+          "url": "https://www.youtube.com/watch?v=fhKD1CS8pcM",
+          "description": "Red Cross video on preventing home fires and preparing to escape.",
+          "keyPoints": [
+            "Common home fire hazards",
+            "Working smoke alarms",
+            "Having and practising an escape plan"
+          ],
+          "videoId": "fhKD1CS8pcM"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Smoke alarms",
+          "provider": "U.S. Fire Administration (FEMA)",
+          "url": "https://www.usfa.fema.gov/prevention/home-fires/prepare-for-fire/smoke-alarms/",
+          "description": "USFA guidance on where to install smoke alarms, how to test them and when to replace them.",
+          "keyPoints": [
+            "Install inside and outside each bedroom/sleeping area and on every level",
+            "Test monthly",
+            "Replace alarms 10 years from the manufacture date",
+            "Interconnected alarms all sound when one detects smoke",
+            "Never disable an alarm while cooking"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Home Fire Escape Plans",
+          "provider": "U.S. Fire Administration (FEMA)",
+          "url": "https://www.usfa.fema.gov/prevention/home-fires/prepare-for-fire/home-fire-escape-plans/",
+          "description": "USFA steps for creating a home fire escape plan.",
+          "keyPoints": [
+            "You may have less than 2 minutes to escape after the alarm sounds",
+            "Draw a map of your home with all doors and windows",
+            "Find 2 ways out of every room",
+            "Choose an outside meeting place in front of your home; practise with drills"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Home Fire Safety",
+          "provider": "American Red Cross",
+          "url": "https://www.redcross.org/get-help/how-to-prepare-for-emergencies/types-of-emergencies/fire.html",
+          "description": "Red Cross home fire safety page covering alarms, escape practice and what to do during a fire.",
+          "keyPoints": [
+            "As little as two minutes to escape a home fire",
+            "Practise the escape plan twice a year",
+            "Get out, stay out and call for help; never go back in",
+            "Test smoke alarms monthly"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How to choose and use a fire extinguisher",
+          "provider": "Texas Department of Insurance (State Fire Marshal's Office)",
+          "url": "https://agate.tdi.texas.gov/tips/how-to-choose-and-use-a-fire-extinguisher.html",
+          "description": "State government guide to extinguisher classes, the PASS technique and when not to fight a fire.",
+          "keyPoints": [
+            "PASS: Pull the pin, Aim low at the base, Squeeze slowly, Sweep side to side",
+            "Classes: A paper/wood, B flammable liquids, C electrical, D metals, K cooking oils",
+            "Most home extinguishers are rated A-B-C",
+            "Only for small fires (about trash-can size); if in doubt, call the fire department"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What to do if your clothes catch fire",
+          "provider": "SA Metropolitan Fire Service (Government of South Australia)",
+          "url": "https://mfs.sa.gov.au/community-safety/safety-and-education/fact-sheets/what-to-do-if-your-clothes-catch-fire",
+          "description": "Fire service fact sheet on Stop, Cover, Drop, Roll and the burn first aid that follows.",
+          "keyPoints": [
+            "Stop: do not run, running fans the flames",
+            "Cover your face with your hands",
+            "Drop to the ground and roll to smother the flames",
+            "Cool the burn under cool running water for 20 minutes; no ice, creams or oils"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Natural Hazards: Earthquakes, Floods, Heatwaves and Cyclones",
+      "level": "ADVANCED",
+      "description": "Hazard-specific protective actions from NDMA, NOAA, WHO and the Red Cross for the disasters most common in India and worldwide.",
+      "learningObjectives": [
+        "Protect yourself during an earthquake indoors, outdoors and if trapped",
+        "Explain why you should never walk or drive into floodwater",
+        "Reduce heat-related illness risk during a heatwave",
+        "Prepare for and shelter during a cyclone/hurricane, following official orders"
+      ],
+      "explainBack": {
+        "question": "For an earthquake, a flood, a heatwave and a cyclone, describe the key protective actions you would take, and explain why following your local authority's warnings (e.g. NDMA/IMD in India) matters.",
+        "rubric": [
+          "Earthquake indoors: drop to the ground, take cover under a sturdy table and hold on, stay inside until shaking stops, keep away from glass and windows; outdoors move to open space away from buildings and wires",
+          "If trapped after an earthquake: do not light a match; tap on a pipe or wall (or use a whistle) so rescuers can find you; shout only as a last resort",
+          "Never walk or drive into floodwater (Turn Around Don't Drown): about 15 cm (6 in) of fast-moving water can knock an adult over and about 30 cm (12 in) of rushing water can carry away most cars",
+          "In a heatwave drink water regularly (WHO: about 1 cup an hour and at least 2-3 litres a day), keep your home cool, wear light clothing and check on vulnerable people; heatstroke is a medical emergency",
+          "Cyclone/hurricane: evacuate when officials order it; if sheltering, use an interior windowless room away from windows; return only when authorities say it is safe"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "ShakeOut Earthquake Drill - Drop Cover and Hold On",
+          "provider": "FEMA",
+          "url": "https://www.youtube.com/watch?v=B3mzFRNTZVc",
+          "description": "FEMA video demonstrating Drop, Cover and Hold On during a ShakeOut earthquake drill.",
+          "keyPoints": [
+            "Drop to hands and knees",
+            "Take cover under a sturdy table or desk",
+            "Hold on until the shaking stops"
+          ],
+          "videoId": "B3mzFRNTZVc"
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Turn Around Don't Drown PSA",
+          "provider": "National Weather Service (NWS)",
+          "url": "https://www.youtube.com/watch?v=eI6mIlHKrVY",
+          "description": "NWS public service announcement on the danger of driving or walking into floodwater.",
+          "keyPoints": [
+            "Floodwater is deeper and faster than it looks",
+            "Roads under water may be washed out",
+            "Turn around and find another route"
+          ],
+          "videoId": "eI6mIlHKrVY"
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Earthquakes: Do's and Don'ts",
+          "provider": "National Disaster Management Authority (India)",
+          "url": "https://ndma.gov.in/Natural-Hazards/Earthquakes/Dos-Donts",
+          "description": "NDMA's official list of actions before, during and after an earthquake, including what to do if trapped.",
+          "keyPoints": [
+            "Before: anchor heavy items, keep heavy objects low, identify safe spots, make a family plan",
+            "Indoors: DROP to the ground and take COVER under a sturdy table; stay inside until shaking stops",
+            "Outdoors: move away from buildings, streetlights and wires to open space",
+            "If trapped: don't light a match; tap on a pipe or wall; shout only as a last resort"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Turn Around Don't Drown",
+          "provider": "National Weather Service (NOAA)",
+          "url": "https://www.weather.gov/safety/flood-turn-around-dont-drown",
+          "description": "NOAA page explaining how little moving water is needed to sweep away people and vehicles.",
+          "keyPoints": [
+            "6 inches of fast-moving water can knock over an adult",
+            "12 inches of rushing water can carry away most cars; 2 feet can carry SUVs and trucks",
+            "Over half of flood drownings involve vehicles driven into floodwater",
+            "Never drive around barriers on flooded roads"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Climate change, heat and health",
+          "provider": "World Health Organization",
+          "url": "https://www.who.int/news-room/fact-sheets/detail/climate-change-heat-and-health",
+          "description": "WHO fact sheet on health risks from heat, who is most vulnerable, and protective actions.",
+          "keyPoints": [
+            "Heat stress is a leading cause of weather-related deaths; heatstroke is a medical emergency",
+            "Older people, outdoor workers and those with chronic illness are most at risk",
+            "Drink water regularly: about 1 cup per hour and at least 2-3 litres a day",
+            "Keep homes cool, wear light clothing and check on vulnerable neighbours"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Hurricane Safety",
+          "provider": "American Red Cross",
+          "url": "https://www.redcross.org/get-help/how-to-prepare-for-emergencies/types-of-emergencies/hurricane.html",
+          "description": "Red Cross guidance for hurricanes (called cyclones in the Indian Ocean) before, during and after the storm.",
+          "keyPoints": [
+            "Plan evacuation routes; follow official evacuation orders",
+            "Go-kit of 3 days and stay-at-home kit of 2 weeks",
+            "If sheltering, use an interior windowless room away from windows and glass doors",
+            "Never walk, swim or drive through floodwater; return only when authorities say it is safe"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "title": "Recovery and Community Resilience",
+      "level": "ADVANCED",
+      "description": "Staying safe after a disaster, documenting losses, looking after mental health, and joining community response efforts such as Aapda Mitra.",
+      "learningObjectives": [
+        "Return home and check for hazards such as gas leaks, electrical damage and structural damage",
+        "Clean up safely, avoiding carbon monoxide, floodwater and mould hazards",
+        "Document damage for insurance and recovery assistance",
+        "Recognise common stress reactions after disasters and where support comes from",
+        "Describe how trained community volunteers support disaster response"
+      ],
+      "explainBack": {
+        "question": "After a flood or cyclone, how would you safely return home and clean up, document your losses, look after your household's mental health, and contribute to community recovery?",
+        "rubric": [
+          "Return only when authorities say it is safe; check outside for downed power lines, damaged gas lines and structural damage, and do not enter buildings marked unsafe",
+          "If you smell gas or hear hissing, leave immediately, get far away and call the fire department/gas emergency service from a safe place; use torches, not open flames",
+          "Never run generators or fuel-burning devices indoors (carbon monoxide); avoid contact with floodwater, turn off power at the main if circuits are wet, and dry the home within 24-48 hours to limit mould",
+          "Photograph damage to buildings and contents for insurance, keep repair receipts, and throw out food, drinks and medicine exposed to floodwater",
+          "Anxiety, sadness, sleep problems and irritability are common after emergencies and usually improve over time; community support and psychological first aid help, and persistent distress needs professional care"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "FEMA Accessible: Helping Children Cope After a Disaster",
+          "provider": "FEMA",
+          "url": "https://www.youtube.com/watch?v=di6j1XxKC8c",
+          "description": "FEMA accessible video on recognising and supporting children's stress reactions after a disaster.",
+          "keyPoints": [
+            "Children may react to disasters in different ways",
+            "How adults can reassure and support them",
+            "When to seek more help"
+          ],
+          "videoId": "di6j1XxKC8c"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Safety Steps for Returning Home After the Flood",
+          "provider": "American Red Cross",
+          "url": "https://www.redcross.org/about-us/news-and-events/news/20-Red-Cross-Safety-Steps-for-Returning-Home-After-the-Flood.html",
+          "description": "Red Cross checklist for re-entering and cleaning a flooded home safely.",
+          "keyPoints": [
+            "Return only when authorities say it is safe",
+            "Check for downed power lines, gas line damage and structural damage before entering",
+            "If you smell gas, leave immediately and call the fire department from safety",
+            "Photograph damage for insurance; keep repair receipts",
+            "Discard food, drinks and medicine exposed to floodwater"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Guidelines for Cleaning Safely After a Disaster",
+          "provider": "Centers for Disease Control and Prevention",
+          "url": "https://www.cdc.gov/natural-disasters/safety/index.html",
+          "description": "CDC guidance on protective gear and hazards during post-disaster cleanup.",
+          "keyPoints": [
+            "Wear protective gear: gloves, boots, goggles, N95 mask",
+            "Never use generators or fuel-burning devices indoors (carbon monoxide)",
+            "Floodwater may contain sewage; avoid contact and contaminated food/water",
+            "Turn off power at the main breaker if circuits are wet",
+            "Dry the home within 24-48 hours to limit mould"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Mental health in emergencies",
+          "provider": "World Health Organization",
+          "url": "https://www.who.int/news-room/fact-sheets/detail/mental-health-in-emergencies",
+          "description": "WHO fact sheet on psychological effects of emergencies and the layered support that helps people recover.",
+          "keyPoints": [
+            "Most people feel distress (anxiety, sadness, sleep problems, irritability) after a crisis",
+            "For most, these reactions improve over time",
+            "Community support and psychological first aid are first-line help",
+            "People with persistent conditions need clinical or specialised care"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Aapada Mitra",
+          "provider": "Odisha State Disaster Management Authority",
+          "url": "https://www.osdma.org/aapada-mitra/",
+          "description": "OSDMA page on the NDMA-sponsored Aapda Mitra scheme that trains community volunteers in disaster response.",
+          "keyPoints": [
+            "NDMA-sponsored scheme training community volunteers as first responders",
+            "Training in life-saving response skills, coordination and protective equipment",
+            "Volunteers helped with warnings, evacuation, first aid and shelters during Cyclone Fani (2019)",
+            "Shows how ordinary residents can join official community response"
+          ]
+        }
+      ]
+    }
+  ],
+  "slug": "emergency-preparedness",
+  "name": "Emergency Preparedness",
+  "description": "Household readiness for disasters and everyday emergencies: alerts, kits, family plans, first aid and CPR, fire safety, natural hazards and recovery.",
+  "status": "COMING_SOON"
+}

@@ -152,6 +152,7 @@ async function main() {
   await importCatalog("ai-tools", { apply: true })
   await importCatalog("cybersecurity", { apply: true })
   await importCatalog("digital-marketing", { apply: true })
+  await importCatalog("personal-finance", { apply: true })
 }
 
 main()

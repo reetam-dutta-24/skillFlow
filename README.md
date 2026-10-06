@@ -4,7 +4,7 @@ A mastery-first learning platform. Curated roadmaps, your own resources, and an 
 
 ## Status
 
-Thirty paths are free. Thirteen of them have catalogs:
+Thirty paths are free. Fourteen of them have catalogs:
 
 - Full-Stack Web Development — 12 stages, 64 resources. Stages 1–9 are the open stretch.
 - Travel Vlogging — 8 stages, 46 resources. Stages 1–5 are the open stretch.
@@ -19,8 +19,9 @@ Thirty paths are free. Thirteen of them have catalogs:
 - AI Tools — 8 stages, 15 resources. Stages 1–5 are the open stretch.
 - Cybersecurity — 8 stages, 47 resources. Stages 1–5 are the open stretch.
 - Digital Marketing — 8 stages, 44 resources. Stages 1–5 are the open stretch.
+- Personal Finance — 8 stages, 45 resources. Stages 1–5 are the open stretch.
 
-The next stage on a free path opens after the explain-back. The last three stages stay locked. A stage waiting on that pass stays readable, with a lock. The last two stages on the path stay blurred. The other seventeen free paths have no stages yet: Art & Painting, Photography, Emergency Preparedness, Personal Finance, Badminton, Public Speaking, Sound Design, Nutrition, Psychology, Podcasting, Guitar, Chess, Interior Design, Relationships, Socializing, Freelancing, and Travel Planning. Art & Painting stays a flagship. Photography's catalog file is written and not imported because one link returned 404. Every other niche is Premium, with no stages and no resources. Payments are not built.
+The next stage on a free path opens after the explain-back. The last three stages stay locked. A stage waiting on that pass stays readable, with a lock. The last two stages on the path stay blurred. The other sixteen free paths have no stages yet: Art & Painting, Photography, Emergency Preparedness, Badminton, Public Speaking, Sound Design, Nutrition, Psychology, Podcasting, Guitar, Chess, Interior Design, Relationships, Socializing, Freelancing, and Travel Planning. Art & Painting stays a flagship. Photography's catalog file is written and not imported because one link returned 404. Emergency Preparedness's catalog file is written and not imported because one link returned 404. Every other niche is Premium, with no stages and no resources. Payments are not built.
 
 The niche list shows 32 cards a page. Home and roadmaps show the first 12, a blurred peek of the next row, and a link to the full list.
 

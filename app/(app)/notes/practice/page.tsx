@@ -29,7 +29,7 @@ export default async function PracticePage() {
     <div className="sf-notes-page">
       <header className="sf-page-head">
         <h1>Practice</h1>
-        <p>Bring text of your own, name the idea, and explain it. The review uses only that text. A note that holds is saved here. It does not pass a stage.</p>
+        <p>Start with a link to the page you are learning from. You can also drop a text file or paste a passage. The review uses the page text. A note that holds is saved here. It does not pass a stage.</p>
         <p className="sf-notes-actions">
           <Link href="/notes">Back to notes</Link>
         </p>

@@ -320,6 +320,7 @@ export async function judgeConcept(input: {
 const PRACTICE_SYSTEM = [
   "You review one idea a learner is practicing from text they brought themselves.",
   "The provided text is the only source. Do not add facts that are not in that text.",
+  "A line that only names a page address is a label. Grade the passage under it, not the address.",
   "Understood is true when their explanation agrees with the provided text and covers the named idea. A clear restatement still counts.",
   "A name, a label, or a single clause is not understood. A claim the text does not support is not understood. Do not reject an answer only because its wording stays close to the text.",
   "The review is always written, whether they understood or not. Two to four sentences.",

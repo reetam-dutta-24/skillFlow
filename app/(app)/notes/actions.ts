@@ -4,7 +4,8 @@ import { auth } from "@/lib/auth";
 import { EXPLAIN_REVIEW_FAILURE_TEXT } from "@/lib/mock/config";
 import { explainModelConfig, judgePractice } from "@/lib/explain/judge";
 import { listLearnerNotes, savePracticeNote } from "@/lib/explain/notes";
-import { normalizeSource } from "@/lib/explain/practice";
+import { assemblePracticeSource, planPracticeUrls, textWithoutUrls } from "@/lib/explain/page-text";
+import { loadPracticePages } from "@/lib/explain/page-source";
 import { touchLearnerProgress } from "@/lib/progress/stats";
 import { summarizeStageNotes } from "@/lib/explain/summarize";
 import { prisma } from "@/lib/prisma";
@@ -27,10 +28,12 @@ export async function summarizeStage(stageId: string): Promise<
 export async function reviewPractice(input: {
   skillId: string;
   concept: string;
+  pageUrl: string;
   source: string;
   answer: string;
 }): Promise<
-  { ok: true; understood: boolean; review: string; noted: boolean } | { ok: false; error: "empty" | "unavailable" | "unconnected" }
+  | { ok: true; understood: boolean; review: string; noted: boolean }
+  | { ok: false; error: "empty" | "unavailable" | "unconnected" | "unreadable" | "blocked" }
 > {
   const session = await auth();
   const userId = session?.user?.id;
@@ -39,8 +42,15 @@ export async function reviewPractice(input: {
 
   const concept = input.concept.trim().slice(0, 200);
   const answer = input.answer.trim().slice(0, 8000);
-  const source = normalizeSource(input.source);
-  if (concept.length < 3 || !answer || !source) return { ok: false, error: "empty" };
+  const brought = [input.pageUrl, input.source].map((part) => part.trim()).filter(Boolean).join("\n\n").slice(0, 14_000);
+  const plan = planPracticeUrls(brought);
+  if (plan.blocked) return { ok: false, error: "blocked" };
+  const loaded = plan.pages.length ? await loadPracticePages(plan.pages) : { texts: [], blocked: false, missed: false };
+  if (loaded.blocked) return { ok: false, error: "blocked" };
+  const source = assemblePracticeSource(loaded.texts, textWithoutUrls(brought));
+  if (concept.length < 3 || !answer || !source) {
+    return { ok: false, error: plan.pages.length ? "unreadable" : "empty" };
+  }
   const failure = EXPLAIN_REVIEW_FAILURE_TEXT.toLowerCase();
   if (answer.toLowerCase() === failure || source.toLowerCase() === failure) return { ok: false, error: "unavailable" };
 

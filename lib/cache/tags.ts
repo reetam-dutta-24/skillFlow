@@ -13,6 +13,9 @@ export const GEOCODE_TAG = "geocode";
 /** Saved nearby events for a niche. The same list for every visitor. A person's city stays outside the cache. */
 export const EVENTS_TAG = "nearby-events";
 
+/** Text read from a public page for a practice note. The same page is the same text for every learner. */
+export const PRACTICE_SOURCE_TAG = "practice-source";
+
 export function accountTag(userId: string) {
   return `account:${userId}`;
 }

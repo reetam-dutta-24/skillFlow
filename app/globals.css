@@ -4191,6 +4191,12 @@ a.sf-source:hover {
 .sf-practice textarea.is-over {
   border-color: var(--accent);
 }
+.sf-practice-hint {
+  min-width: 0;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  line-height: 1.4;
+}
 .sf-practice-file {
   width: fit-content;
   max-width: 100%;

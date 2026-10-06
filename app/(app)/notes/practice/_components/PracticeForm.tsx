@@ -11,6 +11,7 @@ const TEXT_FILE = /\.(txt|md|markdown|text)$/i;
 export function PracticeForm({ skills }: { skills: SkillChoice[] }) {
   const [skillId, setSkillId] = useState(skills[0]?.id ?? "");
   const [concept, setConcept] = useState("");
+  const [pageUrl, setPageUrl] = useState("");
   const [source, setSource] = useState("");
   const [answer, setAnswer] = useState("");
   const [over, setOver] = useState(false);
@@ -41,18 +42,26 @@ export function PracticeForm({ skills }: { skills: SkillChoice[] }) {
   async function onSubmit(event: React.FormEvent) {
     event.preventDefault();
     if (busy) return;
+    if (concept.trim().length < 3 || !answer.trim() || (!pageUrl.trim() && !source.trim())) {
+      setNotice("Add a concept, a link or some text, and your explanation.");
+      return;
+    }
     setBusy(true);
     setNotice("");
     setReview(null);
-    const result = await reviewPractice({ skillId, concept, source, answer });
+    const result = await reviewPractice({ skillId, concept, pageUrl, source, answer });
     setBusy(false);
     if (!result.ok) {
       setNotice(
         result.error === "empty"
-          ? "Add a concept, the text you are learning from, and your explanation."
+          ? "Add a concept, a link or some text, and your explanation."
           : result.error === "unconnected"
             ? "A model key is needed before this idea can be reviewed."
-            : "The review did not come back. Try again.",
+            : result.error === "blocked"
+              ? "That link cannot be opened from SkillFlow."
+              : result.error === "unreadable"
+                ? "That page did not return enough text. Paste the passage, or try another link."
+                : "The review did not come back. Try again.",
       );
       return;
     }
@@ -80,7 +89,19 @@ export function PracticeForm({ skills }: { skills: SkillChoice[] }) {
         <input value={concept} onChange={(event) => setConcept(event.target.value)} maxLength={200} placeholder="The idea you want to explain" required />
       </label>
       <label>
-        Text you are learning from
+        Link
+        <input
+          type="url"
+          inputMode="url"
+          value={pageUrl}
+          onChange={(event) => setPageUrl(event.target.value)}
+          maxLength={2000}
+          placeholder="https://…"
+        />
+        <span className="sf-practice-hint">The usual source. SkillFlow reads the page and reviews your explanation against that text, not the address.</span>
+      </label>
+      <label>
+        Text, if you already have it
         <textarea
           className={over ? "is-over" : undefined}
           value={source}
@@ -96,8 +117,7 @@ export function PracticeForm({ skills }: { skills: SkillChoice[] }) {
             void takeFiles([...event.dataTransfer.files]);
           }}
           rows={8}
-          placeholder="Drop a .txt or .md file here, or paste the text."
-          required
+          placeholder="Drop a .txt or .md file, or paste a passage. A link pasted here is read as a page too."
         />
       </label>
       <label className="sf-practice-file">
@@ -114,7 +134,7 @@ export function PracticeForm({ skills }: { skills: SkillChoice[] }) {
       </label>
       <label>
         Your explanation
-        <textarea value={answer} onChange={(event) => setAnswer(event.target.value)} rows={6} maxLength={8000} placeholder="Explain the concept in your own words, using only that text." required />
+        <textarea value={answer} onChange={(event) => setAnswer(event.target.value)} rows={6} maxLength={8000} placeholder="Explain the concept in your own words, using only that page or passage." required />
       </label>
       <button type="submit" disabled={busy}>
         {busy ? "Reviewing" : "Review this idea"}

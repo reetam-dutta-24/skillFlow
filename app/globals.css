@@ -7105,4 +7105,80 @@ html.dark .sf-map-canvas .maplibregl-canvas {
   color: var(--text-primary);
   font: inherit;
 }
+.sf-progress-records {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+.sf-progress-records ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sf-progress-records li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  min-width: 0;
+}
+.sf-progress-records span,
+.sf-progress-records a {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.sf-certificate {
+  width: min(100%, 720px);
+  margin: 0 auto;
+  padding: 32px 20px 64px;
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+.sf-certificate-sheet {
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-card);
+  padding: 28px 22px;
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+.sf-certificate-mark {
+  margin: 0;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  font-size: var(--text-2xs);
+}
+.sf-certificate-name {
+  margin: 0;
+  font-size: var(--text-heading);
+  font-weight: 650;
+}
+.sf-certificate-stages {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 1.2rem;
+  min-width: 0;
+}
+.sf-certificate-stages li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 12px;
+  min-width: 0;
+}
+.sf-certificate-sheet h1,
+.sf-certificate-sheet h2,
+.sf-certificate-sheet p,
+.sf-certificate-stages span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.sf-certificate-copy {
+  margin: 0;
+  color: var(--text-faint);
+  font-size: var(--text-sm);
+}
 

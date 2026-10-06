@@ -48,6 +48,9 @@ export default async function MilestonePage({ params }: PageProps) {
         <Link className="sf-milestone-cta" href={data.continueHref}>
           Continue
         </Link>
+        <p>
+          <Link href={`/transcript/${session.user.id}/${data.skill.slug}`}>Transcript for this path</Link>
+        </p>
       </div>
     );
   }

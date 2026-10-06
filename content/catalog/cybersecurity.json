@@ -1,0 +1,998 @@
+{
+  "stages": [
+    {
+      "order": 1,
+      "title": "Security Foundations",
+      "level": "BEGINNER",
+      "description": "The core vocabulary of defensive security: the CIA triad, how threats, vulnerabilities and risk relate, and the principles of defense in depth and least privilege.",
+      "learningObjectives": [
+        "Define confidentiality, integrity and availability and give a control that protects each",
+        "Distinguish a threat, a vulnerability, impact/likelihood and risk",
+        "Explain defense in depth as layered, overlapping controls",
+        "Apply the principle of least privilege to user and process access"
+      ],
+      "explainBack": {
+        "question": "Using the CIA triad, explain what security is trying to protect, how a threat, a vulnerability and risk relate to each other, and why defenders use defense in depth and least privilege.",
+        "rubric": [
+          "Confidentiality keeps data private from unauthorized parties (e.g. encryption, MFA); integrity keeps data accurate and untampered (e.g. hashing, digital signatures); availability keeps systems usable when needed (e.g. backups, redundancy)",
+          "A vulnerability is a weakness that a threat actor can exploit (or a hazard can affect); a threat is someone or something with the capability and intent to cause harm",
+          "Risk is the possibility of something bad happening, weighed by likelihood and impact; it cannot be eliminated, only managed (avoid, accept, mitigate or transfer)",
+          "Defense in depth layers multiple people, technology and operations controls so an attack missed by one layer can be caught by another",
+          "Least privilege restricts each user or process to the minimum access needed to perform its assigned tasks"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "The CIA Triad - CompTIA Security+ SY0-701 - 1.2",
+          "provider": "Professor Messer",
+          "url": "https://www.youtube.com/watch?v=SBcDGb9l6yo",
+          "description": "A short Security+ lesson introducing confidentiality, integrity and availability as the three goals of information security.",
+          "keyPoints": [
+            "Defines confidentiality, integrity and availability",
+            "Gives examples of how each goal is protected",
+            "Part of a free full Security+ SY0-701 course"
+          ],
+          "videoId": "SBcDGb9l6yo"
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Cybersecurity Architecture: Five Principles to Follow (and One to Avoid)",
+          "provider": "IBM Technology",
+          "url": "https://www.youtube.com/watch?v=jq_LZ1RFPfU",
+          "description": "An IBM security architect walks through core design principles such as defense in depth and least privilege, plus a common anti-pattern to avoid.",
+          "keyPoints": [
+            "Covers defense in depth as layered protection",
+            "Covers the principle of least privilege",
+            "Also names one approach the presenter says to avoid"
+          ],
+          "videoId": "jq_LZ1RFPfU"
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What is the CIA Triad and Why is it important?",
+          "provider": "Fortinet",
+          "url": "https://www.fortinet.com/resources/cyberglossary/cia-triad",
+          "description": "Defines each part of the CIA triad and lists typical threats and controls for confidentiality, integrity and availability.",
+          "keyPoints": [
+            "Confidentiality: keep data private; controls include encryption, MFA, access restrictions",
+            "Integrity: data stays trustworthy; controls include hashing, digital signatures, checksums",
+            "Availability: systems work when needed; threats include DoS and ransomware",
+            "Availability controls include redundancy, failover, disaster recovery and backups"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "The fundamentals and basics of cyber risk",
+          "provider": "UK National Cyber Security Centre (NCSC)",
+          "url": "https://www.ncsc.gov.uk/collection/risk-management/the-fundamentals-and-basics-of-cyber-risk",
+          "description": "NCSC's plain-language grounding in risk: what risk, threat, vulnerability, impact and likelihood mean and how organisations manage risk.",
+          "keyPoints": [
+            "Risk: 'the possibility of something bad happening'",
+            "Vulnerability: any weakness a threat actor can exploit or a hazard can affect",
+            "Threats are characterised by capability, intent, motivation and opportunity",
+            "Risk can't be eliminated, only managed: avoid, accept, mitigate or transfer",
+            "Compliance with standards does not by itself equal good security"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "defense-in-depth - Glossary | CSRC",
+          "provider": "NIST Computer Security Resource Center",
+          "url": "https://csrc.nist.gov/glossary/term/defense_in_depth",
+          "description": "NIST's official glossary definitions of defense in depth, drawn from several NIST and ISO/IEC publications.",
+          "keyPoints": [
+            "Strategy integrating people, technology and operations capabilities",
+            "Establishes barriers across multiple layers of the organization",
+            "Layers different technologies so attacks missed by one are caught by another"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "least privilege - Glossary | CSRC",
+          "provider": "NIST Computer Security Resource Center",
+          "url": "https://csrc.nist.gov/glossary/term/least_privilege",
+          "description": "NIST's official glossary definitions of the least privilege principle.",
+          "keyPoints": [
+            "Restrict users, and processes acting for them, to the minimum access needed",
+            "Each entity gets only the minimum resources and authorizations for its function",
+            "Definitions sourced from CNSSI 4009, SP 800-53 Rev. 5 and SP 800-171r3"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Authentication & Passwords",
+      "level": "BEGINNER",
+      "description": "How modern authentication works and is defended: current NIST password rules, password managers, multifactor authentication, passkeys and credential stuffing.",
+      "learningObjectives": [
+        "State current NIST SP 800-63B password rules (length, no composition rules, no forced periodic changes, blocklists)",
+        "Name the three authentication factor categories and explain why phishing-resistant MFA is strongest",
+        "Explain how a password manager and passkeys reduce password reuse and phishing",
+        "Describe credential stuffing and the defenses against it"
+      ],
+      "explainBack": {
+        "question": "A friend reuses one 8-character password everywhere and changes it every 90 days. Explain what current guidance recommends instead, and why MFA and passkeys matter.",
+        "rubric": [
+          "NIST SP 800-63B (Rev. 4) requires at least 15 characters for a password used alone (8 if only used within MFA), forbids composition rules and forbids forced periodic changes unless there is evidence of compromise",
+          "Credential stuffing tests username/password pairs leaked from one site against other sites, so reusing passwords lets one breach unlock many accounts; a password manager makes unique passwords practical",
+          "MFA combines factors from different categories: something you know, something you have, something you are",
+          "Phishing-resistant MFA such as FIDO/WebAuthn is strongest because it blocks logins to fake sites; SMS and push codes can be phished",
+          "A passkey is a FIDO credential: the private key stays on the user's device and only a public key is held by the site, so there is no shared secret to phish or leak"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Multifactor Authentication - CompTIA Security+ SY0-701 - 4.6",
+          "provider": "Professor Messer",
+          "url": "https://www.youtube.com/watch?v=MpIzA4fNWew",
+          "description": "Security+ lesson on authentication factors and how combining them into multifactor authentication strengthens logins.",
+          "keyPoints": [
+            "Explains factor categories: know, have, are",
+            "Covers common MFA methods and their trade-offs",
+            "Exam-aligned overview of multifactor authentication"
+          ],
+          "videoId": "MpIzA4fNWew"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "More Than a Password: Understanding Multifactor Authentication",
+          "provider": "CISA",
+          "url": "https://www.cisa.gov/MFA",
+          "description": "CISA explains what MFA is, the three factor categories, and why phishing-resistant FIDO authentication is the strongest option.",
+          "keyPoints": [
+            "MFA is a layered approach requiring more than one verification method",
+            "Factors: something you know, something you have, something you are",
+            "FIDO/WebAuthn blocks logins on fake sites, so CISA recommends it most strongly",
+            "Number matching helps against push-fatigue where FIDO isn't yet possible"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "NIST Special Publication 800-63B: Authentication and Lifecycle Management",
+          "provider": "NIST",
+          "url": "https://pages.nist.gov/800-63-4/sp800-63b.html",
+          "description": "The US federal standard for authenticators; Rev. 4 sets the modern password rules many organisations now follow.",
+          "keyPoints": [
+            "Passwords used alone: minimum 15 characters; within MFA: minimum 8",
+            "Verifiers SHALL NOT impose composition rules such as mixed character types",
+            "No forced periodic changes; force a change only on evidence of compromise",
+            "Check new passwords against a blocklist; allow password managers and paste",
+            "Passwords are explicitly not phishing-resistant"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Password managers",
+          "provider": "UK National Cyber Security Centre (NCSC)",
+          "url": "https://www.ncsc.gov.uk/collection/top-tips-for-staying-secure-online/password-managers",
+          "description": "NCSC advice on why password managers help people keep a unique strong password for every account.",
+          "keyPoints": [
+            "Password managers store passwords so each service can have a unique one",
+            "They generate strong passwords and autofill only on the real site, helping against phishing",
+            "Turn on 2-step verification, including on the password manager itself",
+            "Passkeys are recommended as a safer alternative where available"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What is a Passkey?",
+          "provider": "FIDO Alliance",
+          "url": "https://fidoalliance.org/passkeys/",
+          "description": "The standards body behind passkeys explains how they replace passwords with device-held key pairs.",
+          "keyPoints": [
+            "A passkey is a FIDO credential unlocked with the device's biometric, PIN or pattern",
+            "Uses a public/private key pair; the private key never leaves the user's device",
+            "Synced passkeys roam via credential managers; device-bound ones stay on one device/key",
+            "Described as resistant to phishing and credential stuffing"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Credential Stuffing Prevention Cheat Sheet",
+          "provider": "OWASP Cheat Sheet Series",
+          "url": "https://cheatsheetseries.owasp.org/cheatsheets/Credential_Stuffing_Prevention_Cheat_Sheet.html",
+          "description": "OWASP distinguishes credential stuffing from brute force and password spraying and lists layered defenses, with MFA first.",
+          "keyPoints": [
+            "Credential stuffing: trying username/password pairs breached from another site",
+            "Password spraying: one weak password tried against many accounts",
+            "MFA is the most effective defense against these attacks",
+            "Other layers: leaked-password checks, CAPTCHA, device fingerprinting, user alerts"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Networking for Security",
+      "level": "BEGINNER",
+      "description": "The networking basics defenders rely on: ports and transport protocols, DNS, firewalls, VPNs and how TLS protects HTTPS traffic.",
+      "learningObjectives": [
+        "Explain what a port is and name common well-known ports (22, 53, 80, 443)",
+        "Describe how DNS resolves a domain name to an IP address",
+        "Explain how firewalls filter traffic by rules and compare stateful, next-gen and web application firewalls",
+        "Describe what TLS/HTTPS and VPNs protect, and their limits"
+      ],
+      "explainBack": {
+        "question": "When you open https://example.com from a café Wi-Fi, what happens with DNS, ports and TLS, and how could a firewall and a VPN each help protect you or the network?",
+        "rubric": [
+          "DNS translates a domain name into an IP address via a recursive resolver querying root, TLD and authoritative nameservers (with caching along the way)",
+          "Ports are transport-layer (TCP/UDP) endpoints that identify services; HTTPS uses 443, HTTP 80, DNS 53, SSH 22",
+          "TLS provides encryption, authentication (via certificates) and integrity; HTTPS is HTTP over TLS, and a handshake establishes session keys",
+          "A firewall allows or blocks traffic based on security rules; stateful firewalls track connections, NGFWs add deep packet inspection and app awareness, WAFs filter HTTP traffic to web apps",
+          "A VPN encrypts traffic in a tunnel to the VPN server (useful on public Wi-Fi), but only adds security if you trust the VPN provider"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Firewall Types - CompTIA Security+ SY0-701 - 3.2",
+          "provider": "Professor Messer",
+          "url": "https://www.youtube.com/watch?v=mq1HRM-zGtQ",
+          "description": "Security+ lesson comparing firewall types and where they sit in a network.",
+          "keyPoints": [
+            "Compares traditional and next-generation firewalls",
+            "Covers web application firewalls",
+            "Explains filtering by ports, protocols and applications"
+          ],
+          "videoId": "mq1HRM-zGtQ"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What is a computer port? | Ports in networking",
+          "provider": "Cloudflare Learning Center",
+          "url": "https://www.cloudflare.com/learning/network-layer/what-is-a-computer-port/",
+          "description": "Explains ports as virtual endpoints that let one device handle many services, with a table of common port numbers.",
+          "keyPoints": [
+            "A port is a virtual point where network connections start and end",
+            "Ports work at layer 4 with TCP and UDP; IP addressing is at layer 3",
+            "Common ports: 22 SSH, 25 SMTP, 53 DNS, 80 HTTP, 443 HTTPS, 3389 RDP",
+            "Firewalls typically block ports that aren't needed"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What is DNS? | How DNS works",
+          "provider": "Cloudflare Learning Center",
+          "url": "https://www.cloudflare.com/learning/dns/what-is-dns/",
+          "description": "Walks through a DNS lookup from the recursive resolver through root, TLD and authoritative nameservers.",
+          "keyPoints": [
+            "DNS translates domain names into IP addresses",
+            "Recursive resolver handles the client's query",
+            "Root -> TLD -> authoritative nameserver returns the IP",
+            "Answers are cached in the browser and OS to speed lookups"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What is a firewall?",
+          "provider": "Cloudflare Learning Center",
+          "url": "https://www.cloudflare.com/learning/security/what-is-a-firewall/",
+          "description": "Defines a firewall as rule-based traffic control between trusted and untrusted networks and surveys firewall types.",
+          "keyPoints": [
+            "A firewall monitors and controls traffic based on security rules",
+            "Stateful firewalls use connection context",
+            "NGFWs add deep packet inspection and application awareness",
+            "WAFs filter HTTP traffic to protect web applications"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What is TLS (Transport Layer Security)?",
+          "provider": "Cloudflare Learning Center",
+          "url": "https://www.cloudflare.com/learning/ssl/transport-layer-security-tls/",
+          "description": "Explains what TLS does, how it relates to SSL and HTTPS, and what happens in the handshake.",
+          "keyPoints": [
+            "TLS provides encryption, authentication and integrity",
+            "HTTPS is TLS encryption on top of HTTP",
+            "TLS evolved from SSL; current version is TLS 1.3",
+            "Handshake negotiates ciphers, checks certificates and sets session keys"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What is a VPN?",
+          "provider": "Cloudflare Learning Center",
+          "url": "https://www.cloudflare.com/learning/access-management/what-is-a-vpn/",
+          "description": "Explains how a VPN encrypts traffic to a VPN server and where its protection ends.",
+          "keyPoints": [
+            "A VPN creates an encrypted tunnel between your device and a VPN server",
+            "Useful on public Wi-Fi and for remote access to business networks",
+            "Adds security only if you trust the VPN provider",
+            "Many organisations are moving to SASE/zero trust instead of VPNs"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Common Threats & Defenses",
+      "level": "INTERMEDIATE",
+      "description": "How phishing, social engineering, malware and ransomware work at a conceptual level, and the layered defenses that stop or limit them.",
+      "learningObjectives": [
+        "Recognise warning signs of phishing and the correct way to respond and report",
+        "Explain an organisation's layered defenses against phishing",
+        "Distinguish common malware types: virus, worm, trojan, spyware, rootkit, ransomware",
+        "Describe defenses against ransomware, especially offline backups"
+      ],
+      "explainBack": {
+        "question": "An employee gets an urgent email asking them to 'verify your account' via a link. Explain the warning signs, what they should do, and how an organisation layers defenses against phishing and the ransomware it might deliver.",
+        "rubric": [
+          "Phishing signs include urgent or emotional pressure, requests for personal or financial data, shortened links and misspelled sender addresses or domains; poor grammar is no longer a reliable sign",
+          "Don't click links or attachments; report the message and verify independently through an official website or another channel",
+          "Organisational defenses are layered: prevent delivery (SPF, DKIM, DMARC, filtering), user awareness and easy reporting, mitigate impact (MFA, updates), and incident response",
+          "A virus activates when an infected file is run, a worm self-replicates across networks without user action, and a trojan hides inside apparently legitimate software",
+          "Ransomware encrypts or locks data for payment; key defenses are tested, offline/separate backups plus patching and MFA, and paying gives no guarantee of recovery"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Phishing - CompTIA Security+ SY0-701 - 2.2",
+          "provider": "Professor Messer",
+          "url": "https://www.youtube.com/watch?v=9SD6DRCKZFU",
+          "description": "Security+ lesson on how phishing and related social engineering techniques trick people.",
+          "keyPoints": [
+            "Explains phishing and its variants",
+            "Covers common deception tricks such as spoofed links",
+            "Exam-aligned overview of social engineering"
+          ],
+          "videoId": "9SD6DRCKZFU"
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "An Overview of Malware - CompTIA Security+ SY0-701 - 2.4",
+          "provider": "Professor Messer",
+          "url": "https://www.youtube.com/watch?v=-eZs8wjjGGE",
+          "description": "Security+ lesson introducing malware categories and how malware gets onto systems.",
+          "keyPoints": [
+            "Overview of major malware categories",
+            "Includes ransomware and how it affects data",
+            "Exam-aligned introduction to how malware behaves"
+          ],
+          "videoId": "-eZs8wjjGGE"
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Recognize and Report Phishing",
+          "provider": "CISA",
+          "url": "https://www.cisa.gov/secure-our-world/recognize-and-report-phishing",
+          "description": "CISA's short public guide to spotting phishing messages and what to do with them.",
+          "keyPoints": [
+            "Signs: urgent or emotional language, requests for personal or financial info",
+            "Signs: untrusted shortened URLs and lookalike addresses (amazan.com)",
+            "AI makes phishing more polished, so grammar isn't a reliable clue",
+            "Recognize, resist, report and delete; verify via official channels"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Phishing attacks: defending your organisation",
+          "provider": "UK National Cyber Security Centre (NCSC)",
+          "url": "https://www.ncsc.gov.uk/guidance/phishing",
+          "description": "NCSC's multi-layered approach for organisations, arguing training alone cannot stop phishing.",
+          "keyPoints": [
+            "Layer 1: stop delivery with DMARC, SPF, DKIM and email filtering",
+            "Layer 2: help users identify and report phishing without blame",
+            "Layer 3: limit impact with MFA, updates and password managers",
+            "Layer 4: respond quickly with logging and an incident plan"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What is malware?",
+          "provider": "Cloudflare Learning Center",
+          "url": "https://www.cloudflare.com/learning/ddos/glossary/malware/",
+          "description": "Defines malware and the main types such as viruses, worms, trojans, spyware, rootkits and ransomware.",
+          "keyPoints": [
+            "Virus: activates when the infected file or program is run",
+            "Worm: self-replicates across networks with no user action",
+            "Trojan: malware disguised inside legitimate-looking software",
+            "Rootkit hides unwanted changes in the OS; ransomware demands payment"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Mitigating malware and ransomware attacks",
+          "provider": "UK National Cyber Security Centre (NCSC)",
+          "url": "https://www.ncsc.gov.uk/guidance/mitigating-malware-and-ransomware-attacks",
+          "description": "NCSC guidance on how organisations prepare for and limit malware and ransomware, centred on offline backups.",
+          "keyPoints": [
+            "Ransomware locks or encrypts data and demands payment, often in crypto",
+            "Paying gives no guarantee; law enforcement doesn't condone paying ransoms",
+            "Keep regular, tested backups offline and separate from the network",
+            "Layer defenses: filtering, patching, MFA on remote access, incident plans"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Web Application Security",
+      "level": "INTERMEDIATE",
+      "description": "The OWASP Top 10 at a concept level, focusing on how broken access control, injection and cross-site scripting arise and how developers prevent them.",
+      "learningObjectives": [
+        "Explain what the OWASP Top 10 is and name its top category",
+        "Describe broken access control and how to prevent it",
+        "Explain injection (e.g. SQL injection) and the preferred prevention",
+        "Explain cross-site scripting and its main defenses"
+      ],
+      "explainBack": {
+        "question": "Explain what the OWASP Top 10 is, then describe broken access control, SQL injection and cross-site scripting: what goes wrong in each and how a developer prevents it.",
+        "rubric": [
+          "The OWASP Top 10 is an awareness document of the most critical web application security risks; in the 2025 edition Broken Access Control is A01",
+          "Broken access control lets users act outside their permissions (e.g. changing an ID in a URL to see another account); prevent it with deny-by-default and server-side enforcement of access checks",
+          "Injection happens when untrusted input is sent to an interpreter and executed as commands; the preferred fix is a safe API with parameterized queries, plus server-side input validation and escaping",
+          "XSS makes a site run attacker-supplied script in the victim's browser with the site's privileges, because input is included in a page without sanitizing/encoding; OWASP 2025 counts XSS under Injection",
+          "XSS defenses include context-aware output encoding (templating frameworks), sanitizing HTML with a library like DOMPurify, and a strict Content Security Policy"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "SQL Injection - CompTIA Security+ SY0-701 - 2.3",
+          "provider": "Professor Messer",
+          "url": "https://www.youtube.com/watch?v=qFUOLkEk8AQ",
+          "description": "Security+ lesson explaining conceptually how SQL injection works and why input handling matters.",
+          "keyPoints": [
+            "Explains how untrusted input can alter a database query",
+            "Shows the impact of injection on data",
+            "Exam-aligned conceptual overview"
+          ],
+          "videoId": "qFUOLkEk8AQ"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "OWASP Top 10:2025",
+          "provider": "OWASP Foundation",
+          "url": "https://top10.owasp.org/2025/",
+          "description": "The 2025 release of OWASP's awareness list of the most critical web application security risks.",
+          "keyPoints": [
+            "A standard awareness document for developers and web app security",
+            "A01:2025 is Broken Access Control",
+            "A05:2025 is Injection; A04 is Cryptographic Failures",
+            "New 2025 entries include Software Supply Chain Failures"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "A01:2025 Broken Access Control",
+          "provider": "OWASP Foundation",
+          "url": "https://top10.owasp.org/2025/A01_2025-Broken_Access_Control/",
+          "description": "Describes how access control fails (IDOR, forced browsing, privilege escalation) and how to prevent it.",
+          "keyPoints": [
+            "Users act outside their intended permissions",
+            "Example: changing an account ID in a URL (IDOR)",
+            "Enforce access checks in trusted server-side code",
+            "Deny by default and validate record ownership"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "A05:2025 Injection",
+          "provider": "OWASP Foundation",
+          "url": "https://top10.owasp.org/2025/A05_2025-Injection/",
+          "description": "Explains injection flaws, including SQL injection and XSS, and the recommended prevention approach.",
+          "keyPoints": [
+            "Untrusted input sent to an interpreter is executed as commands",
+            "Includes SQL, NoSQL, OS command and XSS (CWE-79)",
+            "Preferred defense: safe APIs with parameterized queries or ORMs",
+            "Add positive server-side input validation and escaping"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Cross-site scripting (XSS)",
+          "provider": "MDN Web Docs (Mozilla)",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/Security/Attacks/XSS",
+          "description": "MDN explains how XSS bypasses the same-origin policy and the layered defenses developers use.",
+          "keyPoints": [
+            "XSS runs attacker code as if it were part of the target site",
+            "Requires attacker input placed in a page without sanitizing",
+            "Defense: output encoding via templating frameworks",
+            "Defense: sanitize HTML (DOMPurify), Trusted Types, strict CSP"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "title": "Cryptography Basics",
+      "level": "INTERMEDIATE",
+      "description": "The building blocks of applied cryptography: symmetric vs asymmetric encryption, hashing vs encryption, salted password hashing, digital signatures and certificates.",
+      "learningObjectives": [
+        "Compare symmetric and asymmetric encryption and give an example algorithm of each",
+        "Explain why hashing differs from encryption and why passwords are stored as salted slow hashes",
+        "Describe how digital signatures provide integrity, authentication and non-repudiation",
+        "Explain what a TLS certificate contains and the role of a certificate authority"
+      ],
+      "explainBack": {
+        "question": "Explain the difference between encryption and hashing, how a website should store passwords, and how digital signatures and certificates let your browser trust a site.",
+        "rubric": [
+          "Symmetric encryption uses one shared key for encryption and decryption (e.g. AES); asymmetric uses a public key and a private key (e.g. RSA, ECC)",
+          "Hashing is one-way (a fixed-length output that cannot be decrypted), while encryption is reversible with the key",
+          "Passwords should be stored with a slow password-hashing algorithm (Argon2id preferred; scrypt, bcrypt or PBKDF2 otherwise) plus a unique random salt per password to defeat precomputed tables",
+          "A digital signature is generated with the signer's private key and verified with the public key; it provides integrity, origin authentication and non-repudiation",
+          "A TLS certificate holds the domain, the public key, issue/expiry dates and the issuing certificate authority's digital signature; self-signed certificates aren't trusted by browsers"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Hashing and Digital Signatures - CompTIA Security+ SY0-701 - 1.4",
+          "provider": "Professor Messer",
+          "url": "https://www.youtube.com/watch?v=EcGmQjl6XEo",
+          "description": "Security+ lesson on hash functions, salting and how digital signatures are created and verified.",
+          "keyPoints": [
+            "Explains hashes as fixed-length one-way digests",
+            "Covers salting stored password hashes",
+            "Shows how signing and verifying use the key pair"
+          ],
+          "videoId": "EcGmQjl6XEo"
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "How NOT to Store Passwords! - Computerphile",
+          "provider": "Computerphile",
+          "url": "https://www.youtube.com/watch?v=8ZtInClXe1Q",
+          "description": "Computerphile explains why plain text and plain encryption are bad ways to store passwords and why salted hashing is better.",
+          "keyPoints": [
+            "Why storing plaintext or encrypted passwords is dangerous",
+            "Why plain hashes are vulnerable to precomputed lookups",
+            "How salting and slow hashing improve password storage"
+          ],
+          "videoId": "8ZtInClXe1Q"
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What is encryption? | Types of encryption",
+          "provider": "Cloudflare Learning Center",
+          "url": "https://www.cloudflare.com/learning/ssl/what-is-encryption/",
+          "description": "Introduces encryption, keys and algorithms, and contrasts symmetric with asymmetric encryption.",
+          "keyPoints": [
+            "Encryption turns plaintext into ciphertext using an algorithm and key",
+            "Symmetric: one shared key (AES, 3-DES)",
+            "Asymmetric: public key encrypts, private key decrypts (RSA, ECC)",
+            "Asymmetric encryption underpins TLS"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Password Storage Cheat Sheet",
+          "provider": "OWASP Cheat Sheet Series",
+          "url": "https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html",
+          "description": "OWASP's guide to storing passwords safely: hashing not encryption, salting, peppering and recommended algorithms.",
+          "keyPoints": [
+            "Hashing is one-way; encryption is reversible, so passwords should be hashed",
+            "A unique random salt per password defeats precomputed tables",
+            "Preferred: Argon2id; then scrypt; bcrypt for legacy; PBKDF2 for FIPS",
+            "Work factors make each guess slow to compute"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "FIPS 186-5: Digital Signature Standard (DSS)",
+          "provider": "NIST",
+          "url": "https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf",
+          "description": "The US federal digital signature standard; its introduction explains how signatures are generated and verified.",
+          "keyPoints": [
+            "The private key generates signatures; only its owner may use it",
+            "The public key verifies signatures and need not be secret",
+            "Messages are hashed to a fixed-length value before signing",
+            "Signatures give integrity, signer authentication and non-repudiation"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What is an SSL certificate?",
+          "provider": "Cloudflare Learning Center",
+          "url": "https://www.cloudflare.com/learning/ssl/what-is-an-ssl-certificate/",
+          "description": "Explains what an SSL/TLS certificate contains, why sites need one and the role of certificate authorities.",
+          "keyPoints": [
+            "Contains domain, issuing CA and its signature, dates and the public key",
+            "Enables encryption and authentication for HTTPS",
+            "Issued and digitally signed by a trusted certificate authority",
+            "Self-signed certificates are flagged as untrusted by browsers"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Security Operations",
+      "level": "ADVANCED",
+      "description": "How defenders detect and respond: centralised logging and SIEM, the incident response lifecycle as updated by NIST SP 800-61r3, and vulnerability management with CVE and CVSS.",
+      "learningObjectives": [
+        "Explain what a SIEM does and how SOAR builds on it",
+        "Describe the incident response lifecycle and how NIST SP 800-61r3 maps it to CSF 2.0",
+        "Explain what a CVE is and how CVSS rates severity",
+        "Describe the principles of vulnerability management and patching"
+      ],
+      "explainBack": {
+        "question": "A SIEM alert suggests an internet-facing server was compromised through a known vulnerability. Explain how the SOC detects it, the phases of responding, and how CVE/CVSS and patch management fit in.",
+        "rubric": [
+          "A SIEM collects, centralises and analyses log data and raises alerts on suspicious activity; SOAR automates parts of the response using playbooks but doesn't replace human responders",
+          "The classic lifecycle (SP 800-61r2) is Preparation; Detection & Analysis; Containment, Eradication & Recovery; Post-Incident Activity; SP 800-61r3 (2025) maps these onto the CSF 2.0 Functions",
+          "SP 800-61r3 treats lessons learned as continuous improvement shared as soon as identified, not only after recovery",
+          "A CVE entry gives a publicly known vulnerability a unique ID, a description and a public reference; CVSS scores severity 0-10 (Low 0.1-3.9, Medium 4.0-6.9, High 7.0-8.9, Critical 9.0-10.0) and measures severity, not risk",
+          "Good vulnerability management keeps an asset inventory, applies updates as soon as possible (ideally automatically), and prioritises actively exploited and internet-facing vulnerabilities"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Incident Response - CompTIA Security+ SY0-701 - 4.8",
+          "provider": "Professor Messer",
+          "url": "https://www.youtube.com/watch?v=X2UiMLxRdhE",
+          "description": "Security+ lesson walking through the phases of the incident response process.",
+          "keyPoints": [
+            "Covers preparation, detection and analysis",
+            "Covers containment, eradication and recovery",
+            "Covers lessons learned after an incident"
+          ],
+          "videoId": "X2UiMLxRdhE"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Implementing SIEM and SOAR platforms: Executive guidance",
+          "provider": "Australian Signals Directorate & CISA",
+          "url": "https://www.cyber.gov.au/business-government/detecting-responding-to-threats/event-logging/implementing-siem-soar-platforms/executive-guidance",
+          "description": "Joint government guidance (May 2025) explaining what SIEM and SOAR platforms do and what leaders should consider before adopting them.",
+          "keyPoints": [
+            "A SIEM collects, centralises and analyses log data",
+            "It alerts on activity that may indicate an incident",
+            "SOAR automates some responses through predefined playbooks",
+            "SOAR complements, not replaces, human responders"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Incident Response Recommendations and Considerations for Cybersecurity Risk Management: A CSF 2.0 Community Profile (SP 800-61r3)",
+          "provider": "NIST",
+          "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-61r3.pdf",
+          "description": "NIST's April 2025 incident response guidance, which supersedes Rev. 2 and maps incident response onto CSF 2.0.",
+          "keyPoints": [
+            "Supersedes SP 800-61 Rev. 2 (2012)",
+            "Rev. 2 phases: Preparation; Detection & Analysis; Containment, Eradication & Recovery; Post-Incident",
+            "Maps those phases to CSF 2.0's Govern, Identify, Protect, Detect, Respond, Recover",
+            "Lessons learned shared as soon as found, feeding continuous improvement"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "common vulnerabilities and exposures (CVE) - Glossary | CSRC",
+          "provider": "NIST Computer Security Resource Center",
+          "url": "https://csrc.nist.gov/glossary/term/common_vulnerabilities_and_exposures",
+          "description": "NIST glossary definitions of CVE, the common naming scheme for publicly known vulnerabilities.",
+          "keyPoints": [
+            "CVE: a list of entries for publicly known cybersecurity vulnerabilities",
+            "Each entry has a unique ID, a description and a public reference",
+            "Gives common names to vulnerabilities across tools",
+            "The CVE list feeds the National Vulnerability Database"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Common Vulnerability Scoring System v4.0: Specification Document",
+          "provider": "FIRST",
+          "url": "https://www.first.org/cvss/v4-0/specification-document",
+          "description": "The CVSS v4.0 specification, defining metric groups and the qualitative severity scale.",
+          "keyPoints": [
+            "CVSS communicates vulnerability severity on a 0-10 scale; it is not a risk measure",
+            "Metric groups: Base, Threat, Environmental, Supplemental",
+            "Low 0.1-3.9, Medium 4.0-6.9, High 7.0-8.9, Critical 9.0-10.0",
+            "Threat and environmental scoring are the consumer's responsibility"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Vulnerability management",
+          "provider": "UK National Cyber Security Centre (NCSC)",
+          "url": "https://www.ncsc.gov.uk/guidance/vulnerability-management",
+          "description": "NCSC principles for finding, prioritising and fixing vulnerabilities across an organisation.",
+          "keyPoints": [
+            "Default to update: apply updates as soon as possible, ideally automatically",
+            "Know your assets and who is responsible for them",
+            "Prioritise actively exploited and internet-facing issues",
+            "Decisions not to update need senior risk-owner sign-off"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "title": "Governance, Ethics & Careers",
+      "level": "ADVANCED",
+      "description": "How security is governed with the NIST Cybersecurity Framework 2.0, the legal and ethical limits on security testing, and how entry-level careers and certifications are structured.",
+      "learningObjectives": [
+        "Name and describe the six NIST CSF 2.0 Functions and why Govern is central",
+        "Explain CSF Profiles and Tiers at a high level",
+        "Explain why security testing requires explicit authorisation, using the UK Computer Misuse Act as an example",
+        "Describe how the NICE Framework and entry certifications like CompTIA Security+ map to security careers"
+      ],
+      "explainBack": {
+        "question": "Describe the six NIST CSF 2.0 Functions, explain why testing someone else's system without permission is illegal even for 'good' reasons, and outline how someone starts a security career.",
+        "rubric": [
+          "CSF 2.0 (February 2024) has six Functions: Govern, Identify, Protect, Detect, Respond, Recover; Govern was added in 2.0 and sits at the center because it informs the other five",
+          "The CSF is voluntary and doesn't prescribe how outcomes are achieved; Profiles describe current vs target posture and Tiers (Partial, Risk Informed, Repeatable, Adaptive) describe rigor",
+          "Under the UK Computer Misuse Act s.1 it is an offence to make a computer perform a function intending to access data when you know the access is unauthorised; good intent is not a defence",
+          "A penetration test is commissioned by the system owner to gain assurance by attempting to breach the system with adversary tools and techniques; it shows only that known issues weren't exploitable on the day of the test",
+          "The NIST NICE Framework gives a common language of Work Roles, Competency Areas and Task/Knowledge/Skill statements; CompTIA Security+ validates core skills for roles like security analyst"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "The NIST Cybersecurity Framework (CSF) 2.0",
+          "provider": "National Institute of Standards and Technology",
+          "url": "https://www.youtube.com/watch?v=pPPiaGU12Og",
+          "description": "NIST's own introduction to CSF 2.0 and its six Functions.",
+          "keyPoints": [
+            "Introduces the purpose of CSF 2.0",
+            "Explains the six Functions including the new Govern",
+            "From the agency that publishes the framework"
+          ],
+          "videoId": "pPPiaGU12Og"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "The NIST Cybersecurity Framework (CSF) 2.0",
+          "provider": "NIST",
+          "url": "https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf",
+          "description": "The CSF 2.0 document itself, describing the six Functions, Profiles and Tiers.",
+          "keyPoints": [
+            "Published February 26, 2024",
+            "Functions: Govern, Identify, Protect, Detect, Respond, Recover",
+            "Govern is at the center because it informs the other five",
+            "Doesn't prescribe how outcomes are achieved",
+            "Tiers: Partial, Risk Informed, Repeatable, Adaptive; Profiles: Current and Target"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Computer Misuse Act 1990, Section 1: Unauthorised access to computer material",
+          "provider": "legislation.gov.uk (UK Government)",
+          "url": "https://www.legislation.gov.uk/ukpga/1990/18/section/1",
+          "description": "The statutory text making unauthorised access to computer material a criminal offence in the UK.",
+          "keyPoints": [
+            "Offence: causing a computer to perform a function to access data or programs",
+            "Requires knowing the intended access is unauthorised",
+            "Intent need not target any particular computer or data",
+            "Can carry imprisonment on conviction"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Penetration testing",
+          "provider": "UK National Cyber Security Centre (NCSC)",
+          "url": "https://www.ncsc.gov.uk/guidance/penetration-testing",
+          "description": "NCSC guidance on what penetration testing is, how to scope it, and how to use the results.",
+          "keyPoints": [
+            "Pen testing tries to breach a system with adversary techniques to gain assurance",
+            "It validates security, like an audit; it isn't the main way to find vulnerabilities",
+            "Shows only no known issues were exploitable on the day of the test",
+            "Scope changes must be documented; fixing findings stays the client's responsibility"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "NICE Framework Resource Center",
+          "provider": "NIST",
+          "url": "https://www.nist.gov/itl/applied-cybersecurity/nice/nice-framework-resource-center",
+          "description": "NIST's hub for the NICE Workforce Framework, the common language for cybersecurity work roles and skills.",
+          "keyPoints": [
+            "Common language for cybersecurity work and required knowledge and skills",
+            "Building blocks: Work Roles, Competency Areas, Task/Knowledge/Skill statements",
+            "Used for career pathways, training design and hiring"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "CompTIA Security+ Certification",
+          "provider": "CompTIA",
+          "url": "https://www.comptia.org/en-us/certifications/security/",
+          "description": "CompTIA's official page for Security+, a widely recognised entry-level security certification.",
+          "keyPoints": [
+            "Globally recognised certification for core cybersecurity skills",
+            "Targets roles such as security analyst, security engineer and sysadmin",
+            "V7 is current; V8 is expected around November 2026 with AI-related risks added"
+          ]
+        }
+      ]
+    }
+  ],
+  "slug": "cybersecurity",
+  "name": "Cybersecurity",
+  "description": "Defensive security fundamentals for an entry-level career: core principles, authentication, networks, threats, web and crypto basics, security operations and governance.",
+  "status": "COMING_SOON"
+}

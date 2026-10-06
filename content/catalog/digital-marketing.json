@@ -1,0 +1,957 @@
+{
+  "stages": [
+    {
+      "order": 1,
+      "title": "Marketing Fundamentals: Audience, Value & Funnel",
+      "level": "BEGINNER",
+      "description": "How to define who you are marketing to, why they should choose you, and how a prospect moves from awareness to loyal customer.",
+      "learningObjectives": [
+        "Define a buyer persona and describe how one is built from research",
+        "Write a value proposition that is clear, compelling and differentiating",
+        "Name the main funnel stages (awareness, consideration, conversion, loyalty/retention) and a tactic for each",
+        "Explain why the real customer journey is less linear than the funnel model suggests"
+      ],
+      "explainBack": {
+        "question": "You are launching a new product. How would you describe your target customer, state why they should buy from you, and map the steps they take from first hearing of you to buying again?",
+        "rubric": [
+          "A buyer persona is a research-based profile representing a segment of the target audience, covering goals, motivations and pain points, not just demographics",
+          "Personas are built from quantitative data (analytics, CRM) plus qualitative research such as customer interviews",
+          "A good value proposition is clear (names the offering and benefit), compelling (motivates action) and differentiating (sets it apart from competitors)",
+          "Funnel stages: awareness (discover the brand/problem), consideration (compare options), conversion (purchase), loyalty/retention (repurchase and recommend)",
+          "Real journeys loop between exploration and evaluation, so the funnel is a simplification; satisfied customers can feed new awareness"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "How To Create a Buyer Persona (FREE Template)",
+          "provider": "HubSpot Marketing",
+          "url": "https://www.youtube.com/watch?v=v6EWN4EjHM0",
+          "description": "HubSpot's short walkthrough of what a buyer persona is and how to fill in a persona template for your business.",
+          "keyPoints": [
+            "Promises a definition of a buyer persona",
+            "Walks through a free persona template",
+            "Shows what research questions feed a persona"
+          ],
+          "videoId": "v6EWN4EjHM0"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How to Create Detailed Buyer Personas for Your Business",
+          "provider": "HubSpot",
+          "url": "https://blog.hubspot.com/marketing/buyer-persona-research",
+          "description": "Defines buyer personas as research-based profiles of audience segments and lays out a five-step process from data gathering to validating them.",
+          "keyPoints": [
+            "Persona = research-based profile of a target-audience segment",
+            "Goes beyond demographics to goals, motivations and pain points",
+            "Combine analytics/CRM data with interviews and focus groups",
+            "Most businesses need a handful of personas; review them at least yearly",
+            "Negative personas describe poor-fit prospects to avoid"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What Is a Value Proposition?",
+          "provider": "CAUL OER Collective (open textbook)",
+          "url": "https://oercollective.caul.edu.au/fundamentals-successful-marketing/?p=97",
+          "description": "Open-textbook section defining a value proposition and the three qualities that make one effective.",
+          "keyPoints": [
+            "A value proposition summarises why a customer should buy",
+            "Must be clear: names the offering and its benefit quickly",
+            "Must be compelling: motivates the buyer to act",
+            "Must be differentiating: sets the offer apart from alternatives",
+            "Answers who it is for, what it is, and why it is uniquely valuable"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Marketing funnel",
+          "provider": "Brandwatch",
+          "url": "https://www.brandwatch.com/social-media-glossary/marketing-funnel/",
+          "description": "Glossary entry explaining the marketing funnel's stages, typical tactics at each, and how the modern journey departs from a straight line.",
+          "keyPoints": [
+            "Awareness (TOFU): discovery via social, search and ads",
+            "Consideration (MOFU): comparison via email nurturing, webinars, case studies",
+            "Conversion (BOFU): purchase via trials, demos, testimonials",
+            "Loyalty: repurchase and referral",
+            "Journeys loop; some use a circular 'flywheel' model"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Content Marketing & Editorial Planning",
+      "level": "BEGINNER",
+      "description": "How to plan useful content around a few themes, pick formats, schedule it on an editorial calendar and reuse it across channels.",
+      "learningObjectives": [
+        "Define content marketing and how it differs from direct promotion",
+        "Choose content pillars and match content formats to goals",
+        "Build an editorial calendar with the core fields and a publishing cadence",
+        "Repurpose one piece of content into several formats"
+      ],
+      "explainBack": {
+        "question": "Explain what content marketing is and describe how you would plan a quarter of content for a small brand, including themes, formats, scheduling and reuse.",
+        "rubric": [
+          "Content marketing creates and distributes valuable, relevant, consistent content to attract and retain a clearly defined audience, rather than directly pitching products",
+          "Content pillars are a few recurring themes (e.g. educate, entertain, inspire, promote), each tied to a goal such as awareness or leads",
+          "Formats include blog posts, video, podcasts, infographics, social posts and interactive content, chosen for the audience and channel",
+          "An editorial calendar records topic, content type, channel, due/publish dates, owner and status",
+          "Repurposing turns one asset (e.g. a research report) into blog posts, short videos, newsletters and other pieces"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Content Marketing Strategy in 7 Minutes",
+          "provider": "Semrush",
+          "url": "https://www.youtube.com/watch?v=8-shSAxeKO0",
+          "description": "A seven-minute overview from Semrush of how to put together a content marketing strategy.",
+          "keyPoints": [
+            "Promises a fast overview of content strategy",
+            "Covers setting goals and knowing the audience",
+            "Touches on planning and distributing content"
+          ],
+          "videoId": "8-shSAxeKO0"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What Is Content Marketing?",
+          "provider": "Content Marketing Institute",
+          "url": "https://contentmarketinginstitute.com/what-is-content-marketing",
+          "description": "The Content Marketing Institute's standard definition of content marketing and why organisations use it.",
+          "keyPoints": [
+            "Defines content marketing as valuable, relevant, consistent content for a defined audience",
+            "Aims to attract and retain, not hard-sell",
+            "Benefits cited: sales, cost savings, loyalty",
+            "Says strategy should be documented"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How to leverage content marketing, according to a content marketer",
+          "provider": "HubSpot",
+          "url": "https://blog.hubspot.com/marketing/content-marketing",
+          "description": "Guide covering content formats, a nine-step strategy process, editorial calendars, content remixing and pillar/cluster structure.",
+          "keyPoints": [
+            "Lists formats: blog, video, podcast, infographic, social, interactive",
+            "Nine steps from audience and SMART goals to analysis",
+            "Recommends a publishing schedule for consistency",
+            "Remix one research report into articles, videos, newsletters",
+            "Pillar page plus linked supporting articles"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Social media content creation: 15 pro tips, tools + templates [2026]",
+          "provider": "Hootsuite",
+          "url": "https://blog.hootsuite.com/social-media-content-creation/",
+          "description": "Practical content-creation tips including choosing content pillars and giving each a goal.",
+          "keyPoints": [
+            "Pick a handful of content pillars and set a goal for each",
+            "Common pillars: educate, entertain, inspire, promote",
+            "Promotional posts usually pair with a call to action",
+            "Batching content saves production time"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How to Create an Editorial Calendar in 7 Easy Steps",
+          "provider": "Semrush",
+          "url": "https://www.semrush.com/blog/editorial-calendar/",
+          "description": "Defines an editorial calendar and gives seven steps to build one, with the fields to track for blogs, social and other formats.",
+          "keyPoints": [
+            "Editorial calendar = plan of what, where, when and who",
+            "Set cadence based on budget and resources",
+            "Core fields: topic, content type, due/publish date, owner, status",
+            "Audit existing content to find pieces to repurpose"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Social Media Marketing",
+      "level": "BEGINNER",
+      "description": "How to choose platforms for your audience, combine organic and paid social, and measure engagement correctly.",
+      "learningObjectives": [
+        "Distinguish organic from paid social and the job each does",
+        "Choose platforms using audience data rather than guesswork",
+        "Calculate engagement rate and know what counts as engagement",
+        "Outline the steps of a social media strategy, including SMART goals and consistent posting"
+      ],
+      "explainBack": {
+        "question": "A local brand asks whether it should just post more or pay for ads on social media. Explain organic versus paid social, how you would pick platforms, and how you would measure engagement.",
+        "rubric": [
+          "Organic social is free content posted to build community and trust; paid social (boosted posts, ads) buys reach with precise targeting",
+          "Organic reach is limited by platform algorithms, so a common approach is to test content organically and put ad budget behind top performers",
+          "Platform choice should follow audience data, e.g. Pew finds YouTube and Facebook most used by US adults and younger adults far more likely to use Instagram, TikTok and Snapchat",
+          "Engagement rate by reach = total engagements on a post / reach of that post x 100; impressions and views alone are not engagement",
+          "A strategy starts with SMART goals and audience research, and is refined with analytics"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Paid vs. Organic Social: A Complete Guide",
+          "provider": "Animoto",
+          "url": "https://www.youtube.com/watch?v=cnioX8e_yKQ",
+          "description": "Animoto's explainer contrasting paid and organic social media and how they work together.",
+          "keyPoints": [
+            "Promises definitions of paid and organic social",
+            "Compares strengths of each",
+            "Discusses combining both"
+          ],
+          "videoId": "cnioX8e_yKQ"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Organic vs paid social media: Everything you need to know",
+          "provider": "Hootsuite",
+          "url": "https://blog.hootsuite.com/organic-vs-paid-social-media/",
+          "description": "Explains organic and paid social, the organic reach problem, and a hybrid approach that uses organic results to steer ad spend.",
+          "keyPoints": [
+            "Organic = free posts that build relationships",
+            "Paid = boosted posts and ads with precise targeting",
+            "Algorithms show organic posts to only part of your followers",
+            "Boost organic winners with paid budget"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Social Media Fact Sheet",
+          "provider": "Pew Research Center",
+          "url": "https://www.pewresearch.org/internet/fact-sheet/social-media/",
+          "description": "Nonpartisan survey data on what share of US adults use each social platform, broken down by age and education.",
+          "keyPoints": [
+            "YouTube (84%) and Facebook (71%) most used by US adults in 2025",
+            "Instagram 50%, TikTok 37%",
+            "Younger adults use Instagram, TikTok and Snapchat much more",
+            "LinkedIn use rises with education level"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Master your 2026 social media strategy [free template + expert tips]",
+          "provider": "Hootsuite",
+          "url": "https://blog.hootsuite.com/social-media-marketing-strategy/",
+          "description": "A seven-step social strategy guide from SMART goals and audience research to measuring and refining.",
+          "keyPoints": [
+            "Set SMART goals first",
+            "Research audience down to platform",
+            "Audit and benchmark against competitors",
+            "Post consistently with a clear voice",
+            "Use analytics to decide where paid budget goes"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How to calculate engagement rate: 2026 formulas & benchmarks",
+          "provider": "Hootsuite",
+          "url": "https://blog.hootsuite.com/calculate-engagement-rate/",
+          "description": "Six engagement-rate formulas (by reach, post, impressions, daily, views, cost) with what counts as engagement and benchmarks.",
+          "keyPoints": [
+            "ER by reach = engagements / reach x 100",
+            "ER by impressions suits paid campaigns",
+            "Likes, comments, shares, saves count as engagement",
+            "Impressions and views alone are exposure, not engagement"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Email Marketing: Consent, Segmentation & Deliverability",
+      "level": "INTERMEDIATE",
+      "description": "How to build an email list lawfully, segment it, read open and click rates, and meet mailbox providers' authentication rules.",
+      "learningObjectives": [
+        "State the core legal rules for marketing email under CAN-SPAM (US) and PECR/UK GDPR (UK)",
+        "Segment a list by demographic, behavioural and engagement criteria",
+        "Define open rate and click rate and know their tracking limits",
+        "Explain SPF, DKIM and DMARC and Gmail's sender requirements"
+      ],
+      "explainBack": {
+        "question": "You are starting a newsletter for an online shop with US and UK customers. How will you collect addresses lawfully, segment the list, measure performance and make sure the emails reach inboxes?",
+        "rubric": [
+          "CAN-SPAM requires accurate headers, non-deceptive subject lines, a valid postal address and a clear opt-out honoured within 10 business days; it does not itself require prior consent",
+          "In the UK (PECR) marketing email to individuals needs specific consent, except the 'soft opt-in' for existing customers buying similar products with an opt-out offered each time",
+          "Segmentation divides subscribers by criteria such as location, demographics, purchase behaviour or engagement so content is more relevant",
+          "Open rate and click rate are percentages of successfully delivered emails; opens can be inflated by bots/Apple Mail Privacy Protection",
+          "Gmail requires all senders to use SPF or DKIM and keep spam rates below 0.3%; senders of 5,000+ messages/day need SPF, DKIM and DMARC plus one-click unsubscribe"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "CertMike Explains DMARC, DKIM and SPF",
+          "provider": "Mike Chapple",
+          "url": "https://www.youtube.com/watch?v=Q8NUW3CZRvw",
+          "description": "A short explainer by IT educator Mike Chapple on how SPF, DKIM and DMARC authenticate email.",
+          "keyPoints": [
+            "Promises what SPF does",
+            "Explains DKIM signing",
+            "Explains how DMARC builds on both"
+          ],
+          "videoId": "Q8NUW3CZRvw"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "CAN-SPAM Act: A Compliance Guide for Business",
+          "provider": "U.S. Federal Trade Commission",
+          "url": "https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business",
+          "description": "The FTC's official guide to the US commercial email law: its main requirements, opt-out timing and penalties.",
+          "keyPoints": [
+            "No false headers or deceptive subject lines",
+            "Identify ads and include a valid postal address",
+            "Clear opt-out; honour it within 10 business days",
+            "Penalties up to $53,088 per violating email"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Electronic mail marketing",
+          "provider": "Information Commissioner's Office (UK)",
+          "url": "https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/guide-to-pecr/electronic-and-telephone-marketing/electronic-mail-marketing/",
+          "description": "ICO guidance on when UK organisations may send marketing emails and texts to individuals, including the soft opt-in.",
+          "keyPoints": [
+            "Need specific consent to email individuals",
+            "Soft opt-in only for existing customers and similar products",
+            "Soft opt-in does not cover bought lists",
+            "Every message needs an easy opt-out"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How Email Segmentation Drives Engagement and ROI",
+          "provider": "Mailchimp",
+          "url": "https://mailchimp.com/resources/email-segmentation/",
+          "description": "Defines email segmentation and lists common ways to divide subscribers, with the engagement benefits.",
+          "keyPoints": [
+            "Segmentation = dividing subscribers into groups by criteria",
+            "Criteria: demographics, location, behaviour, engagement, funnel stage",
+            "Relevant content lifts opens and clicks",
+            "Better engagement helps sender reputation"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "About Email Reports",
+          "provider": "Mailchimp",
+          "url": "https://mailchimp.com/help/about-email-campaign-reports/",
+          "description": "Help article defining open rate, click rate and bounces in campaign reports and how bot activity distorts them.",
+          "keyPoints": [
+            "Open rate = % of delivered emails registering an open",
+            "Click rate = % of delivered emails registering a click",
+            "Opens need images loaded or a tracked click",
+            "Bots and Apple MPP can inflate opens"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Email sender guidelines",
+          "provider": "Gmail Help (Google)",
+          "url": "https://support.google.com/mail/answer/81126?hl=en",
+          "description": "Google's requirements for anyone sending to Gmail accounts, with extra rules for bulk senders.",
+          "keyPoints": [
+            "All senders: SPF or DKIM, TLS, valid DNS",
+            "Keep spam rate under 0.3% (aim for under 0.1%)",
+            "5,000+/day: SPF and DKIM plus DMARC (policy can be none)",
+            "Bulk marketing mail must support one-click unsubscribe"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Paid Advertising (PPC) Basics",
+      "level": "INTERMEDIATE",
+      "description": "How pay-per-click auctions work, what CPC/CPM/CPA mean, how ad quality affects cost and position, and how to target audiences.",
+      "learningObjectives": [
+        "Explain CPC, CPM and CPA bidding and match each to a goal",
+        "Describe how Google's ad auction ranks ads (Ad Rank) and what you actually pay",
+        "Explain Quality Score's components and that it is a diagnostic, not an auction input",
+        "Choose audience segments (affinity, in-market, custom, your data) for targeting",
+        "Calculate click-through rate"
+      ],
+      "explainBack": {
+        "question": "Explain to a new advertiser how a Google search ad auction decides which ads show and what they pay, which bidding option to pick for their goal, and how to read Quality Score and CTR.",
+        "rubric": [
+          "CPC = pay per click (traffic); CPM/vCPM = pay per 1,000 (viewable) impressions (awareness); CPA = target a cost per conversion and needs conversion tracking",
+          "Ad Rank uses bid, ad and landing page quality, Ad Rank thresholds, auction competitiveness, search context and asset impact; actual CPC is often below the max bid",
+          "Quality Score (1-10) reflects expected CTR, ad relevance and landing page experience and is a diagnostic tool, not an input to the auction",
+          "Audience segments include affinity (interests), in-market (actively researching), custom (keywords/URLs) and your data (past visitors/customers), usable for targeting or observation",
+          "CTR = clicks / impressions (e.g. 5 clicks from 100 impressions = 5%)"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Quality Score EXPLAINED: The TRUTH About Ad Rank and Ad Quality [Inside Google Ads Episode 107]",
+          "provider": "Jyll Saskin Gales | Google Ads Coach",
+          "url": "https://www.youtube.com/watch?v=DPOqrGqX0Rs",
+          "description": "A Google Ads coach (and former Googler) explains how Quality Score relates to Ad Rank and ad quality.",
+          "keyPoints": [
+            "Promises to separate Quality Score from Ad Rank",
+            "Explains what ad quality means in the auction",
+            "Clears up common Quality Score myths"
+          ],
+          "videoId": "DPOqrGqX0Rs"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Understanding bidding basics",
+          "provider": "Google Ads Help",
+          "url": "https://support.google.com/google-ads/answer/2459326?hl=en",
+          "description": "Google's overview of bidding by clicks, impressions, conversions and video views, and which goal each suits.",
+          "keyPoints": [
+            "CPC: pay when someone clicks",
+            "vCPM: pay per 1,000 viewable impressions",
+            "CPA: set what you will pay per conversion",
+            "Conversion bidding needs conversion tracking",
+            "Match bidding to the business goal"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "About Ad Rank",
+          "provider": "Google Ads Help",
+          "url": "https://support.google.com/google-ads/answer/1722122?hl=en",
+          "description": "Explains how Ad Rank decides ad eligibility and position and why you often pay less than your maximum bid.",
+          "keyPoints": [
+            "Ad Rank decides eligibility and position",
+            "Factors: bid, quality, thresholds, competition, context, assets",
+            "Actual cost is often below max bid",
+            "Higher quality can mean lower CPC"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "About Quality Score for Search campaigns",
+          "provider": "Google Ads Help",
+          "url": "https://support.google.com/google-ads/answer/6167118?hl=en",
+          "description": "Defines Quality Score, its 1-10 scale and three components, and states it is not used in the auction.",
+          "keyPoints": [
+            "Keyword-level score from 1 to 10",
+            "Components: expected CTR, ad relevance, landing page experience",
+            "Diagnostic tool, not an auction input",
+            "Components rated above/average/below vs. last 90 days"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "About audience segments",
+          "provider": "Google Ads Help",
+          "url": "https://support.google.com/google-ads/answer/2497941?hl=en",
+          "description": "Describes Google Ads audience segment types and how they can be used for targeting or observation.",
+          "keyPoints": [
+            "Affinity: interests and habits",
+            "In-market: actively researching purchases",
+            "Custom: defined by keywords, URLs, apps",
+            "Your data: people who interacted with you (remarketing)",
+            "Segments can target or just observe"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Clickthrough rate (CTR): Definition",
+          "provider": "Google Ads Help",
+          "url": "https://support.google.com/google-ads/answer/2615875?hl=en",
+          "description": "Defines click-through rate and gives the formula with a worked example.",
+          "keyPoints": [
+            "CTR = clicks / impressions",
+            "5 clicks from 100 impressions = 5%",
+            "High CTR suggests ads are relevant",
+            "Used to spot weak keywords and ads"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "title": "Analytics & Measurement",
+      "level": "INTERMEDIATE",
+      "description": "How to tag campaigns, track events and key events in GA4, understand attribution, and compute ROAS and CAC.",
+      "learningObjectives": [
+        "Build campaign URLs with UTM parameters",
+        "Explain GA4 event types and mark key events (conversions)",
+        "Compare data-driven and last-click attribution in GA4",
+        "Calculate ROAS and customer acquisition cost (CAC)"
+      ],
+      "explainBack": {
+        "question": "You are running an email and paid-social campaign. Explain how you would tag the links, record sign-ups as conversions in GA4, credit channels for sales, and judge whether the spend was worth it.",
+        "rubric": [
+          "Tag links with utm_source, utm_medium and utm_campaign (always use these three); utm_term and utm_content are optional extras",
+          "GA4 events are automatically collected, enhanced measurement, recommended or custom; important actions are marked as key events",
+          "Attribution assigns credit to touchpoints; GA4 offers data-driven and last-click models, and first click, linear, time decay and position-based were removed in November 2023",
+          "ROAS = conversion value / ad spend x 100% (e.g. $5 sales per $1 spend = 500%)",
+          "CAC = (sales + marketing costs) / number of new customers; it is often compared with customer lifetime value (CLV)"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "GA4 Key Events – How to Track Conversions in Google Analytics 4 (2025 Update)",
+          "provider": "Loves Data",
+          "url": "https://www.youtube.com/watch?v=A546lw0g_4s",
+          "description": "Loves Data, a Google Analytics training channel, shows how key events are used to track conversions in GA4.",
+          "keyPoints": [
+            "Promises what key events are",
+            "Shows marking an event as a key event",
+            "Explains how conversions now appear in GA4"
+          ],
+          "videoId": "A546lw0g_4s"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "[GA4] URL builders: Collect campaign data with custom URLs",
+          "provider": "Google Analytics Help",
+          "url": "https://support.google.com/analytics/answer/10917952?hl=en",
+          "description": "Lists the UTM parameters GA4 reads, which three to always include, and an example tagged URL.",
+          "keyPoints": [
+            "Always use utm_source, utm_medium, utm_campaign",
+            "utm_term for paid keywords; utm_content for creative variants",
+            "Example: ?utm_source=summer-mailer&utm_medium=email&utm_campaign=summer-sale",
+            "Campaign URL Builder tool available"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "[GA4] About events",
+          "provider": "Google Analytics Help",
+          "url": "https://support.google.com/analytics/answer/9322688?hl=en",
+          "description": "Explains GA4's four event categories, how events are processed, and marking important events as key events.",
+          "keyPoints": [
+            "Automatically collected, enhanced measurement, recommended, custom",
+            "Custom events need custom reports",
+            "Mark important actions as key events",
+            "Verify with Realtime and DebugView"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "[GA4] Get started with attribution",
+          "provider": "Google Analytics Help",
+          "url": "https://support.google.com/analytics/answer/10596866?hl=en",
+          "description": "Defines attribution and the models available in GA4, noting which older models were retired.",
+          "keyPoints": [
+            "Attribution assigns credit along the path to a key event",
+            "Data-driven uses ML on converting and non-converting paths",
+            "Paid and organic last click gives 100% to last click",
+            "First click, linear, time decay, position-based removed Nov 2023"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "About Target ROAS bidding",
+          "provider": "Google Ads Help",
+          "url": "https://support.google.com/google-ads/answer/6268637?hl=en",
+          "description": "Describes Target ROAS bidding and gives the ROAS formula with a worked example.",
+          "keyPoints": [
+            "ROAS = conversion value / ad spend x 100%",
+            "$5 sales per $1 spend = 500% ROAS",
+            "Target ROAS bids to hit a return goal"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Customer Acquisition Cost (CAC): Definition, Formula, and Key Metrics",
+          "provider": "HubSpot",
+          "url": "https://blog.hubspot.com/service/what-does-cac-stand-for",
+          "description": "Defines customer acquisition cost, its formula and included costs, and the CLV:CAC ratio.",
+          "keyPoints": [
+            "CAC = (sales + marketing cost) / new customers",
+            "$400,000 / 500 customers = $800 CAC",
+            "Includes ad spend, salaries, creative, tools",
+            "Common target CLV:CAC around 3:1"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Conversion Rate Optimization & A/B Testing",
+      "level": "ADVANCED",
+      "description": "How to design focused landing pages and run valid A/B tests that improve conversion rate.",
+      "learningObjectives": [
+        "Calculate conversion rate",
+        "Describe what makes a landing page focused on one call to action",
+        "Run an A/B test: hypothesis, single change, random split, analysis",
+        "Explain statistical significance and why tests need enough traffic"
+      ],
+      "explainBack": {
+        "question": "Your landing page converts at 2%. Describe how you would test a new version properly and decide whether it really won.",
+        "rubric": [
+          "Conversion rate = conversions / interactions (e.g. 50 / 1,000 = 5%)",
+          "A landing page is a standalone campaign page with a single goal (call to action) and fewer links than a homepage",
+          "An A/B test randomly splits traffic between a control (A) and a variant (B), starting from a data-based hypothesis and changing one element at a time",
+          "Statistical significance is the likelihood the difference is not due to chance; a 95% confidence (p = 0.05) threshold is typical",
+          "Tests need enough traffic/sample size and should run at least one business cycle; A/B tests show what changed, not why"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Don't A/B Test Yourself Off a Cliff",
+          "provider": "NNgroup",
+          "url": "https://www.youtube.com/watch?v=TYrWpZdcujU",
+          "description": "Nielsen Norman Group's short video on the risks of relying only on A/B testing to make design decisions.",
+          "keyPoints": [
+            "Promises pitfalls of over-relying on A/B tests",
+            "Argues tests need a sound hypothesis",
+            "Pairs testing with understanding users"
+          ],
+          "videoId": "TYrWpZdcujU"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Conversion rate: Definition",
+          "provider": "Google Ads Help",
+          "url": "https://support.google.com/google-ads/answer/2684489?hl=en",
+          "description": "Defines conversion rate and gives the formula with an example.",
+          "keyPoints": [
+            "Conversion rate = conversions / interactions",
+            "50 / 1,000 = 5%",
+            "Can exceed 100% when counting every conversion"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What Is a Landing Page?",
+          "provider": "Unbounce",
+          "url": "https://unbounce.com/landing-page-articles/what-is-a-landing-page/",
+          "description": "Explains what a landing page is, how it differs from a homepage, its main types and core elements.",
+          "keyPoints": [
+            "Standalone page built for a campaign",
+            "Single focus: one call to action",
+            "Fewer links than a homepage",
+            "Types: lead generation and click-through",
+            "Elements: headline, CTA, short form, social proof"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What is A/B testing?",
+          "provider": "Optimizely",
+          "url": "https://www.optimizely.com/optimization-glossary/ab-testing/",
+          "description": "Glossary entry defining A/B testing and laying out a six-step testing process.",
+          "keyPoints": [
+            "Randomly split traffic between control A and variant B",
+            "Start from data and a hypothesis",
+            "Make targeted, measurable changes",
+            "Analyse results for statistical significance"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Statistical significance",
+          "provider": "Optimizely",
+          "url": "https://www.optimizely.com/optimization-glossary/statistical-significance/",
+          "description": "Explains statistical significance, p-values, confidence intervals and why tests fail to reach significance.",
+          "keyPoints": [
+            "Significance = likelihood the difference is not chance",
+            "Larger samples give more reliable results",
+            "Low baseline rates make significance harder",
+            "Run at least one business cycle"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "A/B Testing 101",
+          "provider": "Nielsen Norman Group",
+          "author": "Tim Neusesser",
+          "url": "https://www.nngroup.com/articles/ab-testing/",
+          "description": "NN/g's introduction to A/B testing: requirements, the 95% significance norm, and limitations.",
+          "keyPoints": [
+            "Tests variations with a live audience against set metrics",
+            "Needs high traffic",
+            "Change one element at a time",
+            "Typical threshold 95% (p = 0.05)",
+            "Shows what happened, not why"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "title": "Strategy, ROI, Privacy & Advertising Ethics",
+      "level": "ADVANCED",
+      "description": "How to judge marketing return and the privacy and disclosure rules (GDPR, India's DPDP Act, FTC, ASCI) that shape digital campaigns.",
+      "learningObjectives": [
+        "Calculate ROI and distinguish it from revenue",
+        "State what valid consent means under UK GDPR",
+        "Summarise the consent and penalty basics of India's DPDP Act and Rules",
+        "Apply FTC and ASCI rules on disclosing paid endorsements and influencer posts"
+      ],
+      "explainBack": {
+        "question": "You are planning an influencer and data-driven campaign in India and the UK/US. How will you judge whether it pays off, what consent rules apply to customer data, and how must influencers disclose the partnership?",
+        "rubric": [
+          "ROI = (revenue - cost of goods sold) / cost of goods sold; it measures profit relative to cost, not just revenue",
+          "Under UK GDPR, consent must be freely given, specific, informed and unambiguous via a clear affirmative act; pre-ticked boxes or silence do not count and withdrawal must be easy",
+          "India's DPDP Rules 2025 require a separate, clear consent notice from each Data Fiduciary, let people withdraw consent, and allow penalties up to Rs 250 crore",
+          "The FTC requires influencers to disclose any financial, employment, personal or family relationship clearly in the post itself (e.g. 'ad', 'sponsored'), not hidden in bios or hashtag piles",
+          "ASCI requires upfront, prominent labels such as 'Ad', 'Sponsored', 'Collaboration' or 'Partnership' for any material connection; advertisers and influencers share responsibility"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "EP 118. Disclosures 101: FTC Guidelines for Social Media Influencers",
+          "provider": "Law Chat For Entrepreneurs",
+          "url": "https://www.youtube.com/watch?v=Q1D_dZdExHA",
+          "description": "A law podcast episode walking through the FTC's 'Disclosures 101' guidance for influencers.",
+          "keyPoints": [
+            "Promises a walkthrough of FTC influencer guidance",
+            "Covers when a disclosure is required",
+            "Covers how to make disclosures clear"
+          ],
+          "videoId": "Q1D_dZdExHA"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "About return on investment (ROI)",
+          "provider": "Google Ads Help",
+          "url": "https://support.google.com/google-ads/answer/1722066?hl=en",
+          "description": "Explains ROI for advertising with the formula and a worked example.",
+          "keyPoints": [
+            "ROI = (revenue - cost of goods sold) / cost of goods sold",
+            "Example: ($1,200 - $800) / $800 = 50%",
+            "ROI shows profitability, not just sales",
+            "Helps decide where to spend budget"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What is valid consent?",
+          "provider": "Information Commissioner's Office (UK)",
+          "url": "https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/lawful-basis/consent/what-is-valid-consent/",
+          "description": "ICO guidance on the elements of valid consent under UK GDPR.",
+          "keyPoints": [
+            "Consent: freely given, specific, informed, unambiguous",
+            "Requires a clear affirmative act",
+            "Pre-ticked boxes and inactivity are not consent",
+            "Must be easy to withdraw; keep records"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "DPDP Rules, 2025 Notified",
+          "provider": "Press Information Bureau, Government of India",
+          "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2190655&reg=48&lang=2",
+          "description": "Government release summarising India's DPDP Rules 2025: consent notices, rights, roles and penalties.",
+          "keyPoints": [
+            "Rules notified November 2025 with 18-month phase-in",
+            "Separate, clear consent notice required",
+            "Consent can be withdrawn at any time",
+            "Penalties up to Rs 250 crore"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Disclosures 101 for Social Media Influencers",
+          "provider": "U.S. Federal Trade Commission",
+          "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
+          "description": "FTC guidance on when and how influencers must disclose brand relationships.",
+          "keyPoints": [
+            "Disclose financial, employment, personal or family ties",
+            "Put disclosure in the post, not just bio or hashtags",
+            "Use clear words like 'ad' or 'sponsored'",
+            "In video, disclose in the video itself"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "ASCI Social Media Disclosure Guidelines",
+          "provider": "Advertising Standards Council of India",
+          "url": "https://www.ascionline.in/social/guidelines/",
+          "description": "ASCI's rules for influencer disclosure in India, including approved labels and placement.",
+          "keyPoints": [
+            "Any material connection needs disclosure",
+            "Labels: Ad, Sponsored, Collaboration, Partnership, Free gift, etc.",
+            "Must be upfront and prominent",
+            "Virtual influencers must disclose they are not human"
+          ]
+        }
+      ]
+    }
+  ],
+  "slug": "digital-marketing",
+  "name": "Digital Marketing",
+  "description": "Learn to plan, run and measure digital marketing: audiences, content, social, email, paid ads, analytics, conversion testing, budgets and privacy/ad rules.",
+  "status": "COMING_SOON"
+}

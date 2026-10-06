@@ -338,6 +338,67 @@ html[data-accent="nova"] {
   --hue-elevated-light: #fef9ff;
   --hue-card-light: #fcf4ff;
 }
+/* Slow LED wash. Surfaces stay dark or pale so type does not chase the wheel. */
+@property --spectrum-h {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 198;
+}
+@keyframes spectrum-drift {
+  to { --spectrum-h: 558; }
+}
+@keyframes spectrum-swatch {
+  to { --spectrum-h: 558; }
+}
+html[data-accent="spectrum"] {
+  --spectrum-h: 198;
+  animation: spectrum-drift 42s linear infinite;
+  --preset-gradient: linear-gradient(
+    to left,
+    hsl(calc(var(--spectrum-h) - 46) 64% 24%) 0%,
+    hsl(var(--spectrum-h) 70% 30%) 49.5%,
+    hsl(calc(var(--spectrum-h) + 40) 66% 26%) 100%
+  );
+  --preset-gradient-v: linear-gradient(
+    180deg,
+    hsl(calc(var(--spectrum-h) + 40) 66% 26%) 0%,
+    hsl(calc(var(--spectrum-h) - 46) 64% 24%) 100%
+  );
+  --preset-bright: hsl(var(--spectrum-h) 100% 74%);
+  --preset-soft: hsl(var(--spectrum-h) 100% 86%);
+  --preset-mid: hsl(var(--spectrum-h) 96% 62%);
+  --preset-deep: hsl(calc(var(--spectrum-h) - 18) 70% 28%);
+  --preset-strong: hsl(calc(var(--spectrum-h) - 22) 68% 22%);
+  --hue-app: hsl(var(--spectrum-h) 42% 6.5%);
+  --hue-sidebar: hsl(var(--spectrum-h) 36% 4%);
+  --hue-sunken: hsl(var(--spectrum-h) 32% 3%);
+  --hue-elevated: hsl(var(--spectrum-h) 38% 11%);
+  --hue-app-light: hsl(var(--spectrum-h) 46% 96%);
+  --hue-sidebar-light: hsl(var(--spectrum-h) 40% 93%);
+  --hue-sunken-light: hsl(var(--spectrum-h) 34% 88%);
+  --hue-elevated-light: hsl(var(--spectrum-h) 30% 98%);
+  --hue-card-light: hsl(var(--spectrum-h) 36% 97%);
+  --app-atmosphere:
+    radial-gradient(1200px 720px at 8% -10%, hsl(var(--spectrum-h) 100% 58% / 0.40), transparent 60%),
+    radial-gradient(980px 640px at 100% 0%, hsl(calc(var(--spectrum-h) + 96) 100% 60% / 0.32), transparent 58%),
+    radial-gradient(760px 520px at 72% 108%, hsl(calc(var(--spectrum-h) + 190) 95% 54% / 0.20), transparent 62%);
+}
+html.light[data-accent="spectrum"] {
+  --app-atmosphere:
+    radial-gradient(1200px 720px at 8% -10%, hsl(var(--spectrum-h) 100% 58% / 0.46), transparent 62%),
+    radial-gradient(980px 640px at 100% 0%, hsl(calc(var(--spectrum-h) + 96) 100% 62% / 0.36), transparent 58%),
+    radial-gradient(760px 520px at 72% 108%, hsl(calc(var(--spectrum-h) + 190) 95% 58% / 0.24), transparent 62%);
+}
+/* The app shell paints a flat fill, which would hide the wash. Spectrum draws it here. */
+html[data-accent="spectrum"] .sf-app {
+  background-color: var(--bg-app);
+  background-image: var(--app-atmosphere);
+  background-attachment: fixed;
+}
+html[data-accent="spectrum"] .sf-topbar {
+  background-color: color-mix(in srgb, var(--bg-app) 78%, transparent);
+  backdrop-filter: blur(16px);
+}
 
 /* Type scale */
 :root {
@@ -491,6 +552,27 @@ html[data-accent="nova"] {
 [data-accent-swatch="volt"] { background-image: var(--preset-volt); }
 [data-accent-swatch="ion"] { background-image: var(--preset-ion); }
 [data-accent-swatch="nova"] { background-image: var(--preset-nova); }
+[data-accent-swatch="spectrum"] {
+  --spectrum-h: 198;
+  background-image: conic-gradient(
+    from calc(var(--spectrum-h) * 1deg),
+    hsl(0 92% 62%),
+    hsl(48 96% 56%),
+    hsl(120 88% 48%),
+    hsl(175 92% 50%),
+    hsl(220 92% 62%),
+    hsl(285 88% 64%),
+    hsl(360 92% 62%)
+  );
+  animation: spectrum-swatch 8s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-accent="spectrum"],
+  [data-accent-swatch="spectrum"] {
+    animation: none;
+    --spectrum-h: 198;
+  }
+}
 
 .light {
   color-scheme: light;

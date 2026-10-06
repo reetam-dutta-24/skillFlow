@@ -41,7 +41,7 @@ The next stage on a free path opens after the explain-back. Every stage is open,
 
 The niche list shows 32 cards a page. Home and roadmaps show the first 12, a blurred peek of the next row, and a link to the full list.
 
-Signed-in learners can keep a preset accent or build their own gradient from a color palette, a hex value, or RGB. Public pages stay on Dusk.
+Signed-in learners can keep a preset accent, turn on Spectrum for a slow color wash, or build their own gradient from a color palette, a hex value, or RGB. Public pages stay on Dusk.
 
 Open Source is a per-niche community of posts. A learner shares text, an image, and source links. The post stays hidden until a moderator publishes it or rejects it. Signed-in learners can read a published post and ask the author one question. The author writes one answer. There is no comment thread. A moderator can hide a published post. Authors track and edit their work at `/open-source/me`. Reviewers work from `/open-source/review`. Admins manage roles at `/admin/community`. A public profile shows a person's published posts. Community posts never enter the catalog.
 

@@ -183,7 +183,7 @@ export function SettingsScreen({
         <div className="sf-settings-row sf-settings-accent">
           <div>
             <h3>Accent</h3>
-            <p>A preset, or your own gradient from the palette, a hex value, or RGB.</p>
+            <p>A preset, including Spectrum, or your own gradient from the palette, a hex value, or RGB.</p>
           </div>
           <AccentPicker defaultAccent={accent} />
         </div>

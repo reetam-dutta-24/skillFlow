@@ -1,0 +1,905 @@
+{
+  "stages": [
+    {
+      "order": 1,
+      "title": "Rules, Scoring & the Court",
+      "level": "BEGINNER",
+      "description": "How a badminton match is scored under the BWF Laws, when players change ends, what the court and net look like, and when a shuttle is in or out.",
+      "learningObjectives": [
+        "Explain rally-point scoring, the two-point rule and the cap for a game, and best-of-three matches",
+        "State when intervals and changes of ends happen",
+        "Describe the court dimensions and net height for singles and doubles",
+        "Decide whether a shuttle is in or out and name common rally faults",
+        "Describe the BWF 3x15 scoring change that takes effect on 4 January 2027"
+      ],
+      "explainBack": {
+        "question": "Explain how a badminton game and match are won under the current BWF Laws, what changes from January 2027, and how you decide if a shuttle that lands on a line is in.",
+        "rubric": [
+          "Every rally wins a point; under the Laws in force until 3 Jan 2027 a game goes to 21, at 20-all a side needs a two-point lead, and at 29-all the 30th point wins",
+          "A match is best of three games; there is a 60-second interval when the leader reaches 11, up to 120 seconds between games, and ends change after each game and at 11 in game three",
+          "From 4 Jan 2027 BWF games go to 15 points: two-point lead from 14-all, cap at 21 (20-all next point wins), interval and third-game change of ends at 8",
+          "The court is 13.4 m long, 6.1 m wide for doubles and 5.18 m for singles; the net top is 1.524 m at the centre and 1.55 m over the doubles side lines",
+          "Lines are part of the area they define, so a shuttle landing on the line is in; it is a fault if it lands outside, fails to cross the net, or a player touches the net"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "The Rules of Badminton - EXPLAINED!",
+          "provider": "Ninh Ly",
+          "url": "https://www.youtube.com/watch?v=UyLIi-TbcFc",
+          "description": "A widely used animated overview of how badminton is played and scored, including serving order and basic faults.",
+          "keyPoints": [
+            "Rally-point scoring to 21 and winning a match",
+            "Where to stand and serve based on the score",
+            "Common faults that end a rally"
+          ],
+          "videoId": "UyLIi-TbcFc"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Badminton Basics",
+          "provider": "BWF Shuttle Time",
+          "url": "https://shuttletime.bwfbadminton.com/badminton-basics",
+          "description": "The Badminton World Federation's short primer on the game's history, its aim, the five events and the basic scoring rules.",
+          "keyPoints": [
+            "Best of three games to 21 points",
+            "At 20-20 a side must win by two clear points",
+            "At 29-29 the next point decides the game",
+            "Doubles court is wider than singles; the doubles service area is shorter"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Laws of Badminton",
+          "provider": "Tower Hamlets Council",
+          "url": "https://www.towerhamlets.gov.uk/lgnl/leisure_and_culture/sport_and_physical_activity/Choose_a_sport/Badminton/Laws-of-Badminton.aspx",
+          "description": "A council sport page reproducing the main BWF Laws in force before 2027: court, scoring, change of ends, intervals, service, lets and faults.",
+          "keyPoints": [
+            "Law 1.3: all lines form part of the area they define",
+            "Law 7: 21 points, two-point lead at 20-all, 30th point wins at 29-all",
+            "Law 8 and 16: ends change at 11 in game three; 60 s interval at 11, 120 s between games",
+            "Net top 1.524 m at centre, 1.55 m over the doubles side lines",
+            "Law 13 lists faults such as landing out or touching the net"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Badminton - Sports dimensions guide",
+          "provider": "Government of Western Australia (DLGSC)",
+          "url": "https://dlgsc.wa.gov.au/sport-and-recreation/sports-dimensions-guide/badminton",
+          "description": "Western Australian government facility guide giving the court, line, net and post dimensions taken from the BWF handbook.",
+          "keyPoints": [
+            "Court is 13.4 m long; 6.1 m wide for doubles and 5.18 m for singles",
+            "Lines are 40 mm wide, white or yellow",
+            "Net top 1.524 m at centre and 1.55 m at the doubles side lines",
+            "Posts stand on the doubles side lines for both singles and doubles"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Key Changes Under the 3x15 Scoring System",
+          "provider": "Badminton World Federation",
+          "url": "https://bwfbadminton.com/news-single/2026/04/26/key-changes-under-the-3x15-scoring-system",
+          "description": "BWF's own summary of the 3x15 scoring system approved in April 2026 and due to apply from 4 January 2027.",
+          "keyPoints": [
+            "Games are played to 15 instead of 21 points",
+            "At 14-all a two-point lead is needed; at 20-all the next point wins (cap of 21)",
+            "60 s mid-game interval and third-game change of ends at 8 points",
+            "Domestic organisers may choose an approved alternative scoring system"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Equipment & Grips",
+      "level": "BEGINNER",
+      "description": "Choosing shuttles and a racket for recreational play, and holding the racket with the basic forehand and backhand (thumb) grips.",
+      "learningObjectives": [
+        "Compare feather and synthetic (nylon) shuttles in construction, flight and durability",
+        "Explain why a light racket helps beginners",
+        "Form the forehand (V) grip and the backhand/thumb grip and say which shots each suits",
+        "Explain why a relaxed grip matters for changing grips during a rally"
+      ],
+      "explainBack": {
+        "question": "A friend is starting badminton. Explain which shuttles they might use and why, and how to hold the racket for forehand and backhand shots.",
+        "rubric": [
+          "Feather shuttles have 16 feathers (usually goose or duck) in a cork base and weigh about 4.74-5.50 g; they are used in serious competition",
+          "Synthetic/plastic shuttles last much longer than feathers (which may need replacing every few games), so they suit schools and casual play; their flight differs from feathers",
+          "Forehand grip: a handshake hold with a V formed between thumb and index finger, used for forehand overheads, drives, lifts and net shots",
+          "Backhand grip: rotate so the thumb presses flat on the wide back of the handle, used for backhand drives, lifts, net shots, serves and doubles defence",
+          "Hold the racket loosely with relaxed fingers so you can change grips quickly mid-rally"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Badminton Grip - The forehand basic grip",
+          "provider": "Badminton Famly",
+          "url": "https://www.youtube.com/watch?v=iKA694LxCKw",
+          "description": "Short tutorial showing how to take the basic forehand grip on the handle.",
+          "keyPoints": [
+            "Handshake-style forehand grip",
+            "Where the thumb and index finger sit",
+            "Keeping the grip relaxed"
+          ],
+          "videoId": "iKA694LxCKw"
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Badminton Grip - Backhand thumb grip tutorial",
+          "provider": "Badminton Famly",
+          "url": "https://www.youtube.com/watch?v=sjteV_Z-HWU",
+          "description": "Short tutorial on rotating into the backhand thumb grip.",
+          "keyPoints": [
+            "Moving the thumb onto the back of the handle",
+            "When the thumb grip is used",
+            "Switching from forehand to backhand grip"
+          ],
+          "videoId": "sjteV_Z-HWU"
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "The 4 Basic Grips In Badminton - With Pictures",
+          "provider": "Badminton Insight",
+          "url": "https://badminton-insight.com/the-4-grips-in-badminton/",
+          "description": "Coaching article with photos describing the forehand, backhand, bevel and panhandle grips and which shots each is used for.",
+          "keyPoints": [
+            "Forehand grip: handshake with a V between thumb and index finger",
+            "Backhand grip: thumb on the wider part of the handle",
+            "Bevel grip for backhand rear-court shots; panhandle for some net kills",
+            "Fingers stay loose so grips can change quickly"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Equipment",
+          "provider": "BWF Shuttle Time",
+          "url": "https://shuttletime.bwfbadminton.com/equipment",
+          "description": "BWF schools programme guidance on rackets, shuttles and nets for beginners.",
+          "keyPoints": [
+            "Rackets should be light enough to hold and swing yet durable",
+            "Holding the racket nearer the T shortens it for young players",
+            "Synthetic shuttles recommended for schools: durable and available in colours",
+            "Net 1.55 m at edges and 1.524 m at centre"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Shuttlecock",
+          "provider": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Shuttlecock",
+          "description": "Encyclopedia article on how shuttles are built, regulation specifications, and how feather and plastic shuttles differ.",
+          "keyPoints": [
+            "Feather shuttles: about 16 goose or duck feathers in a leather-covered cork base",
+            "Regulation weight about 4.75-5.50 g",
+            "Plastic shuttles last many matches; feathers may need replacing every three or four games",
+            "Serious tournaments use feather shuttles"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Serving",
+      "level": "BEGINNER",
+      "description": "The service laws, the singles and doubles service courts, and how to play low and high serves.",
+      "learningObjectives": [
+        "List the key service laws, including the 1.15 m height rule",
+        "Choose the correct service court from the score in singles and doubles",
+        "Describe the singles and doubles service court boundaries",
+        "Execute a backhand low serve and a forehand high serve",
+        "Explain when to use a high serve and when to use a low serve in singles"
+      ],
+      "explainBack": {
+        "question": "Explain what makes a serve legal, where you serve from and to, and when you would choose a high serve versus a low serve in singles.",
+        "rubric": [
+          "The whole shuttle must be below 1.15 m from the court surface when hit, the racket must first hit the base of the shuttle, and the racket must keep moving forward",
+          "Server and receiver stand in diagonally opposite service courts without touching the lines, with part of both feet on the floor and stationary until the serve is delivered",
+          "Serve from the right court when the server's (or serving side's) score is even and from the left when it is odd",
+          "The singles service court is long and narrow (to the back boundary, singles side line); the doubles one is short and wide (to the long service line 0.76 m inside the back, doubles side line); both start at the short service line 1.98 m from the net",
+          "The high serve goes high and deep so the shuttle drops steeply near the back line; the low serve skims the net to land just past the short service line and stops the receiver attacking"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Perfect Backhand Low Serve In Badminton",
+          "provider": "Jacobs Badminton",
+          "url": "https://www.youtube.com/watch?v=9SPeCgB87G8",
+          "description": "Technique tutorial on the backhand low serve used widely in doubles and men's singles.",
+          "keyPoints": [
+            "Backhand grip and stance for the low serve",
+            "Short controlled push so the shuttle skims the net",
+            "Common errors to avoid"
+          ],
+          "videoId": "9SPeCgB87G8"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Laws of Badminton",
+          "provider": "worldbadminton.com",
+          "url": "https://worldbadminton.com/laws/index.html",
+          "description": "Long-running badminton site reproducing the BWF Laws (2027 edition, adopted April 2026) with the full service, court and fault laws.",
+          "keyPoints": [
+            "Law 9.1: shuttle wholly below 1.15 m when hit; racket first hits the base",
+            "Server and receiver in diagonally opposite courts, feet stationary",
+            "Law 10/11: serve from the right on even scores, left on odd",
+            "Racket must keep moving forward from the start of the service"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Badminton Court",
+          "provider": "Dimensions.com",
+          "url": "https://www.dimensions.com/element/badminton-court",
+          "description": "Reference drawing of the badminton court with the positions of every line.",
+          "keyPoints": [
+            "Short service line 1.98 m from the net",
+            "Doubles long service line 0.76 m inside the back boundary",
+            "Doubles width 6.1 m, singles width 5.18 m",
+            "Centre line splits each half into left and right service courts"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Badminton rules",
+          "provider": "YONEX Swiss Open (BWF World Tour)",
+          "url": "https://www.swissopen.com/en/zuschauer/badminton-regeln/",
+          "description": "A BWF tournament's spectator guide to the rules, including how the singles and doubles service areas differ.",
+          "keyPoints": [
+            "Singles service area is long and slim",
+            "Doubles service area is wide but short",
+            "Serve from the right on even scores, left on odd",
+            "Serve is always underhand; a shuttle on the line counts"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Shuttle Time: Schools Badminton Lesson Plans",
+          "provider": "Badminton World Federation (hosted by Special Olympics)",
+          "url": "https://media.specialolympics.org/resources/sports-essentials/developmental-sports/Developmental-Sports-Shuttle-Time-Lesson-Plans-English.pdf",
+          "description": "BWF's free Shuttle Time lesson plans with teaching points for serves, footwork and basic strokes.",
+          "keyPoints": [
+            "Backhand short serve: thumb grip, hit from the hand, contact below the waist",
+            "Forehand high serve: forehand V grip, full underarm swing",
+            "High serve: weight transfers from racket leg to non-racket leg with hip rotation",
+            "High serve aims for a high, vertically dropping shuttle"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Singles serving tactics",
+          "provider": "The Badminton Bible (Mike Hopley)",
+          "url": "https://www.badmintonbible.com/tactics/serving/singles",
+          "description": "Explains which serves singles players use and why, including where to aim the high, low and flick serves.",
+          "keyPoints": [
+            "High serve is the best choice for most players and common in women's singles",
+            "Low serve is most common in high-level men's singles because it denies a smash",
+            "Aim low serves at the T or at the receiver",
+            "Flick serve keeps the receiver from anticipating the low serve"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Footwork & Court Movement",
+      "level": "INTERMEDIATE",
+      "description": "How to stand ready, split step, travel to the four corners with chassé steps and lunges, and recover to base.",
+      "learningObjectives": [
+        "Adopt an effective ready position",
+        "Time a split step to the opponent's hit",
+        "Describe the movement cycle: start, approach, hit, recover",
+        "Move to the front corners with a racket-leg lunge and to the rear corners with chassé and scissor kick",
+        "Recover efficiently towards the central base"
+      ],
+      "explainBack": {
+        "question": "Describe how you should stand and move to reach a shuttle in a front corner and a rear corner, and what you do after hitting it.",
+        "rubric": [
+          "Ready position: feet slightly wider than shoulders, knees bent, weight on the balls of the feet, racket held in front of the body",
+          "Split step: a small jump timed just before the opponent hits so you land balanced and push off quickly",
+          "Movement follows a cycle of start, approach, hit and recover, using steps such as chassé, running steps and lunges",
+          "Front-corner lunge: lunge with the racket leg, heel landing first and knee over the foot, torso upright",
+          "Rear corners: chassé back and use a scissor jump, then recover towards the central base for the next shot"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Badminton FOOTWORK - Split Step Tutorial",
+          "provider": "Badminton Famly",
+          "url": "https://www.youtube.com/watch?v=oJp_2oT4HpY",
+          "description": "Tutorial focused on the timing and form of the split step.",
+          "keyPoints": [
+            "What the split step is",
+            "Timing it to the opponent's hit",
+            "Landing balanced and moving off"
+          ],
+          "videoId": "oJp_2oT4HpY"
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "The ULTIMATE FOOTWORK Tutorial for BEGINNER's in Badminton - Learn the Basics",
+          "provider": "Basicfeather",
+          "url": "https://www.youtube.com/watch?v=NhNEEcLPjpc",
+          "description": "Beginner footwork tutorial covering basic stance and movement patterns around the court.",
+          "keyPoints": [
+            "Ready stance and starting movement",
+            "Steps to front and rear court",
+            "Returning to the centre"
+          ],
+          "videoId": "NhNEEcLPjpc"
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "The ready position",
+          "provider": "The Badminton Bible (Mike Hopley)",
+          "url": "https://badmintonbible.com/footwork/ready-position",
+          "description": "Explains the basic ready stance: foot spacing, bent knees, weight forward and racket held in front.",
+          "keyPoints": [
+            "Feet slightly wider than shoulder width",
+            "Knees bent; weight forward on the balls of the feet",
+            "Racket in front at about waist height, higher when attacking",
+            "Non-racket arm helps balance"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "BWF Coach Education Coaches' Manual Level 1",
+          "provider": "Badminton World Federation (hosted by Latvian Badminton Federation)",
+          "url": "https://badminton.lv/faili/bwf_coach_education_coaches_manual_l1-2nd-edition-midres.pdf",
+          "description": "The BWF's Level 1 coach manual; its movement module breaks footwork into phases and named step types.",
+          "keyPoints": [
+            "Split step: a shallow jump just before the opponent strikes so you rebound off the floor",
+            "Movement cycle: start, approach, hit, recover",
+            "Movement types include running steps, chassé, cross-behind, lunge and jump",
+            "Lunge with knee over foot and heel-first contact"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "4 Corner Footwork - Step-By-Step Badminton Tutorial (With Pictures)",
+          "provider": "Badminton Insight",
+          "url": "https://badminton-insight.com/4-corner-footwork/",
+          "description": "Step-by-step photo guide to moving into each of the four corners and recovering to the centre.",
+          "keyPoints": [
+            "Directional split step, then chassé, then racket-leg lunge to the forehand front",
+            "Keep torso and head upright and core strong in the lunge",
+            "Rear corners use a scissor kick, landing with the racket leg in front",
+            "Recover by pushing off the racket leg back towards the centre"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Core Strokes",
+      "level": "INTERMEDIATE",
+      "description": "What the clear, drop, smash, net shot, lift and drive are, where each sends the shuttle and when to use it.",
+      "learningObjectives": [
+        "Describe the trajectory and target of the clear, drop and smash",
+        "Describe the net shot and lift and their purposes",
+        "Explain the drive and where it is used",
+        "Classify shots as attacking or defensive and choose one for a given situation"
+      ],
+      "explainBack": {
+        "question": "Name the six core badminton strokes and, for each, describe where it sends the shuttle and when you would use it.",
+        "rubric": [
+          "Clear: an overhead shot hit high and deep to the opponent's back court; a high clear buys time, a flatter attacking clear pressures an out-of-position opponent",
+          "Drop: a soft shot that slows the shuttle so it lands in front of the service line near the net, pulling the opponent forward",
+          "Smash: a fast, steep, downward overhead shot and the main attacking stroke",
+          "Net shot: played from forecourt to forecourt as close to the net top as possible, bringing the opponent forward; the lift sends the shuttle from forecourt to the rear court, high to defend or lower to attack",
+          "Drive: a fast, flat shot just over the net, mostly in the midcourt, used to attack or defend"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Overhead Badminton Shots: Perfect Your Clear, Smash, and Drop",
+          "provider": "Badminton Famly",
+          "url": "https://www.youtube.com/watch?v=if-dh7Pqd8c",
+          "description": "Tutorial on the three main overhead strokes and how they share a similar preparation.",
+          "keyPoints": [
+            "Overhead preparation for clear, drop and smash",
+            "How the clear, drop and smash differ in contact and follow-through",
+            "Using the same action to disguise shots"
+          ],
+          "videoId": "if-dh7Pqd8c"
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Badminton - 6 MAIN SHOTS (*excluding blocks & serves)",
+          "provider": "Prit Pachu",
+          "url": "https://www.youtube.com/watch?v=nedEwgZw57M",
+          "description": "Overview video naming and demonstrating the six main rally shots.",
+          "keyPoints": [
+            "Clear, drop and smash from the rear court",
+            "Net shot and lift from the front",
+            "Drive through the midcourt"
+          ],
+          "videoId": "nedEwgZw57M"
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Shuttle Time: Schools Badminton Teachers' Manual",
+          "provider": "Badminton World Federation (hosted by University of Granada repository)",
+          "url": "https://digibug.ugr.es/bitstream/handle/10481/60960/01.%20%20BWF%20Schools%20Time%20Teachers%20Manuals%20ENGLISH.pdf?sequence=1",
+          "description": "BWF's teacher manual for school badminton, covering grips, movement and strokes with their tactical purpose.",
+          "keyPoints": [
+            "Court split into forecourt, midcourt and rearcourt",
+            "Net shot travels forecourt to forecourt as close to the net top as possible",
+            "Net shot brings the opponent forward, opening the rearcourt",
+            "Lift goes from forecourt to rearcourt; attacking lifts are lower, defensive lifts higher",
+            "Forehand V grip and backhand thumb grip described"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "2018 PES Practical Marking Key: Badminton",
+          "provider": "School Curriculum and Standards Authority, Western Australia",
+          "url": "https://senior-secondary.scsa.wa.edu.au/__data/assets/pdf_file/0003/539148/2018-PES-Practical-Marking-Key-Badminton.PDF",
+          "description": "Official exam marking key that describes what a correct clear, drop, smash, net shot and drive look like.",
+          "keyPoints": [
+            "Clear: contact high in front of the body, high deep flight to the back corner",
+            "Drop: slow the racket head so the shuttle lands between net and service line",
+            "Smash: downward throwing action, fast and steep",
+            "Net shot: minimal swing so the shuttle tumbles just over the net",
+            "Drive: flat hit used in defence or attack"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What Type of Shots are in Badminton? (With 19 Examples)",
+          "provider": "BadmintonBites",
+          "url": "https://badmintonbites.com/what-type-of-shots-are-in-badminton-with-19-examples/",
+          "description": "Plain-language catalogue of badminton shots with the purpose of each and when to use it.",
+          "keyPoints": [
+            "High clears are defensive; flatter punch clears attack an off-balance opponent",
+            "Smash is the most offensive shot",
+            "Lift is the most defensive shot, played high to the back to recover",
+            "Drive is fast and flat, attacking downwards or defending upwards"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "title": "Singles Tactics",
+      "level": "INTERMEDIATE",
+      "description": "Winning singles rallies by moving the opponent around the court, recovering to base, using length and disguise.",
+      "learningObjectives": [
+        "Explain why singles players aim for the four corners",
+        "Describe the central base and how it shifts with the shot you played",
+        "Use length, tempo changes and disguise to create openings",
+        "Build a rally before attempting a winning shot"
+      ],
+      "explainBack": {
+        "question": "Describe a basic game plan for a singles rally: where you aim, where you go after each shot, and how you create an opening to win the point.",
+        "rubric": [
+          "Hit towards the four corners because it makes the opponent cover the most distance and pulls them away from their central base",
+          "After each shot recover towards a central base, which sits slightly behind the middle of the court and shifts forward after net shots and back after clears or lifts",
+          "Split step as the opponent hits so you can move in any direction",
+          "Use deep, high serves and length to push the opponent back, and vary tempo unexpectedly",
+          "Keep overhead preparation identical (disguise) so the opponent cannot read clear, drop or smash, and deceive them into moving the wrong way"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "8 Basic Singles Tactics You NEED TO KNOW",
+          "provider": "Badminton Insight",
+          "url": "https://www.youtube.com/watch?v=LewjrBRG7Ws",
+          "description": "Coaching video listing basic singles tactics for club players.",
+          "keyPoints": [
+            "Moving the opponent to the corners",
+            "Recovering to base between shots",
+            "Using length and variety to create openings"
+          ],
+          "videoId": "LewjrBRG7Ws"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Why hit to the corners?",
+          "provider": "The Badminton Bible (Mike Hopley)",
+          "url": "https://www.badmintonbible.com/tactics/singles/corners/why",
+          "description": "Explains, with court measurements, why aiming at the corners puts movement pressure on a singles opponent.",
+          "keyPoints": [
+            "Corners make the opponent cover the most distance",
+            "Corner shots require about 26% more travel than the middle line",
+            "Moving the opponent corner to corner pulls them from their base",
+            "Keep them moving until they fail to recover"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "The central base position",
+          "provider": "The Badminton Bible (Mike Hopley)",
+          "url": "https://www.badmintonbible.com/tactics/singles/central-base",
+          "description": "Describes where singles players should recover between shots and how that base shifts with each shot.",
+          "keyPoints": [
+            "Recover to a roughly central base after each shot",
+            "Base sits deeper than the true centre: only the racket needs to reach the net",
+            "Bias forward after net shots, back after clears, lifts or drops",
+            "Split step as the opponent strikes"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Using deception in singles",
+          "provider": "The Badminton Bible (Mike Hopley)",
+          "url": "https://www.badmintonbible.com/tactics/singles/deception",
+          "description": "Explains what deception achieves in singles and the typical fakes used in the forecourt and rearcourt.",
+          "keyPoints": [
+            "Successful deception makes the opponent move the wrong way before you hit",
+            "Forecourt: usually fake soft, then play hard",
+            "Rearcourt: usually fake power, then play soft",
+            "Deception is an advanced layer on top of basic tactics"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Strategies",
+          "provider": "University of Georgia PEDB Program (open textbook, CC BY 4.0)",
+          "url": "https://open.online.uga.edu/badminton/chapter/strategies",
+          "description": "University course chapter summarising basic singles and doubles strategy.",
+          "keyPoints": [
+            "Singles: move the opponent quickly to the corners with different shots",
+            "Return to the court centre after each shot",
+            "Vary tempo regularly but unexpectedly; overhead strokes must look the same",
+            "Favour long, deep serves in singles"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Doubles Tactics",
+      "level": "ADVANCED",
+      "description": "Doubles formations, switching between attack and defence, and how serving and receiving set up the first attack.",
+      "learningObjectives": [
+        "Describe the front-back attacking formation and each player's job",
+        "Describe the side-by-side defensive formation",
+        "Explain how partners rotate between attack and defence",
+        "Explain why the low serve dominates doubles and how serve and return shape formations"
+      ],
+      "explainBack": {
+        "question": "Explain how a doubles pair should position themselves when attacking and when defending, how they switch, and why most doubles serves are low.",
+        "rubric": [
+          "Attack: front-back formation; the rear player smashes or drops while the front player covers the net and finishes weak replies",
+          "Defence: side-by-side formation covering the full court width, standing about a step behind the middle of the court",
+          "When the pair lifts they move from front-back to side-by-side; when they get a chance to hit down, one player moves forward to make front-back",
+          "The low serve is used most because it starts falling below net height soon after crossing, making it hard to attack; aim at the T, with an occasional flick serve",
+          "After a high serve the serving pair defends side-by-side and the receiving pair attacks, with the receiver's partner moving to the front"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Badminton doubles coaching: Attack and defence positions",
+          "provider": "Daniel Bates",
+          "url": "https://www.youtube.com/watch?v=EokTPUWwLW8",
+          "description": "Coaching video explaining the attacking and defensive positions in doubles.",
+          "keyPoints": [
+            "Front-back attacking positions",
+            "Side-by-side defensive positions",
+            "When to change between them"
+          ],
+          "videoId": "EokTPUWwLW8"
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "PROPER BADMINTON DOUBLES POSITIONING- How to rotate with your partner to effectively cover the court",
+          "provider": "Badminton Coach Kennie",
+          "url": "https://www.youtube.com/watch?v=701uhoUY5fY",
+          "description": "Coaching video on how doubles partners rotate to keep the court covered.",
+          "keyPoints": [
+            "Rotating from attack to defence",
+            "Who moves forward when your side hits down",
+            "Covering gaps with your partner"
+          ],
+          "videoId": "701uhoUY5fY"
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Doubles positions",
+          "provider": "The Badminton Bible (Mike Hopley)",
+          "url": "https://badmintonbible.com/tactics/doubles/positions",
+          "description": "Explains the attacking and defensive doubles formations and how pairs move between them during a rally.",
+          "keyPoints": [
+            "Attack: one player at the back hitting smashes or drops, one at the front",
+            "Defence: side-by-side across the full width",
+            "Defenders stand about a step behind the middle to have time against the smash",
+            "As one side gains the advantage, one player moves forward"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Court Positioning in Badminton Doubles",
+          "provider": "Ian Rudy, Graduates Badminton Club (University of Cambridge)",
+          "url": "https://www.robinson.cam.ac.uk/iar1/badminton/Graduates_Badminton_Club_Doubles_Court_Positioning.pdf",
+          "description": "Club coaching handout on doubles attack and defence formations, rotation and positions after the serve.",
+          "keyPoints": [
+            "Attack: front and back; most shots are played by the back player",
+            "Defence: side by side, so no edge or net player is exposed",
+            "When defending, the front player picks a side first and the back player takes the other",
+            "After a high serve, the receivers attack and the receiver's partner goes to the front"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Doubles serving tactics",
+          "provider": "The Badminton Bible (Mike Hopley)",
+          "url": "https://www.badmintonbible.com/tactics/serving/doubles",
+          "description": "Explains which serves are used in doubles and why the low serve is the default.",
+          "keyPoints": [
+            "Low serve is used most; flick serve as a variation",
+            "Low serve starts falling below net height soon after crossing",
+            "Aim low serves at the T to cut reply angles",
+            "Server's goal is to gain the first attack"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "title": "Fitness, Injury Prevention & Training",
+      "level": "ADVANCED",
+      "description": "What injuries badminton players commonly get, the main risk factors, and how warm-ups, load management and structured drills reduce them.",
+      "learningObjectives": [
+        "Identify the most common badminton injury locations and types",
+        "Name key injury risk factors, including previous injury and fatigue",
+        "Plan a warm-up before play",
+        "Use structured practice such as multi-feed drills while progressing training load gradually"
+      ],
+      "explainBack": {
+        "question": "What injuries are badminton players most likely to get, what raises the risk, and how should a club player warm up and structure training to reduce it?",
+        "rubric": [
+          "Most badminton injuries (41-92% in a 2025 systematic review) affect the lower body, especially ankle/foot and knee; the upper limb is the next most affected",
+          "Common types include sprains and strains, plus overuse problems such as tendinopathy and stress fractures; Achilles tendon ruptures make up about 3-8.7% of acute badminton injuries",
+          "Previous injury and higher competition level raise injury risk; fatigue is linked with Achilles ruptures, which mostly happen mid- or late game",
+          "Warm up before playing (the NHS suggests at least about 6 minutes, e.g. marching, knee lifts, shoulder rolls), and stop if you feel pain",
+          "Increase training load gradually rather than in sudden jumps, and use structured drills such as multi-feed practice to build badminton-specific endurance and consistency"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Badminton Specific Warm Up In 10 MINUTES!",
+          "provider": "Badminton Insight",
+          "url": "https://www.youtube.com/watch?v=MTX-CAy0WRY",
+          "description": "Follow-along routine that warms up the body with badminton-specific movements before play.",
+          "keyPoints": [
+            "Raising heart rate and body temperature",
+            "Mobilising hips, ankles and shoulders",
+            "Badminton movement patterns before playing"
+          ],
+          "videoId": "MTX-CAy0WRY"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Systematic review on badminton injuries: incidence, characteristics and risk factors",
+          "provider": "BMJ Open Sport & Exercise Medicine (Donath et al., 2025)",
+          "author": "Lars Donath et al.",
+          "url": "https://bmjopensem.bmj.com/content/11/1/e002127",
+          "description": "Peer-reviewed review of 19 studies on how often badminton players are injured, where, and why.",
+          "keyPoints": [
+            "About 1-4 injuries per 1000 hours of play",
+            "41-92% of injuries are to the lower body; upper limb is next most common",
+            "Sprains and strains are the most common acute injuries; overuse 25-74%",
+            "Main risk factors: higher competition level and previous injury",
+            "Rapid increases in training load cause many injuries"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "A narrative review of Achilles tendon ruptures in racket sports",
+          "provider": "International Journal of Racket Sports Science (Larsson et al., 2022)",
+          "url": "https://revistaseug.ugr.es/index.php/IJRSS/article/download/33358/29048/144423",
+          "description": "Open-access review on Achilles tendon ruptures in racket sports, including badminton-specific data.",
+          "keyPoints": [
+            "Achilles ruptures are about 3-8.7% of acute badminton injuries",
+            "87% of badminton ruptures happened mid- or late game",
+            "Fatigue and sudden acceleration/deceleration are implicated",
+            "Most players return to sport within 12 months with structured rehab"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How to warm up before exercising",
+          "provider": "NHS",
+          "url": "https://www.nhs.uk/live-well/exercise/how-to-warm-up-before-exercising/",
+          "description": "NHS guidance on a simple general warm-up to reduce injury risk and make exercise more effective.",
+          "keyPoints": [
+            "Warm up for at least 6 minutes before exercise",
+            "Marching on the spot, heel digs and knee lifts",
+            "Shoulder rolls and knee bends",
+            "Stop exercising if you feel pain"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Multi-Feed Training For Badminton - Benefits And Exercises",
+          "provider": "Badminton Insight",
+          "url": "https://badminton-insight.com/?p=125175",
+          "description": "Explains multi-feed (multi-shuttle) training and gives example singles and doubles drills.",
+          "keyPoints": [
+            "Feeder sends shuttles continuously so the worker repeats a pattern",
+            "Builds badminton-specific endurance, consistency and reaction",
+            "Examples: smash-kill, throw-downs, rear-mid and net attack drills",
+            "Build intensity and volume gradually; beginners should not overload"
+          ]
+        }
+      ]
+    }
+  ],
+  "slug": "badminton",
+  "name": "Badminton",
+  "description": "Learn badminton from the rules and grips through serving, footwork and core strokes to singles and doubles tactics and safe, structured training.",
+  "status": "COMING_SOON"
+}

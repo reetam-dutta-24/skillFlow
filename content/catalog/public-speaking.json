@@ -1,0 +1,946 @@
+{
+  "stages": [
+    {
+      "order": 1,
+      "title": "Managing Speaking Anxiety",
+      "level": "BEGINNER",
+      "description": "What speaking anxiety (communication apprehension) is, why the body reacts the way it does, and evidence-based ways to reduce it through preparation, breathing, reframing and gradual practice.",
+      "learningObjectives": [
+        "Define communication apprehension and recognise that even experienced speakers feel it",
+        "Explain the fight-or-flight response behind common physical symptoms of nervousness",
+        "Describe preparation and practice habits that reduce anxiety",
+        "Apply in-the-moment techniques such as deep breathing, cognitive restructuring and positive visualization",
+        "Explain systematic desensitization as gradual exposure to speaking situations"
+      ],
+      "explainBack": {
+        "question": "A classmate's heart races and their hands shake before every presentation. Explain what is happening in their body and describe at least four specific techniques they could use before and during the talk to manage it.",
+        "rubric": [
+          "Communication apprehension is fear or anxiety tied to real or anticipated communication with others (McCroskey); it is common and even experienced speakers feel some",
+          "Symptoms such as a pounding heart, shaking, sweating and dry mouth come from the fight-or-flight response: adrenaline is released and breathing and circulation speed up",
+          "Preparation reduces anxiety: know the topic, organise the talk with a simple outline (not a memorised manuscript) and rehearse aloud, standing, ideally recording yourself",
+          "Slow deep breathing counteracts excess adrenaline; cognitive restructuring/positive self-talk relabels nerves (e.g. as excitement) and challenges specific worries",
+          "Positive visualization (picturing a successful talk) and systematic desensitization (gradual exposure, from watching others to speaking yourself) build confidence over time"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "The science of stage fright (and how to overcome it) - Mikael Cho",
+          "provider": "TED-Ed",
+          "url": "https://www.youtube.com/watch?v=K93fMnFKwfI",
+          "description": "A short animated explainer on why the body reacts to public speaking as a threat and what helps calm that reaction.",
+          "keyPoints": [
+            "Explains stage fright as the body's fight-or-flight threat response",
+            "Describes physical symptoms such as racing heart and shaking",
+            "Offers practical ways to reduce the response, such as practice and reframing"
+          ],
+          "videoId": "K93fMnFKwfI"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "3.2: What Is Communication Apprehension?",
+          "provider": "LibreTexts (Stand up, Speak out - University of Minnesota Libraries open textbook)",
+          "url": "https://socialsci.libretexts.org/Bookshelves/Communication/Public_Speaking/Stand_up_Speak_out_-_The_Practice_and_Ethics_of_Public_Speaking/03%3A_Speaking_Confidently/3.02%3A_What_Is_Communication_Apprehension",
+          "description": "Open-textbook section defining communication apprehension and describing how the fight-or-flight response produces nervous symptoms.",
+          "keyPoints": [
+            "McCroskey: CA is fear or anxiety about real or anticipated communication",
+            "Even experienced, effective speakers feel some apprehension",
+            "Symptoms: pounding heart, clammy hands, shaking, quivering voice, dry mouth",
+            "Fight-or-flight: adrenaline rises, breathing and circulation speed up"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "3.4: Reducing Communication Apprehension",
+          "provider": "LibreTexts (Stand up, Speak out - University of Minnesota Libraries open textbook)",
+          "url": "https://socialsci.libretexts.org/Bookshelves/Communication/Public_Speaking/Stand_up_Speak_out_-_The_Practice_and_Ethics_of_Public_Speaking/03%3A_Speaking_Confidently/3.04%3A_Reducing_Communication_Apprehension",
+          "description": "Catalogue of research-based techniques for lowering speaking anxiety, from cognitive restructuring and outlines to breathing, visualization and systematic desensitization.",
+          "keyPoints": [
+            "Cognitive restructuring relabels nervous arousal; positive self-talk replaces negative thoughts",
+            "Use a simple outline rather than memorising a manuscript",
+            "Practise aloud, standing, timed, in conditions like the real venue",
+            "Deep breathing counters excess adrenaline; positive visualization rehearses success",
+            "Systematic desensitization: gradual exposure until the fear can be tolerated"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Fear of public speaking: How can I overcome it?",
+          "provider": "Mayo Clinic",
+          "url": "https://www.mayoclinic.org/diseases-conditions/specific-phobias/expert-answers/fear-of-public-speaking/faq-20058416",
+          "description": "A medical centre's short list of practical self-help steps for public speaking fear, with a note on when to seek professional help.",
+          "keyPoints": [
+            "Know your topic and prepare for likely questions",
+            "Practise repeatedly, including in front of people and on video",
+            "Challenge specific worries and visualise success",
+            "Breathe slowly and deeply; brief silences feel longer to you than to listeners",
+            "If self-help is not enough, therapy such as CBT may help"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Audience Analysis & Speech Purpose",
+      "level": "BEGINNER",
+      "description": "How to pick a general purpose (inform, persuade, entertain), write a focused specific purpose, and analyse and adapt to your audience before and during a speech.",
+      "learningObjectives": [
+        "Distinguish the three general purposes of speaking: to inform, to persuade and to entertain",
+        "Write a specific purpose statement that names the goal, the audience and the topic",
+        "Describe demographic, psychographic and situational audience analysis",
+        "Name practical ways to gather audience information and adapt the speech before and during delivery"
+      ],
+      "explainBack": {
+        "question": "You have been asked to speak to first-year students about campus recycling. Explain how you would choose your purpose and analyse this audience, and give examples of how you would adapt your talk.",
+        "rubric": [
+          "Identifies a general purpose: to inform (share new information), to persuade (change beliefs or behaviour) or to entertain (audience enjoyment)",
+          "States a specific purpose combining general purpose + audience + topic, kept clear, single-focus and realistic for the time available",
+          "Covers demographic (age, education, culture etc.), psychographic (values, attitudes, beliefs) and situational (size, occasion, voluntary or not, room) analysis",
+          "Names at least one method of gathering information: observation, interviews, surveys, focus groups or existing data",
+          "Adapts content and language to the audience beforehand (e.g. avoiding unfamiliar idioms) and adjusts during the talk based on audience feedback cues"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Audience Analysis for Public Speaking | WisTech Open Speech OER",
+          "provider": "WisTech Open | Open RN",
+          "url": "https://www.youtube.com/watch?v=FGN2NCK4rhM",
+          "description": "A college open-education video explaining why and how speakers analyse their audience before preparing a speech.",
+          "keyPoints": [
+            "Explains why audience analysis comes before writing the speech",
+            "Introduces categories of information to gather about listeners",
+            "Shows how analysis shapes content and delivery choices"
+          ],
+          "videoId": "FGN2NCK4rhM"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "6.2: General Purposes of Speaking",
+          "provider": "LibreTexts (Stand up, Speak out - University of Minnesota Libraries open textbook)",
+          "url": "https://socialsci.libretexts.org/Bookshelves/Communication/Public_Speaking/Stand_up_Speak_out_-_The_Practice_and_Ethics_of_Public_Speaking/06%3A_Finding_a_Purpose_and_Selecting_a_Topic/6.02%3A_General_Purposes_of_Speaking",
+          "description": "Defines the three general purposes of speeches and how they differ.",
+          "keyPoints": [
+            "To inform: help listeners gain information they do not already have",
+            "To persuade: get listeners to adopt a view or behaviour they otherwise would not",
+            "To entertain: the main goal is audience enjoyment"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "6.5: Specific Purposes",
+          "provider": "LibreTexts (Stand up, Speak out - University of Minnesota Libraries open textbook)",
+          "url": "https://socialsci.libretexts.org/Bookshelves/Communication/Public_Speaking/Stand_up_Speak_out_-_The_Practice_and_Ethics_of_Public_Speaking/06%3A_Finding_a_Purpose_and_Selecting_a_Topic/6.05%3A_Specific_Purposes",
+          "description": "Shows how to turn a general purpose into a specific purpose statement and lists criteria for a good one.",
+          "keyPoints": [
+            "Specific purpose = general purpose + audience description + topic phrase",
+            "Example: to persuade residence-hall students to protest a housing cost rise",
+            "Keep it clear, not too broad, single-focus and coverable in the time"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "5.3: Three Types of Audience Analysis",
+          "provider": "LibreTexts (Stand up, Speak out - University of Minnesota Libraries open textbook)",
+          "url": "https://socialsci.libretexts.org/Bookshelves/Communication/Public_Speaking/Stand_up_Speak_out_-_The_Practice_and_Ethics_of_Public_Speaking/05%3A_Audience_Analysis/5.03%3A_Three_Types_of_Audience_Analysis",
+          "description": "Explains demographic, psychographic and situational audience analysis with examples of each.",
+          "keyPoints": [
+            "Demographic: age, gender, ethnicity, education, socioeconomic status etc.",
+            "Psychographic: values, opinions, attitudes and beliefs about topic and speaker",
+            "Situational: audience size, occasion, voluntary attendance, room and acoustics"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "5.4: Conducting Audience Analysis",
+          "provider": "LibreTexts (Stand up, Speak out - University of Minnesota Libraries open textbook)",
+          "url": "https://socialsci.libretexts.org/Bookshelves/Communication/Public_Speaking/Stand_up_Speak_out_-_The_Practice_and_Ethics_of_Public_Speaking/05%3A_Audience_Analysis/5.04%3A_Conducting_Audience_Analysis",
+          "description": "Describes practical methods for collecting information about an audience.",
+          "keyPoints": [
+            "Direct observation of how people behave and what they discuss",
+            "Interviews (one-on-one) and surveys (many respondents)",
+            "Focus groups and existing data such as census statistics"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "5.5: Using Your Audience Analysis",
+          "provider": "LibreTexts (Stand up, Speak out - University of Minnesota Libraries open textbook)",
+          "url": "https://socialsci.libretexts.org/Bookshelves/Communication/Public_Speaking/Stand_up_Speak_out_-_The_Practice_and_Ethics_of_Public_Speaking/05%3A_Audience_Analysis/5.05%3A_Using_Your_Audience_Analysis",
+          "description": "Shows how to use audience analysis to shape content beforehand and to adjust in real time during a speech.",
+          "keyPoints": [
+            "Focus content for the specific audience before the speech",
+            "Avoid idioms or references the audience will not recognise",
+            "Watch for drowsiness or skepticism and adjust with humour, questions or evidence",
+            "Adapt visuals and delivery to room size and equipment"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Structuring a Speech",
+      "level": "BEGINNER",
+      "description": "How to build a speech with a clear introduction, a body of two or three well-organised main points, and a conclusion that reviews and closes, using standard organizational patterns.",
+      "learningObjectives": [
+        "List the functions of an introduction, including the attention-getter and preview of main points",
+        "Choose and evaluate two or three main points for the body",
+        "Select an organizational pattern such as chronological, topical, spatial, causal or problem-cause-solution",
+        "Write a conclusion that restates the thesis, reviews main points and ends with a concluding device"
+      ],
+      "explainBack": {
+        "question": "Outline how you would structure a 5-minute informative speech: what goes in the introduction, how you would organise the body, and how you would conclude.",
+        "rubric": [
+          "Introduction gains attention, states the topic/purpose, establishes credibility, gives reasons to listen and previews the main points (roughly 10-15% of speaking time)",
+          "Body has a small number of main points (usually two or three for a short speech) that are distinct, balanced and linked with transitions",
+          "Uses a named organizational pattern suited to the content, e.g. chronological (time order), topical/categorical, spatial, causal or problem-cause-solution",
+          "Conclusion restates the thesis, reviews the main points (matching the preview) and ends with a concluding device such as a challenge, quotation or call to action"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "How to Organize a Speech or Presentation",
+          "provider": "Alexander Lyon Communication Coach",
+          "url": "https://www.youtube.com/watch?v=4bwDr7WVBwo",
+          "description": "A communication instructor explains how to organise a speech into a clear introduction, body and conclusion.",
+          "keyPoints": [
+            "Breaks a speech into introduction, body and conclusion",
+            "Explains choosing and ordering main points",
+            "Shows how previews and transitions keep listeners on track"
+          ],
+          "videoId": "4bwDr7WVBwo"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "9.1: The Importance of an Introduction",
+          "provider": "LibreTexts (Stand up, Speak out - University of Minnesota Libraries open textbook)",
+          "url": "https://socialsci.libretexts.org/Bookshelves/Communication/Public_Speaking/Stand_up_Speak_out_-_The_Practice_and_Ethics_of_Public_Speaking/09%3A_Introductions_Matter-_How_to_Begin_a_Speech_Effectively/9.01%3A_The_Importance_of_an_Introduction",
+          "description": "Lists the five functions a speech introduction should perform and how long it should be.",
+          "keyPoints": [
+            "Gain attention and interest",
+            "State the purpose, establish credibility and give reasons to listen",
+            "Preview the main ideas so the audience can follow",
+            "Introduction should be about 10-15% of total speaking time"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "10.1: Determining Your Main Ideas",
+          "provider": "LibreTexts (Stand up, Speak out - University of Minnesota Libraries open textbook)",
+          "url": "https://socialsci.libretexts.org/Bookshelves/Communication/Public_Speaking/Stand_up_Speak_out_-_The_Practice_and_Ethics_of_Public_Speaking/10%3A_Creating_the_Body_of_a_Speech/10.01%3A_Determining_Your_Main_Ideas",
+          "description": "Guidance on how many main points to use and how to choose and test them.",
+          "keyPoints": [
+            "Classroom speeches usually have two or three main points",
+            "Under 3 minutes: two points; 3-10 minutes: three points",
+            "Brainstorm, then chunk related ideas into main points",
+            "Check points are united, separate, balanced, parallel and logical"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "10.2: Using Common Organizing Patterns",
+          "provider": "LibreTexts (Stand up, Speak out - University of Minnesota Libraries open textbook)",
+          "url": "https://socialsci.libretexts.org/Bookshelves/Communication/Public_Speaking/Stand_up_Speak_out_-_The_Practice_and_Ethics_of_Public_Speaking/10%3A_Creating_the_Body_of_a_Speech/10.02%3A_Using_Common_Organizing_Patterns",
+          "description": "Describes standard organizational patterns for the body of a speech.",
+          "keyPoints": [
+            "Categorical/topical, comparison/contrast and spatial patterns",
+            "Chronological: main points in time order",
+            "Causal: causes and their effects",
+            "Problem-cause-solution: describe problem, its cause, then a solution"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "11.2: Steps of a Conclusion",
+          "provider": "LibreTexts (Stand up, Speak out - University of Minnesota Libraries open textbook)",
+          "url": "https://socialsci.libretexts.org/Bookshelves/Communication/Public_Speaking/Stand_up_Speak_out_-_The_Practice_and_Ethics_of_Public_Speaking/11%3A_Concluding_with_Power/11.02%3A_Steps_of_a_Conclusion",
+          "description": "Explains the three steps of a strong conclusion and lists concluding devices.",
+          "keyPoints": [
+            "Step 1: restate the thesis",
+            "Step 2: review the main points, matching the preview",
+            "Step 3: end with a concluding device for closure",
+            "Devices include challenges, quotations, visualising the future and calls to action"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Writing a Speech with Purpose",
+          "provider": "Toastmasters International",
+          "url": "https://ccdn.toastmasters.org/medias/files/pathways/2021-updates/8103-writing-a-speech-with-purpose.pdf",
+          "description": "A Toastmasters Pathways project guide on planning a speech around a purpose with an opening, a body of single-idea sections and a conclusion.",
+          "keyPoints": [
+            "Opening should grab attention and introduce the topic",
+            "Each body section covers one idea, linked by transitions",
+            "Transitions like 'First...' or 'Next...' signal moving on",
+            "Conclusion ties content together and leaves an impact"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Writing for the Ear & Storytelling",
+      "level": "INTERMEDIATE",
+      "description": "How spoken language differs from written text, and how signposts, repetition, vivid concrete language and well-built stories help listeners follow and remember a speech.",
+      "learningObjectives": [
+        "Explain key differences between oral and written language",
+        "Use transitions, internal previews, internal summaries and signposts to guide listeners",
+        "Use repetition, imagery and concrete examples to make ideas memorable",
+        "Build a short story with conflict, vivid detail and a clear point"
+      ],
+      "explainBack": {
+        "question": "Take a paragraph written for a report and explain how you would rewrite it to be spoken aloud, then describe how you would add a short story to make the main point stick.",
+        "rubric": [
+          "Oral style uses shorter, simpler sentences, smaller words, personal pronouns/contractions and more repetition, because listeners get only one chance to understand",
+          "Uses signposting: transitions between points, internal previews, internal summaries and signposts such as 'first', 'second', 'finally'",
+          "Repeats key points or phrases and uses concrete language and imagery (sensory detail, examples) rather than abstractions",
+          "A good speech story gets to the conflict quickly, uses sensory detail and brief dialogue, shows change, and stays short (Toastmasters suggests under about four minutes)"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "The Power of Story with Jennifer Aaker",
+          "provider": "Stanford Graduate School of Business",
+          "url": "https://www.youtube.com/watch?v=CVqeUaYr98s",
+          "description": "A Stanford GSB professor explains why stories are more memorable and persuasive than facts alone.",
+          "keyPoints": [
+            "Argues stories are remembered better than facts and figures alone",
+            "Explains what makes a story effective for an audience",
+            "Relates storytelling to influence in talks and business"
+          ],
+          "videoId": "CVqeUaYr98s"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Speeches",
+          "provider": "The Writing Center, University of North Carolina at Chapel Hill",
+          "url": "https://writingcenter.unc.edu/handouts/speeches/",
+          "description": "A university writing centre handout on writing speeches for listeners, covering purpose, structure, signposting, repetition and writing for the ear.",
+          "keyPoints": [
+            "Listeners have only one chance to understand, so write for the ear",
+            "Use shorter, simpler sentences and specific nouns instead of vague pronouns",
+            "Repeat crucial points and use verbal previews and summaries",
+            "Read drafts aloud to find unclear passages"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "13.1: Oral versus Written Language",
+          "provider": "LibreTexts (Stand up, Speak out - University of Minnesota Libraries open textbook)",
+          "url": "https://socialsci.libretexts.org/Bookshelves/Communication/Public_Speaking/Stand_up_Speak_out_-_The_Practice_and_Ethics_of_Public_Speaking/13%3A_The_Importance_of_Language/13.01%3A_Oral_versus_Written_Language",
+          "description": "Lists research-based differences between spoken and written language.",
+          "keyPoints": [
+            "Oral language uses fewer, shorter words and shorter sentences",
+            "More self-reference words, contractions and interjections",
+            "More repetition of words and syllables",
+            "Should be simple enough to understand in the moment"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "10.3: Keeping Your Speech Moving",
+          "provider": "LibreTexts (Stand up, Speak out - University of Minnesota Libraries open textbook)",
+          "url": "https://socialsci.libretexts.org/Bookshelves/Communication/Public_Speaking/Stand_up_Speak_out_-_The_Practice_and_Ethics_of_Public_Speaking/10%3A_Creating_the_Body_of_a_Speech/10.03%3A_Keeping_Your_Speech_Moving",
+          "description": "Defines the four signposting devices that guide listeners through a speech, with examples.",
+          "keyPoints": [
+            "Transition: phrase moving from one main point to the next",
+            "Internal preview: tells what is coming within a section",
+            "Internal summary: reminds listeners what they just heard",
+            "Signpost: simple markers like 'first', 'second', 'final'"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "13.2: Using Language Effectively",
+          "provider": "LibreTexts (Stand up, Speak out - University of Minnesota Libraries open textbook)",
+          "url": "https://socialsci.libretexts.org/Bookshelves/Communication/Public_Speaking/Stand_up_Speak_out_-_The_Practice_and_Ethics_of_Public_Speaking/13%3A_The_Importance_of_Language/13.02%3A_Using_Language_Effectively",
+          "description": "Explains language techniques that make speeches vivid and memorable.",
+          "keyPoints": [
+            "Imagery engages the senses to create mental pictures",
+            "Concreteness: specific, real examples instead of abstractions",
+            "Simile, metaphor, parallelism and alliteration",
+            "Repetition makes a short phrase familiar and memorable"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Using Stories to Breathe Life into Every Speech",
+          "provider": "Toastmasters International (Toastmaster magazine)",
+          "author": "Craig Valentine",
+          "url": "https://www.toastmasters.org/magazine/magazine-issues/2019/dec/using-stories-to-breathe-life-into-every-speech",
+          "description": "A former World Champion of Public Speaking gives concrete techniques for building and telling stories in speeches.",
+          "keyPoints": [
+            "Get to the conflict quickly; minimise setup",
+            "Use sensory detail and condensed, essential dialogue",
+            "Show how you or a character changed through the conflict",
+            "Keep stories under four minutes; improve by cutting"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Vocal Delivery",
+      "level": "INTERMEDIATE",
+      "description": "How to use volume, rate, pitch, pauses and clear articulation for vocal variety, and how to cut filler words.",
+      "learningObjectives": [
+        "Define volume, rate, pitch and pauses and how each can be varied for emphasis",
+        "Explain why monotone delivery and uptalk weaken a message",
+        "Use pauses in place of filler words such as 'um' and 'like'",
+        "Improve articulation and pronunciation through practice"
+      ],
+      "explainBack": {
+        "question": "A friend speaks quickly in a flat voice and says 'um' constantly. Explain the vocal elements they should work on and give a specific technique for each.",
+        "rubric": [
+          "Volume: loud enough for the back of the room/noise, varied for emphasis (softer can build suspense)",
+          "Rate: avoid too fast (hard to follow) or too slow (loses interest); slow down for complex or important ideas, speed up for excitement",
+          "Pitch: vary inflection to avoid monotone and avoid rising pitch at the end of statements, which makes them sound like questions",
+          "Pauses act as vocal punctuation for emphasis and clarity; replace fillers ('um', 'uh', 'like') with a pause or breath",
+          "Articulation: pronounce every sound clearly (especially consonants) and check pronunciation of unfamiliar words in advance"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "How to Speak So That People Want to Listen | Julian Treasure | TED",
+          "provider": "TED",
+          "url": "https://www.youtube.com/watch?v=eIho2S0ZahI",
+          "description": "A sound expert's TED talk on habits that make people stop listening and vocal tools such as pace, pitch, volume and silence.",
+          "keyPoints": [
+            "Names speaking habits that put listeners off",
+            "Introduces vocal tools such as register, pace, pitch and volume",
+            "Demonstrates using silence for effect"
+          ],
+          "videoId": "eIho2S0ZahI"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "14.4: Practicing for Successful Speech Delivery",
+          "provider": "LibreTexts (Stand up, Speak out - University of Minnesota Libraries open textbook)",
+          "url": "https://socialsci.libretexts.org/Bookshelves/Communication/Public_Speaking/Stand_up_Speak_out_-_The_Practice_and_Ethics_of_Public_Speaking/14%3A_Delivering_the_Speech/14.04%3A_Practicing_for_Successful_Speech_Delivery",
+          "description": "Textbook definitions of the vocal elements of delivery, with advice on vocal variety, articulation and fillers.",
+          "keyPoints": [
+            "Volume, rate, pitch and pauses defined, with ways to vary each",
+            "Avoid monotone and rising pitch that turns statements into questions",
+            "Pauses add emphasis, especially with lowered pitch and rate",
+            "Avoid fillers ('um', 'er', 'like') and articulation errors"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Vocal Delivery",
+          "provider": "Tennessee Online Public Speaking Center, University of Tennessee, Knoxville",
+          "url": "https://cci.utk.edu/tops/resources-for-students/delivery-skills/vocal-delivery/",
+          "description": "A university public speaking centre's practical tips for volume, pitch, rate, articulation, pauses and pronunciation.",
+          "keyPoints": [
+            "Get louder for strong points, softer for suspense",
+            "Go faster for excitement, slower for complex ideas",
+            "Pauses are 'vocal punctuation': before starting, after key thoughts, at the end",
+            "Practise difficult words aloud and check pronunciations"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Delivery",
+          "provider": "Oral Communication Program, Stanford University",
+          "url": "https://oralcommprogram.stanford.edu/presentation-and-delivery/delivery",
+          "description": "Stanford's oral communication guidance on voice and non-verbal delivery, stressing clarity and replacing fillers with pauses.",
+          "keyPoints": [
+            "Clarity matters more than volume; clarity comes from articulating consonants",
+            "Distinguishes rate (word speed) from pace (speed of ideas)",
+            "Replace 'um, uh, y'know' with pausing and breathing"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Introduction to Vocal Variety and Body Language",
+          "provider": "Toastmasters International",
+          "url": "https://ccdn.toastmasters.org/medias/files/pathways/2021-updates/8104-vocal-variety-and-body-language.pdf",
+          "description": "A Toastmasters Pathways project guide explaining volume, pitch, pace, pauses and tone as parts of vocal variety.",
+          "keyPoints": [
+            "Volume first affects whether you can be heard; a whisper can add emphasis",
+            "Monotone means pitch stays the same; practise widening your range",
+            "Too-fast pace is hard to follow; too-slow pace loses interest",
+            "Silence and pace can build tension or add impact"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "title": "Body Language & Visual Aids",
+      "level": "INTERMEDIATE",
+      "description": "How eye contact, gestures, posture and movement support your message, and how to design and use slides that help rather than distract.",
+      "learningObjectives": [
+        "Use eye contact with individual listeners to build connection",
+        "Use purposeful gestures and avoid distracting mannerisms",
+        "Hold an open, grounded posture and move with purpose, e.g. during transitions",
+        "Design slides with minimal text, large readable fonts and one main point per slide",
+        "Present with slides without reading them or turning your back to the audience"
+      ],
+      "explainBack": {
+        "question": "Describe how a speaker should use their body and their slides during a 10-minute presentation. Give specific dos and don'ts for each.",
+        "rubric": [
+          "Eye contact with individual listeners (Toastmasters suggests about 3-5 seconds, roughly one thought) rather than scanning over the crowd or looking at the screen",
+          "Gestures are natural and purposeful (e.g. descriptive or emphatic); avoid distracting habits such as gripping the lectern, fidgeting or hands in pockets",
+          "Posture is upright and grounded with weight on both feet; movement is purposeful (e.g. during transitions or stepping forward for emphasis), not swaying or pacing",
+          "Slides limit text (no full sentences except quotations), use large, high-contrast fonts and focus on one point that can be grasped at a glance (Duarte: about 3 seconds)",
+          "When using slides, face the audience, do not read the slides verbatim, practise with the technology and have a backup plan"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "How to Speak",
+          "provider": "MIT OpenCourseWare",
+          "url": "https://www.youtube.com/watch?v=Unzc731iCUY",
+          "description": "MIT professor Patrick Winston's lecture on speaking well, including how to start, use the board and slides, and finish a talk.",
+          "keyPoints": [
+            "Covers how to start and end a talk",
+            "Critiques common slide mistakes such as too many words",
+            "Discusses using hands, the board and props effectively"
+          ],
+          "videoId": "Unzc731iCUY"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Gestures and Body Language",
+          "provider": "Toastmasters International",
+          "url": "https://www.toastmasters.org/Resources/Public-Speaking-Tips/Gestures-and-Body-Language",
+          "description": "Toastmasters' quick guide to eye contact, controlling mannerisms and purposeful movement on stage.",
+          "keyPoints": [
+            "Eye contact with individual listeners builds an immediate bond",
+            "Control mannerisms like hands in pockets or excessive nodding",
+            "Match gestures and facial expressions; act out verbs",
+            "Move as topics change; move toward the audience for key moments"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Effective Body Language",
+          "provider": "Toastmasters International (Pathways project, hosted by Toastmasters New Zealand)",
+          "url": "https://www.toastmasters.org.nz/wp-content/uploads/2021/12/8203L2-Effective-Body-Language.pdf",
+          "description": "A Toastmasters Pathways project guide with specific techniques for eye contact, gesture types, posture and movement.",
+          "keyPoints": [
+            "Hold eye contact 3-5 seconds, about one sentence or thought",
+            "Four gesture types: descriptive, emphatic, suggestive and prompting",
+            "Avoid gripping the lectern or fidgeting with clothes",
+            "Step forward to emphasise; step back to let ideas sink in; avoid swaying"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "15.4: Tips for Preparing Presentation Aids",
+          "provider": "LibreTexts (Stand up, Speak out - University of Minnesota Libraries open textbook)",
+          "url": "https://socialsci.libretexts.org/Bookshelves/Communication/Public_Speaking/Stand_up_Speak_out_-_The_Practice_and_Ethics_of_Public_Speaking/15%3A_Presentation_Aids-_Design_and_Usage/15.04%3A_Tips_for_Preparing_Presentation_Aids",
+          "description": "Practical rules for designing readable presentation aids and using them during a speech.",
+          "keyPoints": [
+            "Limit text; avoid full sentences except quotations",
+            "Use large, simple fonts readable from the back; avoid light text on white",
+            "Keep eye contact with the audience; never turn your back to read slides",
+            "Practise with the technology and always have a backup plan"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Get the Point Across Fast with The Glance Test",
+          "provider": "Duarte",
+          "url": "https://www.duarte.com/resources/guides-tools/the-glance-test/",
+          "description": "A presentation design firm's guideline that each slide should make one point that viewers can grasp in about three seconds.",
+          "keyPoints": [
+            "Audience should get a slide's meaning in three seconds or less",
+            "Focus each slide on a single precise point",
+            "Use contrast and whitespace to emphasise what matters"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Persuasion & Handling Q&A",
+      "level": "ADVANCED",
+      "description": "How to persuade with ethos, pathos and logos, organise a persuasive talk with Monroe's motivated sequence, and handle audience questions, including difficult ones.",
+      "learningObjectives": [
+        "Explain ethos, pathos and logos as modes of persuasion",
+        "Organise a persuasive speech using Monroe's motivated sequence",
+        "Prepare for Q&A by anticipating questions and using a listen-pause-repeat-answer routine",
+        "Handle challenging or unknown questions calmly and end the session strongly"
+      ],
+      "explainBack": {
+        "question": "You must persuade your team to adopt a new tool and then take questions. Explain how you would build the argument, how you would order the talk, and how you would handle a hostile question you can't fully answer.",
+        "rubric": [
+          "Uses all three appeals: ethos (credibility, trustworthy sources), pathos (audience needs, values, emotions, e.g. a story) and logos (logic, reasoning and evidence)",
+          "Orders the talk with Monroe's motivated sequence: attention, need, satisfaction (solution), visualization (results), action",
+          "Prepares for Q&A by anticipating likely questions; listens fully, pauses, repeats/paraphrases the question, then gives a short direct answer",
+          "With a challenging question: stays calm, does not match negative energy, acknowledges the concern and answers the real question; if unsure, says so and offers to follow up",
+          "Saves concluding remarks for after Q&A so the session ends on the key message, not the last answer"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "How to use rhetoric to get what you want - Camille A. Langston",
+          "provider": "TED-Ed",
+          "url": "https://www.youtube.com/watch?v=3klMM9BkW5o",
+          "description": "An animated lesson on Aristotle's rhetorical appeals and how they work together to persuade.",
+          "keyPoints": [
+            "Introduces Aristotle's ethos, pathos and logos",
+            "Shows how each appeal persuades differently",
+            "Explains combining the appeals in an argument"
+          ],
+          "videoId": "3klMM9BkW5o"
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Monroe's Motivated Sequence",
+          "provider": "Alexander Lyon Communication Coach",
+          "url": "https://www.youtube.com/watch?v=LMb65w9nLyo",
+          "description": "A communication instructor walks through Monroe's five-step motivated sequence for persuasive speeches.",
+          "keyPoints": [
+            "Names the five steps of the sequence",
+            "Explains what each step must accomplish",
+            "Shows how the sequence leads to a call to action"
+          ],
+          "videoId": "LMb65w9nLyo"
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Using Rhetorical Strategies for Persuasion",
+          "provider": "Purdue Online Writing Lab (Purdue OWL)",
+          "url": "https://owl.purdue.edu/owl/general_writing/academic_writing/establishing_arguments/rhetorical_strategies.html",
+          "description": "Purdue OWL's definitions of logos, ethos and pathos with examples of each appeal.",
+          "keyPoints": [
+            "Logos: appeal to logic and reasoning",
+            "Ethos: appeal based on credibility and character, e.g. reliable sources",
+            "Pathos: appeal to the audience's needs, values and emotions",
+            "A single story can persuade more than a bare statistic"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "17.3: Organizing Persuasive Speeches",
+          "provider": "LibreTexts (Stand up, Speak out - University of Minnesota Libraries open textbook)",
+          "url": "https://socialsci.libretexts.org/Bookshelves/Communication/Public_Speaking/Stand_up_Speak_out_-_The_Practice_and_Ethics_of_Public_Speaking/17%3A_Persuasive_Speaking/17.03%3A_Organizing_Persuasive_Speeches",
+          "description": "Explains Monroe's motivated sequence step by step, plus problem-cause-solution and comparative advantages patterns.",
+          "keyPoints": [
+            "Attention: capture interest and show relevance",
+            "Need: describe the problem with examples and evidence",
+            "Satisfaction: present the solution and address objections",
+            "Visualization and Action: picture results, then request specific action"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Handling Q&A",
+          "provider": "Wharton Communication Program, University of Pennsylvania",
+          "url": "https://communicationprogram.wharton.upenn.edu/library/handling-qa/",
+          "description": "Wharton's guide to informational, speculative and challenging questions, with a simple structure for answers.",
+          "keyPoints": [
+            "Informational questions: answer succinctly, then stop",
+            "Speculative questions: decide if they are in scope",
+            "Challenging questions: stay calm, don't match negative energy, find the real question",
+            "Answer structure: pause, state, support, stop"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Handling the Q&A Session With Confidence",
+          "provider": "Toastmasters International (Toastmaster magazine)",
+          "author": "Diane Windingland",
+          "url": "https://toastmasters.org/magazine/magazine-issues/2021/mar/handling-the-qanda-session-with-confidence",
+          "description": "Practical routine for preparing for and running a Q&A session, including hostile questions and closing strongly.",
+          "keyPoints": [
+            "Write down and rehearse answers to anticipated questions",
+            "Listen fully, pause, repeat or paraphrase, then answer briefly",
+            "If you don't know, say so and promise to follow up",
+            "Give your concluding remarks after the Q&A, not before"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "title": "Impromptu, Virtual Speaking & Continuous Improvement",
+      "level": "ADVANCED",
+      "description": "How to structure answers on the spot, present well on video calls, and keep improving through recording, self-review and structured feedback.",
+      "learningObjectives": [
+        "Structure impromptu remarks with a framework such as PREP (Point, Reason, Example, Point)",
+        "Set up camera, lighting and framing for virtual presentations and adapt delivery for the screen",
+        "Record and review practice sessions against a delivery checklist",
+        "Give and use constructive feedback, as in Toastmasters evaluations"
+      ],
+      "explainBack": {
+        "question": "Your manager asks you on a video call to give a quick update you hadn't prepared. Explain how you would structure your answer, how your video setup should look, and how you would keep improving your speaking afterwards.",
+        "rubric": [
+          "Uses an impromptu structure such as PREP (Point, Reason, Example, Point): states the main point first, keeps it short, ends by restating the point and does not apologise",
+          "Video setup: camera at eye level, light in front of the face (not overhead/behind), plain background and upper body in frame",
+          "Adapts delivery for the screen: keeps gestures within the frame, uses vocal variety and expression, and addresses viewers as individuals",
+          "Improves by recording practice, reviewing it against criteria (pace, clarity, filler words, gestures, eye contact), then rehearsing and re-recording",
+          "Seeks structured feedback (e.g. Toastmasters evaluations): commend strengths, recommend specific improvements, end with encouragement"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Think Fast, Talk Smart: Communication Techniques",
+          "provider": "Stanford Graduate School of Business",
+          "url": "https://www.youtube.com/watch?v=HAnw168huqA",
+          "description": "Stanford lecturer Matt Abrahams' talk on speaking well in spontaneous situations, from managing anxiety to using simple structures.",
+          "keyPoints": [
+            "Techniques for speaking confidently when put on the spot",
+            "Reframing spontaneous speaking as a conversation",
+            "Using simple structures to organise answers quickly"
+          ],
+          "videoId": "HAnw168huqA"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "11.3 Impromptu Speech",
+          "provider": "Lumen Learning (SUNY Oswego Business Communication open course)",
+          "url": "https://courses.lumenlearning.com/suny-oswego-businesscommunicationmgrs2/?p=717",
+          "description": "An open-course section explaining impromptu speeches and the PREP structure for organising them.",
+          "keyPoints": [
+            "PREP: Point, Reason, Example, Point",
+            "When time is short, prioritise your main point",
+            "Keep it short, use pauses, don't apologise, end strongly"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Presenting in Today's Virtual World",
+          "provider": "Toastmasters International (Toastmaster magazine)",
+          "author": "Dave Zielinski",
+          "url": "https://toastmasters.org/magazine/magazine-issues/2022/nov/speaking-virtually",
+          "description": "How delivery changes on camera: using the lens intentionally, keeping gestures visible, mic technique, pacing and addressing viewers individually.",
+          "keyPoints": [
+            "Use what viewers see through the lens more intentionally than on stage",
+            "Keep facial expressions and gestures visible within the frame",
+            "Keep the mic close and use vocal variety; online audiences want faster pace",
+            "In recordings, address the viewer as 'you', not 'all of you'"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Look Your Best on Video Calls",
+          "provider": "Stanford Medicine",
+          "url": "https://med.stanford.edu/connected/tips-and-tricks/Look_Your_Best_on_Video_Calls.html",
+          "description": "Practical setup checklist for appearing clearly and professionally on video calls.",
+          "keyPoints": [
+            "Use a plain background",
+            "Light your face from the front; avoid overhead shadows",
+            "Raise the camera to eye level",
+            "Sit back so your upper body is visible"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Capstone: Rehearsing Your Speech",
+          "provider": "Lumen Learning (Public Speaking open course)",
+          "url": "https://courses.lumenlearning.com/wm-publicspeaking/chapter/capstone-rehearsing-your-speech/",
+          "description": "Open-course activity on recording a rehearsal and self-evaluating delivery, including for virtual presentations.",
+          "keyPoints": [
+            "Record a rehearsal and complete a self-evaluation",
+            "Practise standing, as you will present; for virtual talks set camera and lighting",
+            "Check pace, enunciation and filler words on the recording",
+            "Self-evaluation covers gestures, vocal variety and eye contact"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Expert Advice for Evaluations",
+          "provider": "Toastmasters International (Toastmaster magazine)",
+          "url": "https://www.toastmasters.org/magazine/magazine-issues/2023/july/evaluations",
+          "description": "Toastmasters guidance on giving useful speech evaluations, including preparation and the sandwich structure.",
+          "keyPoints": [
+            "Talk to the speaker beforehand about their goals",
+            "Use the project's evaluation form",
+            "Sandwich: strengths, suggested improvements, encouragement",
+            "Keep comments constructive; know what to say in public vs private"
+          ]
+        }
+      ]
+    }
+  ],
+  "slug": "public-speaking",
+  "name": "Public Speaking",
+  "description": "Plan, structure and deliver speeches with confidence, from managing nerves and analysing your audience to voice, body language, persuasion, Q&A and impromptu or virtual talks.",
+  "status": "COMING_SOON"
+}

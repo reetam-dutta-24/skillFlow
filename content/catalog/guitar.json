@@ -1,0 +1,394 @@
+{
+  "stages": [
+    {
+      "order": 1,
+      "title": "Hold, Fret, and Tune",
+      "level": "BEGINNER",
+      "description": "The guitar stays still so the fretting hand can press strings, not hold the instrument up. Tune before you play, and put each finger just behind the fret.",
+      "learningObjectives": [
+        "Set the guitar so the fretting hand is free",
+        "Fret with the fingertips, close to the fret",
+        "Tune before a practice session",
+        "Play a major scale with the whole-step and half-step pattern"
+      ],
+      "explainBack": {
+        "question": "A new player leans the guitar back, presses with the side of the thumb, and starts practicing on a guitar that is out of tune. Explain how to hold and fret the instrument, why a tuner comes first, and how to find a major scale from any note.",
+        "rubric": [
+          "Use a strap or a stable sitting position so the guitar does not move, and do not support the guitar with the fretting hand",
+          "Leaning the guitar back forces the wrist around the neck and adds tension",
+          "Fret with the fingertips, thumb flat behind the neck, and place the finger just behind the fret without touching it",
+          "Tune at the start of practice; a tuner is the reliable check",
+          "Each fret is a half step, and a whole step is two frets",
+          "A major scale follows whole, whole, half, whole, whole, whole, half from any starting note"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How to Start Learning Your Guitar Scales",
+          "provider": "Berklee Online",
+          "author": "Larry Baione",
+          "url": "https://online.berklee.edu/takenote/how-to-start-learning-your-guitar-scales/",
+          "description": "Berklee's starting points for holding the guitar, fretting cleanly, and playing a major scale.",
+          "keyPoints": [
+            "Use a strap so the guitar stays in the same place sitting or standing",
+            "Hold the guitar in a way that feels natural and does not strain the shoulder",
+            "Fret with the fingertips, keep the thumb flat behind the neck, and use the pad of the thumb as a fulcrum",
+            "A rest stroke lets the pick come to rest on the next string and gives more control",
+            "Tune at the start of every practice session",
+            "Each fret is a half step; a major scale is whole, whole, half, whole, whole, whole, half"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Body Posture and Finger Placement Exercise (Guitar Lesson BC-106) Guitar for beginners",
+          "provider": "JustinGuitar",
+          "url": "https://www.youtube.com/watch?v=IscDj_-Nr0s",
+          "videoId": "IscDj_-Nr0s",
+          "description": "Where to sit the guitar, and the rule for placing a finger next to the fret.",
+          "keyPoints": [
+            "Rest the guitar on the leg on the same side as the strumming hand, unless you are using a classical position",
+            "Keep the guitar upright and close to the body",
+            "A strap keeps an electric guitar in place when you stand",
+            "Place the fretting finger as close to the fret as you can without touching the fret"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": "How Guitar Music Is Written",
+      "level": "BEGINNER",
+      "description": "Guitarists meet three kinds of writing: staff notation, tablature, and fretboard diagrams. Each one shows something the others leave out.",
+      "learningObjectives": [
+        "Read a fret number on the right string in tab",
+        "Read a chord diagram, including muted strings and a barre",
+        "Explain what tab does not show",
+        "Name the strings in standard tuning"
+      ],
+      "explainBack": {
+        "question": "A friend sends you a tab that says 3 on the A string, plus a chord diagram with an x over the low E string and a slur across several strings at the 3rd fret. Explain what each mark means, what the tab is not telling you, and how the strings are named in standard tuning.",
+        "rubric": [
+          "In tab, six lines are the six strings, the top line is the high E, and a number is the fret, with 0 for an open string",
+          "A 3 on the A string is C, three half steps above A",
+          "Tab usually does not show rhythm",
+          "Standard tuning is E A D G B E, low to high",
+          "On a chord diagram, a dot is a fretted note, an open circle is an open string, and an x means mute that string",
+          "A slur across strings means one finger holds them down, which is a barre"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Guitar Notation Basics",
+          "provider": "Berklee Online",
+          "author": "Jonathan Feist",
+          "url": "https://online.berklee.edu/takenote/guitar-notation-basics/",
+          "description": "How staff notation, tablature, and chord diagrams each describe the same guitar part.",
+          "keyPoints": [
+            "String 6 is the low E and string 1 is the high E; uncircled numbers are plucking fingers",
+            "Tab uses six lines, high E on top, and a number for the fret, with 0 for an open string",
+            "Each fret is a half step, so a 3 on the A string is the note C",
+            "Tab usually does not show rhythm",
+            "If the tuning is not standard EADGBE, the string notes are written at the left of the tab",
+            "A chord diagram's x means mute, an open dot means an open string, and a slur across strings is a barre"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Your First Chord",
+      "level": "BEGINNER",
+      "description": "A chord is only useful if every note rings. Learn one open chord, leave out the strings marked x, and check the notes one at a time.",
+      "learningObjectives": [
+        "Finger an open D chord",
+        "Skip the strings a diagram marks with an x",
+        "Check each note before you strum",
+        "Name the fingers used to fret"
+      ],
+      "explainBack": {
+        "question": "You are learning an open D chord and one note buzzes. Explain which strings you play, how you check the chord, and what you change before you call it ready.",
+        "rubric": [
+          "The two lowest strings of an open D chord are not played",
+          "The strum starts on the fourth string",
+          "Check the chord by picking each note on its own, then fix the finger that buzzes",
+          "Fingers are numbered 1 to 4 from index to pinkie; the thumb is not numbered",
+          "A buzzing note usually means the finger is not close enough to the fret or is touching a neighbor string"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Super Easy First Guitar Lesson - Guitar Lessons For Beginners - Stage 1 - The D Chord",
+          "provider": "JustinGuitar",
+          "url": "https://www.youtube.com/watch?v=yh6sPqDEZCY",
+          "videoId": "yh6sPqDEZCY",
+          "description": "How to place an open D chord and how to hear whether every note is clean.",
+          "keyPoints": [
+            "An open D chord leaves out the two lowest strings, which a diagram marks with an x",
+            "Start the strum on the fourth string",
+            "Pick the notes one at a time and move the finger that makes a note buzz",
+            "Strum again only after each note rings on its own"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Time and the First Strum",
+      "level": "BEGINNER",
+      "description": "Songs are counted in beats. Most beginner guitar parts are in four, and the first job is to land a downstrum on beat 1.",
+      "learningObjectives": [
+        "Explain what a beat and a measure are",
+        "Read a 4/4 time signature",
+        "Count a bar as 1, 2, 3, 4",
+        "Strum on beat 1 and keep counting through the bar"
+      ],
+      "explainBack": {
+        "question": "A song is in 4/4 and you keep changing chords late. Explain what 4/4 means, how you count a bar, and how a first strumming pattern uses beat 1 so the chord change lands on time.",
+        "rubric": [
+          "A beat is a pulse that keeps coming back; a measure is one group of those beats",
+          "In a simple meter the beat divides in two",
+          "In 4/4 the top number means four beats in a measure and the bottom number means a quarter note is the beat",
+          "Count the bar 1, 2, 3, 4, and count the division of a beat as and",
+          "The first strum is a downstrum on beat 1, while the hand keeps the count going",
+          "Change chords so the next downstrum still lands on 1"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Simple Meter and Time Signatures",
+          "provider": "Open Music Theory",
+          "url": "https://viva.pressbooks.pub/openmusictheory/chapter/simple-meter-and-time-signatures/",
+          "description": "A free textbook chapter on beats, measures, and how to read a simple time signature.",
+          "keyPoints": [
+            "A beat is a regularly recurring pulse",
+            "In a simple meter the beat divides into two, then into four",
+            "Duple, triple, and quadruple meters group beats in twos, threes, and fours",
+            "A measure is one group of beats, separated from the next by a bar line",
+            "In a simple time signature the top number is how many beats are in the measure and the bottom number is the note that gets the beat",
+            "In 4/4, count quarter notes as 1, 2, 3, 4, and count the second eighth note of a beat as and"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Your FIRST Strumming Pattern EVER! | Guitar for Beginners",
+          "provider": "JustinGuitar",
+          "url": "https://www.youtube.com/watch?v=n45PDizCRLw",
+          "videoId": "n45PDizCRLw",
+          "description": "Why the first strumming pattern is a single downstrum on beat 1.",
+          "keyPoints": [
+            "Early beginner songs in this course are in 4/4",
+            "Count 1, 2, 3, 4 and strum down only on 1",
+            "Keep the count going on the beats you do not strum",
+            "The goal is to land that downstrum on beat 1 when the chord changes"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Fingerstyle and Tone",
+      "level": "INTERMEDIATE",
+      "description": "Fingerstyle plays a chord one note at a time. Where the hand sits between the fingerboard and the bridge changes the tone.",
+      "learningObjectives": [
+        "Separate an arpeggio from a strum",
+        "Alternate the picking fingers",
+        "Use a metronome slowly enough to stay relaxed",
+        "Change tone by moving the hand toward the fingerboard or the bridge"
+      ],
+      "explainBack": {
+        "question": "You want a song to sound like the notes of a chord played one by one, and a friend says to play it faster until it sounds smooth. Explain how to practice an arpeggio, which fingers do the work, and how to make the same strum sweeter or brighter.",
+        "rubric": [
+          "An arpeggio plays the notes of a chord one after another instead of together",
+          "The fretting hand can hold one shape while the picking hand moves, and the same picking finger does not play twice in a row",
+          "Practice with a metronome at a tempo where the hand stays relaxed; speed comes after that",
+          "Stop if the hand gets tired",
+          "Playing nearer the fingerboard (sul tasto) is rounder; playing nearer the bridge (ponticello) is brighter",
+          "The usual spot is between those two, near the bridge side of the soundhole"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Acoustic Guitar Techniques to Move Past Beginner Level",
+          "provider": "Berklee Online",
+          "author": "Abigail Aronson Zocher",
+          "url": "https://online.berklee.edu/takenote/acoustic-guitar-techniques-to-move-past-beginner-level/",
+          "description": "Fingerstyle, practice with a metronome, and how the picking hand's position changes the sound.",
+          "keyPoints": [
+            "Standard tuning is EADGBE; anything else is an alternate tuning",
+            "An arpeggio plays chord notes one after another, usually without repeating the same picking finger twice in a row",
+            "Set the metronome where the picking hand stays relaxed, and put the thumb note in the middle of the click",
+            "Relaxation comes before speed, and you stop when the hand is tired",
+            "Classical names for the picking fingers are p, i, m, and a: thumb, index, middle, and ring",
+            "Sul tasto, over the fingerboard, is rounder; ponticello, near the bridge, is brighter"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "title": "Chord Symbols",
+      "level": "INTERMEDIATE",
+      "description": "A chord symbol names the notes without naming a key. A letter alone is a major triad, and extra marks change the quality or add notes.",
+      "learningObjectives": [
+        "Read a bare letter as a major triad",
+        "Tell a chord symbol from a Roman numeral",
+        "Explain the default seventh, ninth, and eleventh",
+        "Assume root position unless a bass note is written"
+      ],
+      "explainBack": {
+        "question": "A chart shows C, then C7, then C13, and a friend treats C7 as C with a major seventh. Explain what each symbol asks for, and how that differs from a Roman numeral in a key.",
+        "rubric": [
+          "A letter with nothing after it is a major triad",
+          "Chord symbols name exact notes and do not depend on a key; Roman numerals show a chord's place in a key",
+          "Symbols assume the bass is the root unless another bass note is written",
+          "The default seventh is minor, so C7 contains B-flat, not B",
+          "Ninths and thirteenths are major, and elevenths are perfect, unless the symbol says otherwise"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Chord Symbols",
+          "provider": "Open Music Theory",
+          "url": "https://viva.pressbooks.pub/openmusictheory/chapter/chord-symbols/",
+          "description": "How pop and jazz chord symbols name a root, a quality, and any added notes.",
+          "keyPoints": [
+            "A chord symbol gives the root, the triad quality, any extensions, and a non-root bass note if there is one",
+            "A note name alone means a major triad",
+            "Chord symbols are absolute; Roman numerals are relative to a key",
+            "The symbol assumes the chord is in root position unless a different bass note is shown",
+            "The default seventh is minor; ninths and thirteenths default to major, and elevenths to perfect"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Triads in a Key",
+      "level": "ADVANCED",
+      "description": "In a major key, the chord on each scale degree has a fixed quality. That pattern is what makes G, C, and D major in the key of G, and E minor, A minor, and B minor beside them.",
+      "learningObjectives": [
+        "Build a triad on each degree of a major scale",
+        "Name which degrees are major, minor, and diminished",
+        "Move that pattern to another major key",
+        "Explain why the pattern does not change when the key does"
+      ],
+      "explainBack": {
+        "question": "You are in G major and the song uses chords on G, A, B, C, D, E, and F-sharp. Explain which of those triads are major, which are minor, which is diminished, and why the same pattern appears in every major key.",
+        "rubric": [
+          "A triad stacks two thirds on a root",
+          "In a major key, triads on degrees 1, 4, and 5 are major",
+          "Triads on degrees 2, 3, and 6 are minor",
+          "The triad on degree 7 is diminished",
+          "In G major that means G, C, and D are major, A, B, and E are minor, and F-sharp is diminished",
+          "The qualities stay the same in every major key because they come from the scale degrees, not from one key's letter names"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Triads",
+          "provider": "Open Music Theory",
+          "url": "https://viva.pressbooks.pub/openmusictheory/chapter/triads/",
+          "description": "Which triad quality sits on each degree of a major scale.",
+          "keyPoints": [
+            "A chord symbol starts with the root, then marks the triad's quality",
+            "In a major key, triads on do, fa, and sol are major",
+            "Triads on re, mi, and la are minor",
+            "The triad on ti is diminished",
+            "Those qualities do not change from key to key: the triad on degree 1 of any major key is major"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "title": "Pentatonic Shapes",
+      "level": "ADVANCED",
+      "description": "The pentatonic scale has five notes and no half steps. Rock guitar often puts a major chord, or a barre shape, on each of those notes.",
+      "learningObjectives": [
+        "Describe the major and minor pentatonic scales",
+        "Explain why a pentatonic collection has no half steps",
+        "Use pentatonic notes as chord roots",
+        "Explain why parallel barre chords fit the guitar"
+      ],
+      "explainBack": {
+        "question": "A riff uses five notes and never a fret right next to the last one, and the chords are the same major shape moved up the neck. Explain what scale that describes, and why that chord habit fits the guitar.",
+        "rubric": [
+          "A pentatonic scale has five pitches",
+          "The common pentatonic collections have no half steps",
+          "Major pentatonic and minor pentatonic are two rotations of that five-note collection",
+          "In rock, those scale notes are often used as chord roots",
+          "The chords on those roots may be major, minor, or power chords, so the full sound is not always pentatonic",
+          "The same major shape slid up the neck is a barre chord, which is why this pattern fits guitar"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Pentatonic Harmony",
+          "provider": "Open Music Theory",
+          "url": "https://viva.pressbooks.pub/openmusictheory/chapter/pentatonic-harmony/",
+          "description": "How five-note scales become chord roots, including the parallel barre chords common on guitar.",
+          "keyPoints": [
+            "The pentatonic collection has five pitches and no half steps",
+            "In popular music the two common rotations are major pentatonic and minor pentatonic",
+            "A pentatonic chord system often uses those scale notes as chord roots",
+            "The chords can be major, minor, power chords, or chords with added notes",
+            "Because the chord quality can vary, the notes actually sounding are often not only the pentatonic scale",
+            "Parallel major barre chords on pentatonic roots sit naturally on the guitar"
+          ]
+        }
+      ]
+    }
+  ],
+  "slug": "guitar",
+  "name": "Guitar",
+  "description": "Hold the guitar without strain, read a chord diagram, fret an open chord in time, and use scales, fingerstyle, and chord symbols to move past the first songs.",
+  "status": "COMING_SOON"
+}

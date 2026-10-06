@@ -1,0 +1,395 @@
+{
+  "stages": [
+    {
+      "order": 1,
+      "title": "The Board and the Pieces",
+      "level": "BEGINNER",
+      "description": "Chess is two armies of 16. Each piece has one way of moving, and the king is the piece the game is about.",
+      "learningObjectives": [
+        "Set up the board with light on the right",
+        "Move the king, queen, rook, bishop, knight, and pawn",
+        "Capture by replacement, except for the knight's jump",
+        "Promote a pawn that reaches the far rank"
+      ],
+      "explainBack": {
+        "question": "You are teaching a friend the setup and the six pieces. Explain how the board is placed, how each piece moves and captures, which piece can jump, and what happens when a pawn reaches the last rank.",
+        "rubric": [
+          "White moves first, and the players then take turns",
+          "The near right corner is a light square, and each queen starts on her own color",
+          "The king moves one square in any direction and may never move into check",
+          "The queen moves any number of squares in any direction, the rook on ranks and files, and the bishop on one color diagonally",
+          "The knight moves in an L and is the only piece that jumps; every other piece needs a clear path",
+          "A pawn moves forward and captures diagonally, may move two squares on its first move, and promotes to a queen, rook, bishop, or knight on the last rank, never staying a pawn or becoming a king"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Let's Play Chess",
+          "provider": "U.S. Chess Federation",
+          "url": "https://uschess.org/archive/beginners/letsplay.pdf",
+          "description": "The U.S. Chess Federation's one-page guide to setup and how each piece moves.",
+          "keyPoints": [
+            "White moves first; only one piece moves on a turn, apart from castling",
+            "Set up with a light square on the right, and with each queen on her own color",
+            "The king moves one square any direction and may not move into check",
+            "The queen moves any clear distance in any direction; the rook moves on ranks and files; the bishop stays on one color",
+            "The knight moves in an L and is the only piece that can jump",
+            "A pawn moves forward, captures diagonally, may go two squares on its first move, and promotes on the last rank to any piece except a king"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "How To Play Chess: The Ultimate Beginner Guide",
+          "provider": "GothamChess",
+          "url": "https://www.youtube.com/watch?v=OCSbzArwB10",
+          "videoId": "OCSbzArwB10",
+          "description": "A beginner tour of the board, the pieces, and how a game is finished.",
+          "keyPoints": [
+            "The lesson covers the board, the setup, and how each piece moves",
+            "It includes piece values and the basic rules of check and checkmate",
+            "It shows a simple way to start a game",
+            "It shows beginner checkmates, including king and queen against a lone king"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Castling and En Passant",
+      "level": "BEGINNER",
+      "description": "Two moves do not look like ordinary captures. Castling moves the king and a rook together, and en passant takes a pawn that just jumped past yours.",
+      "learningObjectives": [
+        "Castle by moving the king two squares and the rook beside it",
+        "Name the conditions that make castling illegal",
+        "Capture en passant only on the next move",
+        "Write the square the capturing pawn lands on"
+      ],
+      "explainBack": {
+        "question": "You want to castle kingside, and on the same day an enemy pawn jumps two squares and lands beside yours. Explain how each move is made, when it is illegal, and which square you write down for the pawn capture.",
+        "rubric": [
+          "Castling is the only move that moves two pieces: the king goes two squares toward a rook, and that rook jumps to the square beside the king",
+          "Kingside castling is 0-0 and queenside is 0-0-0",
+          "You cannot castle if the king or that rook has moved, if a piece stands between them, or if the king is in check, would cross an attacked square, or would land in check",
+          "En passant takes a pawn that has just moved two squares from its start and landed beside yours",
+          "The capturing pawn must already be on the right rank, and the capture has to be the immediate reply",
+          "The capturing pawn does not land on the captured pawn's square; notation names the square it lands on"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Chess Castling",
+          "provider": "Chess.com",
+          "url": "https://www.chess.com/terms/castling-chess",
+          "description": "How castling moves the king and a rook, and when it is illegal.",
+          "keyPoints": [
+            "Castling is the only move that moves two pieces at once, and the only time the king moves more than one square",
+            "The king moves two squares toward a rook and that rook lands on the square beside the king",
+            "Kingside castling is written 0-0 and queenside castling is written 0-0-0",
+            "You cannot castle if the king or that rook has already moved, or if a piece stands between them",
+            "You cannot castle out of check, through check, or into check"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "En Passant",
+          "provider": "Chess.com",
+          "url": "https://www.chess.com/terms/en-passant",
+          "description": "The pawn capture that does not land on the captured pawn's square.",
+          "keyPoints": [
+            "En passant means in passing, and it is the only capture where the capturer does not land on the captured piece's square",
+            "The captured pawn must have just moved two squares from its starting square and landed beside the capturing pawn",
+            "The capturing pawn must already have advanced exactly three ranks",
+            "The capture is legal only on the immediate next turn",
+            "The capturing pawn moves diagonally to the square the enemy pawn passed through",
+            "Notation names the square the capturing pawn lands on, as in exd6"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": "How to Start a Game",
+      "level": "BEGINNER",
+      "description": "The opening is for getting pieces out, taking the center, and putting the king somewhere safe. Piece values tell you when a trade is worth making.",
+      "learningObjectives": [
+        "Develop pieces before moving a crowd of pawns",
+        "Fight for the four center squares",
+        "Castle early and keep the king's pawns nearby",
+        "Use the usual piece values when you trade"
+      ],
+      "explainBack": {
+        "question": "You open by pushing several pawns and bringing the queen out on move two. Your friend trades a bishop for your knight. Explain what the opening is for, why that start is slow, and how to judge the trade.",
+        "rubric": [
+          "A game has an opening, a middlegame, and an endgame",
+          "Develop knights, bishops, rooks, and the queen to useful squares in as few moves as possible",
+          "An early queen gets chased by cheaper pieces and loses time",
+          "A piece in the center controls more squares, and the center is the road from one wing to the other",
+          "Castle early, and do not push the pawns in front of the castled king without a reason",
+          "A knight or bishop is about three pawns, a rook about five, and a queen about nine; the king is not given a trade value"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Ten Tips to Winning Chess",
+          "provider": "U.S. Chess Federation",
+          "author": "Arthur Bisguier",
+          "url": "https://uschess.org/archive/beginners/ten/index.php",
+          "description": "A grandmaster's ten habits for the opening, the middlegame, and the ending.",
+          "keyPoints": [
+            "After every opponent move, ask what it threatens before you make your own plan",
+            "A pawn is the unit: a knight or bishop is about three, a rook about five, and a queen about nine",
+            "Develop pieces to their best squares in few moves, and do not bring the queen out early",
+            "The four center squares matter because a piece there controls more of the board",
+            "Castle early, and treat the pawns in front of the king as its cover",
+            "Trade when the opponent has the initiative, when you are cramped, when the trade wrecks their pawns, or when you are ahead in material"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Tactics That Win Material",
+      "level": "INTERMEDIATE",
+      "description": "A tactic is a short forcing idea. Forks, pins, skewers, and discovered attacks are the patterns that win a piece or mate.",
+      "learningObjectives": [
+        "Spot a fork",
+        "Tell an absolute pin from a relative pin",
+        "Tell a skewer from a pin",
+        "Explain a discovered check"
+      ],
+      "explainBack": {
+        "question": "In one position your knight attacks a queen and a rook. In another, a bishop stares at a knight that stands in front of the enemy king. In a third, the enemy queen is in front of a rook on the same line as yours. Name each tactic and say what the defender can do about it.",
+        "rubric": [
+          "A tactic is a short sequence that wins material or an attack",
+          "A fork is one piece attacking two things at once, so one move cannot save both",
+          "A pin stops a piece moving because a more valuable piece stands behind it; an absolute pin is against the king and the piece cannot legally move",
+          "A skewer attacks the more valuable piece first, and the piece behind it is taken after that piece moves",
+          "A discovered attack appears when one piece steps off the line of another; if the uncovered piece checks, it is a discovered check",
+          "A double check attacks the king with two pieces at once, so the king has to move"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Chess Tactics",
+          "provider": "Chess.com",
+          "url": "https://www.chess.com/article/view/chess-tactics",
+          "description": "Definitions of the tactical patterns used to label puzzles, from forks to smothered mate.",
+          "keyPoints": [
+            "A tactic is a move or series of moves that wins material or an attack, including mate",
+            "A fork is a double attack by one unit, often a knight, queen, or pawn",
+            "A pin is a long-range piece aimed at a valuable piece with a cheaper piece in the way; an absolute pin is against the king",
+            "A skewer forces the more valuable piece in front to move, then takes the piece behind it",
+            "A discovered attack uncovers a second attacker; a discovered check uncovers a check, and a double check uses both pieces",
+            "A back-rank mate traps the king on the first or eighth rank behind its own pieces"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Writing the Moves",
+      "level": "INTERMEDIATE",
+      "description": "Algebraic notation names every square and every move. It is how you record a game and how you read one back.",
+      "learningObjectives": [
+        "Name a square by file and rank from White's side",
+        "Write a piece move and a pawn move",
+        "Mark a capture, a check, and a checkmate",
+        "Write castling and promotion"
+      ],
+      "explainBack": {
+        "question": "Write, in words and symbols, a knight move to f3, a pawn capture on g5 from the f-file, kingside castling, and a pawn promoting to a queen on e8 with check. Explain how the squares are named.",
+        "rubric": [
+          "Files are a to h from White's left, and ranks are 1 to 8 starting on White's side",
+          "Piece letters are K, Q, R, B, and N, and the knight is N because K is the king",
+          "A piece move is the letter plus the destination, such as Nf3; a pawn move is the destination alone",
+          "A capture inserts x, and a pawn capture also names the file it came from, such as fxg5",
+          "Check is + and checkmate is #",
+          "Kingside castling is 0-0, queenside is 0-0-0, and promotion is written with the new piece, such as e8=Q"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Keeping Score",
+          "provider": "U.S. Chess Federation",
+          "url": "https://www.uschess.org/docs/forms/KeepingScore.pdf",
+          "description": "How algebraic notation names squares, pieces, captures, checks, and castling.",
+          "keyPoints": [
+            "Algebraic notation is the system used to record tournament games and to read most chess books",
+            "Each square is a file letter plus a rank number, from White's point of view: files a to h, ranks 1 to 8",
+            "K, Q, R, B, and N name the pieces, with N for the knight, followed by the destination square",
+            "A pawn move is just the destination square; a pawn capture also names the starting file",
+            "x marks a capture, + marks check, and # marks checkmate",
+            "0-0 is kingside castling and 0-0-0 is queenside castling"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "title": "King and Pawn Endings",
+      "level": "INTERMEDIATE",
+      "description": "When the pieces are gone, the kings decide whether a pawn promotes. Opposition is the tool that shoulders the other king aside.",
+      "learningObjectives": [
+        "Define direct opposition",
+        "Say which player has the opposition",
+        "Explain what opposition is for",
+        "Tell direct opposition from distant opposition"
+      ],
+      "explainBack": {
+        "question": "Only kings and one pawn are left, and the two kings stand two squares apart on the same file. Explain who has the opposition, why it matters, and why taking the opposition is not always the right move.",
+        "rubric": [
+          "Direct opposition means the kings are two squares apart on the same rank or file",
+          "The player who is not to move has the opposition, because the player to move must step aside",
+          "Kings cannot stand on adjacent squares, so each king blocks the other",
+          "Opposition is a way to reach a key square, usually so a king can lead a pawn to promotion",
+          "Distant opposition is the same idea with more than one square between the kings, when an odd number of squares separates them",
+          "Opposition is a means, not the goal; marching to the key square can be better than taking the opposition"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Opposition (chess)",
+          "provider": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Opposition_(chess)",
+          "description": "What opposition is, who has it, and what it is used for in a king and pawn ending.",
+          "keyPoints": [
+            "In direct opposition the kings are two squares apart on the same rank or file",
+            "The player not to move has the opposition",
+            "It is a form of zugzwang and shows up most in king and pawn endings",
+            "The aim is to reach a key square, so the king can escort a pawn or win a blocked enemy pawn",
+            "Distant opposition separates the kings by an odd number of squares on the same rank or file",
+            "Taking the opposition can be the wrong plan if the king should go straight to a key square instead"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "title": "The Clock",
+      "level": "ADVANCED",
+      "description": "In a tournament your time is part of the game. The clock runs while you think, and running out of time loses unless your opponent cannot mate.",
+      "learningObjectives": [
+        "Explain how a chess clock is two clocks",
+        "Press the clock after you move",
+        "Say what a flag fall means",
+        "Name the exception when a flag fall is not a loss"
+      ],
+      "explainBack": {
+        "question": "You sit down for your first tournament game and a clock is on the board. Explain whose time runs when, what you do after a move, and when running out of time does not lose.",
+        "rubric": [
+          "A chess clock is two clocks, one for each player",
+          "Your clock runs while it is your turn to think",
+          "After you move, you press the button so the opponent's clock starts",
+          "If your flag falls you lose on time",
+          "A flag fall is not a loss if the opponent has no mating material, or if you have already checkmated",
+          "Most tournament players are expected to bring a set and a clock"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "FAQ (Starting Out)",
+          "provider": "U.S. Chess Federation",
+          "url": "https://www.uschess.org/index.php/Learn-About-Chess/FAQ-Starting-Out.html",
+          "description": "What a new tournament player needs to know about clocks, sets, and getting better.",
+          "keyPoints": [
+            "Most tournaments expect you to bring a set and a clock",
+            "A chess clock is two clocks; yours runs while you think",
+            "After a move you press the clock and your opponent's time starts",
+            "Running out of time loses, unless you have checkmated or your opponent has insufficient mating material",
+            "Clocks are digital or analog",
+            "The time limit depends on the event, from a long game down to blitz"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "title": "How to Improve",
+      "level": "ADVANCED",
+      "description": "Knowing the rules is the start. Getting better means playing, looking at the games you lose, and studying one idea at a time.",
+      "learningObjectives": [
+        "Name the steps for learning the game",
+        "Use play as practice, including the games you lose",
+        "Study one kind of idea at a time",
+        "Treat a loss as information"
+      ],
+      "explainBack": {
+        "question": "A friend knows how the pieces move and wants a rating to go up. Explain what they should do between games, and why winning every game is the wrong target.",
+        "rubric": [
+          "Learn the board, the piece moves, the special rules, who moves first, and how a game ends",
+          "Then study basic plans and play a lot of games",
+          "Review the games you lose as well as the games you win",
+          "Lessons help, but they do not replace playing",
+          "Everyone loses games, including world champions, so a loss is part of the record rather than a reason to stop"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "How to Play Chess: Learn the Rules & 7 Steps To Get You Started",
+          "provider": "Chess.com",
+          "url": "https://www.chess.com/learn-how-to-play-chess",
+          "description": "The order Chess.com recommends for learning the rules and then getting better.",
+          "keyPoints": [
+            "Learn in order: set up the board, move the pieces, learn the special rules, who moves first, how you win, basic strategy, then play",
+            "Getting better takes playing a lot of games",
+            "Look at the games you win and the games you lose",
+            "Lessons speed the process and do not replace play",
+            "Nobody wins every game, including world champions"
+          ]
+        }
+      ]
+    }
+  ],
+  "slug": "chess",
+  "name": "Chess",
+  "description": "Learn how the pieces move, the special rules, and how to start a game, spot a tactic, write the moves, and finish a simple king and pawn ending.",
+  "status": "COMING_SOON"
+}

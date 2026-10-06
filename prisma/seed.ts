@@ -158,6 +158,8 @@ async function main() {
   await importCatalog("nutrition", { apply: true })
   await importCatalog("psychology", { apply: true })
   await importCatalog("podcasting", { apply: true })
+  await importCatalog("guitar", { apply: true })
+  await importCatalog("chess", { apply: true })
 }
 
 main()

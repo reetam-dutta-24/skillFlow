@@ -2,6 +2,7 @@ import "server-only";
 import { cacheLife, cacheTag } from "next/cache";
 import { GEOCODE_TAG } from "@/lib/cache/tags";
 import { roundCityCoord, type CityHit } from "@/lib/geo/cities";
+import { lookupVenue } from "@/lib/geo/nominatim-lookup";
 
 export type { CityHit };
 
@@ -105,4 +106,26 @@ export async function searchCities(raw: string): Promise<CityHit[]> {
   const query = normalizeQuery(raw);
   if (query.length < 2) return [];
   return searchCitiesCached(query);
+}
+
+async function geocodeVenueCached(query: string): Promise<{ lat: number; lng: number } | null> {
+  "use cache";
+  cacheLife("days");
+  cacheTag(GEOCODE_TAG);
+  return lookupVenue(query);
+}
+
+/** A venue, not a city. The first hit is the pin. Cached like city search. */
+export async function geocodeVenue(raw: string): Promise<{ lat: number; lng: number } | null> {
+  const query = raw.trim().replace(/\s+/g, " ").toLowerCase().slice(0, 140);
+  if (query.length < 3) return null;
+  try {
+    return await geocodeVenueCached(query);
+  } catch {
+    try {
+      return await lookupVenue(query);
+    } catch {
+      return null;
+    }
+  }
 }

@@ -55,6 +55,7 @@ function toView(event: NormalizedEvent, source: ApiSource): EventView {
     venueName: event.venueName,
     city: event.city,
     url: event.url,
+    imageUrl: event.imageUrl,
     isOnline: event.isOnline,
     sourceLabel: sourceLabel(source),
     niche: "Live search",

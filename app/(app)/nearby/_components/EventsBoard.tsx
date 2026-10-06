@@ -1,12 +1,39 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { MapCanvas, type MapPoint } from "@/app/(app)/map/_components/MapCanvas";
+import { MapCanvas, type MapFocus, type MapPoint } from "@/app/(app)/map/_components/MapCanvas";
 import { formatDistanceKm } from "@/lib/geo/distance";
 import { formatEventWhen, type EventView } from "@/lib/events/select";
 
 function placeLine(event: EventView) {
   return [event.venueName, event.city].filter(Boolean).join(", ");
+}
+
+function posterImage(url: string | null) {
+  return url?.startsWith("https://") ? url : null;
+}
+
+function EventPhoto({ event }: { event: EventView }) {
+  const [failed, setFailed] = useState(false);
+  const src = failed ? null : posterImage(event.imageUrl);
+  return (
+    <span className="sf-event-photo">
+      {src ? (
+        // Event art comes from Ticketmaster and Google. The host is not known ahead of time.
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={src} alt="" onError={() => setFailed(true)} />
+      ) : (
+        <span className="sf-event-photo-fallback" aria-hidden="true">
+          {event.title.slice(0, 1)}
+        </span>
+      )}
+      <span className="sf-event-veil" aria-hidden="true" />
+      <span className="sf-event-photo-copy">
+        <span className="sf-event-kicker">{event.sourceLabel}</span>
+        <h3>{event.title}</h3>
+      </span>
+    </span>
+  );
 }
 
 function EventCard({
@@ -19,38 +46,43 @@ function EventCard({
   onSelect?: (id: string) => void;
 }) {
   const place = placeLine(event);
+  const where = [place, event.distanceKm != null ? formatDistanceKm(event.distanceKm) : null].filter(Boolean).join(" · ");
+  const meta = (
+    <span className="sf-event-meta">
+      <span>{formatEventWhen(event.startsAt)}</span>
+      {where ? <span>{where}</span> : null}
+      <span>{event.niche}</span>
+    </span>
+  );
   return (
-    <article id={`event-${event.id}`} className={selected ? "sf-event-card is-selected" : "sf-event-card"}>
+    <article id={`event-${event.id}`} className={selected ? "sf-event-poster is-selected" : "sf-event-poster"}>
       {onSelect ? (
-        <button type="button" className="sf-event-select" onClick={() => onSelect(event.id)}>
-          <CardBody event={event} place={place} />
+        <button type="button" className="sf-event-poster-hit" onClick={() => onSelect(event.id)}>
+          <EventPhoto event={event} />
+          {meta}
         </button>
       ) : (
-        <CardBody event={event} place={place} />
+        <div className="sf-event-poster-hit">
+          <EventPhoto event={event} />
+          {meta}
+        </div>
       )}
-      <a href={event.url} target="_blank" rel="noreferrer">
+      <a className="sf-event-open" href={event.url} target="_blank" rel="noreferrer">
         Open event
       </a>
     </article>
   );
 }
 
-function CardBody({ event, place }: { event: EventView; place: string }) {
-  return (
-    <>
-      <h3>{event.title}</h3>
-      <p>{formatEventWhen(event.startsAt)}</p>
-      {place ? <p>{place}</p> : null}
-      {event.distanceKm != null ? <p>{formatDistanceKm(event.distanceKm)}</p> : null}
-      <p>
-        <span>{event.niche}</span>
-        <span>{event.sourceLabel}</span>
-      </p>
-    </>
-  );
-}
-
-export function EventsBoard({ events, empty = "No events in this range." }: { events: EventView[]; empty?: string }) {
+export function EventsBoard({
+  events,
+  origin = null,
+  empty = "No events in this range.",
+}: {
+  events: EventView[];
+  origin?: MapFocus | null;
+  empty?: string;
+}) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const points: MapPoint[] = events.flatMap((event) => {
     if (event.lat == null || event.lng == null) return [];
@@ -76,10 +108,11 @@ export function EventsBoard({ events, empty = "No events in this range." }: { ev
     <div className="sf-event-layout">
       <MapCanvas
         points={points}
+        focus={origin}
         selectedId={selectedId}
         onSelect={setSelectedId}
         noun="event"
-        fitMaxZoom={11}
+        fitMaxZoom={13}
         ariaLabel="Map of nearby events"
       />
       <div className="sf-event-list" aria-label="Events near you">

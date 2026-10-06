@@ -65,16 +65,15 @@ async function EventsBody({
       ? { city: profile.city, country: profile.country, lat: profile.lat, lng: profile.lng }
       : null;
 
-  if (active && origin) {
-    const skill = await prisma.skill.findUnique({
-      where: { slug: active },
-      select: { id: true, name: true },
-    });
-    if (skill) {
+  if (origin) {
+    const targets = (
+      active ? catalog.filter((entry) => entry.skill.slug === active) : catalog.filter((entry) => entry.skill.followed)
+    ).slice(0, 3);
+    for (const entry of targets) {
       await scheduleRefreshIfStale({
-        skillId: skill.id,
-        slug: active,
-        name: skill.name,
+        skillId: entry.skill.id,
+        slug: entry.skill.slug,
+        name: entry.skill.name,
         city: origin.city,
         country: origin.country,
         lat: origin.lat,
@@ -126,6 +125,7 @@ async function EventsBody({
       )}
       <EventsBoard
         events={local}
+        origin={origin ? { lat: origin.lat, lng: origin.lng, zoom: 12 } : null}
         empty={origin ? "No events in this range." : "In-person events show up once a city is saved."}
       />
       <OnlineEventList events={online} />

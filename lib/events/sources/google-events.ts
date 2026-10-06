@@ -1,13 +1,37 @@
+import { venueQueries } from "@/lib/events/venue-query";
+import { geocodeVenue } from "@/lib/geo/nominatim";
 import { periodKey, serpApiMonthlyCap } from "@/lib/events/config";
 import { eventsFromGoogle } from "@/lib/events/sources/google-events-map";
 import type { EventQuery, EventSourceAdapter, NormalizedEvent, SourceResult } from "@/lib/events/sources/types";
 import { reserveCall } from "@/lib/events/usage";
 
-function withCityCentre(events: NormalizedEvent[], query: EventQuery): NormalizedEvent[] {
-  return events.map((event) => {
-    if (event.isOnline || event.lat != null || event.lng != null) return event;
-    return { ...event, lat: query.lat, lng: query.lng, city: event.city ?? query.city };
-  });
+async function placeOnVenues(events: NormalizedEvent[], query: EventQuery): Promise<NormalizedEvent[]> {
+  const placed: NormalizedEvent[] = [];
+  for (const event of events) {
+    const city = event.city ?? query.city;
+    if (event.isOnline || event.lat != null || event.lng != null) {
+      placed.push({ ...event, city });
+      continue;
+    }
+    const lookups = venueQueries({
+      venueName: event.venueName,
+      address: event.address,
+      city,
+      savedCity: query.city,
+      country: query.country,
+    });
+    let hit: { lat: number; lng: number } | null = null;
+    for (const lookup of lookups) {
+      try {
+        hit = await geocodeVenue(lookup);
+      } catch {
+        hit = null;
+      }
+      if (hit) break;
+    }
+    placed.push(hit ? { ...event, lat: hit.lat, lng: hit.lng, city } : { ...event, city });
+  }
+  return placed;
 }
 
 async function search(query: EventQuery): Promise<SourceResult> {
@@ -30,7 +54,7 @@ async function search(query: EventQuery): Promise<SourceResult> {
     const response = await fetch(url, { signal: AbortSignal.timeout(8000) });
     if (!response.ok) return { ok: false, error: `http ${response.status}` };
     const payload: unknown = await response.json();
-    return { ok: true, events: withCityCentre(eventsFromGoogle(payload, query.from), query) };
+    return { ok: true, events: await placeOnVenues(eventsFromGoogle(payload, query.from), query) };
   } catch {
     return { ok: false, error: "unavailable" };
   }

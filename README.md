@@ -22,7 +22,7 @@ Creator studio is a signed-in library for a video the learner owns. An admin app
 
 The learner map counts people who opted in, one number per city. It lives under Nearby → Learners. Settings stores the city, the country, and the city centre. The map does not show names, and it does not use GPS. Set `MAP_MIN_LEARNERS` to hide cities below that count (the default is 5). Use `1` on your machine while you are the only person on the map. City search uses OpenStreetMap Nominatim. A `GEOCODER_USER_AGENT` value with a way to reach you is the polite way to call it.
 
-Nearby → Events lists upcoming events for that saved city. Ticketmaster and Google Events are optional. Leave a key empty and that source stays off. Community events need a review. Visitors read a saved copy that refreshes at most every 12 hours. Live search is for an admin until payments exist.
+Nearby → Events lists upcoming events for that saved city. The map opens on the city, and each pin is the venue. Ticketmaster and Google Events are optional. Leave a key empty and that source stays off. Community events need a review. Visitors read a saved copy that refreshes at most every 12 hours. Live search is for an admin until payments exist.
 
 A dead stored link can be marked unavailable. The lesson keeps the saved title, description, and key points.
 

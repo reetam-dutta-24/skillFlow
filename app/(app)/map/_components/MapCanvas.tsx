@@ -74,6 +74,13 @@ function fitPoints(map: MapLibreMap, points: MapPoint[], maxZoom: number) {
     east = Math.max(east, point.lng);
     north = Math.max(north, point.lat);
   }
+  if (east - west < 0.04 && north - south < 0.04) {
+    map.jumpTo({
+      center: [(west + east) / 2, (south + north) / 2],
+      zoom: maxZoom,
+    });
+    return;
+  }
   map.fitBounds(
     [
       [west, south],
@@ -94,9 +101,12 @@ export function citiesToPoints(cities: MapCity[]): MapPoint[] {
   }));
 }
 
+export type MapFocus = { lat: number; lng: number; zoom?: number };
+
 export function MapCanvas({
   cities,
   points,
+  focus = null,
   selectedId = null,
   onSelect,
   noun = "learner",
@@ -105,6 +115,7 @@ export function MapCanvas({
 }: {
   cities?: MapCity[];
   points?: MapPoint[];
+  focus?: MapFocus | null;
   selectedId?: string | null;
   onSelect?: (id: string) => void;
   noun?: "learner" | "event";
@@ -125,6 +136,8 @@ export function MapCanvas({
   const nounRef = useRef(noun);
   const fittedRef = useRef(false);
   const fitZoomRef = useRef(fitMaxZoom);
+  const focusRef = useRef(focus);
+  focusRef.current = focus;
 
   useEffect(() => {
     const container = containerRef.current;
@@ -196,11 +209,12 @@ export function MapCanvas({
       if (cancelled) return;
       libRef.current = lib;
       lib.setWorkerUrl("/vendor/maplibre/maplibre-gl-worker.mjs");
+      const home = focusRef.current;
       const map = new lib.Map({
         container,
         style: rasterStyle(),
-        center: [10, 20],
-        zoom: 1.2,
+        center: home ? [home.lng, home.lat] : [10, 20],
+        zoom: home ? (home.zoom ?? 12) : 1.2,
         attributionControl: { compact: true },
       });
       map.addControl(new lib.NavigationControl({ showCompass: false }), "top-right");
@@ -209,6 +223,10 @@ export function MapCanvas({
       map.on("load", () => {
         if (!fittedRef.current && pointsRef.current.length > 0) {
           fitPoints(map, pointsRef.current, fitZoomRef.current);
+          fittedRef.current = true;
+        } else if (!fittedRef.current && focusRef.current) {
+          const place = focusRef.current;
+          map.jumpTo({ center: [place.lng, place.lat], zoom: place.zoom ?? 12 });
           fittedRef.current = true;
         }
         paint();
@@ -248,9 +266,12 @@ export function MapCanvas({
     if (!fittedRef.current && resolved.length > 0 && map.loaded()) {
       fitPoints(map, resolved, fitMaxZoom);
       fittedRef.current = true;
+    } else if (!fittedRef.current && focus && resolved.length === 0 && map.loaded()) {
+      map.jumpTo({ center: [focus.lng, focus.lat], zoom: focus.zoom ?? 12 });
+      fittedRef.current = true;
     }
     map.fire("moveend");
-  }, [resolved, selectedId, onSelect, noun, fitMaxZoom]);
+  }, [resolved, selectedId, onSelect, noun, fitMaxZoom, focus]);
 
   useEffect(() => {
     if (!selectedId) return;

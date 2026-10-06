@@ -4,7 +4,7 @@ A mastery-first learning platform. Curated roadmaps, your own resources, and an 
 
 ## Status
 
-Thirty paths are free. Twenty-five of them have catalogs:
+Thirty paths are free. Twenty-seven of them have catalogs:
 
 - Full-Stack Web Development — 12 stages, 64 resources. Stages 1–9 are the open stretch.
 - Travel Vlogging — 8 stages, 46 resources. Stages 1–5 are the open stretch.
@@ -31,8 +31,10 @@ Thirty paths are free. Twenty-five of them have catalogs:
 - Photography — 8 stages, 41 resources. Stages 1–5 are the open stretch. One link is marked for review and stays until a working page is chosen.
 - Emergency Preparedness — 8 stages, 40 resources. Stages 1–5 are the open stretch. One link is marked for review and stays until a working page is chosen.
 - Badminton — 8 stages, 41 resources. Stages 1–5 are the open stretch. One link is marked for review and stays until a working page is chosen.
+- Relationships — 8 stages, 11 resources. Stages 1–5 are the open stretch.
+- Socializing — 8 stages, 8 resources. Stages 1–5 are the open stretch.
 
-The next stage on a free path opens after the explain-back. The last three stages stay locked. A stage waiting on that pass stays readable, with a lock. The last two stages on the path stay blurred. The other five free paths have no stages yet: Interior Design, Relationships, Socializing, Freelancing, and Travel Planning. Art & Painting stays a flagship. Every other niche is Premium, with no stages and no resources. Payments are not built.
+The next stage on a free path opens after the explain-back. The last three stages stay locked. A stage waiting on that pass stays readable, with a lock. The last two stages on the path stay blurred. The other three free paths have no stages yet: Interior Design, Freelancing, and Travel Planning. Art & Painting stays a flagship. Every other niche is Premium, with no stages and no resources. Payments are not built.
 
 The niche list shows 32 cards a page. Home and roadmaps show the first 12, a blurred peek of the next row, and a link to the full list.
 

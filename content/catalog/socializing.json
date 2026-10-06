@@ -1,0 +1,404 @@
+{
+  "stages": [
+    {
+      "order": 1,
+      "title": "Why You Befriend the People Nearby",
+      "level": "BEGINNER",
+      "description": "Friendship is not a hunt for an opposite. It usually starts with people you already see, who are already a bit like you.",
+      "learningObjectives": [
+        "Explain proximity and similarity as predictors of friendship",
+        "Define homophily and the limit it creates",
+        "Define reciprocity and self-disclosure"
+      ],
+      "explainBack": {
+        "question": "You want more friends and you keep looking for someone totally unlike you, far from the places you already spend time. Using the OpenStax section, explain where friendships actually tend to start, what homophily costs you, and what has to happen after the first meeting for the tie to deepen.",
+        "rubric": [
+          "Proximity, regular contact, is the most influential factor in who you become friends with",
+          "People become friends with those in the same dorm, building, or neighborhood more often than with people farther away, because contact creates the chance to know them",
+          "Similarity of background, attitudes, and lifestyle predicts friendship; there is no evidence that opposites attract",
+          "Homophily is forming social networks with similar people, and it limits exposure to different races, ethnicities, socioeconomic statuses, and life situations",
+          "Reciprocity means the relationship is a two-way street; people like those who like them back",
+          "Self-disclosure, sharing personal information, builds a more intimate connection"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "12.7 Prosocial Behavior",
+          "provider": "OpenStax, Psychology 2e",
+          "url": "https://openstax.org/books/psychology-2e/pages/12-7-prosocial-behavior",
+          "description": "The conditions OpenStax names for forming and keeping a relationship.",
+          "keyPoints": [
+            "Proximity, contact with the people you see most, is the single most influential factor in who you befriend",
+            "Research finds people become friends with those in the same dorm, apartment building, or immediate neighborhood more often than with people who live farther away",
+            "It is easier to form a relationship with someone you see often because you have the opportunity to know them",
+            "Similarity in background, attitudes, and lifestyle makes friendship more likely; there is no evidence that opposites attract",
+            "Homophily is the tendency to form friendships and other ties with similar people",
+            "Homophily limits exposure to diversity, including people of different races, ethnicities, socioeconomic status, and life situations",
+            "Reciprocity is the give and take; people are more likely to like those who like them back",
+            "Self-disclosure is sharing personal information, and people form more intimate connections with those they disclose important information to"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Small Talk Has a Job",
+      "level": "BEGINNER",
+      "description": "Small talk is light on purpose. It builds enough ease to enter a conversation, keep it going, and leave it cleanly.",
+      "learningObjectives": [
+        "Say what small talk is and which topics to leave out",
+        "Describe how to approach one person and how to join a group",
+        "Leave a conversation without vanishing"
+      ],
+      "explainBack": {
+        "question": "You are at an event, you want to meet three people, and a group is already talking. Using Duke's small-talk guide, explain what you talk about, how you join, how you keep the exchange from becoming an interview, and how you leave.",
+        "rubric": [
+          "Small talk is conversation about relatively inconsequential topics such as weather, sports, hobbies, entertainment, food, pets, travel, and books",
+          "Politics, religion, relationship status, health, personal finances, and other uncomfortable or controversial subjects are topics to avoid in small talk",
+          "Small talk slowly builds a baseline of trust before a deeper conversation",
+          "A useful preparation is a realistic goal, such as introducing yourself to three people or asking quality follow-up questions",
+          "Approaching one person starts with your name and a question about the event or something they just heard",
+          "To join a group, find one that looks open, listen, then speak at a pause, or ask if you may join; if you cut someone off, apologize",
+          "Keep it going by noticing common ground, asking open follow-up questions, reacting, and leaving space so you do not dominate",
+          "Exit at a break, say it was good to meet, and actually do the thing you named as your reason for stepping away"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Making Small Talk Guide",
+          "provider": "Duke University Career Hub",
+          "url": "https://careerhub.students.duke.edu/resources/making-small-talk-guide/",
+          "description": "What small talk is for, how to enter and leave, and which topics to skip.",
+          "keyPoints": [
+            "Small talk is conversation about relatively inconsequential topics that do not require profound thought",
+            "Examples include the weather, sports, hobbies, entertainment, food, pets, travel, and books",
+            "Topics to avoid include politics, religion, relationship status, health, personal finances, and other subjects that could make someone uncomfortable",
+            "Small talk is a way to learn about strangers and acquaintances slowly and to build a baseline of trust before deeper conversation",
+            "Prepare with a realistic goal, such as introducing yourself to three people or practicing follow-up questions",
+            "Approach one person with your name and a question about the event, a speaker, or whether they have been before",
+            "Join a group that looks open: listen, contribute at a pause, and do not cut anyone off; if you do, apologize and introduce yourself when they finish",
+            "You can also ask, at a pause, whether you may join",
+            "Keep a conversation going by finding common ground, asking open follow-up questions, reacting, and leaving space so you do not dominate",
+            "Exit at a break, thank them, and if you say you are going to get a drink or greet someone, actually do that"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Ten Rules for a Real Conversation",
+      "level": "BEGINNER",
+      "description": "Celeste Headlee's talk is about being in the conversation: present, curious, brief, and unwilling to steal the other person's story.",
+      "learningObjectives": [
+        "Apply the rules against multitasking, pontificating, and equating experiences",
+        "Ask an open question and let a clever aside go",
+        "Explain why listening fails even when you want to listen"
+      ],
+      "explainBack": {
+        "question": "A friend is describing a bad week at work. You are checking your phone, you have a matching story ready, and you keep restating your advice. Using Headlee's ten rules, explain what to stop, what kind of question to ask instead, and why your mind wanders even when you mean to listen.",
+        "rubric": [
+          "Don't multitask: be present, not half in the conversation and half on the phone, dinner, or an earlier argument",
+          "Don't pontificate: enter assuming you have something to learn, because stating an opinion with no room for response is not a conversation",
+          "Open-ended questions start with who, what, when, where, why, or how; a yes-or-no question such as \"Were you terrified?\" collapses the answer",
+          "Go with the flow: let a clever question or a side story leave your mind instead of stopping listening in order to say it",
+          "If you don't know, say you don't know",
+          "Don't equate their experience with yours; all experiences are individual, and the conversation is not about proving what you have suffered",
+          "Don't repeat yourself; it is condescending, and stay out of dates, names, and details people are not asking for",
+          "Listening is the most important rule; people would rather talk because talking keeps them in control and at the center",
+          "People speak at about 225 words a minute and can listen at up to 500, so the mind fills the gap unless you spend the effort to attend",
+          "Be brief, and be interested: assume the other person has something amazing you do not know yet"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Celeste Headlee: 10 ways to have a better conversation | TED",
+          "provider": "TED",
+          "url": "https://www.youtube.com/watch?v=R1vskiVDwl4",
+          "videoId": "R1vskiVDwl4",
+          "description": "A radio host's ten rules for staying in a conversation instead of performing one.",
+          "keyPoints": [
+            "A conversation needs a balance of talking and listening, and choosing friends and partners only from people who already agree with you is a sign that balance was lost",
+            "Rule one is don't multitask: be present, and if you want to leave the conversation, leave it rather than staying half in",
+            "Rule two is don't pontificate: enter every conversation assuming you have something to learn",
+            "Rule three is open-ended questions, starting with who, what, when, where, why, or how, because a loaded yes-or-no question gets a thin answer",
+            "Rule four is go with the flow: let clever questions and side stories pass instead of stopping listening to deliver them",
+            "Rule five is if you don't know, say you don't know",
+            "Rule six is don't equate your experience with theirs; it is never the same, and the moment is not for proving how much you have suffered",
+            "Rule seven is try not to repeat yourself, and rule eight is stay out of the weeds of years, names, and dates",
+            "Rule nine, listening, is the most important; people prefer talking because it keeps them in control, and because speech is about 225 words a minute while listening capacity is up to 500, the mind fills the gap",
+            "Rule ten is be brief; the talk ends by saying to be interested in other people and prepared to be amazed"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Listen Without Fixing",
+      "level": "BEGINNER",
+      "description": "When someone is struggling, the useful move is often to stay curious and paraphrase, not to solve the problem in the first minute.",
+      "learningObjectives": [
+        "Use Arizona's CARE steps",
+        "Contrast helpful listening with fixing, platitudes, and invalidating questions",
+        "Ask what kind of help the person actually wants"
+      ],
+      "explainBack": {
+        "question": "A classmate tells you they feel hopeless about a class. You want to say \"at least you're passing\" and explain how they should study. Using Arizona's CARE page, explain what to do instead, which responses to avoid, and how to end the conversation.",
+        "rubric": [
+          "CARE is Connect, Actively Listen, Respond with compassion, and End with a next step",
+          "Connect one-on-one, name what you have noticed, and give them the option to talk",
+          "Active listening means staying calm, curious, and compassionate, and listening without trying to fix the problem",
+          "Ask how, when, or what questions, or say \"tell me more,\" and paraphrase what they said",
+          "Avoid jumping to a solution, platitudes such as \"at least\" or \"everything will be okay,\" judgment, telling them their perspective is wrong, a big reaction, and why-questions that suggest the feeling is not valid",
+          "Thank them for sharing something difficult, and ask whether they want listening, feedback, or help finding resources",
+          "End by encouraging support and offering to make a next-step plan together, including an offer to go with them or to check back"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Communicate with CARE",
+          "provider": "University of Arizona Counseling & Psych Services",
+          "url": "https://caps.arizona.edu/care",
+          "description": "A campus counseling page on connecting, listening, and ending with a next step.",
+          "keyPoints": [
+            "CARE stands for Connect, Actively Listen, Respond with compassion, and End with a next step",
+            "Connect one-on-one, in a casual and curious tone, by naming what you have noticed and asking whether they want to talk",
+            "Active listening means staying calm, curious, and compassionate, and listening with empathy without trying to fix the problem",
+            "Useful prompts are how, when, and what questions, or \"Tell me more,\" followed by a paraphrase",
+            "Avoid trying to fix it, platitudes such as \"at least\" and \"everything will be okay,\" judgment, telling them they are wrong, a big reaction, and why-questions that imply the feeling is not valid",
+            "Responding with compassion includes thanking them for sharing something hard",
+            "Ask whether they want you to listen, want feedback, or want help finding resources, rather than assuming you know what is best",
+            "End by encouraging support from friends, family, or a professional, and offer to plan the next step together, go with them, or schedule a follow-up"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Distance, Eyes, and Culture",
+      "level": "INTERMEDIATE",
+      "description": "Nonverbal cues are continuous and ambiguous. Eye contact and standing distance mean different things in different cultures, and they cannot be read like a code.",
+      "learningObjectives": [
+        "State why nonverbal communication cannot be decoded like a language",
+        "Give Hall's four U.S. conversation distances",
+        "Contrast contact and noncontact cultures, and how eye contact is read"
+      ],
+      "explainBack": {
+        "question": "You stand close to a new classmate, hold steady eye contact, and decide from their face that they are bored with you. Using the Whatcom nonverbal chapter, explain why that reading is unsafe, what Hall's U.S. distances are, and how contact culture and eye-contact norms can change the meaning.",
+        "rubric": [
+          "Nonverbal communication is everything except the words, uses many channels at once, is more ambiguous than words, has fewer rules, and never really stops",
+          "When verbal and nonverbal messages conflict, people usually trust the nonverbal one, but they also assign intention to cues that were unintentional",
+          "There is no universal body-language dictionary; claims that you can read people like a book are a misconception, and deception cannot be reliably spotted from nonverbal cues",
+          "In the United States, eye contact often signals interest and confidence, but people avoid it in crowded impersonal settings; in the Middle East direct eye contact is less common, and in Asia lack of eye contact is often polite respect",
+          "A smile is not universal in meaning: the chapter contrasts Russian, Hispanic, Japanese, and U.S. uses of smiling",
+          "Hall's U.S. distances are intimate space 0 to 18 inches, personal space 18 inches to 4 feet for friends, social space 4 to 12 feet for strangers, and public space beyond 12 feet",
+          "North American distances tend to be larger than those in Latin America and the Middle East, where a large gap can seem aloof",
+          "Contact cultures stand closer, touch more, and use more direct eye contact; noncontact cultures, including Great Britain, the United States, and Japan, stand farther apart and touch less"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Chapter 5 – Nonverbal Communication",
+          "provider": "Whatcom Community College",
+          "url": "https://textbooks.whatcom.edu/cmst225/chapter/chapter-5/",
+          "description": "An intercultural textbook chapter on why body cues are ambiguous, and on distance and eye contact.",
+          "keyPoints": [
+            "Nonverbal communication is everything except the words, including gestures, facial expression, posture, distance, and vocal characteristics",
+            "It uses multiple channels at once, is more ambiguous than verbal communication, has fewer rules, and continues even when talking stops",
+            "When verbal and nonverbal messages contradict, people almost always trust the nonverbal message, while often assigning intention to cues that were unintentional",
+            "A common misconception is that people can be read like a book; there is no universal code for body language",
+            "Another misconception is that deception can be accurately detected from nonverbal cues",
+            "Eye contact in the United States generally signals interest, confidence, and boldness, but people avoid it in crowded impersonal places; in France it can signal interest on the street; in the Middle East direct eye contact is less common; in Asia lack of eye contact is often a sign of respect",
+            "Smiles are not universal in meaning: the chapter says Russians may read a smile as foolish or sneaky, some Hispanic cultures prefer a proud appearance without a smile, Japan may use a smile to show respect or hide feeling, and the United States smiles to show pleasantness, happiness, gratitude, nervousness, or to get along",
+            "Hall's conversation distances in the United States are intimate space from 0 to 18 inches, personal space from 18 inches to 4 feet, social space from 4 to 12 feet, and public space from 12 feet on",
+            "North American use of space tends to be larger than in Latin America and the Middle East, where that distance can seem aloof",
+            "Contact cultures stand closer, make more direct eye contact, touch more, and speak louder; examples given are South America, the Middle East, and Eastern Europe",
+            "Noncontact cultures stand farther apart, use less eye contact, and touch less; examples given are Great Britain, the United States, and Japan"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "title": "From a Hello to a Plan",
+      "level": "INTERMEDIATE",
+      "description": "A friendship grows from small, repeated contact and a little self-disclosure, not from finding a perfect circle on the first night.",
+      "learningObjectives": [
+        "Set a micro-goal for one social situation",
+        "Share a little and invite a repeat",
+        "Explain why rest is part of making friends"
+      ],
+      "explainBack": {
+        "question": "You went to one club meeting, talked to nobody, and decided you are bad at friends. Using Oregon State's friendship guide, explain a smaller way to start, how repeated plans matter, and why going home early can still be part of the skill.",
+        "rubric": [
+          "Friendship often starts with small gestures: saying hi in a residence hall, chatting before class, or asking someone about a place to eat",
+          "Nervousness is common; start with a situation that feels manageable and credit the small step",
+          "You do not have to edit your personality to fit in",
+          "Connection is easier in places that match your interests, such as a club, a sport, a workshop, or volunteering",
+          "Share a little about what you care about, at a pace that feels right, and be curious by asking questions and listening",
+          "A micro-goal might be talking to one person, staying 20 minutes, or making eye contact with someone new",
+          "Friendships need repeated touchpoints: suggest a regular study meetup, a weekly meal, or a check-in before class, and keep showing up",
+          "If socializing drains you, rest and set boundaries; healthy friendships grow better when you take care of yourself",
+          "Most people are also looking, and a friendship does not require a huge circle"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Friendship 101: Tips for making friends and where to find them",
+          "provider": "Oregon State University Counseling & Psychological Services",
+          "url": "https://counseling.oregonstate.edu/all-stories/friendship-101-tips-making-friends-and-where-find-them",
+          "description": "A campus counseling guide on starting small, repeating contact, and recharging.",
+          "keyPoints": [
+            "Friendship often begins with small gestures such as saying hi in a residence hall, chatting before class, or asking a teammate where to eat",
+            "Many students feel social anxiety or uncertainty; start with manageable situations and celebrate each small step",
+            "You do not have to change who you are to fit in",
+            "Connection happens in places that match your interests, including cultural centers, club sports, craft workshops, volunteering, and student clubs",
+            "People feel closer when you share a little of what you care about, at a pace that feels right",
+            "Be curious: ask questions and listen; you do not have to be the most outgoing person in the room",
+            "A micro-goal before an event might be talking to one person, staying 20 minutes, or smiling and making eye contact with someone new",
+            "Friendships take root through repeated contact, so suggest a regular study meetup, a weekly meal, or a check-in before class, and keep showing up",
+            "If socializing drains you, rest and set boundaries, because healthy friendships grow better when you take care of yourself",
+            "Most people are also wishing for more friends, and making friends is about being seen, not about having a huge circle"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Practice on Ordinary Days",
+      "level": "INTERMEDIATE",
+      "description": "Berkeley's health service treats greetings, names, and a two-sided conversation as practice you can do with people you already see.",
+      "learningObjectives": [
+        "Name the health reasons the Berkeley page gives for friendship",
+        "Open with a name and a question that is not yes or no",
+        "Invite someone who is standing alone"
+      ],
+      "explainBack": {
+        "question": "You only talk to people at parties, and when you do, you ask a string of yes-or-no questions and forget their names. Using Berkeley's social wellness page, explain why friendship is worth the practice, how to open, and what to do when you notice someone standing alone.",
+        "rubric": [
+          "The page says studies link friends with lower stress, a stronger immune system, and a better ability to concentrate and learn",
+          "Start with \"Hi, I'm ___\" and learn names, because a name is an immediate connection",
+          "Take the lead with questions that are not answered by yes or no, and use their hints to find a topic they enjoy",
+          "Start from common, non-controversial interests such as movies, popular music, and current events",
+          "Do not become an interrogator; share as well as ask",
+          "Practice with people you already see, such as a cashier, including small talk about the weather, eye contact, and sincere interest",
+          "If someone is standing alone, invite them over and make space in the conversation",
+          "Be patient on an off day, and keep putting yourself out there even if you do not have a friend group yet",
+          "Some friendships last a project or a semester and others last longer; both can start with a hello"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Social Health and Wellness",
+          "provider": "University Health Services, UC Berkeley",
+          "url": "https://uhs.berkeley.edu/calbearssayhi",
+          "description": "Berkeley's tips for greetings, two-sided conversation, and letting someone join.",
+          "keyPoints": [
+            "The page says studies link having friends with lower stress, a heartier immune system, and an increased ability to concentrate and learn",
+            "Start with \"Hi, I'm ____\" and learn names, because a name becomes an immediate connection",
+            "Ask questions that lead to answers other than yes or no, and use the hints they give you",
+            "Find common interests in everyday, non-controversial topics such as movies, popular music, and current events",
+            "Practice give-and-take so you do not become an interrogator; do your share of sharing",
+            "Catch a thought like \"I'm never going to make new friends\" and reframe it",
+            "Practice with people you see daily, such as dining-hall cashiers: say hi, make small talk, and listen with eye contact and sincere interest",
+            "If you see someone standing alone, invite them over and make space for them to join",
+            "Even socially gifted people have off days; a few patient minutes can help, and not having a friend group yet is not a reason to stop",
+            "Some friendships last a project or a semester and some last much longer; both start with a hello"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "title": "When Fear of People Takes Over",
+      "level": "INTERMEDIATE",
+      "description": "Ordinary nerves before a party are not the same as social anxiety disorder. NIMH describes a fear of being judged that lasts, interferes with daily life, and can be treated.",
+      "learningObjectives": [
+        "Separate ordinary stress from social anxiety disorder",
+        "List signs NIMH names, including the six-month mark",
+        "Name the treatments NIMH describes and when to ask for help"
+      ],
+      "explainBack": {
+        "question": "For eight months you have avoided class and the cashier because you are sure people are judging you, and you blush, go blank, and replay every conversation afterward. Using NIMH's guide, explain how this differs from ordinary stress, what a diagnosis requires, and what treatment can look like.",
+        "rubric": [
+          "Social anxiety disorder is fear or anxiety in situations where a person may be scrutinized, evaluated, or judged, such as meeting people, class, interviews, or talking to a cashier",
+          "Everyday acts such as eating, drinking, or using a public restroom can also trigger fear of humiliation, judgment, or rejection",
+          "The fear often feels uncontrollable, can involve weeks of worry beforehand, and can lead to avoiding places; for some people it is limited to performance situations",
+          "It usually starts in childhood or adolescence, can look like extreme shyness, and occurs more often in women than in men, especially in adolescents and young adults",
+          "Signs include blushing, sweating, trembling, a rapid heart rate, a blank mind, nausea, rigid posture, a soft voice, difficulty with eye contact, expecting the worst, and analyzing the interaction afterward",
+          "Avoidance can feel helpful in the short term, but the anxiety is likely to remain without treatment",
+          "Stress is a response to an external cause; anxiety can occur even without a current threat; an anxiety disorder is when anxiety does not go away and interferes with daily activities",
+          "Diagnosis requires strong fear of being judged, avoidance or extreme discomfort, lasting at least 6 months, and interference with work, school, or relationships",
+          "Treatment is psychotherapy, medication, or both; CBT is called the gold standard and can include exposure and social-skills practice; ACT is another option",
+          "Medications NIMH names include SSRI and SNRI antidepressants, beta-blockers for performance anxiety, and benzodiazepines for brief periods because of tolerance and dependence",
+          "Seek help when anxiety causes problems in everyday life, such as avoiding social situations at school, work, or with friends; if someone is in crisis, call or text 988"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Social Anxiety Disorder: What You Need to Know",
+          "provider": "National Institute of Mental Health",
+          "url": "https://www.nimh.nih.gov/health/publications/social-anxiety-disorder-more-than-just-shyness",
+          "description": "NIMH on how social anxiety disorder differs from ordinary shyness, and how it is treated.",
+          "keyPoints": [
+            "Social anxiety disorder is fear in situations where a person may be scrutinized, evaluated, or judged, including public speaking, meeting new people, dating, interviews, answering in class, asking for help, or talking to a cashier",
+            "Eating, drinking, or using a public restroom in front of others can also cause fear of being humiliated, judged, or rejected",
+            "The fear often feels uncontrollable, people may worry for weeks before an event, and some avoid the places entirely; in some cases the fear is only about performance",
+            "It usually starts in childhood or adolescence, may look like extreme shyness, and occurs more frequently in women than in men, especially among adolescents and young adults",
+            "Signs include blushing, sweating, trembling, rapid heart rate, a blank mind, feeling sick, rigid posture, a soft voice, trouble with eye contact, fear of negative judgment, avoidance, replaying the interaction, and expecting the worst",
+            "Children and teens may also avoid school, have trouble making friends, complain of stomachaches or headaches, have emotional outbursts, or refuse to speak",
+            "Avoiding the situation may feel helpful briefly, but the anxiety is likely to remain without treatment",
+            "Stress is the response to an external cause; anxiety is the body's reaction and can occur with no current threat; if anxiety does not go away and interferes with daily life, it may be an anxiety disorder",
+            "Diagnosis requires strong fear of social situations where one might be judged, avoidance or extreme discomfort, a duration of at least 6 months, and interference with daily life",
+            "Treatment is typically psychotherapy, medication, or both; cognitive behavioral therapy is the gold-standard psychotherapy and can include exposure and social-skills practice; acceptance and commitment therapy is another option with growing evidence",
+            "Medications include SSRI and SNRI antidepressants, beta-blockers for the physical symptoms of performance anxiety, and benzodiazepines, which a provider may limit to brief periods because of tolerance and dependence",
+            "If anxiety starts to cause problems in everyday life, seek professional help; if you or someone you know is struggling or thinking about suicide, call or text 988"
+          ]
+        }
+      ]
+    }
+  ],
+  "slug": "socializing",
+  "name": "Socializing",
+  "description": "Start a conversation and keep a friend: why proximity matters, how small talk works, how to listen without taking over, what distance and eye contact mean across cultures, and when fear of people is more than ordinary nerves.",
+  "status": "COMING_SOON"
+}

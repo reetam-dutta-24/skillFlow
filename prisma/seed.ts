@@ -164,6 +164,8 @@ async function main() {
   await importCatalog("photography", { apply: true })
   await importCatalog("emergency-preparedness", { apply: true })
   await importCatalog("badminton", { apply: true })
+  await importCatalog("relationships", { apply: true })
+  await importCatalog("socializing", { apply: true })
 }
 
 main()

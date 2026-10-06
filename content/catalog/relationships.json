@@ -1,0 +1,462 @@
+{
+  "stages": [
+    {
+      "order": 1,
+      "title": "What a Healthy Relationship Looks Like",
+      "level": "BEGINNER",
+      "description": "A healthy relationship is equal, trusted, and still leaves room for each person to be themselves. Disagreement is expected. Harm is not.",
+      "learningObjectives": [
+        "Name the traits CDC links with a lower risk of dating violence",
+        "Explain what it means for each partner to keep their individuality",
+        "Describe how a healthy pair handles disagreement"
+      ],
+      "explainBack": {
+        "question": "A friend says a caring partner should want to spend all their time together and should drop their other friends. Using the CDC educator handbook, explain what a healthy relationship actually looks like, and how disagreement is handled when both people are equal partners.",
+        "rubric": [
+          "Traits linked with lower risk include non-violent conflict resolution, effective communication, the ability to negotiate and adjust to stress, belief in a partner's right to autonomy, shared decision-making, and trust",
+          "Each partner keeps their individuality: time apart, other friends, and the activities that matter to them",
+          "Partners respect physical and emotional boundaries and each other's privacy",
+          "Each partner listens, points out positive qualities, and communicates honestly with respectful words",
+          "Disagreement is expected; the relationship stays healthy when those conflicts are handled without hurting each other",
+          "Each partner treats the other as an equal, and both make decisions together"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Understanding Teen Dating Violence Prevention: Training for Educators Handbook",
+          "provider": "Centers for Disease Control and Prevention",
+          "url": "https://vetoviolence.cdc.gov/sites/default/files/HeaRT-Training-for-Educators-Manual-508.pdf",
+          "description": "CDC's educator handbook on the characteristics of a healthy and safe relationship.",
+          "keyPoints": [
+            "Traits associated with a lower risk of dating violence include belief in non-violent conflict resolution, effective communication, the ability to negotiate and adjust to stress, belief in a partner's right to autonomy, shared decision-making, and trust",
+            "Each partner keeps their individuality and feels free to spend time apart, keep other friends, and continue the activities that matter to them",
+            "Partners respect physical and emotional boundaries and each other's privacy",
+            "Each partner listens, is respectful and encouraging, and can point out positive qualities",
+            "Partners will not always agree; a healthy relationship is defined by how those disagreements are handled",
+            "Healthy communication means being honest and expressing thoughts and feelings with respectful words",
+            "Each partner treats the other as an equal, and both make decisions in the relationship"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": "How People Become Close",
+      "level": "BEGINNER",
+      "description": "Closeness usually starts with seeing someone often and sharing a background, then deepens when the giving goes both ways.",
+      "learningObjectives": [
+        "Explain why proximity and similarity predict who we get close to",
+        "Define reciprocity and self-disclosure",
+        "Use Sternberg's three components to name a type of love",
+        "State what social exchange theory says people tally"
+      ],
+      "explainBack": {
+        "question": "You keep running into the same classmate, you like the same music, and you have started telling each other real things about your week. Using the OpenStax section, explain why that pattern makes a relationship more likely, what intimacy, passion, and commitment each add, and what would make you stay or leave according to social exchange theory.",
+        "rubric": [
+          "Proximity, regular contact, is the most influential factor in who we befriend or date, because it creates the chance to know someone",
+          "People are attracted to those similar in background, attitudes, and lifestyle; there is no evidence that opposites attract",
+          "Homophily is forming networks with similar people, and it limits exposure to different points of view",
+          "Reciprocity is the give and take; we like people who like us back",
+          "Self-disclosure is sharing personal information, and it builds more intimate connection when it matches how we see ourselves",
+          "Sternberg's three components are intimacy (sharing thoughts and emotions), passion (physical attraction), and commitment (standing by the person)",
+          "Consummate love has all three; romantic love is passion and intimacy without commitment; companionate love is intimacy and commitment without passion",
+          "Social exchange theory says people tally costs and benefits and are dissatisfied when a relationship costs more than it returns"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "12.7 Prosocial Behavior",
+          "provider": "OpenStax, Psychology 2e",
+          "url": "https://openstax.org/books/psychology-2e/pages/12-7-prosocial-behavior",
+          "description": "How proximity, similarity, love's three parts, and a cost-benefit tally shape relationships.",
+          "keyPoints": [
+            "Proximity, the people you have the most contact with, is the single most influential factor in who you befriend or date",
+            "Decades of research show people become friends with those in the same dorm, building, or neighborhood more often than with people farther away",
+            "Similarity of background, attitudes, and lifestyle predicts friendship and romance; there is no evidence that opposites attract",
+            "Homophily is the tendency to form friendships, marriages, and other ties with similar people, and it limits exposure to different points of view",
+            "Reciprocity is the give and take; people like and engage with those who like them back",
+            "Self-disclosure is sharing personal information, and it is a feature of healthy intimate relationships when it fits the person's own view of themselves",
+            "Sternberg's triangular theory names three components: intimacy (sharing details and emotions), passion (physical attraction), and commitment (standing by the person)",
+            "Consummate love has all three; liking is intimacy alone; infatuation is passion alone; empty love is commitment alone; companionate love is intimacy plus commitment; romantic love is passion plus intimacy; fatuous love is passion plus commitment",
+            "Social exchange theory says people act like naive economists, maximizing benefits and minimizing costs, and are dissatisfied when costs outweigh benefits"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": "The First Bond",
+      "level": "BEGINNER",
+      "description": "Attachment is the lasting tie an infant forms with a caregiver. The Strange Situation sorts that tie into styles, and the styles are not the whole story.",
+      "learningObjectives": [
+        "Define attachment and a secure base",
+        "Contrast secure, avoidant, resistant, and disorganized attachment",
+        "Name two criticisms of Ainsworth's account"
+      ],
+      "explainBack": {
+        "question": "In the Strange Situation, one toddler explores while a parent is in the room, is upset when the parent leaves, and is glad when the parent returns. Another toddler treats the parent like a stranger. Explain Bowlby's idea of a secure base, which attachment style each child fits, and why temperament and culture complicate the story.",
+        "rubric": [
+          "Bowlby defined attachment as the affectional bond an infant forms with a caregiver, and said the bond continues throughout life",
+          "A secure base is a parental presence that lets the child feel safe while exploring",
+          "A healthy attachment needs a caregiver who responds to the child's physical, social, and emotional needs, and mutually enjoyable interactions",
+          "Secure attachment, the most common and the one considered healthiest, uses the parent as a secure base, prefers the parent to a stranger, is distressed at separation, and is happy at reunion",
+          "Avoidant attachment is unresponsive to the parent, does not use the parent as a secure base, and reacts to the parent as to a stranger",
+          "Resistant attachment is clingy and fearful, extremely distressed at separation, and hard to comfort when the parent returns; Ainsworth linked it to inconsistent care",
+          "Disorganized attachment looks frozen, erratic, or like an attempt to run when the caregiver returns, and is seen most often in children who have been abused",
+          "Critics note that temperament may shape attachment, and that attachment varies across cultures in ways Ainsworth's research did not account for"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "9.3 Stages of Development",
+          "provider": "OpenStax, Psychology 2e",
+          "url": "https://openstax.org/books/psychology-2e/pages/9-3-stages-of-development",
+          "description": "Bowlby and Ainsworth on the infant-caregiver bond, and the limits of that research.",
+          "keyPoints": [
+            "Bowlby defined attachment as the affectional bond an infant forms with the mother, and said an infant must form this bond with a primary caregiver for normal social and emotional development",
+            "Bowlby said the attachment bond is powerful and continues throughout life",
+            "A secure base is a parental presence that gives the child a sense of safety while exploring",
+            "Two things are needed for a healthy attachment: a caregiver responsive to the child's physical, social, and emotional needs, and mutually enjoyable interactions",
+            "From the Strange Situation, Ainsworth identified secure, avoidant, and resistant attachment; Main and Solomon later described disorganized attachment",
+            "Secure attachment is the most common and is considered the healthiest: the toddler prefers the parent to a stranger, uses the parent as a secure base, is distressed when the caregiver leaves, and is happy when the caregiver returns",
+            "Avoidant children are unresponsive to the parent, do not use the parent as a secure base, and do not care if the parent leaves; Ainsworth linked this to insensitive, inattentive care",
+            "Resistant children are clingy, reject the parent's attempts to interact, do not explore because they are fearful, become extremely disturbed and angry at separation, and are hard to comfort; this was linked to inconsistent care",
+            "Disorganized children freeze, run erratically, or try to run away when the caregiver returns; this style is seen most often in children who have been abused",
+            "Critics say temperament may strongly influence attachment, and that attachment varies by culture in ways Ainsworth's research did not account for"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Listening So the Other Person Can Talk",
+      "level": "BEGINNER",
+      "description": "When someone is in distress, active listening helps them tell the story. Solving it for them is the less effective move.",
+      "learningObjectives": [
+        "Explain why fixing is less effective than active listening",
+        "Use paraphrase, emotion names, and open questions",
+        "Respect a no and point toward support"
+      ],
+      "explainBack": {
+        "question": "A friend is distressed and you feel you should produce a solution and get them to act on it tonight. They are not ready to say more. Using the University of Iowa page, explain what active listening does instead, which techniques to use, and where your role ends.",
+        "rubric": [
+          "The common urge is to come up with solutions, give advice that fixes the problem, and push quick action",
+          "Active listening is more effective: it lets them tell and expand the story without the expectation that you will solve it",
+          "Stories that stay unspoken tend to grow out of proportion; saying them aloud lets the person put the story in order and give language to the emotion",
+          "Keep a steady pace and stay on the main topic instead of getting lost in side topics",
+          "Use small prompts such as \"Tell me more\" and \"then what happened\"",
+          "Repeat back what they said so they can hear it",
+          "Name the emotion you hear even if they did not use that word",
+          "Ask an open question about what was going on, not a yes-or-no question",
+          "Say why you are asking, and if they are not ready to share, respect that boundary",
+          "Faculty and staff hold more power even when helping; the next step after listening is guiding them to support services when they are ready"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Students in Distress",
+          "provider": "Well-Being at Iowa, University of Iowa",
+          "author": "Barry Schreier",
+          "url": "https://wellbeing.uiowa.edu/news/2023/08/students-distress",
+          "description": "Why listening beats advice when someone is in distress, and the prompts that help them keep talking.",
+          "keyPoints": [
+            "A common belief is that helping means coming up with solutions, giving advice that fixes the problem, and convincing the person to act quickly",
+            "Active listening is more effective than trying to fix, improve, or solve",
+            "It helps the person tell and expand their story without an expectation that you will solve it",
+            "Unspoken distress often grows out of proportion in someone's head; saying it aloud puts the story in order, gives language to the emotion, and lets them hear themselves",
+            "Keep a steady, slow pace and stay on the primary topic rather than every side topic",
+            "Prompts include \"Tell me more,\" \"then what happened,\" and \"tell me more about what you mean\"",
+            "Paraphrase in small or larger statements, such as repeating what they said they struggled with",
+            "Validate by naming the emotion you sense, even if they did not use that word",
+            "Prefer an open question about what was going on over a closed yes-or-no question",
+            "People in a helping role often hold more power; say why you are asking, and if they are not ready to share, respect that boundary",
+            "After helping them tell the story, the next step is guiding them to support services when they are ready"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Four Ways a Fight Goes Wrong",
+      "level": "INTERMEDIATE",
+      "description": "Criticism, contempt, defensiveness, and stonewalling are specific habits. A complaint about one event is not the same as an attack on character.",
+      "learningObjectives": [
+        "Separate a complaint from criticism",
+        "Define contempt, defensiveness, and stonewalling",
+        "State why contempt is treated as the most serious of the four"
+      ],
+      "explainBack": {
+        "question": "During an argument one person says, \"You never think of me, you're just selfish,\" then rolls their eyes. The other says, \"Why didn't you just do it?\" and then goes silent. Name the horsemen in that exchange, how a complaint would have sounded different, and why contempt is singled out.",
+        "rubric": [
+          "A complaint is about a specific issue; criticism attacks the partner's character",
+          "The selfish example is criticism, not a complaint; the Gottman complaint example names a specific scare about running late and not calling",
+          "Contempt treats the partner with disrespect from a position of moral superiority: sarcasm, ridicule, name-calling, mimicry, eye-rolling, or scoffing",
+          "Contempt is the single greatest predictor of divorce, and contemptuous couples are more likely to suffer infectious illness",
+          "Defensiveness answers criticism with excuses and often reverses the blame, which tells the partner their concern is not taken seriously",
+          "Stonewalling is withdrawing and stopping responding, often after the earlier horsemen, and it happens when someone is physiologically flooded",
+          "If you are stonewalling, stop and ask for a break of about 20 minutes to do something soothing, then return"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "The Four Horsemen: Criticism, Contempt, Defensiveness, and Stonewalling",
+          "provider": "The Gottman Institute",
+          "url": "https://www.gottman.com/blog/the-four-horsemen-recognizing-criticism-contempt-defensiveness-and-stonewalling/",
+          "description": "Gottman's four communication patterns that predict the end of a relationship, and how each one sounds.",
+          "keyPoints": [
+            "The Four Horsemen are communication styles Gottman research links to the end of a relationship: criticism, contempt, defensiveness, and stonewalling",
+            "A complaint is about a specific issue; criticism is an attack on the partner's character",
+            "The complaint example is fear when a partner ran late and did not call; the criticism example calls the partner selfish and says they never think of others",
+            "Pervasive criticism paves the way for the other horsemen and often leads to contempt",
+            "Contempt is disrespect from a position of moral superiority: sarcasm, ridicule, name-calling, mimicry, eye-rolling, or scoffing",
+            "Contemptuous couples are more likely to suffer infectious illness, and contempt is the single greatest predictor of divorce",
+            "Defensiveness is usually a response to criticism: excuses and playing the victim, often reversing the blame",
+            "A non-defensive reply accepts responsibility, admits fault, and understands the partner's perspective",
+            "Stonewalling is withdrawing and stopping responding; it is usually a response to contempt and comes from feeling physiologically flooded",
+            "If you are stonewalling, ask for a break, spend about 20 minutes on something soothing, and return when you can talk"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Four Horsemen of the Apocalypse | The Gottman Institute: Relationship Behaviors that Lead to Failure",
+          "provider": "The Gottman Institute",
+          "url": "https://www.youtube.com/watch?v=1o30Ps-_8is",
+          "videoId": "1o30Ps-_8is",
+          "description": "The Gottman Institute's short film on the four patterns and the antidote named for each.",
+          "keyPoints": [
+            "Gottman calls criticism, contempt, defensiveness, and stonewalling the Four Horsemen because they lead toward the end of a relationship",
+            "The film says these behaviors predict relationship failure with over 90 percent accuracy if they are not changed",
+            "Criticism attacks character instead of a specific behavior; the antidote is an I statement plus a positive need",
+            "Contempt is superiority, including sarcasm, cynicism, name-calling, eye-rolling, sneering, mockery, and hostile humor, and it is the greatest predictor of relationship failure",
+            "The antidote to contempt is respect and a culture of appreciation",
+            "Defensiveness is self-protection through indignation or playing the victim, and it blames the partner; the antidote is accepting responsibility for even part of the conflict",
+            "Stonewalling is withdrawing without resolving anything; the antidote is a break of at least 20 minutes, then a return to the conversation"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "title": "Repair Before the Fight Takes Over",
+      "level": "INTERMEDIATE",
+      "description": "Conflict itself is not the problem. The repair, any move that stops the spiral, is what stable couples actually do.",
+      "learningObjectives": [
+        "Match each horseman to its antidote",
+        "Explain the 5:1 ratio and the 20-minute break",
+        "Define a repair attempt and why receiving it matters"
+      ],
+      "explainBack": {
+        "question": "A couple fights about the dishwasher, one of them goes cold, and twenty minutes later one of them makes a joke to restart the talk. Explain the antidote for each horseman, what the 5:1 ratio is for, and why Gottman treats that joke as a repair attempt.",
+        "rubric": [
+          "Conflict is unavoidable; success depends on managing it, not on resolving every difference, because some problems come from personality and will not be solved",
+          "The antidote to criticism is a gentle start-up: an I statement of feeling and need, without blame",
+          "The antidote to contempt is a culture of appreciation and respect; the magic ratio is at least five positive interactions for every negative one",
+          "Contempt is the greatest predictor of divorce and has to be avoided",
+          "The antidote to defensiveness is taking responsibility for even part of the conflict",
+          "The antidote to stonewalling is physiological self-soothing: stop, take at least 20 minutes, and avoid rehearsing indignation or victimhood",
+          "A repair attempt is any statement or action, silly or otherwise, that prevents negativity from escalating out of control",
+          "A marriage can survive the Four Horsemen if partners repair effectively; the consistent failure of repair attempts is a sign of an unhappy future",
+          "Repair has to be received as well as offered"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "The Four Horsemen: The Antidotes",
+          "provider": "The Gottman Institute",
+          "url": "https://www.gottman.com/blog/the-four-horsemen-the-antidotes/",
+          "description": "The replacement behavior for each horseman, including the five-to-one ratio and the twenty-minute break.",
+          "keyPoints": [
+            "Conflict is unavoidable; what predicts success or failure is how it is managed, not whether it appears",
+            "Some problems will not be solved because of personality differences; they can still be managed",
+            "The antidote to criticism is a gentle start-up: complain without blame, using I statements of what you feel and what you need",
+            "The antidote to contempt is a culture of appreciation and respect, built by small expressions of appreciation often",
+            "The magic ratio is five or more positive interactions for every one negative interaction",
+            "Contempt, including sarcasm, name-calling, eye-rolling, and hostile humor, is the greatest predictor of divorce",
+            "The antidote to defensiveness is accepting responsibility, even for only part of the conflict",
+            "Stonewalling is withdrawing when flooded; heart rate and stress hormones rise, and a fight-or-flight response can follow",
+            "The antidote is physiological self-soothing: stop the discussion for at least 20 minutes and do something soothing, without ruminating on indignation or victimhood"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "R is for Repair",
+          "provider": "The Gottman Institute",
+          "url": "https://www.gottman.com/blog/r-is-for-repair/",
+          "description": "Why a repair attempt is any move that stops negativity from escalating, and why it has to be received.",
+          "keyPoints": [
+            "In a relationship, repair is less about fixing something broken and more about getting back on track",
+            "Gottman describes a repair attempt as any statement or action, silly or otherwise, that prevents negativity from escalating out of control",
+            "The Repair Checklist groups phrases such as I FEEL, SORRY, GET TO YES, and STOP ACTION; couples decide together which phrases help and which make things worse",
+            "\"Calm down\" is not on the suggested list, because it does not work",
+            "The consistent failure of repair attempts is a sign of an unhappy future",
+            "Statistically, a marriage can survive the Four Horsemen if partners learn to repair effectively"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Consent Is a Conversation",
+      "level": "INTERMEDIATE",
+      "description": "Consent is a clear, voluntary, ongoing agreement. Silence, a past yes, and an involuntary body response are not consent.",
+      "learningObjectives": [
+        "Define consent and who is capable of giving it",
+        "Explain enthusiastic consent and withdrawal",
+        "List what does not count as consent"
+      ],
+      "explainBack": {
+        "question": "Someone says they already agreed last week, the other person has gone quiet, and one partner points to physical arousal as proof everything is fine. Using RAINN's consent page, explain what consent requires, why that situation is not consent, and what to do if consent was missing.",
+        "rubric": [
+          "Consent is a mutual agreement to sexual activity that is clear, voluntary, and communicated without pressure, manipulation, or fear",
+          "Everyone involved must be of legal age, sober and alert, and not under coercion or threat",
+          "Consent is needed every time and for every activity; a past yes or a yes to one act is not a yes to everything",
+          "Someone underage, asleep, intoxicated, or manipulated into saying yes cannot consent",
+          "Ask before moving forward, respect a no including a quiet or nonverbal no, and check in as things progress",
+          "Consent can be withdrawn at any time; freezing, pulling away, or going silent are signals to stop",
+          "Enthusiastic consent looks for a clear positive yes and active participation, not merely the absence of no",
+          "Arousal, lubrication, or orgasm are involuntary and do not equal consent",
+          "Clothing, flirting, past encounters, pressure, intoxication, silence, and lack of resistance are not consent",
+          "If something happened without consent, it was not the survivor's fault; RAINN's hotline is 800.656.HOPE, chat at rainn.org/hotline, or text HOPE to 64673"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Consent 101: Respect, Boundaries, and Building Trust",
+          "provider": "RAINN",
+          "url": "https://rainn.org/share-the-facts/consent-101-respect-boundaries-and-building-trust/",
+          "description": "RAINN's account of what consent is, what it is not, and how to practice it.",
+          "keyPoints": [
+            "Consent is a mutual agreement to sexual activity that is clear, voluntary, and free of pressure, manipulation, or fear",
+            "A person must be of legal age, sober and alert, and not under coercion or threat",
+            "Consent is ongoing: it is needed every time and for every type of activity, and a past yes does not cover a new act",
+            "Someone underage, asleep, intoxicated, or manipulated into saying yes cannot give consent",
+            "Practice means asking if this is okay, listening to words and body language, respecting even a quiet or nonverbal no, and checking in as things progress",
+            "Consent can be withdrawn at any time; freezing, pulling away, or going silent are reasons to stop immediately",
+            "Enthusiastic consent seeks a clear positive yes and active participation, not just the absence of no",
+            "Arousal, lubrication, or orgasm are involuntary and do not equal consent",
+            "Ignoring a no, assuming consent from clothing, flirting, or the past, pressuring a yes, using intoxication, or treating silence as agreement are all absence of consent",
+            "If something happened without consent it was not the person's fault; RAINN's National Sexual Assault Hotline is 800.656.HOPE (4673), chat at RAINN.org/hotline, or text HOPE to 64673"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "title": "When It Stops Being Safe",
+      "level": "INTERMEDIATE",
+      "description": "Teasing and name-calling are not a normal price of closeness. Dating violence and stalking are patterns of harm, and they are preventable.",
+      "learningObjectives": [
+        "Name the four forms of teen dating violence CDC lists",
+        "Explain why teasing and name-calling are warning signs",
+        "Describe stalking tactics, including technology"
+      ],
+      "explainBack": {
+        "question": "A classmate is being teased and checked on constantly by a dating partner, including through unwanted texts, and they have not told anyone because they think it is normal. Using the CDC pages, explain what kinds of harm dating violence includes, why the teasing matters, and what stalking adds.",
+        "rubric": [
+          "Teen dating violence can happen in person, online, or through technology",
+          "Physical violence is hurting or trying to hurt a partner by hitting, kicking, or other force",
+          "Sexual violence is forcing or attempting a sexual act or touching without consent, including when the partner cannot consent, and includes sharing sexual images without consent",
+          "Psychological aggression is verbal or nonverbal communication meant to harm a partner mentally or emotionally and to exert control",
+          "Stalking is a pattern of repeated, unwanted attention and contact by a current or former partner that causes fear or concern for safety",
+          "Teasing and name-calling are often treated as normal, but they can become abusive and develop into serious violence",
+          "Many teens do not report unhealthy behavior because they are afraid to tell family and friends",
+          "Among dating high school students in the 2021 Youth Risk Behavior Survey, about 1 in 12 experienced physical dating violence and about 1 in 10 experienced sexual dating violence",
+          "Victims are more likely to have depression and anxiety, to use tobacco, drugs, or alcohol, to show antisocial behavior, and to think about suicide",
+          "Stalking tactics include following, showing up, leaving items, entering a home or car, unwanted gifts, and using cameras, software, GPS, calls, texts, email, or social media"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Teen Dating Violence",
+          "provider": "Centers for Disease Control and Prevention",
+          "url": "https://www.cdc.gov/intimate-partner-violence/about/about-teen-dating-violence.html",
+          "description": "CDC definitions of teen dating violence, why early teasing matters, and the health effects.",
+          "keyPoints": [
+            "Teen dating violence can take place in person, online, or through technology",
+            "Physical violence is hurting or trying to hurt a partner by hitting, kicking, or other physical force",
+            "Sexual violence is forcing or attempting to force a partner into a sexual act or touching without consent, including when the partner cannot consent, and non-physical acts such as sharing sexual images without consent",
+            "Psychological aggression is verbal and non-verbal communication intended to harm a partner mentally or emotionally and to exert control",
+            "Stalking is a pattern of repeated, unwanted attention and contact by a current or former partner that causes fear or safety concerns",
+            "Teens often treat teasing and name-calling as normal, but those behaviors can become abusive and develop into serious violence",
+            "Many teens do not report unhealthy behaviors because they are afraid to tell family and friends",
+            "In the 2021 Youth Risk Behavior Survey, about 1 in 12 dating high school students experienced physical dating violence and about 1 in 10 experienced sexual dating violence",
+            "Youth who are victims are more likely to experience depression and anxiety, use tobacco, drugs, and alcohol, exhibit antisocial behaviors, and think about suicide",
+            "Violence in an adolescent relationship raises the risk of intimate partner violence and sexual violence later, including victimization in college",
+            "Dating Matters teaches 11-to-14-year-olds skills such as managing feelings and communicating in a healthy way"
+          ]
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Stalking",
+          "provider": "Centers for Disease Control and Prevention",
+          "url": "https://www.cdc.gov/intimate-partner-violence/about/about-stalking.html",
+          "description": "CDC's description of stalking as a pattern of unwanted tactics that cause fear.",
+          "keyPoints": [
+            "Stalking is a pattern of harassing or threatening tactics that are unwanted and cause fear or safety concerns",
+            "Tactics include following and watching, showing up at home or work, leaving strange or threatening items, and entering a home or car to frighten the victim",
+            "Unwanted cards, letters, flowers, or presents can be stalking tactics",
+            "Technology tactics include cameras or software used to spy, GPS tracking, and unwanted calls, texts, email, social media, or photo messages",
+            "Nearly 69 percent of female and 80 percent of male victims experienced threats of physical harm from the stalker during their lifetime",
+            "Research links stalking victimization with posttraumatic stress symptoms, hopelessness, depression, and anxiety"
+          ]
+        }
+      ]
+    }
+  ],
+  "slug": "relationships",
+  "name": "Relationships",
+  "description": "Tell a healthy relationship from an unsafe one: how closeness forms, what the first bond teaches, how to listen, how criticism and contempt take over a fight, how to repair, what consent requires, and when teasing has become harm.",
+  "status": "COMING_SOON"
+}

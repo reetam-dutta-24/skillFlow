@@ -1267,6 +1267,17 @@ body {
   letter-spacing: var(--tracking-tight);
   color: var(--text-primary);
 }
+@media (max-width: 640px) {
+  .sf-about-visual {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    min-height: 0;
+  }
+  .sf-about-visual li:first-child {
+    grid-row: auto;
+    min-height: 180px;
+  }
+}
 .sf-kicker {
   margin: 0;
   font-size: var(--text-2xs);
@@ -1634,6 +1645,7 @@ body {
   flex-direction: column;
   justify-content: center;
   padding: clamp(2rem, 6vh, 4rem) clamp(24px, 4vw, 64px);
+  overflow-x: clip;
   background: var(--bg-sunken);
 }
 .sf-auth-stage {
@@ -2069,9 +2081,14 @@ body {
 .sf-pick-skills .sf-pick {
   min-height: 0;
 }
-@media (min-width: 720px) {
+@media (min-width: 961px) {
   .sf-pick-skills {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .sf-pick-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 .sf-swatch-grid {
@@ -3545,6 +3562,16 @@ a.sf-source:hover {
   margin: 0;
   padding: 0;
   list-style: none;
+}
+@media (max-width: 960px) {
+  .sf-video-feed {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .sf-video-feed {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 .sf-video-card {
   display: grid;
@@ -6970,7 +6997,7 @@ html.dark .sf-map-canvas .maplibregl-canvas {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
 }
-@media (max-width: 639px) {
+@media (max-width: 640px) {
   .sf-event-online-list {
     grid-template-columns: minmax(0, 1fr);
   }

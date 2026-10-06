@@ -232,7 +232,7 @@ Stage photos were generated for all 10 Content Creation stages and all 8 Travel 
 - Stripe charges anyone.
 - A creator has a rating or earnings.
 - The app is deployed, monitored, or covered by an end-to-end test.
-- Every accent and a 375px phone width were fully audited.
+- Every accent was checked for contrast on both themes.
 - Art & Painting has a roadmap. It does not.
 
 ---
@@ -356,7 +356,7 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 - [x] Settings follow and unfollow
 - [x] Explain-back UI calling a real grader
 - [x] Home and roadmap no longer show a preview Add. Explore links to the niche list. Follow stays on Settings
-- [ ] A full responsive pass, including 375px
+- [x] A full responsive pass, including 375px
 - [x] Landing, auth carousel, and onboarding name Travel Vlogging instead of Art
 
 ## PHASE 7 — Content seeding

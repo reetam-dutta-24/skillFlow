@@ -44,6 +44,27 @@ describe("eventsFromGoogle", () => {
     });
   });
 
+  it("reads a day-then-month card that has no ticket link", () => {
+    const events = eventsFromGoogle(
+      {
+        events_results: [
+          {
+            title: "Camden Indie Night",
+            date: "6 Oct",
+            time: "19:00",
+            address: ["The Elephants Head", "Camden Town"],
+          },
+        ],
+      },
+      NOW,
+    );
+    expect(events).toHaveLength(1);
+    expect(events[0]?.startsAt.toISOString()).toBe("2026-10-06T19:00:00.000Z");
+    expect(events[0]?.venueName).toBe("The Elephants Head");
+    expect(events[0]?.city).toBe("Camden Town");
+    expect(events[0]?.url.startsWith("https://www.google.com/search?q=")).toBe(true);
+  });
+
   it("keeps an online event and drops a row with no date", () => {
     expect(events.map((event) => event.title)).toEqual(["Porto Creator Meetup", "Online editing workshop"]);
     expect(events[1]?.isOnline).toBe(true);

@@ -18,8 +18,11 @@ async function search(query: EventQuery): Promise<SourceResult> {
   }
 
   const url = new URL("https://serpapi.com/search.json");
-  url.searchParams.set("engine", "google_events");
-  url.searchParams.set("q", `${query.keywords.slice(0, 3).join(" ")} in ${query.city}`);
+  // Google retired the separate Events tab in September 2026. SerpApi rejects engine=google_events.
+  // A normal Google search still returns the events carousel as events_results.
+  url.searchParams.set("engine", "google");
+  url.searchParams.set("q", `${query.keywords.slice(0, 3).join(" ")} events in ${query.city}`);
+  if (query.country.trim()) url.searchParams.set("location", `${query.city}, ${query.country}`);
   url.searchParams.set("api_key", apiKey);
   url.searchParams.set("hl", "en");
 

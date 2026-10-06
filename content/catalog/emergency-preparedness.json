@@ -704,7 +704,7 @@
         {
           "order": 3,
           "type": "DOC_LINK",
-          "needsReview": false,
+          "needsReview": true,
           "isFree": true,
           "language": "en",
           "title": "Earthquakes: Do's and Don'ts",

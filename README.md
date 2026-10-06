@@ -4,7 +4,7 @@ A mastery-first learning platform. Curated roadmaps, your own resources, and an 
 
 ## Status
 
-Thirty paths are free. Twenty-one of them have catalogs:
+Thirty paths are free. Twenty-five of them have catalogs:
 
 - Full-Stack Web Development — 12 stages, 64 resources. Stages 1–9 are the open stretch.
 - Travel Vlogging — 8 stages, 46 resources. Stages 1–5 are the open stretch.
@@ -27,8 +27,12 @@ Thirty paths are free. Twenty-one of them have catalogs:
 - Podcasting — 8 stages, 12 resources. Stages 1–5 are the open stretch.
 - Guitar — 8 stages, 10 resources. Stages 1–5 are the open stretch.
 - Chess — 8 stages, 10 resources. Stages 1–5 are the open stretch.
+- Art & Painting — 8 stages, 43 resources. Stages 1–5 are the open stretch. Two links are marked for review and stay until a working page is chosen.
+- Photography — 8 stages, 41 resources. Stages 1–5 are the open stretch. One link is marked for review and stays until a working page is chosen.
+- Emergency Preparedness — 8 stages, 40 resources. Stages 1–5 are the open stretch. One link is marked for review and stays until a working page is chosen.
+- Badminton — 8 stages, 41 resources. Stages 1–5 are the open stretch. One link is marked for review and stays until a working page is chosen.
 
-The next stage on a free path opens after the explain-back. The last three stages stay locked. A stage waiting on that pass stays readable, with a lock. The last two stages on the path stay blurred. The other nine free paths have no stages yet: Art & Painting, Photography, Emergency Preparedness, Badminton, Interior Design, Relationships, Socializing, Freelancing, and Travel Planning. Art & Painting stays a flagship. Photography's catalog file is written and not imported because one link returned 404. Emergency Preparedness's catalog file is written and not imported because one link returned 404. Badminton's catalog file is written and not imported because one link returned 404. Every other niche is Premium, with no stages and no resources. Payments are not built.
+The next stage on a free path opens after the explain-back. The last three stages stay locked. A stage waiting on that pass stays readable, with a lock. The last two stages on the path stay blurred. The other five free paths have no stages yet: Interior Design, Relationships, Socializing, Freelancing, and Travel Planning. Art & Painting stays a flagship. Every other niche is Premium, with no stages and no resources. Payments are not built.
 
 The niche list shows 32 cards a page. Home and roadmaps show the first 12, a blurred peek of the next row, and a link to the full list.
 

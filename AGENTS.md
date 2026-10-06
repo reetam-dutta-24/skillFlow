@@ -22,7 +22,7 @@ There is no comments, likes, view counts, or payments. Do not build Stripe.
 
 ## Free paths and Premium niches
 
-Thirty paths are free and available to everyone. The list is `FREE_PATH_SLUGS` in `lib/niches/tiers.ts`. Twenty-one of them have catalogs today. The other nine are free and have no stages until a catalog is added through the admin CMS. Do not invent those catalogs.
+Thirty paths are free and available to everyone. The list is `FREE_PATH_SLUGS` in `lib/niches/tiers.ts`. Twenty-five of them have catalogs today. The other five are free and have no stages until a catalog is added through the admin CMS. Do not invent those catalogs.
 
 A stage is structurally open when the skill is `AVAILABLE`, the offer is `FREE`, the stage is not monetized, and `stage.order <= max(1, stageCount - 3)` (`LOCKED_TAIL = 3`). The last three stages stay locked for everyone. Their real description and resources are not sent. The tail placeholder is "This part of the path stays locked."
 
@@ -51,18 +51,22 @@ On top of that, the next stage stays shut for this learner until every earlier o
 | `podcasting` | Podcasting | AVAILABLE | FREE | no | 8 | 12 | 2 | 8 |
 | `guitar` | Guitar | AVAILABLE | FREE | no | 8 | 10 | 3 | 8 |
 | `chess` | Chess | AVAILABLE | FREE | no | 8 | 10 | 1 | 8 |
+| `art-painting` | Art & Painting | AVAILABLE | FREE | yes | 8 | 43 | 11 | 8 |
+| `photography` | Photography | AVAILABLE | FREE | no | 8 | 41 | 13 | 8 |
+| `emergency-preparedness` | Emergency Preparedness | AVAILABLE | FREE | no | 8 | 40 | 13 | 8 |
+| `badminton` | Badminton | AVAILABLE | FREE | no | 8 | 41 | 13 | 8 |
 
-Open stages: Full-Stack 1–9, Travel 1–5, Content Creation 1–7, Music Production 1–5, Self Grooming 1–5, Animation & VFX 1–5, IoT & Robot Automation 1–5, Screenwriting 1–5, Graphic Design 1–5, SEO 1–5, AI Tools 1–5, Cybersecurity 1–5, Digital Marketing 1–5, Personal Finance 1–5, Public Speaking 1–5, Sound Design 1–5, Nutrition 1–5, Psychology 1–5, Podcasting 1–5, Guitar 1–5, Chess 1–5.
+Open stages: Full-Stack 1–9, Travel 1–5, Content Creation 1–7, Music Production 1–5, Self Grooming 1–5, Animation & VFX 1–5, IoT & Robot Automation 1–5, Screenwriting 1–5, Graphic Design 1–5, SEO 1–5, AI Tools 1–5, Cybersecurity 1–5, Digital Marketing 1–5, Personal Finance 1–5, Public Speaking 1–5, Sound Design 1–5, Nutrition 1–5, Psychology 1–5, Podcasting 1–5, Guitar 1–5, Chess 1–5, Art & Painting 1–5, Photography 1–5, Emergency Preparedness 1–5, Badminton 1–5.
 
-The other nine free slugs, still with no stages: `art-painting`, `photography`, `emergency-preparedness`, `badminton`, `interior-design`, `relationships`, `socializing`, `freelancing`, `travel-planning`.
+The other five free slugs, still with no stages: `interior-design`, `relationships`, `socializing`, `freelancing`, `travel-planning`.
 
-**Art & Painting** (`art-painting`) stays a flagship and one of the thirty free paths. `content/catalog/art-painting.json` is written and not imported: the link check failed on `https://www.acmiart.org/acmi-seals` (404) and `https://www.ucl.ac.uk/slade/know/1818` (502). Do not delete it. Do not swap those links.
+**Art & Painting** (`art-painting`) is imported and stays a flagship. Two resources are marked for review and their URLs stay until a working page is chosen: `https://www.acmiart.org/acmi-seals` (404) and `https://www.ucl.ac.uk/slade/know/1818` (502 to the checker). Do not delete the file. Do not swap those links.
 
-**Photography** (`photography`) is one of the thirty free paths and is not a flagship. `content/catalog/photography.json` is written and not imported: the link check failed on `https://www.nikon.co.uk/en_GB/learn-and-explore/magazine/tips-and-tricks/understanding-focal-length` (404). Do not delete it. Do not swap that link.
+**Photography** (`photography`) is imported and is not a flagship. One resource is marked for review and its URL stays: `https://www.nikon.co.uk/en_GB/learn-and-explore/magazine/tips-and-tricks/understanding-focal-length` (404). Do not swap that link.
 
-**Emergency Preparedness** (`emergency-preparedness`) is one of the thirty free paths and is not a flagship. `content/catalog/emergency-preparedness.json` is written and not imported: the link check failed on `https://ndma.gov.in/Natural-Hazards/Earthquakes/Dos-Donts` (404). Do not delete it. Do not swap that link.
+**Emergency Preparedness** (`emergency-preparedness`) is imported and is not a flagship. One resource is marked for review and its URL stays: `https://ndma.gov.in/Natural-Hazards/Earthquakes/Dos-Donts` (404). Do not swap that link.
 
-**Badminton** (`badminton`) is one of the thirty free paths and is not a flagship. `content/catalog/badminton.json` is written and not imported: the link check failed on `https://dlgsc.wa.gov.au/sport-and-recreation/sports-dimensions-guide/badminton` (404). Do not delete it. Do not swap that link.
+**Badminton** (`badminton`) is imported and is not a flagship. One resource is marked for review and its URL stays: `https://dlgsc.wa.gov.au/sport-and-recreation/sports-dimensions-guide/badminton` (404). Do not swap that link.
 
 Every slug outside that list is Premium: `AVAILABLE`, `MONETIZED`, and zero stages. The card says Premium. There is no payment, so the label is the lock. Do not invent resources for them. Settings cannot follow a Premium path. The niche list is `BASE_SKILLS` in `prisma/seed.ts` plus `EXTRA_NICHES` in `lib/niche-catalog.ts`. Travel Vlogging is a base skill. It must not also appear in `EXTRA_NICHES`, or a future seed will clear the flagship flag. `seedOffer` follows `isFreePath`. Do not run the full seed.
 
@@ -91,6 +95,10 @@ Every slug outside that list is Premium: `AVAILABLE`, `MONETIZED`, and zero stag
 | `podcasting` | `content/catalog/podcasting.json` |
 | `guitar` | `content/catalog/guitar.json` |
 | `chess` | `content/catalog/chess.json` |
+| `art-painting` | `content/catalog/art-painting.json` |
+| `photography` | `content/catalog/photography.json` |
+| `emergency-preparedness` | `content/catalog/emergency-preparedness.json` |
+| `badminton` | `content/catalog/badminton.json` |
 
 `FILE_BY_SLUG` in `scripts/import-catalog.ts` and `scripts/verify-catalog.ts` maps only the Full-Stack mismatch. Do not rename the live slug `full-stack-web-dev`. Animation & VFX was researched as `animation-vfx`. The live slug is `animation`. Do not rename it.
 
@@ -116,7 +124,7 @@ npx tsx --conditions=react-server scripts/import-catalog.ts <slug> --apply
 
 A second dry-run should print "Nothing to change." `--from-db` checks rows already stored and can mark a dead link `UNAVAILABLE`. It writes `content/catalog/_review/<file>.from-db.md`. Use it only when asked. A 403 or a bot challenge is "needs manual check", not a failure, and is not a reason to replace the link.
 
-Do not run `npx prisma db seed`. The seed resets admin passwords and rewrites every niche. After a catalog apply, set status, offer, and `isFlagship` with a targeted Prisma update. `seedStatus` returns `AVAILABLE`. `seedOffer` returns `FREE` when the slug is in `FREE_PATH_SLUGS`, and `MONETIZED` otherwise. The seed imports the live catalogs, including Animation, IoT, Screenwriting, Graphic Design, SEO, AI Tools, Cybersecurity, Digital Marketing, Personal Finance, Public Speaking, Sound Design, Nutrition, Psychology, Podcasting, Guitar, and Chess. Art's, Photography's, Emergency Preparedness's, and Badminton's files stay out until their failed links are resolved.
+Do not run `npx prisma db seed`. The seed resets admin passwords and rewrites every niche. After a catalog apply, set status, offer, and `isFlagship` with a targeted Prisma update. `seedStatus` returns `AVAILABLE`. `seedOffer` returns `FREE` when the slug is in `FREE_PATH_SLUGS`, and `MONETIZED` otherwise. The seed imports the live catalogs, including Animation, IoT, Screenwriting, Graphic Design, SEO, AI Tools, Cybersecurity, Digital Marketing, Personal Finance, Public Speaking, Sound Design, Nutrition, Psychology, Podcasting, Guitar, Chess, Art & Painting, Photography, Emergency Preparedness, and Badminton. The dead links named above stay in those files until a working page is chosen.
 
 ## What is wired, and what is not
 

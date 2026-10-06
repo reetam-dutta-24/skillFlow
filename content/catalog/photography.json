@@ -59,7 +59,7 @@
         {
           "order": 3,
           "type": "DOC_LINK",
-          "needsReview": false,
+          "needsReview": true,
           "isFree": true,
           "language": "en",
           "title": "Understanding focal length",

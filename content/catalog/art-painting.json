@@ -109,7 +109,7 @@
         {
           "order": 6,
           "type": "DOC_LINK",
-          "needsReview": false,
+          "needsReview": true,
           "isFree": true,
           "language": "en",
           "title": "Watercolour Paper",
@@ -840,7 +840,7 @@
         {
           "order": 3,
           "type": "DOC_LINK",
-          "needsReview": false,
+          "needsReview": true,
           "isFree": true,
           "language": "en",
           "title": "ACMI Seals",

@@ -160,6 +160,10 @@ async function main() {
   await importCatalog("podcasting", { apply: true })
   await importCatalog("guitar", { apply: true })
   await importCatalog("chess", { apply: true })
+  await importCatalog("art-painting", { apply: true })
+  await importCatalog("photography", { apply: true })
+  await importCatalog("emergency-preparedness", { apply: true })
+  await importCatalog("badminton", { apply: true })
 }
 
 main()

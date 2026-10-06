@@ -4,15 +4,17 @@ A mastery-first learning platform. Curated roadmaps, your own resources, and an 
 
 ## Status
 
-Thirty paths are free. Five of them have catalogs:
+Thirty paths are free. Seven of them have catalogs:
 
 - Full-Stack Web Development — 12 stages, 64 resources. Stages 1–9 are the open stretch.
 - Travel Vlogging — 8 stages, 46 resources. Stages 1–5 are the open stretch.
 - Content Creation — 10 stages, 57 resources. Stages 1–7 are the open stretch.
 - Music Production — 8 stages, 45 resources. Stages 1–5 are the open stretch.
 - Self Grooming — 8 stages, 47 resources. Stages 1–5 are the open stretch.
+- Animation & VFX (`animation`) — 8 stages, 41 resources. Stages 1–5 are the open stretch.
+- IoT & Robot Automation — 8 stages, 46 resources. Stages 1–5 are the open stretch.
 
-The next stage on a free path opens after the explain-back. The last three stages stay locked. A stage waiting on that pass stays readable, with a lock. The last two stages on the path stay blurred. The other twenty-five free paths have no stages yet: Art & Painting, Photography, Animation, IoT & Robot Automation, Screenwriting, Graphic Design, AI Tools, SEO, Cybersecurity, Digital Marketing, Emergency Preparedness, Personal Finance, Badminton, Public Speaking, Sound Design, Nutrition, Psychology, Podcasting, Guitar, Chess, Interior Design, Relationships, Socializing, Freelancing, and Travel Planning. Art & Painting stays a flagship. Photography's catalog file is written and not imported because one link returned 404. Every other niche is Premium, with no stages and no resources. Payments are not built.
+The next stage on a free path opens after the explain-back. The last three stages stay locked. A stage waiting on that pass stays readable, with a lock. The last two stages on the path stay blurred. The other twenty-three free paths have no stages yet: Art & Painting, Photography, Screenwriting, Graphic Design, AI Tools, SEO, Cybersecurity, Digital Marketing, Emergency Preparedness, Personal Finance, Badminton, Public Speaking, Sound Design, Nutrition, Psychology, Podcasting, Guitar, Chess, Interior Design, Relationships, Socializing, Freelancing, and Travel Planning. Art & Painting stays a flagship. Photography's catalog file is written and not imported because one link returned 404. Every other niche is Premium, with no stages and no resources. Payments are not built.
 
 The niche list shows 32 cards a page. Home and roadmaps show the first 12, a blurred peek of the next row, and a link to the full list.
 

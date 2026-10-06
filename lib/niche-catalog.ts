@@ -10,9 +10,9 @@ export function slugFromName(name: string) {
 
 export const EXTRA_NICHES: { slug: string; name: string; description: string }[] = [
   { slug: "self-grooming", name: "Self Grooming", description: "Evidence-based personal care for any gender: skin, sun protection, hair, teeth, shaving, body and nails, clothing care and fit, and when to see a professional." },
-  { slug: "animation", name: "Animation", description: "Movement, timing, and how a still drawing becomes a scene." },
+  { slug: "animation", name: "Animation & VFX", description: "Learn animation and visual effects from the 12 principles and timing through keyframes, 3D modeling, rigging, rendering, compositing and final delivery, using free Blender as the default tool." },
   { slug: "story-writing", name: "Story Writing", description: "Plot, character, and revision for short and long fiction." },
-  { slug: "iot-robot-automation", name: "IoT & Robot Automation", description: "Sensors, controllers, and the software that moves a physical machine." },
+  { slug: "iot-robot-automation", name: "IoT & Robot Automation", description: "Build connected devices and simple robots: circuits, microcontrollers, sensors and motors, bus protocols, MQTT, motion control, ROS 2, and secure low-power design." },
   { slug: "cybersecurity", name: "Cybersecurity", description: "How accounts, networks, and software are attacked and defended." },
   { slug: "data-analysis", name: "Data Analysis", description: "Cleaning data, finding a pattern, and saying what it does not prove." },
   { slug: "machine-learning", name: "Machine Learning", description: "Training a model, measuring it, and knowing when it is guessing." },

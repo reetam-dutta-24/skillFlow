@@ -1,0 +1,899 @@
+{
+  "stages": [
+    {
+      "order": 1,
+      "title": "The 12 Principles of Animation",
+      "level": "BEGINNER",
+      "description": "The classic Disney principles that make motion read as weighty, clear and alive, whatever the tool.",
+      "learningObjectives": [
+        "Name the 12 principles and where they come from",
+        "Explain squash and stretch, anticipation and staging with a concrete example",
+        "Explain slow in/slow out, arcs, and follow-through/overlapping action",
+        "Distinguish secondary action, timing, exaggeration, solid drawing and appeal"
+      ],
+      "explainBack": {
+        "question": "Animate a bouncing ball and then a character jumping: which of the 12 principles would you apply, and how does each one change the motion?",
+        "rubric": [
+          "The principles come from Disney animators Ollie Johnston and Frank Thomas in the 1981 book The Illusion of Life",
+          "Squash and stretch conveys weight and flexibility, and the object's volume should stay the same while it squashes or stretches",
+          "Anticipation is a preparatory move before the main action (e.g. bending the knees before a jump)",
+          "Slow in and slow out means more frames near the start and end of a move so it accelerates and decelerates; natural motion follows arcs",
+          "Follow-through and overlapping action: parts of the body keep moving after the character stops and different parts move at different rates"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "12 Principles of Animation (Official Full Series)",
+          "provider": "AlanBeckerTutorials",
+          "url": "https://www.youtube.com/watch?v=uDqjIdI4bF4",
+          "description": "Alan Becker's animated walkthrough of all twelve principles, each demonstrated with short stick-figure and object examples.",
+          "keyPoints": [
+            "Covers all 12 principles in one series",
+            "Demonstrates each principle with an animated example",
+            "Also available as individual per-principle videos in a playlist"
+          ],
+          "videoId": "uDqjIdI4bF4"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Twelve basic principles of animation",
+          "provider": "Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Twelve_basic_principles_of_animation",
+          "description": "Encyclopedia overview of the twelve principles with their origin and a short explanation and example for each.",
+          "keyPoints": [
+            "Introduced by Ollie Johnston and Frank Thomas in The Illusion of Life (1981)",
+            "Squash and stretch: volume stays constant while the shape deforms",
+            "Anticipation prepares the audience for an action, like bending knees before a jump",
+            "Slow in/out adds frames near the ends of a move; most natural motion follows arcs",
+            "Follow-through: parts keep moving after the character stops, at different rates"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "The 12 principles of animation",
+          "provider": "Adobe",
+          "url": "https://www.adobe.com/creativecloud/animation/discover/principles-of-animation.html",
+          "description": "Plain-language summary of each principle with everyday examples such as a golfer's backswing and a bouncing ball.",
+          "keyPoints": [
+            "Bouncing ball flattening on impact illustrates squash and stretch",
+            "A golfer swinging back first is anticipation",
+            "Objects ease in and ease out, accelerating and decelerating like a real person",
+            "Heavier objects need more frames to look natural (timing)"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Timing, Spacing & Frame Rates",
+      "level": "BEGINNER",
+      "description": "How the number of frames (timing) and the distance between drawings (spacing) control speed and weight, and how keys, breakdowns and in-betweens are planned.",
+      "learningObjectives": [
+        "Distinguish timing from spacing and explain how each affects perceived speed",
+        "Define keys, breakdowns and in-betweens and read a simple timing chart",
+        "Explain animating on ones, twos and threes at 24 fps",
+        "Compare straight-ahead and pose-to-pose workflows"
+      ],
+      "explainBack": {
+        "question": "Explain the difference between timing and spacing, what keys, breakdowns and in-betweens are, and what it means to animate 'on twos' at 24 fps.",
+        "rubric": [
+          "Spacing is how far the subject moves between drawings: larger gaps read as faster motion, smaller gaps as slower; timing is how many frames an action or pose takes",
+          "Keys are the main (start/end) poses; breakdowns are intermediate poses that define how the motion travels; in-betweens fill the remaining frames",
+          "At the standard 24 fps, on ones means 24 new drawings per second, on twos 12 (each held two frames), on threes 8",
+          "Straight-ahead animates frame 1 onward in order (good for fluid effects like smoke or water); pose-to-pose sets keys first, then fills in between (easier to plan timing for characters)"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Animation basics: The art of timing and spacing - TED-Ed",
+          "provider": "TED-Ed",
+          "url": "https://www.youtube.com/watch?v=KRVhtMxQWRs",
+          "description": "A short TED-Ed lesson using bouncing balls to show how small frame-to-frame changes in timing and spacing alter the motion.",
+          "keyPoints": [
+            "Uses bouncing balls as the core example",
+            "Shows how small frame-to-frame changes alter the feel of motion",
+            "Introduces timing and spacing as separate controls"
+          ],
+          "videoId": "KRVhtMxQWRs"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Frame by Frame: What Really Happens Between Two Key Poses",
+          "provider": "BINUS University (Visual Communication Design)",
+          "url": "https://binus.ac.id/bandung/dkv/2025/11/04/frame-by-frame-what-really-happens-between-two-key-poses/",
+          "description": "University article explaining key poses, breakdowns and in-betweens, and how spacing and timing control the feel of motion.",
+          "keyPoints": [
+            "Key frames are the start and end poses of an action",
+            "Breakdowns define how motion travels, e.g. a change of direction",
+            "Larger shifts between drawings mean faster motion; smaller mean slower",
+            "Timing (frames per pose) makes action snappy or smooth",
+            "Software can interpolate in-betweens, adjusted via curves"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Week 3: Animation Fundamentals - Timing and Movement",
+          "provider": "BMCC (CUNY) OpenLab",
+          "url": "https://openlab.bmcc.cuny.edu/mmp260/week-3",
+          "description": "College course notes on straight-ahead vs pose-to-pose, in-betweens, breakdowns and timing charts, applied to a bouncing ball.",
+          "keyPoints": [
+            "Straight ahead starts on frame 1 and proceeds in order; suits smoke or water",
+            "Pose to pose sets keys first, then fills transitions; preferred for characters",
+            "Fewer in-betweens look choppier/faster; more look smoother/slower",
+            "Timing charts mark keys, breakdowns and in-betweens along a line"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "What does animating on ones, twos, and threes mean?",
+          "provider": "iD Tech",
+          "url": "https://www.idtech.com/blog/what-does-animating-on-ones-twos-and-threes-mean",
+          "description": "Quick guide to holding drawings for one, two or three frames at 24 fps and when each rate is used.",
+          "keyPoints": [
+            "Standard 2D animation runs at 24 frames per second",
+            "On ones: 24 new drawings per second, for fast action",
+            "On twos: 12 new drawings per second, the most common choice",
+            "On threes: 8 per second, often seen in anime; rates can be mixed"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Tutorial: Animating with Timing and Spacing",
+          "provider": "Animation Mentor",
+          "url": "https://www.animationmentor.com/?p=86525",
+          "description": "A professional animator's tutorial on using timing and spacing (and ones, twos, threes) to create weight and stylised rhythm.",
+          "keyPoints": [
+            "Starts from the bouncing ball to show acceleration via spacing",
+            "Holding poses and snapping between them creates stylised rhythm",
+            "Blocks poses from reference, then refines curves in a graph editor",
+            "Experiments with ones, twos and threes for impact"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Keyframes & the Graph Editor",
+      "level": "BEGINNER",
+      "description": "Setting keyframes in Blender and shaping the in-betweens with F-curves, interpolation modes, handles and easing.",
+      "learningObjectives": [
+        "Explain what a keyframe stores and insert/delete keyframes in Blender",
+        "Read an F-curve: time on the X axis, property value on the Y axis",
+        "Choose between Constant, Linear and Bézier interpolation",
+        "Use handle types and easing to shape acceleration"
+      ],
+      "explainBack": {
+        "question": "You keyframed a cube moving from left to right. Describe what a keyframe is, how Blender fills the frames in between, and how you would make the motion snap, move mechanically, or ease in and out.",
+        "rubric": [
+          "A keyframe is a marker in time that stores the value of a property; in the 3D Viewport I inserts a keyframe and Alt-I removes it",
+          "Interpolation between keys is shown as F-curves in the Graph Editor, with time (frames) on X and the property value on Y",
+          "Constant holds the last key's value (stepped), Linear gives straight segments, Bézier (the default) gives smooth curves",
+          "Bézier handle types (e.g. automatic vs free) and the easing mode change the curve's shape; in the Graph Editor T sets interpolation, V sets handle type and Ctrl-E sets easing"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Beginners Guide to Animation in blender 4 - Part 2 - Graph Editor",
+          "provider": "Grant Abbitt (Gabbitt)",
+          "url": "https://www.youtube.com/watch?v=geE8Sy97CQE",
+          "description": "Beginner-focused walkthrough of Blender's Graph Editor for refining keyframed motion.",
+          "keyPoints": [
+            "Introduces the Graph Editor in Blender 4",
+            "Shows editing keyframes as curves",
+            "Part of a beginner animation series"
+          ],
+          "videoId": "geE8Sy97CQE"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Keyframes Introduction",
+          "provider": "Blender Manual",
+          "url": "https://docs.blender.org/manual/en/2.93/animation/keyframes/introduction.html",
+          "description": "Defines a keyframe and explains how interpolation between keys is represented by F-curves.",
+          "keyPoints": [
+            "A keyframe is a marker of time that stores a property's value",
+            "Interpolation is controlled by F-curves",
+            "X axis is time, Y axis is the property value",
+            "Object name turns yellow in the viewport on a keyed frame"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Keyframes: Editing",
+          "provider": "Blender Manual",
+          "url": "https://docs.blender.org/manual/en/2.93/animation/keyframes/editing.html",
+          "description": "How to insert, delete and auto-record keyframes in Blender.",
+          "keyPoints": [
+            "I in the 3D Viewport opens the Insert Keyframe menu",
+            "Alt-I deletes keys on the current frame",
+            "Auto Keying records keys whenever transforms change",
+            "Detailed editing happens in the Graph Editor and Dope Sheet"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "F-Curves Introduction",
+          "provider": "Blender Manual",
+          "url": "https://docs.blender.org/manual/en/2.93/editors/graph_editor/fcurves/introduction.html",
+          "description": "Explains F-curves, the Constant/Linear/Bézier interpolation modes, handle types and extrapolation.",
+          "keyPoints": [
+            "Constant holds the last key's value, giving a stepped curve",
+            "Linear gives straight segments",
+            "Bézier is the default and gives smooth curves",
+            "Automatic handles keep curves smooth; free handles allow sharp changes",
+            "Extrapolation sets behaviour before the first and after the last key"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "F-Curves: Editing",
+          "provider": "Blender Manual",
+          "url": "https://docs.blender.org/manual/en/2.93/editors/graph_editor/fcurves/editing.html",
+          "description": "Graph Editor operators for changing interpolation, handle type and easing of selected keys.",
+          "keyPoints": [
+            "T sets the interpolation mode of selected keyframes",
+            "V sets the handle type",
+            "Ctrl-E sets the easing mode"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": "3D Modeling Fundamentals: Meshes, Topology & UVs",
+      "level": "INTERMEDIATE",
+      "description": "How a polygon mesh is built from vertices, edges and faces, why quad-based topology matters, and how UV unwrapping maps 2D textures onto 3D surfaces.",
+      "learningObjectives": [
+        "Define vertices, edges and faces and the face types (triangles, quads, n-gons)",
+        "Explain edge loops, poles and why quads are preferred for deformation and subdivision",
+        "Explain what UV coordinates are and why a mesh needs unwrapping",
+        "Describe how seams guide unwrapping and when Smart UV Project fits"
+      ],
+      "explainBack": {
+        "question": "Describe what a 3D mesh is made of, what good topology looks like for a character that will bend, and how you would prepare that mesh to receive an image texture.",
+        "rubric": [
+          "A mesh is made of vertices (points in 3D space), edges (connecting two vertices) and faces (the rendered surface)",
+          "Faces are triangles, quads or n-gons (more than four vertices); quads deform well and are preferred for animation and subdivision",
+          "Edge loops are continuous rings of edges important for deformation; poles are vertices with 3, 5 or more edges where loops cannot continue",
+          "UV mapping assigns each face a place on a flat 2D image (U = left-right, V = up-down) so image textures can be applied",
+          "Unwrap flattens the mesh by cutting along marked seams; Smart UV Project cuts automatically by angle and suits mechanical objects or architecture"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "You Can Understand 3D Topology (It's Not As Hard As It Looks)",
+          "provider": "Summer Day Studios",
+          "url": "https://www.youtube.com/watch?v=d_TCJVgMCo0",
+          "description": "A beginner-friendly explanation of what topology is and why edge flow matters.",
+          "keyPoints": [
+            "Explains what topology means in 3D",
+            "Covers quads and edge flow",
+            "Aimed at beginners"
+          ],
+          "videoId": "d_TCJVgMCo0"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Mesh Structure",
+          "provider": "Blender Manual",
+          "url": "https://docs.blender.org/manual/en/2.93/modeling/meshes/structure.html",
+          "description": "Official description of mesh elements, face types, normals, and topology concepts such as loops and poles.",
+          "keyPoints": [
+            "A vertex is a single point in 3D space",
+            "Edges connect two vertices; faces form the rendered surface",
+            "Triangles, quads and n-gons; quads deform well",
+            "Edge and face loops matter for organic modeling and animation",
+            "Poles are vertices with 3, 5 or more edges"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "UV Unwrapping for Beginners (Blender Tutorial)",
+          "provider": "Ryan King Art",
+          "url": "https://www.youtube.com/watch?v=qa_1LjeWsJg",
+          "description": "Beginner tutorial on unwrapping a model in Blender so textures apply cleanly.",
+          "keyPoints": [
+            "Introduces UV unwrapping in Blender",
+            "Shows marking seams and unwrapping",
+            "Aimed at beginners"
+          ],
+          "videoId": "qa_1LjeWsJg"
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "UV Editor Introduction",
+          "provider": "Blender Manual",
+          "url": "https://docs.blender.org/manual/en/2.93/editors/uv/introduction.html",
+          "description": "Explains what UVs are, the U and V directions, and why image-based texturing needs unwrapping.",
+          "keyPoints": [
+            "UVs map 2D images onto 3D objects",
+            "U is the left-right and V the up-down direction of the flat map",
+            "Images give more control and realism than procedural textures for details",
+            "Unwrapping tells Blender how faces map to the image"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "UV Unwrapping Operators",
+          "provider": "Blender Manual",
+          "url": "https://docs.blender.org/manual/en/2.93/modeling/meshes/editing/uv.html",
+          "description": "Reference for Blender's unwrapping methods, including Unwrap along seams and Smart UV Project.",
+          "keyPoints": [
+            "Unwrap flattens the mesh by cutting along seams",
+            "Smart UV Project cuts by an angle threshold",
+            "Smart UV Project suits mechanical objects and architecture",
+            "Angle Based and Conformal (LSCM) unwrap methods"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Rigging & Character Animation",
+      "level": "INTERMEDIATE",
+      "description": "Building an armature, binding a mesh to it with weights, posing with FK and IK, and blocking a walk cycle.",
+      "learningObjectives": [
+        "Explain what an armature and bones are and the role of Edit Mode vs Pose Mode",
+        "Bind a mesh to an armature and refine influence with weight painting",
+        "Compare forward and inverse kinematics",
+        "Name the key poses of a walk cycle"
+      ],
+      "explainBack": {
+        "question": "Walk through rigging a simple character in Blender and making it walk: what the armature is, how the mesh follows it, when to use FK vs IK, and which key poses define the walk.",
+        "rubric": [
+          "An armature is a skeleton-like object made of bones; Edit Mode shows its rest position and bones are posed and animated in Pose Mode",
+          "Ctrl-P > Armature Deform With Automatic Weights adds an Armature modifier and creates vertex groups named after bones, weighted by distance (bone heat); results often need manual fixes",
+          "Weight painting sets per-vertex influence from 0.0 (blue) to 1.0 (red)",
+          "FK poses bones in order from the root to the tip; IK lets you place the last bone of a chain and the rest of the chain rotates to follow",
+          "A walk cycle's key poses are contact, down (recoil), passing and up (high point), with arms swinging opposite to the legs"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Rigging for impatient people - Blender Tutorial",
+          "provider": "Joey Carlino",
+          "url": "https://www.youtube.com/watch?v=DDeB4tDVCGY",
+          "description": "A fast-paced overview of rigging a character in Blender.",
+          "keyPoints": [
+            "Covers creating an armature",
+            "Shows binding a mesh to bones",
+            "Condensed for quick learning"
+          ],
+          "videoId": "DDeB4tDVCGY"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Armatures Introduction",
+          "provider": "Blender Manual",
+          "url": "https://docs.blender.org/manual/en/2.93/animation/armatures/introduction.html",
+          "description": "Explains armatures as skeletons of bones used for rigging, and how Edit Mode and Pose Mode differ.",
+          "keyPoints": [
+            "An armature is like a real skeleton made of bones",
+            "A rig is the set of controls that moves a character, like puppet strings",
+            "Edit Mode always shows the rest position",
+            "Bone animation is done in Pose Mode, not Object Mode"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Armature Deform Parenting",
+          "provider": "Blender Manual",
+          "url": "https://docs.blender.org/manual/en/2.93/animation/armatures/skinning/parenting.html",
+          "description": "How to bind meshes to an armature with empty groups, automatic weights or envelope weights.",
+          "keyPoints": [
+            "Select mesh, then armature, Ctrl-P > Armature Deform",
+            "Creates an Armature modifier",
+            "Automatic Weights uses a bone-heat algorithm based on distance",
+            "Vertex groups are named after the bones",
+            "Automatic results often need manual weight adjustment"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Weight Painting Introduction",
+          "provider": "Blender Manual",
+          "url": "https://docs.blender.org/manual/en/2.93/sculpt_paint/weight_paint/introduction.html",
+          "description": "Explains weight painting vertex groups to control how strongly each bone deforms each vertex.",
+          "keyPoints": [
+            "Weights range from 0 to 1 per vertex",
+            "Blue means near 0.0, red means near 1.0",
+            "The Armature modifier normalizes deforming weights",
+            "Also used for particles, modifiers and shape keys"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Inverse Kinematics Introduction",
+          "provider": "Blender Manual",
+          "url": "https://docs.blender.org/manual/en/2.93/animation/armatures/posing/bone_constraints/inverse_kinematics/introduction.html",
+          "description": "Contrasts posing bone-by-bone from the root (FK) with IK, where moving the end of a chain positions the rest.",
+          "keyPoints": [
+            "Normal posing sets bones from root to tip in sequence",
+            "IK positions the last bone; other bones follow automatically",
+            "Chain length 0 follows parent connections without limit",
+            "Auto IK rotates parents to follow a translated bone"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Animation walk cycle",
+          "provider": "Adobe",
+          "url": "https://www.adobe.com/in/creativecloud/roc/blog/video/animation-walk-cycle.html",
+          "description": "Overview of the four key poses of a walk cycle, arm swing and ways to add character.",
+          "keyPoints": [
+            "Key poses: contact, recoil (down), passing, high point (up)",
+            "Contact: leading foot hits heel-first",
+            "Arms swing opposite to the legs",
+            "Posture and stride length convey personality"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "title": "Materials, Lighting & Rendering",
+      "level": "INTERMEDIATE",
+      "description": "PBR materials with the Principled BSDF, three-point lighting, and choosing and tuning Blender's Eevee and Cycles render engines.",
+      "learningObjectives": [
+        "Set up a PBR material using base color, metallic and roughness",
+        "Place key, fill and back lights for a three-point setup",
+        "Compare Eevee and Cycles",
+        "Explain how samples, noise and denoising trade off against render time"
+      ],
+      "explainBack": {
+        "question": "You need a convincing render of a metal robot on a table. Describe how you would set up its materials, light it, choose a render engine and get a clean image.",
+        "rubric": [
+          "The Principled BSDF is a physically based 'uber' shader: Metallic 0 is a dielectric, 1 is a metal; Roughness 0 is mirror-like, 1 fully diffuse",
+          "Three-point lighting: the key light is the main source, the fill (weaker than the key) softens its shadows, and the back light separates the subject from the background",
+          "Cycles is a path-tracing engine and gives more physically accurate results; Eevee is a real-time engine built for speed; both use the same shader nodes",
+          "In Cycles more samples reduce noise but take longer; adaptive sampling's noise threshold and denoisers (e.g. OpenImageDenoise, OptiX) clean the image"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "PBR Materials: The Ultimate Guide (Blender Tutorial)",
+          "provider": "vfx_coder",
+          "url": "https://www.youtube.com/watch?v=g3jhmFRovzo",
+          "description": "A guide to building physically based materials in Blender.",
+          "keyPoints": [
+            "Explains PBR materials in Blender",
+            "Covers Principled BSDF inputs",
+            "Shows texture map usage"
+          ],
+          "videoId": "g3jhmFRovzo"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Principled BSDF",
+          "provider": "Blender Manual",
+          "url": "https://docs.blender.org/manual/en/2.93/render/shader_nodes/shader/principled.html",
+          "description": "Reference for Blender's physically based uber shader and its main inputs.",
+          "keyPoints": [
+            "Based on Disney's principled model; compatible with other PBR software",
+            "Metallic: 0 dielectric, 1 metal",
+            "Roughness: 0 mirror-like, 1 fully diffuse",
+            "Specular for dielectrics is typically 0-8% reflectivity"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Blender Tutorial - 3 Point Lighting",
+          "provider": "Carol Sung",
+          "url": "https://www.youtube.com/watch?v=OQ1IE-CMik8",
+          "description": "Demonstrates setting up three-point lighting in Blender.",
+          "keyPoints": [
+            "Places key, fill and back lights in Blender",
+            "Shows the effect of each light",
+            "Short tutorial"
+          ],
+          "videoId": "OQ1IE-CMik8"
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Three Point Lighting: Learn How to Use the Key, Fill, and Back Lights",
+          "provider": "Izzy Video",
+          "url": "https://izzyvideo.com/three-point-lighting",
+          "description": "Explains the roles and placement of the key, fill and back lights; the same logic transfers to virtual lights.",
+          "keyPoints": [
+            "Key light is the main source, often about 45 degrees to the side and above",
+            "Fill reduces key shadows and must be weaker than the key",
+            "Fill should not create a second shadow",
+            "Back light behind the subject creates a rim that separates it"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Eevee Introduction",
+          "provider": "Blender Manual",
+          "url": "https://docs.blender.org/manual/en/2.93/render/eevee/introduction.html",
+          "description": "Describes Eevee as Blender's real-time PBR engine and contrasts it with path-traced Cycles.",
+          "keyPoints": [
+            "Eevee is a real-time engine focused on speed and interactivity",
+            "Uses the same shader nodes as Cycles",
+            "Uses rasterization rather than tracing every light ray",
+            "Cycles gives more physically accurate renders"
+          ]
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Cycles Sampling",
+          "provider": "Blender Manual",
+          "url": "https://docs.blender.org/manual/en/2.93/render/cycles/render_settings/sampling.html",
+          "description": "Explains path-traced samples, noise, adaptive sampling and denoising options in Cycles.",
+          "keyPoints": [
+            "Rays are traced from the camera until they reach light",
+            "More samples give less noise but longer renders",
+            "Noise threshold targets a noise level (typical 0.1-0.001)",
+            "Denoisers include OpenImageDenoise and OptiX"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Compositing & VFX Basics",
+      "level": "ADVANCED",
+      "description": "Combining layers with alpha and masks, pulling green-screen keys, rotoscoping, and tracking camera motion to place CG into footage.",
+      "learningObjectives": [
+        "Explain the alpha channel and how masks and mattes control transparency",
+        "Pull a chroma key and clean it with garbage mattes and spill suppression",
+        "Explain rotoscoping and how tools propagate a matte across frames",
+        "Explain what 2D tracking and camera solving provide for compositing"
+      ],
+      "explainBack": {
+        "question": "An actor was filmed on green screen with a moving camera, and you must put them into a CG set. Describe how you would separate them, handle problem areas, and match the camera.",
+        "rubric": [
+          "The alpha channel is the fourth (A) channel of an RGBA image: white is opaque, black is transparent, grey is partly transparent",
+          "Chroma keying makes pixels close to a chosen colour (green/blue screen) transparent; a garbage matte roughly masks out areas, and spill suppression removes key colour from edges",
+          "Rotoscoping isolates a foreground object frame by frame; tools like Roto Brush propagate a matte from a base frame and need corrective strokes",
+          "Motion tracking follows features in footage; camera solving reconstructs the camera's 3D motion so CG objects can be matched to the shot"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Learn Green Screen VFX in Blender in UNDER 7 MINUTES",
+          "provider": "Jacob Zirkle",
+          "url": "https://www.youtube.com/watch?v=t2WlJlXDNjA",
+          "description": "A quick demonstration of keying green-screen footage and compositing it in Blender.",
+          "keyPoints": [
+            "Keys green-screen footage in Blender",
+            "Composites the subject over a new background",
+            "Under seven minutes"
+          ],
+          "videoId": "t2WlJlXDNjA"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Alpha channels, masks, and mattes",
+          "provider": "Adobe After Effects Help",
+          "url": "https://helpx.adobe.com/after-effects/using/alpha-channels-masks-mattes.html",
+          "description": "Explains alpha channels, masks, mask modes and feathering in compositing.",
+          "keyPoints": [
+            "Alpha is the fourth (A) channel of an RGBA image",
+            "White = opaque, black = transparent, grey = partial",
+            "Masks are paths that modify a layer's alpha",
+            "Mask modes include Add, Subtract and Intersect; feathering softens edges"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Keying",
+          "provider": "Adobe After Effects Help",
+          "url": "https://helpx.adobe.com/after-effects/using/keying.html",
+          "description": "Covers colour, luminance and difference keying, Keylight, garbage mattes and spill suppression.",
+          "keyPoints": [
+            "Keying makes pixels similar to a chosen value transparent",
+            "Colour keying is also called green/blue screening",
+            "Garbage mattes reduce keying work",
+            "Spill suppression removes key colour from edges",
+            "Use the least-compressed footage possible"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Roto Brush and Refine Matte",
+          "provider": "Adobe After Effects Help",
+          "url": "https://helpx.adobe.com/after-effects/using/roto-brush-refine-matte.html",
+          "description": "Explains rotoscoping and how Roto Brush propagates a foreground matte across frames.",
+          "keyPoints": [
+            "Rotoscoping separates foreground objects from the background",
+            "Paint foreground and background strokes on a base frame",
+            "The matte is propagated to later frames",
+            "Correct problem frames and refine edges like hair"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Camera Tracking in Blender for Beginners | Motion Tracking Tutorial",
+          "provider": "3Dnot2D",
+          "url": "https://www.youtube.com/watch?v=IvyfdxkABKU",
+          "description": "Beginner tutorial on tracking footage and solving the camera in Blender.",
+          "keyPoints": [
+            "Tracks features in live footage",
+            "Solves the camera motion in Blender",
+            "Places 3D objects into the shot"
+          ],
+          "videoId": "IvyfdxkABKU"
+        },
+        {
+          "order": 6,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Motion Tracking Introduction",
+          "provider": "Blender Manual",
+          "url": "https://docs.blender.org/manual/en/2.93/movie_clip/tracking/introduction.html",
+          "description": "Overview of Blender's 2D tracking, camera and object solving, plane tracks and stabilization.",
+          "keyPoints": [
+            "Tracks the motion of objects or a camera and applies it to 3D objects",
+            "Supports 2D tracking and 3D camera/object reconstruction",
+            "Plane tracks support compositing onto flat surfaces",
+            "Includes 2D stabilization for hand-held shake"
+          ]
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "title": "Render Passes, Color Management & Delivery",
+      "level": "ADVANCED",
+      "description": "Splitting renders into passes, rendering safe image sequences, managing scene-linear color with view transforms, and picking codecs for delivery.",
+      "learningObjectives": [
+        "Explain render passes and how they are used in compositing",
+        "Explain why animations are rendered to image sequences before encoding",
+        "Describe scene-linear rendering and view transforms (Standard, Filmic, AgX)",
+        "Compare intra-frame and long-GOP codecs for editing vs delivery"
+      ],
+      "explainBack": {
+        "question": "Plan the output of a 3D animated shot from render to final file: what you render, in which formats, how color is handled, and what you deliver.",
+        "rubric": [
+          "Render passes split the image into components (e.g. diffuse, glossy, emission, AO) and data (depth/Z, normal, mist, Cryptomatte) so they can be adjusted in compositing without re-rendering",
+          "Render animations to image sequences (PNG or OpenEXR, which keeps HDR data) rather than straight to video, so a crash doesn't ruin the file and encoding can be redone without re-rendering",
+          "Rendering is done in scene-linear color; the view transform maps it to the display: Standard does no extra conversion, Filmic and AgX are tone-mapping transforms for high dynamic range (AgX improves on Filmic)",
+          "Intra-frame codecs (e.g. ProRes) store every frame fully and edit smoothly; long-GOP codecs (e.g. H.264) store changes between frames for much smaller files, suited to delivery"
+        ]
+      },
+      "resources": [
+        {
+          "order": 1,
+          "type": "EMBEDDED_VIDEO",
+          "needsReview": true,
+          "isFree": true,
+          "language": "en",
+          "title": "Blender 2.9 for Production - 04 Render Layers, Light Passes & Data Passes",
+          "provider": "pixeltrain - 3D & VFX Trainings",
+          "url": "https://www.youtube.com/watch?v=PByGtB_ahmw",
+          "description": "Production-focused lesson on view/render layers and Blender's light and data passes.",
+          "keyPoints": [
+            "Explains render (view) layers",
+            "Covers light passes such as diffuse and glossy",
+            "Covers data passes such as depth and normal"
+          ],
+          "videoId": "PByGtB_ahmw"
+        },
+        {
+          "order": 2,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Render Passes",
+          "provider": "Blender Manual",
+          "url": "https://docs.blender.org/manual/en/2.93/render/layers/passes.html",
+          "description": "Lists Blender's render passes and explains how they split lighting and data for compositing.",
+          "keyPoints": [
+            "Passes split images into colours and direct/indirect light",
+            "Data passes include Z depth, normal and mist (0-1)",
+            "Light passes include diffuse, glossy, AO and emission",
+            "Cryptomatte isolates objects in post"
+          ]
+        },
+        {
+          "order": 3,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Output Properties",
+          "provider": "Blender Manual",
+          "url": "https://docs.blender.org/manual/en/2.93/render/output/properties/output.html",
+          "description": "Explains output paths, frame-number padding, file formats and why to render animations as still-image sequences first.",
+          "keyPoints": [
+            "Frame numbers are appended with zero padding (e.g. image0001.png)",
+            "Rendering straight to video is not recommended in the first instance",
+            "A crash can leave a video unplayable, forcing a full re-render",
+            "Render to PNG or OpenEXR (keeps HDR), then encode"
+          ]
+        },
+        {
+          "order": 4,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "Color Management",
+          "provider": "Blender Manual",
+          "url": "https://docs.blender.org/manual/en/4.0/render/color_management.html",
+          "description": "Explains display devices, scene-linear rendering, view transforms, looks, exposure and gamma.",
+          "keyPoints": [
+            "Rendering uses scene-linear values: double the light, double the value",
+            "Standard view transform does no extra conversion",
+            "Filmic is a tone-mapping transform for high dynamic range",
+            "AgX improves on Filmic for more photorealistic results",
+            "Exposure (in stops) is applied before color space conversion"
+          ]
+        },
+        {
+          "order": 5,
+          "type": "DOC_LINK",
+          "needsReview": false,
+          "isFree": true,
+          "language": "en",
+          "title": "A Primer: I-frame vs. GOP Video Compression",
+          "provider": "Larry Jordan",
+          "url": "https://larryjordan.com/articles/a-primer-i-frame-vs-gop-compression/",
+          "description": "Explains how intra-frame codecs like ProRes differ from GOP codecs like H.264 in file size, editing and quality.",
+          "keyPoints": [
+            "I-frame codecs (ProRes) encode every frame completely",
+            "GOP codecs (H.264) store changes between frames",
+            "GOP files are far smaller, especially for static shots",
+            "I-frame media edits and scrubs more smoothly",
+            "GOP for efficient delivery; I-frame for editing and archiving"
+          ]
+        }
+      ]
+    }
+  ],
+  "slug": "animation",
+  "name": "Animation & VFX",
+  "description": "Learn animation and visual effects from the 12 principles and timing through keyframes, 3D modeling, rigging, rendering, compositing and final delivery, using free Blender as the default tool.",
+  "status": "COMING_SOON"
+}

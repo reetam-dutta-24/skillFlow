@@ -144,6 +144,8 @@ async function main() {
   await importCatalog("travel-vlogging", { apply: true })
   await importCatalog("music-production", { apply: true })
   await importCatalog("self-grooming", { apply: true })
+  await importCatalog("animation", { apply: true })
+  await importCatalog("iot-robot-automation", { apply: true })
 }
 
 main()

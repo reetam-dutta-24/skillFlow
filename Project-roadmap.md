@@ -523,8 +523,7 @@ Ticketmaster and Google Events (SerpApi) are separate adapters. A missing key tu
 
 The functional product is in place, including follow, Premium, live event search, event keywords for every free path, and a saved streak reminder. The UI pass is done (October 2026, `UI-AUDIT.md`). What remains is proof, then a host.
 
-- Landing on a phone: Lighthouse performance is about 70–75 with a 4s LCP under throttling. The poster loads at once; the delay is script start-up from the landing's client components. Moving those to server components is the next step there. The hero videos are still 4K files; 1080p encodes under 3 MB each would cut the desktop weight.
 - Phase 8. Integration tests for catalog import and lesson reads. One end-to-end pass from signup through onboarding, a lesson, explain-back, and progress. A manual pass of empty, error, and loading states. Model calls mocked in tests.
 - Open Source. Integration tests for review, edit, and hide.
-- Phase 9. A container, GitHub Actions for lint, test, and build, a hosted app and hosted Postgres, error monitoring, env files that stay out of git, and migrate as a deploy step. Stripe keys on that host. Full-repo `eslint` still fails on older files.
+- Phase 9. A container, GitHub Actions for lint, test, and build, a hosted app and hosted Postgres, error monitoring, env files that stay out of git, and migrate as a deploy step. Stripe keys on that host.
 - Phase 10. A case study, a short recording of the loop, and a diagram of browser to Server Component to `lib/data` to Prisma.

@@ -56,10 +56,10 @@ export function CreatorQueue({ items }: { items: CreatorQueueItem[] }) {
               </label>
               <div className="sf-creator-actions">
                 <Button type="button" variant="gradient" size="sm" disabled={pending !== ""} onClick={() => void decide(item.id, "approve")}>
-                  {pending === `${item.id}:approve` ? "Approving..." : "Approve"}
+                  {pending === `${item.id}:approve` ? "Approving…" : "Approve"}
                 </Button>
                 <Button type="button" variant="outline" size="sm" disabled={pending !== ""} onClick={() => void decide(item.id, "reject")}>
-                  {pending === `${item.id}:reject` ? "Rejecting..." : "Reject"}
+                  {pending === `${item.id}:reject` ? "Rejecting…" : "Reject"}
                 </Button>
               </div>
             </article>

@@ -11,7 +11,6 @@ import { ThemeToggle } from "@/components/forms/ThemeToggle.jsx";
 import { Button } from "@/components/core/Button.jsx";
 import { UsageCutoffDialog } from "@/components/feedback/UsageCutoffDialog";
 import { saveReminder, saveSettings } from "../actions";
-import { FreePlanNotice } from "../../_components/FreePlanNotice";
 import { LocationCard } from "./LocationCard";
 
 export function SettingsScreen({
@@ -74,7 +73,16 @@ export function SettingsScreen({
             <Link href="/upgrade">Open the plan page</Link>
           </p>
         ) : (
-          <FreePlanNotice />
+          <>
+            <ul className="sf-settings-plan">
+              <li>Thirty paths, every stage, explain-back, and the certificate stay free.</li>
+              <li>Premium opens the niches outside those paths, so you can follow them.</li>
+              <li>Premium lets you appear on the learner map. The map itself stays free.</li>
+            </ul>
+            <p className="sf-settings-note">
+              <Link href="/upgrade">See Premium</Link>
+            </p>
+          </>
         )}
       </SettingsSection>
       <SettingsSection title="Profile" subtitle="The name is what the app calls you. Email stays with the account.">
@@ -97,8 +105,8 @@ export function SettingsScreen({
             <input value={profileName} onChange={(event) => setProfileName(event.target.value)} autoComplete="name" />
           </label>
           <div className="sf-settings-bar">
-            <Button type="button" variant="gradient" disabled={pending === "profile"} onClick={() => void save("profile")}>
-              {pending === "profile" ? "Saving..." : "Save profile"}
+            <Button type="button" variant="gradient" pending={pending === "profile"} pendingLabel="Saving…" onClick={() => void save("profile")}>
+              Save profile
             </Button>
           </div>
         </div>

@@ -41,11 +41,11 @@ async function MapBody({ searchParams }: { searchParams: Promise<{ niche?: strin
 
   return (
     <>
-      <NearbyTabs tab="learners" niche={active} />
       <header className="sf-page-head">
         <h1>Learner map</h1>
         <p>Cities where learners chose to be counted. No names, and no pin for one person.</p>
       </header>
+      <NearbyTabs tab="learners" niche={active} />
       <NicheFilter niches={niches} active={active} basePath="/nearby" />
       <div className="sf-map-layout">
         <MapCanvas cities={cities} />

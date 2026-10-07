@@ -167,7 +167,7 @@ export default async function ReviewItemPage({ params, searchParams }: PageProps
           <p>You can&apos;t review your own contribution.</p>
         ) : row.status === "MERGED" && row.canModerate ? (
           <>
-            <p>This post is published. You can hide it.</p>
+            <p>This contribution is published. You can hide it.</p>
             <UnmergeForm contributionId={row.id} />
           </>
         ) : allowed.length === 0 ? (

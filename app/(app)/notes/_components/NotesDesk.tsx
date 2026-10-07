@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
 import { arrangeNotes, type LearnerNoteView } from "@/lib/explain/notes-view";
@@ -32,10 +32,6 @@ export function NotesDesk({ notes }: { notes: LearnerNoteView[] }) {
 
   const chapterIndex = Math.max(0, chapters.findIndex((stage) => stage.stageId === stageId));
   const chapter = chapters[chapterIndex] ?? null;
-
-  useEffect(() => {
-    if (!chapter && chapters[0]) setStageId(chapters[0].stageId);
-  }, [chapter, chapters]);
 
   function chooseSkill(name: string) {
     setSkillName(name);
@@ -70,13 +66,18 @@ export function NotesDesk({ notes }: { notes: LearnerNoteView[] }) {
         icon="notebook-pen"
         title="No notes yet"
         description="When an explain-back idea holds, it is kept here with the review that came back."
+        action={
+          <Link className="sf-btn sf-btn--gradient sf-btn--md" href="/roadmap">
+            Open a path
+          </Link>
+        }
       />
     );
   }
 
   return (
     <div className="sf-notebook">
-      <div className="sf-notebook-skills" role="tablist" aria-label="Skills">
+      <div className="sf-notebook-skills" role="tablist" aria-label="Niches">
         {skillNames.map((name) => (
           <button key={name} type="button" role="tab" aria-selected={activeSkill?.skillName === name} onClick={() => chooseSkill(name)}>
             {name}

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Icon } from "@/components/core/Icon.jsx";
 import { Button } from "@/components/core/Button.jsx";
 import { WizardCard } from "@/components/forms/WizardCard";
 import type { CreatorSkillOption, StudioWork } from "@/lib/data/creator";
@@ -147,11 +148,11 @@ export function StudioEditor({
           actions={
             step === 3 ? (
               <>
-                <Button type="button" variant="outline" disabled={pending !== ""} onClick={() => void save("draft")}>
-                  {pending === "draft" ? "Saving..." : "Save draft"}
+                <Button type="button" variant="outline" disabled={pending !== ""} pending={pending === "draft"} pendingLabel="Saving…" onClick={() => void save("draft")}>
+                  Save draft
                 </Button>
-                <Button type="button" variant="gradient" disabled={pending !== ""} onClick={() => void save("review")}>
-                  {pending === "review" ? "Sending..." : "Send for review"}
+                <Button type="button" variant="gradient" disabled={pending !== ""} pending={pending === "review"} pendingLabel="Sending…" onClick={() => void save("review")}>
+                  Send for review
                 </Button>
               </>
             ) : undefined
@@ -191,11 +192,23 @@ export function StudioEditor({
           ) : null}
           {step === 2 ? (
             <>
-              <label>
-                Video file
-                <input type="file" accept="video/mp4,video/webm,video/quicktime,.mp4,.webm,.mov" onChange={(event) => setFile(event.target.files?.[0] ?? null)} />
+              <label className={file ? "sf-dropzone has-file" : "sf-dropzone"}>
+                <input
+                  type="file"
+                  className="sf-dropzone-input"
+                  accept="video/mp4,video/webm,video/quicktime,.mp4,.webm,.mov"
+                  aria-describedby="creator-file-hint"
+                  onChange={(event) => setFile(event.target.files?.[0] ?? null)}
+                />
+                <span className="sf-dropzone-icon" aria-hidden="true">
+                  <Icon name={file ? "file-video" : "upload"} size={22} />
+                </span>
+                <span className="sf-dropzone-title">{file ? file.name : "Choose a video file"}</span>
+                <span className="sf-dropzone-meta">
+                  {file ? `${(file.size / (1024 * 1024)).toFixed(1)} MB · choose again to replace it` : "or drop it here"}
+                </span>
               </label>
-              <p className="sf-fill-hint">MP4, WebM, or MOV. Up to 40 MB. Replacing a live file sends it back for review.{file ? ` Chosen: ${file.name}` : ""}</p>
+              <p className="sf-fill-hint" id="creator-file-hint">MP4, WebM, or MOV. Up to 40 MB. Replacing a live file sends it back for review.</p>
             </>
           ) : null}
           {step === 3 ? (
@@ -217,11 +230,11 @@ export function StudioEditor({
         <div className="sf-creator-actions">
           {work.status === "PENDING" || work.status === "LIVE" ? (
             <Button type="button" variant="outline" disabled={pending !== ""} onClick={() => void withdraw()}>
-              {pending === "withdraw" ? "Withdrawing..." : work.status === "LIVE" ? "Remove from feed" : "Withdraw"}
+              {pending === "withdraw" ? "Withdrawing…" : work.status === "LIVE" ? "Remove from feed" : "Withdraw"}
             </Button>
           ) : null}
           <Button type="button" variant="outline" disabled={pending !== ""} onClick={() => void remove()}>
-            {pending === "delete" ? "Deleting..." : "Delete"}
+            {pending === "delete" ? "Deleting…" : "Delete"}
           </Button>
         </div>
       ) : null}

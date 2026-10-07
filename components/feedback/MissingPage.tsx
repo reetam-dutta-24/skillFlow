@@ -17,7 +17,7 @@ export function MissingPage({
           title="This page is not here"
           description="The link may be old, or the page may have moved."
           action={
-            <Link className="sf-boundary-link" href={homeHref}>
+            <Link className="sf-btn sf-btn--gradient sf-btn--md" href={homeHref}>
               Back to home
             </Link>
           }

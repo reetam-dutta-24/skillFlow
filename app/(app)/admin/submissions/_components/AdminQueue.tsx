@@ -117,13 +117,13 @@ export function AdminQueue({ initial }: { initial: SubmissionView[] }) {
             {confirmApprove ? <p>This publishes the resource to the roadmap.</p> : null}
             <div className="sf-review-actions">
               {open.status === "PENDING" && confirmApprove ? (
-                <Button type="button" variant="gradient" size="sm" disabled={pending !== ""} onClick={() => void decide("approve")}>{pending === "approve" ? "Approving..." : "Confirm approval"}</Button>
+                <Button type="button" variant="gradient" size="sm" disabled={pending !== ""} onClick={() => void decide("approve")}>{pending === "approve" ? "Approving…" : "Confirm approval"}</Button>
               ) : null}
               {open.status === "PENDING" && !confirmApprove ? (
                 <Button type="button" variant="gradient" size="sm" disabled={pending !== ""} onClick={() => setConfirmApprove(true)}>Approve</Button>
               ) : null}
               {open.status === "PENDING" ? (
-                <Button type="button" variant="outline" size="sm" disabled={pending !== ""} onClick={() => void decide("reject")}>{pending === "reject" ? "Rejecting..." : "Reject"}</Button>
+                <Button type="button" variant="outline" size="sm" disabled={pending !== ""} onClick={() => void decide("reject")}>{pending === "reject" ? "Rejecting…" : "Reject"}</Button>
               ) : null}
               <Button type="button" variant="quiet" size="sm" onClick={() => setOpenId(null)}>Close</Button>
             </div>

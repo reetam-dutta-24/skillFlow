@@ -117,7 +117,7 @@ export default async function RoadmapDetailPage({ params }: PageProps) {
               </Link>
             ) : null}
             <Link className="sf-pathx-link" href={`/open-source/${data.skill.slug}`}>
-              Community posts for this niche
+              Open Source for this niche
             </Link>
           </div>
         </div>

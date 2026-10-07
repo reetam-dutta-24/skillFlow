@@ -87,6 +87,7 @@ export function UpgradePanel({
             {pending ? "Opening Stripe…" : "Continue to checkout"}
           </button>
         ) : null}
+        {!premium ? <p className="sf-billing-quiet">Cancel any time from Manage subscription on this page. Free paths stay open either way.</p> : null}
         {!configured ? <p className="sf-billing-quiet">Stripe is not configured yet. Add the keys before a charge can start.</p> : null}
       </section>
     </div>

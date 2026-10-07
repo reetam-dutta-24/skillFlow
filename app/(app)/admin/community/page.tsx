@@ -22,6 +22,11 @@ function ageOf(iso: string | null, now: number) {
   return days === 1 ? "1 day" : `${days} days`;
 }
 
+/** Read once per request, outside render, so the "hidden N days ago" labels share one clock. */
+function requestTime() {
+  return Date.now();
+}
+
 export default async function AdminCommunityPage({
   searchParams,
 }: {
@@ -31,14 +36,14 @@ export default async function AdminCommunityPage({
   const query = await searchParams;
   const q = typeof query.q === "string" ? query.q : "";
   const [data, niches] = await Promise.all([loadAdminCommunity(q), listNicheOptions()]);
-  const now = Date.now();
+  const now = requestTime();
 
   return (
     <div className="sf-admin-page">
       <header className="sf-page-head">
         <AdminSectionNav current="community" />
         <h1>Community</h1>
-        <p>Open Source review load, roles, and posts taken off the public list.</p>
+        <p>Open Source review load, roles, and contributions taken off the public list.</p>
       </header>
 
       <section aria-labelledby="admin-community-niches" className="sf-os-admin-section">
@@ -144,10 +149,10 @@ export default async function AdminCommunityPage({
       <section aria-labelledby="admin-community-unmerges" className="sf-os-admin-section">
         <h2 id="admin-community-unmerges">Recently hidden</h2>
         {data.unmerges.length === 0 ? (
-          <p className="sf-os-hint">No published post has been hidden.</p>
+          <p className="sf-os-hint">No published contribution has been hidden.</p>
         ) : (
           <table className="sf-admin-table sf-os-table">
-            <caption className="sf-sr">The last 20 hidden posts</caption>
+            <caption className="sf-sr">The last 20 hidden contributions</caption>
             <thead>
               <tr>
                 <th scope="col">Contribution</th>

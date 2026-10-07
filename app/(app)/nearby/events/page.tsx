@@ -99,11 +99,11 @@ async function EventsBody({
 
   return (
     <>
-      <NearbyTabs tab="events" niche={active} />
       <header className="sf-page-head">
         <h1>Events</h1>
         <p>Upcoming events near the city you saved. Links only — nothing here books a ticket.</p>
       </header>
+      <NearbyTabs tab="events" niche={active} />
       <div className="sf-event-toolbar">
         <NicheFilter
           niches={niches}

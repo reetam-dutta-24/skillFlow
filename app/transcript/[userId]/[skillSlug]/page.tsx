@@ -35,21 +35,35 @@ async function TranscriptContent({ params }: PageProps) {
   return (
     <main className="sf-transcript-page">
       <header className="sf-page-head">
+        <p className="sf-transcript-kicker">Transcript</p>
         <h1>{data.skillName}</h1>
         <p>
           {data.learnerName}. {data.passedCount} of {data.stageCount} stages passed. This page is not indexed.
         </p>
+        <div
+          className="sf-transcript-meter"
+          role="progressbar"
+          aria-label="Stages passed"
+          aria-valuemin={0}
+          aria-valuemax={data.stageCount}
+          aria-valuenow={data.passedCount}
+        >
+          <span style={{ width: `${data.stageCount ? Math.round((data.passedCount / data.stageCount) * 100) : 0}%` }} />
+        </div>
       </header>
       <ul className="sf-transcript">
         {passed.length > 0 ? passed.map((stage) => (
           <li key={stage.order}>
-            <strong>Stage {stage.order}. {stage.title}</strong>
+            <span className="sf-transcript-num" aria-hidden="true">{stage.order}</span>
+            <strong><span className="sf-sr">Stage {stage.order}. </span>{stage.title}</strong>
             <span>{stage.when}</span>
           </li>
-        )) : <li>No stage on this path has a passed explain-back yet.</li>}
+        )) : <li className="sf-transcript-empty">No stage on this path has a passed explain-back yet.</li>}
       </ul>
-      <p><a href={`/transcript/${data.userId}/${data.skillSlug}/pdf`}>Download PDF</a></p>
-      <p><Link href={session?.user?.id ? "/progress" : "/"}>Back to SkillFlow</Link></p>
+      <p className="sf-record-actions">
+        <a className="sf-btn sf-btn--gradient sf-btn--md" href={`/transcript/${data.userId}/${data.skillSlug}/pdf`}>Download PDF</a>
+        <Link className="sf-btn sf-btn--outline sf-btn--md" href={session?.user?.id ? "/progress" : "/"}>Back to SkillFlow</Link>
+      </p>
     </main>
   );
 }

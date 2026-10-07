@@ -157,15 +157,28 @@ export function LocationCard({ map, canShare }: { map: SavedCity; canShare: bool
         </ul>
       ) : null}
       <div className="sf-settings-bar">
-        <Button type="button" variant="gradient" disabled={!picked || pending !== ""} onClick={() => void save()}>
-          {pending === "save" ? "Saving..." : "Save city"}
+        <Button
+          type="button"
+          variant="gradient"
+          disabled={!picked || pending !== ""}
+          pending={pending === "save"}
+          pendingLabel="Saving…"
+          aria-describedby={picked ? undefined : "location-save-hint"}
+          onClick={() => void save()}
+        >
+          Save city
         </Button>
         {saved ? (
           <Button type="button" variant="outline" disabled={pending !== ""} onClick={() => void remove()}>
-            {pending === "remove" ? "Removing..." : "Remove city"}
+            {pending === "remove" ? "Removing…" : "Remove city"}
           </Button>
         ) : null}
       </div>
+      {picked || pending !== "" ? null : (
+        <p className="sf-settings-hint" id="location-save-hint">
+          Search above, then pick a city from the list to save it.
+        </p>
+      )}
       {canShare ? (
         <SettingsToggle
           label="Show me on the learner map"

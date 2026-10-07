@@ -23,28 +23,39 @@ export default async function CertificatePage({ params }: PageProps) {
   return (
     <main className="sf-certificate">
       <article className="sf-certificate-sheet">
-        <p className="sf-certificate-mark">SkillFlow</p>
-        <h1>Certificate of completion</h1>
-        <p>This records that</p>
+        <header className="sf-certificate-head">
+          <p className="sf-certificate-mark">SkillFlow</p>
+          <h1>Certificate of completion</h1>
+          <span className="sf-certificate-rule" aria-hidden="true" />
+        </header>
+        <p className="sf-certificate-line">This records that</p>
         <p className="sf-certificate-name">{data.learnerName}</p>
-        <p>passed every explain-back on</p>
-        <p className="sf-certificate-name">{data.skillName}</p>
-        <p>{data.issuedOn ? `Issued ${data.issuedOn}` : "Issued by SkillFlow"}</p>
-        <h2>Stages</h2>
-        <ol className="sf-certificate-stages">
-          {data.stages.map((stage) => (
-            <li key={stage.order}>
-              <span>Stage {stage.order}. {stage.title}</span>
-              <span>{stage.when}</span>
-            </li>
-          ))}
-        </ol>
+        <p className="sf-certificate-line">passed every explain-back on</p>
+        <p className="sf-certificate-name sf-certificate-path">{data.skillName}</p>
+        <p className="sf-certificate-issued">{data.issuedOn ? `Issued ${data.issuedOn}` : "Issued by SkillFlow"}</p>
+        <section className="sf-certificate-record" aria-labelledby="certificate-stages">
+          <h2 id="certificate-stages">Stages · {data.stages.length}</h2>
+          <ol className="sf-certificate-stages">
+            {data.stages.map((stage) => (
+              <li key={stage.order}>
+                <span className="sf-certificate-num" aria-hidden="true">{stage.order}</span>
+                <span className="sf-certificate-title">
+                  <span className="sf-sr">Stage {stage.order}. </span>
+                  {stage.title}
+                </span>
+                <span className="sf-certificate-when">{stage.when}</span>
+              </li>
+            ))}
+          </ol>
+        </section>
         <p className="sf-certificate-copy">
           Copyright SkillFlow. This record is issued by SkillFlow. It covers explain-back passes on this path. It is not a license or a degree.
         </p>
       </article>
-      <p><a href={`/certificate/${data.userId}/${data.skillSlug}/pdf`}>Download PDF</a></p>
-      <p><Link href={session?.user?.id ? "/progress" : "/"}>Back to SkillFlow</Link></p>
+      <p className="sf-record-actions">
+        <a className="sf-btn sf-btn--gradient sf-btn--md" href={`/certificate/${data.userId}/${data.skillSlug}/pdf`}>Download PDF</a>
+        <Link className="sf-btn sf-btn--outline sf-btn--md" href={session?.user?.id ? "/progress" : "/"}>Back to SkillFlow</Link>
+      </p>
     </main>
   );
 }

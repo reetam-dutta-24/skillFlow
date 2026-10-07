@@ -134,7 +134,7 @@ export default async function ContributionPage({ params, searchParams }: PagePro
       {row.status === "MERGED" && moderator ? (
         <section className="sf-community-reviews" aria-labelledby="community-moderate">
           <h2 id="community-moderate">Moderation</h2>
-          <p>Hiding takes this post off the public list.</p>
+          <p>Hiding takes this contribution off the public list.</p>
           <UnmergeForm contributionId={row.id} />
         </section>
       ) : null}

@@ -13,7 +13,7 @@ export function OwnerActions({ contributionId, status }: { contributionId: strin
   const close = useCallback(() => setDialog(null), []);
   const editHref = `/open-source/me/${contributionId}/edit`;
 
-  if (status === "CLOSED") return <p className="sf-os-hint">This post was not published.</p>;
+  if (status === "CLOSED") return <p className="sf-os-hint">This contribution was not published.</p>;
 
   return (
     <div className="sf-community-actions">
@@ -32,7 +32,7 @@ export function OwnerActions({ contributionId, status }: { contributionId: strin
         </>
       )}
 
-      <ConfirmDialog open={dialog === "resubmit"} title="Edit this published post?" onClose={close}>
+      <ConfirmDialog open={dialog === "resubmit"} title="Edit this published contribution?" onClose={close}>
         <p>It leaves the public list until a moderator publishes it again.</p>
         <div className="sf-review-actions">
           <Link className="sf-os-primary" href={editHref}>

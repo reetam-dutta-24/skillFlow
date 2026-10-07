@@ -23,6 +23,8 @@ export function AccentPicker({
 }) {
   const [uncontrolledAccent, setUncontrolledAccent] = React.useState(defaultAccent);
   const [customOpen, setCustomOpen] = React.useState(() => parseCustomAccent(defaultAccent) !== null);
+  // The name of the swatch under the pointer or keyboard focus, so every color is named before it is picked.
+  const [hovered, setHovered] = React.useState(null);
   const accent = accentProp ?? uncontrolledAccent;
   const custom = parseCustomAccent(accent);
   const current = ACCENTS.find((item) => item.id === accent);
@@ -39,6 +41,8 @@ export function AccentPicker({
     const stored = readStoredAccent();
     const next = stored ?? (isStoredAccent(defaultAccent) ? defaultAccent : null);
     if (!next) return;
+    // The saved accent lives in localStorage, which only exists after hydration.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setUncontrolledAccent(next);
     if (parseCustomAccent(next)) setCustomOpen(true);
     if (!stored) applyStoredAccent(next);
@@ -67,8 +71,8 @@ export function AccentPicker({
   }
 
   const dot = {
-    width: 28,
-    height: 28,
+    width: 36,
+    height: 36,
     padding: 0,
     border: "none",
     cursor: "pointer",
@@ -79,7 +83,7 @@ export function AccentPicker({
   return (
     <div className="sf-accent-picker" style={style} {...rest}>
       <div role="group" aria-label="Accent color" className="sf-accent-presets">
-        <span className="sf-accent-current">{current ? current.label : "Custom"}</span>
+        <span className="sf-accent-current" aria-hidden="true">{hovered ?? (current ? current.label : "Custom")}</span>
         <span className="sf-accent-swatches">
           {ACCENTS.map((option) => {
             const active = accent === option.id;
@@ -90,6 +94,11 @@ export function AccentPicker({
                 data-accent-swatch={option.id}
                 aria-pressed={active}
                 aria-label={`${option.label} accent`}
+                title={option.label}
+                onMouseEnter={() => setHovered(option.label)}
+                onMouseLeave={() => setHovered(null)}
+                onFocus={() => setHovered(option.label)}
+                onBlur={() => setHovered(null)}
                 onClick={() => pickPreset(option.id)}
                 style={{
                   ...dot,
@@ -106,6 +115,11 @@ export function AccentPicker({
             aria-pressed={Boolean(custom)}
             aria-expanded={customOpen}
             aria-label="Custom gradient"
+            title="Custom gradient"
+            onMouseEnter={() => setHovered("Custom")}
+            onMouseLeave={() => setHovered(null)}
+            onFocus={() => setHovered("Custom")}
+            onBlur={() => setHovered(null)}
             onClick={openCustom}
             style={{
               ...dot,

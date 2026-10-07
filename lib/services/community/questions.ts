@@ -40,13 +40,13 @@ export async function askPostQuestion(userId: string, contributionId: string, bo
     where: { id: contributionId },
     select: { status: true, authorId: true },
   });
-  if (!post || post.status !== "MERGED") return { ok: false as const, error: "Ask on a published post." };
-  if (post.authorId === userId) return { ok: false as const, error: "Answer the questions on your own post." };
+  if (!post || post.status !== "MERGED") return { ok: false as const, error: "Ask on a published contribution." };
+  if (post.authorId === userId) return { ok: false as const, error: "Answer the questions on your own contribution." };
   const existing = await prisma.contributionQuestion.findUnique({
     where: { contributionId_authorId: { contributionId, authorId: userId } },
     select: { id: true },
   });
-  if (existing) return { ok: false as const, error: "You already asked about this post." };
+  if (existing) return { ok: false as const, error: "You already asked about this contribution." };
   await prisma.contributionQuestion.create({
     data: { contributionId, authorId: userId, body: text },
   });

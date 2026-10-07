@@ -51,7 +51,7 @@ export function SourceField({ label, value, onChange, kind = "any", invalid, err
       <span className="sf-upload-label">{label}</span>
       <div className="sf-upload-actions">
         <button type="button" onClick={() => inputRef.current?.click()} disabled={busy}>
-          {busy ? "Uploading..." : "Upload from device"}
+          {busy ? "Uploading…" : "Upload from device"}
         </button>
         <input
           ref={inputRef}

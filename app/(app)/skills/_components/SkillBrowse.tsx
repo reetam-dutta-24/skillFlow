@@ -118,7 +118,7 @@ export function SkillBrowse({ skills, mode = "page" }: { skills: BrowseSkill[]; 
         <div className="sf-browse-search">
           <label>
             <Icon name="search" size={16} />
-            <span className="sf-sr">Search skills</span>
+            <span className="sf-sr">Search niches</span>
             <input
               type="search"
               value={query}
@@ -132,7 +132,7 @@ export function SkillBrowse({ skills, mode = "page" }: { skills: BrowseSkill[]; 
             </button>
           ) : null}
         </div>
-        <div className="sf-browse-filters" role="group" aria-label="Filter skills">
+        <div className="sf-browse-filters" role="group" aria-label="Filter niches">
           {FILTERS.map((item) => (
             <button
               key={item.id}
@@ -161,7 +161,7 @@ export function SkillBrowse({ skills, mode = "page" }: { skills: BrowseSkill[]; 
           <EmptyState
             compact
             icon="search"
-            title="No skill matches"
+            title="No niche matches"
             description="Try another filter, or a shorter word."
           />
         ) : (
@@ -225,7 +225,7 @@ function SkillCard({ skill, preview = false }: { skill: BrowseSkill; preview?: b
           <SkillImage src={view.image} alt="" fill sizes="(max-width: 640px) 100vw, 280px" />
         </span>
       ) : (
-        <span className="sf-skill-tile-photo sf-skill-tile-fallback" aria-hidden="true" />
+        <span className="sf-skill-tile-photo sf-skill-tile-fallback" data-initial={view.name.charAt(0)} aria-hidden="true" />
       )}
       <span className="sf-skill-tile-shade" aria-hidden="true" />
       <span className="sf-skill-tile-copy">
@@ -245,7 +245,12 @@ function SkillCard({ skill, preview = false }: { skill: BrowseSkill; preview?: b
             Open Source
           </Link>
         ) : null}
-        {href === "/upgrade" ? <span className="sf-skill-upgrade">Upgrade to open</span> : null}
+        {href === "/upgrade" ? (
+          <span className="sf-skill-upgrade">
+            <Icon name="lock" size={13} />
+            Upgrade to open
+          </span>
+        ) : null}
       </span>
     </>
   );

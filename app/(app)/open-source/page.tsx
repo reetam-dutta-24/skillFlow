@@ -149,7 +149,7 @@ export default async function OpenSourcePage({
             <EmptyState
               icon="git-pull-request"
               title="No public contributions yet"
-              description="When a moderator publishes a post in these niches, it shows up here."
+              description="When a moderator publishes a contribution in these niches, it shows up here."
             />
           ) : (
             <ul className="sf-os-feed-list">

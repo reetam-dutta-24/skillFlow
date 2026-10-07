@@ -3765,8 +3765,8 @@ a.sf-source:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border: 1px solid var(--border-default);
   border-radius: var(--radius-full);
   background: var(--surface-card);
@@ -9187,4 +9187,343 @@ html[data-focus="true"] .sf-app-main {
   .sf-nav-phone-only {
     display: none;
   }
+}
+
+/* ───────────── Niche cards (Phase 3) ───────────── */
+/* The shade now covers everything the copy sits on, so a bright photo cannot wash out the kicker. */
+.sf-skill-tile-shade {
+  background: linear-gradient(
+    to top,
+    var(--bg-elevated) 0%,
+    rgb(from var(--bg-elevated) r g b / 0.96) 34%,
+    rgb(from var(--bg-elevated) r g b / 0.82) 58%,
+    rgb(from var(--bg-elevated) r g b / 0.35) 80%,
+    transparent 100%
+  );
+}
+.sf-skill-tile-copy strong,
+.sf-skill-tile-kicker {
+  text-shadow: 0 1px 12px rgb(from var(--bg-elevated) r g b / 0.9);
+}
+/* A Premium niche without a cover gets a quiet designed tile, not a flat block. */
+.sf-skill-tile-fallback {
+  overflow: hidden;
+  background:
+    radial-gradient(120% 90% at 100% 0%, var(--accent-quiet), transparent 60%),
+    radial-gradient(90% 80% at 0% 0%, rgb(from var(--preset-mid) r g b / 0.16), transparent 70%),
+    var(--bg-sunken);
+}
+.sf-skill-tile-fallback::after {
+  content: attr(data-initial);
+  position: absolute;
+  top: -0.18em;
+  right: 0.08em;
+  color: var(--text-accent);
+  font-size: 9rem;
+  font-weight: var(--weight-bold);
+  line-height: 1;
+  letter-spacing: var(--tracking-tight);
+  opacity: 0.16;
+}
+.sf-skill-tile-copy .sf-skill-upgrade {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  min-height: 28px;
+  padding: 0 10px;
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-full);
+  background: var(--accent-quiet);
+  color: var(--text-accent);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+}
+
+/* ───────────── Settings (Phase 3) ───────────── */
+.sf-accent-current {
+  min-width: 8ch;
+}
+.sf-accent-swatches {
+  gap: 10px;
+}
+.sf-settings-plan {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding-left: 1.1em;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  line-height: 1.55;
+}
+.sf-settings-hint {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+}
+
+/* ───────────── Nearby (Phase 3) ───────────── */
+/* Map zoom buttons at a finger-sized 44px. */
+.sf-map-page .maplibregl-ctrl-group button {
+  width: 44px;
+  height: 44px;
+}
+.sf-map-page .maplibregl-ctrl-group {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* ───────────── Upgrade (Phase 3) ───────────── */
+.sf-billing h2 {
+  font-weight: var(--weight-semibold);
+}
+.sf-billing-card .sf-path-cta {
+  min-height: 44px;
+}
+
+/* ───────────── Certificate and transcript (Phase 3) ───────────── */
+/* The certificate is the one page that should feel like a keepsake: framed, centred, quiet. */
+.sf-certificate {
+  width: min(100%, 760px);
+  padding-block: 40px 72px;
+  gap: 20px;
+}
+.sf-certificate-sheet {
+  position: relative;
+  gap: 10px;
+  padding: clamp(28px, 6vw, 56px) clamp(20px, 6vw, 56px);
+  border: 1px solid var(--border-accent);
+  border-radius: 24px;
+  background:
+    radial-gradient(520px 220px at 50% 0%, rgb(from var(--preset-mid) r g b / 0.16), transparent 70%),
+    var(--surface-card);
+  text-align: center;
+  box-shadow: var(--shadow-card-lift);
+}
+.sf-certificate-sheet::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  pointer-events: none;
+}
+.sf-certificate-head {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.sf-certificate-mark {
+  color: var(--text-accent);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.24em;
+}
+.sf-certificate-sheet h1 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.sf-certificate-rule {
+  width: 72px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--gradient-brand);
+}
+.sf-certificate-line {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}
+.sf-certificate-name {
+  margin: 2px 0 8px;
+  color: var(--text-primary);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.5rem, 4.4vw, 2.125rem);
+  font-weight: 500;
+  line-height: 1.2;
+}
+.sf-certificate-path {
+  color: var(--text-accent);
+}
+.sf-certificate-issued {
+  margin: 6px 0 0;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
+.sf-certificate-record {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-subtle);
+  text-align: left;
+}
+.sf-certificate-record h2 {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+.sf-certificate-stages {
+  gap: 0;
+  padding: 0;
+  list-style: none;
+}
+.sf-certificate-stages li {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.sf-certificate-stages li:last-child {
+  border-bottom: 0;
+}
+.sf-certificate-num,
+.sf-transcript-num {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  background: var(--accent-quiet);
+  color: var(--text-accent);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+}
+.sf-certificate-title {
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+}
+.sf-certificate-when {
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  white-space: nowrap;
+}
+.sf-certificate-copy {
+  margin-top: 18px;
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  line-height: 1.55;
+}
+.sf-record-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 0;
+}
+.sf-transcript-page {
+  width: min(100%, 760px);
+}
+.sf-transcript-page .sf-record-actions {
+  justify-content: flex-start;
+}
+.sf-transcript-kicker {
+  margin: 0;
+  color: var(--text-accent);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+.sf-transcript-meter {
+  height: 6px;
+  margin-top: 6px;
+  overflow: hidden;
+  border-radius: var(--radius-full);
+  background: var(--border-subtle);
+}
+.sf-transcript-meter span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--gradient-brand);
+}
+.sf-transcript {
+  display: grid;
+  gap: 8px;
+}
+.sf-transcript li {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+}
+.sf-transcript li > span:last-child {
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+}
+@media (max-width: 480px) {
+  .sf-certificate-stages li,
+  .sf-transcript li {
+    grid-template-columns: 28px minmax(0, 1fr);
+  }
+  .sf-certificate-when,
+  .sf-transcript li > span:last-child {
+    grid-column: 2;
+  }
+}
+
+/* ───────────── Creator upload drop zone (Phase 3) ───────────── */
+/* The real file input covers the zone, so clicking and dropping both use the browser's own picker. */
+.sf-dropzone {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 28px 16px;
+  border: 1.5px dashed var(--border-default);
+  border-radius: 18px;
+  background: var(--bg-sunken);
+  text-align: center;
+  transition: border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+}
+.sf-dropzone:hover,
+.sf-dropzone:focus-within,
+.sf-dropzone.has-file {
+  border-color: var(--border-accent);
+  background: var(--accent-quiet);
+}
+.sf-dropzone:focus-within {
+  outline: 2px solid var(--border-accent);
+  outline-offset: 3px;
+}
+.sf-dropzone-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+.sf-dropzone-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: var(--accent-quiet);
+  color: var(--text-accent);
+}
+.sf-dropzone-title {
+  max-width: 100%;
+  color: var(--text-primary);
+  font-weight: var(--weight-semibold);
+  overflow-wrap: anywhere;
+}
+.sf-dropzone-meta {
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+}
+.sf-transcript li.sf-transcript-empty {
+  display: block;
+  color: var(--text-secondary);
 }

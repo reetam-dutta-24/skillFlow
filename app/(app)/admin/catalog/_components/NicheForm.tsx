@@ -107,7 +107,7 @@ export function NicheForm({ skills }: { skills: CatalogSkillRow[] }) {
         {saved ? <p role="status">Saved {saved}.</p> : null}
         <p className="sf-roadmap-actions">
           <Button type="submit" variant="gradient" disabled={pending}>
-            {pending ? "Saving..." : "Save niche"}
+            {pending ? "Saving…" : "Save niche"}
           </Button>
         </p>
       </form>
@@ -139,7 +139,7 @@ export function NicheForm({ skills }: { skills: CatalogSkillRow[] }) {
                   disabled={pendingId === skill.id}
                   onClick={() => void toggleStatus(skill)}
                 >
-                  {pendingId === skill.id ? "Saving..." : skill.status === "AVAILABLE" ? "Available" : "Coming soon"}
+                  {pendingId === skill.id ? "Saving…" : skill.status === "AVAILABLE" ? "Available" : "Coming soon"}
                 </Button>
               </span>
             </li>

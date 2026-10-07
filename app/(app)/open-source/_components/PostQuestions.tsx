@@ -99,7 +99,7 @@ export function PostQuestions({
         <form onSubmit={ask}>
           <label>
             Ask the author
-            <textarea rows={3} maxLength={500} value={body} onChange={(event) => setBody(event.target.value)} required placeholder="A doubt about this post" />
+            <textarea rows={3} maxLength={500} value={body} onChange={(event) => setBody(event.target.value)} required placeholder="A doubt about this contribution" />
           </label>
           <Button type="submit" size="sm" variant="outline" disabled={busy}>
             {busy ? "Sending" : "Ask"}

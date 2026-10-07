@@ -55,7 +55,7 @@ export default async function EditContributionPage({ params }: { params: Promise
             Back to the contribution
           </Link>
         </p>
-        <h1>{draft.resubmit ? "Edit a published post" : "Edit contribution"}</h1>
+        <h1>{draft.resubmit ? "Edit a published contribution" : "Edit contribution"}</h1>
         <p className="sf-community-label">{COMMUNITY_LABEL}</p>
       </header>
       <ContributeForm

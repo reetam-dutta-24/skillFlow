@@ -441,7 +441,7 @@ export function CatalogEditor({ skills }: { skills: CatalogEditorSkill[] }) {
           {stageSaved ? <p role="status">Stage saved.</p> : null}
           <p className="sf-roadmap-actions">
             <Button type="submit" variant="gradient" disabled={busy}>
-              {pending === "stage" ? "Saving..." : "Save stage"}
+              {pending === "stage" ? "Saving…" : "Save stage"}
             </Button>
           </p>
         </form>
@@ -615,11 +615,11 @@ export function CatalogEditor({ skills }: { skills: CatalogEditorSkill[] }) {
           ) : null}
           <p className="sf-roadmap-actions">
             <Button type="submit" variant="gradient" disabled={busy}>
-              {pending === "save" ? "Saving..." : "Save resource"}
+              {pending === "save" ? "Saving…" : "Save resource"}
             </Button>
             {resourceId ? (
               <Button type="button" variant="quiet" disabled={busy} onClick={() => void onSuggest()}>
-                {pending === "suggest" ? "Suggesting..." : "Suggest tags with AI"}
+                {pending === "suggest" ? "Suggesting…" : "Suggest tags with AI"}
               </Button>
             ) : null}
             {resourceId ? (
@@ -629,12 +629,12 @@ export function CatalogEditor({ skills }: { skills: CatalogEditorSkill[] }) {
             ) : null}
             {resourceId ? (
               <Button type="button" variant="quiet" disabled={busy || !needsReview} onClick={() => void onMarkReviewed()}>
-                {pending === "review" ? "Saving..." : "Mark reviewed"}
+                {pending === "review" ? "Saving…" : "Mark reviewed"}
               </Button>
             ) : null}
             {resourceId ? (
               <Button type="button" variant="quiet" disabled={busy} onClick={() => void onRecheck()}>
-                {pending === "check" ? "Checking..." : "Re-check link"}
+                {pending === "check" ? "Checking…" : "Re-check link"}
               </Button>
             ) : null}
             {resourceId ? (
@@ -661,7 +661,7 @@ export function CatalogEditor({ skills }: { skills: CatalogEditorSkill[] }) {
             <p>This removes {title || "the resource"} from the stage.</p>
             <p className="sf-roadmap-actions">
               <Button type="button" variant="outline" disabled={busy} onClick={() => void onDelete()}>
-                {pending === "delete" ? "Deleting..." : "Delete"}
+                {pending === "delete" ? "Deleting…" : "Delete"}
               </Button>
               <Button type="button" variant="quiet" disabled={busy} onClick={() => setConfirmDelete(false)}>
                 Cancel

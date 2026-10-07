@@ -200,7 +200,7 @@ async function Contributions({
       </form>
 
       {page.items.length === 0 ? (
-        <EmptyState icon="git-pull-request" title="No contributions yet" description="A published post from this niche will show up here." />
+        <EmptyState icon="git-pull-request" title="No contributions yet" description="A published contribution from this niche will show up here." />
       ) : (
         <ul className="sf-community-feed">
           {page.items.map((item) => {

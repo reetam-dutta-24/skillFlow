@@ -152,7 +152,7 @@ export function ClipFeed({
                 className="sf-reel-scroller"
                 ref={scrollerRef}
                 tabIndex={0}
-                aria-label="Short clip feed"
+                aria-label="Short clip feed. Use the up and down arrow keys to move between clips."
                 onKeyDown={(event) => {
                   if (event.key === "ArrowDown") {
                     event.preventDefault();
@@ -183,7 +183,7 @@ export function ClipFeed({
                           {clip.skillName} · {clip.stageTitle}
                         </p>
                         <h2>{clip.title}</h2>
-                        {clip.keyPoints.length ? <p>{clip.keyPoints.join(" ")}</p> : clip.description ? <p>{clip.description}</p> : null}
+                        {clip.keyPoints.length ? <p>{clip.keyPoints.join(" · ")}</p> : clip.description ? <p>{clip.description}</p> : null}
                         <Link href={clip.attributionHref}>{clip.attributionLabel}</Link>
                       </div>
                     </div>
@@ -191,10 +191,10 @@ export function ClipFeed({
                 ))}
               </div>
               <div className="sf-watch-nav">
-                <button type="button" aria-label="Previous clip" disabled={visible.length < 2} onClick={() => step(-1)}>
+                <button type="button" aria-label="Previous clip" aria-keyshortcuts="ArrowUp" title="Previous clip (↑)" disabled={visible.length < 2} onClick={() => step(-1)}>
                   <Icon name="chevron-up" size={18} />
                 </button>
-                <button type="button" aria-label="Next clip" disabled={visible.length < 2} onClick={() => step(1)}>
+                <button type="button" aria-label="Next clip" aria-keyshortcuts="ArrowDown" title="Next clip (↓)" disabled={visible.length < 2} onClick={() => step(1)}>
                   <Icon name="chevron-down" size={18} />
                 </button>
               </div>

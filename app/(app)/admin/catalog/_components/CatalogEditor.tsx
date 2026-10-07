@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useId, useMemo, useRef, useState, type FormEvent } from "react";
+import { useId, useMemo, useRef, useState, type FormEvent } from "react";
+import { useFocusTrap } from "@/components/feedback/useFocusTrap";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/core/Button.jsx";
@@ -95,15 +96,7 @@ export function CatalogEditor({ skills }: { skills: CatalogEditorSkill[] }) {
   const visible = reviewOnly ? resources.filter((resource) => resource.needsReview) : resources;
   const busy = pending.length > 0;
 
-  useEffect(() => {
-    if (!confirmDelete) return;
-    deleteRef.current?.focus();
-    function onKey(event: KeyboardEvent) {
-      if (event.key === "Escape") setConfirmDelete(false);
-    }
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [confirmDelete]);
+  useFocusTrap(deleteRef, confirmDelete, () => setConfirmDelete(false));
 
   function clearResource() {
     setResourceId("");

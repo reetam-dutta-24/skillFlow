@@ -80,7 +80,7 @@ export function UserProfileMenu({ name, handle, email, avatarUrl, placement = "t
         ) : (
           <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 32, height: 32, flexShrink: 0, borderRadius: "var(--radius-full)", backgroundImage: "var(--gradient-brand)", color: "#fff", fontSize: "var(--text-sm)", fontWeight: "var(--weight-bold)" }}>{initial}</span>
         )}
-        <span style={{ flex: sidebar ? 1 : undefined, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", textAlign: "left", fontSize: "var(--text-sm)", fontWeight: "var(--weight-medium)", color: "var(--text-primary)" }}>{name}</span>
+        <span className="sf-profile-name" style={{ flex: sidebar ? 1 : undefined, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", textAlign: "left", fontSize: "var(--text-sm)", fontWeight: "var(--weight-medium)", color: "var(--text-primary)" }}>{name}</span>
         <Icon name="chevron-down" size={14} color="var(--text-faint)" />
       </button>
       {open ? (

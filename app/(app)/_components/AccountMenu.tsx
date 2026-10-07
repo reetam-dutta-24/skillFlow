@@ -1,6 +1,7 @@
 "use client";
 
 import { signOut } from "next-auth/react";
+import { AccentSync } from "@/components/dashboard/AccentSync.jsx";
 import { UserProfileMenu } from "@/components/navigation/UserProfileMenu.jsx";
 import { PublishShellRole } from "./shell-role";
 
@@ -11,6 +12,7 @@ export function AccountMenu({
   image,
   profileHref,
   premium,
+  accent,
 }: {
   role: "USER" | "ADMIN";
   name: string;
@@ -18,10 +20,13 @@ export function AccountMenu({
   image: string | null;
   profileHref: string;
   premium: boolean;
+  /** The saved accent. Applied on every signed-in page so a new account looks the same everywhere. */
+  accent: string | null;
 }) {
   return (
     <>
       <PublishShellRole role={role} />
+      {accent ? <AccentSync accent={accent} /> : null}
       <UserProfileMenu
         name={name}
         email={email ?? undefined}

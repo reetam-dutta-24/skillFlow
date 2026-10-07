@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import { useId, useRef, useState } from "react";
+import { useFocusTrap } from "@/components/feedback/useFocusTrap";
 import { useRouter } from "next/navigation";
 import { Chip } from "@/components/core/Chip.jsx";
 import { Button } from "@/components/core/Button.jsx";
@@ -26,15 +27,7 @@ export function AdminQueue({ initial }: { initial: SubmissionView[] }) {
   const open = items.find((item) => item.id === openId) ?? null;
   const visible = items.filter((item) => item.status === tab);
 
-  useEffect(() => {
-    if (!open) return;
-    panelRef.current?.focus();
-    function onKey(event: KeyboardEvent) {
-      if (event.key === "Escape") setOpenId(null);
-    }
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [open]);
+  useFocusTrap(panelRef, Boolean(open), () => setOpenId(null));
 
   function openReview(item: SubmissionView) {
     setOpenId(item.id);

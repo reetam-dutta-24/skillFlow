@@ -3,6 +3,7 @@
 import { Suspense, useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import { Icon } from "@/components/core/Icon.jsx";
+import { ToastProvider } from "@/components/feedback/Toast";
 import { Sidebar, type SidebarItem } from "@/components/navigation/Sidebar.jsx";
 import { Topbar } from "@/components/navigation/Topbar.jsx";
 import { ShellRoleProvider, useShellReview, useShellRole } from "./shell-role";
@@ -124,10 +125,12 @@ function CloseMenuOnNavigate({ close }: { close: () => void }) {
 export function AppShell({ account, notifications, review, children }: ShellProps) {
   return (
     <ShellRoleProvider>
-      {review}
-      <AppShellFrame account={account} notifications={notifications}>
-        {children}
-      </AppShellFrame>
+      <ToastProvider>
+        {review}
+        <AppShellFrame account={account} notifications={notifications}>
+          {children}
+        </AppShellFrame>
+      </ToastProvider>
     </ShellRoleProvider>
   );
 }

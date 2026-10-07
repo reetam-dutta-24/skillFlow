@@ -2,6 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   cacheComponents: true,
+  // Dev only. Keeps the Next.js "N" badge off the SkillFlow wordmark and the mobile menu button.
+  devIndicators: { position: "bottom-right" },
   images: {
     formats: ["image/avif", "image/webp"],
     qualities: [75],

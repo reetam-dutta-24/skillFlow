@@ -14,5 +14,9 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   full?: boolean;
   /** Fully rounded capsule instead of the 10px button radius. */
   pill?: boolean;
+  /** The action is running: shows a spinner, keeps the width, disables the button, sets aria-busy. */
+  pending?: boolean;
+  /** Optional text while pending, e.g. "Saving…". Defaults to the normal label. */
+  pendingLabel?: React.ReactNode;
 }
 export function Button(props: ButtonProps): React.JSX.Element;

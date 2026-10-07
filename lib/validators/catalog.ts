@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { storedSource } from "@/lib/stored-source";
+import { storedImage, storedSource } from "@/lib/stored-source";
 
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
@@ -44,10 +44,10 @@ const optionalImage = z
     if (value === undefined) return undefined;
     return value.length > 0 ? value : null;
   })
-  .refine((value) => value === undefined || value === null || storedSource(value) !== null, "Upload an image, or use an https link.")
+  .refine((value) => value === undefined || value === null || storedImage(value) !== null, "Upload an image, or use an https link.")
   .transform((value) => {
     if (!value) return value;
-    return storedSource(value);
+    return storedImage(value);
   });
 
 export const stageSchema = z.object({

@@ -27,7 +27,7 @@ Last aligned with the working tree on 7 October 2026.
 | Onboarding | Done and saved | Seven steps: age range (13–17 with a parent's consent), stage, headline, city, up to five free paths, goals, experience, pace, weekly time, formats, languages, accent. Every chosen path is followed |
 | Niches and roadmaps | Done for all thirty free paths | Every free path has a catalog and is available. Art stays a flagship and has stages. Every other niche is Premium and has no stages |
 | Lessons and clips | Done for all thirty free paths | The player reads `Resource` rows. YouTube watch links are rewritten into an embed |
-| Admin catalog and submissions | Done | An admin can edit stages and resources, and an approval creates a resource |
+| Catalog CMS and submissions | Done | An admin creates, edits, reorders, and deletes niches, stages, and resources from the account menu's Admin CMS; deletes that would erase learner records are refused. An approval creates a resource |
 | Caching | Done for shared catalog and community lists | Niche grid, lessons, clips, and the submit picker share the catalog tag. Merged community pages share the community tag. The learner map shares city totals. Progress and the account menu stay per person |
 | Learner map | Done | Opt-in city counts on Nearby → Learners. Saving a city is free. Appearing on the map is Premium. No names. Cities under the env minimum stay hidden |
 | Nearby events | Done | Saved events per city and niche, refreshed on a cap. The map opens on the saved city, and each pin is a venue. Community events need a review. Live search is Premium. Every free path has its own search words |
@@ -204,7 +204,7 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 
 **Submit and admin.** Submit writes `ResourceSubmission`. Approve appends a `Resource` on that stage. Reject requires a note. `fail this submit` and `fail this review` are the built-in error cases. A non-admin who opens an admin URL gets not-found.
 
-**Admin catalog.** Lists every niche, with Flagship and Available or Coming soon. The stage editor includes every skill that already has stages, which is all thirty free paths. Needs review only filters the resource list. Saving a resource titled `fail this save` is the built-in error.
+**Catalog CMS.** Opened from Admin CMS in the account menu; the sidebar has no admin entry. A niche list on the left (search, and All, Free paths, Premium, Needs review, Coming soon), and the editor on the right, chosen by the URL. A niche has a Stages tab (a table with photo, level, resources, learners, move, edit, delete) and a Details tab (name, description, cover photo, Available, Flagship, delete). A stage form has Basics, Learning objectives, and Explain-back sections, with the stage's resources below. A resource form has Link, About, Source, Plan tags, and Status sections. No wizard: one structured form per record with a sticky save bar. A free path, a niche with stages or followers or community content, and a stage any learner has worked on cannot be deleted. Saving a resource titled `fail this save` is the built-in error.
 
 **Personal plan.** Every free path can store preferences on `LearningPlan`, from that path’s roadmap, whether or not it is already followed. Saving the plan follows the path. Plain code builds a schedule from that path’s stages. The roadmap shows the weeks, the pace, and a link into each stage. Gemini only turns a written description into those preferences, or suggests resource tags for an admin to review. Undo hides the schedule and shows the shared stages again.
 
@@ -351,6 +351,7 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 
 - [x] Roadmap, lesson, clips, home, and niches read Prisma
 - [x] Admin catalog editor for stages, resources, explain-back prompts, and the needs-review filter
+- [x] Catalog CMS: structured forms, create/edit/reorder/delete for niches, stages, and resources, guarded deletes, Admin CMS in the account menu
 - [x] Niche list with available and coming soon
 - [x] Submit creates `ResourceSubmission`. Approval creates `Resource`
 - [x] Zod on those writes

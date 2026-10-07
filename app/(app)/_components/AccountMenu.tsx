@@ -33,6 +33,8 @@ export function AccountMenu({
         avatarUrl={image ?? undefined}
         items={[
           ...(premium ? [] : [{ label: "Upgrade to Premium", icon: "sparkles", href: "/upgrade" }]),
+          // Admins reach the CMS from here, not from the sidebar.
+          ...(role === "ADMIN" ? [{ label: "Admin CMS", icon: "layout-dashboard", href: "/admin/catalog" }] : []),
           { label: "Creator studio", icon: "video", href: "/creator" },
           { label: "Profile", icon: "user", href: profileHref },
           { label: "Settings", icon: "settings", href: "/settings" },

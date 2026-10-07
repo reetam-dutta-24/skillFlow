@@ -23,13 +23,6 @@ const NAV: SidebarItem[] = [
   { id: "settings", label: "Settings", icon: "settings", href: "/settings" },
 ];
 
-const ADMIN_ITEM: SidebarItem = {
-  id: "admin",
-  label: "Admin",
-  icon: "inbox",
-  href: "/admin/submissions",
-};
-
 /** Shown to admins and niche reviewers only, right after Open Source. */
 const REVIEW_ITEM: SidebarItem = {
   id: "review",
@@ -99,7 +92,8 @@ function navItems(role: "USER" | "ADMIN", review: number | null) {
   const items = review === null
     ? NAV
     : NAV.flatMap((item) => (item.id === "open-source" ? [item, { ...REVIEW_ITEM, badge: review }] : [item]));
-  return role === "ADMIN" ? [...items, ADMIN_ITEM] : items;
+  // Admin lives in the account menu (Admin CMS), so the sidebar is the same for everyone.
+  return items;
 }
 
 function PathTitle() {

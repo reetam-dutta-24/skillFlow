@@ -44,13 +44,6 @@ export type CatalogEditorStage = {
   resources: CatalogEditorResource[];
 };
 
-export type CatalogEditorSkill = {
-  id: string;
-  name: string;
-  slug: string;
-  stages: CatalogEditorStage[];
-};
-
 export type CatalogSaveInput = {
   id?: string;
   stageId: string;
@@ -96,65 +89,6 @@ function pointsFromText(value: string) {
     .filter((line) => line.length > 0);
 }
 
-/** Skills that already have stages, with the resources on each stage. */
-export async function getCatalogEditor(): Promise<CatalogEditorSkill[]> {
-  const skills = await prisma.skill.findMany({
-    orderBy: { order: "asc" },
-    include: {
-      stages: {
-        orderBy: { order: "asc" },
-        include: {
-          resources: { orderBy: { order: "asc" } },
-          explainBackPrompt: true,
-        },
-      },
-    },
-  });
-
-  return skills
-    .filter((skill) => skill.stages.length > 0)
-    .map((skill) => ({
-      id: skill.id,
-      name: skill.name,
-      slug: skill.slug,
-      stages: skill.stages.map((stage) => ({
-        id: stage.id,
-        title: stage.title,
-        description: stage.description ?? "",
-        image: stage.image ?? "",
-        order: stage.order,
-        level: stage.level,
-        objectives: stage.learningObjectives.join("\n"),
-        question: stage.explainBackPrompt?.question ?? "",
-        rubric: stage.explainBackPrompt?.rubric.join("\n") ?? "",
-        resources: stage.resources.map((resource) => ({
-          id: resource.id,
-          stageId: resource.stageId,
-          type: resource.type,
-          url: resource.url,
-          title: resource.title,
-          description: resource.description ?? "",
-          keyPoints: resource.keyPoints.join("\n"),
-          transcript: resource.transcript ?? "",
-          provider: resource.provider,
-          author: resource.author ?? "",
-          videoId: resource.videoId ?? "",
-          isFree: resource.isFree,
-          language: resource.language,
-          sourceStatus: resource.sourceStatus,
-          needsReview: resource.needsReview,
-          lastVerifiedAt: resource.lastVerifiedAt?.toISOString() ?? null,
-          order: resource.order,
-          durationMinutes: resource.durationMinutes,
-          depth: resource.depth,
-          isCore: resource.isCore,
-          captionLanguages: resource.captionLanguages.join("\n"),
-          tagOrigins: readTagOrigins(resource.tagOrigins),
-        })),
-      })),
-    }));
-}
-
 /** Insert or update one resource. Caller must already be an admin. */
 export async function saveCatalogResource(input: CatalogSaveInput): Promise<CatalogSaveResult> {
   if (input.title.trim().toLowerCase() === "fail this save") {
@@ -193,7 +127,7 @@ export async function saveCatalogResource(input: CatalogSaveInput): Promise<Cata
 }
 
 /** Update a stage and its explain-back prompt together. Caller must already be an admin. */
-export async function saveCatalogStage(input: StageSaveInput): Promise<{ ok: true } | { ok: false; error: string }> {
+export async function saveCatalogStage(input: StageSaveInput): Promise<{ ok: true; id: string } | { ok: false; error: string }> {
   const rubric = pointsFromText(input.rubric);
   try {
     return await prisma.$transaction(async (tx) => {
@@ -219,7 +153,7 @@ export async function saveCatalogStage(input: StageSaveInput): Promise<{ ok: tru
         where: { stageId: stage.data.id },
         data: { conceptSourceHash: null },
       });
-      return { ok: true as const };
+      return { ok: true as const, id: stage.data.id };
     });
   } catch (error) {
     return { ok: false, error: error instanceof Error ? error.message : "The stage could not be saved. Try again." };
@@ -270,26 +204,141 @@ export async function recheckCatalogResource(
   return { ok: true, summary: checked.summary, checkedAt: checkedAt.toISOString() };
 }
 
-export type CatalogSkillRow = {
+// ── CMS ──────────────────────────────────────────────
+
+export type CmsNicheRow = {
+  id: string;
+  name: string;
+  slug: string;
+  image: string;
+  status: "AVAILABLE" | "COMING_SOON";
+  free: boolean;
+  flagship: boolean;
+  stages: number;
+  resources: number;
+  needsReview: number;
+};
+
+/** Every niche with its counts, for the CMS list. Admin only, read on the request. */
+export async function listCmsNiches(): Promise<CmsNicheRow[]> {
+  const skills = await prisma.skill.findMany({
+    orderBy: [{ order: "asc" }, { name: "asc" }],
+    select: {
+      id: true,
+      name: true,
+      slug: true,
+      image: true,
+      status: true,
+      offer: true,
+      isFlagship: true,
+      stages: { select: { _count: { select: { resources: true } }, resources: { where: { needsReview: true }, select: { id: true } } } },
+    },
+  });
+  return skills.map((skill) => ({
+    id: skill.id,
+    name: skill.name,
+    slug: skill.slug,
+    image: skill.image,
+    status: skill.status,
+    free: skill.offer === "FREE",
+    flagship: skill.isFlagship,
+    stages: skill.stages.length,
+    resources: skill.stages.reduce((sum, stage) => sum + stage._count.resources, 0),
+    needsReview: skill.stages.reduce((sum, stage) => sum + stage.resources.length, 0),
+  }));
+}
+
+export type CmsStage = CatalogEditorStage & { learners: number };
+export type CmsNiche = {
   id: string;
   name: string;
   slug: string;
   description: string;
   image: string;
-  open: boolean;
   status: "AVAILABLE" | "COMING_SOON";
+  free: boolean;
+  flagship: boolean;
+  followers: number;
+  /** Learner and community records tied to this niche. Any of them blocks deleting it. */
+  dependents: { contributions: number; videos: number; events: number };
+  stages: CmsStage[];
 };
 
-/** Every skill, including ones that have no stages yet. */
-export async function listCatalogSkills(): Promise<CatalogSkillRow[]> {
-  const skills = await prisma.skill.findMany({ orderBy: { order: "asc" } });
-  return skills.map((skill) => ({
+/** One niche with every stage and resource, plus how many learners touched each stage. Admin only, on the request. */
+export async function getCmsNiche(slug: string): Promise<CmsNiche | null> {
+  const skill = await prisma.skill.findUnique({
+    where: { slug },
+    include: {
+      stages: {
+        orderBy: { order: "asc" },
+        include: { resources: { orderBy: { order: "asc" } }, explainBackPrompt: true },
+      },
+      _count: { select: { userProgress: true, communityContributions: true } },
+    },
+  });
+  if (!skill) return null;
+  const stageIds = skill.stages.map((stage) => stage.id);
+  const [completions, notes, attempts, videos, events] = await Promise.all([
+    prisma.stageCompletion.groupBy({ by: ["stageId"], where: { stageId: { in: stageIds } }, _count: { _all: true } }),
+    prisma.learnerNote.groupBy({ by: ["stageId"], where: { stageId: { in: stageIds } }, _count: { _all: true } }),
+    prisma.explainBackAttempt.findMany({ where: { prompt: { stageId: { in: stageIds } } }, select: { prompt: { select: { stageId: true } } } }),
+    prisma.creatorWork.count({ where: { skillId: skill.id } }),
+    prisma.event.count({ where: { skillId: skill.id } }),
+  ]);
+  const touched = new Map<string, number>();
+  const bump = (stageId: string | null, count: number) => {
+    if (stageId) touched.set(stageId, (touched.get(stageId) ?? 0) + count);
+  };
+  completions.forEach((row) => bump(row.stageId, row._count._all));
+  notes.forEach((row) => bump(row.stageId, row._count._all));
+  attempts.forEach((row) => bump(row.prompt.stageId, 1));
+
+  return {
     id: skill.id,
     name: skill.name,
     slug: skill.slug,
     description: skill.description ?? "",
     image: skill.image,
-    open: skill.isFlagship,
     status: skill.status,
-  }));
+    free: skill.offer === "FREE",
+    flagship: skill.isFlagship,
+    followers: skill._count.userProgress,
+    dependents: { contributions: skill._count.communityContributions, videos, events },
+    stages: skill.stages.map((stage) => ({
+      id: stage.id,
+      title: stage.title,
+      description: stage.description ?? "",
+      image: stage.image ?? "",
+      order: stage.order,
+      level: stage.level,
+      objectives: stage.learningObjectives.join("\n"),
+      question: stage.explainBackPrompt?.question ?? "",
+      rubric: stage.explainBackPrompt?.rubric.join("\n") ?? "",
+      learners: touched.get(stage.id) ?? 0,
+      resources: stage.resources.map((resource) => ({
+        id: resource.id,
+        stageId: resource.stageId,
+        type: resource.type,
+        url: resource.url,
+        title: resource.title,
+        description: resource.description ?? "",
+        keyPoints: resource.keyPoints.join("\n"),
+        transcript: resource.transcript ?? "",
+        provider: resource.provider,
+        author: resource.author ?? "",
+        videoId: resource.videoId ?? "",
+        isFree: resource.isFree,
+        language: resource.language,
+        sourceStatus: resource.sourceStatus,
+        needsReview: resource.needsReview,
+        lastVerifiedAt: resource.lastVerifiedAt?.toISOString() ?? null,
+        order: resource.order,
+        durationMinutes: resource.durationMinutes,
+        depth: resource.depth,
+        isCore: resource.isCore,
+        captionLanguages: resource.captionLanguages.join("\n"),
+        tagOrigins: readTagOrigins(resource.tagOrigins),
+      })),
+    })),
+  };
 }

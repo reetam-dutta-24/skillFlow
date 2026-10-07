@@ -9896,3 +9896,92 @@ html {
 .sf-doc-body h2 {
   font-weight: var(--weight-semibold);
 }
+
+/* ───────────── Google sign-in ───────────── */
+/* Google's button rules: the four-colour G, its own neutral colours (dark variant in dark theme), no accent tint. */
+.sf-google-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 48px;
+  margin-top: var(--space-6);
+  padding: 0 16px;
+  border: 1px solid #8e918f;
+  border-radius: var(--radius-btn);
+  background: #131314;
+  color: #e3e3e3;
+  font: inherit;
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+.sf-google-btn:hover:not(:disabled) {
+  background: #1f1f20;
+}
+.light .sf-google-btn {
+  border-color: #747775;
+  background: #ffffff;
+  color: #1f1f1f;
+}
+.light .sf-google-btn:hover:not(:disabled) {
+  background: #f2f2f2;
+}
+.sf-google-btn:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+.sf-google-btn svg {
+  flex: 0 0 auto;
+}
+.sf-auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: var(--space-5) 0 0;
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+}
+.sf-auth-divider::before,
+.sf-auth-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--border-subtle);
+}
+.sf-auth-divider + .sf-auth-form {
+  margin-top: var(--space-4);
+}
+.sf-signin-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 10px;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  white-space: nowrap;
+}
+.sf-signin-chip.is-ok {
+  border-color: rgb(from var(--state-pass) r g b / 0.5);
+  color: var(--state-pass);
+}
+.sf-signin-connect {
+  width: min(100%, 240px);
+}
+.sf-signin-connect .sf-google-btn {
+  margin-top: 0;
+  min-height: 44px;
+}
+.sf-google-btn span {
+  white-space: nowrap;
+}
+.sf-signin-connect {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 200px;
+}

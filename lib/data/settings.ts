@@ -4,6 +4,7 @@ import { isStoredAccent } from "@/lib/accent";
 import { auth } from "@/lib/auth";
 import { userHasPremium } from "@/lib/billing/access";
 import { prisma } from "@/lib/prisma";
+import { googleAuthEnabled } from "@/lib/google-auth";
 
 const SIGN_IN_AGAIN = "Sign in again before saving.";
 
@@ -16,6 +17,9 @@ export async function getSettingsProfile() {
         select: {
           name: true,
           email: true,
+          emailVerified: true,
+          password: true,
+          accounts: { where: { provider: "google" }, select: { id: true } },
           learnerProfile: { select: { accent: true, city: true, country: true, showOnMap: true, streakReminder: true } },
         },
       })
@@ -37,6 +41,12 @@ export async function getSettingsProfile() {
       city: user?.learnerProfile?.city ?? null,
       country: user?.learnerProfile?.country ?? null,
       showOnMap: user?.learnerProfile?.showOnMap ?? false,
+    },
+    signIn: {
+      hasPassword: Boolean(user?.password),
+      emailVerified: Boolean(user?.emailVerified),
+      google: Boolean(user?.accounts.length),
+      googleAvailable: googleAuthEnabled(),
     },
     premium: userId ? session?.user?.role === "ADMIN" || (await userHasPremium(userId)) : false,
   };

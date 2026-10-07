@@ -34,6 +34,10 @@ const sections: LegalSection[] = [
         <ul>
           <li>Your name and email address.</li>
           <li>Your password, stored only as a one-way bcrypt hash. We cannot read it.</li>
+          <li>
+            If you sign in with Google: your Google account ID, name, email address, whether Google verified that email, and your profile photo.
+            We do not get your Google password or access to your Gmail, Drive, or contacts.
+          </li>
           <li>Your role (learner, or admin for the team).</li>
         </ul>
         <h3>Your learning</h3>
@@ -116,6 +120,10 @@ const sections: LegalSection[] = [
             <strong>Google (Gemini) or OpenAI.</strong> Your explanation, the idea it is about, and that stage&apos;s title and notes are sent
             to an AI model, which writes the review. The same goes for recall answers, practice answers, note summaries, and a plan
             description you write. Your name and email are not sent.
+          </li>
+          <li>
+            <strong>Google sign-in.</strong> If you choose Continue with Google, Google confirms who you are and shares the details listed
+            above. Google&apos;s own policy applies to that sign-in.
           </li>
           <li>
             <strong>Stripe.</strong> Payments and the customer portal where you manage or cancel Premium.

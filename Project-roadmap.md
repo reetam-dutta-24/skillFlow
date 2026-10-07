@@ -23,7 +23,7 @@ Last aligned with the working tree on 7 October 2026.
 | Public pages | Done | Landing, login, signup, and a full Privacy Policy and Terms of Service (Indian law, DPDP Act 2023). Landing names Travel Vlogging with the other two free paths |
 | Database schema and local Postgres | Done | Prisma models and migrations, through creator studio, the learner map, nearby events, billing, and the streak reminder |
 | Open Source community | Done | Contribute, review (approve, request changes, close), author edit, resubmit and withdraw, unmerge, roles, gaps, the maintainers panel, `/admin/community`, and a contributor profile with a heatmap. Only merged work is public |
-| Auth | Done for email/password | Auth.js, bcrypt passwords, JWT session, route protection. Google is configured in code. The login screen is email and password |
+| Auth | Done | Auth.js, bcrypt passwords, Google sign-in with verified email only, JWT session, route protection. Google links to an existing account from Settings, which verifies the email |
 | Onboarding | Done and saved | Skill, pace, goal, and accent are written to Postgres |
 | Niches and roadmaps | Done for all thirty free paths | Every free path has a catalog and is available. Art stays a flagship and has stages. Every other niche is Premium and has no stages |
 | Lessons and clips | Done for all thirty free paths | The player reads `Resource` rows. YouTube watch links are rewritten into an embed |
@@ -243,7 +243,7 @@ Stage photos were generated for all 10 Content Creation stages and all 8 Travel 
 ## Revision: decisions worth saying out loud
 
 - **JWT sessions, not database sessions.** Auth.js Credentials does not support database sessions. Revoking one session means changing the secret or waiting for expiry.
-- **Google is in `lib/auth.ts`. The login form does not show a Google button.**
+- **Google sign-in is on the login and signup forms when its keys are set. A Google account never takes over a password account by email match alone; the learner connects it from Settings after logging in.**
 - **Proxy is not the admin check.** The proxy only asks "is someone signed in?". `requireAdmin()` asks "is this person an admin?".
 - **Public pages stay static.** `/`, `/login`, `/signup`, `/privacy`, and `/terms` do not call `auth()` in the root layout.
 - **Shared screens are one cached copy. Personal progress is not.** The niche grid, lessons, clips, and the submit picker use the `catalog` tag. Admin saves expire it at once. Follow marks, mastery, and the account menu stay on the request.
@@ -329,7 +329,8 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 - [x] Email/password sign-in and sign-up
 - [x] `proxy.ts` redirects anonymous visitors
 - [x] JWT session strategy
-- [ ] GitHub OAuth — not built. Google is in config only, and the form does not offer it
+- [x] Google OAuth: Continue with Google, verified email only, Connect and Disconnect in Settings → Sign-in, emails lowercased
+- [ ] GitHub OAuth — not built, and not planned
 - [ ] Database sessions — not used, and not the plan anymore
 
 **Interview bugs already hit.** Prisma 6 does not auto-load `.env`. Docker named volumes keep the first Postgres password forever.

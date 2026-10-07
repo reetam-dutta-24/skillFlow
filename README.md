@@ -57,7 +57,7 @@ A dead stored link can be marked unavailable. The lesson keeps the saved title, 
 
 - Next.js 16.3.4, React 19, TypeScript, Tailwind CSS v4. Landing and auth pages are static. A signed-in visit to `/` goes to `/dashboard`. Shared catalog screens (niche grid, lessons, clips, submit picker) are cached for every visitor under the `catalog` tag. Public community lists, a published post, and contributor profiles are cached under the `community` tag. The Stripe price label is cached for an hour. Learner-map totals are cached under the `learner-map` tag, city search under `geocode`, and saved nearby events under `nearby-events`. Progress, the account menu, the review queue, and a person's own contributions stay per request
 - PostgreSQL and Prisma 6
-- Auth.js v5 — email and password with bcrypt, JWT sessions. Google is configured in code and is not on the login form
+- Auth.js v5 — email and password with bcrypt, plus Google sign-in, JWT sessions
 - Explain-back grading uses Gemini’s free tier when `GEMINI_API_KEY` is set. `OPENAI_API_KEY` is the fallback when that key is empty. With no key, the catalog questions stay and a stage cannot be passed
 
 ## Getting started
@@ -115,6 +115,16 @@ Copy the names from `.env.example`. Leave a key blank to turn that source off.
 - `EVENTS_TTL_HOURS` — how long a saved city and niche stays fresh. The default is 12.
 - `EVENTS_CRON_PAIRS` — how many city and niche pairs that cron route refreshes. The default is 20.
 - `GEOCODER_USER_AGENT` — already used by city search. Put an email or a site you control in it.
+
+## Google sign-in
+
+1. In Google Cloud Console, open APIs & Services → OAuth consent screen and set it up (External, app name SkillFlow, your support email). Add the scopes `openid`, `email`, and `profile`.
+2. Credentials → Create credentials → OAuth client ID → Web application.
+   - Authorized JavaScript origins: `http://localhost:3000` (and the production origin later).
+   - Authorized redirect URIs: `http://localhost:3000/api/auth/callback/google` (and `https://<your-domain>/api/auth/callback/google`).
+3. Put the client ID and secret in `.env` as `AUTH_GOOGLE_ID` and `AUTH_GOOGLE_SECRET`, then restart `npm run dev`.
+
+Without those two keys the Google buttons do not render and email and password still work. Only Google accounts with a verified email can sign in. A Google account whose email already has a password account must be connected from Settings → Sign-in after logging in with the password; connecting verifies the email and, if the account email was never verified, moves it to that Gmail address. While the consent screen is in Testing, only the test users you add can sign in.
 
 ## Stripe
 

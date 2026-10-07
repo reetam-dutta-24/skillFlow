@@ -72,3 +72,17 @@ export async function unfollowSkill(skillId: string) {
   if (result.ok) refreshAccount();
   return result;
 }
+
+/** Removes the Google sign-in from this account. Refused when there is no password, so nobody locks themselves out. */
+export async function disconnectGoogle() {
+  const session = await auth();
+  const userId = session?.user?.id;
+  if (!userId) return { ok: false as const, error: "Sign in again before saving." };
+  const user = await prisma.user.findUnique({ where: { id: userId }, select: { password: true } });
+  if (!user?.password) {
+    return { ok: false as const, error: "Google is the only way into this account. It stays connected." };
+  }
+  await prisma.account.deleteMany({ where: { userId, provider: "google" } });
+  revalidatePath("/settings");
+  return { ok: true as const };
+}

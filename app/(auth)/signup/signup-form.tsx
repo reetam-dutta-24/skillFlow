@@ -7,8 +7,9 @@ import { signUp } from "./actions";
 import { AuthShell } from "@/components/feedback/AuthShell.jsx";
 import { AuthInput } from "@/components/forms/AuthInput.jsx";
 import { Button } from "@/components/core/Button.jsx";
+import { GoogleButton } from "@/components/forms/GoogleButton";
 
-export function SignUpForm() {
+export function SignUpForm({ google = false }: { google?: boolean }) {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
@@ -38,6 +39,14 @@ export function SignUpForm() {
       sub="Free to start. No credit card required."
     >
       <h2>Create an account</h2>
+      {google ? (
+        <>
+          <GoogleButton label="Sign up with Google" disabled={pending} />
+          <p className="sf-auth-divider">
+            <span>or with email</span>
+          </p>
+        </>
+      ) : null}
       <form className="sf-auth-form" action={handleSubmit}>
         <label className="sf-auth-field">
           Name
@@ -56,8 +65,8 @@ export function SignUpForm() {
             {error}
           </p>
         ) : null}
-        <Button type="submit" variant="gradient" size="lg" full disabled={pending}>
-          {pending ? "Creating account" : "Create account"}
+        <Button type="submit" variant="gradient" size="lg" full pending={pending} pendingLabel="Creating account…">
+          Create account
         </Button>
       </form>
       <p className="sf-auth-switch">

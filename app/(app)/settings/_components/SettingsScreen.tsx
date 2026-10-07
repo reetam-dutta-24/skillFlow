@@ -12,6 +12,7 @@ import { Button } from "@/components/core/Button.jsx";
 import { UsageCutoffDialog } from "@/components/feedback/UsageCutoffDialog";
 import { saveReminder, saveSettings } from "../actions";
 import { LocationCard } from "./LocationCard";
+import { SignInCard, type SignInState } from "./SignInCard";
 
 export function SettingsScreen({
   userId,
@@ -23,6 +24,7 @@ export function SettingsScreen({
   showPreview,
   map,
   premium,
+  signIn,
 }: {
   userId: string;
   name: string;
@@ -33,6 +35,7 @@ export function SettingsScreen({
   showPreview: boolean;
   map: { hasProfile: boolean; city: string | null; country: string | null; showOnMap: boolean };
   premium: boolean;
+  signIn: SignInState;
 }) {
   const router = useRouter();
   const [profileName, setProfileName] = useState(name);
@@ -111,6 +114,7 @@ export function SettingsScreen({
           </div>
         </div>
       </SettingsSection>
+      <SignInCard email={email} signIn={signIn} />
       <LocationCard map={map} canShare={premium} />
       <SettingsSection title="Notifications" subtitle="One reminder. No badges and no counts.">
         <SettingsToggle

@@ -239,3 +239,29 @@ Pick one word per idea and use it everywhere in visible copy (routes and code st
 ## What was fine
 
 No page scrolls sideways at 375px. A skip link exists. Focus outlines are visible on keyboard focus. Reduced motion is honoured in five CSS blocks and eleven components. Dark-theme body text, links, accent text, and primary buttons all pass. Empty states exist on most lists.
+
+---
+
+## Resolution
+
+Phases 1–5, 7 October 2026. Commits `e936412`, `e1caf49`, `00a55ea`, `739863b`, and the Phase 5 commit after them. Screens in `docs/ui-audit/after-phase1`, `after-phase2`, `after-phase3`, and `phase4`.
+
+| # | Issue | Status |
+| --- | --- | --- |
+| 1 | Key points as one paragraph | Fixed. Each resource is a card with a "What you will learn" list. Clip captions separate points with a middle dot |
+| 2 | Roadmap stage list of identical text cards | Fixed. Cover hero, "Up next" card, photo stage cards with passed / up next / locked states |
+| 3 | 216 stages without a photo | Fixed. 246 photos committed in `public/stages`, credits in `credits.json` |
+| 4 | 111 MB of 4K hero video on phones | Fixed for phones: 49 KB poster, video only at 960px and up. Phone landing is 449 KB. The 4K files still need 1080p encodes (no ffmpeg on this machine) |
+| 5 | Light-theme contrast | Fixed with measured tokens |
+| 6 | Mobile top bar truncation | Fixed. Icon-only controls, 44px menu button |
+| 7 | Mobile landing header on three rows | Fixed. Brand, Get started, and Menu; log in and theme moved into the menu |
+| 8 | Auth form below the fold on phones | Fixed. Form first under 960px |
+| 9 | Explain-back not distraction-free | Fixed. Focus mode, breadcrumbs back to the lesson, draft kept on the device |
+| 10 | Accent differs page to page | Fixed. The saved accent syncs from the account menu |
+| 11 | No toast, Button without states | Fixed. `Button` pending, CSS states, `useToast` |
+| 12 | Dialogs without a focus trap | Fixed. `useFocusTrap` in the confirm dialog, the admin queue, and the catalog editor |
+| 13 | Title twice, truncated sidebar labels | Fixed. Top-bar title on phones only, 216px sidebar |
+| 14 | Upsell first on Home, repeated on Niches, nested on Settings | Fixed. One quiet line at the bottom of Home, removed from Niches, one Plan card in Settings |
+| 15 | Terminology drift | Fixed in visible copy: path, niche, stage, contribution. Routes and code names stay |
+
+Found and fixed during QA: six landing feature images were missing (400s on every visit); a CLS of 0.06 from the scrollbar appearing after streaming; MapLibre's white zoom box in dark mode; the Open Source rail crushing "Available · Followed"; the transcript's empty row squeezed into the number column.

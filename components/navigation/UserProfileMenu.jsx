@@ -76,7 +76,9 @@ export function UserProfileMenu({ name, handle, email, avatarUrl, placement = "t
         {avatarUrl?.startsWith("/") ? (
           <SkillImage src={avatarUrl} alt="" width={64} height={64} sizes="32px" style={{ width: 32, height: 32, borderRadius: "var(--radius-full)", objectFit: "cover", flexShrink: 0 }} />
         ) : avatarUrl ? (
-          <img src={avatarUrl} alt="" style={{ width: 32, height: 32, borderRadius: "var(--radius-full)", objectFit: "cover", flexShrink: 0 }} />
+          // A remote avatar (Google sign-in). The host is not in the image config, so the browser loads it directly.
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={avatarUrl} alt="" width={32} height={32} decoding="async" style={{ width: 32, height: 32, borderRadius: "var(--radius-full)", objectFit: "cover", flexShrink: 0 }} />
         ) : (
           <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 32, height: 32, flexShrink: 0, borderRadius: "var(--radius-full)", backgroundImage: "var(--gradient-brand)", color: "#fff", fontSize: "var(--text-sm)", fontWeight: "var(--weight-bold)" }}>{initial}</span>
         )}

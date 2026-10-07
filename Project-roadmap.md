@@ -31,11 +31,12 @@ Last aligned with the working tree on 7 October 2026.
 | Caching | Done for shared catalog and community lists | Niche grid, lessons, clips, and the submit picker share the catalog tag. Merged community pages share the community tag. The learner map shares city totals. Progress and the account menu stay per person |
 | Learner map | Done | Opt-in city counts on Nearby → Learners. Saving a city is free. Appearing on the map is Premium. No names. Cities under the env minimum stay hidden |
 | Nearby events | Done | Saved events per city and niche, refreshed on a cap. The map opens on the saved city, and each pin is a venue. Community events need a review. Live search is Premium. Every free path has its own search words |
-| Settings follow | Done | Follow and Following sit on Niches, Home, and Roadmaps. Settings no longer adds or removes niches. A Premium niche can be followed only with Premium. The streak reminder is saved on the profile |
+| Settings follow | Done | Follow and Following sit on Niches, Home, and Paths. Settings no longer adds or removes niches. A Premium niche can be followed only with Premium. The streak reminder is saved on the profile |
 | Explain-back | Wizard, one idea at a time | Each learning objective is its own step. A written review comes back whether the idea holds or not. The step moves on only when it holds. The stage is recorded after the last idea. No key means no pass. Every stage on a free path can be passed |
 | Notes | Accepted ideas | `/notes` is in the sidebar. Each idea that holds is stored with the explanation and the review. The list is personal |
 | Unlock by mastery | The next stage | A pass opens the next stage for that learner. Every stage on a free path is structurally open, so the certificate can be earned |
 | Premium | Stripe Checkout | One subscription. It opens niches outside the thirty and appearing on the learner map. The card form stays on Stripe. Missing keys do not pretend a charge happened |
+| UI polish | Done | Audit in `UI-AUDIT.md`. Contrast-checked tokens, one `Button` with pending, focus-trapped dialogs, a toast, a photo for every stage, a redesigned path and lesson page, explain-back in focus mode, a framed certificate, 44px targets, and no sideways scroll at 375px or 768px. Lighthouse accessibility is 100 on the landing, Home, a path, and a lesson |
 | Tests, deploy, monitoring | Unit tests only | Mastery, streaks, explain-back judging, plans, events, and community rules have unit tests. No end-to-end pass, no production host, no Sentry |
 
 ---
@@ -167,13 +168,13 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 
 **Onboarding.** Pick a skill, a pace, a goal, and an accent. Save writes `LearnerProfile` and a `UserSkillProgress` row when that skill exists. Pace does not decide which stages are open. The skill choices are Full-Stack, Travel Vlogging, Content Creation, Photography, and Music Production.
 
-**Shell.** Every signed-in page sits in `app/(app)`. The URL does not contain `(app)`. Desktop shows a fixed sidebar from 960px up. Below that, the sidebar is a dialog drawer. Main nav is Home, Niches, Clips, Creator studio, Roadmaps, Nearby, Open Source, Progress, Notes, Analytics, Submit a resource, and Settings. Admin appears only when `role === ADMIN`. Review appears for admins and community role holders, with an open count.
+**Shell.** Every signed-in page sits in `app/(app)`. The URL does not contain `(app)`. Desktop shows a fixed sidebar from 960px up. Below that, the sidebar is a dialog drawer. Main nav is Home, Niches, Clips, Creator studio, Paths, Nearby, Open Source, Progress, Notes, Analytics, Submit a resource, and Settings. Admin appears only when `role === ADMIN`. Review appears for admins and community role holders, with an open count.
 
 **Niches (`/skills`).** Search and group filters, then 32 cards a page (4 columns by 8 rows). A free skill with stages is a link to its roadmap. Open means the thirty free paths. Every free path has stages, so the card says "Free · N stages". Every other niche shows "Premium". A free account opens `/upgrade` from that card. A subscriber opens the roadmap. A free account also sees what Premium adds. Narrow screens stack the same 32 cards into fewer columns.
 
 **Home.** Streak banner, four stats from the signed-in user (zeros until there are attempts), and one horizontal row per followed skill. Open stages link to the lesson. Locked stages do not. A free account sees what Premium adds, with a link to `/upgrade`. Explore shows 4 columns by 3 rows of niche cards, a blurred peek of the next row, and Explore all the niches. Follow and Following sit on the card.
 
-**Roadmaps.** The index says thirty paths are free, the next stage opens after the explain-back, and every stage on a free path is open. A free account sees what Premium adds. A Premium niche without a subscription opens `/upgrade`. A followed skill has Continue and Open path. More skills is the same short niche teaser as Home. A path page shows the stage photo and the real description. A stage they have not reached yet stays readable, with a lock and "Pass the previous stage to open this one." A stage they have not reached yet stays readable, with a lock. A Premium path with no stages says the catalog is not ready yet. Stage photos are 16:9 files in `public/uploads`. That folder is gitignored, so a clone does not include them.
+**Roadmaps.** The index says thirty paths are free, the next stage opens after the explain-back, and every stage on a free path is open. A free account sees what Premium adds. A Premium niche without a subscription opens `/upgrade`. A followed skill has Continue and Open path. More skills is the same short niche teaser as Home. A path page shows the stage photo and the real description. A stage they have not reached yet stays readable, with a lock and "Pass the previous stage to open this one." A stage they have not reached yet stays readable, with a lock. A Premium path with no stages says the catalog is not ready yet. Stage photos are 16:9 files committed under `public/stages`, one per stage on every free path, with credits in `public/stages/credits.json`.
 
 **Lesson.** The first video is the clip. Other resources are sources. A course link is labeled "Course". Pressing play loads `youtube-nocookie.com/embed/...`. A locked lesson shows the stage title and the skill name, and does not include the resource text. Direct visits to a locked stage id behave the same way.
 
@@ -187,7 +188,7 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 
 **Progress and analytics.** Counts, mastery, streaks, weak topics, and the charts come from `ExplainBackAttempt` and `StageCompletion`. Home and Progress show “Explain-backs passed”.
 
-**Settings.** Plan is the first section: a free account sees what Premium adds, and an account that already has it can open the plan page. Name saves to `User`. Email is read-only. Niches are followed from Niches, Home, and Roadmaps, not from this page. Onboarding still chooses the first paths. Stopping a follow drops `UserSkillProgress` and keeps attempts. The daily reminder is saved on the profile. The bell shows it when yesterday counted and today has not. Theme and accent apply immediately. The accent row keeps the ten presets, adds Spectrum (one neighboring pair moves slowly around the wheel while the room stays dark; reduced motion holds one hue), and adds a custom gradient: a color palette, a hex field, and R, G, and B for each stop. Log out uses the real `signOut`.
+**Settings.** Plan is the first section: a free account sees what Premium adds, and an account that already has it can open the plan page. Name saves to `User`. Email is read-only. Niches are followed from Niches, Home, and Paths, not from this page. Onboarding still chooses the first paths. Stopping a follow drops `UserSkillProgress` and keeps attempts. The daily reminder is saved on the profile. The bell shows it when yesterday counted and today has not. Theme and accent apply immediately. The accent row keeps the ten presets, adds Spectrum (one neighboring pair moves slowly around the wheel while the room stays dark; reduced motion holds one hue), and adds a custom gradient: a color palette, a hex field, and R, G, and B for each stop. Log out uses the real `signOut`.
 
 **Submit and admin.** Submit writes `ResourceSubmission`. Approve appends a `Resource` on that stage. Reject requires a note. `fail this submit` and `fail this review` are the built-in error cases. A non-admin who opens an admin URL gets not-found.
 
@@ -197,7 +198,7 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 
 **Version 2 previews, not linked from the main nav.** Each one is labeled "Version 2 preview".
 
-- `/upgrade` — Free and Premium, side by side. A free account continues to Stripe Checkout. The card form stays on Stripe. Without keys, the page says Stripe is not configured. Home, Niches, Roadmaps, Settings, and the account menu point a free account here. An admin already has Premium, so those prompts stay off.
+- `/upgrade` — Free and Premium, side by side. A free account continues to Stripe Checkout. The card form stays on Stripe. Without keys, the page says Stripe is not configured. Home, the Paths index, Settings, and the account menu point a free account here. An admin already has Premium, so those prompts stay off.
 - `/transcript/[userId]/[skillSlug]` — the stages this learner has passed, with the real dates. PDF download. `noindex`.
 - `/certificate/[userId]/[skillSlug]` — issued only when every stage on that path is passed. SkillFlow’s own record. `noindex`.
 - `/notes` — in the main nav. An accepted explain-back idea is stored with its review. The notebook downloads as Word or PDF, and each stage can be summarized from those notes only.
@@ -386,7 +387,7 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 - [x] Stage photos on Full-Stack, Content Creation, and Travel Vlogging. The other free paths have no committed stage photos
 - [x] Settings follow and unfollow
 - [x] Explain-back UI calling a real grader
-- [x] Home, Niches, and Roadmaps follow from the card. Settings no longer adds or removes niches
+- [x] Home, Niches, and Paths follow from the card. Settings no longer adds or removes niches
 - [x] A full responsive pass, including 375px
 - [x] Landing, auth carousel, and onboarding name Travel Vlogging instead of Art
 
@@ -520,10 +521,10 @@ Ticketmaster and Google Events (SerpApi) are separate adapters. A missing key tu
 
 ## What's left
 
-The functional product is in place, including follow, Premium, live event search, event keywords for every free path, and a saved streak reminder. What remains is a UI pass, then proof, then a host.
+The functional product is in place, including follow, Premium, live event search, event keywords for every free path, and a saved streak reminder. The UI pass is done (October 2026, `UI-AUDIT.md`). What remains is proof, then a host.
 
-- A UI pass across the signed-in screens.
+- Landing on a phone: Lighthouse performance is about 70–75 with a 4s LCP under throttling. The poster loads at once; the delay is script start-up from the landing's client components. Moving those to server components is the next step there. The hero videos are still 4K files; 1080p encodes under 3 MB each would cut the desktop weight.
 - Phase 8. Integration tests for catalog import and lesson reads. One end-to-end pass from signup through onboarding, a lesson, explain-back, and progress. A manual pass of empty, error, and loading states. Model calls mocked in tests.
 - Open Source. Integration tests for review, edit, and hide.
-- Phase 9. A container, GitHub Actions for lint, test, and build, a hosted app and hosted Postgres, error monitoring, env files that stay out of git, and migrate as a deploy step. Stripe keys on that host. `next build` still fails on a prerender of uncached data in `AppShell`. Full-repo `eslint` still fails on older files.
+- Phase 9. A container, GitHub Actions for lint, test, and build, a hosted app and hosted Postgres, error monitoring, env files that stay out of git, and migrate as a deploy step. Stripe keys on that host. Full-repo `eslint` still fails on older files.
 - Phase 10. A case study, a short recording of the loop, and a diagram of browser to Server Component to `lib/data` to Prisma.

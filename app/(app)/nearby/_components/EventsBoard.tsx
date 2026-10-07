@@ -21,7 +21,7 @@ function EventPhoto({ event }: { event: EventView }) {
       {src ? (
         // Event art comes from Ticketmaster and Google. The host is not known ahead of time.
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={src} alt="" onError={() => setFailed(true)} />
+        <img src={src} alt="" loading="lazy" decoding="async" onError={() => setFailed(true)} />
       ) : (
         <span className="sf-event-photo-fallback" aria-hidden="true">
           {event.title.slice(0, 1)}

@@ -85,9 +85,9 @@ export function SkillBrowse({ skills, mode = "page" }: { skills: BrowseSkill[]; 
     return (
       <div className="sf-niche-teaser">
         <ul className="sf-browse-grid">
-          {visible.map((skill) => (
+          {visible.map((skill, index) => (
             <li key={skill.id}>
-              <SkillCard skill={skill} />
+              <SkillCard skill={skill} eager={index === 0} />
             </li>
           ))}
         </ul>
@@ -177,7 +177,7 @@ export function SkillBrowse({ skills, mode = "page" }: { skills: BrowseSkill[]; 
                   transition={reduce ? { duration: 0 } : { duration: 0.32, delay: Math.min(index, 6) * 0.04, ease: EASE }}
                   whileHover={reduce || !nicheCardHref({ ...skill, premium }) ? undefined : { y: -6 }}
                 >
-                  <SkillCard skill={skill} />
+                  <SkillCard skill={skill} eager={current === 1 && index === 0} />
                 </motion.li>
               ))}
             </AnimatePresence>
@@ -212,7 +212,8 @@ export function SkillBrowse({ skills, mode = "page" }: { skills: BrowseSkill[]; 
   );
 }
 
-function SkillCard({ skill, preview = false }: { skill: BrowseSkill; preview?: boolean }) {
+/** `eager` loads the photo at once: the first card is often the largest paint on a phone. */
+function SkillCard({ skill, preview = false, eager = false }: { skill: BrowseSkill; preview?: boolean; eager?: boolean }) {
   const premium = usePremiumAccess();
   const followed = useFollowedSkill(skill.id, skill.followed);
   const view = followed === skill.followed ? skill : { ...skill, followed };
@@ -222,7 +223,7 @@ function SkillCard({ skill, preview = false }: { skill: BrowseSkill; preview?: b
     <>
       {view.image ? (
         <span className="sf-skill-tile-photo">
-          <SkillImage src={view.image} alt="" fill sizes="(max-width: 640px) 100vw, 280px" />
+          <SkillImage src={view.image} alt="" fill sizes="(max-width: 640px) 100vw, 280px" loading={eager ? "eager" : undefined} />
         </span>
       ) : (
         <span className="sf-skill-tile-photo sf-skill-tile-fallback" data-initial={view.name.charAt(0)} aria-hidden="true" />

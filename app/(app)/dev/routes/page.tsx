@@ -13,7 +13,7 @@ const ROUTES = [
   ["/onboarding", "Onboarding"],
   ["/dashboard", "Home"],
   ["/clips", "Clips"],
-  ["/roadmap", "Roadmaps"],
+  ["/roadmap", "Paths"],
   ["/skills", "Niches"],
   ["/roadmap/full-stack-web-dev", "Roadmap detail"],
   ["/lesson/stage_fs_2", "Lesson"],

@@ -50,7 +50,9 @@ export function ContributionBody({ row }: { row: ContributionBodyData }) {
           </Chip>
         ))}
       </span>
-      {row.imageUrl ? <img className="sf-community-photo" src={row.imageUrl} alt="" /> : null}
+      {/* A contribution image can be an upload or any https link, so the browser loads it directly. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      {row.imageUrl ? <img className="sf-community-photo" src={row.imageUrl} alt="" decoding="async" /> : null}
       {row.body ? <CommunityMarkdown text={row.body} /> : <p>{row.summary}</p>}
       {steps.length > 0 ? (
         <ol className="sf-community-steps">

@@ -220,9 +220,9 @@ export function getLandingContent(): LandingContent {
       {
         id: "roadmap",
         title: "Thirty free paths",
-        body: "Every stage on a free path is open to read. The next one still waits until the explain-back on this one is passed. Follow a path from Niches, Home, or Roadmaps. A personal plan can turn that path into weeks, and saving the plan follows it.",
+        body: "Every stage on a free path is open to read. The next one still waits until the explain-back on this one is passed. Follow a path from Niches, Home, or Paths. A personal plan can turn that path into weeks, and saving the plan follows it.",
         points: [],
-        mediaLabel: "A roadmap of stages",
+        mediaLabel: "A path of stages",
         image: "/landing/shots/roadmap.jpg",
       },
       {

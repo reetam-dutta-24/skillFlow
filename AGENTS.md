@@ -12,7 +12,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 Read this after the Next.js block. `Project-roadmap.md` is the phase list. `README.md` is how to run the app. The files in `content/catalog/_review/` are generated link-check reports. Do not rewrite them by hand.
 
-Last aligned with the working tree on 7 October 2026.
+Last aligned with the working tree on 7 October 2026, after the UI polish.
 
 ## What this product is
 
@@ -122,7 +122,7 @@ Catalog `note:` lines have no column. Omit them from the JSON and the database. 
 
 YouTube ids on videos come from `?v=`. `lib/playable-src.ts` turns a watch, youtu.be, shorts, or embed URL into `https://www.youtube-nocookie.com/embed/ID?autoplay=1`. The lesson player and the clip feed both use it. Do not put a raw watch URL in an iframe.
 
-Stage photos are `RoadmapStage.image`, served from `/uploads/...`. The importer omits `image`, so a reimport does not wipe photos. `public/uploads` is gitignored except `.gitkeep`. A fresh clone will not have the stage photos. Skill cover images live in `public/skills/` and are committed.
+Stage photos are `RoadmapStage.image`. Every stage on all thirty free paths has one, committed under `public/stages/<slug>/<order>.jpg` (1280×720). The credits are in `public/stages/credits.json`. `scripts/fetch-stage-photos.ts` picked them from Openverse (CC0 and public domain, or Pexels when `PEXELS_API_KEY` is set), copied the older `/uploads` photos of the big three, and set `RoadmapStage.image` to `/stages/...`. The search words are in `scripts/stage-photo-queries.json`. The importer omits `image`, so a reimport does not wipe photos. Skill cover images live in `public/skills/` and are committed.
 
 ## How to load a catalog
 
@@ -143,8 +143,8 @@ Do not run `npx prisma db seed`. The seed resets admin passwords and rewrites ev
 Wired to Postgres:
 
 - Niches, roadmaps, lessons, and clips read `Skill`, `RoadmapStage`, and `Resource`.
-- Home shows one row per followed skill. Follow is the `UserSkillProgress` row. Niches, Home, and Roadmaps put Follow or Following on each open niche. Following toggles off and keeps explain-back history. Saving a personal plan follows that path. Onboarding still follows the paths chosen there. Settings no longer adds or removes niches. A Premium path cannot be followed without Premium. A profile lists how many niches that account follows, and their names.
-- A niche card links to `/roadmap/[slug]` only when the skill is available and has stages. A Premium card says Premium. A free account opens `/upgrade` from that card. A subscriber opens the roadmap. The Open filter on `/skills` is the free paths. Home, Niches, Roadmaps, and Settings tell a free account what Premium adds. The account menu links to Upgrade. An admin already counts as Premium, so those prompts stay off.
+- Home shows one row per followed skill. Follow is the `UserSkillProgress` row. Niches, Home, and Paths put Follow or Following on each open niche. Following toggles off and keeps explain-back history. Saving a personal plan follows that path. Onboarding still follows the paths chosen there. Settings no longer adds or removes niches. A Premium path cannot be followed without Premium. A profile lists how many niches that account follows, and their names.
+- A niche card links to `/roadmap/[slug]` only when the skill is available and has stages. A Premium card says Premium. A free account opens `/upgrade` from that card. A subscriber opens the roadmap. The Open filter on `/skills` is the free paths. Home (one quiet line at the bottom), the Paths index, and Settings tell a free account what Premium adds. Niches does not repeat it. The account menu links to Upgrade. An admin already counts as Premium, so those prompts stay off.
 - Admin catalog (`/admin/catalog`) edits skills that already have stages, and lists every niche. Needs-review filter is `#catalog-review-only`.
 - Submit writes `ResourceSubmission`. Admin approval creates a `Resource`. Reject stores a note.
 - Profile name saves. Email does not. Theme and accent apply immediately. The ten color presets stay. Spectrum is an eleventh preset: one neighboring pair of hues drifts around the wheel on a 96-second loop. The surfaces stay as dark as the other presets, the type stays white, and the tint is only a soft shift. Reduced motion holds one hue. A custom gradient is `custom:#start:#end` on `LearnerProfile.accent` and the `skillflow-accent` cookie. The palette, hex, and RGB fields live on Settings and onboarding. That choice is personal: it is not part of the catalog cache, and saving it does not call `invalidateCatalog()`.
@@ -173,7 +173,7 @@ Also wired, with these limits:
 - A passed stage idea comes back twice, 18 hours apart, as a card over the app until the learner writes an answer. A thin answer still opens the app and lowers Retention on Progress. The stage pass stays. Closing the browser is what clears the hold for the next idea.
 - Onboarding offers five skills: Full-Stack, Travel Vlogging, Content Creation, Photography, and Music Production. Settings can follow any of the thirty free paths, and a Premium niche while the subscription is active. Pace does not decide which stages are open.
 - Event search keywords are set for every free path (`lib/events/keywords.ts`). Every other niche searches on its name. The daily streak reminder is saved on `LearnerProfile`. The bell shows it when yesterday counted and today has not. Saving it does not call `invalidateCatalog()`.
-- Stage photos exist for Full-Stack, Content Creation, and Travel Vlogging. The other paths have no committed stage photos. The importer leaves `image` unset.
+- Stage photos exist for every stage on the thirty free paths, under `public/stages`. Premium niches have no stages and no photos. The importer leaves `image` unset.
 - Stripe Checkout is wired at `/upgrade`, which stays out of the main nav. The page compares Free and Premium, and a free account continues to Stripe Checkout. The card form stays on Stripe. `POST /api/stripe/checkout` starts a subscription, `POST /api/stripe/webhook` verifies the signature and writes `Subscription`, and `POST /api/stripe/portal` opens the customer portal. Active and trialing count as Premium. An admin counts as Premium without a charge. Missing keys leave the upgrade page unconfigured and do not pretend a charge happened. The subscription check stays on the request. It is not inside `"use cache"`. The price label is cached for an hour. A failed Stripe read is not stored. Keys are `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`, `STRIPE_PRICE_ID`, and optional `STRIPE_PRICE_LABEL`.
 
 Not built:
@@ -181,7 +181,7 @@ Not built:
 - There is no leaderboard and no peer review. A creator rating and earnings are not part of the product.
 - `requireLearner()` exists and is not used by pages. `requireAdmin()` is: no session goes to `/login`, any other role gets `notFound()`.
 - There is no production host, no error monitoring, and no end-to-end test. Unit tests cover mastery, streaks, explain-back judging, plans, events, and community rules.
-- `next build` fails on a pre-existing prerender of uncached data in `AppShell` (`app/(app)/_components/AppShell.tsx`). The failing route varies. Do not treat that as a new bug from catalog work.
+- `next build` passes. Request data (the session, `searchParams`, Premium) stays inside `Suspense` or a `loading.tsx`; the `(app)` layout streams Premium into context with `PublishPremiumAccess`. A new page that awaits request data outside a boundary will break the prerender again.
 
 ## Stack facts that are easy to get wrong
 
@@ -191,10 +191,28 @@ Not built:
 - Postgres database name is `skillflow` on localhost:5432. `prisma.config.ts` loads `.env` with dotenv because Prisma 6 does not.
 - Migrations through `20261001104500_creator_studio` are applied, plus the `community_unmerge_flag` migration that adds `ContributionReview.unmerge`, `20261005193000_learner_map` for the opt-in city, `20261005220000_nearby_events` for saved events, and `20261007003000_billing` for `Subscription`. Do not create a migration unless the schema changes. Do not run `prisma migrate reset`.
 - `tsx` top-level await fails under CommonJS. Wrap scripts in `async function main()`. PowerShell has no `&&` and no bash heredoc. It also eats `$disconnect` inside `tsx -e`. Use a temp script, then delete it.
-- Full-repo `eslint` still fails on older files. Lint the files you touched. `tsc --noEmit` is the type check. `next build` is a project check and currently fails on the pre-existing `AppShell` prerender described above.
+- Full-repo `eslint` still fails on older files. Lint the files you touched. `tsc --noEmit` is the type check. `next build` is a project check and passes.
 - Do not start a second `npm run dev` if one is already answering on port 3000.
 - Known failure strings, left in on purpose: catalog title `fail this save`, settings name `fail this save`, submit title `fail this submit`, review notes `fail this review`, creator title `fail this upload`, Open Source review feedback `fail this merge`.
 - Placeholder video id constant is `skillflow-placeholder`. Do not use it to replace a real catalog id.
+
+## UI conventions
+
+Polished in October 2026 (`UI-AUDIT.md`, before and after shots in `docs/ui-audit/`). Keep new screens on these.
+
+- Words in visible copy: **Path** for the ordered list of stages (the sidebar and the index say "Paths"; the route stays `/roadmap`), **niche** for a subject, **stage** for a step, **contribution** in Open Source, **Explain-back** for the check. A pending label ends in the ellipsis character: "Saving…".
+- Tokens live in `app/globals.css`. Type: body `--text-body` 0.9375rem, sm 0.875, xs 0.8125, 2xs 0.75, 3xs 0.6875. Motion: `--ease-out`, `--dur-fast` 150ms, `--dur-base` 220ms. `--text-faint` is decoration, never body text. Light borders and `--state-pass` were measured to reach 3:1 and 4.5:1.
+- Buttons: `Button` (`components/core/Button.jsx`) takes `variant`, `size`, `pending`, and `pendingLabel`; pending shows a spinner, keeps the width, and sets `aria-busy`. A link that should look like a button uses `className="sf-btn sf-btn--gradient sf-btn--md"` (or `--outline`). Hover, press, focus, and disabled live in CSS.
+- Dialogs trap focus with `useFocusTrap` (`components/feedback/useFocusTrap.ts`). Success notes use `useToast()` from `components/feedback/Toast.tsx` (mounted in `AppShell`); errors stay inline next to the field.
+- Empty states have one action. `EmptyState` takes `titleAs` (`h1`, `h2`, `h3`); use `h2` when it sits right under the page `h1`.
+- Explain-back runs in focus mode: `components/learning/FocusMode.tsx` sets `data-focus` on `<html>` while mounted, which hides the sidebar and narrows the column. Drafts stay in `localStorage` under `skillflow-explain:<stageId>` until the stage is saved.
+- Path page: cover hero with progress and one primary action, an "Up next" card, then `RoadmapStage` cards with a photo, a state chip (passed, up next, locked with the reason), and a cue. Lesson page: breadcrumbs, the stage title as `h1`, a "Watch first" clip, numbered resource cards with "What you will learn", and an "Explain it back" panel.
+- Touch targets: a standalone text link or a small icon button gets an invisible 44px hit area with `.sf-hit` (or one of the selectors listed under "Touch targets" in `globals.css`). Step dots are 24px buttons.
+- Images: `SkillImage` (`next/image`) for local files. Event art, contribution links, and Google avatars come from hosts nobody knows ahead of time, so they stay `<img>` with `loading="lazy"` or `decoding="async"` and a reserved box. Do not open `remotePatterns` to every host.
+- Landing hero: `public/landing/posters/hero.jpg` paints first on every screen. The 4K videos mount only after hydration, at 960px and up, without reduced motion and without Save-Data. The feature images are real screens in `public/landing/shots/`.
+- `html { scrollbar-gutter: stable; }` keeps streamed pages from shifting sideways. Do not remove it.
+- `scripts/a11y-scan.js` can be pasted into the console on any page: overflow, unnamed controls, missing alt, unlabeled inputs, small targets, heading skips.
+- `devIndicators` sits bottom-right in `next.config.ts`. A running dev server needs a restart to pick that up.
 
 ## Pages that still name Art
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { CtaLink } from "./CtaLink.jsx";
 
 /** Order starts with the clip named for the hero, then the rest, then repeats. */
@@ -20,7 +21,9 @@ const FADE_MS = 900;
  * picks up the clip after that.
  */
 export function LandingHero({ content }) {
-  const [motion, setMotion] = useState(true);
+  // Off until the browser says otherwise: the server HTML carries only the poster,
+  // so a phone never starts a 4K download before hydration.
+  const [motion, setMotion] = useState(false);
   const [active, setActive] = useState(0);
   const [shown, setShown] = useState([CLIPS[0], CLIPS[1]]);
   const sources = useRef([CLIPS[0], CLIPS[1]]);
@@ -30,11 +33,18 @@ export function LandingHero({ content }) {
   const second = useRef(null);
 
   useEffect(() => {
-    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const apply = () => setMotion(!query.matches);
+    // Video only on wide screens, without reduced motion, and when the visitor has not asked to save data.
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const wide = window.matchMedia("(min-width: 960px)");
+    const saveData = Boolean(navigator.connection?.saveData);
+    const apply = () => setMotion(!reduce.matches && wide.matches && !saveData);
     apply();
-    query.addEventListener("change", apply);
-    return () => query.removeEventListener("change", apply);
+    reduce.addEventListener("change", apply);
+    wide.addEventListener("change", apply);
+    return () => {
+      reduce.removeEventListener("change", apply);
+      wide.removeEventListener("change", apply);
+    };
   }, []);
 
   function refs() {
@@ -87,6 +97,15 @@ export function LandingHero({ content }) {
     if (remaining <= 0.95) handoff(slot);
   }
 
+  // One handler each, reading the slot from the element, so render never touches the refs.
+  function onTimeUpdate(event) {
+    onTime(event, Number(event.currentTarget.dataset.slot));
+  }
+
+  function onEnded(event) {
+    handoff(Number(event.currentTarget.dataset.slot));
+  }
+
   const players = motion
     ? [0, 1].map((slot) => (
         <video
@@ -97,8 +116,9 @@ export function LandingHero({ content }) {
           muted
           playsInline
           preload={slot === active ? "auto" : "none"}
-          onTimeUpdate={(event) => onTime(event, slot)}
-          onEnded={() => handoff(slot)}
+          data-slot={slot}
+          onTimeUpdate={onTimeUpdate}
+          onEnded={onEnded}
         >
           <source src={shown[slot]} type="video/mp4" />
         </video>
@@ -108,6 +128,7 @@ export function LandingHero({ content }) {
   return (
     <section id="home" className="sf-hero" aria-labelledby="landing-hero-title">
       <div className="sf-hero-media" aria-hidden="true">
+        <Image className="sf-hero-poster" src="/landing/posters/hero.jpg" alt="" fill preload sizes="100vw" />
         {players}
       </div>
       <div className="sf-hero-vignette" aria-hidden="true" />

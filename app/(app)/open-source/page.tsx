@@ -87,7 +87,7 @@ export default async function OpenSourcePage({
       <header className="sf-page-head">
         <h1>Open Source</h1>
         <p className="sf-community-label">{COMMUNITY_LABEL}</p>
-        <p>Public contributions from the skills you follow. Narrow the list, or search for any other niche.</p>
+        <p>Public contributions from the niches you follow. Narrow the list, or search for any other niche.</p>
         <div className="sf-community-actions">
           <ContributeMenu
             niches={selected.map((niche) => ({

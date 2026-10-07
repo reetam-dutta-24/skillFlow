@@ -150,6 +150,19 @@ npx tsx scripts/map-demo.ts remove
 
 Passing an explain-back records the stage and opens the next one. Every stage on a free path counts toward mastery and toward the certificate. A streak day is a UTC day with a saved explain-back or a saved note. Notes download as Word or PDF, and a stage summary uses only those notes. Progress links to a transcript of the stages already passed. A certificate is issued only when every stage on the path is passed. A passed idea comes back twice, 18 hours apart, and stays on screen until the learner writes an answer. Retention on Progress is the average of those answers. The stage pass stays. `/notes/practice` reads a public page, a text file, or a pasted passage, reviews an idea against that text, and does not pass a stage. A learner can save preferences for a skill they follow. The roadmap then shows a personal schedule built from the shared stages. Undo shows those shared stages again and leaves the resources in place. Opening a stage uses the same selection while the plan is on. The model does not invent that path. Onboarding offers five skills. Settings can follow any free path, and a Premium niche while the subscription is active. There is no leaderboard and no peer review. Stripe Checkout is at `/upgrade`. Premium is the niches outside the thirty, plus appearing on the learner map. The card form stays on Stripe. Without the keys, the page says Stripe is not configured.
 
+## UI
+
+The October 2026 polish is written up in `UI-AUDIT.md`, with before and after screenshots in `docs/ui-audit/`. Shared pieces: `Button` with a `pending` state, `useFocusTrap` for dialogs, `useToast` for success notes, `FocusMode` for explain-back, and `EmptyState` with one action. Every stage on the thirty free paths has a photo in `public/stages` (credits in `public/stages/credits.json`, picked by `scripts/fetch-stage-photos.ts`). Visible copy says path, niche, stage, and contribution. `scripts/a11y-scan.js` checks a page for overflow, unnamed controls, missing labels, and small targets. `AGENTS.md` lists the conventions under "UI conventions".
+
+| Page | Performance (mobile / desktop) | Accessibility | Best practices |
+| --- | --- | --- | --- |
+| Landing | 69–75 / 99 | 100 | 100 |
+| Home | 87 / 100 | 100 | 100 |
+| A path (`/roadmap/chess`) | 89 / 100 | 100 | 100 |
+| A lesson | 78 / 100 | 100 | 100 |
+
+Lighthouse 12 against `next start`, 7 October 2026. Signed-in pages score 63 on SEO because they send `noindex` on purpose.
+
 ## What is still ahead
 
-A UI pass across the signed-in screens. Integration tests and an end-to-end pass are not written. Deploy, CI, and error monitoring are not started. The case study is not written. Premium niches have no catalogs. `Project-roadmap.md` is the phase list. `AGENTS.md` is the working context for the next session.
+Integration tests and an end-to-end pass are not written. Deploy, CI, and error monitoring are not started. The case study is not written. Premium niches have no catalogs. `Project-roadmap.md` is the phase list. `AGENTS.md` is the working context for the next session.

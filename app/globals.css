@@ -9556,3 +9556,47 @@ html[data-focus="true"] .sf-app-main {
 .sf-hit::after {
   inset: -14px;
 }
+
+/* ───────────── Landing hero weight (Phase 5) ───────────── */
+/* The poster paints first on every screen; the video fades in over it on wide screens only. */
+.sf-hero-poster {
+  object-fit: cover;
+}
+/* A contribution photo reserves its box before it loads, so the text below does not jump. */
+.sf-community-photo {
+  aspect-ratio: 16 / 9;
+  height: auto;
+}
+
+/* ───────────── Final QA fixes (Phase 5) ───────────── */
+/* Open Source rail: the niche name keeps at least 160px; the buttons drop to the next line instead of crushing it. */
+.sf-os-niche-id {
+  flex: 1 1 160px;
+}
+.sf-os-niche-actions {
+  margin-left: auto;
+}
+/* MapLibre's zoom buttons follow the theme instead of a white box in dark mode. */
+.maplibregl-ctrl-group {
+  background: var(--surface-card) !important;
+  border: 1px solid var(--border-default);
+  box-shadow: none !important;
+}
+.maplibregl-ctrl-group button + button {
+  border-top-color: var(--border-subtle) !important;
+}
+.maplibregl-ctrl-group button .maplibregl-ctrl-icon {
+  filter: var(--map-ctrl-icon-filter, none);
+}
+:root,
+.dark {
+  --map-ctrl-icon-filter: invert(1) brightness(1.4);
+}
+.light {
+  --map-ctrl-icon-filter: none;
+}
+/* Reserve the scrollbar's width from the first paint, so streamed content that makes the page
+   scroll does not push the centred column sideways (measured CLS 0.06 on the path and lesson pages). */
+html {
+  scrollbar-gutter: stable;
+}

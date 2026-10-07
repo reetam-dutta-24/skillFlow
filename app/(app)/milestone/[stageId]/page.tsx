@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
+import { FocusMode } from "@/components/learning/FocusMode";
 import { auth } from "@/lib/auth";
 import { getMilestone } from "@/lib/data/milestone";
 import { ExplainBackForm } from "./_components/ExplainBackForm";
@@ -18,6 +19,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return { title: data.stage.title };
 }
 
+function Crumbs({ slug, name, order, stageId }: { slug: string; name: string; order: number; stageId: string }) {
+  return (
+    <nav className="sf-crumbs" aria-label="Breadcrumb">
+      <Link href="/roadmap">Paths</Link>
+      <span aria-hidden="true">/</span>
+      <Link href={`/roadmap/${slug}`}>{name}</Link>
+      <span aria-hidden="true">/</span>
+      <Link href={`/lesson/${stageId}`}>Stage {order}</Link>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">Explain-back</span>
+    </nav>
+  );
+}
+
 export default async function MilestonePage({ params }: PageProps) {
   const session = await auth();
   if (!session?.user?.id) redirect("/login");
@@ -31,11 +46,8 @@ export default async function MilestonePage({ params }: PageProps) {
   if (data.kind === "passed") {
     return (
       <div className="sf-milestone">
-        <p>
-          <Link className="sf-roadmap-link" href={`/roadmap/${data.skill.slug}`}>
-            Back to the path
-          </Link>
-        </p>
+        <FocusMode />
+        <Crumbs slug={data.skill.slug} name={data.skill.name} order={data.stage.order} stageId={data.stage.id} />
         <header className="sf-milestone-head">
           <p>{data.skill.name}</p>
           <h1>{data.stage.title}</h1>
@@ -57,11 +69,8 @@ export default async function MilestonePage({ params }: PageProps) {
 
   return (
     <div className="sf-milestone">
-      <p>
-        <Link className="sf-roadmap-link" href={`/roadmap/${data.skill.slug}`}>
-          Back to the path
-        </Link>
-      </p>
+      <FocusMode />
+      <Crumbs slug={data.skill.slug} name={data.skill.name} order={data.stage.order} stageId={data.stage.id} />
       {data.concepts.length > 0 ? (
         <ExplainWizard
           stageId={data.stage.id}

@@ -67,44 +67,83 @@ export default async function RoadmapDetailPage({ params }: PageProps) {
     data.stages.find((stage) => stage.status === "in_progress") ?? data.stages.find((stage) => stage.status === "ready");
   const passed = data.stages.filter((stage) => stage.status === "passed").length;
 
+  const total = data.stages.length;
+  const startLabel = continueStage
+    ? passed === 0 && continueStage.order === data.stages[0]?.order
+      ? `Start stage ${continueStage.order}`
+      : `Continue stage ${continueStage.order}`
+    : null;
+
   return (
-    <div className="sf-dash sf-path">
-      <header className="sf-path-hero">
-        <div>
-          <p className="sf-path-crumb">
-            <Link href="/roadmap">All roadmaps</Link>
+    <div className="sf-dash sf-pathx">
+      <header className="sf-pathx-hero">
+        {data.skill.image ? (
+          <SkillImage className="sf-pathx-hero-bg" src={data.skill.image} alt="" fill preload sizes="(max-width: 960px) 100vw, 1100px" />
+        ) : null}
+        <div className="sf-pathx-hero-scrim" aria-hidden="true" />
+        <div className="sf-pathx-hero-body">
+          <nav className="sf-pathx-crumb" aria-label="Breadcrumb">
+            <Link href="/roadmap">Paths</Link>
             <span aria-hidden="true">/</span>
-            <Link href={`/open-source/${data.skill.slug}`}>Open Source</Link>
+            <span aria-current="page">{data.skill.name}</span>
+          </nav>
+          <p className="sf-pathx-badges">
+            <span className="sf-pathx-badge">{data.skill.offer === "FREE" ? "Free path" : "Premium"}</span>
+            {total > 0 ? <span className="sf-pathx-badge">{total} stages</span> : null}
           </p>
           <h1>{data.skill.name}</h1>
-          {data.skill.description ? <p>{data.skill.description}</p> : null}
-          {data.stages.length > 0 ? (
-            <div className="sf-path-progress">
-              <p>
-                <span>{data.currentPosition}</span>
-                <span>{data.skill.masteryPercent}% mastery</span>
-                <span>
-                  {passed} of {data.stages.length} passed
-                </span>
-              </p>
-              <div className="sf-path-meter" role="img" aria-label={`${data.skill.masteryPercent}% mastery`}>
-                <span style={{ width: `${Math.min(100, Math.max(0, data.skill.masteryPercent))}%` }} />
+          {data.skill.description ? <p className="sf-pathx-lede">{data.skill.description}</p> : null}
+          {total > 0 ? (
+            <div className="sf-pathx-progress">
+              <div
+                className="sf-pathx-meter"
+                role="progressbar"
+                aria-label="Stages passed"
+                aria-valuemin={0}
+                aria-valuemax={total}
+                aria-valuenow={passed}
+              >
+                <span style={{ width: `${total ? Math.round((passed / total) * 100) : 0}%` }} />
               </div>
+              <p>
+                {passed} of {total} stages passed · {data.skill.masteryPercent}% mastery
+              </p>
             </div>
           ) : null}
-          <div className="sf-path-actions">
-            {data.skill.offer === "FREE" ? <span className="sf-path-pill">Free path</span> : <span className="sf-path-pill">Premium</span>}
-            {continueStage ? (
-              <Link className="sf-path-cta" href={`/lesson/${continueStage.id}`}>
-                Continue
+          <div className="sf-pathx-actions">
+            {continueStage && startLabel ? (
+              <Link className="sf-btn sf-btn--gradient sf-btn--lg" href={`/lesson/${continueStage.id}`}>
+                {startLabel}
               </Link>
             ) : null}
+            <Link className="sf-pathx-link" href={`/open-source/${data.skill.slug}`}>
+              Community posts for this niche
+            </Link>
           </div>
         </div>
-        {data.skill.image ? (
-          <SkillImage className="sf-path-cover" src={data.skill.image} alt="" width={640} height={360} sizes="(max-width: 640px) 100vw, 240px" />
-        ) : null}
       </header>
+
+      {continueStage ? (
+        <section className="sf-upnext" aria-labelledby="up-next">
+          <div className="sf-upnext-media">
+            {continueStage.image ? (
+              <SkillImage src={continueStage.image} alt="" fill sizes="(max-width: 640px) 100vw, 420px" />
+            ) : null}
+          </div>
+          <div className="sf-upnext-body">
+            <p className="sf-upnext-kicker" id="up-next">
+              Up next · Stage {continueStage.order} of {total}
+            </p>
+            <h2>{continueStage.title}</h2>
+            {continueStage.description ? <p>{continueStage.description}</p> : null}
+            <p className="sf-upnext-meta">{stageMeta(continueStage, "")}</p>
+            <Link className="sf-btn sf-btn--gradient sf-btn--md" href={`/lesson/${continueStage.id}`}>
+              Start stage
+            </Link>
+          </div>
+        </section>
+      ) : null}
+
       {data.stages.length > 0 && !learning ? (
         <section className="sf-plan-invite" aria-label="Set up your plan">
           <div>
@@ -137,9 +176,9 @@ export default async function RoadmapDetailPage({ params }: PageProps) {
           }
         />
       ) : (
-        <section className="sf-path-stages" aria-labelledby="path-stages">
-          <h2 id="path-stages">Stages</h2>
-        <ol className="sf-roadmap">
+        <section className="sf-pathx-stages" aria-labelledby="path-stages">
+          <h2 id="path-stages">All stages</h2>
+        <ol className="sf-stagelist">
           {data.stages.map((stage, index) => {
             const status = stageStatus(stage.status);
             const planned = planById.get(stage.id);
@@ -157,6 +196,7 @@ export default async function RoadmapDetailPage({ params }: PageProps) {
                 image={stage.image ?? undefined}
                 description={stage.description}
                 status={status}
+                current={stage.id === continueStage?.id}
                 mastery={stage.masteryPercent > 0 ? stage.masteryPercent : undefined}
                 meta={stageMeta(stage, status === "locked" ? "" : note)}
                 unlockHint={status === "locked" ? unlockHint(stage) : undefined}

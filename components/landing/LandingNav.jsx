@@ -24,13 +24,22 @@ export function LandingNav({ wordmark, links, loginCta, startCta }) {
                 </a>
               </li>
             ))}
+            <li className="sf-nav-phone-only">
+              <a href={loginCta.href}>{loginCta.label}</a>
+            </li>
+            <li className="sf-nav-phone-only sf-nav-theme">
+              <ThemeToggle quiet />
+            </li>
           </ul>
         </nav>
         <div className="sf-nav-actions">
-          <ThemeToggle quiet />
-          <CtaLink href={loginCta.href} variant="ghost" size="sm">
-            {loginCta.label}
-          </CtaLink>
+          {/* On a phone these two move into the menu, so the bar stays one calm row. */}
+          <span className="sf-nav-wide-only">
+            <ThemeToggle quiet />
+            <CtaLink href={loginCta.href} variant="ghost" size="sm">
+              {loginCta.label}
+            </CtaLink>
+          </span>
           <CtaLink href={startCta.href} size="sm">
             {startCta.label}
           </CtaLink>

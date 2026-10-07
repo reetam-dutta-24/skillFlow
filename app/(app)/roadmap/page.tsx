@@ -14,7 +14,7 @@ import { FollowedNicheFrame } from "../skills/_components/FollowedNicheFrame";
 import { NicheGrid, NicheTeaserFallback } from "../skills/_components/NicheGrid";
 
 export const metadata: Metadata = {
-  title: "Roadmaps",
+  title: "Paths",
 };
 
 export default async function RoadmapIndexPage() {
@@ -27,7 +27,7 @@ export default async function RoadmapIndexPage() {
     <FollowedNicheFrame>
     <div className="sf-dash">
       <header className="sf-page-head">
-        <h1>Roadmaps</h1>
+        <h1>Paths</h1>
         <p>Thirty paths are free. Pass the explain-back on a stage to open the next one. A Premium niche opens the upgrade page.</p>
       </header>
       {premium ? null : <FreePlanNotice />}

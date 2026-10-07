@@ -13,7 +13,7 @@ const NAV: SidebarItem[] = [
   { id: "niches", label: "Niches", icon: "library", href: "/skills" },
   { id: "clips", label: "Clips", icon: "clapperboard", href: "/clips" },
   { id: "creator", label: "Creator studio", icon: "video", href: "/creator" },
-  { id: "roadmaps", label: "Roadmaps", icon: "route", href: "/roadmap" },
+  { id: "roadmaps", label: "Paths", icon: "route", href: "/roadmap" },
   { id: "nearby", label: "Nearby", icon: "map-pin", href: "/nearby" },
   { id: "open-source", label: "Open Source", icon: "git-pull-request", href: "/open-source" },
   { id: "progress", label: "Progress", icon: "chart-line", href: "/progress" },
@@ -76,7 +76,7 @@ function titleFor(pathname: string) {
   if (pathname.startsWith("/skills")) return "Niches";
   if (pathname.startsWith("/clips")) return "Clips";
   if (pathname.startsWith("/nearby") || pathname.startsWith("/map")) return "Nearby";
-  if (pathname.startsWith("/roadmap")) return "Roadmaps";
+  if (pathname.startsWith("/roadmap")) return "Paths";
   if (pathname.startsWith("/analytics")) return "Analytics";
   if (pathname.startsWith("/progress")) return "Progress";
   if (pathname.startsWith("/upgrade")) return "Upgrade";

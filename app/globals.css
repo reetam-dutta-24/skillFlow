@@ -8355,3 +8355,836 @@ textarea:focus-visible {
     transform: none;
   }
 }
+
+/* ───────────── Path page (roadmap) ───────────── */
+
+/* One grade for every stage photo, so pictures from different sources sit together as one set. */
+.sf-stagecard-photo,
+.sf-upnext-media img {
+  object-fit: cover;
+  filter: saturate(0.88) contrast(1.04) brightness(0.92);
+}
+
+.sf-pathx {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+.sf-pathx-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 300px;
+  padding: var(--space-8) var(--space-6);
+  border-radius: var(--radius-card);
+  background: var(--bg-elevated);
+  isolation: isolate;
+}
+.sf-pathx-hero-bg {
+  z-index: -2;
+  object-fit: cover;
+}
+/* Always dark under the copy, so white text keeps its contrast on any photo, in either theme. */
+.sf-pathx-hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgb(4 8 16 / 0.92) 0%, rgb(4 8 16 / 0.78) 45%, rgb(4 8 16 / 0.35) 100%),
+    linear-gradient(0deg, rgb(4 8 16 / 0.55), transparent 60%);
+}
+.sf-pathx-hero-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-width: 620px;
+  color: #fff;
+}
+.sf-pathx-crumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--text-sm);
+  color: rgb(255 255 255 / 0.78);
+}
+.sf-pathx-crumb a {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.sf-pathx-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: var(--space-2) 0 0;
+}
+.sf-pathx-badge {
+  padding: 4px 10px;
+  border: 1px solid rgb(255 255 255 / 0.3);
+  border-radius: var(--radius-full);
+  background: rgb(255 255 255 / 0.1);
+  color: #fff;
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.02em;
+}
+.sf-pathx-hero h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  line-height: 1.1;
+  letter-spacing: var(--tracking-tight);
+  color: #fff;
+}
+.sf-pathx-lede {
+  margin: 0;
+  max-width: 60ch;
+  font-size: var(--text-body);
+  line-height: 1.6;
+  color: rgb(255 255 255 / 0.86);
+}
+.sf-pathx-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 420px;
+  margin-top: var(--space-2);
+}
+.sf-pathx-meter {
+  height: 8px;
+  overflow: hidden;
+  border-radius: var(--radius-full);
+  background: rgb(255 255 255 / 0.2);
+}
+.sf-pathx-meter span {
+  display: block;
+  height: 100%;
+  min-width: 8px;
+  border-radius: inherit;
+  background-image: var(--gradient-brand);
+}
+.sf-pathx-progress p {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: rgb(255 255 255 / 0.86);
+}
+.sf-pathx-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+  margin-top: var(--space-3);
+}
+.sf-pathx-link {
+  color: #fff;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.sf-pathx-link:hover {
+  color: #fff;
+  text-decoration-thickness: 2px;
+}
+
+/* Up next: the one stage to open now. */
+.sf-upnext {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  overflow: hidden;
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-card);
+  background: var(--surface-card);
+  box-shadow: var(--shadow-card-lift);
+}
+.sf-upnext-media {
+  position: relative;
+  min-height: 240px;
+  background: var(--accent-quiet);
+}
+.sf-upnext-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-6);
+}
+.sf-upnext-kicker {
+  margin: 0;
+  color: var(--text-accent);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.sf-upnext h2 {
+  margin: 0;
+  font-size: var(--text-heading);
+  line-height: 1.25;
+}
+.sf-upnext-body > p:not(.sf-upnext-kicker) {
+  margin: 0;
+  max-width: 60ch;
+  color: var(--text-secondary);
+  font-size: var(--text-body);
+  line-height: 1.6;
+}
+.sf-upnext-body .sf-upnext-meta {
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}
+
+/* The stage list: a numbered path of photo cards. */
+.sf-pathx-stages > h2 {
+  margin: 0 0 var(--space-4);
+  font-size: var(--text-heading);
+}
+.sf-stagelist {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sf-stagecard {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: var(--space-4);
+}
+.sf-stagecard-rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.sf-stagecard-dot {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin-top: var(--space-5);
+  border: 2px solid var(--border-default);
+  border-radius: var(--radius-full);
+  background: var(--bg-app);
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+}
+.sf-stagecard[data-status="done"] .sf-stagecard-dot {
+  border-color: var(--state-pass);
+  background: var(--state-pass-bg);
+  color: var(--state-pass);
+}
+.sf-stagecard[data-current="true"] .sf-stagecard-dot {
+  border-color: transparent;
+  background-image: var(--gradient-brand);
+  color: var(--text-on-accent);
+}
+.sf-stagecard-line {
+  flex: 1;
+  width: 2px;
+  min-height: 16px;
+  margin-top: 6px;
+  background: var(--border-subtle);
+}
+.sf-stagecard[data-status="done"] .sf-stagecard-line {
+  background: var(--state-pass);
+  opacity: 0.6;
+}
+.sf-stagecard-panel {
+  display: grid;
+  grid-template-columns: minmax(180px, 280px) minmax(0, 1fr);
+  overflow: hidden;
+  margin-bottom: var(--space-4);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-tile);
+  background: var(--surface-card);
+  color: inherit;
+  text-decoration: none;
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+a.sf-stagecard-panel:hover {
+  border-color: var(--border-accent);
+  box-shadow: var(--shadow-card-lift);
+  transform: translateY(-2px);
+  color: inherit;
+}
+a.sf-stagecard-panel:focus-visible {
+  outline: 2px solid var(--border-accent);
+  outline-offset: 3px;
+}
+.sf-stagecard[data-current="true"] .sf-stagecard-panel {
+  border-color: var(--border-accent);
+  box-shadow: 0 0 0 1px var(--border-accent);
+}
+.sf-stagecard-media {
+  position: relative;
+  min-height: 158px;
+  background: var(--accent-quiet);
+}
+.sf-stagecard-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-accent);
+  background:
+    radial-gradient(120% 90% at 0% 0%, rgb(from var(--preset-mid) r g b / 0.35), transparent 60%),
+    var(--accent-quiet);
+}
+.sf-stagecard-num {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  min-width: 28px;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  background: rgb(4 8 16 / 0.72);
+  color: #fff;
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-bold);
+  text-align: center;
+}
+.sf-stagecard[data-status="locked"] .sf-stagecard-photo {
+  filter: grayscale(0.85) brightness(0.55);
+}
+.sf-stagecard-lock {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+.sf-stagecard-lock svg {
+  box-sizing: content-box;
+  padding: 9px;
+  border-radius: var(--radius-full);
+  background: rgb(4 8 16 / 0.6);
+}
+.sf-stagecard-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+  padding: var(--space-4) var(--space-5);
+}
+.sf-stagecard-kicker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.sf-stagecard-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: var(--surface-hover);
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+}
+.sf-stagecard-state.is-done {
+  background: var(--state-pass-bg);
+  color: var(--state-pass);
+}
+.sf-stagecard-state.is-current {
+  background: var(--accent-quiet);
+  color: var(--text-accent);
+}
+.sf-stagecard-body h3 {
+  margin: 0;
+  font-size: var(--text-subtitle);
+  line-height: 1.35;
+  color: var(--text-primary);
+}
+.sf-stagecard-desc {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  line-height: 1.55;
+}
+.sf-stagecard[data-status="locked"] .sf-stagecard-desc,
+.sf-stagecard[data-status="locked"] h3 {
+  color: var(--text-muted);
+}
+.sf-stagecard-hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+}
+.sf-stagecard-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-top: auto;
+  padding-top: var(--space-1);
+}
+.sf-stagecard-meta {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+}
+.sf-stagecard-cue {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-accent);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+}
+.sf-stagecard-cue.is-primary {
+  padding: 8px 14px;
+  border-radius: var(--radius-btn);
+  background-image: var(--gradient-brand);
+  color: var(--text-on-accent);
+}
+
+@media (max-width: 960px) {
+  .sf-upnext {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sf-upnext-media {
+    min-height: 0;
+    aspect-ratio: 16 / 9;
+  }
+}
+@media (max-width: 640px) {
+  .sf-pathx-hero {
+    min-height: 0;
+    padding: var(--space-6) var(--space-4);
+  }
+  .sf-stagecard {
+    grid-template-columns: 28px minmax(0, 1fr);
+    gap: var(--space-3);
+  }
+  .sf-stagecard-dot {
+    width: 26px;
+    height: 26px;
+  }
+  .sf-stagecard-panel {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sf-stagecard-media {
+    min-height: 0;
+    aspect-ratio: 16 / 9;
+  }
+  .sf-upnext-body {
+    padding: var(--space-5) var(--space-4);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  a.sf-stagecard-panel:hover {
+    transform: none;
+  }
+}
+
+/* ───────────── Lesson page: one calm reading column ───────────── */
+
+.sf-crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 var(--space-4);
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}
+.sf-crumbs a {
+  color: var(--text-link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.sf-crumbs [aria-current="page"] {
+  color: var(--text-secondary);
+}
+.sf-lessonx {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+.sf-lessonx-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-width: 72ch;
+}
+.sf-lessonx-kicker {
+  margin: 0;
+  color: var(--text-accent);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.sf-lessonx-head h1 {
+  margin: 0;
+  font-size: clamp(1.75rem, 3.2vw, 2.25rem);
+  line-height: 1.15;
+  letter-spacing: var(--tracking-tight);
+}
+.sf-lessonx-lede {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--text-subtitle);
+  line-height: 1.6;
+}
+.sf-lessonx-meta {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}
+.sf-lessonx-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: var(--space-8);
+  align-items: start;
+}
+.sf-lessonx-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  min-width: 0;
+  max-width: 720px;
+}
+.sf-lessonx-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.sf-lessonx-section > h2 {
+  margin: 0;
+  font-size: var(--text-heading);
+}
+
+/* Clip */
+.sf-clip {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-tile);
+  background: var(--bg-sunken);
+}
+.sf-clip-media {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  object-fit: cover;
+}
+.sf-clip-poster {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.sf-clip-poster img {
+  object-fit: cover;
+  filter: brightness(0.72);
+}
+.sf-clip-play {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-full);
+  background-image: var(--gradient-brand);
+  color: var(--text-on-accent);
+  box-shadow: 0 8px 28px rgb(0 0 0 / 0.4);
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.sf-clip-poster:hover .sf-clip-play {
+  transform: scale(1.06);
+}
+.sf-clip-poster:focus-visible {
+  outline: 3px solid var(--border-accent);
+  outline-offset: -3px;
+}
+.sf-clip-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.sf-clip-info h3 {
+  margin: 0;
+  font-size: var(--text-subtitle);
+}
+
+/* Resources */
+.sf-resources {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sf-resource {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: var(--space-3);
+}
+.sf-resource-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin-top: var(--space-4);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+}
+.sf-resource-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  min-width: 0;
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-tile);
+  background: var(--surface-card);
+}
+.sf-resource[data-unavailable="true"] .sf-resource-body {
+  border-style: dashed;
+}
+.sf-resource-kind {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+}
+.sf-resource-kind svg {
+  color: var(--text-accent);
+}
+.sf-resource-tag {
+  padding: 1px 8px;
+  border-radius: var(--radius-full);
+  background: var(--surface-hover);
+  color: var(--text-secondary);
+}
+.sf-resource-body h3 {
+  margin: 0;
+  font-size: var(--text-subtitle);
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+.sf-resource-desc {
+  margin: 0;
+  max-width: 70ch;
+  color: var(--text-secondary);
+  font-size: var(--text-body);
+  line-height: 1.6;
+}
+.sf-resource-learn {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  border-radius: 12px;
+  background: var(--accent-quiet);
+}
+.sf-resource-learn > p {
+  margin: 0;
+  color: var(--text-accent);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.sf-resource-points {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--text-primary);
+  font-size: var(--text-body);
+  line-height: 1.55;
+}
+.sf-resource-points li::marker {
+  color: var(--text-accent);
+}
+.sf-resource-open {
+  margin-top: var(--space-1);
+}
+
+/* Next step */
+.sf-lessonx-aside {
+  position: sticky;
+  top: calc(var(--topbar-h) + var(--space-4));
+}
+.sf-ready {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-tile);
+  background: var(--surface-card-accent);
+}
+.sf-ready > svg {
+  color: var(--text-accent);
+}
+.sf-ready h2 {
+  margin: 0;
+  font-size: var(--text-subtitle);
+}
+.sf-ready p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  line-height: 1.55;
+}
+.sf-ready-back {
+  align-self: center;
+  color: var(--text-link);
+  font-size: var(--text-sm);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 960px) {
+  .sf-lessonx-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sf-lessonx-aside {
+    position: static;
+  }
+}
+@media (max-width: 640px) {
+  .sf-resource {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sf-resource-num {
+    display: none;
+  }
+  .sf-resource-body {
+    padding: var(--space-4);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sf-clip-poster:hover .sf-clip-play {
+    transform: none;
+  }
+}
+
+/* ───────────── Explain-back focus mode ───────────── */
+/* The one task that matters most gets the calmest screen: no sidebar, a narrow column. */
+html[data-focus="true"] .sf-app-nav {
+  display: none;
+}
+html[data-focus="true"] .sf-app-main {
+  width: min(100%, 760px);
+}
+.sf-milestone textarea {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+.sf-explain-draft {
+  margin: 4px 0 0;
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+}
+
+/* One quiet line about the plan, after the learning on Home. */
+.sf-plan-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
+.sf-plan-line p {
+  margin: 0;
+  max-width: 70ch;
+}
+.sf-plan-line strong {
+  color: var(--text-primary);
+}
+.sf-plan-line a {
+  font-weight: var(--weight-semibold);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Log in and Sign up on a phone: the form comes first; the showcase carousel is for wide screens. */
+@media (max-width: 959px) {
+  .sf-auth-main {
+    order: -1;
+  }
+  .sf-auth-aside .sf-niche {
+    display: none;
+  }
+  .sf-auth-aside {
+    padding: var(--space-6) var(--space-4);
+  }
+}
+
+/* Landing header: one row on a phone (wordmark, Get started, Menu). Log in and the theme move into the menu. */
+.sf-nav-wide-only {
+  display: none;
+  align-items: center;
+  gap: var(--space-3);
+}
+.sf-nav-actions a {
+  white-space: nowrap;
+}
+@media (max-width: 639px) {
+  .sf-nav-inner {
+    flex-wrap: nowrap;
+    gap: var(--space-2);
+  }
+  .sf-nav-theme {
+    padding-top: var(--space-2);
+  }
+}
+@media (min-width: 640px) {
+  .sf-nav-wide-only {
+    display: inline-flex;
+  }
+  .sf-nav-phone-only {
+    display: none;
+  }
+}

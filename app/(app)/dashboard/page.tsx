@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { viewerHasPremium } from "@/lib/billing/access";
@@ -47,6 +48,8 @@ export default async function DashboardPage() {
 
   const [data, premium] = await Promise.all([getDashboardData(), viewerHasPremium()]);
   const first = session.user.name?.trim().split(/\s+/)[0];
+  // A new learner sees what to do next, not a wall of zeros.
+  const started = data.followed.length > 0 || data.explainBacksPassed > 0 || data.longestStreak > 0;
 
   return (
     <FollowedNicheFrame>
@@ -55,27 +58,24 @@ export default async function DashboardPage() {
         <h1>Home</h1>
         <p>{first ? `Welcome back, ${first}.` : "Welcome back."}</p>
       </header>
-      {premium ? null : <FreePlanNotice />}
-      <StreakBanner
-        streak={data.currentStreak}
-        nextLabel={data.nextLesson?.title}
-        nextSkill={data.nextLesson?.skillName}
-        continueHref={data.nextLesson?.href}
-        style={{ flexWrap: "wrap" }}
-      />
+      {data.currentStreak > 0 || data.nextLesson ? (
+        <StreakBanner
+          streak={data.currentStreak}
+          nextLabel={data.nextLesson?.title}
+          nextSkill={data.nextLesson?.skillName}
+          continueHref={data.nextLesson?.href}
+          style={{ flexWrap: "wrap" }}
+        />
+      ) : null}
+      {started ? (
       <section className="sf-dash-stats" aria-labelledby="dash-stats">
         <h2 id="dash-stats">Your progress</h2>
         <ul className="sf-stat-grid">
           <li>
-            <StatCard label="Skills in progress" value={data.skillsInProgress} icon={<Icon name="route" size={14} />} />
+            <StatCard label="Paths in progress" value={data.skillsInProgress} icon={<Icon name="route" size={14} />} />
           </li>
           <li>
-            <StatCard
-              emphasis
-              label="Milestones this week"
-              value={data.milestonesPassedThisWeek}
-              icon={<Icon name="flag" size={14} />}
-            />
+            <StatCard label="Stages passed this week" value={data.milestonesPassedThisWeek} icon={<Icon name="flag" size={14} />} />
           </li>
           <li>
             <StatCard label="Explain-backs passed" value={data.explainBacksPassed} icon={<Icon name="message-square-quote" size={14} />} />
@@ -85,13 +85,19 @@ export default async function DashboardPage() {
           </li>
         </ul>
       </section>
+      ) : null}
       <section className="sf-dash-block" aria-labelledby="dash-skills">
-        <h2 id="dash-skills">Your skills</h2>
+        <h2 id="dash-skills">Your paths</h2>
         {data.followed.length === 0 ? (
           <EmptyState
             icon="route"
-            title="No skill followed yet"
-            description="Follow a skill below to open its path."
+            title="Pick your first path"
+            description="Thirty paths are free, every stage included. Follow one and its stages show up here."
+            action={
+              <Link className="sf-btn sf-btn--gradient sf-btn--md" href="/skills">
+                Browse niches
+              </Link>
+            }
           />
         ) : (
           data.followed.map((row) => (
@@ -135,6 +141,7 @@ export default async function DashboardPage() {
           <NicheGrid mode="teaser" />
         </Suspense>
       </section>
+      {premium ? null : <FreePlanNotice compact />}
     </div>
     </FollowedNicheFrame>
   );

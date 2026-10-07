@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { DonutChart } from "@/components/data/DonutChart.jsx";
 import { LineChart } from "@/components/data/LineChart.jsx";
@@ -22,8 +23,13 @@ export function ProgressCharts({ data }: { data: ProgressPayload }) {
     return (
       <EmptyState
         icon="route"
-        title="No skill followed yet"
-        description="Progress shows up here after a skill is saved on the account."
+        title="No path followed yet"
+        description="Follow a path and every stage you pass shows up here."
+        action={
+          <Link className="sf-btn sf-btn--gradient sf-btn--md" href="/skills">
+            Browse niches
+          </Link>
+        }
       />
     );
   }

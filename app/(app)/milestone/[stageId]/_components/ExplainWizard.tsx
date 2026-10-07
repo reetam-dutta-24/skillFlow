@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
@@ -36,12 +36,39 @@ export function ExplainWizard({
   const [notice, setNotice] = useState<string | null>(null);
   const [error, setError] = useState<StepError | null>(null);
 
+  const draftKey = `skillflow-explain:${stageId}`;
+
+  // Drafts live on this device until the stage is saved, so a refresh or a failed review never loses an answer.
+  useEffect(() => {
+    try {
+      const stored = JSON.parse(window.localStorage.getItem(draftKey) ?? "null");
+      if (Array.isArray(stored) && stored.length === concepts.length && stored.some((item) => typeof item === "string" && item)) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect -- one restore from storage after mount
+        setDrafts(stored.map((item) => (typeof item === "string" ? item : "")));
+      }
+    } catch {
+      // Storage can be blocked; the wizard still works without it.
+    }
+  }, [draftKey, concepts.length]);
+
+  function keepDrafts(next: string[]) {
+    try {
+      window.localStorage.setItem(draftKey, JSON.stringify(next));
+    } catch {
+      // Ignore: private mode or full storage.
+    }
+  }
+
   const concept = concepts[index] ?? "";
   const last = index === concepts.length - 1;
   const busy = phase === "reading" || phase === "saving";
 
   function edit(value: string) {
-    setDrafts((current) => current.map((item, itemIndex) => (itemIndex === index ? value : item)));
+    setDrafts((current) => {
+      const next = current.map((item, itemIndex) => (itemIndex === index ? value : item));
+      keepDrafts(next);
+      return next;
+    });
     setNotice(null);
     if (review) {
       setReview(null);
@@ -94,6 +121,11 @@ export function ExplainWizard({
       setError(saved.error);
       setPhase("reviewed");
       return;
+    }
+    try {
+      window.localStorage.removeItem(draftKey);
+    } catch {
+      // Nothing to clear.
     }
     setPhase("done");
   }
@@ -176,7 +208,11 @@ export function ExplainWizard({
             disabled={busy}
             onChange={(event) => edit(event.target.value)}
             placeholder="Write it the way you would tell someone who is one step behind you."
+            aria-describedby="explain-step-hint"
           />
+          <p className="sf-explain-draft" id="explain-step-hint">
+            Your draft is kept on this device until the stage is saved.
+          </p>
           {notice ? (
             <p className="sf-explain-notice" role="alert">
               {notice}
@@ -228,7 +264,7 @@ export function ExplainWizard({
               </button>
             ) : (
               <button type="button" className="sf-milestone-cta" disabled={busy} onClick={() => void checkIdea()}>
-                {review ? "Try this idea again" : "Check this idea"}
+                {phase === "reading" ? "Reading…" : review ? "Check it again" : "Check my explanation"}
               </button>
             )}
           </div>

@@ -99,6 +99,7 @@ export function SettingsScreen({
                 <p className="sf-settings-links">
                   <Link href="/creator">Creator studio</Link>
                   <Link href={`/profile/${userId}`}>Public profile</Link>
+                  <Link href="/onboarding?edit=1">Edit profile answers</Link>
                 </p>
               ) : null}
             </div>

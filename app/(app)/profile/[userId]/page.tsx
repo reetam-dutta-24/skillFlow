@@ -9,6 +9,7 @@ import { communityRoleLabel, contributionTypeLabel, formatWhen } from "@/lib/com
 import { loadContributorProfile } from "@/lib/data/community";
 import { loadFollowedNiches } from "@/lib/data/catalog";
 import { loadPublicCreatorProfile } from "@/lib/data/creator";
+import { prisma } from "@/lib/prisma";
 import { ProfileWorks } from "./_components/ProfileWorks";
 
 export const metadata: Metadata = { title: "Profile" };
@@ -21,10 +22,12 @@ export default async function ProfilePage({ params }: { params: Promise<{ userId
   if (!session?.user?.id) redirect("/login");
   const { userId } = await params;
   // Both are public and cached: creator works under the catalog tag, Open Source work under the community tag.
-  const [profile, community, follows] = await Promise.all([
+  // The headline is read on the request, so saving it never has to expire the shared catalog cache.
+  const [profile, community, follows, about] = await Promise.all([
     loadPublicCreatorProfile(userId),
     loadContributorProfile(userId),
     loadFollowedNiches(userId),
+    prisma.learnerProfile.findUnique({ where: { userId }, select: { headline: true } }),
   ]);
   if (!profile) notFound();
   const mine = session.user.id === profile.id;
@@ -33,6 +36,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ userId
     <div className="sf-creator-page">
       <header className="sf-page-head">
         <h1>{profile.name}</h1>
+        {about?.headline ? <p className="sf-profile-headline">{about.headline}</p> : null}
         <p className="sf-community-chips">
           {profile.works.length > 0 ? <Chip tone="accent">Creator</Chip> : null}
           {community?.contributor ? <Chip tone="accent">Contributor</Chip> : null}

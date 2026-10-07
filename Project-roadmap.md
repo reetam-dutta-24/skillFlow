@@ -24,7 +24,7 @@ Last aligned with the working tree on 7 October 2026.
 | Database schema and local Postgres | Done | Prisma models and migrations, through creator studio, the learner map, nearby events, billing, and the streak reminder |
 | Open Source community | Done | Contribute, review (approve, request changes, close), author edit, resubmit and withdraw, unmerge, roles, gaps, the maintainers panel, `/admin/community`, and a contributor profile with a heatmap. Only merged work is public |
 | Auth | Done | Auth.js, bcrypt passwords, Google sign-in with verified email only, JWT session, route protection. Google links to an existing account from Settings, which verifies the email |
-| Onboarding | Done and saved | Skill, pace, goal, and accent are written to Postgres |
+| Onboarding | Done and saved | Seven steps: age range (13–17 with a parent's consent), stage, headline, city, up to five free paths, goals, experience, pace, weekly time, formats, languages, accent. Every chosen path is followed |
 | Niches and roadmaps | Done for all thirty free paths | Every free path has a catalog and is available. Art stays a flagship and has stages. Every other niche is Premium and has no stages |
 | Lessons and clips | Done for all thirty free paths | The player reads `Resource` rows. YouTube watch links are rewritten into an embed |
 | Admin catalog and submissions | Done | An admin can edit stages and resources, and an approval creates a resource |
@@ -166,7 +166,7 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 
 **Account.** Sign up with name, email, and password. Log in with email and password. Log out from the account menu. After signup the app sends them to onboarding, then home.
 
-**Onboarding.** Pick a skill, a pace, a goal, and an accent. Save writes `LearnerProfile` and a `UserSkillProgress` row when that skill exists. Pace does not decide which stages are open. The skill choices are Full-Stack, Travel Vlogging, Content Creation, Photography, and Music Production.
+**Onboarding.** Seven steps: about you, city, paths (any of the thirty free ones, up to five), goals and experience, time and formats and languages, accent, summary. Save writes the profile and a `UserSkillProgress` row for each path. Pace does not decide which stages are open. Settings → Edit profile answers reopens it.
 
 **Shell.** Every signed-in page sits in `app/(app)`. The URL does not contain `(app)`. Desktop shows a fixed sidebar from 960px up. Below that, the sidebar is a dialog drawer. Main nav is Home, Niches, Clips, Creator studio, Paths, Nearby, Open Source, Progress, Notes, Analytics, Submit a resource, and Settings. Admin appears only when `role === ADMIN`. Review appears for admins and community role holders, with an open count.
 
@@ -265,7 +265,6 @@ Stage photos were generated for all 10 Content Creation stages and all 8 Travel 
 - A creator has a rating or earnings.
 - The app is deployed, monitored, or covered by an end-to-end test.
 - Every accent was checked for contrast on both themes. The ten presets were measured; Spectrum and custom gradients were not.
-- Onboarding offers all thirty paths. It offers five. Settings can follow any free path.
 
 ---
 

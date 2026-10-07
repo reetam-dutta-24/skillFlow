@@ -42,7 +42,12 @@ const sections: LegalSection[] = [
         </ul>
         <h3>Your learning</h3>
         <ul>
-          <li>The paths you follow, and what you chose during onboarding: a path, a pace, and a goal.</li>
+          <li>The paths you follow.</li>
+          <li>
+            What you tell us in onboarding: your age range, whether a parent or guardian agreed (for ages 13 to 17), what you are doing now
+            (school, college, work, and so on), your goals, experience, pace, weekly time, how you like to learn, the languages you learn in,
+            and an optional one-line headline. The headline is shown on your public profile; the rest is private.
+          </li>
           <li>Your explain-back answers, the written review each one received, and the ideas kept as notes.</li>
           <li>Answers to recall cards, the stages you passed and when, your streak, and your mastery on each path.</li>
           <li>

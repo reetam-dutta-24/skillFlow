@@ -1,3 +1,6 @@
+import { isFreePath } from "@/lib/niches/tiers";
+import { GOALS } from "@/lib/onboarding-options";
+
 export const SKILL_CHOICES = [
   {
     slug: "full-stack-web-dev",
@@ -32,12 +35,8 @@ export const PACE_CHOICES = [
   { id: "deep", label: "Deep", hint: "Until it sticks", icon: "layers" },
 ] as const;
 
-export const GOAL_CHOICES = [
-  { id: "project", label: "Build something", icon: "box" },
-  { id: "craft", label: "Get sharper", icon: "sparkles" },
-  { id: "career", label: "Change direction", icon: "compass" },
-  { id: "curiosity", label: "Just curious", icon: "lightbulb" },
-] as const;
+/** The onboarding goals. The profile's single `goal` is the first one chosen. */
+export const GOAL_CHOICES = GOALS;
 
 export type SkillSlug = (typeof SKILL_CHOICES)[number]["slug"];
 export type PaceId = (typeof PACE_CHOICES)[number]["id"];
@@ -48,10 +47,13 @@ const GOAL_LINES: Record<GoalId, string> = {
   craft: "Practice the fundamentals.",
   career: "Follow the path in order.",
   curiosity: "Begin with the first idea.",
+  income: "Finish a path, then build one thing you can show.",
+  studies: "Pair each stage with what you are studying.",
 };
 
-export function isSkillSlug(value: string | null | undefined): value is SkillSlug {
-  return SKILL_CHOICES.some((skill) => skill.slug === value);
+/** Any of the thirty free paths. SKILL_CHOICES is only the five pictured on the welcome card. */
+export function isSkillSlug(value: string | null | undefined): value is string {
+  return Boolean(value) && isFreePath(value as string);
 }
 
 export function isPaceId(value: string | null | undefined): value is PaceId {

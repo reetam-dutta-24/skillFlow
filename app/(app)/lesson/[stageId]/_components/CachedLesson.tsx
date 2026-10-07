@@ -229,7 +229,7 @@ export async function LessonView({ stageId, userId }: { stageId: string; userId:
         </div>
 
         <aside className="sf-lessonx-aside" aria-label="Next step">
-          <div className="sf-ready">
+          <div className="sf-lesson-ready">
             <Icon name="message-square-quote" size={20} />
             <h2>When you are ready</h2>
             <p>

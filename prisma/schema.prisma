@@ -70,6 +70,7 @@ model User {
   learningPlans LearningPlan[]
   recallChecks  RecallCheck[]
   subscription  Subscription?
+  careerAssessment CareerAssessment?
 }
 
 model Subscription {
@@ -103,6 +104,17 @@ model LearnerProfile {
   showOnMap Boolean  @default(false)
   /// Quiet bell note when yesterday counted and today has not yet.
   streakReminder Boolean @default(true)
+  /// Onboarding profile. Ids come from lib/onboarding-options.ts.
+  ageRange        String?
+  /// A parent or guardian agreed, required for ageRange "13-17".
+  guardianConsent Boolean  @default(false)
+  stage           String?
+  experience      String?
+  weeklyHours     Int?
+  goals           String[] @default([])
+  languages       String[] @default([])
+  formats         String[] @default([])
+  headline        String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -831,4 +843,25 @@ model ApiUsage {
   count    Int    @default(0)
 
   @@unique([provider, period])
+}
+
+// ── CAREER-FIT TEST ──────────────────────
+// IPIP-NEO-120 (Johnson, 2014; public domain) and the O*NET Interest Profiler Short Form (USDOL/ETA).
+// One row per learner. Answers save as they go; a retake clears the row. Personal: never cached for others.
+
+model CareerAssessment {
+  id          String    @id @default(cuid())
+  userId      String    @unique
+  /// { ipip: { "1": 1-5, ... }, onet: { "1": 0-4, ... } }
+  answers     Json      @default("{}")
+  /// Computed in lib/career/score.ts when every item is answered.
+  scores      Json?
+  /// Written sections of the report, generated from the scores only.
+  report      Json?
+  version     String    @default("ipip-neo-120+onet-ip-sf-60/v1")
+  startedAt   DateTime  @default(now())
+  completedAt DateTime?
+  updatedAt   DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

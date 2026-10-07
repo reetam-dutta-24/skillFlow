@@ -1,10 +1,8 @@
 "use client";
 
 import { Suspense, useEffect, useId, useRef, useState, type ReactNode } from "react";
-import clsx from "clsx";
 import { usePathname } from "next/navigation";
 import { Icon } from "@/components/core/Icon.jsx";
-import { useSpectrumLightShade } from "@/components/theme/useSpectrumShade";
 import { Sidebar, type SidebarItem } from "@/components/navigation/Sidebar.jsx";
 import { Topbar } from "@/components/navigation/Topbar.jsx";
 import { ShellRoleProvider, useShellReview, useShellRole } from "./shell-role";
@@ -135,7 +133,6 @@ export function AppShell({ account, notifications, review, children }: ShellProp
 }
 
 function AppShellFrame({ account, notifications, children }: Omit<ShellProps, "review">) {
-  const lightShade = useSpectrumLightShade();
   const [menuOpen, setMenuOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -206,7 +203,7 @@ function AppShellFrame({ account, notifications, children }: Omit<ShellProps, "r
   );
 
   return (
-    <div className={clsx("sf-app", lightShade && "spectrum-light-shade text-slate-950")}>
+    <div className="sf-app">
       <Suspense fallback={null}>
         <CloseMenuOnNavigate close={closeMenu} />
       </Suspense>

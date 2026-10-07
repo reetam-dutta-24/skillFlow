@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { auth } from "@/lib/auth";
 import { explainModelConfig } from "@/lib/explain/judge";
 import { interpretLearningDescription } from "@/lib/plan/parse";
+import { followSkillRecord } from "@/lib/data/settings";
 import { saveLearningPreferences, setLearningPlanApplied } from "@/lib/plan/store";
 import { prisma } from "@/lib/prisma";
 
@@ -24,7 +25,12 @@ export async function savePlan(skillId: string, input: unknown) {
   if (!skill) return { ok: false as const, error: "That skill is not open yet." };
   const saved = await saveLearningPreferences(session.user.id, skill.id, input);
   if (!saved.ok) return saved;
+  const followed = await followSkillRecord(session.user.id, skill.id);
+  if (!followed.ok) return followed;
   revalidatePath(`/roadmap/${skill.slug}`);
+  revalidatePath("/roadmap");
+  revalidatePath("/dashboard");
+  revalidatePath("/settings");
   return { ok: true as const, slug: skill.slug };
 }
 

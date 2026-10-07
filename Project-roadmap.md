@@ -193,7 +193,7 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 
 **Admin catalog.** Lists every niche, with Flagship and Available or Coming soon. The stage editor includes every skill that already has stages, which is all thirty free paths. Needs review only filters the resource list. Saving a resource titled `fail this save` is the built-in error.
 
-**Personal plan.** Every free path can store preferences on `LearningPlan`. Plain code builds a schedule from that path’s stages. The roadmap shows the weeks, the pace, and a link into each stage. Gemini only turns a written description into those preferences, or suggests resource tags for an admin to review. Undo hides the schedule and shows the shared stages again.
+**Personal plan.** Every free path can store preferences on `LearningPlan`, from that path’s roadmap, whether or not it is already followed. Saving the plan follows the path. Plain code builds a schedule from that path’s stages. The roadmap shows the weeks, the pace, and a link into each stage. Gemini only turns a written description into those preferences, or suggests resource tags for an admin to review. Undo hides the schedule and shows the shared stages again.
 
 **Version 2 previews, not linked from the main nav.** Each one is labeled "Version 2 preview".
 

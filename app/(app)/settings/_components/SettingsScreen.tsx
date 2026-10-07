@@ -154,6 +154,7 @@ export function SettingsScreen({
                 )
               ) : skill.status === "available" && (skill.offer === "FREE" || premium) ? (
                 <div className="sf-settings-skill-actions">
+                  <Link href={`/roadmap/${skill.slug}/preferences`}>Learning plan</Link>
                   <Button type="button" size="sm" variant="outline" disabled={pending === skill.id} onClick={() => void addSkill(skill.id)}>
                     {pending === skill.id ? "Adding..." : "Add"}
                   </Button>

@@ -59,7 +59,7 @@ export default async function RoadmapDetailPage({ params }: PageProps) {
   const data = await getRoadmap(slug);
   if (!data) notFound();
   if (data.skill.offer === "MONETIZED" && !(await viewerHasPremium())) redirect("/upgrade");
-  const learning = data.skill.followed ? await readLearningPlan(session.user.id, data.skill.id) : null;
+  const learning = data.stages.length > 0 ? await readLearningPlan(session.user.id, data.skill.id) : null;
   const showPlan = Boolean(learning?.applied);
   const planById = new Map(showPlan ? learning?.plan.stages.map((stage) => [stage.id, stage]) ?? [] : []);
 
@@ -105,7 +105,7 @@ export default async function RoadmapDetailPage({ params }: PageProps) {
           <SkillImage className="sf-path-cover" src={data.skill.image} alt="" width={640} height={360} sizes="(max-width: 640px) 100vw, 240px" />
         ) : null}
       </header>
-      {data.skill.followed && !learning ? (
+      {data.stages.length > 0 && !learning ? (
         <section className="sf-plan-invite" aria-label="Set up your plan">
           <div>
             <p className="sf-path-kicker">Your plan</p>

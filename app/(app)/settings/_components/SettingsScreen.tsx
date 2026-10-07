@@ -11,6 +11,7 @@ import { ThemeToggle } from "@/components/forms/ThemeToggle.jsx";
 import { Button } from "@/components/core/Button.jsx";
 import { UsageCutoffDialog } from "@/components/feedback/UsageCutoffDialog";
 import { saveSettings } from "../actions";
+import { FreePlanNotice } from "../../_components/FreePlanNotice";
 import { LocationCard } from "./LocationCard";
 
 export function SettingsScreen({
@@ -63,6 +64,19 @@ export function SettingsScreen({
       <p className={status ? `sf-settings-banner${error ? " is-error" : ""}` : "sf-review-live"} aria-live="polite" role={error ? "alert" : "status"}>
         {status}
       </p>
+      <SettingsSection
+        title="Plan"
+        subtitle={premium ? "This account includes Premium." : "You're on the free plan. Premium opens the other niches."}
+      >
+        {premium ? (
+          <p className="sf-settings-note">
+            The niches outside the thirty free paths are open, and this account can appear on the learner map.{" "}
+            <Link href="/upgrade">Open the plan page</Link>
+          </p>
+        ) : (
+          <FreePlanNotice />
+        )}
+      </SettingsSection>
       <SettingsSection title="Profile" subtitle="The name is what the app calls you. Email stays with the account.">
         <div className="sf-settings-profile">
           <div className="sf-settings-identity">

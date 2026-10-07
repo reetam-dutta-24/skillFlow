@@ -89,7 +89,7 @@ What the product refuses: comments, likes, view counts, trending, a score leader
 - Freelancing (`freelancing`) — 8 stages, 8 resources. Stages 1–5 open.
 - Travel Planning (`travel-planning`) — 8 stages, 8 resources. Stages 1–5 open. The four State Department pages returned HTTP 403 to the checker and were left in place.
 
-Every niche outside the thirty free paths is Premium and has no resources. A niche card is a link only when the skill is available and has at least one stage.
+Every niche outside the thirty free paths is Premium and has no resources. A free path with stages links to its roadmap. A Premium card links a free account to `/upgrade`, and a subscriber to the roadmap.
 
 Two roles exist: `USER` and `ADMIN`. An admin is the only person who can open the catalog and the submission queue. Everyone else gets a not-found page.
 
@@ -169,11 +169,11 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 
 **Shell.** Every signed-in page sits in `app/(app)`. The URL does not contain `(app)`. Desktop shows a fixed sidebar from 960px up. Below that, the sidebar is a dialog drawer. Main nav is Home, Niches, Clips, Creator studio, Roadmaps, Nearby, Open Source, Progress, Notes, Analytics, Submit a resource, and Settings. Admin appears only when `role === ADMIN`. Review appears for admins and community role holders, with an open count.
 
-**Niches (`/skills`).** Search and group filters, then 32 cards a page (4 columns by 8 rows). A free skill with stages is a link to its roadmap. Open means the thirty free paths. Every free path has stages, so the card says "Free · N stages". Every other niche shows "Premium". A free account is not a link to that roadmap. A subscriber is. Narrow screens stack the same 32 cards into fewer columns.
+**Niches (`/skills`).** Search and group filters, then 32 cards a page (4 columns by 8 rows). A free skill with stages is a link to its roadmap. Open means the thirty free paths. Every free path has stages, so the card says "Free · N stages". Every other niche shows "Premium". A free account opens `/upgrade` from that card. A subscriber opens the roadmap. A free account also sees what Premium adds. Narrow screens stack the same 32 cards into fewer columns.
 
-**Home.** Streak banner, four stats from the signed-in user (zeros until there are attempts), and one horizontal row per followed skill. Open stages link to the lesson. Locked stages do not. Explore shows 4 columns by 3 rows of niche cards, a blurred peek of the next row, and Explore all the niches. The real follow is Settings.
+**Home.** Streak banner, four stats from the signed-in user (zeros until there are attempts), and one horizontal row per followed skill. Open stages link to the lesson. Locked stages do not. A free account sees what Premium adds, with a link to `/upgrade`. Explore shows 4 columns by 3 rows of niche cards, a blurred peek of the next row, and Explore all the niches. Follow and Following sit on the card.
 
-**Roadmaps.** The index says thirty paths are free, the next stage opens after the explain-back, and every stage on a free path is open. A followed skill has Continue and Open path. More skills is the same short niche teaser as Home. A path page shows the stage photo and the real description. A stage they have not reached yet stays readable, with a lock and "Pass the previous stage to open this one." A stage they have not reached yet stays readable, with a lock. A Premium path with no stages says the catalog is not ready yet. Stage photos are 16:9 files in `public/uploads`. That folder is gitignored, so a clone does not include them.
+**Roadmaps.** The index says thirty paths are free, the next stage opens after the explain-back, and every stage on a free path is open. A free account sees what Premium adds. A Premium niche without a subscription opens `/upgrade`. A followed skill has Continue and Open path. More skills is the same short niche teaser as Home. A path page shows the stage photo and the real description. A stage they have not reached yet stays readable, with a lock and "Pass the previous stage to open this one." A stage they have not reached yet stays readable, with a lock. A Premium path with no stages says the catalog is not ready yet. Stage photos are 16:9 files in `public/uploads`. That folder is gitignored, so a clone does not include them.
 
 **Lesson.** The first video is the clip. Other resources are sources. A course link is labeled "Course". Pressing play loads `youtube-nocookie.com/embed/...`. A locked lesson shows the stage title and the skill name, and does not include the resource text. Direct visits to a locked stage id behave the same way.
 
@@ -187,7 +187,7 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 
 **Progress and analytics.** Counts, mastery, streaks, weak topics, and the charts come from `ExplainBackAttempt` and `StageCompletion`. Home and Progress show “Explain-backs passed”.
 
-**Settings.** Name saves to `User`. Email is read-only. Niches are followed from Niches, Home, and Roadmaps, not from this page. Onboarding still chooses the first paths. Stopping a follow drops `UserSkillProgress` and keeps attempts. The daily reminder toggle is still local to the page. Theme and accent apply immediately. The accent row keeps the ten presets, adds Spectrum (one neighboring pair moves slowly around the wheel while the room stays dark; reduced motion holds one hue), and adds a custom gradient: a color palette, a hex field, and R, G, and B for each stop. Log out uses the real `signOut`.
+**Settings.** Plan is the first section: a free account sees what Premium adds, and an account that already has it can open the plan page. Name saves to `User`. Email is read-only. Niches are followed from Niches, Home, and Roadmaps, not from this page. Onboarding still chooses the first paths. Stopping a follow drops `UserSkillProgress` and keeps attempts. The daily reminder toggle is still local to the page. Theme and accent apply immediately. The accent row keeps the ten presets, adds Spectrum (one neighboring pair moves slowly around the wheel while the room stays dark; reduced motion holds one hue), and adds a custom gradient: a color palette, a hex field, and R, G, and B for each stop. Log out uses the real `signOut`.
 
 **Submit and admin.** Submit writes `ResourceSubmission`. Approve appends a `Resource` on that stage. Reject requires a note. `fail this submit` and `fail this review` are the built-in error cases. A non-admin who opens an admin URL gets not-found.
 
@@ -197,7 +197,7 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 
 **Version 2 previews, not linked from the main nav.** Each one is labeled "Version 2 preview".
 
-- `/upgrade` — Stripe Checkout for one Premium tier. The card form stays on Stripe. Without keys, the page says Stripe is not configured.
+- `/upgrade` — Free and Premium, side by side. A free account continues to Stripe Checkout. The card form stays on Stripe. Without keys, the page says Stripe is not configured. Home, Niches, Roadmaps, Settings, and the account menu point a free account here. An admin already has Premium, so those prompts stay off.
 - `/transcript/[userId]/[skillSlug]` — the stages this learner has passed, with the real dates. PDF download. `noindex`.
 - `/certificate/[userId]/[skillSlug]` — issued only when every stage on that path is passed. SkillFlow’s own record. `noindex`.
 - `/notes` — in the main nav. An accepted explain-back idea is stored with its review. The notebook downloads as Word or PDF, and each stage can be summarized from those notes only.

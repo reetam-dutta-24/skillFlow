@@ -10,12 +10,14 @@ export function AccountMenu({
   email,
   image,
   profileHref,
+  premium,
 }: {
   role: "USER" | "ADMIN";
   name: string;
   email: string | null;
   image: string | null;
   profileHref: string;
+  premium: boolean;
 }) {
   return (
     <>
@@ -25,6 +27,7 @@ export function AccountMenu({
         email={email ?? undefined}
         avatarUrl={image ?? undefined}
         items={[
+          ...(premium ? [] : [{ label: "Upgrade to Premium", icon: "sparkles", href: "/upgrade" }]),
           { label: "Creator studio", icon: "video", href: "/creator" },
           { label: "Profile", icon: "user", href: profileHref },
           { label: "Settings", icon: "settings", href: "/settings" },

@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { viewerHasPremium } from "@/lib/billing/access";
 import { billingConfig } from "@/lib/billing/config";
+import { formatStripePrice } from "@/lib/billing/price";
+import { getStripe } from "@/lib/billing/stripe";
 import { prisma } from "@/lib/prisma";
 import { UpgradePanel } from "./_components/UpgradePanel";
 
@@ -16,7 +18,17 @@ export default async function UpgradePage({
   const session = await auth();
   if (!session?.user?.id) redirect("/login");
   const { checkout } = await searchParams;
-  const { priceLabel, configured } = billingConfig();
+  const { priceId, priceLabel: fallbackLabel, configured } = billingConfig();
+  const stripe = getStripe();
+  let priceLabel = fallbackLabel;
+  if (stripe && priceId) {
+    try {
+      const price = await stripe.prices.retrieve(priceId);
+      priceLabel = formatStripePrice(price) ?? fallbackLabel;
+    } catch {
+      priceLabel = fallbackLabel;
+    }
+  }
   const premium = await viewerHasPremium();
   const subscription = await prisma.subscription.findUnique({
     where: { userId: session.user.id },

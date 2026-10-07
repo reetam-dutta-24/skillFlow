@@ -9,6 +9,7 @@ import { EmptyState } from "@/components/feedback/EmptyState.jsx";
 import { FollowNicheButton } from "./FollowNicheButton";
 import { useFollowedSkill } from "./followed-context";
 import { NICHE_PAGE_SIZE, NICHE_TEASER_CLEAR, NICHE_TEASER_PEEK } from "./niche-layout";
+import { nicheCardHref } from "@/lib/billing/niche-link";
 import { usePremiumAccess } from "../../_components/premium-access";
 
 const FILTERS = [
@@ -56,6 +57,7 @@ function matches(skill: BrowseSkill, query: string, filter: FilterId) {
 }
 
 export function SkillBrowse({ skills, mode = "page" }: { skills: BrowseSkill[]; mode?: "page" | "teaser" }) {
+  const premium = usePremiumAccess();
   const reduce = useReducedMotion();
   const resultsRef = useRef<HTMLDivElement>(null);
   const [query, setQuery] = useState("");
@@ -173,7 +175,7 @@ export function SkillBrowse({ skills, mode = "page" }: { skills: BrowseSkill[]; 
                   animate={{ opacity: 1, y: 0 }}
                   exit={reduce ? { opacity: 0 } : { opacity: 0, y: 8 }}
                   transition={reduce ? { duration: 0 } : { duration: 0.32, delay: Math.min(index, 6) * 0.04, ease: EASE }}
-                  whileHover={reduce || !skill.href ? undefined : { y: -6 }}
+                  whileHover={reduce || !nicheCardHref({ ...skill, premium }) ? undefined : { y: -6 }}
                 >
                   <SkillCard skill={skill} />
                 </motion.li>
@@ -215,9 +217,7 @@ function SkillCard({ skill, preview = false }: { skill: BrowseSkill; preview?: b
   const followed = useFollowedSkill(skill.id, skill.followed);
   const view = followed === skill.followed ? skill : { ...skill, followed };
   const canFollow = !preview && view.status === "available" && (view.offer === "FREE" || premium);
-  const href =
-    view.href ??
-    (premium && view.status === "available" && view.offer === "MONETIZED" ? `/roadmap/${view.slug}` : null);
+  const href = nicheCardHref({ ...view, preview, premium });
   const body = (
     <>
       {view.image ? (
@@ -245,11 +245,7 @@ function SkillCard({ skill, preview = false }: { skill: BrowseSkill; preview?: b
             Open Source
           </Link>
         ) : null}
-        {!href && view.offer === "MONETIZED" && view.status === "available" ? (
-          <Link href="/upgrade" className="sf-skill-os">
-            Upgrade
-          </Link>
-        ) : null}
+        {href === "/upgrade" ? <span className="sf-skill-upgrade">Upgrade to open</span> : null}
       </span>
     </>
   );

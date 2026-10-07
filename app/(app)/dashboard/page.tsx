@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { redirect } from "next/navigation";
+import { viewerHasPremium } from "@/lib/billing/access";
 import { auth } from "@/lib/auth";
+import { FreePlanNotice } from "../_components/FreePlanNotice";
 import { getDashboardData } from "@/lib/data/dashboard";
 import type { LessonLaneStatus } from "@/lib/types/pages";
 import { Icon } from "@/components/core/Icon.jsx";
@@ -43,7 +45,7 @@ export default async function DashboardPage() {
   const session = await auth();
   if (!session?.user?.id) redirect("/login");
 
-  const data = await getDashboardData();
+  const [data, premium] = await Promise.all([getDashboardData(), viewerHasPremium()]);
   const first = session.user.name?.trim().split(/\s+/)[0];
 
   return (
@@ -53,6 +55,7 @@ export default async function DashboardPage() {
         <h1>Home</h1>
         <p>{first ? `Welcome back, ${first}.` : "Welcome back."}</p>
       </header>
+      {premium ? null : <FreePlanNotice />}
       <StreakBanner
         streak={data.currentStreak}
         nextLabel={data.nextLesson?.title}

@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { viewerHasPremium } from "@/lib/billing/access";
 import { auth } from "@/lib/auth";
 import { loadCachedAccount } from "@/lib/data/account";
 import { AccountMenu } from "./AccountMenu";
@@ -8,7 +9,7 @@ export async function ShellIdentity() {
   if (!session?.user?.id) redirect("/login");
 
   const role = session.user.role === "ADMIN" ? "ADMIN" : "USER";
-  const account = await loadCachedAccount(session.user.id);
+  const [account, premium] = await Promise.all([loadCachedAccount(session.user.id), viewerHasPremium()]);
   const name = (account?.name ?? session.user.name)?.trim() || "Account";
 
   return (
@@ -18,6 +19,7 @@ export async function ShellIdentity() {
       email={account?.email ?? session.user.email ?? null}
       image={account?.image ?? session.user.image ?? null}
       profileHref={`/profile/${session.user.id}`}
+      premium={premium}
     />
   );
 }

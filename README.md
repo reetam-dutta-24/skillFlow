@@ -121,7 +121,7 @@ Copy the names from `.env.example`. Leave a key blank to turn that source off.
 Premium is one subscription. Checkout and the customer portal run on Stripe. The app never collects a card. Leave the keys blank and `/upgrade` says Stripe is not configured.
 
 - `STRIPE_SECRET_KEY` — the secret key from the Stripe dashboard.
-- `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` — the publishable key. The upgrade button loads Stripe.js with it, then sends the browser to Checkout.
+- `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` — the publishable key. Checkout uses it on Stripe's page. The upgrade button sends the browser there.
 - `STRIPE_PRICE_ID` — the price for that subscription.
 - `STRIPE_WEBHOOK_SECRET` — the signing secret for `POST /api/stripe/webhook`.
 - `STRIPE_PRICE_LABEL` — optional words shown on the upgrade page. Checkout shows the real price.

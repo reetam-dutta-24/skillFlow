@@ -3,7 +3,9 @@ import { SkillImage } from "@/components/core/SkillImage";
 import Link from "next/link";
 import { Suspense } from "react";
 import { redirect } from "next/navigation";
+import { viewerHasPremium } from "@/lib/billing/access";
 import { auth } from "@/lib/auth";
+import { FreePlanNotice } from "../_components/FreePlanNotice";
 import { getRoadmapIndex } from "@/lib/data/roadmap";
 import { MasteryChip } from "@/components/core/MasteryChip.jsx";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
@@ -19,15 +21,16 @@ export default async function RoadmapIndexPage() {
   const session = await auth();
   if (!session?.user?.id) redirect("/login");
 
-  const data = await getRoadmapIndex();
+  const [data, premium] = await Promise.all([getRoadmapIndex(), viewerHasPremium()]);
 
   return (
     <FollowedNicheFrame>
     <div className="sf-dash">
       <header className="sf-page-head">
         <h1>Roadmaps</h1>
-        <p>Thirty paths are free. Pass the explain-back on a stage to open the next one.</p>
+        <p>Thirty paths are free. Pass the explain-back on a stage to open the next one. A Premium niche opens the upgrade page.</p>
       </header>
+      {premium ? null : <FreePlanNotice />}
       <section className="sf-dash-block" aria-labelledby="roadmap-yours">
         <h2 id="roadmap-yours">Your paths</h2>
         {data.followed.length === 0 ? (

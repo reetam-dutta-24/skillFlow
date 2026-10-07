@@ -1,8 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { loadStripe } from "@stripe/stripe-js";
-import { Button } from "@/components/core/Button.jsx";
+
+const INCLUDED = [
+  "Thirty free paths, every stage, and the certificate",
+  "Explain-back, notes, and nearby events",
+  "The learner map, without your name on it",
+];
+
+const PREMIUM = [
+  "Open and follow every niche outside the thirty free paths",
+  "Appear on the learner map",
+];
 
 export function UpgradePanel({
   priceLabel,
@@ -25,67 +34,61 @@ export function UpgradePanel({
     setMessage("");
     try {
       const response = await fetch(path, { method: "POST" });
-      const data = (await response.json()) as { url?: string; publishableKey?: string; error?: string };
+      const data = (await response.json()) as { url?: string; error?: string };
       if (!response.ok || !data.url) {
         setMessage(data.error || "Stripe could not be opened.");
+        setPending(false);
         return;
       }
-      if (data.publishableKey) await loadStripe(data.publishableKey);
       window.location.assign(data.url);
     } catch {
       setMessage("Stripe could not be opened.");
-    } finally {
       setPending(false);
     }
   }
 
   return (
-    <div className="sf-upgrade">
-      <table>
-        <caption>Free and Premium</caption>
-        <thead>
-          <tr>
-            <th scope="col"> </th>
-            <th scope="col">Free</th>
-            <th scope="col">Premium</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">Thirty free paths, every stage, and the certificate</th>
-            <td>Included</td>
-            <td>Included</td>
-          </tr>
-          <tr>
-            <th scope="row">Learner map and nearby events</th>
-            <td>Included</td>
-            <td>Included</td>
-          </tr>
-          <tr>
-            <th scope="row">Niches outside the thirty free paths</th>
-            <td>Not included</td>
-            <td>Included</td>
-          </tr>
-          <tr>
-            <th scope="row">Appear on the learner map</th>
-            <td>Not included</td>
-            <td>Included</td>
-          </tr>
-        </tbody>
-      </table>
-      <p>Price: {priceLabel}. The card form stays on Stripe.</p>
-      {premium && canManage ? (
-        <Button type="button" variant="outline" disabled={pending || !configured} onClick={() => void openStripe("/api/stripe/portal")}>
-          {pending ? "Opening..." : "Manage subscription"}
-        </Button>
-      ) : null}
-      {!premium ? (
-        <Button type="button" variant="gradient" disabled={pending || !configured} onClick={() => void openStripe("/api/stripe/checkout")}>
-          {pending ? "Opening..." : "Upgrade with Stripe Checkout"}
-        </Button>
-      ) : null}
-      {!configured ? <p>Stripe is not configured yet. Add the keys before a charge can start.</p> : null}
-      {message ? <p role="status">{message}</p> : null}
+    <div className="sf-billing">
+      <section className="sf-billing-copy" aria-labelledby="plan-status">
+        <p className="sf-path-kicker">{premium ? "Premium" : "Free plan"}</p>
+        <h2 id="plan-status">{premium ? "This account includes Premium." : "You're on the free plan."}</h2>
+        <p>
+          {premium
+            ? "The niches outside the thirty free paths are open, and this account can appear on the learner map."
+            : "The thirty paths stay open. Premium is the way to open the other niches and to appear on the learner map."}
+        </p>
+        {message ? (
+          <p className="sf-billing-notice" role="status">
+            {message}
+          </p>
+        ) : null}
+        <ul className="sf-billing-list">
+          {INCLUDED.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </section>
+      <section className="sf-billing-card" aria-labelledby="premium-offer">
+        <p className="sf-path-kicker">Premium</p>
+        <h2 id="premium-offer">{priceLabel}</h2>
+        <p>One subscription. The card form opens on Stripe, and SkillFlow never sees the card.</p>
+        <ul>
+          {PREMIUM.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+        {premium && canManage ? (
+          <button type="button" className="sf-path-cta" disabled={pending || !configured} onClick={() => void openStripe("/api/stripe/portal")}>
+            {pending ? "Opening…" : "Manage subscription"}
+          </button>
+        ) : null}
+        {!premium ? (
+          <button type="button" className="sf-path-cta" disabled={pending || !configured} onClick={() => void openStripe("/api/stripe/checkout")}>
+            {pending ? "Opening Stripe…" : "Continue to checkout"}
+          </button>
+        ) : null}
+        {!configured ? <p className="sf-billing-quiet">Stripe is not configured yet. Add the keys before a charge can start.</p> : null}
+      </section>
     </div>
   );
 }

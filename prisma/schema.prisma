@@ -115,6 +115,8 @@ model LearnerProfile {
   languages       String[] @default([])
   formats         String[] @default([])
   headline        String?
+  /// Activity counts (the contribution heatmap and learning totals) on the public profile. Counts only, never content.
+  showActivity    Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

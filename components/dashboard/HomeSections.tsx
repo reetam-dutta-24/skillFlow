@@ -2,6 +2,8 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { Icon } from "@/components/core/Icon.jsx";
 import { StatCard } from "@/components/core/StatCard.jsx";
+import { ContributionHeatmap } from "@/components/community/ContributionHeatmap";
+import type { Activity } from "@/lib/activity";
 import type { HomeExtras } from "@/lib/data/home";
 import type { DashboardData } from "@/lib/types/pages";
 
@@ -71,6 +73,36 @@ export function HomeKpis({ data, extras }: { data: DashboardData; extras: HomeEx
             ))}
           </ol>
         </figure>
+      </div>
+    </section>
+  );
+}
+
+/** Every contribution per day for the last year, the same heatmap the profile shows. Personal, read on the request. */
+export function HomeActivity({ activity, userId }: { activity: Activity; userId: string }) {
+  return (
+    <section className="sf-home-activity" aria-labelledby="home-activity">
+      <header>
+        <h2 id="home-activity">Your activity</h2>
+        <Link className="sf-home-panel-link" href={`/profile/${userId}`}>
+          Profile
+        </Link>
+      </header>
+      <div className="sf-home-activity-card">
+        <ContributionHeatmap heatmap={activity.heatmap} headingId="home-heatmap-total" noun="contribution" />
+        {activity.byKind.length ? (
+          <ul className="sf-prof-kinds" aria-label="What counted">
+            {activity.byKind.map((kind) => (
+              <li key={kind.id}>
+                <strong>{kind.count}</strong> {kind.label}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="sf-home-quiet-line">
+            Every stage passed, idea explained, recall answered, note, and Open Source contribution adds a square here.
+          </p>
+        )}
       </div>
     </section>
   );

@@ -177,7 +177,12 @@ const sections: LegalSection[] = [
         <li>
           The learner map shows a number per city and never a name. A city with fewer than five learners who opted in is not shown at all.
         </li>
-        <li>Your explanations, notes, recall answers, plan, city, progress, and career-fit test results are private to you.</li>
+        <li>
+          Your profile can show how active you are: a daily count of what you did over the last year (stages passed, ideas explained,
+          notes, recall answers, contributions, and similar), your streaks, and how far along your paths are. These are counts only,
+          never your answers or notes. Turn off &ldquo;Show my activity on my profile&rdquo; in Settings to keep them to yourself.
+        </li>
+        <li>Your explanations, notes, recall answers, plan, city, and career-fit test results are private to you.</li>
         <li>A career-fit image leaves SkillFlow only when you download it and share it yourself.</li>
       </ul>
     ),

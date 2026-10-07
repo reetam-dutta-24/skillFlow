@@ -12,7 +12,8 @@ import { LessonCard } from "@/components/learning/LessonCard.jsx";
 import { SkillRow } from "@/components/learning/SkillRow.jsx";
 import { StreakBanner } from "@/components/learning/StreakBanner.jsx";
 import { CareerTestCard } from "@/components/dashboard/CareerTestCard";
-import { HomeKpis, HomePanels } from "@/components/dashboard/HomeSections";
+import { HomeActivity, HomeKpis, HomePanels } from "@/components/dashboard/HomeSections";
+import { loadActivity } from "@/lib/activity";
 import { loadHomeExtras } from "@/lib/data/home";
 import { FollowedNicheFrame } from "../skills/_components/FollowedNicheFrame";
 import { NicheGrid, NicheTeaserFallback } from "../skills/_components/NicheGrid";
@@ -48,10 +49,13 @@ export default async function DashboardPage() {
   if (!session?.user?.id) redirect("/login");
 
   const [data, premium] = await Promise.all([getDashboardData(), viewerHasPremium()]);
-  const extras = await loadHomeExtras(
-    session.user.id,
-    data.followed.map((row) => ({ id: row.skill.id, slug: row.skill.slug })),
-  );
+  const [extras, activity] = await Promise.all([
+    loadHomeExtras(
+      session.user.id,
+      data.followed.map((row) => ({ id: row.skill.id, slug: row.skill.slug })),
+    ),
+    loadActivity(session.user.id),
+  ]);
   const first = session.user.name?.trim().split(/\s+/)[0];
   // A new learner sees what to do next, not a wall of zeros.
   const started = data.followed.length > 0 || data.explainBacksPassed > 0 || data.longestStreak > 0;
@@ -74,6 +78,7 @@ export default async function DashboardPage() {
         />
       ) : null}
       {started ? <HomeKpis data={data} extras={extras} /> : null}
+      <HomeActivity activity={activity} userId={session.user.id} />
       <section className="sf-dash-block" aria-labelledby="dash-skills">
         <h2 id="dash-skills">Your paths</h2>
         {data.followed.length === 0 ? (

@@ -10,7 +10,7 @@ import { SettingsToggle } from "@/components/forms/SettingsToggle.jsx";
 import { ThemeToggle } from "@/components/forms/ThemeToggle.jsx";
 import { Button } from "@/components/core/Button.jsx";
 import { UsageCutoffDialog } from "@/components/feedback/UsageCutoffDialog";
-import { saveReminder, saveSettings } from "../actions";
+import { saveReminder, saveSettings, saveShowActivity } from "../actions";
 import { LocationCard } from "./LocationCard";
 import { SignInCard, type SignInState } from "./SignInCard";
 
@@ -21,6 +21,7 @@ export function SettingsScreen({
   initial,
   accent,
   streakReminder,
+  showActivity,
   showPreview,
   map,
   premium,
@@ -32,6 +33,7 @@ export function SettingsScreen({
   initial: string;
   accent: string;
   streakReminder: boolean;
+  showActivity: boolean;
   showPreview: boolean;
   map: { hasProfile: boolean; city: string | null; country: string | null; showOnMap: boolean };
   premium: boolean;
@@ -40,6 +42,7 @@ export function SettingsScreen({
   const router = useRouter();
   const [profileName, setProfileName] = useState(name);
   const [reminder, setReminder] = useState(streakReminder);
+  const [activity, setActivity] = useState(showActivity);
   const [pending, setPending] = useState("");
   const [notice, setNotice] = useState("");
   const [error, setError] = useState("");
@@ -129,6 +132,23 @@ export function SettingsScreen({
             void saveReminder(next).then((result) => {
               if (!result.ok) {
                 setReminder(!next);
+                setError(result.error);
+              }
+            });
+          }}
+        />
+      </SettingsSection>
+      <SettingsSection title="Profile visibility" subtitle="Your public profile is seen by signed-in learners.">
+        <SettingsToggle
+          label="Show my activity on my profile"
+          description="The contribution heatmap and learning totals: counts only, never your answers or notes. You always see them yourself."
+          checked={activity}
+          onChange={(next) => {
+            setActivity(next);
+            setError("");
+            void saveShowActivity(next).then((result) => {
+              if (!result.ok) {
+                setActivity(!next);
                 setError(result.error);
               }
             });

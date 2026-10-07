@@ -13,6 +13,8 @@ import { PracticeSlider } from "@/components/landing/PracticeSlider.jsx";
 import { SkillsSection } from "@/components/landing/SkillsSection.jsx";
 import { ProblemSection } from "@/components/landing/ProblemSection.jsx";
 import { getLandingContent } from "@/lib/mock/landing";
+import { ReelShowcase } from "@/components/landing/ReelShowcase.jsx";
+import { loadLandingReels } from "@/lib/data/landing-reels";
 
 const description =
   "Thirty free paths. Explain one idea at a time, keep the note, and open the next stage only after it holds. Open Source, nearby events, and the learner map.";
@@ -26,8 +28,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
+export default async function Home() {
   const content = getLandingContent();
+  // Real catalog clips, cached under the catalog tag, so the landing page still prerenders.
+  const reels = await loadLandingReels();
 
   return (
     <>
@@ -41,6 +45,7 @@ export default function Home() {
         <LandingHero content={content} />
         <LandingFacts caption={content.factsCaption} facts={content.facts} />
         <ProblemSection title={content.problemTitle} body={content.problemBody} points={content.problemPoints} />
+        <ReelShowcase niches={reels} cta={content.startCta} />
         <HowItWorks title={content.stepsTitle} subtitle={content.stepsSubtitle} steps={content.steps} />
         <ExplainBackPreview check={content.check} />
         <FeatureGrid

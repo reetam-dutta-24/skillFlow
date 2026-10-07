@@ -5,12 +5,13 @@ import type { Heatmap } from "@/lib/community-heatmap";
  * The total sits above the grid, every cell carries its own label, and a hidden summary reads the year in one sentence.
  * On a phone the grid scrolls inside its own box; the page does not.
  */
-export function ContributionHeatmap({ heatmap, headingId }: { heatmap: Heatmap; headingId: string }) {
+/** `noun` names one counted thing: "merged contribution" on Open Source, "contribution" for all activity. */
+export function ContributionHeatmap({ heatmap, headingId, noun = "merged contribution" }: { heatmap: Heatmap; headingId: string; noun?: string }) {
   const columns = heatmap.weeks.length;
   return (
     <figure className="sf-heatmap" aria-labelledby={headingId}>
       <p className="sf-heatmap-total" id={headingId}>
-        {heatmap.total} merged {heatmap.total === 1 ? "contribution" : "contributions"} in the last 12 months
+        {heatmap.total} {heatmap.total === 1 ? noun : `${noun}s`} in the last 12 months
       </p>
       <p className="sf-sr">{heatmap.summary}</p>
       <div className="sf-heatmap-scroll" tabIndex={0} aria-label="Contribution calendar, scrolls sideways">

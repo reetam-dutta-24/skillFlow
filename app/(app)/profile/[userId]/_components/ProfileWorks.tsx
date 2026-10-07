@@ -25,7 +25,7 @@ export function ProfileWorks({ works }: { works: PublicCreatorWork[] }) {
                 </button>
               )}
             </div>
-            <h2>{work.title}</h2>
+            <h3>{work.title}</h3>
             <p>
               {work.skillName} · {work.format === "short" ? "Short clip" : "Video"}
             </p>

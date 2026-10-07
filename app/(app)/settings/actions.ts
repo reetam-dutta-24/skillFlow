@@ -57,6 +57,17 @@ export async function saveReminder(enabled: boolean) {
   return result;
 }
 
+/** Shows or hides activity counts on the public profile. Personal, so nothing shared is expired. */
+export async function saveShowActivity(enabled: boolean) {
+  const session = await auth();
+  if (!session?.user?.id) return { ok: false as const, error: "Sign in again before saving." };
+  const updated = await prisma.learnerProfile.updateMany({ where: { userId: session.user.id }, data: { showActivity: enabled } });
+  if (updated.count === 0) return { ok: false as const, error: "Finish onboarding first, then choose this." };
+  revalidatePath("/settings");
+  revalidatePath(`/profile/${session.user.id}`);
+  return { ok: true as const };
+}
+
 export async function followSkill(skillId: string) {
   const session = await auth();
   if (!session?.user?.id) return { ok: false as const, error: "Sign in again before saving." };

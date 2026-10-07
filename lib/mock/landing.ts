@@ -145,6 +145,7 @@ export function getLandingContent(): LandingContent {
     nav: [
       { href: "#home", label: "Home" },
       { href: "#how-it-works", label: "How it works" },
+      { href: "#clips", label: "Clips" },
       { href: "#features", label: "Features" },
       { href: "#skills", label: "Skills" },
       { href: "#open-source", label: "Open Source" },

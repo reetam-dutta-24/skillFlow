@@ -35,8 +35,12 @@ function levelOf(count: number, max: number): HeatCell["level"] {
   return Math.max(1, Math.min(4, Math.ceil((count / max) * 4))) as HeatCell["level"];
 }
 
-/** `counts` is merged contributions per UTC day, keyed `YYYY-MM-DD`. */
-export function buildHeatmap(counts: Map<string, number>, today: Date): Heatmap {
+/** How the counted thing is named in labels and the summary. Open Source uses the default. */
+export type HeatmapNoun = { one: string; many: string };
+const MERGED: HeatmapNoun = { one: "merged contribution", many: "merged contributions" };
+
+/** `counts` is the number per UTC day, keyed `YYYY-MM-DD`. */
+export function buildHeatmap(counts: Map<string, number>, today: Date, noun: HeatmapNoun = MERGED): Heatmap {
   const end = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()));
   const start = new Date(end.getTime() - 364 * DAY_MS);
   start.setUTCDate(start.getUTCDate() - start.getUTCDay());
@@ -77,8 +81,8 @@ export function buildHeatmap(counts: Map<string, number>, today: Date): Heatmap 
 
   const summary =
     total === 0
-      ? "No merged contributions in the last 12 months."
-      : `${total} merged ${total === 1 ? "contribution" : "contributions"} on ${activeDays} ${activeDays === 1 ? "day" : "days"} in the last 12 months. The busiest day was ${dayLabel(busiest!.day)} with ${busiest!.count}.`;
+      ? `No ${noun.many} in the last 12 months.`
+      : `${total} ${total === 1 ? noun.one : noun.many} on ${activeDays} ${activeDays === 1 ? "day" : "days"} in the last 12 months. The busiest day was ${dayLabel(busiest!.day)} with ${busiest!.count}.`;
 
   return { weeks, months, total, activeDays, busiest, summary };
 }

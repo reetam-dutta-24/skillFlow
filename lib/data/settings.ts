@@ -20,7 +20,7 @@ export async function getSettingsProfile() {
           emailVerified: true,
           password: true,
           accounts: { where: { provider: "google" }, select: { id: true } },
-          learnerProfile: { select: { accent: true, city: true, country: true, showOnMap: true, streakReminder: true } },
+          learnerProfile: { select: { accent: true, city: true, country: true, showOnMap: true, streakReminder: true, showActivity: true } },
         },
       })
     : null;
@@ -36,6 +36,7 @@ export async function getSettingsProfile() {
     initial: name.charAt(0).toUpperCase() || "?",
     accent: isStoredAccent(storedAccent) ? storedAccent : "tide",
     streakReminder: user?.learnerProfile?.streakReminder ?? true,
+    showActivity: user?.learnerProfile?.showActivity ?? true,
     map: {
       hasProfile: Boolean(user?.learnerProfile),
       city: user?.learnerProfile?.city ?? null,

@@ -24,7 +24,7 @@ export function SkillsSection({ title, skills, upcoming }) {
       <ul className="sf-skill-cards sf-skill-soon">
         {upcoming.map((skill) => (
           <li key={skill.title}>
-            <SkillCard skill={skill} muted />
+            <SkillCard skill={skill} muted={!skill.available} />
           </li>
         ))}
       </ul>

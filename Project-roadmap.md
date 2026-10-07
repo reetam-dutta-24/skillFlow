@@ -112,7 +112,7 @@ Landing, the auth carousel, and onboarding name Travel Vlogging with Full-Stack 
 
 ## Revision: caching
 
-Public pages are static. `/`, `/login`, `/signup`, `/privacy`, and `/terms` do not read a session, so Next.js builds them once and does not ask the server for that HTML on every visit.
+Public pages are static. `/`, `/login`, `/signup`, `/privacy`, and `/terms` do not read a session, so Next.js builds them once and does not ask the server for that HTML on every visit. A signed-in visit to `/` is redirected to `/dashboard` by `proxy.ts`. Logging out destroys the session and brings the landing page back.
 
 Signed-in pages are not fully static. Follow marks, mastery, and the account menu differ per person. `cacheComponents` is on in `next.config.ts`. The part that is the same for every visitor is cached with `"use cache"`:
 

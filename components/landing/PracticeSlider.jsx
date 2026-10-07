@@ -76,10 +76,10 @@ export function PracticeSlider({ title, subtitle, reviews }) {
 
   return (
     <section
-      id="reviews"
+      id="open-source"
       className="sf-section sf-band-sink"
       aria-roledescription="carousel"
-      aria-label="Learner reviews"
+      aria-label={title}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
@@ -97,7 +97,7 @@ export function PracticeSlider({ title, subtitle, reviews }) {
         subtitleSize="var(--text-section-sub)"
       />
       <div className="sf-review-shell">
-        <button type="button" className="sf-slider-btn sf-slider-prev" aria-label="Previous review" onClick={() => go(current - 1)}>
+        <button type="button" className="sf-slider-btn sf-slider-prev" aria-label="Previous contribution" onClick={() => go(current - 1)}>
           <Icon name="chevron-left" size={18} />
         </button>
         <div className="sf-review-viewport">
@@ -117,7 +117,7 @@ export function PracticeSlider({ title, subtitle, reviews }) {
                     <span>
                       <span className="sf-review-name">{review.name}</span>
                       <span className="sf-review-skill">{review.skill}</span>
-                      <Stars rating={review.rating} />
+                      {review.rating > 0 ? <Stars rating={review.rating} /> : null}
                     </span>
                   </footer>
                 </div>
@@ -125,7 +125,7 @@ export function PracticeSlider({ title, subtitle, reviews }) {
             ))}
           </div>
         </div>
-        <button type="button" className="sf-slider-btn sf-slider-next" aria-label="Next review" onClick={() => go(current + 1)}>
+        <button type="button" className="sf-slider-btn sf-slider-next" aria-label="Next contribution" onClick={() => go(current + 1)}>
           <Icon name="chevron-right" size={18} />
         </button>
       </div>

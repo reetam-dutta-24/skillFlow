@@ -15,7 +15,7 @@ import { ProblemSection } from "@/components/landing/ProblemSection.jsx";
 import { getLandingContent } from "@/lib/mock/landing";
 
 const description =
-  "Structured roadmaps, your own resources, and an explain-back gate that asks you to explain concepts in your own words. Full-Stack Web Development, Travel Vlogging, and Content Creation.";
+  "Thirty free paths. Explain one idea at a time, keep the note, and open the next stage only after it holds. Open Source, nearby events, and the learner map.";
 
 export const metadata: Metadata = {
   title: { absolute: "SkillFlow: Learn by proving you understood it" },

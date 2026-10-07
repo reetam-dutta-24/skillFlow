@@ -33,7 +33,7 @@ export function AuthInput({ icon, type = "text", style, ...rest }) {
         {...rest}
       />
       {isPassword ? (
-        <button type="button" onClick={() => setVisible((v) => !v)} aria-label={visible ? "Hide password" : "Show password"} style={{ background: "none", border: "none", padding: 0, cursor: "pointer", color: "var(--text-faint)", display: "inline-flex" }}>
+        <button type="button" className="sf-hit" onClick={() => setVisible((v) => !v)} aria-label={visible ? "Hide password" : "Show password"} aria-pressed={visible} style={{ background: "none", border: "none", padding: 0, cursor: "pointer", color: "var(--text-muted)", display: "inline-flex" }}>
           <Icon name={visible ? "eye-off" : "eye"} size={16} />
         </button>
       ) : null}

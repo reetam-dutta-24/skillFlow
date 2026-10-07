@@ -64,6 +64,7 @@ export function NotesDesk({ notes }: { notes: LearnerNoteView[] }) {
     return (
       <EmptyState
         icon="notebook-pen"
+        titleAs="h2"
         title="No notes yet"
         description="When an explain-back idea holds, it is kept here with the review that came back."
         action={

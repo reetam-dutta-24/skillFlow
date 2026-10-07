@@ -6,7 +6,7 @@ export interface EmptyStateProps extends Omit<React.HTMLAttributes<HTMLDivElemen
   icon?: string;
   title: React.ReactNode;
   /** Visible heading level. Pages pass `h1`; nested panels stay `h3`. */
-  titleAs?: "h1" | "h3";
+  titleAs?: "h1" | "h2" | "h3";
   description?: React.ReactNode;
   action?: React.ReactNode;
   compact?: boolean;

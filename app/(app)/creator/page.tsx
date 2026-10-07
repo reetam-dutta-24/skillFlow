@@ -32,6 +32,7 @@ export default async function CreatorPage() {
       {works.length === 0 ? (
         <EmptyState
           icon="video"
+          titleAs="h2"
           title="Your library is empty"
           description="A draft stays here until you send it for review. Live videos are the ones learners can watch."
         />

@@ -57,6 +57,8 @@ export function SourceField({ label, value, onChange, kind = "any", invalid, err
           ref={inputRef}
           className="sf-sr"
           type="file"
+          tabIndex={-1}
+          aria-label={`${label}: file from device`}
           accept={ACCEPT[kind]}
           onChange={(event) => {
             void onFile(event.target.files?.[0]);

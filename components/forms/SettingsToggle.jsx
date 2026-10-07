@@ -14,6 +14,7 @@ export function SettingsToggle({ label, description, checked = false, onChange, 
         type="button"
         role="switch"
         aria-checked={checked}
+        aria-label={typeof label === "string" ? label : undefined}
         onClick={() => onChange && onChange(!checked)}
         style={{
           position: "relative",

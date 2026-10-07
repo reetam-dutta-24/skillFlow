@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ThemeToggle } from "../forms/ThemeToggle.jsx";
 import { Icon } from "../core/Icon.jsx";
 import { CtaLink } from "./CtaLink.jsx";
@@ -8,9 +8,18 @@ import { CtaLink } from "./CtaLink.jsx";
 /** Sticky landing bar. Accent choice is not on this page. */
 export function LandingNav({ wordmark, links, loginCta, startCta }) {
   const [open, setOpen] = useState(false);
+  const toggleRef = useRef(null);
 
   return (
-    <header className="sf-nav">
+    <header
+      className="sf-nav"
+      onKeyDown={(event) => {
+        // Escape closes the phone menu and puts focus back on the button that opened it.
+        if (event.key !== "Escape" || !open) return;
+        setOpen(false);
+        toggleRef.current?.focus();
+      }}
+    >
       <div className="sf-nav-inner">
         <a className="sf-wordmark" href="#home">
           {wordmark}
@@ -45,6 +54,7 @@ export function LandingNav({ wordmark, links, loginCta, startCta }) {
           </CtaLink>
         </div>
         <button
+          ref={toggleRef}
           type="button"
           className="sf-nav-toggle"
           aria-expanded={open}

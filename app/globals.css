@@ -9527,3 +9527,32 @@ html[data-focus="true"] .sf-app-main {
   display: block;
   color: var(--text-secondary);
 }
+
+/* ───────────── Touch targets (Phase 4) ───────────── */
+/* Standalone text links and small icon buttons get an invisible hit area of at least 44px tall,
+   so they are easy to tap without changing how the line looks. */
+.sf-hit,
+.sf-crumbs a,
+.sf-community-text-link,
+.sf-pathx-link,
+.sf-ready-back,
+.sf-plan-line a,
+.sf-settings-links a,
+.sf-reel-caption a {
+  position: relative;
+}
+.sf-hit::after,
+.sf-crumbs a::after,
+.sf-community-text-link::after,
+.sf-pathx-link::after,
+.sf-ready-back::after,
+.sf-plan-line a::after,
+.sf-settings-links a::after,
+.sf-reel-caption a::after {
+  content: "";
+  position: absolute;
+  inset: -11px -4px;
+}
+.sf-hit::after {
+  inset: -14px;
+}

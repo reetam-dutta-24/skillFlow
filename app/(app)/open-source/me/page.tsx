@@ -72,6 +72,7 @@ export default async function MyContributionsPage({
       {page.items.length === 0 ? (
         <EmptyState
           icon="git-pull-request"
+          titleAs="h2"
           title={status ? `Nothing ${contributionStatusLabel(status).toLowerCase()}` : "You have not contributed yet"}
           description="Share a resource, a concept note, a learning path, or someone to follow in a niche you know."
           action={

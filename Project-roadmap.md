@@ -101,7 +101,7 @@ Landing, the auth carousel, and onboarding name Travel Vlogging with Full-Stack 
 
 - **Next.js 16.3.4 App Router.** Pages are Server Components by default. Data loading stays on the server. A file is `"use client"` only when it needs a click, a form, or a chart. Read `node_modules/next/dist/docs/` before using a Next API. This release does not match older Next.js habits. `middleware.ts` is gone. `proxy.ts` is the signed-in gate. Cache Components are on. The niche grid, lesson screens, clip list, and submit picker are cached for every learner. Admin saves expire that cache. Progress and the account menu stay per person.
 - **React 19.2.8 and TypeScript.** The page, the view models, and the Prisma models share shapes.
-- **Tailwind v4 and CSS variables.** Colors, type, and spacing live in `app/globals.css`. Dark and light are a class on `<html>`. The accent is a `data-accent` value. Public pages stay on the Dusk accent. Inside the app, the person can pick one of ten presets, Spectrum (a slow full-wheel wash), or a custom two-stop gradient. A custom choice is stored as `custom:#start:#end` on the profile and in the accent cookie, and it paints before the page loads.
+- **Tailwind v4 and CSS variables.** Colors, type, and spacing live in `app/globals.css`. Dark and light are a class on `<html>`. The accent is a `data-accent` value. Public pages stay on the Dusk accent. Inside the app, the person can pick one of ten presets, Spectrum (one color pair drifting around the wheel, with dark type on light shades), or a custom two-stop gradient. A custom choice is stored as `custom:#start:#end` on the profile and in the accent cookie, and it paints before the page loads.
 - **PostgreSQL and Prisma 6.19.3.** Local database name is `skillflow` on port 5432. Migrations are SQL files in `prisma/migrations`. `prisma.config.ts` loads `.env` with `dotenv/config` because Prisma 6 stopped doing that by itself.
 - **Auth.js (NextAuth v5 beta).** Email and password today. Passwords are bcrypt hashes on `User.password`. Sessions are JWTs. `trustHost` is true. The Credentials provider needs the JWT strategy, so this app does not use database sessions. The JWT callback copies `id` and `role` onto the token. The session callback copies them onto `session.user`.
 - **`lib/prisma.ts`.** One Prisma Client for the process, stored on `globalThis` in development.
@@ -187,7 +187,7 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 
 **Progress and analytics.** Counts, mastery, streaks, weak topics, and the charts come from `ExplainBackAttempt` and `StageCompletion`. Home and Progress show “Explain-backs passed”.
 
-**Settings.** Name saves to `User`. Email is read-only. Add follows an available skill. Coming-soon skills have no Add button. Remove drops `UserSkillProgress` and keeps attempts. The daily reminder toggle is still local to the page. Theme and accent apply immediately. The accent row keeps the ten presets, adds Spectrum (the wash moves through the color wheel; reduced motion holds one hue), and adds a custom gradient: a color palette, a hex field, and R, G, and B for each stop. Log out uses the real `signOut`.
+**Settings.** Name saves to `User`. Email is read-only. Add follows an available skill. Coming-soon skills have no Add button. Remove drops `UserSkillProgress` and keeps attempts. The daily reminder toggle is still local to the page. Theme and accent apply immediately. The accent row keeps the ten presets, adds Spectrum (one neighboring pair moves around the wheel and the type goes dark on a light shade; reduced motion holds one hue), and adds a custom gradient: a color palette, a hex field, and R, G, and B for each stop. Log out uses the real `signOut`.
 
 **Submit and admin.** Submit writes `ResourceSubmission`. Approve appends a `Resource` on that stage. Reject requires a note. `fail this submit` and `fail this review` are the built-in error cases. A non-admin who opens an admin URL gets not-found.
 
@@ -536,4 +536,35 @@ Ticketmaster and Google Events (SerpApi) are separate adapters. A missing key tu
 
 ---
 
-**Right now.** Thirty paths are free. Full-Stack, Travel Vlogging, Content Creation, Music Production, Self Grooming, Animation & VFX, IoT & Robot Automation, Screenwriting, Graphic Design, SEO, AI Tools, Cybersecurity, Digital Marketing, Personal Finance, Public Speaking, Sound Design, Nutrition, Psychology, Podcasting, Guitar, Chess, Art & Painting, Photography, Emergency Preparedness, Badminton, Relationships, Socializing, Interior Design, Freelancing, and Travel Planning have catalogs. Every other niche is Premium, with no resources, until a subscription opens it. A pass opens the next stage, and passing every stage earns the certificate. Phases 0, 1, 2, 3, 4, 5, and 7 are done for all thirty free paths, and the Open Source community is complete. The learner map and Nearby events are live. Explain-back asks for every idea written from that stage’s resources and passes the stage only when a model marks each one understood. An accepted idea is kept in Notes, and that notebook can be downloaded or summarized from those notes alone. A transcript lists the stages a learner has passed. A certificate is issued when every stage on a path is passed. `/notes/practice` grades an idea against a public page, a text file, or a pasted passage, and saves it without passing a stage. A followed skill can have a personal plan built in code from that learner's preferences. Mastery, streaks, weak topics, and the progress charts read explain-back attempts. A score leaderboard and peer review are not part of the product. A creator rating and earnings are not either. Still open for Version 1: the rest of the test suite and an end-to-end pass (Phase 8), and deploy (Phase 9). Public event API keys stay last.
+**Right now.** Thirty paths are free. Full-Stack, Travel Vlogging, Content Creation, Music Production, Self Grooming, Animation & VFX, IoT & Robot Automation, Screenwriting, Graphic Design, SEO, AI Tools, Cybersecurity, Digital Marketing, Personal Finance, Public Speaking, Sound Design, Nutrition, Psychology, Podcasting, Guitar, Chess, Art & Painting, Photography, Emergency Preparedness, Badminton, Relationships, Socializing, Interior Design, Freelancing, and Travel Planning have catalogs. Every other niche is Premium, with no resources, until a subscription opens it. A pass opens the next stage, and passing every stage earns the certificate. Phases 0, 1, 2, 3, 4, 5, and 7 are done for all thirty free paths, and the Open Source community is complete. The learner map and Nearby events are live. Explain-back asks for every idea written from that stage’s resources and passes the stage only when a model marks each one understood. An accepted idea is kept in Notes, and that notebook can be downloaded or summarized from those notes alone. A transcript lists the stages a learner has passed. A certificate is issued when every stage on a path is passed. `/notes/practice` grades an idea against a public page, a text file, or a pasted passage, and saves it without passing a stage. A followed skill can have a personal plan built in code from that learner's preferences. Mastery, streaks, weak topics, and the progress charts read explain-back attempts. A score leaderboard and peer review are not part of the product. A creator rating and earnings are not either. The accent system is complete: ten presets, a custom gradient, and Spectrum. Still open for Version 1: the rest of the test suite and an end-to-end pass (Phase 8), and deploy (Phase 9).
+
+---
+
+## What's left
+
+The learning loop is in place for the thirty free paths. What remains is proof, a host, and a few content gaps. These are not part of the accent work.
+
+**Finish Version 1**
+
+- Phase 8. Integration tests for catalog import and lesson reads. One end-to-end pass from signup through onboarding, a lesson, explain-back, and progress. A manual pass of empty, error, and loading states. Model calls mocked in tests.
+- Open Source. Integration tests for review, edit, and hide. The author is not told when a decision lands; the result only shows on My contributions.
+- Phase 7. Five dead catalog URLs still need a working page chosen by hand: ACMI seals, the UCL Slade page, the Nikon focal-length article, the NDMA earthquake page, and the Western Australia badminton court page. The 403 links need a person to confirm the page. Do not swap either set until that page is chosen.
+- Phase 9. A container, GitHub Actions for lint, test, and build, a hosted app and hosted Postgres, error monitoring, env files that stay out of git, migrate as a deploy step, and the stage photos that are not in git.
+- Phase 10. A case study, a short recording of the loop, and a diagram of browser to Server Component to `lib/data` to Prisma.
+- `next build` still fails on a prerender of uncached data in `AppShell`. Full-repo `eslint` still fails on older files. Fix those as part of the deploy check, not as catalog work.
+
+**Leave out, on purpose**
+
+- No leaderboard and no peer review. A creator rating and earnings are not part of the product.
+- A model does not research or compile a new niche. Personal plans stay a schedule over the shared catalog.
+- Premium niches stay empty until a catalog is actually written. Do not invent those stages.
+- The old quiz tables are still in the schema and nothing reads them. Do not build on them.
+
+**Smaller follow-ups**
+
+- Stripe Checkout is wired. A real charge still needs the price and webhook keys on the host.
+- Live event search is still admin-only. Everyone else sees “Premium · coming soon”.
+- Event keywords are custom only for Full-Stack, Travel Vlogging, and Content Creation. Other niches search on their name.
+- Stage photos exist for Full-Stack, Content Creation, and Travel Vlogging. The other paths have no committed photos.
+- The daily reminder on Settings stays on that screen. It is not stored on the account.
+- `requireLearner()` exists and no page uses it.

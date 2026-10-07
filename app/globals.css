@@ -338,7 +338,7 @@ html[data-accent="nova"] {
   --hue-elevated-light: #fef9ff;
   --hue-card-light: #fcf4ff;
 }
-/* Slow LED wash. Surfaces stay dark or pale so type does not chase the wheel. */
+/* One neighboring pair drifts around the wheel. Yellow grades lighter; blue stays dark. */
 @property --spectrum-h {
   syntax: "<number>";
   inherits: true;
@@ -352,42 +352,59 @@ html[data-accent="nova"] {
 }
 html[data-accent="spectrum"] {
   --spectrum-h: 198;
+  --spectrum-day: calc(0.5 + 0.5 * cos(calc((var(--spectrum-h) - 55) * 1deg)));
   animation: spectrum-drift 42s linear infinite;
   --preset-gradient: linear-gradient(
     to left,
-    hsl(calc(var(--spectrum-h) - 46) 64% 24%) 0%,
-    hsl(var(--spectrum-h) 70% 30%) 49.5%,
-    hsl(calc(var(--spectrum-h) + 40) 66% 26%) 100%
+    hsl(calc(var(--spectrum-h) - 14) 58% 28%) 0%,
+    hsl(var(--spectrum-h) 62% 34%) 50%,
+    hsl(calc(var(--spectrum-h) + 14) 56% 30%) 100%
   );
   --preset-gradient-v: linear-gradient(
     180deg,
-    hsl(calc(var(--spectrum-h) + 40) 66% 26%) 0%,
-    hsl(calc(var(--spectrum-h) - 46) 64% 24%) 100%
+    hsl(calc(var(--spectrum-h) + 14) 56% 30%) 0%,
+    hsl(calc(var(--spectrum-h) - 14) 58% 28%) 100%
   );
-  --preset-bright: hsl(var(--spectrum-h) 100% 74%);
-  --preset-soft: hsl(var(--spectrum-h) 100% 86%);
-  --preset-mid: hsl(var(--spectrum-h) 96% 62%);
-  --preset-deep: hsl(calc(var(--spectrum-h) - 18) 70% 28%);
-  --preset-strong: hsl(calc(var(--spectrum-h) - 22) 68% 22%);
-  --hue-app: hsl(var(--spectrum-h) 42% 6.5%);
-  --hue-sidebar: hsl(var(--spectrum-h) 36% 4%);
-  --hue-sunken: hsl(var(--spectrum-h) 32% 3%);
-  --hue-elevated: hsl(var(--spectrum-h) 38% 11%);
-  --hue-app-light: hsl(var(--spectrum-h) 46% 96%);
-  --hue-sidebar-light: hsl(var(--spectrum-h) 40% 93%);
-  --hue-sunken-light: hsl(var(--spectrum-h) 34% 88%);
-  --hue-elevated-light: hsl(var(--spectrum-h) 30% 98%);
-  --hue-card-light: hsl(var(--spectrum-h) 36% 97%);
+  --preset-bright: hsl(calc(var(--spectrum-h) + 6) 78% 64%);
+  --preset-soft: hsl(calc(var(--spectrum-h) + 6) 62% 82%);
+  --preset-mid: hsl(var(--spectrum-h) 68% 48%);
+  --preset-deep: hsl(calc(var(--spectrum-h) - 8) 58% 30%);
+  --preset-strong: hsl(calc(var(--spectrum-h) - 10) 54% 22%);
+  --hue-app: hsl(var(--spectrum-h) 28% calc(7% + 80% * var(--spectrum-day)));
+  --hue-sidebar: hsl(var(--spectrum-h) 24% calc(4.5% + 82% * var(--spectrum-day)));
+  --hue-sunken: hsl(var(--spectrum-h) 20% calc(3% + 78% * var(--spectrum-day)));
+  --hue-elevated: hsl(var(--spectrum-h) 22% calc(11% + 82% * var(--spectrum-day)));
+  --hue-app-light: hsl(var(--spectrum-h) 32% 96%);
+  --hue-sidebar-light: hsl(var(--spectrum-h) 26% 93%);
+  --hue-sunken-light: hsl(var(--spectrum-h) 22% 88%);
+  --hue-elevated-light: hsl(var(--spectrum-h) 20% 98%);
+  --hue-card-light: hsl(var(--spectrum-h) 28% 97%);
   --app-atmosphere:
-    radial-gradient(1200px 720px at 8% -10%, hsl(var(--spectrum-h) 100% 58% / 0.40), transparent 60%),
-    radial-gradient(980px 640px at 100% 0%, hsl(calc(var(--spectrum-h) + 96) 100% 60% / 0.32), transparent 58%),
-    radial-gradient(760px 520px at 72% 108%, hsl(calc(var(--spectrum-h) + 190) 95% 54% / 0.20), transparent 62%);
+    radial-gradient(980px 560px at 0% -12%, hsl(var(--spectrum-h) 64% 46% / 0.18), transparent 58%),
+    radial-gradient(820px 540px at 100% 0%, hsl(calc(var(--spectrum-h) + 16) 58% 40% / 0.12), transparent 55%);
 }
 html.light[data-accent="spectrum"] {
   --app-atmosphere:
-    radial-gradient(1200px 720px at 8% -10%, hsl(var(--spectrum-h) 100% 58% / 0.46), transparent 62%),
-    radial-gradient(980px 640px at 100% 0%, hsl(calc(var(--spectrum-h) + 96) 100% 62% / 0.36), transparent 58%),
-    radial-gradient(760px 520px at 72% 108%, hsl(calc(var(--spectrum-h) + 190) 95% 58% / 0.24), transparent 62%);
+    radial-gradient(980px 560px at 0% -12%, hsl(var(--spectrum-h) 58% 46% / 0.22), transparent 60%),
+    radial-gradient(820px 540px at 100% 0%, hsl(calc(var(--spectrum-h) + 16) 52% 42% / 0.16), transparent 56%);
+}
+/* Light shades use the same ink as the light theme. Dark shades keep the default white type. */
+html.spectrum-light-shade,
+.sf-app.spectrum-light-shade {
+  --text-primary: #1c1408;
+  --text-secondary: #3f3424;
+  --text-muted: #5e5346;
+  --text-faint: #7a6f62;
+  --text-on-accent: #1c1408;
+  --text-accent: var(--preset-deep);
+  --text-link: var(--preset-strong);
+  --text-link-hover: var(--preset-deep);
+  --surface-card: hsl(var(--spectrum-h) 36% 97% / 0.92);
+  --surface-hover: hsl(var(--spectrum-h) 24% 20% / 0.06);
+  --surface-active: hsl(var(--spectrum-h) 24% 16% / 0.1);
+  --border-subtle: hsl(var(--spectrum-h) 22% 40% / 0.22);
+  --border-default: hsl(var(--spectrum-h) 22% 34% / 0.32);
+  --border-strong: hsl(var(--spectrum-h) 26% 28% / 0.45);
 }
 /* The app shell paints a flat fill, which would hide the wash. Spectrum draws it here. */
 html[data-accent="spectrum"] .sf-app {
@@ -397,6 +414,14 @@ html[data-accent="spectrum"] .sf-app {
 }
 html[data-accent="spectrum"] .sf-topbar {
   background-color: color-mix(in srgb, var(--bg-app) 78%, transparent);
+  backdrop-filter: blur(16px);
+}
+/* Page shells such as Home paint their own flat fill. That box hides the wash. */
+html[data-accent="spectrum"] .sf-app .sf-dash {
+  background: transparent;
+}
+html[data-accent="spectrum"] .sf-browse-tools {
+  background-color: color-mix(in srgb, var(--bg-app) 72%, transparent);
   backdrop-filter: blur(16px);
 }
 

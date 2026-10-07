@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/core/Button.jsx";
+import { WizardCard } from "@/components/forms/WizardCard";
 import type { CreatorSkillOption, StudioWork } from "@/lib/data/creator";
 import { deleteCreatorWork, saveCreatorWork, withdrawCreatorWork } from "../actions";
 
@@ -14,22 +15,62 @@ export function StudioEditor({
   work: StudioWork | null;
 }) {
   const router = useRouter();
+  const [step, setStep] = useState(0);
+  const [direction, setDirection] = useState(1);
+  const [skillId, setSkillId] = useState(work?.skillId ?? skills[0]?.id ?? "");
+  const [format, setFormat] = useState(work?.format === "video" ? "video" : "short");
+  const [title, setTitle] = useState(work?.title ?? "");
+  const [description, setDescription] = useState(work?.description ?? "");
+  const [file, setFile] = useState<File | null>(null);
+  const [rights, setRights] = useState(work?.status === "LIVE" || work?.status === "REJECTED");
   const [error, setError] = useState("");
   const [pending, setPending] = useState("");
 
-  async function save(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const submitter = (event.nativeEvent as SubmitEvent).submitter;
-    const intent = submitter instanceof HTMLButtonElement && submitter.value === "draft" ? "draft" : "review";
-    setPending(intent);
+  function go(next: number) {
+    setDirection(next > step ? 1 : -1);
+    setStep(next);
     setError("");
-    const body = new FormData(event.currentTarget);
-    const file = body.get("file");
-    if (file instanceof File && file.size > 40 * 1024 * 1024) {
-      setPending("");
+  }
+
+  function continueStep() {
+    if (step === 1 && title.trim().length < 3) {
+      setError("Add a title.");
+      return;
+    }
+    if (step === 2 && !work && !file) {
+      setError("Choose a video file.");
+      return;
+    }
+    if (step === 2 && file && file.size > 40 * 1024 * 1024) {
       setError("That file is too large. Use a video under 40 MB.");
       return;
     }
+    go(step + 1);
+  }
+
+  async function save(intent: "draft" | "review") {
+    if (!rights) {
+      setError("Confirm that you own this video.");
+      return;
+    }
+    if (!work && !file) {
+      setError("Choose a video file.");
+      return;
+    }
+    if (file && file.size > 40 * 1024 * 1024) {
+      setError("That file is too large. Use a video under 40 MB.");
+      return;
+    }
+    setPending(intent);
+    setError("");
+    const body = new FormData();
+    if (work) body.set("workId", work.id);
+    body.set("skillId", skillId);
+    body.set("format", format);
+    body.set("title", title);
+    body.set("description", description);
+    if (file) body.set("file", file);
+    if (rights) body.set("rights", "on");
     body.set("intent", intent);
     try {
       const result = await saveCreatorWork(body);
@@ -92,57 +133,86 @@ export function StudioEditor({
           This video is in review. Withdraw it if you want to change the file or the title.
         </p>
       ) : (
-        <form className="sf-creator-form" onSubmit={(event) => void save(event)}>
-          {work ? <input type="hidden" name="workId" value={work.id} /> : null}
-          <label>
-            Niche
-            <select name="skillId" defaultValue={work?.skillId ?? skills[0]?.id ?? ""} required>
-              {skills.map((skill) => (
-                <option key={skill.id} value={skill.id}>
-                  {skill.name}
-                </option>
-              ))}
-            </select>
-          </label>
-          <fieldset>
-            <legend>Format</legend>
-            <label>
-              <input type="radio" name="format" value="short" defaultChecked={!work || work.format === "short"} />
-              Short clip
-            </label>
-            <label>
-              <input type="radio" name="format" value="video" defaultChecked={work?.format === "video"} />
-              Video
-            </label>
-          </fieldset>
-          <label>
-            Title
-            <input name="title" required maxLength={140} defaultValue={work?.title ?? ""} />
-          </label>
-          <label>
-            Description
-            <textarea name="description" rows={4} maxLength={500} defaultValue={work?.description ?? ""} />
-          </label>
-          <label>
-            Video file
-            <input name="file" type="file" accept="video/mp4,video/webm,video/quicktime,.mp4,.webm,.mov" required={!work} />
-          </label>
-          <p className="sf-creator-hint">MP4, WebM, or MOV. Up to 40 MB. Replacing a live file sends it back for review.</p>
-          <label className="sf-creator-check">
-            <input type="checkbox" name="rights" defaultChecked={work?.status === "LIVE" || work?.status === "REJECTED"} required />
-            I own this video and I have the rights to publish it.
-          </label>
-          <div className="sf-creator-actions">
-            <Button type="submit" value="draft" variant="outline" disabled={pending !== ""}>
-              {pending === "draft" ? "Saving..." : "Save draft"}
-            </Button>
-            <Button type="submit" value="review" variant="gradient" disabled={pending !== ""}>
-              {pending === "review" ? "Sending..." : "Send for review"}
-            </Button>
-          </div>
-        </form>
+        <WizardCard
+          step={step}
+          total={4}
+          title={["Which niche?", "What is the video?", "The file", "Send it"][step] ?? "Video"}
+          direction={direction}
+          onStep={go}
+          onBack={() => go(step - 1)}
+          onNext={step === 3 ? () => void save("review") : continueStep}
+          nextLabel="Continue"
+          pending={pending !== ""}
+          error={error}
+          actions={
+            step === 3 ? (
+              <>
+                <Button type="button" variant="outline" disabled={pending !== ""} onClick={() => void save("draft")}>
+                  {pending === "draft" ? "Saving..." : "Save draft"}
+                </Button>
+                <Button type="button" variant="gradient" disabled={pending !== ""} onClick={() => void save("review")}>
+                  {pending === "review" ? "Sending..." : "Send for review"}
+                </Button>
+              </>
+            ) : undefined
+          }
+        >
+          {step === 0 ? (
+            <>
+              <label>
+                Niche
+                <select value={skillId} onChange={(event) => setSkillId(event.target.value)}>
+                  {skills.map((skill) => (
+                    <option key={skill.id} value={skill.id}>{skill.name}</option>
+                  ))}
+                </select>
+              </label>
+              <div className="sf-pick-grid">
+                <button type="button" className={format === "short" ? "sf-pick is-on" : "sf-pick"} onClick={() => setFormat("short")}>
+                  <span className="sf-pick-label">Short clip</span>
+                </button>
+                <button type="button" className={format === "video" ? "sf-pick is-on" : "sf-pick"} onClick={() => setFormat("video")}>
+                  <span className="sf-pick-label">Video</span>
+                </button>
+              </div>
+            </>
+          ) : null}
+          {step === 1 ? (
+            <>
+              <label>
+                Title
+                <input value={title} maxLength={140} onChange={(event) => setTitle(event.target.value)} />
+              </label>
+              <label>
+                Description
+                <textarea value={description} rows={4} maxLength={500} onChange={(event) => setDescription(event.target.value)} />
+              </label>
+            </>
+          ) : null}
+          {step === 2 ? (
+            <>
+              <label>
+                Video file
+                <input type="file" accept="video/mp4,video/webm,video/quicktime,.mp4,.webm,.mov" onChange={(event) => setFile(event.target.files?.[0] ?? null)} />
+              </label>
+              <p className="sf-fill-hint">MP4, WebM, or MOV. Up to 40 MB. Replacing a live file sends it back for review.{file ? ` Chosen: ${file.name}` : ""}</p>
+            </>
+          ) : null}
+          {step === 3 ? (
+            <>
+              <ul className="sf-fill-summary">
+                <li>{skills.find((skill) => skill.id === skillId)?.name ?? "Niche"}</li>
+                <li>{format === "short" ? "Short clip" : "Video"}</li>
+                <li>{title.trim() || "Untitled"}</li>
+              </ul>
+              <label className="sf-creator-check">
+                <input type="checkbox" checked={rights} onChange={(event) => setRights(event.target.checked)} />
+                I own this video and I have the rights to publish it.
+              </label>
+            </>
+          ) : null}
+        </WizardCard>
       )}
-      {error ? <p role="alert">{error}</p> : null}
       {work ? (
         <div className="sf-creator-actions">
           {work.status === "PENDING" || work.status === "LIVE" ? (

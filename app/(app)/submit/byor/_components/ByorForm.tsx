@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
-import { Button } from "@/components/core/Button.jsx";
+import { useState } from "react";
+import { WizardCard } from "@/components/forms/WizardCard";
 import { SourceField } from "@/components/forms/SourceField";
 import { storedSource } from "@/lib/stored-source";
 import { BYOR_UNSUPPORTED_URL } from "@/lib/mock/config";
@@ -17,14 +17,29 @@ const PREVIEW = {
 };
 
 export function ByorForm() {
+  const [step, setStep] = useState(0);
+  const [direction, setDirection] = useState(1);
   const [url, setUrl] = useState("");
   const [stage, setStage] = useState("");
   const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
   const [ready, setReady] = useState(false);
 
-  async function generate(event: FormEvent) {
-    event.preventDefault();
+  function go(next: number) {
+    setDirection(next > step ? 1 : -1);
+    setStep(next);
+    setError("");
+  }
+
+  function continueStep() {
+    if (!storedSource(url)) {
+      setError("Upload a file, or use an https link.");
+      return;
+    }
+    go(1);
+  }
+
+  async function generate() {
     setError("");
     setReady(false);
     if (!storedSource(url)) {
@@ -42,27 +57,38 @@ export function ByorForm() {
   }
 
   return (
-    <div className="sf-byor">
-      <form className="sf-v2-form" onSubmit={(event) => void generate(event)}>
-        <SourceField label="Resource link" value={url} onChange={setUrl} />
-        <label>
-          Stage, optional
-          <input value={stage} onChange={(event) => setStage(event.target.value)} />
-        </label>
-        <Button type="submit" variant="gradient" disabled={pending}>{pending ? "Writing the prompt..." : "Create explain-back prompt"}</Button>
-      </form>
-      {error ? <p role="alert">{error}</p> : null}
-      {ready ? (
-        <section aria-labelledby="byor-ready">
-          <h2 id="byor-ready">Explain-back gate ready</h2>
-          <p>{PREVIEW.question}</p>
-          <p>A complete answer covers:</p>
-          <ul>
-            {PREVIEW.covers.map((point) => <li key={point}>{point}</li>)}
-          </ul>
-          <p>Answer it in your own words. A follow-up asks about whatever was unclear.</p>
-        </section>
+    <WizardCard
+      step={step}
+      total={2}
+      title={step === 0 ? "Which resource?" : "Where does it belong?"}
+      direction={direction}
+      onStep={go}
+      onBack={() => go(0)}
+      onNext={step === 0 ? continueStep : () => void generate()}
+      nextLabel={step === 0 ? "Continue" : "Create explain-back prompt"}
+      pending={pending}
+      error={error}
+    >
+      {step === 0 ? <SourceField label="Resource link" value={url} onChange={setUrl} /> : null}
+      {step === 1 ? (
+        <>
+          <label>
+            Stage, optional
+            <input value={stage} onChange={(event) => setStage(event.target.value)} />
+          </label>
+          {ready ? (
+            <section aria-labelledby="byor-ready">
+              <h3 id="byor-ready">Explain-back gate ready</h3>
+              <p>{PREVIEW.question}</p>
+              <p>A complete answer covers:</p>
+              <ul>
+                {PREVIEW.covers.map((point) => <li key={point}>{point}</li>)}
+              </ul>
+              <p className="sf-fill-hint">Answer it in your own words. A follow-up asks about whatever was unclear.</p>
+            </section>
+          ) : null}
+        </>
       ) : null}
-    </div>
+    </WizardCard>
   );
 }

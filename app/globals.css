@@ -780,6 +780,7 @@ body {
   gap: var(--space-8);
   width: min(100%, 44rem);
   text-align: center;
+  transform: translateY(28px);
 }
 .sf-wordmark {
   margin: 0;
@@ -984,9 +985,29 @@ body {
   position: sticky;
   top: 0;
   z-index: 20;
-  background: color-mix(in srgb, var(--bg-app) 92%, transparent);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border-subtle);
+  background: #000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+.sf-nav .sf-wordmark {
+  color: #fff;
+}
+.sf-nav .sf-nav-links a {
+  color: rgba(255, 255, 255, 0.82);
+}
+.sf-nav .sf-nav-links a:hover {
+  color: #fff;
+}
+.sf-nav .sf-cta-ghost {
+  color: #fff;
+}
+.sf-nav .sf-cta-ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+.sf-nav .sf-nav-toggle {
+  background: #000;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.28);
 }
 .sf-nav-inner {
   position: relative;
@@ -1033,9 +1054,9 @@ body {
   left: 0;
   right: 0;
   padding: var(--space-4);
-  background: var(--bg-elevated);
-  border-bottom: 1px solid var(--border-subtle);
-  box-shadow: var(--shadow-menu);
+  background: #000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: none;
 }
 .sf-nav-links,
 .sf-footer-links,

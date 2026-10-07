@@ -4,8 +4,6 @@ import { billingConfig } from "@/lib/billing/config";
 import { getStripe } from "@/lib/billing/stripe";
 import { saveStripeSubscription, userIdForCustomer } from "@/lib/billing/sync";
 
-export const runtime = "nodejs";
-
 async function userIdFromSubscription(subscription: Stripe.Subscription) {
   const fromMetadata = subscription.metadata?.userId;
   if (fromMetadata) return fromMetadata;

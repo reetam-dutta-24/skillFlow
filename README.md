@@ -4,38 +4,38 @@ A mastery-first learning platform. Curated roadmaps, your own resources, and an 
 
 ## Status
 
-Thirty paths are free. All thirty have catalogs:
+Thirty paths are free. All thirty have catalogs, and every stage on them is open; the next one waits until the explain-back on the current one is passed:
 
-- Full-Stack Web Development — 12 stages, 64 resources. Stages 1–9 are the open stretch.
-- Travel Vlogging — 8 stages, 46 resources. Stages 1–5 are the open stretch.
-- Content Creation — 10 stages, 57 resources. Stages 1–7 are the open stretch.
-- Music Production — 8 stages, 45 resources. Stages 1–5 are the open stretch.
-- Self Grooming — 8 stages, 47 resources. Stages 1–5 are the open stretch.
-- Animation & VFX (`animation`) — 8 stages, 41 resources. Stages 1–5 are the open stretch.
-- IoT & Robot Automation — 8 stages, 46 resources. Stages 1–5 are the open stretch.
-- Screenwriting — 8 stages, 21 resources. Stages 1–5 are the open stretch.
-- Graphic Design — 8 stages, 18 resources. Stages 1–5 are the open stretch.
-- SEO — 8 stages, 15 resources. Stages 1–5 are the open stretch.
-- AI Tools — 8 stages, 15 resources. Stages 1–5 are the open stretch.
-- Cybersecurity — 8 stages, 47 resources. Stages 1–5 are the open stretch.
-- Digital Marketing — 8 stages, 44 resources. Stages 1–5 are the open stretch.
-- Personal Finance — 8 stages, 45 resources. Stages 1–5 are the open stretch.
-- Public Speaking — 8 stages, 44 resources. Stages 1–5 are the open stretch.
-- Sound Design — 8 stages, 24 resources. Stages 1–5 are the open stretch.
-- Nutrition — 8 stages, 22 resources. Stages 1–5 are the open stretch.
-- Psychology — 8 stages, 13 resources. Stages 1–5 are the open stretch.
-- Podcasting — 8 stages, 12 resources. Stages 1–5 are the open stretch.
-- Guitar — 8 stages, 10 resources. Stages 1–5 are the open stretch.
-- Chess — 8 stages, 10 resources. Stages 1–5 are the open stretch.
-- Art & Painting — 8 stages, 43 resources. Stages 1–5 are the open stretch. Two links are marked for review and stay until a working page is chosen.
-- Photography — 8 stages, 41 resources. Stages 1–5 are the open stretch. One link is marked for review and stays until a working page is chosen.
-- Emergency Preparedness — 8 stages, 40 resources. Stages 1–5 are the open stretch. One link is marked for review and stays until a working page is chosen.
-- Badminton — 8 stages, 41 resources. Stages 1–5 are the open stretch. One link is marked for review and stays until a working page is chosen.
-- Relationships — 8 stages, 11 resources. Stages 1–5 are the open stretch.
-- Socializing — 8 stages, 8 resources. Stages 1–5 are the open stretch.
-- Interior Design — 8 stages, 8 resources. Stages 1–5 are the open stretch.
-- Freelancing — 8 stages, 8 resources. Stages 1–5 are the open stretch.
-- Travel Planning — 8 stages, 8 resources. Stages 1–5 are the open stretch.
+- Full-Stack Web Development — 12 stages, 64 resources.
+- Travel Vlogging — 8 stages, 46 resources.
+- Content Creation — 10 stages, 57 resources.
+- Music Production — 8 stages, 45 resources.
+- Self Grooming — 8 stages, 47 resources.
+- Animation & VFX (`animation`) — 8 stages, 41 resources.
+- IoT & Robot Automation — 8 stages, 46 resources.
+- Screenwriting — 8 stages, 21 resources.
+- Graphic Design — 8 stages, 18 resources.
+- SEO — 8 stages, 15 resources.
+- AI Tools — 8 stages, 15 resources.
+- Cybersecurity — 8 stages, 47 resources.
+- Digital Marketing — 8 stages, 44 resources.
+- Personal Finance — 8 stages, 45 resources.
+- Public Speaking — 8 stages, 44 resources.
+- Sound Design — 8 stages, 24 resources.
+- Nutrition — 8 stages, 22 resources.
+- Psychology — 8 stages, 13 resources.
+- Podcasting — 8 stages, 12 resources.
+- Guitar — 8 stages, 10 resources.
+- Chess — 8 stages, 10 resources.
+- Art & Painting — 8 stages, 43 resources. Two links are marked for review and stay until a working page is chosen.
+- Photography — 8 stages, 41 resources. One link is marked for review and stays until a working page is chosen.
+- Emergency Preparedness — 8 stages, 40 resources. One link is marked for review and stays until a working page is chosen.
+- Badminton — 8 stages, 41 resources. One link is marked for review and stays until a working page is chosen.
+- Relationships — 8 stages, 11 resources.
+- Socializing — 8 stages, 8 resources.
+- Interior Design — 8 stages, 8 resources.
+- Freelancing — 8 stages, 8 resources.
+- Travel Planning — 8 stages, 8 resources.
 
 The next stage on a free path opens after the explain-back. Every stage is open, so finishing the path can earn the certificate. A stage waiting on that pass stays readable, with a lock. Art & Painting stays a flagship. Every other niche is Premium, with no stages and no resources, until a subscription opens it.
 
@@ -172,6 +172,14 @@ The October 2026 polish is written up in `UI-AUDIT.md`, with before and after sc
 | A lesson | 78 / 100 | 100 | 100 |
 
 Lighthouse 12 against `next start`, 7 October 2026. Signed-in pages score 63 on SEO because they send `noindex` on purpose.
+
+## Onboarding
+
+Seven steps after signup: age range (13–17 needs a parent or guardian's consent), current stage, an optional headline, an optional city, up to five of the thirty free paths, goals, experience, pace, weekly time, preferred formats and languages, and an accent. Every chosen path is followed. Settings → Edit profile answers reopens it. The career-fit test is offered on Home, not here.
+
+## Home
+
+The career-fit card, the Continue banner, At a glance (six figures and a seven-day chart), Your activity (the contribution heatmap), one lane per followed path with stage photos, For you (mastery by path, stages that need another look, recent notes, events near your saved city, Open Source in your niches, transcripts and certificates), Explore, and the free-plan line.
 
 ## Profile and activity
 

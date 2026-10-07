@@ -11768,3 +11768,18 @@ html {
     width: min(260px, 68vw);
   }
 }
+/* All niche tabs stay visible: they wrap onto a second line instead of scrolling out of view. */
+.sf-reels-tabs {
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow: visible;
+  border-radius: 22px;
+}
+/* Inside a card the heatmap drops its own frame, so there is one border, not two. */
+.sf-prof-card .sf-heatmap,
+.sf-home-activity-card .sf-heatmap {
+  padding: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+}

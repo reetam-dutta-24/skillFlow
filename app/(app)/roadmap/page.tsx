@@ -23,7 +23,7 @@ export default async function RoadmapIndexPage() {
     <div className="sf-dash">
       <header className="sf-page-head">
         <h1>Roadmaps</h1>
-        <p>Thirty paths are free. The next stage opens after the explain-back, and the last few stages stay locked.</p>
+        <p>Thirty paths are free. Pass the explain-back on a stage to open the next one.</p>
       </header>
       <section className="sf-dash-block" aria-labelledby="roadmap-yours">
         <h2 id="roadmap-yours">Your paths</h2>

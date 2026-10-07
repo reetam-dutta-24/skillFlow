@@ -7,6 +7,7 @@ import { loadPublicCatalog, publicSkillName } from "@/lib/data/public-catalog";
 import { getRoadmap } from "@/lib/data/roadmap";
 import { readLearningPlan } from "@/lib/plan/store";
 import type { RoadmapStageView, StageStatus } from "@/lib/types/domain";
+import { SkillImage } from "@/components/core/SkillImage";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
 import { RoadmapStage } from "@/components/learning/RoadmapStage.jsx";
 import { PlanBoard } from "./_components/PlanBoard";
@@ -62,33 +63,69 @@ export default async function RoadmapDetailPage({ params }: PageProps) {
   const showPlan = Boolean(learning?.applied);
   const planById = new Map(showPlan ? learning?.plan.stages.map((stage) => [stage.id, stage]) ?? [] : []);
 
-  const summary = data.stages.length
-    ? [data.skill.offer === "FREE" ? "This path is free." : null, data.skill.description, `${data.currentPosition}. ${data.skill.masteryPercent}% mastery.`]
-        .filter(Boolean)
-        .join(" ")
-    : [data.skill.offer === "FREE" ? "This path is free." : null, data.skill.description].filter(Boolean).join(" ");
+  const continueStage =
+    data.stages.find((stage) => stage.status === "in_progress") ?? data.stages.find((stage) => stage.status === "ready");
+  const passed = data.stages.filter((stage) => stage.status === "passed").length;
 
   return (
-    <div className="sf-dash">
-      <header className="sf-page-head">
-        <p>
-          <Link className="sf-roadmap-link" href="/roadmap">
-            All roadmaps
-          </Link>
-          {" · "}
-          <Link className="sf-roadmap-link" href={`/open-source/${data.skill.slug}`}>
-            Open Source
-          </Link>
-        </p>
-        <h1>{data.skill.name}</h1>
-        {summary ? <p>{summary}</p> : null}
-        {data.skill.followed && !learning ? (
-          <p className="sf-notes-actions">
-            <Link href={`/roadmap/${slug}/preferences`}>Set up your plan</Link>
+    <div className="sf-dash sf-path">
+      <header className="sf-path-hero">
+        <div>
+          <p className="sf-path-crumb">
+            <Link href="/roadmap">All roadmaps</Link>
+            <span aria-hidden="true">/</span>
+            <Link href={`/open-source/${data.skill.slug}`}>Open Source</Link>
           </p>
+          <h1>{data.skill.name}</h1>
+          {data.skill.description ? <p>{data.skill.description}</p> : null}
+          {data.stages.length > 0 ? (
+            <div className="sf-path-progress">
+              <p>
+                <span>{data.currentPosition}</span>
+                <span>{data.skill.masteryPercent}% mastery</span>
+                <span>
+                  {passed} of {data.stages.length} passed
+                </span>
+              </p>
+              <div className="sf-path-meter" role="img" aria-label={`${data.skill.masteryPercent}% mastery`}>
+                <span style={{ width: `${Math.min(100, Math.max(0, data.skill.masteryPercent))}%` }} />
+              </div>
+            </div>
+          ) : null}
+          <div className="sf-path-actions">
+            {data.skill.offer === "FREE" ? <span className="sf-path-pill">Free path</span> : <span className="sf-path-pill">Premium</span>}
+            {continueStage ? (
+              <Link className="sf-path-cta" href={`/lesson/${continueStage.id}`}>
+                Continue
+              </Link>
+            ) : null}
+          </div>
+        </div>
+        {data.skill.image ? (
+          <SkillImage className="sf-path-cover" src={data.skill.image} alt="" width={640} height={360} sizes="(max-width: 640px) 100vw, 240px" />
         ) : null}
       </header>
-      {learning ? <PlanBoard slug={slug} skillId={data.skill.id} plan={learning.plan} applied={learning.applied} /> : null}
+      {data.skill.followed && !learning ? (
+        <section className="sf-plan-invite" aria-label="Set up your plan">
+          <div>
+            <p className="sf-path-kicker">Your plan</p>
+            <h2>Shape this path around your time</h2>
+            <p>Pick a pace, a language, and a deadline. The stages stay the same. The schedule fits the week you have.</p>
+          </div>
+          <Link className="sf-path-cta" href={`/roadmap/${slug}/preferences`}>
+            Set up your plan
+          </Link>
+        </section>
+      ) : null}
+      {learning ? (
+        <PlanBoard
+          slug={slug}
+          skillId={data.skill.id}
+          plan={learning.plan}
+          applied={learning.applied}
+          closedIds={new Set(data.stages.filter((stage) => stageStatus(stage.status) === "locked").map((stage) => stage.id))}
+        />
+      ) : null}
       {data.stages.length === 0 ? (
         <EmptyState
           icon="route"
@@ -100,6 +137,8 @@ export default async function RoadmapDetailPage({ params }: PageProps) {
           }
         />
       ) : (
+        <section className="sf-path-stages" aria-labelledby="path-stages">
+          <h2 id="path-stages">Stages</h2>
         <ol className="sf-roadmap">
           {data.stages.map((stage, index) => {
             const status = stageStatus(stage.status);
@@ -107,9 +146,9 @@ export default async function RoadmapDetailPage({ params }: PageProps) {
             const labelNote = planned?.label === "test_out"
               ? "Test out"
               : planned?.label === "review"
-                ? "Recommended to review"
+                ? "Worth a review"
                 : "";
-            const note = [labelNote, planned?.languageNote ?? ""].filter(Boolean).join(" · ");
+            const note = [planned?.week ? `Week ${planned.week}` : "", labelNote].filter(Boolean).join(" · ");
             return (
               <RoadmapStage
                 key={stage.id}
@@ -127,6 +166,7 @@ export default async function RoadmapDetailPage({ params }: PageProps) {
             );
           })}
         </ol>
+        </section>
       )}
     </div>
   );

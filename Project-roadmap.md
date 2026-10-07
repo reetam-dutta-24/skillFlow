@@ -193,7 +193,7 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 
 **Admin catalog.** Lists every niche, with Flagship and Available or Coming soon. The stage editor includes every skill that already has stages, which is all thirty free paths. Needs review only filters the resource list. Saving a resource titled `fail this save` is the built-in error.
 
-**Personal plan.** A followed skill can store preferences on `LearningPlan`. Plain code builds a schedule from the shared stages. Gemini only turns a written description into those preferences, or suggests resource tags for an admin to review. Undo hides the schedule and shows the shared stages again.
+**Personal plan.** Every free path can store preferences on `LearningPlan`. Plain code builds a schedule from that path’s stages. The roadmap shows the weeks, the pace, and a link into each stage. Gemini only turns a written description into those preferences, or suggests resource tags for an admin to review. Undo hides the schedule and shows the shared stages again.
 
 **Version 2 previews, not linked from the main nav.** Each one is labeled "Version 2 preview".
 
@@ -463,16 +463,6 @@ Premium is the niches outside the thirty free paths, and appearing on the learne
 - [x] No card fields on our origin
 - [ ] A live test charge against Stripe test keys
 
-## V2 PHASE 2 — Score and leaderboard
-**Status: 🚫 REMOVED. A score ranking is the FOMO the product refuses.**
-
-There is no `/leaderboard` route. Verified understanding stays on the learner’s own progress.
-
-## V2 PHASE 3 — Explanations reused as lessons
-**Status: 🚫 REMOVED.**
-
-An accepted explanation stays in Notes. It is not turned into a lesson for other learners. The shared path stays the researched catalog. A learner who wants to share a concept uses Open Source.
-
 ## V2 PHASE 4 — Transcript
 **Status: ✅ BUILT FROM PASSED STAGES.**
 
@@ -483,20 +473,10 @@ An accepted explanation stays in Notes. It is not turned into a lesson for other
 
 `/notes` is in the sidebar. When an idea holds, `LearnerNote` keeps the explanation and the written review. A pass recorded before that still becomes notes the next time the page is opened. The page is a notebook: one skill, its stages in path order, and every idea on that stage with the review under it. Practice notes sit in a Practice chapter after the stages. Download Word and Download PDF save that notebook. Summarize this stage asks the same model for a short restatement of that stage’s notes and nothing outside them. `/notes/practice` lets a learner start from a link. SkillFlow reads that public page, and the review uses the page text. A dropped text file or a pasted passage works the same way. An idea that holds is saved. It does not pass a stage or enter the catalog. Notes are personal and are read on the request. The fetched page is shared for an hour.
 
-## V2 PHASE 6 — Peer project review
-**Status: 🚫 REMOVED.**
-
-There is no `/projects` route. Learners are not matched to review each other’s work.
-
 ## V2 PHASE 7 — Creators
 **Status: ✅ STUDIO IS LIVE. A RATING AND EARNINGS ARE NOT PART OF THE PRODUCT.**
 
 A signed-in learner uploads a short clip or a longer video they own, picks one available niche, and sends it for review. `/admin/creator` approves it onto that niche’s clip feed and `/profile/[userId]`. The studio keeps drafts and shows views, watch time, and how many plays reached most of the video. The feed and the public profile do not show those numbers. Replacing the file on a live video sends it back for review. A creator rating and earnings are not part of the product.
-
-## V2 PHASE 8 — Generated roadmaps
-**Status: ⬜ NOT STARTED. Hand-written paths stay the default.**
-
-A model does not research or compile a niche. Personal plans are a different feature: one shared catalog, and a schedule built in code from the learner's preferences.
 
 ## Personalized learning plans
 **Status: ✅ ONE SHARED CATALOG, A PERSONAL SCHEDULE.**
@@ -536,35 +516,20 @@ Ticketmaster and Google Events (SerpApi) are separate adapters. A missing key tu
 
 ---
 
-**Right now.** Thirty paths are free. Full-Stack, Travel Vlogging, Content Creation, Music Production, Self Grooming, Animation & VFX, IoT & Robot Automation, Screenwriting, Graphic Design, SEO, AI Tools, Cybersecurity, Digital Marketing, Personal Finance, Public Speaking, Sound Design, Nutrition, Psychology, Podcasting, Guitar, Chess, Art & Painting, Photography, Emergency Preparedness, Badminton, Relationships, Socializing, Interior Design, Freelancing, and Travel Planning have catalogs. Every other niche is Premium, with no resources, until a subscription opens it. A pass opens the next stage, and passing every stage earns the certificate. Phases 0, 1, 2, 3, 4, 5, and 7 are done for all thirty free paths, and the Open Source community is complete. The learner map and Nearby events are live. Explain-back asks for every idea written from that stage’s resources and passes the stage only when a model marks each one understood. An accepted idea is kept in Notes, and that notebook can be downloaded or summarized from those notes alone. A transcript lists the stages a learner has passed. A certificate is issued when every stage on a path is passed. `/notes/practice` grades an idea against a public page, a text file, or a pasted passage, and saves it without passing a stage. A followed skill can have a personal plan built in code from that learner's preferences. Mastery, streaks, weak topics, and the progress charts read explain-back attempts. A score leaderboard and peer review are not part of the product. A creator rating and earnings are not either. The accent system is complete: ten presets, a custom gradient, and Spectrum. Still open for Version 1: the rest of the test suite and an end-to-end pass (Phase 8), and deploy (Phase 9).
+**Right now.** Thirty paths are free. Full-Stack, Travel Vlogging, Content Creation, Music Production, Self Grooming, Animation & VFX, IoT & Robot Automation, Screenwriting, Graphic Design, SEO, AI Tools, Cybersecurity, Digital Marketing, Personal Finance, Public Speaking, Sound Design, Nutrition, Psychology, Podcasting, Guitar, Chess, Art & Painting, Photography, Emergency Preparedness, Badminton, Relationships, Socializing, Interior Design, Freelancing, and Travel Planning have catalogs. Every other niche is Premium, with no resources, until a subscription opens it. A pass opens the next stage, and passing every stage earns the certificate. Phases 0, 1, 2, 3, 4, 5, and 7 are done for all thirty free paths, and the Open Source community is complete. The learner map and Nearby events are live. Explain-back asks for every idea written from that stage’s resources and passes the stage only when a model marks each one understood. An accepted idea is kept in Notes, and that notebook can be downloaded or summarized from those notes alone. A transcript lists the stages a learner has passed. A certificate is issued when every stage on a path is passed. `/notes/practice` grades an idea against a public page, a text file, or a pasted passage, and saves it without passing a stage. Every free path can have a personal plan built in code from that learner's preferences, and the roadmap shows that schedule. Mastery, streaks, weak topics, and the progress charts read explain-back attempts. The accent system is complete: ten presets, a custom gradient, and Spectrum. Still open for Version 1: the rest of the test suite and an end-to-end pass (Phase 8), and deploy (Phase 9).
 
 ---
 
 ## What's left
 
-The learning loop is in place for the thirty free paths. What remains is proof, a host, and a few content gaps. These are not part of the accent work.
-
-**Finish Version 1**
+The learning loop, including a personal plan on every free path, is in place. What remains is proof and a host.
 
 - Phase 8. Integration tests for catalog import and lesson reads. One end-to-end pass from signup through onboarding, a lesson, explain-back, and progress. A manual pass of empty, error, and loading states. Model calls mocked in tests.
-- Open Source. Integration tests for review, edit, and hide. The author is not told when a decision lands; the result only shows on My contributions.
-- Phase 7. Five dead catalog URLs still need a working page chosen by hand: ACMI seals, the UCL Slade page, the Nikon focal-length article, the NDMA earthquake page, and the Western Australia badminton court page. The 403 links need a person to confirm the page. Do not swap either set until that page is chosen.
-- Phase 9. A container, GitHub Actions for lint, test, and build, a hosted app and hosted Postgres, error monitoring, env files that stay out of git, migrate as a deploy step, and the stage photos that are not in git.
+- Open Source. Integration tests for review, edit, and hide.
+- Phase 9. A container, GitHub Actions for lint, test, and build, a hosted app and hosted Postgres, error monitoring, env files that stay out of git, and migrate as a deploy step.
 - Phase 10. A case study, a short recording of the loop, and a diagram of browser to Server Component to `lib/data` to Prisma.
-- `next build` still fails on a prerender of uncached data in `AppShell`. Full-repo `eslint` still fails on older files. Fix those as part of the deploy check, not as catalog work.
-
-**Leave out, on purpose**
-
-- No leaderboard and no peer review. A creator rating and earnings are not part of the product.
-- A model does not research or compile a new niche. Personal plans stay a schedule over the shared catalog.
-- Premium niches stay empty until a catalog is actually written. Do not invent those stages.
-- The old quiz tables are still in the schema and nothing reads them. Do not build on them.
-
-**Smaller follow-ups**
-
+- `next build` still fails on a prerender of uncached data in `AppShell`. Full-repo `eslint` still fails on older files. Fix those as part of the deploy check.
 - Stripe Checkout is wired. A real charge still needs the price and webhook keys on the host.
 - Live event search is still admin-only. Everyone else sees “Premium · coming soon”.
 - Event keywords are custom only for Full-Stack, Travel Vlogging, and Content Creation. Other niches search on their name.
-- Stage photos exist for Full-Stack, Content Creation, and Travel Vlogging. The other paths have no committed photos.
 - The daily reminder on Settings stays on that screen. It is not stored on the account.
-- `requireLearner()` exists and no page uses it.

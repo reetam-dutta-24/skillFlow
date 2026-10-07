@@ -21,6 +21,7 @@ function laneFor(skillSlug: string, stages: RoadmapStageView[]): LessonLaneItem[
       status,
       href: status === "locked" ? `/roadmap/${skillSlug}` : `/lesson/${stage.id}`,
       mastery: stage.masteryPercent > 0 ? stage.masteryPercent : undefined,
+      image: stage.image,
     };
   });
 }
@@ -46,6 +47,8 @@ export async function getDashboardData(): Promise<DashboardData> {
       stageTitle: current?.title ?? "",
       roadmapHref: `/roadmap/${entry.skill.slug}`,
       lane: laneFor(entry.skill.slug, entry.stages),
+      passed: entry.stages.filter((stage) => stage.status === "passed").length,
+      total: entry.stages.length,
     };
   });
 
@@ -64,6 +67,14 @@ export async function getDashboardData(): Promise<DashboardData> {
     skillsInProgress: followed.length,
     milestonesPassedThisWeek: stats?.milestonesPassedThisWeek ?? 0,
     explainBacksPassed: stats?.explainBacksPassed ?? 0,
+    week: stats?.week ?? [],
+    weakTopics: (stats?.weakTopics ?? []).slice(0, 4).map((topic) => ({
+      id: topic.id,
+      topic: topic.topic,
+      skillName: topic.skillName,
+      reason: topic.reason,
+      href: topic.href,
+    })),
     nextLesson: nextStage
       ? { title: nextStage.stage.title, skillName: nextStage.skillName, href: `/lesson/${nextStage.stage.id}` }
       : null,

@@ -18,6 +18,8 @@ export type LessonLaneItem = {
   status: LessonLaneStatus;
   href: string;
   mastery?: number;
+  /** The stage photo, the same one the path page shows. */
+  image: string | null;
 };
 
 export type DashboardSkillRow = {
@@ -26,6 +28,9 @@ export type DashboardSkillRow = {
   stageTitle: string;
   roadmapHref: string;
   lane: LessonLaneItem[];
+  /** Stages with a passed explain-back, and all stages on the path. */
+  passed: number;
+  total: number;
 };
 
 export type DashboardData = {
@@ -34,6 +39,10 @@ export type DashboardData = {
   skillsInProgress: number;
   milestonesPassedThisWeek: number;
   explainBacksPassed: number;
+  /** Explain-back checks per day for the last seven days, oldest first. */
+  week: { day: string; checks: number }[];
+  /** Stages with an attempt that needs another look and no pass yet. */
+  weakTopics: { id: string; topic: string; skillName: string; reason: string; href: string }[];
   nextLesson: { title: string; skillName: string; href: string } | null;
   followed: DashboardSkillRow[];
   catalog: SkillView[];

@@ -36,6 +36,7 @@ Last aligned with the working tree on 7 October 2026.
 | Notes | Accepted ideas | `/notes` is in the sidebar. Each idea that holds is stored with the explanation and the review. The list is personal |
 | Unlock by mastery | The next stage | A pass opens the next stage for that learner. Every stage on a free path is structurally open, so the certificate can be earned |
 | Premium | Stripe Checkout | One subscription. It opens niches outside the thirty and appearing on the learner map. The card form stays on Stripe. Missing keys do not pretend a charge happened |
+| Home | Done | Career-fit card, Continue, six figures and a weekly chart, path lanes with stage photos, and six For you panels drawn from Progress, Notes, Nearby, Open Source, and records |
 | Career-fit test | Done | IPIP-NEO-120 and the O*NET Interest Profiler Short Form, 180 items saved as you go, scored in code, a detailed report with the top five free paths and how to approach them, PNG and JPG export, a card on Home |
 | UI polish | Done | Audit in `UI-AUDIT.md`. Contrast-checked tokens, one `Button` with pending, focus-trapped dialogs, a toast, a photo for every stage, a redesigned path and lesson page, explain-back in focus mode, a framed certificate, 44px targets, and no sideways scroll at 375px or 768px. Lighthouse accessibility is 100 on the landing, Home, a path, and a lesson |
 | Tests, deploy, monitoring | Unit tests only | Mastery, streaks, explain-back judging, plans, events, and community rules have unit tests. No end-to-end pass, no production host, no Sentry |

@@ -29,7 +29,7 @@ export function SkillRow({ title, subtitle, mastery, roadmapHref, skillId, scrol
   return (
     <section style={{ display: "flex", flexDirection: "column", gap: 12, width: "100%", minWidth: 0, ...style }} {...rest}>
       <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
-        <div style={{ flex: 1, minWidth: 0 }}>
+        <div style={{ flex: "1 1 200px", minWidth: 0 }}>
           <h3 style={{ margin: 0, fontSize: "var(--text-subtitle)", fontWeight: "var(--weight-bold)", color: "var(--text-primary)" }}>{title}</h3>
           {subtitle ? <p style={{ margin: "2px 0 0", fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>{subtitle}</p> : null}
         </div>

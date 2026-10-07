@@ -29,8 +29,9 @@ export function StreakBanner({ streak = 0, nextLabel, nextSkill, continueHref, o
     <section
       style={{
         display: "flex",
+        flexWrap: "wrap",
         alignItems: "center",
-        gap: 24,
+        gap: "16px 24px",
         padding: "20px 24px",
         borderRadius: "var(--radius-card)",
         background: "var(--surface-card-accent)",
@@ -42,7 +43,8 @@ export function StreakBanner({ streak = 0, nextLabel, nextSkill, continueHref, o
       <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 52, height: 52, flexShrink: 0, borderRadius: "var(--radius-full)", backgroundImage: "var(--gradient-brand)" }}>
         <Icon name="flame" size={24} color="var(--text-on-accent)" />
       </span>
-      <div style={{ flex: 1, minWidth: 0 }}>
+      {/* At least 200px for the text, so on a phone the button wraps below instead of squeezing it. */}
+      <div style={{ flex: "1 1 200px", minWidth: 0 }}>
         <p style={{ margin: 0, fontSize: "var(--text-heading)", lineHeight: "var(--text-heading-lh)", fontWeight: "var(--weight-bold)", color: "var(--text-primary)" }}>
           {streak} day{streak === 1 ? "" : "s"} in a row
         </p>

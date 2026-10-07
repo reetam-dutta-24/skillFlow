@@ -7,13 +7,13 @@ import { auth } from "@/lib/auth";
 import { FreePlanNotice } from "../_components/FreePlanNotice";
 import { getDashboardData } from "@/lib/data/dashboard";
 import type { LessonLaneStatus } from "@/lib/types/pages";
-import { Icon } from "@/components/core/Icon.jsx";
-import { StatCard } from "@/components/core/StatCard.jsx";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
 import { LessonCard } from "@/components/learning/LessonCard.jsx";
 import { SkillRow } from "@/components/learning/SkillRow.jsx";
 import { StreakBanner } from "@/components/learning/StreakBanner.jsx";
 import { CareerTestCard } from "@/components/dashboard/CareerTestCard";
+import { HomeKpis, HomePanels } from "@/components/dashboard/HomeSections";
+import { loadHomeExtras } from "@/lib/data/home";
 import { FollowedNicheFrame } from "../skills/_components/FollowedNicheFrame";
 import { NicheGrid, NicheTeaserFallback } from "../skills/_components/NicheGrid";
 
@@ -48,6 +48,10 @@ export default async function DashboardPage() {
   if (!session?.user?.id) redirect("/login");
 
   const [data, premium] = await Promise.all([getDashboardData(), viewerHasPremium()]);
+  const extras = await loadHomeExtras(
+    session.user.id,
+    data.followed.map((row) => ({ id: row.skill.id, slug: row.skill.slug })),
+  );
   const first = session.user.name?.trim().split(/\s+/)[0];
   // A new learner sees what to do next, not a wall of zeros.
   const started = data.followed.length > 0 || data.explainBacksPassed > 0 || data.longestStreak > 0;
@@ -69,25 +73,7 @@ export default async function DashboardPage() {
           style={{ flexWrap: "wrap" }}
         />
       ) : null}
-      {started ? (
-      <section className="sf-dash-stats" aria-labelledby="dash-stats">
-        <h2 id="dash-stats">Your progress</h2>
-        <ul className="sf-stat-grid">
-          <li>
-            <StatCard label="Paths in progress" value={data.skillsInProgress} icon={<Icon name="route" size={14} />} />
-          </li>
-          <li>
-            <StatCard label="Stages passed this week" value={data.milestonesPassedThisWeek} icon={<Icon name="flag" size={14} />} />
-          </li>
-          <li>
-            <StatCard label="Explain-backs passed" value={data.explainBacksPassed} icon={<Icon name="message-square-quote" size={14} />} />
-          </li>
-          <li>
-            <StatCard label="Longest streak" value={data.longestStreak} unit={data.longestStreak === 1 ? "day" : "days"} icon={<Icon name="flame" size={14} />} />
-          </li>
-        </ul>
-      </section>
-      ) : null}
+      {started ? <HomeKpis data={data} extras={extras} /> : null}
       <section className="sf-dash-block" aria-labelledby="dash-skills">
         <h2 id="dash-skills">Your paths</h2>
         {data.followed.length === 0 ? (
@@ -117,6 +103,7 @@ export default async function DashboardPage() {
                 <LessonCard
                   key={item.id}
                   title={item.title}
+                  thumbnail={item.image ?? undefined}
                   status={cardStatus(item.status)}
                   kind={cardKind(item.status)}
                   mastery={item.mastery}
@@ -137,6 +124,7 @@ export default async function DashboardPage() {
           ))
         )}
       </section>
+      <HomePanels data={data} extras={extras} userId={session.user.id} />
       <section className="sf-dash-block" aria-labelledby="dash-explore">
         <h2 id="dash-explore">Explore</h2>
         <Suspense fallback={<NicheTeaserFallback />}>

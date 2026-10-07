@@ -16,7 +16,7 @@ export async function getSettingsProfile() {
         select: {
           name: true,
           email: true,
-          learnerProfile: { select: { accent: true, city: true, country: true, showOnMap: true } },
+          learnerProfile: { select: { accent: true, city: true, country: true, showOnMap: true, streakReminder: true } },
         },
       })
     : null;
@@ -31,7 +31,7 @@ export async function getSettingsProfile() {
     email,
     initial: name.charAt(0).toUpperCase() || "?",
     accent: isStoredAccent(storedAccent) ? storedAccent : "tide",
-    streakReminder: true,
+    streakReminder: user?.learnerProfile?.streakReminder ?? true,
     map: {
       hasProfile: Boolean(user?.learnerProfile),
       city: user?.learnerProfile?.city ?? null,
@@ -59,6 +59,24 @@ export async function saveProfileName(userId: string, name: string) {
   }
 
   return { ok: true as const, name: trimmed };
+}
+
+/** Same placeholders a city uses when onboarding has not written a path yet. */
+const PLACEHOLDER_PROFILE = {
+  skillSlug: "full-stack-web-dev",
+  pace: "steady",
+  goal: "explore",
+  accent: "tide",
+};
+
+export async function saveStreakReminder(userId: string, enabled: boolean) {
+  if (typeof enabled !== "boolean") return { ok: false as const, error: "Choose on or off." };
+  await prisma.learnerProfile.upsert({
+    where: { userId },
+    create: { userId, ...PLACEHOLDER_PROFILE, streakReminder: enabled },
+    update: { streakReminder: enabled },
+  });
+  return { ok: true as const };
 }
 
 export async function followSkillRecord(userId: string, skillId: string) {

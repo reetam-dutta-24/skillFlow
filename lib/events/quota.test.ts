@@ -23,9 +23,10 @@ describe("usage caps", () => {
 });
 
 describe("canUseLiveSearch", () => {
-  it("is on for an admin and off for everyone else until payments exist", () => {
-    expect(canUseLiveSearch("ADMIN")).toBe(true);
-    expect(canUseLiveSearch("USER")).toBe(false);
-    expect(canUseLiveSearch(undefined)).toBe(false);
+  it("is on for Premium and for an admin", () => {
+    expect(canUseLiveSearch({ role: "ADMIN", premium: false })).toBe(true);
+    expect(canUseLiveSearch({ role: "USER", premium: true })).toBe(true);
+    expect(canUseLiveSearch({ role: "USER", premium: false })).toBe(false);
+    expect(canUseLiveSearch({ premium: false })).toBe(false);
   });
 });

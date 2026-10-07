@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 import { invalidateAccount } from "@/lib/cache/invalidate";
 import { ACCENT_STORAGE_KEY, isStoredAccent } from "@/lib/accent";
 import { auth } from "@/lib/auth";
-import { followSkillRecord, saveProfileName, unfollowSkillRecord } from "@/lib/data/settings";
+import { followSkillRecord, saveProfileName, saveStreakReminder, unfollowSkillRecord } from "@/lib/data/settings";
 import { prisma } from "@/lib/prisma";
 
 function refreshAccount() {
@@ -47,6 +47,14 @@ export async function saveAccent(accent: string) {
   });
 
   return { ok: true as const };
+}
+
+export async function saveReminder(enabled: boolean) {
+  const session = await auth();
+  if (!session?.user?.id) return { ok: false as const, error: "Sign in again before saving." };
+  const result = await saveStreakReminder(session.user.id, enabled);
+  if (result.ok) revalidatePath("/settings");
+  return result;
 }
 
 export async function followSkill(skillId: string) {

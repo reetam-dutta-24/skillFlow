@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import type { EventView } from "@/lib/events/select";
 import { searchLiveEvents } from "@/app/(app)/nearby/actions";
@@ -55,8 +56,10 @@ export function PremiumCard() {
   return (
     <section className="sf-event-card">
       <h2>Live search</h2>
-      <p>Premium · coming soon</p>
-      <p>Search any keyword in a city, straight from the connected sources. This stays off until payments are on.</p>
+      <p>Search any keyword in a city, straight from the connected sources. The results are not saved. This is part of Premium.</p>
+      <Link className="sf-path-cta" href="/upgrade">
+        See Premium
+      </Link>
     </section>
   );
 }

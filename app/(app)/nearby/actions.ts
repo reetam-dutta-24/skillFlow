@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { auth } from "@/lib/auth";
+import { userHasPremium } from "@/lib/billing/access";
 import { decideCommunityEvent, submitCommunityEvent, type SubmitInput } from "@/lib/events/community";
 import { liveSearchEvents } from "@/lib/events/live";
 import { searchCities } from "@/lib/geo/nominatim";
@@ -19,8 +20,10 @@ export async function searchLiveEvents(input: { keyword: string; city: string })
     return { ok: false as const, error: "City search is unavailable right now. Try again in a moment." };
   }
   if (!hit) return { ok: false as const, error: "Choose a city we can find." };
+  const premium = session.user.role === "ADMIN" || (await userHasPremium(session.user.id));
   return liveSearchEvents({
     role: session.user.role,
+    premium,
     keyword: input.keyword,
     city: hit.city,
     country: hit.country,

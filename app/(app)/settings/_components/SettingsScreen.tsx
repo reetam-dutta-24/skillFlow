@@ -10,7 +10,7 @@ import { SettingsToggle } from "@/components/forms/SettingsToggle.jsx";
 import { ThemeToggle } from "@/components/forms/ThemeToggle.jsx";
 import { Button } from "@/components/core/Button.jsx";
 import { UsageCutoffDialog } from "@/components/feedback/UsageCutoffDialog";
-import { saveSettings } from "../actions";
+import { saveReminder, saveSettings } from "../actions";
 import { FreePlanNotice } from "../../_components/FreePlanNotice";
 import { LocationCard } from "./LocationCard";
 
@@ -105,8 +105,21 @@ export function SettingsScreen({
       </SettingsSection>
       <LocationCard map={map} canShare={premium} />
       <SettingsSection title="Notifications" subtitle="One reminder. No badges and no counts.">
-        <SettingsToggle label="Daily streak reminder" description="A quiet note if the streak is still open." checked={reminder} onChange={setReminder} />
-        <p className="sf-settings-note">This reminder stays on this screen. It is not stored on the account yet.</p>
+        <SettingsToggle
+          label="Daily streak reminder"
+          description="A quiet note in the bell when yesterday counted and today has not."
+          checked={reminder}
+          onChange={(next) => {
+            setReminder(next);
+            setError("");
+            void saveReminder(next).then((result) => {
+              if (!result.ok) {
+                setReminder(!next);
+                setError(result.error);
+              }
+            });
+          }}
+        />
       </SettingsSection>
       <SettingsSection title="Appearance" subtitle="Theme and accent apply as soon as you choose them.">
         <div className="sf-settings-row">

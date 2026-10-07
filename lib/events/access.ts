@@ -1,7 +1,4 @@
-/**
- * Who may run a live search.
- * Payments are not wired. Until they are, only an admin can. Replace this function when a plan exists.
- */
-export function canUseLiveSearch(role: string | null | undefined): boolean {
-  return role === "ADMIN";
+/** Live search is part of Premium. An admin can use it without a charge. */
+export function canUseLiveSearch(input: { role?: string | null; premium: boolean }) {
+  return input.role === "ADMIN" || input.premium;
 }

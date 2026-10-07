@@ -7620,6 +7620,9 @@ html.dark .sf-map-canvas .maplibregl-canvas {
   color: var(--text-muted);
   overflow-wrap: anywhere;
 }
+.sf-event-card .sf-path-cta {
+  margin-top: 12px;
+}
 .sf-event-card p span + span::before {
   content: " · ";
 }

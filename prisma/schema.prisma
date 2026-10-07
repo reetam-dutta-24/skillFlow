@@ -101,6 +101,8 @@ model LearnerProfile {
   lat       Float?
   lng       Float?
   showOnMap Boolean  @default(false)
+  /// Quiet bell note when yesterday counted and today has not yet.
+  streakReminder Boolean @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

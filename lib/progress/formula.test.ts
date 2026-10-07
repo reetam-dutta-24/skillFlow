@@ -5,6 +5,7 @@ import {
   recentMonths,
   stageCountsAsOpen,
   streakFromDays,
+  streakReminderDue,
   utcDay,
   weekChecks,
 } from "@/lib/progress/formula";
@@ -50,6 +51,9 @@ describe("streaks", () => {
     expect(streakFromDays(["2026-10-04", "2026-10-05", "2026-10-06"], "2026-10-06")).toEqual({ current: 3, longest: 3 });
     expect(streakFromDays(["2026-10-01", "2026-10-02", "2026-10-05"], "2026-10-06")).toEqual({ current: 1, longest: 2 });
     expect(streakFromDays(["2026-10-01"], "2026-10-06")).toEqual({ current: 0, longest: 1 });
+    expect(streakReminderDue({ enabled: true, lastDay: "2026-10-05", today: "2026-10-06" })).toBe(true);
+    expect(streakReminderDue({ enabled: true, lastDay: "2026-10-06", today: "2026-10-06" })).toBe(false);
+    expect(streakReminderDue({ enabled: false, lastDay: "2026-10-05", today: "2026-10-06" })).toBe(false);
   });
 });
 

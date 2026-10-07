@@ -49,7 +49,7 @@ Creator studio is a signed-in library for a video the learner owns. An admin app
 
 The learner map counts people who opted in, one number per city. It lives under Nearby → Learners. Settings stores the city, the country, and the city centre. The map does not show names, and it does not use GPS. Set `MAP_MIN_LEARNERS` to hide cities below that count (the default is 5). Use `1` on your machine while you are the only person on the map. City search uses OpenStreetMap Nominatim. A `GEOCODER_USER_AGENT` value with a way to reach you is the polite way to call it.
 
-Nearby → Events lists upcoming events for that saved city. The map opens on the city, and each pin is the venue. Ticketmaster and Google Events are optional. Leave a key empty and that source stays off. Community events need a review. Visitors read a saved copy that refreshes at most every 12 hours. Live search is for an admin until payments exist.
+Nearby → Events lists upcoming events for that saved city. The map opens on the city, and each pin is the venue. Ticketmaster and Google Events are optional. Leave a key empty and that source stays off. Community events need a review. Visitors read a saved copy that refreshes at most every 12 hours. Live search is part of Premium. An admin can use it without a charge. Every free path has its own search words.
 
 A dead stored link can be marked unavailable. The lesson keeps the saved title, description, and key points.
 
@@ -152,4 +152,4 @@ Passing an explain-back records the stage and opens the next one. Every stage on
 
 ## What is still ahead
 
-Replace the five dead catalog URLs when a working page is chosen. Confirm the pages that returned HTTP 403. Stage photos exist for Full-Stack, Content Creation, and Travel Vlogging only. Integration tests and an end-to-end pass are not written. Deploy, CI, and error monitoring are not started. The case study is not written. Premium niches have no catalogs. `Project-roadmap.md` is the phase list. `AGENTS.md` is the working context for the next session.
+A UI pass across the signed-in screens. Integration tests and an end-to-end pass are not written. Deploy, CI, and error monitoring are not started. The case study is not written. Premium niches have no catalogs. `Project-roadmap.md` is the phase list. `AGENTS.md` is the working context for the next session.

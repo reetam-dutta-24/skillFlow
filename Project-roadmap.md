@@ -21,7 +21,7 @@ Last aligned with the working tree on 7 October 2026.
 | --- | --- | --- |
 | Product shape, tokens, component kit | Done | Dark/light theme, accent presets, shared buttons, cards, charts |
 | Public pages | Done | Landing, login, signup, privacy, terms. Landing names Travel Vlogging with the other two free paths |
-| Database schema and local Postgres | Done | Prisma models and migrations, through creator studio, the learner map, and nearby events |
+| Database schema and local Postgres | Done | Prisma models and migrations, through creator studio, the learner map, nearby events, billing, and the streak reminder |
 | Open Source community | Done | Contribute, review (approve, request changes, close), author edit, resubmit and withdraw, unmerge, roles, gaps, the maintainers panel, `/admin/community`, and a contributor profile with a heatmap. Only merged work is public |
 | Auth | Done for email/password | Auth.js, bcrypt passwords, JWT session, route protection. Google is configured in code. The login screen is email and password |
 | Onboarding | Done and saved | Skill, pace, goal, and accent are written to Postgres |
@@ -30,8 +30,8 @@ Last aligned with the working tree on 7 October 2026.
 | Admin catalog and submissions | Done | An admin can edit stages and resources, and an approval creates a resource |
 | Caching | Done for shared catalog and community lists | Niche grid, lessons, clips, and the submit picker share the catalog tag. Merged community pages share the community tag. The learner map shares city totals. Progress and the account menu stay per person |
 | Learner map | Done | Opt-in city counts on Nearby → Learners. Saving a city is free. Appearing on the map is Premium. No names. Cities under the env minimum stay hidden |
-| Nearby events | Done | Saved events per city and niche, refreshed on a cap. The map opens on the saved city, and each pin is a venue. Community events need a review. Live search stays admin-only |
-| Settings follow | Done | Add and remove on the settings page write `UserSkillProgress`. A Premium niche can be followed only with an active subscription. Home links to the niche list instead of a fake Add |
+| Nearby events | Done | Saved events per city and niche, refreshed on a cap. The map opens on the saved city, and each pin is a venue. Community events need a review. Live search is Premium. Every free path has its own search words |
+| Settings follow | Done | Follow and Following sit on Niches, Home, and Roadmaps. Settings no longer adds or removes niches. A Premium niche can be followed only with Premium. The streak reminder is saved on the profile |
 | Explain-back | Wizard, one idea at a time | Each learning objective is its own step. A written review comes back whether the idea holds or not. The step moves on only when it holds. The stage is recorded after the last idea. No key means no pass. Every stage on a free path can be passed |
 | Notes | Accepted ideas | `/notes` is in the sidebar. Each idea that holds is stored with the explanation and the review. The list is personal |
 | Unlock by mastery | The next stage | A pass opens the next stage for that learner. Every stage on a free path is structurally open, so the certificate can be earned |
@@ -187,7 +187,7 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 
 **Progress and analytics.** Counts, mastery, streaks, weak topics, and the charts come from `ExplainBackAttempt` and `StageCompletion`. Home and Progress show “Explain-backs passed”.
 
-**Settings.** Plan is the first section: a free account sees what Premium adds, and an account that already has it can open the plan page. Name saves to `User`. Email is read-only. Niches are followed from Niches, Home, and Roadmaps, not from this page. Onboarding still chooses the first paths. Stopping a follow drops `UserSkillProgress` and keeps attempts. The daily reminder toggle is still local to the page. Theme and accent apply immediately. The accent row keeps the ten presets, adds Spectrum (one neighboring pair moves slowly around the wheel while the room stays dark; reduced motion holds one hue), and adds a custom gradient: a color palette, a hex field, and R, G, and B for each stop. Log out uses the real `signOut`.
+**Settings.** Plan is the first section: a free account sees what Premium adds, and an account that already has it can open the plan page. Name saves to `User`. Email is read-only. Niches are followed from Niches, Home, and Roadmaps, not from this page. Onboarding still chooses the first paths. Stopping a follow drops `UserSkillProgress` and keeps attempts. The daily reminder is saved on the profile. The bell shows it when yesterday counted and today has not. Theme and accent apply immediately. The accent row keeps the ten presets, adds Spectrum (one neighboring pair moves slowly around the wheel while the room stays dark; reduced motion holds one hue), and adds a custom gradient: a color palette, a hex field, and R, G, and B for each stop. Log out uses the real `signOut`.
 
 **Submit and admin.** Submit writes `ResourceSubmission`. Approve appends a `Resource` on that stage. Reject requires a note. `fail this submit` and `fail this review` are the built-in error cases. A non-admin who opens an admin URL gets not-found.
 
@@ -378,7 +378,7 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 - [x] Week and month charts are drawn from those attempts
 
 ## PHASE 6 — Frontend on real data
-**Status: ✅ THE LEARNING PATH, EXPLAIN-BACK, NOTES, PLANS, MAP, AND EVENTS ARE ON REAL DATA. STRIPE IS NOT**
+**Status: ✅ THE LEARNING PATH, EXPLAIN-BACK, NOTES, PLANS, MAP, EVENTS, AND STRIPE ARE ON REAL DATA**
 
 - [x] App shell, home, clips, roadmaps, lesson, settings, submit, admin catalog
 - [x] Shared catalog cache for the niche grid, lessons, clips, and the submit picker. Admin saves expire it
@@ -386,7 +386,7 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 - [x] Stage photos on Full-Stack, Content Creation, and Travel Vlogging. The other free paths have no committed stage photos
 - [x] Settings follow and unfollow
 - [x] Explain-back UI calling a real grader
-- [x] Home and roadmap no longer show a preview Add. Explore links to the niche list. Follow stays on Settings
+- [x] Home, Niches, and Roadmaps follow from the card. Settings no longer adds or removes niches
 - [x] A full responsive pass, including 375px
 - [x] Landing, auth carousel, and onboarding name Travel Vlogging instead of Art
 
@@ -396,8 +396,6 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 - [x] All thirty free catalogs loaded from `content/catalog/`. Full-Stack uses `full-stack-web-development.json`. The live slug stays `full-stack-web-dev`. Animation uses `animation.json`. The live slug stays `animation`
 - [x] Explain-back prompt on every imported stage
 - [x] Art & Painting is loaded and stays a flagship
-- [ ] Five dead URLs still need a working page: ACMI seals, the UCL Slade page, the Nikon focal-length article, the NDMA earthquake page, and the Western Australia badminton court page. Do not swap them until that page is chosen
-- [ ] The 403 links still need a person to confirm the page. Do not replace a link just because the bot was blocked. That includes RAINN, Pima, Boise State, the four State Department travel pages, and the OWASP prompt-injection page
 
 The mock catalog in `lib/mock/catalog.ts` is leftover sample data for the screens that are not wired. It is not the seed.
 
@@ -450,7 +448,7 @@ The mock catalog in `lib/mock/catalog.ts` is leftover sample data for the screen
 
 # VERSION 2 — after Version 1
 
-Explain-back, streaks, notes, transcripts, certificates, personal plans, creator studio, the learner map, and nearby events are built. Stripe Checkout is wired. A real charge still needs the keys in the environment. Tests and deploy are still open.
+Explain-back, streaks, notes, transcripts, certificates, personal plans, creator studio, the learner map, nearby events, and Stripe Checkout are built. Tests and deploy are still open.
 
 ## V2 PHASE 1 — Premium and Stripe
 **Status: 🔄 IN PROGRESS. Checkout, the webhook, and the two Premium gates are in the app. A charge starts only when the Stripe keys are set.**
@@ -512,7 +510,7 @@ Settings can store one city: the name, the country, and the city centre from Ope
 
 The sidebar item is Nearby. Learners is the map above. Events is a second tab: pins on the same map, cards beside it, and online events in their own list. The city is the one saved in Settings. There is no GPS.
 
-Ticketmaster and Google Events (SerpApi) are separate adapters. A missing key turns that source off. Community events are the third source: three submissions a day, approved by an admin or that niche’s Open Source reviewers. Free visitors read saved rows. A city and niche refresh at most every 12 hours, in the background, and a secret cron route can refresh the popular pairs. API usage is counted so the free caps hold. Live search is not saved. `canUseLiveSearch()` allows an admin until payments exist. Everyone else sees Premium · coming soon.
+Ticketmaster and Google Events (SerpApi) are separate adapters. A missing key turns that source off. Community events are the third source: three submissions a day, approved by an admin or that niche’s Open Source reviewers. Free visitors read saved rows. A city and niche refresh at most every 12 hours, in the background, and a secret cron route can refresh the popular pairs. API usage is counted so the free caps hold. Live search is not saved. It is part of Premium, and an admin can use it without a charge. A free account sees a link to `/upgrade`. Every free path has its own search words. Any other niche searches on its name.
 
 ---
 
@@ -522,14 +520,10 @@ Ticketmaster and Google Events (SerpApi) are separate adapters. A missing key tu
 
 ## What's left
 
-The learning loop, including a personal plan on every free path, is in place. What remains is proof and a host.
+The functional product is in place, including follow, Premium, live event search, event keywords for every free path, and a saved streak reminder. What remains is a UI pass, then proof, then a host.
 
+- A UI pass across the signed-in screens.
 - Phase 8. Integration tests for catalog import and lesson reads. One end-to-end pass from signup through onboarding, a lesson, explain-back, and progress. A manual pass of empty, error, and loading states. Model calls mocked in tests.
 - Open Source. Integration tests for review, edit, and hide.
-- Phase 9. A container, GitHub Actions for lint, test, and build, a hosted app and hosted Postgres, error monitoring, env files that stay out of git, and migrate as a deploy step.
+- Phase 9. A container, GitHub Actions for lint, test, and build, a hosted app and hosted Postgres, error monitoring, env files that stay out of git, and migrate as a deploy step. Stripe keys on that host. `next build` still fails on a prerender of uncached data in `AppShell`. Full-repo `eslint` still fails on older files.
 - Phase 10. A case study, a short recording of the loop, and a diagram of browser to Server Component to `lib/data` to Prisma.
-- `next build` still fails on a prerender of uncached data in `AppShell`. Full-repo `eslint` still fails on older files. Fix those as part of the deploy check.
-- Stripe Checkout is wired. A real charge still needs the price and webhook keys on the host.
-- Live event search is still admin-only. Everyone else sees “Premium · coming soon”.
-- Event keywords are custom only for Full-Stack, Travel Vlogging, and Content Creation. Other niches search on their name.
-- The daily reminder on Settings stays on that screen. It is not stored on the account.

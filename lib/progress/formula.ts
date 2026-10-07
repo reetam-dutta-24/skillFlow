@@ -70,6 +70,12 @@ export function streakFromDays(days: readonly string[], today: string): { curren
   return { current, longest };
 }
 
+/** The bell asks once when yesterday counted and today has not. */
+export function streakReminderDue(input: { enabled: boolean; lastDay: string | null; today: string }) {
+  if (!input.enabled || !input.lastDay) return false;
+  return dayNumber(input.today) - dayNumber(input.lastDay) === 1;
+}
+
 export type MonthWindow = { label: string; end: Date };
 
 /** Six UTC months ending at `now`. Earlier months close on their last millisecond. */

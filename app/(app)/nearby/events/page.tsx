@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import Link from "next/link";
+import { viewerHasPremium } from "@/lib/billing/access";
 import { auth } from "@/lib/auth";
 import { loadCatalog } from "@/lib/data/catalog";
 import { loadUpcomingEvents } from "@/lib/data/events";
@@ -43,6 +44,7 @@ async function EventsBody({
   const params = await searchParams;
   const session = await auth();
   if (!session?.user?.id) return null;
+  const premium = await viewerHasPremium();
 
   const catalog = await loadCatalog();
   const niches = catalog
@@ -129,7 +131,7 @@ async function EventsBody({
         empty={origin ? "No events in this range." : "In-person events show up once a city is saved."}
       />
       <OnlineEventList events={online} />
-      {canUseLiveSearch(session.user.role) ? <LiveSearch city={origin?.city ?? null} /> : <PremiumCard />}
+      {canUseLiveSearch({ role: session.user.role, premium }) ? <LiveSearch city={origin?.city ?? null} /> : <PremiumCard />}
     </>
   );
 }

@@ -9,6 +9,7 @@ const HORIZON_MS = 92 * 24 * 60 * 60 * 1000;
 
 export type LiveSearchInput = {
   role: string | null | undefined;
+  premium: boolean;
   keyword: string;
   city: string;
   country: string;
@@ -20,7 +21,9 @@ export type LiveSearchInput = {
 export async function liveSearchEvents(
   input: LiveSearchInput,
 ): Promise<{ ok: true; events: EventView[] } | { ok: false; error: string }> {
-  if (!canUseLiveSearch(input.role)) return { ok: false, error: "Premium · coming soon" };
+  if (!canUseLiveSearch({ role: input.role, premium: input.premium })) {
+    return { ok: false, error: "Live search is part of Premium." };
+  }
   const keyword = input.keyword.trim().slice(0, 80);
   if (keyword.length < 2) return { ok: false, error: "Enter a keyword." };
   const sources = connectedApiSources();

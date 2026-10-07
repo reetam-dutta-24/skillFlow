@@ -2,6 +2,7 @@ import "server-only";
 import type { SubmissionStatus } from "@prisma/client";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { streakReminderDue, utcDay } from "@/lib/progress/formula";
 import type { NotificationView } from "@/lib/types/domain";
 import type { NotificationsData } from "@/lib/types/pages";
 
@@ -52,7 +53,8 @@ export async function getNotifications(): Promise<NotificationsData> {
   const userId = session?.user?.id;
   if (!userId) return { items: [] };
 
-  const rows = await prisma.resourceSubmission.findMany({
+  const [rows, user] = await Promise.all([
+    prisma.resourceSubmission.findMany({
     where: { submittedById: userId, status: { in: ["APPROVED", "REJECTED"] } },
     orderBy: [{ reviewedAt: "desc" }, { createdAt: "desc" }],
     select: {
@@ -64,10 +66,31 @@ export async function getNotifications(): Promise<NotificationsData> {
       createdAt: true,
       stage: { select: { title: true } },
     },
-  });
+    }),
+    prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        lastActivityDate: true,
+        learnerProfile: { select: { streakReminder: true } },
+      },
+    }),
+  ]);
 
-  return { items: rows.flatMap((row) => {
+  const items = rows.flatMap((row) => {
     const item = toNotification(row);
     return item ? [item] : [];
-  }) };
+  });
+  const today = utcDay(new Date());
+  const lastDay = user?.lastActivityDate ? utcDay(user.lastActivityDate) : null;
+  if (streakReminderDue({ enabled: user?.learnerProfile?.streakReminder ?? true, lastDay, today })) {
+    items.unshift({
+      id: "streak-reminder",
+      title: "Your streak is still open",
+      message: "Yesterday counted. A note or an explain-back today keeps it.",
+      timeLabel: "Today",
+      read: false,
+    });
+  }
+
+  return { items };
 }

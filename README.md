@@ -152,7 +152,7 @@ Passing an explain-back records the stage and opens the next one. Every stage on
 
 ## UI
 
-The October 2026 polish is written up in `UI-AUDIT.md`, with before and after screenshots in `docs/ui-audit/`. Shared pieces: `Button` with a `pending` state, `useFocusTrap` for dialogs, `useToast` for success notes, `FocusMode` for explain-back, and `EmptyState` with one action. Every stage on the thirty free paths has a photo in `public/stages` (credits in `public/stages/credits.json`, picked by `scripts/fetch-stage-photos.ts`). Visible copy says path, niche, stage, and contribution. `scripts/a11y-scan.js` checks a page for overflow, unnamed controls, missing labels, and small targets. `AGENTS.md` lists the conventions under "UI conventions".
+The October 2026 polish is written up in `UI-AUDIT.md`, with before and after screenshots in `docs/ui-audit/`. Shared pieces: `Button` with a `pending` state, `useFocusTrap` for dialogs, `useToast` for success notes, `FocusMode` for explain-back, and `EmptyState` with one action. Every stage on the thirty free paths has a photo in `public/stages` (credits in `public/stages/credits.json`, picked by `scripts/fetch-stage-photos.ts`). Visible copy says path, niche, stage, and contribution. `scripts/a11y-scan.js` checks a page for overflow, unnamed controls, missing labels, and small targets. `AGENTS.md` lists the conventions under "UI conventions". `/privacy` and `/terms` are written out; the contact email and date are in `lib/legal.ts`.
 
 | Page | Performance (mobile / desktop) | Accessibility | Best practices |
 | --- | --- | --- | --- |

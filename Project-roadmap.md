@@ -20,7 +20,7 @@ Last aligned with the working tree on 7 October 2026.
 | Area | State | What that means in a sentence |
 | --- | --- | --- |
 | Product shape, tokens, component kit | Done | Dark/light theme, accent presets, shared buttons, cards, charts |
-| Public pages | Done | Landing, login, signup, privacy, terms. Landing names Travel Vlogging with the other two free paths |
+| Public pages | Done | Landing, login, signup, and a full Privacy Policy and Terms of Service (Indian law, DPDP Act 2023). Landing names Travel Vlogging with the other two free paths |
 | Database schema and local Postgres | Done | Prisma models and migrations, through creator studio, the learner map, nearby events, billing, and the streak reminder |
 | Open Source community | Done | Contribute, review (approve, request changes, close), author edit, resubmit and withdraw, unmerge, roles, gaps, the maintainers panel, `/admin/community`, and a contributor profile with a heatmap. Only merged work is public |
 | Auth | Done for email/password | Auth.js, bcrypt passwords, JWT session, route protection. Google is configured in code. The login screen is email and password |

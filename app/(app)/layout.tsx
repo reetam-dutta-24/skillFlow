@@ -7,7 +7,7 @@ import { getNotifications } from "@/lib/data/notifications";
 import { AccountMenuFallback } from "./_components/AccountMenuFallback";
 import { AppShell } from "./_components/AppShell";
 import { NotificationMenu } from "./_components/NotificationMenu";
-import { PremiumAccessProvider } from "./_components/premium-access";
+import { PremiumAccessProvider, PublishPremiumAccess } from "./_components/premium-access";
 import { RecallLock } from "./_components/RecallLock";
 import { ShellIdentity } from "./_components/ShellIdentity";
 import { ShellReview } from "./_components/ShellReview";
@@ -23,15 +23,22 @@ export const metadata: Metadata = {
   },
 };
 
+/** Reads the session, so it streams inside Suspense. The layout itself never waits on request data. */
+async function ShellPremium() {
+  return <PublishPremiumAccess premium={await viewerHasPremium()} />;
+}
+
 async function ShellNotifications() {
   const { items } = await getNotifications();
   return <NotificationMenu items={items} />;
 }
 
-export default async function AppGroupLayout({ children }: { children: ReactNode }) {
-  const premium = await viewerHasPremium();
+export default function AppGroupLayout({ children }: { children: ReactNode }) {
   return (
-    <PremiumAccessProvider premium={premium}>
+    <PremiumAccessProvider>
+      <Suspense fallback={null}>
+        <ShellPremium />
+      </Suspense>
       <Suspense fallback={null}>
         <RecallLock />
       </Suspense>

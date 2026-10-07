@@ -15,7 +15,7 @@ export default async function SettingsPage() {
     <div className="sf-settings-page">
       <header className="sf-page-head">
         <h1>Settings</h1>
-        <p>Profile, city, skills, reminders, and how the app looks.</p>
+        <p>Profile, city, reminders, and how the app looks.</p>
       </header>
       <SettingsScreen {...profile} showPreview={process.env.NODE_ENV === "development"} />
     </div>

@@ -9,18 +9,15 @@ import { SettingsSection } from "@/components/forms/SettingsSection.jsx";
 import { SettingsToggle } from "@/components/forms/SettingsToggle.jsx";
 import { ThemeToggle } from "@/components/forms/ThemeToggle.jsx";
 import { Button } from "@/components/core/Button.jsx";
-import { Chip } from "@/components/core/Chip.jsx";
 import { UsageCutoffDialog } from "@/components/feedback/UsageCutoffDialog";
-import { followSkill, saveSettings, unfollowSkill } from "../actions";
+import { saveSettings } from "../actions";
 import { LocationCard } from "./LocationCard";
-import type { SettingsSkill } from "@/lib/data/settings";
 
 export function SettingsScreen({
   userId,
   name,
   email,
   initial,
-  skills,
   accent,
   streakReminder,
   showPreview,
@@ -31,7 +28,6 @@ export function SettingsScreen({
   name: string;
   email: string;
   initial: string;
-  skills: SettingsSkill[];
   accent: string;
   streakReminder: boolean;
   showPreview: boolean;
@@ -41,11 +37,9 @@ export function SettingsScreen({
   const router = useRouter();
   const [profileName, setProfileName] = useState(name);
   const [reminder, setReminder] = useState(streakReminder);
-  const [rows, setRows] = useState(skills);
   const [pending, setPending] = useState("");
   const [notice, setNotice] = useState("");
   const [error, setError] = useState("");
-  const [confirmId, setConfirmId] = useState<string | null>(null);
   const [cutoff, setCutoff] = useState(false);
   const shownInitial = profileName.trim().charAt(0).toUpperCase() || initial;
   const status = error || notice;
@@ -61,38 +55,6 @@ export function SettingsScreen({
       return;
     }
     setNotice("Saved.");
-    router.refresh();
-  }
-
-  async function addSkill(id: string) {
-    setPending(id);
-    setNotice("");
-    setError("");
-    const result = await followSkill(id);
-    setPending("");
-    if (!result.ok) {
-      setError(result.error);
-      return;
-    }
-    setRows((current) => current.map((skill) => (skill.id === id ? { ...skill, followed: true } : skill)));
-    const added = rows.find((skill) => skill.id === id);
-    router.push(added ? `/roadmap/${added.slug}/preferences` : "/settings");
-    router.refresh();
-  }
-
-  async function removeSkill(id: string) {
-    setPending(id);
-    setNotice("");
-    setError("");
-    const result = await unfollowSkill(id);
-    setPending("");
-    if (!result.ok) {
-      setError(result.error);
-      return;
-    }
-    setRows((current) => current.map((skill) => (skill.id === id ? { ...skill, followed: false } : skill)));
-    setConfirmId(null);
-    setNotice("Skill removed from the feed. Explain-back results stay on the account.");
     router.refresh();
   }
 
@@ -126,47 +88,6 @@ export function SettingsScreen({
             </Button>
           </div>
         </div>
-      </SettingsSection>
-      <SettingsSection title="Skills" subtitle="Add a skill to show it on Home. Removing one hides it from the feed. Explain-back results stay.">
-        <ul className="sf-settings-skills">
-          {rows.map((skill) => (
-            <li key={skill.id}>
-              <div className="sf-settings-skill">
-                <strong>{skill.name}</strong>
-                {skill.followed ? <Chip tone="accent">On your feed</Chip> : null}
-                {skill.offer === "FREE" ? <Chip tone="pass">Free</Chip> : <Chip tone="lock">Premium</Chip>}
-                {skill.status === "coming_soon" ? <Chip tone="lock">Coming soon</Chip> : null}
-              </div>
-              {skill.followed ? (
-                confirmId === skill.id ? (
-                  <div className="sf-settings-skill-actions">
-                    <p>Explain-back results stay on the account.</p>
-                    <Button type="button" size="sm" variant="outline" disabled={pending === skill.id} onClick={() => void removeSkill(skill.id)}>
-                      {pending === skill.id ? "Removing..." : "Remove"}
-                    </Button>
-                    <Button type="button" size="sm" variant="quiet" onClick={() => setConfirmId(null)}>Cancel</Button>
-                  </div>
-                ) : (
-                  <div className="sf-settings-skill-actions">
-                    <Link href={`/roadmap/${skill.slug}/preferences`}>Learning plan</Link>
-                    <Button type="button" size="sm" variant="quiet" onClick={() => setConfirmId(skill.id)}>Remove</Button>
-                  </div>
-                )
-              ) : skill.status === "available" && (skill.offer === "FREE" || premium) ? (
-                <div className="sf-settings-skill-actions">
-                  <Link href={`/roadmap/${skill.slug}/preferences`}>Learning plan</Link>
-                  <Button type="button" size="sm" variant="outline" disabled={pending === skill.id} onClick={() => void addSkill(skill.id)}>
-                    {pending === skill.id ? "Adding..." : "Add"}
-                  </Button>
-                </div>
-              ) : skill.status === "available" && skill.offer === "MONETIZED" ? (
-                <div className="sf-settings-skill-actions">
-                  <Link href="/upgrade">Upgrade to add</Link>
-                </div>
-              ) : null}
-            </li>
-          ))}
-        </ul>
       </SettingsSection>
       <LocationCard map={map} canShare={premium} />
       <SettingsSection title="Notifications" subtitle="One reminder. No badges and no counts.">

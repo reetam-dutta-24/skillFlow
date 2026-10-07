@@ -7,6 +7,7 @@ import { EmptyState } from "@/components/feedback/EmptyState.jsx";
 import { auth } from "@/lib/auth";
 import { communityRoleLabel, contributionTypeLabel, formatWhen } from "@/lib/community-copy";
 import { loadContributorProfile } from "@/lib/data/community";
+import { loadFollowedNiches } from "@/lib/data/catalog";
 import { loadPublicCreatorProfile } from "@/lib/data/creator";
 import { ProfileWorks } from "./_components/ProfileWorks";
 
@@ -20,7 +21,11 @@ export default async function ProfilePage({ params }: { params: Promise<{ userId
   if (!session?.user?.id) redirect("/login");
   const { userId } = await params;
   // Both are public and cached: creator works under the catalog tag, Open Source work under the community tag.
-  const [profile, community] = await Promise.all([loadPublicCreatorProfile(userId), loadContributorProfile(userId)]);
+  const [profile, community, follows] = await Promise.all([
+    loadPublicCreatorProfile(userId),
+    loadContributorProfile(userId),
+    loadFollowedNiches(userId),
+  ]);
   if (!profile) notFound();
   const mine = session.user.id === profile.id;
 
@@ -48,6 +53,23 @@ export default async function ProfilePage({ params }: { params: Promise<{ userId
           </p>
         ) : null}
       </header>
+
+      <section className="sf-profile-section" aria-labelledby="profile-follows">
+        <h2 id="profile-follows">
+          Following · {follows.length}
+        </h2>
+        {follows.length === 0 ? (
+          <p className="sf-os-hint">{mine ? "Follow a niche from Niches or Home. It shows here." : "This profile is not following a path yet."}</p>
+        ) : (
+          <ul className="sf-profile-follows">
+            {follows.map((skill) => (
+              <li key={skill.slug}>
+                {skill.href ? <Link href={skill.href}>{skill.name}</Link> : skill.name}
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
 
       <section className="sf-profile-section" aria-labelledby="profile-videos">
         <h2 id="profile-videos">Videos</h2>

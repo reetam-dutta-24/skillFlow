@@ -7,6 +7,8 @@ import { auth } from "@/lib/auth";
 import { getRoadmapIndex } from "@/lib/data/roadmap";
 import { MasteryChip } from "@/components/core/MasteryChip.jsx";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
+import { FollowNicheButton } from "../skills/_components/FollowNicheButton";
+import { FollowedNicheFrame } from "../skills/_components/FollowedNicheFrame";
 import { NicheGrid, NicheTeaserFallback } from "../skills/_components/NicheGrid";
 
 export const metadata: Metadata = {
@@ -20,6 +22,7 @@ export default async function RoadmapIndexPage() {
   const data = await getRoadmapIndex();
 
   return (
+    <FollowedNicheFrame>
     <div className="sf-dash">
       <header className="sf-page-head">
         <h1>Roadmaps</h1>
@@ -31,7 +34,7 @@ export default async function RoadmapIndexPage() {
           <EmptyState
             icon="route"
             title="No skill followed yet"
-            description="Add a skill to open its path."
+            description="Follow a skill below to open its path."
             action={
               <a className="sf-roadmap-link" href="#roadmap-more">
                 See skills
@@ -53,10 +56,11 @@ export default async function RoadmapIndexPage() {
                         {row.stageTitle ? ` · ${row.stageTitle}` : ""}
                       </p>
                       <MasteryChip percent={row.skill.masteryPercent} />
-                      <p className="sf-roadmap-actions">
+                      <div className="sf-roadmap-actions">
+                        <FollowNicheButton skillId={row.skill.id} followed name={row.skill.name} />
                         <Link href={row.continueHref}>Continue</Link>
                         <Link href={`/roadmap/${row.skill.slug}`}>Open path</Link>
-                      </p>
+                      </div>
                     </div>
                   </article>
                 </li>
@@ -72,5 +76,6 @@ export default async function RoadmapIndexPage() {
         </Suspense>
       </section>
     </div>
+    </FollowedNicheFrame>
   );
 }

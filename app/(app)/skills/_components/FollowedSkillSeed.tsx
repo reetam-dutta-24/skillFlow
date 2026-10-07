@@ -1,6 +1,6 @@
 import { auth } from "@/lib/auth";
 import { loadFollowedSkillIds } from "@/lib/data/catalog";
-import { PublishFollowedIds } from "./SkillBrowse";
+import { PublishFollowedIds } from "./followed-context";
 
 /** Follow marks are personal. They update the cached grid after the shared cards are on screen. */
 export async function FollowedSkillSeed() {

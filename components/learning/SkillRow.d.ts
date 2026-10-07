@@ -11,6 +11,8 @@ export interface SkillRowProps extends React.HTMLAttributes<HTMLElement> {
   mastery?: number;
   /** Route for the roadmap control. Used instead of `onOpenRoadmap` when the destination is a page. */
   roadmapHref?: string;
+  /** When set, the row can stop following this skill. Explain-back history stays. */
+  skillId?: string;
   /** Hide the scroll arrows when the row has nothing to scroll. */
   scrollable?: boolean;
   onOpenRoadmap?: () => void;

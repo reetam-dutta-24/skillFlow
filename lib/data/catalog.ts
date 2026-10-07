@@ -118,3 +118,17 @@ export async function loadFollowedSkillIds(userId: string): Promise<string[]> {
   });
   return rows.map((row) => row.skillId);
 }
+
+/** Paths this account follows. Read on the request. The row is the follow. */
+export async function loadFollowedNiches(userId: string) {
+  const rows = await prisma.userSkillProgress.findMany({
+    where: { userId },
+    orderBy: { startedAt: "asc" },
+    select: { skill: { select: { slug: true, name: true, status: true } } },
+  });
+  return rows.map((row) => ({
+    slug: row.skill.slug,
+    name: row.skill.name,
+    href: row.skill.status === "AVAILABLE" ? `/roadmap/${row.skill.slug}` : null,
+  }));
+}

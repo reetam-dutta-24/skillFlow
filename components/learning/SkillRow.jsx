@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import { FollowNicheButton } from "@/app/(app)/skills/_components/FollowNicheButton";
 import { Icon } from "../core/Icon.jsx";
 
 const roadmapStyle = {
@@ -17,7 +18,7 @@ const roadmapStyle = {
 };
 
 /** One horizontally scrollable row per skill — segmented, never blended. */
-export function SkillRow({ title, subtitle, mastery, roadmapHref, scrollable = true, onOpenRoadmap, children, style, ...rest }) {
+export function SkillRow({ title, subtitle, mastery, roadmapHref, skillId, scrollable = true, onOpenRoadmap, children, style, ...rest }) {
   const ref = React.useRef(null);
   function scroll(dir) {
     const el = ref.current;
@@ -33,6 +34,7 @@ export function SkillRow({ title, subtitle, mastery, roadmapHref, scrollable = t
           {subtitle ? <p style={{ margin: "2px 0 0", fontSize: "var(--text-xs)", color: "var(--text-muted)" }}>{subtitle}</p> : null}
         </div>
         {mastery != null ? <span style={{ fontSize: "var(--text-xs)", color: "var(--text-accent)", fontWeight: "var(--weight-semibold)" }}>{mastery}% mastery</span> : null}
+        {skillId ? <FollowNicheButton skillId={skillId} followed name={title} /> : null}
         {roadmapHref ? (
           <Link href={roadmapHref} style={roadmapStyle}>Roadmap</Link>
         ) : onOpenRoadmap ? (

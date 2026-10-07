@@ -10,6 +10,7 @@ import { EmptyState } from "@/components/feedback/EmptyState.jsx";
 import { LessonCard } from "@/components/learning/LessonCard.jsx";
 import { SkillRow } from "@/components/learning/SkillRow.jsx";
 import { StreakBanner } from "@/components/learning/StreakBanner.jsx";
+import { FollowedNicheFrame } from "../skills/_components/FollowedNicheFrame";
 import { NicheGrid, NicheTeaserFallback } from "../skills/_components/NicheGrid";
 
 function cardStatus(status: LessonLaneStatus) {
@@ -46,6 +47,7 @@ export default async function DashboardPage() {
   const first = session.user.name?.trim().split(/\s+/)[0];
 
   return (
+    <FollowedNicheFrame>
     <div className="sf-dash">
       <header className="sf-page-head">
         <h1>Home</h1>
@@ -86,7 +88,7 @@ export default async function DashboardPage() {
           <EmptyState
             icon="route"
             title="No skill followed yet"
-            description="Pick a skill during onboarding to open its path."
+            description="Follow a skill below to open its path."
           />
         ) : (
           data.followed.map((row) => (
@@ -95,6 +97,7 @@ export default async function DashboardPage() {
             title={row.skill.name}
             subtitle={row.stagePosition}
             mastery={row.skill.masteryPercent}
+            skillId={row.skill.id}
             roadmapHref={row.roadmapHref}
             scrollable={row.lane.length > 0}
           >
@@ -130,5 +133,6 @@ export default async function DashboardPage() {
         </Suspense>
       </section>
     </div>
+    </FollowedNicheFrame>
   );
 }

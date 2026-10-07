@@ -1,11 +1,13 @@
 "use client";
 
-import { createContext, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useMemo, useRef, useState } from "react";
 import { SkillImage } from "@/components/core/SkillImage";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Icon } from "@/components/core/Icon.jsx";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
+import { FollowNicheButton } from "./FollowNicheButton";
+import { useFollowedSkill } from "./followed-context";
 import { NICHE_PAGE_SIZE, NICHE_TEASER_CLEAR, NICHE_TEASER_PEEK } from "./niche-layout";
 import { usePremiumAccess } from "../../_components/premium-access";
 
@@ -41,27 +43,6 @@ export type BrowseSkill = {
 };
 
 const EASE = [0.22, 1, 0.36, 1] as const;
-
-const FollowedIdsContext = createContext<ReadonlySet<string> | null>(null);
-const PublishFollowedContext = createContext<(ids: string[]) => void>(() => {});
-
-export function FollowedOverrideProvider({ children }: { children: ReactNode }) {
-  const [ids, setIds] = useState<ReadonlySet<string> | null>(null);
-  const publish = useMemo(() => (next: string[]) => setIds(new Set(next)), []);
-  return (
-    <PublishFollowedContext.Provider value={publish}>
-      <FollowedIdsContext.Provider value={ids}>{children}</FollowedIdsContext.Provider>
-    </PublishFollowedContext.Provider>
-  );
-}
-
-export function PublishFollowedIds({ ids }: { ids: string[] }) {
-  const publish = useContext(PublishFollowedContext);
-  useEffect(() => {
-    publish(ids);
-  }, [ids, publish]);
-  return null;
-}
 
 function matches(skill: BrowseSkill, query: string, filter: FilterId) {
   if (filter === "open" && (skill.status !== "available" || skill.offer !== "FREE")) return false;
@@ -230,10 +211,10 @@ export function SkillBrowse({ skills, mode = "page" }: { skills: BrowseSkill[]; 
 }
 
 function SkillCard({ skill, preview = false }: { skill: BrowseSkill; preview?: boolean }) {
-  const followedIds = useContext(FollowedIdsContext);
   const premium = usePremiumAccess();
-  const followed = followedIds ? followedIds.has(skill.id) : skill.followed;
+  const followed = useFollowedSkill(skill.id, skill.followed);
   const view = followed === skill.followed ? skill : { ...skill, followed };
+  const canFollow = !preview && view.status === "available" && (view.offer === "FREE" || premium);
   const href =
     view.href ??
     (premium && view.status === "available" && view.offer === "MONETIZED" ? `/roadmap/${view.slug}` : null);
@@ -273,13 +254,16 @@ function SkillCard({ skill, preview = false }: { skill: BrowseSkill; preview?: b
     </>
   );
 
-  if (preview || !href) {
-    return <article className={href ? "sf-skill-tile" : "sf-skill-tile is-soon"}>{body}</article>;
-  }
-
   return (
-    <Link className="sf-skill-tile" href={href}>
-      {body}
-    </Link>
+    <article className={href ? "sf-skill-tile" : "sf-skill-tile is-soon"}>
+      {href && !preview ? (
+        <Link className="sf-skill-tile-hit" href={href}>
+          {body}
+        </Link>
+      ) : (
+        body
+      )}
+      {canFollow ? <FollowNicheButton skillId={view.id} followed={followed} name={view.name} /> : null}
+    </article>
   );
 }

@@ -3,30 +3,23 @@ import { Prisma } from "@prisma/client";
 import { isStoredAccent } from "@/lib/accent";
 import { auth } from "@/lib/auth";
 import { userHasPremium } from "@/lib/billing/access";
-import { loadCatalog } from "@/lib/data/catalog";
 import { prisma } from "@/lib/prisma";
-import type { SkillStatus } from "@/lib/types/domain";
-
-export type SettingsSkill = { id: string; name: string; slug: string; status: SkillStatus; offer: "FREE" | "MONETIZED"; followed: boolean };
 
 const SIGN_IN_AGAIN = "Sign in again before saving.";
 
 export async function getSettingsProfile() {
   const session = await auth();
   const userId = session?.user?.id;
-  const [catalog, user] = await Promise.all([
-    loadCatalog(),
-    userId
-      ? prisma.user.findUnique({
-          where: { id: userId },
-          select: {
-            name: true,
-            email: true,
-            learnerProfile: { select: { accent: true, city: true, country: true, showOnMap: true } },
-          },
-        })
-      : Promise.resolve(null),
-  ]);
+  const user = userId
+    ? await prisma.user.findUnique({
+        where: { id: userId },
+        select: {
+          name: true,
+          email: true,
+          learnerProfile: { select: { accent: true, city: true, country: true, showOnMap: true } },
+        },
+      })
+    : null;
   const name = (user?.name ?? session?.user?.name ?? "").trim();
   const email = user?.email ?? session?.user?.email ?? "";
 
@@ -37,14 +30,6 @@ export async function getSettingsProfile() {
     name,
     email,
     initial: name.charAt(0).toUpperCase() || "?",
-    skills: catalog.map((entry) => ({
-      id: entry.skill.id,
-      name: entry.skill.name,
-      slug: entry.skill.slug,
-      status: entry.skill.status,
-      offer: entry.skill.offer,
-      followed: entry.skill.followed,
-    })),
     accent: isStoredAccent(storedAccent) ? storedAccent : "tide",
     streakReminder: true,
     map: {

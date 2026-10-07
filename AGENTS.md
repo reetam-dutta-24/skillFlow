@@ -143,7 +143,7 @@ Do not run `npx prisma db seed`. The seed resets admin passwords and rewrites ev
 Wired to Postgres:
 
 - Niches, roadmaps, lessons, and clips read `Skill`, `RoadmapStage`, and `Resource`.
-- Home shows one row per followed skill. Settings → Add follows a free path and writes `UserSkillProgress`. Settings → Remove deletes that progress row and keeps explain-back history. A Premium path cannot be followed. Home and the roadmap index show a short niche teaser that links to `/skills`. They do not follow a skill.
+- Home shows one row per followed skill. Follow is the `UserSkillProgress` row. Niches, Home, and Roadmaps put Follow or Following on each open niche. Following toggles off and keeps explain-back history. Saving a personal plan follows that path. Onboarding still follows the paths chosen there. Settings no longer adds or removes niches. A Premium path cannot be followed without Premium. A profile lists how many niches that account follows, and their names.
 - A niche card links to `/roadmap/[slug]` only when the skill is available and has stages. A Premium card says Premium and is not a link. The Open filter on `/skills` is the free paths.
 - Admin catalog (`/admin/catalog`) edits skills that already have stages, and lists every niche. Needs-review filter is `#catalog-review-only`.
 - Submit writes `ResourceSubmission`. Admin approval creates a `Resource`. Reject stores a note.

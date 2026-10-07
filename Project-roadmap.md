@@ -120,7 +120,7 @@ Signed-in pages are not fully static. Follow marks, mastery, and the account men
 - Lesson screens, including a stage that is waiting on the previous explain-back. Every stage on a free path can be opened. A later stage stays shut until this learner has passed the earlier ones
 - Clip items from open stages
 - The submit-a-resource skill picker
-- The public catalog those screens read (`lib/data/public-catalog.ts`)
+- The public catalog those screens read (`lib/data/public-catalog.ts`). Event submit, practice, creator upload, and the admin grant form take their niche lists from this cache. A practice page still sorts followed niches first on the request.
 
 The lifetime is `cacheLife("hours")`. The tag is `catalog` (`lib/cache/tags.ts`). An admin catalog save and an approved submission call `invalidateCatalog()`, which is `updateTag`, so the edit shows up immediately. A catalog import run from a script cannot call `updateTag`. That change shows up when the hour-long cache refreshes.
 
@@ -128,11 +128,11 @@ The niches page does not cache each page separately. It caches the full list onc
 
 Progress, streaks, follow state, explain-back history, and the account menu stay on the request. The account name is cached per user under `account:${userId}` and expires when that person saves their name. A cached function returns plain data. It does not call `auth()`, `cookies()`, or `headers()`.
 
-Other shared caches, each with its own tag: merged community lists (`community`), learner-map city totals (`learner-map`), Nominatim city search (`geocode`, lifetime `days`), saved nearby events (`nearby-events`), and text read from a public page for a practice note (`practice-source`). A write that changes one of those calls the matching invalidate function. Development reads map totals and events fresh.
+Other shared caches, each with its own tag: merged community lists and one published post (`community`), learner-map city totals (`learner-map`), Nominatim city search (`geocode`, lifetime `days`), saved nearby events (`nearby-events`), and text read from a public page for a practice note (`practice-source`). The Stripe price label is cached for an hour without a tag. A failed read is not stored. The subscription check stays on the request. A write that changes one of those calls the matching invalidate function. Development reads map totals and events fresh.
 
 Roadmap stage status (passed, in progress, ready) stays personal, so the roadmap page is not one cached component. It reads the cached catalog and overlays that person's progress.
 
-Public Open Source data (merged lists, member counts, gaps, the changelog, contributors, contributor profiles) is cached with the `community` tag. A merge, an unmerge, a resubmission, a role change, a gap change, a join, or a useful mark calls `invalidateCommunity()`. The review queue, the sidebar Review count, the author's own pages, the maintainers panel, and `/admin/community` stay on the request.
+Public Open Source data (merged lists, one published post, member counts, gaps, the changelog, contributors, contributor profiles) is cached with the `community` tag. Questions on a post stay on the request. A merge, an unmerge, a resubmission, a role change, a gap change, a join, or a useful mark calls `invalidateCommunity()`. The review queue, the sidebar Review count, the author's own pages, the maintainers panel, and `/admin/community` stay on the request.
 
 There is no Redis layer. The cache is Next's own store. `ioredis` is in the dependencies and is unused.
 

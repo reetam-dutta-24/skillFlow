@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { auth } from "@/lib/auth";
+import { loadPublicCatalog } from "@/lib/data/public-catalog";
 import { prisma } from "@/lib/prisma";
 import { SubmitEventForm } from "../_components/SubmitEventForm";
 
@@ -9,10 +10,13 @@ export const metadata: Metadata = { title: "Submit an event" };
 export default async function SubmitEventPage() {
   const session = await auth();
   if (!session?.user?.id) return null;
-  const [skills, profile] = await Promise.all([
-    prisma.skill.findMany({ orderBy: { name: "asc" }, select: { slug: true, name: true } }),
+  const [catalog, profile] = await Promise.all([
+    loadPublicCatalog(),
     prisma.learnerProfile.findUnique({ where: { userId: session.user.id }, select: { city: true } }),
   ]);
+  const skills = catalog
+    .map((entry) => ({ slug: entry.skill.slug, name: entry.skill.name }))
+    .sort((a, b) => a.name.localeCompare(b.name));
 
   return (
     <div className="sf-map-page">

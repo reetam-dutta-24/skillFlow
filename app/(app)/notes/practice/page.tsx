@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
+import { loadFollowedSkillIds } from "@/lib/data/catalog";
+import { loadPublicCatalog } from "@/lib/data/public-catalog";
 import { PracticeForm } from "./_components/PracticeForm";
 
 export const metadata: Metadata = { title: "Practice · Notes" };
@@ -11,19 +12,15 @@ export default async function PracticePage() {
   const session = await auth();
   if (!session?.user?.id) redirect("/login");
 
-  const rows = await prisma.skill.findMany({
-    where: { status: "AVAILABLE", stages: { some: {} } },
-    orderBy: { order: "asc" },
-    select: {
-      id: true,
-      name: true,
-      order: true,
-      userProgress: { where: { userId: session.user.id }, select: { id: true } },
-    },
-  });
-  const skills = [...rows]
-    .sort((a, b) => Number(b.userProgress.length > 0) - Number(a.userProgress.length > 0) || a.order - b.order)
-    .map((skill) => ({ id: skill.id, name: skill.name }));
+  const [catalog, followed] = await Promise.all([loadPublicCatalog(), loadFollowedSkillIds(session.user.id)]);
+  const followedIds = new Set(followed);
+  const skills = catalog
+    .filter((entry) => entry.skill.status === "available" && entry.stages.length > 0)
+    .sort(
+      (a, b) =>
+        Number(followedIds.has(b.skill.id)) - Number(followedIds.has(a.skill.id)) || a.skill.order - b.skill.order,
+    )
+    .map((entry) => ({ id: entry.skill.id, name: entry.skill.name }));
 
   return (
     <div className="sf-notes-page">

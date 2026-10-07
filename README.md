@@ -55,7 +55,7 @@ A dead stored link can be marked unavailable. The lesson keeps the saved title, 
 
 ## Tech stack
 
-- Next.js 16.3.4, React 19, TypeScript, Tailwind CSS v4. Landing and auth pages are static. Shared catalog screens (niche grid, lessons, clips, submit picker) are cached for every visitor under the `catalog` tag. Public community lists and contributor profiles are cached under the `community` tag. Learner-map totals are cached under the `learner-map` tag, city search under `geocode`, and saved nearby events under `nearby-events`. Progress, the account menu, the review queue, and a person's own contributions stay per request
+- Next.js 16.3.4, React 19, TypeScript, Tailwind CSS v4. Landing and auth pages are static. Shared catalog screens (niche grid, lessons, clips, submit picker) are cached for every visitor under the `catalog` tag. Public community lists, a published post, and contributor profiles are cached under the `community` tag. The Stripe price label is cached for an hour. Learner-map totals are cached under the `learner-map` tag, city search under `geocode`, and saved nearby events under `nearby-events`. Progress, the account menu, the review queue, and a person's own contributions stay per request
 - PostgreSQL and Prisma 6
 - Auth.js v5 — email and password with bcrypt, JWT sessions. Google is configured in code and is not on the login form
 - Explain-back grading uses Gemini’s free tier when `GEMINI_API_KEY` is set. `OPENAI_API_KEY` is the fallback when that key is empty. With no key, the catalog questions stay and a stage cannot be passed
@@ -124,7 +124,7 @@ Premium is one subscription. Checkout and the customer portal run on Stripe. The
 - `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` — the publishable key. Checkout uses it on Stripe's page. The upgrade button sends the browser there.
 - `STRIPE_PRICE_ID` — the price for that subscription.
 - `STRIPE_WEBHOOK_SECRET` — the signing secret for `POST /api/stripe/webhook`.
-- `STRIPE_PRICE_LABEL` — optional words shown on the upgrade page. Checkout shows the real price.
+- `STRIPE_PRICE_LABEL` — optional fallback if Stripe cannot be read. The upgrade page caches the real price for an hour. Checkout shows that price.
 
 ## Explain-back model
 

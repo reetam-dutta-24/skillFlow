@@ -338,6 +338,105 @@ export async function loadContributorProfile(userId: string): Promise<Contributo
   return contributorProfile(userId);
 }
 
+export type PublishedPost = {
+  id: string;
+  type: ContributionType;
+  status: "MERGED";
+  title: string;
+  summary: string;
+  body: string | null;
+  imageUrl: string | null;
+  sources: string[];
+  steps: unknown;
+  tags: string[];
+  disclosure: Disclosure;
+  linkStatus: string;
+  createdAt: string;
+  mergedAt: string | null;
+  author: { id: string; name: string | null; image: string | null } | null;
+  skill: { id: string; slug: string; name: string };
+  stage: { order: number; title: string } | null;
+  reviews: {
+    id: string;
+    decision: string;
+    reason: string | null;
+    feedback: string | null;
+    unmerge: boolean;
+    createdAt: string;
+    reviewer: { name: string | null } | null;
+  }[];
+};
+
+/** One published post. The same page for every visitor. Questions stay off this cache. */
+export async function loadPublishedContribution(id: string): Promise<PublishedPost | null> {
+  "use cache";
+  cacheLife("hours");
+  cacheTag(COMMUNITY_TAG);
+
+  const row = await prisma.communityContribution.findFirst({
+    where: { id, status: "MERGED" },
+    select: {
+      id: true,
+      type: true,
+      title: true,
+      summary: true,
+      body: true,
+      imageUrl: true,
+      sources: true,
+      steps: true,
+      tags: true,
+      disclosure: true,
+      linkStatus: true,
+      createdAt: true,
+      mergedAt: true,
+      author: { select: { id: true, name: true, image: true } },
+      skill: { select: { id: true, slug: true, name: true } },
+      stage: { select: { order: true, title: true } },
+      reviews: {
+        orderBy: { createdAt: "asc" as const },
+        select: {
+          id: true,
+          decision: true,
+          reason: true,
+          feedback: true,
+          unmerge: true,
+          createdAt: true,
+          reviewer: { select: { name: true } },
+        },
+      },
+    },
+  });
+  if (!row) return null;
+  return {
+    id: row.id,
+    type: row.type,
+    status: "MERGED",
+    title: row.title,
+    summary: row.summary,
+    body: row.body,
+    imageUrl: row.imageUrl,
+    sources: row.sources,
+    steps: row.steps,
+    tags: row.tags,
+    disclosure: row.disclosure,
+    linkStatus: row.linkStatus,
+    createdAt: row.createdAt.toISOString(),
+    mergedAt: row.mergedAt?.toISOString() ?? null,
+    author: row.author,
+    skill: row.skill,
+    stage: row.stage,
+    reviews: row.reviews.map((review) => ({
+      id: review.id,
+      decision: review.decision,
+      reason: review.reason,
+      feedback: review.feedback,
+      unmerge: review.unmerge,
+      createdAt: review.createdAt.toISOString(),
+      reviewer: review.reviewer ? { name: review.reviewer.name } : null,
+    })),
+  };
+}
+
 /** Skills this person follows. Stays on the request. */
 export async function myFollowedSkillIds(userId: string) {
   const rows = await prisma.userSkillProgress.findMany({

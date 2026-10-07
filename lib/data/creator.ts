@@ -1,6 +1,7 @@
 import "server-only";
 import { cacheLife, cacheTag } from "next/cache";
 import { CATALOG_TAG } from "@/lib/cache/tags";
+import { loadPublicCatalog } from "@/lib/data/public-catalog";
 import { prisma } from "@/lib/prisma";
 
 export type CreatorSkillOption = { id: string; name: string; slug: string };
@@ -82,12 +83,12 @@ async function statsFor(ids: string[]) {
   return empty;
 }
 
+/** Niches a creator can attach a video to. Read from the shared catalog. */
 export async function listCreatorSkills(): Promise<CreatorSkillOption[]> {
-  return prisma.skill.findMany({
-    where: { status: "AVAILABLE" },
-    orderBy: { order: "asc" },
-    select: { id: true, name: true, slug: true },
-  });
+  const catalog = await loadPublicCatalog();
+  return catalog
+    .filter((entry) => entry.skill.status === "available")
+    .map((entry) => ({ id: entry.skill.id, name: entry.skill.name, slug: entry.skill.slug }));
 }
 
 export async function listStudioWorks(ownerId: string): Promise<StudioWork[]> {

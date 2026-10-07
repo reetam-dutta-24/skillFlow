@@ -4,6 +4,7 @@ import { notFound, redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { PersonAvatar } from "@/components/community/PersonAvatar";
 import { COMMUNITY_LABEL, formatWhen, reviewEventLabel, reviewReasonLabel } from "@/lib/community-copy";
+import { loadPublishedContribution, type PublishedPost } from "@/lib/data/community";
 import { communityActor } from "@/lib/services/community/actor";
 import { getContribution } from "@/lib/services/community/contributions";
 import { canModerate, canReview } from "@/lib/services/community/permissions";
@@ -18,8 +19,43 @@ type PageProps = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
 
+type PostView = Omit<PublishedPost, "status"> & { status: string };
+
+function waitingPost(row: NonNullable<Awaited<ReturnType<typeof getContribution>>>): PostView {
+  return {
+    id: row.id,
+    type: row.type,
+    status: row.status,
+    title: row.title,
+    summary: row.summary,
+    body: row.body,
+    imageUrl: row.imageUrl,
+    sources: row.sources,
+    steps: row.steps,
+    tags: row.tags,
+    disclosure: row.disclosure,
+    linkStatus: row.linkStatus,
+    createdAt: row.createdAt.toISOString(),
+    mergedAt: row.mergedAt?.toISOString() ?? null,
+    author: row.author,
+    skill: { id: row.skill.id, slug: row.skill.slug, name: row.skill.name },
+    stage: row.stage ? { order: row.stage.order, title: row.stage.title } : null,
+    reviews: row.reviews.map((review) => ({
+      id: review.id,
+      decision: review.decision,
+      reason: review.reason,
+      feedback: review.feedback,
+      unmerge: review.unmerge,
+      createdAt: review.createdAt.toISOString(),
+      reviewer: review.reviewer ? { name: review.reviewer.name } : null,
+    })),
+  };
+}
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { id } = await params;
+  const published = await loadPublishedContribution(id);
+  if (published) return { title: `${published.title} · Open Source` };
   const row = await getContribution(id);
   return { title: row ? `${row.title} · Open Source` : "Open Source" };
 }
@@ -29,7 +65,9 @@ export default async function ContributionPage({ params, searchParams }: PagePro
   if (!session?.user?.id) redirect("/login");
 
   const { skillSlug, id } = await params;
-  const row = await getContribution(id);
+  const published = await loadPublishedContribution(id);
+  const waiting = published ? null : await getContribution(id);
+  const row: PostView | null = published ?? (waiting ? waitingPost(waiting) : null);
   if (!row || row.skill.slug !== skillSlug) notFound();
 
   const actor = await communityActor(session.user.id);
@@ -71,11 +109,11 @@ export default async function ContributionPage({ params, searchParams }: PagePro
             <p>Former member</p>
           )}
           <p>
-            <time dateTime={row.createdAt.toISOString()}>{formatWhen(row.createdAt.toISOString())}</time>
+            <time dateTime={row.createdAt}>{formatWhen(row.createdAt)}</time>
           </p>
           {row.mergedAt ? (
             <p>
-              Published <time dateTime={row.mergedAt.toISOString()}>{formatWhen(row.mergedAt.toISOString())}</time>
+              Published <time dateTime={row.mergedAt}>{formatWhen(row.mergedAt)}</time>
             </p>
           ) : null}
           <p>{row.skill.name}</p>
@@ -116,7 +154,7 @@ export default async function ContributionPage({ params, searchParams }: PagePro
                   {review.reason ? ` · ${reviewReasonLabel(review.reason)}` : ""}
                 </p>
                 {review.feedback ? <p>{review.feedback}</p> : null}
-                <time dateTime={review.createdAt.toISOString()}>{formatWhen(review.createdAt.toISOString())}</time>
+                <time dateTime={review.createdAt}>{formatWhen(review.createdAt)}</time>
               </li>
             ))}
           </ul>

@@ -1,4 +1,5 @@
 import "server-only";
+import { loadPublicCatalog } from "@/lib/data/public-catalog";
 import { prisma } from "@/lib/prisma";
 
 // Maintainers panel and /admin/community. Per request, behind a role check in the page. Never cached, never emails.
@@ -139,7 +140,8 @@ export async function loadAdminCommunity(search: string) {
   };
 }
 
-/** Every niche, for the grant form. */
+/** Every niche name, for the grant form. The names are the shared catalog. Roles stay on the request. */
 export async function listNicheOptions() {
-  return prisma.skill.findMany({ orderBy: { order: "asc" }, select: { id: true, name: true } });
+  const catalog = await loadPublicCatalog();
+  return catalog.map((entry) => ({ id: entry.skill.id, name: entry.skill.name }));
 }

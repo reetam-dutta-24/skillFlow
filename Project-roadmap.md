@@ -264,7 +264,7 @@ Stage photos were generated for all 10 Content Creation stages and all 8 Travel 
 - A Premium niche has a catalog. It does not. Stripe charges someone when the keys are missing. It does not.
 - A creator has a rating or earnings.
 - The app is deployed, monitored, or covered by an end-to-end test.
-- Every accent was checked for contrast on both themes.
+- Every accent was checked for contrast on both themes. The ten presets were measured; Spectrum and custom gradients were not.
 - Onboarding offers all thirty paths. It offers five. Settings can follow any free path.
 
 ---
@@ -283,7 +283,7 @@ Do not start a later phase's backend until the previous phase's open boxes are d
 - [x] **Version fields on explain-back** — columns exist. No second version has been stored.
 - [x] **Conventional commits** — history uses `feat`, `fix`, and `chore`.
 - [ ] **OWASP baseline** — passwords are hashed, secrets stay in `.env`, admin routes check role. A full threat pass is not done.
-- [ ] **Accessibility** — semantic headings, labels, and focus are in the kit. A full keyboard and contrast pass is not done.
+- [x] **Accessibility** — keyboard, labels, focus traps, 44px targets, and measured contrast on the ten presets in both themes (`UI-AUDIT.md`). Lighthouse accessibility is 100 on the landing, Home, a path, and a lesson. Spectrum and custom gradients are not measured.
 - [ ] **Tests** — unit tests cover mastery, streaks, explain-back judging, plans, events, and community rules. Integration tests and an end-to-end pass are not written.
 - [x] **README and agent context** — `README.md`, `AGENTS.md`, and this file match the thirty free paths and the shared-content cache. The case study is not written.
 
@@ -295,7 +295,7 @@ Do not start a later phase's backend until the previous phase's open boxes are d
 - [x] Reliability of a dead link — a stored source can be marked unavailable and the lesson keeps the snapshot
 - [x] Maintainability of the UI layer — tokens, typed view models, `lib/data` boundary
 - [ ] Observability (Sentry or equivalent)
-- [ ] Usability signed off on every screen in both themes
+- [x] Usability pass on every screen in both themes, at 375px, 768px, and desktop (`UI-AUDIT.md`, `docs/ui-audit/`)
 
 ---
 
@@ -384,7 +384,7 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 - [x] App shell, home, clips, roadmaps, lesson, settings, submit, admin catalog
 - [x] Shared catalog cache for the niche grid, lessons, clips, and the submit picker. Admin saves expire it
 - [x] Loading skeletons, empty states, and the locked-stage state
-- [x] Stage photos on Full-Stack, Content Creation, and Travel Vlogging. The other free paths have no committed stage photos
+- [x] Stage photos on every stage of the thirty free paths, committed under `public/stages`
 - [x] Settings follow and unfollow
 - [x] Explain-back UI calling a real grader
 - [x] Home, Niches, and Paths follow from the card. Settings no longer adds or removes niches
@@ -433,7 +433,7 @@ The mock catalog in `lib/mock/catalog.ts` is leftover sample data for the screen
 - [ ] Error monitoring
 - [ ] Separate env files, no secrets in git
 - [ ] Migrate as a deploy step
-- [ ] Stage photos are not in git. A deploy needs those files, or the cards render without them
+- [x] Stage photos are in git (`public/stages`), so a deploy has them
 
 ## PHASE 10 — Documentation and case study
 **Status: 🔶 THE WORKING DOCS MATCH THE APP. THE CASE STUDY IS NOT WRITTEN**
@@ -490,7 +490,7 @@ The plan itself is plain code. It does not skip stages or explain-backs. Earlier
 Every slug in `FREE_PATH_SLUGS` has a researched JSON file and is imported. A niche outside that list is Premium: available, monetized, and zero stages. A subscriber can open the card and follow it. Do not invent those catalogs. Stripe Checkout is the payment. Without keys, the upgrade page says it is not configured.
 
 ## V2 PHASE 10 — Smaller extras
-**Status: 🔶 UI ONLY for two of these**
+**Status: ✅ DONE**
 
 - [x] Usage-cutoff dialog (soft: take a break, or continue)
 - [x] Bring-your-own-resource page that turns a resource into a sample explain-back gate prompt

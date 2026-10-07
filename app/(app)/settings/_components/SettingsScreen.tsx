@@ -100,6 +100,7 @@ export function SettingsScreen({
                   <Link href="/creator">Creator studio</Link>
                   <Link href={`/profile/${userId}`}>Public profile</Link>
                   <Link href="/onboarding?edit=1">Edit profile answers</Link>
+                  <Link href="/career-test">Career-fit test</Link>
                 </p>
               ) : null}
             </div>

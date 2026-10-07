@@ -55,6 +55,10 @@ const sections: LegalSection[] = [
             and topics you already know. If you describe your goals in your own words, we keep the preferences, not that description.
           </li>
           <li>Practice notes, and the link, file, or passage you practised against.</li>
+          <li>
+            If you take the career-fit test: your answers to its 180 questions, the personality and interest scores worked out from them,
+            and your written report. The test is optional, and you can delete it at any time from the report.
+          </li>
           <li>Your theme and accent color.</li>
         </ul>
         <h3>Your city, only if you add it</h3>
@@ -124,7 +128,8 @@ const sections: LegalSection[] = [
           <li>
             <strong>Google (Gemini) or OpenAI.</strong> Your explanation, the idea it is about, and that stage&apos;s title and notes are sent
             to an AI model, which writes the review. The same goes for recall answers, practice answers, note summaries, and a plan
-            description you write. Your name and email are not sent.
+            description you write. For the career-fit report, only your scores, your onboarding goals and stage, and the names and first
+            stages of your top paths are sent, never your 180 answers. Your name and email are not sent.
           </li>
           <li>
             <strong>Google sign-in.</strong> If you choose Continue with Google, Google confirms who you are and shares the details listed
@@ -172,7 +177,8 @@ const sections: LegalSection[] = [
         <li>
           The learner map shows a number per city and never a name. A city with fewer than five learners who opted in is not shown at all.
         </li>
-        <li>Your explanations, notes, recall answers, plan, city, and progress are private to you.</li>
+        <li>Your explanations, notes, recall answers, plan, city, progress, and career-fit test results are private to you.</li>
+        <li>A career-fit image leaves SkillFlow only when you download it and share it yourself.</li>
       </ul>
     ),
   },
@@ -213,7 +219,8 @@ const sections: LegalSection[] = [
       <>
         <p>
           We keep your account data while your account is open. When you ask us to delete your account, we delete it and the data linked to
-          it, including your answers, notes, plan, city, and progress. Your published contributions and videos are removed with it.
+          it, including your answers, notes, plan, city, progress, and career-fit results. Retaking or deleting the career-fit test removes
+          its answers and report straight away. Your published contributions and videos are removed with it.
         </p>
         <p>
           We may keep a small amount for longer where the law requires it, for example payment records, which Stripe also keeps under its

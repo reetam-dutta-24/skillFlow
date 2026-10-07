@@ -182,6 +182,29 @@ export async function askModelText(system: string, user: string): Promise<string
   return text.length > 0 ? text.slice(0, 2000) : null;
 }
 
+/** A JSON object from the same model, for longer structured writing (the career-fit report). Null on any failure. */
+export async function askModelJson(system: string, user: string): Promise<Record<string, unknown> | null> {
+  const config = explainModelConfig();
+  if (!config) return null;
+  const payload = {
+    model: config.model,
+    response_format: { type: "json_object" },
+    temperature: 0.4,
+    ...(config.provider === "gemini" ? { reasoning_effort: "low" } : {}),
+    messages: [
+      { role: "system", content: system },
+      { role: "user", content: user },
+    ],
+  };
+  const content = await modelContent(config, payload);
+  if (typeof content !== "string") return null;
+  try {
+    return asRecord(JSON.parse(content));
+  } catch {
+    return null;
+  }
+}
+
 export async function judgeExplanation(input: JudgeInput): Promise<JudgeReply | null> {
   const config = explainModelConfig();
   if (!config) return null;

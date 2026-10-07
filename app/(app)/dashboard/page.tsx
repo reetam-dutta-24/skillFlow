@@ -13,6 +13,7 @@ import { EmptyState } from "@/components/feedback/EmptyState.jsx";
 import { LessonCard } from "@/components/learning/LessonCard.jsx";
 import { SkillRow } from "@/components/learning/SkillRow.jsx";
 import { StreakBanner } from "@/components/learning/StreakBanner.jsx";
+import { CareerTestCard } from "@/components/dashboard/CareerTestCard";
 import { FollowedNicheFrame } from "../skills/_components/FollowedNicheFrame";
 import { NicheGrid, NicheTeaserFallback } from "../skills/_components/NicheGrid";
 
@@ -58,6 +59,7 @@ export default async function DashboardPage() {
         <h1>Home</h1>
         <p>{first ? `Welcome back, ${first}.` : "Welcome back."}</p>
       </header>
+      <CareerTestCard userId={session.user.id} />
       {data.currentStreak > 0 || data.nextLesson ? (
         <StreakBanner
           streak={data.currentStreak}

@@ -173,6 +173,10 @@ The October 2026 polish is written up in `UI-AUDIT.md`, with before and after sc
 
 Lighthouse 12 against `next start`, 7 October 2026. Signed-in pages score 63 on SEO because they send `noindex` on purpose.
 
+## Career-fit test
+
+`/career-test` is an optional, 180-question test: the IPIP-NEO-120 personality inventory (public domain) and the O*NET® Interest Profiler Short Form (USDOL/ETA, CC BY 4.0). Answers save after every page. The report shows your Holland interest code, your five traits and thirty facets, your top five of the thirty free paths with how to approach each, likely strengths, things worth watching, and how you learn best, and downloads as PNG or JPG. Scores come from plain code; Gemini only writes the narrative from those scores, with a rules-based report when there is no key. Home invites you to take it.
+
 ## What is still ahead
 
 Integration tests and an end-to-end pass are not written. Deploy, CI, and error monitoring are not started. The case study is not written. Premium niches have no catalogs. `Project-roadmap.md` is the phase list. `AGENTS.md` is the working context for the next session.

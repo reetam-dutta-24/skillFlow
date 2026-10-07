@@ -23,6 +23,7 @@ const protectedRoutes = [
   "/open-source",
   "/map",
   "/nearby",
+  "/career-test",
 ];
 
 export const proxy = auth((req) => {
@@ -48,6 +49,8 @@ export const config = {
     "/clips/:path*",
     "/onboarding",
     "/onboarding/:path*",
+    "/career-test",
+    "/career-test/:path*",
     "/roadmap",
     "/roadmap/:path*",
     "/lesson",

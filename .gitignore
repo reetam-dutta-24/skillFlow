@@ -46,3 +46,7 @@ next-env.d.ts
 # learner and admin uploads
 /public/uploads/*
 !/public/uploads/.gitkeep
+
+# local database dumps: contain tokens, hashes and personal data
+backup-*.sql
+*.dump

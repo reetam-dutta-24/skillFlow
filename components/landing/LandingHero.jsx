@@ -6,11 +6,11 @@ import { CtaLink } from "./CtaLink.jsx";
 
 /** Order starts with the clip named for the hero, then the rest, then repeats. */
 const CLIPS = [
-  "/landing/5240935-uhd_3840_2160_30fps.mp4",
-  "/landing/8037249-uhd_3840_2160_25fps.mp4",
-  "/landing/8089525-uhd_4096_2160_25fps.mp4",
-  "/landing/12315445-uhd_3840_2160_25fps.mp4",
-  "/landing/4451457-hd_1920_1080_24fps.mp4",
+    "/landing/hero-1.mp4",
+  "/landing/hero-2.mp4",
+  "/landing/hero-3.mp4",
+  "/landing/hero-4.mp4",
+  "/landing/hero-5.mp4",
 ];
 
 const FADE_MS = 900;

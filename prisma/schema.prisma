@@ -41,7 +41,7 @@ model User {
   lastActivityDate DateTime?
 
   skillProgress       UserSkillProgress[]
-  quizAttempts        QuizAttempt[]
+
   explainBackAttempts ExplainBackAttempt[]
 
   submittedResources ResourceSubmission[] @relation("Submitter")
@@ -233,7 +233,7 @@ model RoadmapStage {
 
   resources         Resource[]
   submissions       ResourceSubmission[]
-  quiz              Quiz?
+ 
   explainBackPrompt ExplainBackPrompt?
   stageCompletions  StageCompletion[]
   communityContributions CommunityContribution[]
@@ -326,44 +326,7 @@ model ResourceSubmission {
   reviewedBy  User?        @relation("Reviewer", fields: [reviewedById], references: [id])
 }
 
-// ── QUIZ ENGINE ──────────────────────
 
-model Quiz {
-  id      String @id @default(cuid())
-  stageId String @unique
-  version Int    @default(1)
-
-  stage     RoadmapStage   @relation(fields: [stageId], references: [id], onDelete: Cascade)
-  questions QuizQuestion[]
-  attempts  QuizAttempt[]
-
-  createdAt DateTime @default(now())
-}
-
-model QuizQuestion {
-  id              String @id @default(cuid())
-  quizId          String
-  prompt          String @db.Text
-  options         Json
-  correctOptionId String
-  explanation     String @db.Text
-  order           Int
-
-  quiz Quiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
-}
-
-model QuizAttempt {
-  id        String   @id @default(cuid())
-  userId    String
-  quizId    String
-  answers   Json
-  score     Float
-  passed    Boolean
-  createdAt DateTime @default(now())
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  quiz Quiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
-}
 
 // ── SOCRATIC EXPLAIN-BACK GATE ──────────────────────
 
@@ -495,7 +458,6 @@ model StageCompletion {
   userId  String
   stageId String
 
-  quizPassed        Boolean   @default(false)
   explainBackPassed Boolean   @default(false)
   completedAt       DateTime?
 

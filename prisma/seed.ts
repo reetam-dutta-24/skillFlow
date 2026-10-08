@@ -9,7 +9,12 @@ import { importCatalog } from "../scripts/import-catalog"
 
 const prisma = new PrismaClient()
 
-const ADMIN_PASSWORD = "admin123"
+// Admin accounts come from .env, never from code (this repo is public).
+const SEED_ADMIN_EMAILS = (process.env.SEED_ADMIN_EMAILS ?? "")
+  .split(",")
+  .map((e) => e.trim().toLowerCase())
+  .filter(Boolean)
+const SEED_ADMIN_PASSWORD = process.env.SEED_ADMIN_PASSWORD ?? ""
 
 const BASE_SKILLS = [
   {
@@ -73,6 +78,11 @@ function seedOffer(skill: { slug: string; isFlagship: boolean }) {
 }
 
 async function main() {
+  // Safety: the seed rewrites every niche. Never run it on production by accident.
+  if (process.env.NODE_ENV === "production" && process.env.ALLOW_PROD_SEED !== "yes") {
+    throw new Error("Refusing to seed in production. Set ALLOW_PROD_SEED=yes for a one-time run on an EMPTY database.")
+  }
+
   const skills = [
     ...BASE_SKILLS,
     ...EXTRA_NICHES.map((skill, index) => ({
@@ -123,21 +133,21 @@ async function main() {
 
   console.log("Skills seeded.")
 
-  const adminPassword = await bcrypt.hash(ADMIN_PASSWORD, 10)
-  const admins = [
-    { name: "admin1", email: "admin1.skillflow@gmail.com" },
-    { name: "admin2", email: "admin2.skillflow@gmail.com" },
-  ]
-
-  for (const admin of admins) {
-    await prisma.user.upsert({
-      where: { email: admin.email },
-      update: { name: admin.name, role: "ADMIN", password: adminPassword },
-      create: { ...admin, role: "ADMIN", password: adminPassword },
-    })
+  if (SEED_ADMIN_EMAILS.length === 0 || SEED_ADMIN_PASSWORD.length < 12) {
+    console.log("Skipping admin accounts: set SEED_ADMIN_EMAILS and a SEED_ADMIN_PASSWORD of 12+ characters in .env.")
+  } else {
+    const adminPassword = await bcrypt.hash(SEED_ADMIN_PASSWORD, 12)
+    for (const email of SEED_ADMIN_EMAILS) {
+      await prisma.user.upsert({
+        where: { email },
+        // Existing account: make sure it is an admin, but NEVER reset its password.
+        update: { role: "ADMIN" },
+        create: { email, name: email.split("@")[0], role: "ADMIN", password: adminPassword },
+      })
+    }
+    console.log(`Admin accounts ensured: ${SEED_ADMIN_EMAILS.length}.`)
   }
 
-  console.log("Admin accounts seeded.")
 
   await importCatalog("full-stack-web-dev", { apply: true })
   await importCatalog("content-creation", { apply: true })

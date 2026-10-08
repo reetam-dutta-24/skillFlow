@@ -24,12 +24,15 @@ import {
 import { saveLearnerProfile } from "@/app/onboarding/actions";
 import { saveMapCity, searchMapCities } from "@/app/(app)/settings/location-actions";
 import { ThemeToggle } from "../forms/ThemeToggle.jsx";
+import { ProfilePhotoPicker, photoPreview } from "../forms/ProfilePhotoPicker";
+import { MAX_DISPLAY_NAME, displayNameProblem } from "@/lib/profile-identity";
 import { Button } from "../core/Button.jsx";
 import { Icon } from "../core/Icon.jsx";
 import { PaginationDots } from "../navigation/PaginationDots.jsx";
 
-const STEPS = ["about", "city", "paths", "goals", "time", "accent", "ready"];
+const STEPS = ["profile", "about", "city", "paths", "goals", "time", "accent", "ready"];
 const TITLES = {
+  profile: "How others see you",
   about: "A little about you",
   city: "Where are you?",
   paths: "Pick your paths",
@@ -47,19 +50,22 @@ function toggle(list, id, max = Infinity) {
 }
 
 /**
- * Onboarding profile, seven short steps. Lists that can hold several answers (paths, goals, formats,
+ * Onboarding profile, eight short steps. The first is the display name and photo others see. Lists that can hold several answers (paths, goals, formats,
  * languages) are multi-select; age, stage, experience, pace, and time are one answer each.
  * The career-fit test is not here: Home offers it after onboarding.
  *
- * @param {{ name?: string, paths: { slug: string, name: string, image: string, group: string, description: string }[], editing?: boolean, initial?: any }} props
+ * @param {{ name?: string, image?: string | null, paths: { slug: string, name: string, image: string, group: string, description: string }[], editing?: boolean, initial?: any }} props
  */
-export function OnboardingWizard({ name = "", paths, editing = false, initial = null }) {
+export function OnboardingWizard({ name = "", image = null, paths, editing = false, initial = null }) {
   const router = useRouter();
   const reduce = useReducedMotion();
   const titleRef = useRef(null);
   const [phase, setPhase] = useState(editing ? "wizard" : "welcome");
   const [step, setStep] = useState(0);
   const [direction, setDirection] = useState(1);
+  const [displayName, setDisplayName] = useState(name);
+  const [photo, setPhoto] = useState({ kind: "keep" });
+  const [photoBusy, setPhotoBusy] = useState(false);
   const [ageRange, setAgeRange] = useState(initial?.ageRange ?? "");
   const [consent, setConsent] = useState(Boolean(initial?.guardianConsent));
   const [stage, setStage] = useState(initial?.stage ?? "");
@@ -97,6 +103,7 @@ export function OnboardingWizard({ name = "", paths, editing = false, initial = 
   const key = STEPS[step];
   const ready = key === "ready";
   const canContinue =
+    (key === "profile" && !displayNameProblem(displayName) && !photoBusy) ||
     (key === "about" && Boolean(ageRange) && ageRange !== "under-13" && (ageRange !== "13-17" || consent) && Boolean(stage)) ||
     key === "city" ||
     (key === "paths" && chosenPaths.length > 0) ||
@@ -124,6 +131,8 @@ export function OnboardingWizard({ name = "", paths, editing = false, initial = 
 
   async function save() {
     const result = await saveLearnerProfile({
+      name: displayName,
+      photo,
       ageRange,
       guardianConsent: consent,
       stage,
@@ -207,6 +216,16 @@ export function OnboardingWizard({ name = "", paths, editing = false, initial = 
                     <h1 ref={titleRef} tabIndex={-1}>
                       {TITLES[key]}
                     </h1>
+                    {key === "profile" ? (
+                      <ProfileStep
+                        name={displayName}
+                        setName={setDisplayName}
+                        current={image}
+                        photo={photo}
+                        setPhoto={setPhoto}
+                        onBusy={setPhotoBusy}
+                      />
+                    ) : null}
                     {key === "about" ? (
                       <AboutStep
                         ageRange={ageRange}
@@ -241,7 +260,8 @@ export function OnboardingWizard({ name = "", paths, editing = false, initial = 
                     {key === "accent" ? <AccentStep value={accent} onChange={setAccent} reduce={reduce} /> : null}
                     {ready ? (
                       <ReadyStep
-                        name={name}
+                        name={displayName.trim()}
+                        photo={photoPreview(photo, image)}
                         paths={chosenPaths.map((slug) => pathBySlug.get(slug)).filter(Boolean)}
                         stage={stage}
                         goals={goals}
@@ -305,7 +325,7 @@ function WelcomeCard({ name, reduce, motionProps }) {
         ))}
       </div>
       <h1>{first ? `Welcome, ${first}` : "Welcome"}</h1>
-      <p>Seven short steps, then your dashboard.</p>
+      <p>Eight short steps, then your dashboard.</p>
       <div className="sf-welcome-timer" aria-hidden="true">
         <motion.span
           initial={{ scaleX: 0 }}
@@ -328,6 +348,33 @@ function Field({ label, hint, children, id }) {
       ) : null}
       {children}
     </fieldset>
+  );
+}
+
+function ProfileStep({ name, setName, current, photo, setPhoto, onBusy }) {
+  const problem = name.trim() ? displayNameProblem(name) : null;
+  return (
+    <div className="sf-onboard-stack">
+      <label className="sf-onboard-text">
+        <span>Display name</span>
+        <input
+          value={name}
+          maxLength={MAX_DISPLAY_NAME}
+          autoComplete="nickname"
+          aria-invalid={problem ? true : undefined}
+          aria-describedby="sf-display-name-hint"
+          onChange={(event) => setName(event.target.value)}
+          placeholder="Riya Sharma"
+        />
+        <small id="sf-display-name-hint">
+          {problem ?? "Shown on your profile, your contributions, and your certificates. Your email stays private."}
+        </small>
+      </label>
+      <fieldset className="sf-onboard-field">
+        <legend>Profile photo <em>(optional)</em></legend>
+        <ProfilePhotoPicker name={name} current={current} value={photo} onChange={setPhoto} onBusy={onBusy} />
+      </fieldset>
+    </div>
   );
 }
 
@@ -635,7 +682,7 @@ function AccentStep({ value, onChange, reduce }) {
   );
 }
 
-function ReadyStep({ name, paths, stage, goals, pace, weeklyHours, city, accent }) {
+function ReadyStep({ name, photo, paths, stage, goals, pace, weeklyHours, city, accent }) {
   const accentChoice = ACCENTS.find((item) => item.id === accent);
   const customAccent = parseCustomAccent(accent);
   const customPreview = customAccent ? customThemeVars(customAccent.start, customAccent.end) : null;
@@ -648,7 +695,15 @@ function ReadyStep({ name, paths, stage, goals, pace, weeklyHours, city, accent 
         </div>
       ) : null}
       <div>
-        {name ? <p className="sf-ready-name">{name}</p> : null}
+        {name ? (
+          <p className="sf-ready-name sf-ready-who">
+            <span className="sf-ready-avatar" aria-hidden="true">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              {photo ? <img src={photo} alt="" width={36} height={36} /> : name.charAt(0).toUpperCase()}
+            </span>
+            {name}
+          </p>
+        ) : null}
         <p className="sf-ready-skill">{paths.map((path) => path.name).join(" · ")}</p>
         <ul className="sf-ready-meta">
           <li>

@@ -6,6 +6,7 @@ import { auth } from "@/lib/auth";
 import { CATALOG_TAG } from "@/lib/cache/tags";
 import { FREE_PATH_SLUGS } from "@/lib/niches/tiers";
 import { prisma } from "@/lib/prisma";
+import { suggestedDisplayName } from "@/lib/profile-identity";
 import { OnboardingWizard } from "@/components/onboarding/OnboardingWizard.jsx";
 
 export const metadata: Metadata = {
@@ -53,11 +54,12 @@ async function OnboardingContent({
   if (!session?.user?.id) redirect("/login");
   const userId = session.user.id;
 
-  const [profile, query, paths, followed] = await Promise.all([
+  const [profile, query, paths, followed, user] = await Promise.all([
     prisma.learnerProfile.findUnique({ where: { userId } }),
     searchParams,
     loadFreePaths(),
     prisma.userSkillProgress.findMany({ where: { userId }, select: { skill: { select: { slug: true } } } }),
+    prisma.user.findUnique({ where: { id: userId }, select: { name: true, email: true, image: true } }),
   ]);
 
   // A profile made only by saving a city in Settings has no age range yet; it still needs onboarding.
@@ -69,7 +71,9 @@ async function OnboardingContent({
 
   return (
     <OnboardingWizard
-      name={session.user.name ?? ""}
+      // A name that is really the email address is offered empty, so the learner chooses one.
+      name={suggestedDisplayName(user?.name ?? session.user.name, user?.email ?? session.user.email)}
+      image={user?.image ?? null}
       paths={paths}
       editing={finished}
       initial={

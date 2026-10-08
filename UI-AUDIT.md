@@ -1,5 +1,7 @@
 # SkillFlow UI/UX audit
 
+This is a dated record of the October 2026 polish, kept as written. Since then the catalog editor it mentions was replaced by the Catalog CMS (8 October 2026); `AGENTS.md` and `HANDOFF.md` describe the current app.
+
 Phase 0 of the final polish. No product code was changed for this audit. It was written on 7 October 2026 against the working tree at `445edab`.
 
 ## How this was checked

@@ -11,7 +11,7 @@ Tick a box only when that exact piece is really finished. A screen that looks do
 
 `AGENTS.md` is the short context a new session should read. This file is the longer record.
 
-Last aligned with the working tree on 7 October 2026.
+Last aligned with the working tree on 8 October 2026.
 
 ---
 
@@ -24,7 +24,7 @@ Last aligned with the working tree on 7 October 2026.
 | Database schema and local Postgres | Done | Prisma models and migrations, through creator studio, the learner map, nearby events, billing, and the streak reminder |
 | Open Source community | Done | Contribute, review (approve, request changes, close), author edit, resubmit and withdraw, unmerge, roles, gaps, the maintainers panel, `/admin/community`, and a contributor profile with a heatmap. Only merged work is public |
 | Auth | Done | Auth.js, bcrypt passwords, Google sign-in with verified email only, JWT session, route protection. Google links to an existing account from Settings, which verifies the email |
-| Onboarding | Done and saved | Seven steps: age range (13–17 with a parent's consent), stage, headline, city, up to five free paths, goals, experience, pace, weekly time, formats, languages, accent. Every chosen path is followed |
+| Onboarding | Done and saved | Eight steps: a display name and profile photo (upload or a generated avatar), age range (13–17 with a parent's consent), stage, headline, city, up to five free paths, goals, experience, pace, weekly time, formats, languages, accent. Every chosen path is followed |
 | Niches and roadmaps | Done for all thirty free paths | Every free path has a catalog and is available. Art stays a flagship and has stages. Every other niche is Premium and has no stages |
 | Lessons and clips | Done for all thirty free paths | The player reads `Resource` rows. YouTube watch links are rewritten into an embed |
 | Catalog CMS and submissions | Done | An admin creates, edits, reorders, and deletes niches, stages, and resources from the account menu's Admin CMS; deletes that would erase learner records are refused. An approval creates a resource |
@@ -63,36 +63,36 @@ What the product refuses: comments, likes, view counts, trending, a score leader
 
 **Free catalogs**
 
-- Full-Stack Web Development (`full-stack-web-dev`) — 12 stages, 64 resources, 17 marked for review. Stages 1–9 open. Flagship.
-- Travel Vlogging (`travel-vlogging`) — 8 stages, 46 resources, 9 marked for review. Stages 1–5 open. Flagship.
-- Content Creation (`content-creation`) — 10 stages, 57 resources, 13 marked for review. Stages 1–7 open. Flagship.
-- Music Production (`music-production`) — 8 stages, 45 resources, 9 marked for review. Stages 1–5 open.
-- Self Grooming (`self-grooming`) — 8 stages, 47 resources, 15 marked for review. Stages 1–5 open.
-- Animation & VFX (`animation`) — 8 stages, 41 resources, 11 marked for review. Stages 1–5 open. The researched slug was `animation-vfx`. The live slug stays `animation`.
-- IoT & Robot Automation (`iot-robot-automation`) — 8 stages, 46 resources, 11 marked for review. Stages 1–5 open.
-- Screenwriting (`screenwriting`) — 8 stages, 21 resources, 3 marked for review. Stages 1–5 open.
-- Graphic Design (`graphic-design`) — 8 stages, 18 resources, 3 marked for review. Stages 1–5 open.
-- SEO (`seo`) — 8 stages, 15 resources, 3 marked for review. Stages 1–5 open.
-- AI Tools (`ai-tools`) — 8 stages, 15 resources, 3 marked for review. Stages 1–5 open. The OWASP prompt-injection page returned HTTP 403 and was left in place.
-- Cybersecurity (`cybersecurity`) — 8 stages, 47 resources, 11 marked for review. Stages 1–5 open.
-- Digital Marketing (`digital-marketing`) — 8 stages, 44 resources, 8 marked for review. Stages 1–5 open.
-- Personal Finance (`personal-finance`) — 8 stages, 45 resources, 15 marked for review. Stages 1–5 open.
-- Public Speaking (`public-speaking`) — 8 stages, 44 resources, 9 marked for review. Stages 1–5 open.
-- Sound Design (`sound-design`) — 8 stages, 24 resources, 3 marked for review. Stages 1–5 open.
-- Nutrition (`nutrition`) — 8 stages, 22 resources, 3 marked for review. Stages 1–5 open.
-- Psychology (`psychology`) — 8 stages, 13 resources, 3 marked for review. Stages 1–5 open.
-- Podcasting (`podcasting`) — 8 stages, 12 resources, 2 marked for review. Stages 1–5 open.
-- Guitar (`guitar`) — 8 stages, 10 resources, 3 marked for review. Stages 1–5 open.
-- Chess (`chess`) — 8 stages, 10 resources, 1 marked for review. Stages 1–5 open.
-- Art & Painting (`art-painting`) — 8 stages, 43 resources, 11 marked for review. Stages 1–5 open. Flagship. Two dead links stay until a working page is chosen.
-- Photography (`photography`) — 8 stages, 41 resources, 13 marked for review. Stages 1–5 open. One dead link stays until a working page is chosen.
-- Emergency Preparedness (`emergency-preparedness`) — 8 stages, 40 resources, 13 marked for review. Stages 1–5 open. One dead link stays until a working page is chosen.
-- Badminton (`badminton`) — 8 stages, 41 resources, 13 marked for review. Stages 1–5 open. One dead link stays until a working page is chosen.
-- Relationships (`relationships`) — 8 stages, 11 resources, 1 marked for review. Stages 1–5 open. RAINN's consent page returned HTTP 403 to the checker and was left in place.
-- Socializing (`socializing`) — 8 stages, 8 resources, 1 marked for review. Stages 1–5 open.
-- Interior Design (`interior-design`) — 8 stages, 8 resources. Stages 1–5 open. The Pima and Boise State pages returned HTTP 403 to the checker and were left in place.
-- Freelancing (`freelancing`) — 8 stages, 8 resources. Stages 1–5 open.
-- Travel Planning (`travel-planning`) — 8 stages, 8 resources. Stages 1–5 open. The four State Department pages returned HTTP 403 to the checker and were left in place.
+- Full-Stack Web Development (`full-stack-web-dev`) — 12 stages, 64 resources, 17 marked for review. Flagship.
+- Travel Vlogging (`travel-vlogging`) — 8 stages, 46 resources, 9 marked for review. Flagship.
+- Content Creation (`content-creation`) — 10 stages, 57 resources, 13 marked for review. Flagship.
+- Music Production (`music-production`) — 8 stages, 45 resources, 9 marked for review.
+- Self Grooming (`self-grooming`) — 8 stages, 47 resources, 15 marked for review.
+- Animation & VFX (`animation`) — 8 stages, 41 resources, 11 marked for review. The researched slug was `animation-vfx`. The live slug stays `animation`.
+- IoT & Robot Automation (`iot-robot-automation`) — 8 stages, 46 resources, 11 marked for review.
+- Screenwriting (`screenwriting`) — 8 stages, 21 resources, 3 marked for review.
+- Graphic Design (`graphic-design`) — 8 stages, 18 resources, 3 marked for review.
+- SEO (`seo`) — 8 stages, 15 resources, 3 marked for review.
+- AI Tools (`ai-tools`) — 8 stages, 15 resources, 3 marked for review. The OWASP prompt-injection page returned HTTP 403 and was left in place.
+- Cybersecurity (`cybersecurity`) — 8 stages, 47 resources, 11 marked for review.
+- Digital Marketing (`digital-marketing`) — 8 stages, 44 resources, 8 marked for review.
+- Personal Finance (`personal-finance`) — 8 stages, 45 resources, 15 marked for review.
+- Public Speaking (`public-speaking`) — 8 stages, 44 resources, 9 marked for review.
+- Sound Design (`sound-design`) — 8 stages, 24 resources, 3 marked for review.
+- Nutrition (`nutrition`) — 8 stages, 22 resources, 3 marked for review.
+- Psychology (`psychology`) — 8 stages, 13 resources, 3 marked for review.
+- Podcasting (`podcasting`) — 8 stages, 12 resources, 2 marked for review.
+- Guitar (`guitar`) — 8 stages, 10 resources, 3 marked for review.
+- Chess (`chess`) — 8 stages, 10 resources, 1 marked for review.
+- Art & Painting (`art-painting`) — 8 stages, 43 resources, 11 marked for review. Flagship. Two dead links stay until a working page is chosen.
+- Photography (`photography`) — 8 stages, 41 resources, 13 marked for review. One dead link stays until a working page is chosen.
+- Emergency Preparedness (`emergency-preparedness`) — 8 stages, 40 resources, 13 marked for review. One dead link stays until a working page is chosen.
+- Badminton (`badminton`) — 8 stages, 41 resources, 13 marked for review. One dead link stays until a working page is chosen.
+- Relationships (`relationships`) — 8 stages, 11 resources, 1 marked for review. RAINN's consent page returned HTTP 403 to the checker and was left in place.
+- Socializing (`socializing`) — 8 stages, 8 resources, 1 marked for review.
+- Interior Design (`interior-design`) — 8 stages, 8 resources. The Pima and Boise State pages returned HTTP 403 to the checker and were left in place.
+- Freelancing (`freelancing`) — 8 stages, 8 resources.
+- Travel Planning (`travel-planning`) — 8 stages, 8 resources. The four State Department pages returned HTTP 403 to the checker and were left in place.
 
 Every niche outside the thirty free paths is Premium and has no resources. A free path with stages links to its roadmap. A Premium card links a free account to `/upgrade`, and a subscriber to the roadmap.
 
@@ -108,7 +108,7 @@ Landing, the auth carousel, and onboarding name Travel Vlogging with Full-Stack 
 - **React 19.2.8 and TypeScript.** The page, the view models, and the Prisma models share shapes.
 - **Tailwind v4 and CSS variables.** Colors, type, and spacing live in `app/globals.css`. Dark and light are a class on `<html>`. The accent is a `data-accent` value. Public pages stay on the Dusk accent. Inside the app, the person can pick one of ten presets, Spectrum (one color pair drifting slowly on the same dark surfaces as the other presets), or a custom two-stop gradient. A custom choice is stored as `custom:#start:#end` on the profile and in the accent cookie, and it paints before the page loads.
 - **PostgreSQL and Prisma 6.19.3.** Local database name is `skillflow` on port 5432. Migrations are SQL files in `prisma/migrations`. `prisma.config.ts` loads `.env` with `dotenv/config` because Prisma 6 stopped doing that by itself.
-- **Auth.js (NextAuth v5 beta).** Email and password today. Passwords are bcrypt hashes on `User.password`. Sessions are JWTs. `trustHost` is true. The Credentials provider needs the JWT strategy, so this app does not use database sessions. The JWT callback copies `id` and `role` onto the token. The session callback copies them onto `session.user`.
+- **Auth.js (NextAuth v5 beta).** Email and password, plus Google sign-in when its keys are set. Passwords are bcrypt hashes on `User.password`. Sessions are JWTs. `trustHost` is true. The Credentials provider needs the JWT strategy, so this app does not use database sessions. The JWT callback copies `id` and `role` onto the token. The session callback copies them onto `session.user`.
 - **`lib/prisma.ts`.** One Prisma Client for the process, stored on `globalThis` in development.
 - **`proxy.ts`.** If there is no session, a visit to a signed-in URL redirects to `/login`. Role checks are not done here. Admin pages call `requireAdmin()` themselves.
 - **`lib/data`.** Each loader starts with `import "server-only"`. Catalog, lesson, clips, dashboard, settings, submissions, admin catalog, creator studio, and the explain-back milestone read Prisma. The preview id `__explain_input__` and the remaining Version 2 previews still read `lib/mock`.
@@ -145,7 +145,7 @@ There is no Redis layer. The cache is Next's own store. `ioredis` is in the depe
 
 ## Revision: the database, table by table
 
-Auth.js tables: `User`, `Account`, `Session`, `VerificationToken`. `User` also has `role` (`USER` or `ADMIN`), `password`, `currentStreak`, `longestStreak`, and `lastActivityDate`.
+Auth.js tables: `User`, `Account`, `Session`, `VerificationToken`. `User.name` is the display name and `User.image` the profile photo (a Google photo, an upload, or a generated avatar stored as a PNG upload). `User` also has `role` (`USER` or `ADMIN`), `password`, `currentStreak`, `longestStreak`, and `lastActivityDate`.
 
 `LearnerProfile` is one row per user: `skillSlug` and `goal` (the first chosen path and goal), `pace`, `accent`, the onboarding answers (`ageRange`, `guardianConsent`, `stage`, `experience`, `weeklyHours`, `goals`, `languages`, `formats`, `headline`), the city fields, `showOnMap`, `streakReminder`, and `showActivity` (activity counts on the public profile). Following is `UserSkillProgress`, one row per path.
 
@@ -162,7 +162,7 @@ Content tables:
 - `UserSkillProgress` is one row per user per skill: `masteryPercent`, `currentStageOrder`.
 - `StageCompletion` is one row per user per stage: `explainBackPassed` and `completedAt` (`quizPassed` is unused). A stage counts as passed when the explain-back passed. The free-path lock does not read these flags.
 
-Migrations run from `20260923010253_init` through `20261001104500_creator_studio`, plus `community_unmerge_flag` (`ContributionReview.unmerge`), `20261005193000_learner_map`, `20261005220000_nearby_events`, `20261007003000_billing`, `20261007143000_streak_reminder`, `20261008090000_onboarding_profile_career_test`, and `20261008160000_profile_show_activity`. The last two were written by hand and only add columns and tables: the live database has two older migrations and a `GeocodeCache` table the repo does not, so a generated diff would drop them. Apply with `prisma migrate deploy`, then restart `npm run dev` so it loads the new client. The folder `20260925094514_add_paddword_field` has that spelling. Do not create a migration unless the schema changes. Do not run `prisma migrate reset`.
+Migrations are the 24 folders in `prisma/migrations`, from `20260923010253_init` to `20261008190000_contribution_review_unmerge`. That last one adds `ContributionReview.unmerge` with `IF NOT EXISTS`: the column was in the schema and in the development database without a migration file, so a database built from the folder alone lacked it. Checked on 8 October 2026: `prisma migrate deploy` on an empty database, then `prisma migrate diff` against `schema.prisma`, leaves only two harmless differences (a database default on `Event.updatedAt` and `LearnerNote.updatedAt`, which Prisma fills itself). The development database also lists two migrations the repo does not have (`20261003062015_learner_location`, `20261003063619_nearby_events`) and an unused `GeocodeCache` table; a new database does not need them. New migrations are written by hand, only add, and are applied with `prisma migrate deploy`, because a generated diff against the development database would try to drop those extras. Apply with `prisma migrate deploy`, then restart `npm run dev` so it loads the new client. The folder `20260925094514_add_paddword_field` has that spelling. Do not create a migration unless the schema changes. Do not run `prisma migrate reset`.
 
 Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Painting, Photography, and Music Production, then the extra niches. Every skill is available. Offer is free when the slug is one of the thirty free paths, and Premium otherwise. The seed then imports the Full-Stack, Content Creation, Travel Vlogging, Music Production, Self Grooming, Animation, IoT, Screenwriting, Graphic Design, SEO, AI Tools, Cybersecurity, Digital Marketing, Personal Finance, Public Speaking, Sound Design, Nutrition, Psychology, Podcasting, Guitar, Chess, Art & Painting, Photography, Emergency Preparedness, Badminton, Relationships, Socializing, Interior Design, Freelancing, and Travel Planning catalog files. The dead links in Art & Painting, Photography, Emergency Preparedness, and Badminton stay until a working page is chosen. Do not run it against a database that already has accounts. It resets admin passwords.
 
@@ -172,9 +172,9 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 
 **Account.** Sign up with name, email, and password (checked on the server; emails are lowercased), or with Google when its keys are set. Only Google accounts with a verified email are accepted. A Google sign-in whose email already has a password account is refused; the learner logs in with the password and connects Google from Settings → Sign-in, which verifies the email. Log out from the account menu. After signup the app sends them to onboarding, then Home.
 
-**Onboarding.** Seven steps: about you, city, paths (any of the thirty free ones, up to five), goals and experience, time and formats and languages, accent, summary. Save writes the profile and a `UserSkillProgress` row for each path. Pace does not decide which stages are open. Settings → Edit profile answers reopens it.
+**Onboarding.** Eight steps: how others see you (a display name, required, never an email address, and an optional photo: an upload, a generated avatar, or the initial), about you, city, paths (any of the thirty free ones, up to five), goals and experience, time and formats and languages, accent, summary. Save writes the profile and a `UserSkillProgress` row for each path. Pace does not decide which stages are open. Settings → Edit profile answers reopens it.
 
-**Shell.** Every signed-in page sits in `app/(app)`. The URL does not contain `(app)`. Desktop shows a fixed sidebar from 960px up. Below that, the sidebar is a dialog drawer. Main nav is Home, Niches, Clips, Creator studio, Paths, Nearby, Open Source, Progress, Notes, Analytics, Submit a resource, and Settings. Admin appears only when `role === ADMIN`. Review appears for admins and community role holders, with an open count.
+**Shell.** Every signed-in page sits in `app/(app)`. The URL does not contain `(app)`. Desktop shows a fixed sidebar from 960px up. Below that, the sidebar is a dialog drawer. Main nav is Home, Niches, Clips, Creator studio, Paths, Nearby, Open Source, Progress, Notes, Analytics, Submit a resource, and Settings. The sidebar has no admin entry: an admin opens the Catalog CMS from Admin CMS in the account menu (top right), which also holds Creator studio, Profile, Settings, Upgrade, and Log out. Review appears for admins and community role holders, with an open count.
 
 **Niches (`/skills`).** Search and group filters, then 32 cards a page (4 columns by 8 rows). A free skill with stages is a link to its roadmap. Open means the thirty free paths. Every free path has stages, so the card says "Free · N stages". Every other niche shows "Premium". A free account opens `/upgrade` from that card. A subscriber opens the roadmap. A free account also sees what Premium adds. Narrow screens stack the same 32 cards into fewer columns.
 
@@ -186,7 +186,7 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 
 **Landing.** The hero, then the problem, then Clips: niche tabs over a phone-sized reel of real catalog clips, moderated and tied to their stage, with play on demand.
 
-**Roadmaps.** The index says thirty paths are free, the next stage opens after the explain-back, and every stage on a free path is open. A free account sees what Premium adds. A Premium niche without a subscription opens `/upgrade`. A followed skill has Continue and Open path. More skills is the same short niche teaser as Home. A path page shows the stage photo and the real description. A stage they have not reached yet stays readable, with a lock and "Pass the previous stage to open this one." A stage they have not reached yet stays readable, with a lock. A Premium path with no stages says the catalog is not ready yet. Stage photos are 16:9 files committed under `public/stages`, one per stage on every free path, with credits in `public/stages/credits.json`.
+**Roadmaps.** The index says thirty paths are free, the next stage opens after the explain-back, and every stage on a free path is open. A free account sees what Premium adds. A Premium niche without a subscription opens `/upgrade`. A followed skill has Continue and Open path. More skills is the same short niche teaser as Home. A path page shows the stage photo and the real description. A stage they have not reached yet stays readable, with a lock and "Pass the previous stage to open this one." A Premium path with no stages says the catalog is not ready yet. Stage photos are 16:9 files committed under `public/stages`, one per stage on every free path, with credits in `public/stages/credits.json`.
 
 **Lesson.** The first video is the clip. Other resources are sources. A course link is labeled "Course". Pressing play loads `youtube-nocookie.com/embed/...`. A locked lesson shows the stage title and the skill name, and does not include the resource text. Direct visits to a locked stage id behave the same way.
 
@@ -200,7 +200,7 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 
 **Progress and analytics.** Counts, mastery, streaks, weak topics, and the charts come from `ExplainBackAttempt` and `StageCompletion`. Home and Progress show “Explain-backs passed”.
 
-**Settings.** Plan is the first section: a free account sees what Premium adds, and an account that already has it can open the plan page. Name saves to `User`. Email is read-only. Niches are followed from Niches, Home, and Paths, not from this page. Onboarding still chooses the first paths. Stopping a follow drops `UserSkillProgress` and keeps attempts. The daily reminder is saved on the profile. The bell shows it when yesterday counted and today has not. Theme and accent apply immediately. The accent row keeps the ten presets, adds Spectrum (one neighboring pair moves slowly around the wheel while the room stays dark; reduced motion holds one hue), and adds a custom gradient: a color palette, a hex field, and R, G, and B for each stop. Log out uses the real `signOut`. Sign-in shows the email, whether Google verified it, the password state, and Connect or Disconnect Google. Profile visibility switches activity counts on the public profile. The Profile row links to Edit profile answers and the Career-fit test.
+**Settings.** Plan is the first section: a free account sees what Premium adds, and an account that already has it can open the plan page. Profile saves the display name to `User.name` and the photo to `User.image` (keep, upload, a generated avatar, or the initial), the same save onboarding uses. Email is read-only. Niches are followed from Niches, Home, and Paths, not from this page. Onboarding still chooses the first paths. Stopping a follow drops `UserSkillProgress` and keeps attempts. The daily reminder is saved on the profile. The bell shows it when yesterday counted and today has not. Theme and accent apply immediately. The accent row keeps the ten presets, adds Spectrum (one neighboring pair moves slowly around the wheel while the room stays dark; reduced motion holds one hue), and adds a custom gradient: a color palette, a hex field, and R, G, and B for each stop. Log out uses the real `signOut`. Sign-in shows the email, whether Google verified it, the password state, and Connect or Disconnect Google. Profile visibility switches activity counts on the public profile. The Profile row links to Edit profile answers and the Career-fit test.
 
 **Submit and admin.** Submit writes `ResourceSubmission`. Approve appends a `Resource` on that stage. Reject requires a note. `fail this submit` and `fail this review` are the built-in error cases. A non-admin who opens an admin URL gets not-found.
 
@@ -248,7 +248,7 @@ Link check results worth remembering:
 
 `needsReview` is for the `[CONFIRM]` items, which are the videos. A 403 is "needs manual check" in the report. It does not by itself set `needsReview`.
 
-Stage photos were generated for all 10 Content Creation stages and all 8 Travel stages, and Full-Stack already had them. The other free paths have no committed stage photos. The importer leaves `image` unset so a reimport does not clear a photo.
+Every stage on the thirty free paths has a committed photo under `public/stages/<slug>/<order>.jpg`, picked by `scripts/fetch-stage-photos.ts` (credits in `public/stages/credits.json`). The importer leaves `image` unset so a reimport does not clear a photo.
 
 ---
 
@@ -259,7 +259,7 @@ Stage photos were generated for all 10 Content Creation stages and all 8 Travel 
 - **Proxy is not the admin check.** The proxy only asks "is someone signed in?". `requireAdmin()` asks "is this person an admin?".
 - **Public pages stay static.** `/`, `/login`, `/signup`, `/privacy`, and `/terms` do not call `auth()` in the root layout.
 - **Shared screens are one cached copy. Personal progress is not.** The niche grid, lessons, clips, and the submit picker use the `catalog` tag. Admin saves expire it at once. Follow marks, mastery, and the account menu stay on the request.
-- **The feed can hold more than one skill.** Onboarding saves one profile skill. Settings can add more available skills. Home renders one row per followed skill. The old "one skill only" rule is not what the screen does.
+- **The feed can hold more than one skill.** Onboarding follows up to five free paths, and Follow on Niches, Home, and Paths adds more. Home renders one row per followed skill.
 - **Every stage on a free path is open.** A pass opens the next stage. Passing all of them earns the certificate.
 - **The quiz was dropped.** One explain-back gate per stage is the check, plus a bring-your-own-resource prompt. The quiz tables stay in the schema unused, so the database did not change. Coming-soon and monetized skills open no stages.
 - **Four flagships.** Full-Stack, Travel Vlogging, Content Creation, and Art & Painting are flagships. All four have catalogs. The other twenty-six free paths are not flagships.
@@ -368,7 +368,7 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 - The gate is a wizard, one learning objective per step. The lesson’s continue button opens `/milestone/[stageId]`
 - A chat model writes a review for that idea, whether it holds or not. Keyword overlap cannot pass the step
 - An empty or rejected answer stays on the step. An accepted idea is stored as a note. The stage is recorded only after every idea has passed
-- A pass sets `StageCompletion.explainBackPassed` and does not open a locked stage
+- A pass sets `StageCompletion.explainBackPassed` and opens the next stage for that learner
 - No key, a timeout, or a reply that is not a review saves nothing
 - `lib/explain/judge.test.ts` checks that a full set of concepts can pass and a remaining gap cannot
 - The preview id `__explain_input__` still has the mocked voice path, follow-up, pass, retry, and the `review failed` error
@@ -445,7 +445,8 @@ The mock catalog in `lib/mock/catalog.ts` is leftover sample data for the screen
 - [ ] Hosted app and hosted Postgres
 - [ ] Error monitoring
 - [ ] Separate env files, no secrets in git
-- [ ] Migrate as a deploy step
+- [ ] Migrate as a deploy step (`prisma migrate deploy`; a fresh database from the folder matches the schema)
+- [ ] Uploads on lasting storage. Files go to `public/uploads` on the server's disk and `app/uploads/[file]/route.ts` serves them, because `next start` only serves `public` files that existed at build time. One server with a lasting disk works; more than one server, or a container that is replaced on deploy, needs object storage (S3) behind `lib/uploads.ts`
 - [x] Stage photos are in git (`public/stages`), so a deploy has them
 
 ## PHASE 10 — Documentation and case study
@@ -454,6 +455,7 @@ The mock catalog in `lib/mock/catalog.ts` is leftover sample data for the screen
 - [x] README aligned with the thirty free paths and the catalog commands
 - [x] `AGENTS.md` aligned so a new chat does not revive the mock-catalog story
 - [x] This file aligned
+- [x] `HANDOFF.md`: a self-contained brief for testing and deployment (stack, run commands, every env var, external services, state outside the database, the deploy checklist)
 - [ ] Case study: the problem, what existing products optimize for, and what SkillFlow refused to copy
 - [ ] A short recording of the loop
 - [ ] A diagram of browser → Server Component → `lib/data` → Prisma

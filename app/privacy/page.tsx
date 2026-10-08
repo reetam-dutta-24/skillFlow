@@ -32,7 +32,11 @@ const sections: LegalSection[] = [
       <>
         <h3>Your account</h3>
         <ul>
-          <li>Your name and email address.</li>
+          <li>Your display name and email address. The display name is the one you choose; we never show your email in its place.</li>
+          <li>
+            A profile photo, if you add one: a picture you upload, or an avatar we draw from a random pattern. It is stored on our server and
+            shown with your name. You can switch to your initial at any time in Settings.
+          </li>
           <li>Your password, stored only as a one-way bcrypt hash. We cannot read it.</li>
           <li>
             If you sign in with Google: your Google account ID, name, email address, whether Google verified that email, and your profile photo.
@@ -242,7 +246,7 @@ const sections: LegalSection[] = [
         <p>Under the Digital Personal Data Protection Act, 2023, you can:</p>
         <ul>
           <li>Ask for a summary of the personal data we hold about you, and who we shared it with.</li>
-          <li>Ask us to correct, complete, or update it. You can change your name and city yourself in Settings.</li>
+          <li>Ask us to correct, complete, or update it. You can change your name, photo, and city yourself in Settings.</li>
           <li>Ask us to erase it, which closes your account.</li>
           <li>Withdraw your consent.</li>
           <li>Nominate someone to act for you if you die or cannot act yourself.</li>

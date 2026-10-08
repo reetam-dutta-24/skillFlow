@@ -2,9 +2,13 @@ import "server-only";
 import { Prisma } from "@prisma/client";
 import { isStoredAccent } from "@/lib/accent";
 import { auth } from "@/lib/auth";
+import { storeGeneratedAvatar } from "@/lib/avatar-render";
 import { userHasPremium } from "@/lib/billing/access";
+import { invalidateAccount, invalidateCatalog, invalidateCommunity } from "@/lib/cache/invalidate";
 import { prisma } from "@/lib/prisma";
 import { googleAuthEnabled } from "@/lib/google-auth";
+import { displayNameProblem, isPhotoChoice } from "@/lib/profile-identity";
+import { readUploadedImage } from "@/lib/uploads";
 
 const SIGN_IN_AGAIN = "Sign in again before saving.";
 
@@ -16,6 +20,7 @@ export async function getSettingsProfile() {
         where: { id: userId },
         select: {
           name: true,
+          image: true,
           email: true,
           emailVerified: true,
           password: true,
@@ -32,6 +37,7 @@ export async function getSettingsProfile() {
   return {
     userId: userId ?? "",
     name,
+    image: user?.image ?? null,
     email,
     initial: name.charAt(0).toUpperCase() || "?",
     accent: isStoredAccent(storedAccent) ? storedAccent : "tide",
@@ -53,15 +59,32 @@ export async function getSettingsProfile() {
   };
 }
 
-export async function saveProfileName(userId: string, name: string) {
-  const trimmed = name.trim();
+/**
+ * Saves the display name and, unless the choice is `keep`, the profile photo (`User.image`).
+ * A generated avatar is drawn again here from its style and seed. An upload must be a file that
+ * `/uploads` already holds. Afterwards every cache that shows a name or a photo is dropped.
+ */
+export async function saveProfileIdentity(userId: string, input: { name: string; photo?: unknown }) {
+  const trimmed = input.name.trim();
   if (trimmed.toLowerCase() === "fail this save") {
     return { ok: false as const, error: "The profile could not be saved. Try again." };
   }
-  if (!trimmed) return { ok: false as const, error: "Enter a name." };
+  const problem = displayNameProblem(trimmed);
+  if (problem) return { ok: false as const, error: problem };
+
+  const photo = input.photo ?? { kind: "keep" };
+  if (!isPhotoChoice(photo)) return { ok: false as const, error: "Choose a photo again." };
+
+  const data: { name: string; image?: string | null } = { name: trimmed };
+  if (photo.kind === "none") data.image = null;
+  if (photo.kind === "upload") {
+    if (!(await readUploadedImage(photo.url))) return { ok: false as const, error: "That photo could not be found. Upload it again." };
+    data.image = photo.url;
+  }
+  if (photo.kind === "avatar") data.image = await storeGeneratedAvatar(photo.style, photo.seed);
 
   try {
-    await prisma.user.update({ where: { id: userId }, data: { name: trimmed } });
+    await prisma.user.update({ where: { id: userId }, data });
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2025") {
       return { ok: false as const, error: SIGN_IN_AGAIN };
@@ -69,7 +92,13 @@ export async function saveProfileName(userId: string, name: string) {
     throw error;
   }
 
-  return { ok: true as const, name: trimmed };
+  // The shell's account row, community lists (contributors, posts), and the clip feed (creator names) show these.
+  invalidateAccount(userId);
+  invalidateCommunity();
+  const liveVideo = await prisma.creatorWork.findFirst({ where: { ownerId: userId, status: "LIVE" }, select: { id: true } });
+  if (liveVideo) invalidateCatalog();
+
+  return { ok: true as const, name: trimmed, image: data.image === undefined ? undefined : data.image };
 }
 
 /** Same placeholders a city uses when onboarding has not written a path yet. */

@@ -70,6 +70,15 @@ export async function saveUploadedFile(file: File, kind: string) {
   return { ok: true as const, url: `/uploads/${name}` };
 }
 
+/** Write image bytes the server made or fetched itself (a generated avatar, a niche cover) under public/uploads. */
+export async function saveImageBytes(bytes: Buffer, ext: "png" | "jpg" | "webp" | "gif") {
+  const name = `${randomBytes(12).toString("hex")}.${ext}`;
+  const directory = path.join(process.cwd(), "public", "uploads");
+  await mkdir(directory, { recursive: true });
+  await writeFile(path.join(directory, name), bytes);
+  return `/uploads/${name}`;
+}
+
 /** Copy a previously uploaded image onto the skill card path. */
 export async function readUploadedImage(publicPath: string): Promise<{ bytes: Buffer; ext: string } | null> {
   const match = /^\/uploads\/([a-z0-9]+)\.(jpe?g|png|webp|gif)$/.exec(publicPath);

@@ -1,7 +1,5 @@
-import { mkdir, writeFile } from "node:fs/promises";
-import path from "node:path";
 import { prisma } from "@/lib/prisma";
-import { readUploadedImage } from "@/lib/uploads";
+import { readUploadedImage, saveImageBytes } from "@/lib/uploads";
 
 export type CatalogSkillInput = {
   name: string;
@@ -31,19 +29,16 @@ function extensionFor(type: string) {
   return null;
 }
 
-/** Save a card photo the same way the original niches do: a file under /skills. */
-export async function storeSkillImage(slug: string, image: string): Promise<string | null> {
+/**
+ * A card photo. The committed covers stay under /skills. A new one is kept as an upload (a random name
+ * under /uploads, served by `app/uploads/[file]/route.ts`), because `next start` does not serve files
+ * written into `public/skills` after the build, and a fresh name never shows a stale cached picture.
+ */
+export async function storeSkillImage(_slug: string, image: string): Promise<string | null> {
   const trimmed = image.trim();
   if (!trimmed) return null;
   if (LOCAL_IMAGE.test(trimmed)) return trimmed;
-
-  const uploaded = await readUploadedImage(trimmed);
-  if (uploaded) {
-    const directory = path.join(process.cwd(), "public", "skills");
-    await mkdir(directory, { recursive: true });
-    await writeFile(path.join(directory, `${slug}.${uploaded.ext}`), uploaded.bytes);
-    return `/skills/${slug}.${uploaded.ext}`;
-  }
+  if (await readUploadedImage(trimmed)) return trimmed;
 
   let url: URL;
   try {
@@ -60,10 +55,7 @@ export async function storeSkillImage(slug: string, image: string): Promise<stri
   const bytes = Buffer.from(await response.arrayBuffer());
   if (bytes.length === 0 || bytes.length > MAX_IMAGE_BYTES) return null;
 
-  const directory = path.join(process.cwd(), "public", "skills");
-  await mkdir(directory, { recursive: true });
-  await writeFile(path.join(directory, `${slug}.${extension}`), bytes);
-  return `/skills/${slug}.${extension}`;
+  return saveImageBytes(bytes, extension);
 }
 
 export type PreparedCatalogSkill = {

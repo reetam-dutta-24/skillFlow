@@ -2,10 +2,9 @@
 
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
-import { invalidateAccount } from "@/lib/cache/invalidate";
 import { ACCENT_STORAGE_KEY, isStoredAccent } from "@/lib/accent";
 import { auth } from "@/lib/auth";
-import { followSkillRecord, saveProfileName, saveStreakReminder, unfollowSkillRecord } from "@/lib/data/settings";
+import { followSkillRecord, saveProfileIdentity, saveStreakReminder, unfollowSkillRecord } from "@/lib/data/settings";
 import { prisma } from "@/lib/prisma";
 
 function refreshAccount() {
@@ -17,14 +16,12 @@ function refreshAccount() {
   revalidatePath("/analytics");
 }
 
-export async function saveSettings(input: { name: string }) {
+/** The display name and, when one is chosen, a new photo (an upload, a generated avatar, or none). */
+export async function saveSettings(input: { name: string; photo?: unknown }) {
   const session = await auth();
   if (!session?.user?.id) return { ok: false as const, error: "Sign in again before saving." };
-  const result = await saveProfileName(session.user.id, input.name);
-  if (result.ok) {
-    refreshAccount();
-    invalidateAccount(session.user.id);
-  }
+  const result = await saveProfileIdentity(session.user.id, input);
+  if (result.ok) refreshAccount();
   return result;
 }
 

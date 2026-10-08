@@ -9,6 +9,8 @@ import { SettingsSection } from "@/components/forms/SettingsSection.jsx";
 import { SettingsToggle } from "@/components/forms/SettingsToggle.jsx";
 import { ThemeToggle } from "@/components/forms/ThemeToggle.jsx";
 import { Button } from "@/components/core/Button.jsx";
+import { ProfilePhotoPicker, photoPreview } from "@/components/forms/ProfilePhotoPicker";
+import { MAX_DISPLAY_NAME, type PhotoChoice } from "@/lib/profile-identity";
 import { UsageCutoffDialog } from "@/components/feedback/UsageCutoffDialog";
 import { saveReminder, saveSettings, saveShowActivity } from "../actions";
 import { LocationCard } from "./LocationCard";
@@ -17,6 +19,7 @@ import { SignInCard, type SignInState } from "./SignInCard";
 export function SettingsScreen({
   userId,
   name,
+  image,
   email,
   initial,
   accent,
@@ -29,6 +32,7 @@ export function SettingsScreen({
 }: {
   userId: string;
   name: string;
+  image: string | null;
   email: string;
   initial: string;
   accent: string;
@@ -41,6 +45,9 @@ export function SettingsScreen({
 }) {
   const router = useRouter();
   const [profileName, setProfileName] = useState(name);
+  const [photo, setPhoto] = useState<PhotoChoice>({ kind: "keep" });
+  const [photoBusy, setPhotoBusy] = useState(false);
+  const shownPhoto = photoPreview(photo, image);
   const [reminder, setReminder] = useState(streakReminder);
   const [activity, setActivity] = useState(showActivity);
   const [pending, setPending] = useState("");
@@ -54,13 +61,14 @@ export function SettingsScreen({
     setPending(label);
     setNotice("");
     setError("");
-    const result = await saveSettings({ name: profileName });
+    const result = await saveSettings({ name: profileName, photo });
     setPending("");
     if (!result.ok) {
       setError(result.error);
       return;
     }
     setNotice("Saved.");
+    setPhoto({ kind: "keep" });
     router.refresh();
   }
 
@@ -91,10 +99,18 @@ export function SettingsScreen({
           </>
         )}
       </SettingsSection>
-      <SettingsSection title="Profile" subtitle="The name is what the app calls you. Email stays with the account.">
+      <SettingsSection title="Profile" subtitle="Your display name and photo are what other learners see. Email stays private.">
         <div className="sf-settings-profile">
           <div className="sf-settings-identity">
-            <span className="sf-settings-avatar" aria-hidden="true">{shownInitial}</span>
+            <span className="sf-settings-avatar" aria-hidden="true">
+              {shownPhoto ? (
+                // An upload, a Google photo, or a generated avatar preview.
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={shownPhoto} alt="" width={56} height={56} decoding="async" />
+              ) : (
+                shownInitial
+              )}
+            </span>
             <div>
               <strong>{profileName.trim() || "Account"}</strong>
               <p>{email || "No email on this session."}</p>
@@ -109,11 +125,15 @@ export function SettingsScreen({
             </div>
           </div>
           <label className="sf-settings-fields">
-            Name
-            <input value={profileName} onChange={(event) => setProfileName(event.target.value)} autoComplete="name" />
+            Display name
+            <input value={profileName} maxLength={MAX_DISPLAY_NAME} onChange={(event) => setProfileName(event.target.value)} autoComplete="nickname" />
           </label>
+          <div className="sf-settings-fields">
+            <span>Profile photo</span>
+            <ProfilePhotoPicker name={profileName} current={image} value={photo} onChange={setPhoto} onBusy={setPhotoBusy} />
+          </div>
           <div className="sf-settings-bar">
-            <Button type="button" variant="gradient" pending={pending === "profile"} pendingLabel="Saving…" onClick={() => void save("profile")}>
+            <Button type="button" variant="gradient" pending={pending === "profile"} pendingLabel="Saving…" disabled={photoBusy} onClick={() => void save("profile")}>
               Save profile
             </Button>
           </div>

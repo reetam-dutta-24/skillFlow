@@ -43,9 +43,9 @@ The niche list shows 32 cards a page. Home and roadmaps show the first 12, a blu
 
 Signed-in learners can keep a preset accent, turn on Spectrum for a slow dark wash of one color pair, or build their own gradient from a color palette, a hex value, or RGB. Public pages stay on Dusk.
 
-Open Source is a per-niche community of posts. A learner shares text, an image, and source links. The post stays hidden until a moderator publishes it or rejects it. Signed-in learners can read a published post and ask the author one question. The author writes one answer. There is no comment thread. A moderator can hide a published post. Authors track and edit their work at `/open-source/me`. Reviewers work from `/open-source/review`. Admins manage roles at `/admin/community`.
+Open Source is a per-niche community of posts. A learner shares text, an image, and source links. The post stays hidden until a moderator publishes it or rejects it. Signed-in learners can read a published post and ask the author one question. The author writes one answer. There is no comment thread. A moderator can hide a published post. Authors track and edit their work at `/open-source/me`. Reviewers work from `/open-source/review`. Admins manage roles at `/admin/community`. A public profile shows a person's published posts. Community posts never enter the catalog.
 
-Admins edit the catalog in the Catalog CMS: Admin CMS in the account menu opens `/admin/catalog`. Niches, stages, and resources can be created, edited, reordered, and deleted there. A free path, a niche with followers or community content, and a stage a learner has worked on cannot be deleted; set the niche to Coming soon instead. A public profile shows a person's published posts. Community posts never enter the catalog.
+Admins edit the catalog in the Catalog CMS: Admin CMS in the account menu opens `/admin/catalog`. Niches, stages, and resources can be created, edited, reordered, and deleted there. A free path, a niche with followers or community content, and a stage a learner has worked on cannot be deleted; set the niche to Coming soon instead.
 
 Creator studio is a signed-in library for a video the learner owns. An admin approves it onto that niche’s clip feed and the creator’s public profile. View counts stay in the studio.
 
@@ -72,7 +72,9 @@ npx prisma db seed
 npm run dev
 ```
 
-Copy `.env.example` to `.env` and fill in real values before running.
+Copy `.env.example` to `.env` and fill in real values before running. Those commands are for a new, empty database on your machine.
+
+Production build: `npm run build`, then `npm start` (port 3000). Apply migrations with `npx prisma migrate deploy`, never `migrate dev` or `migrate reset`. Uploaded files (photos, videos, covers) are written to `public/uploads` on the server's disk and served by `app/uploads/[file]/route.ts`; they are not in git. `HANDOFF.md` has the full deployment brief: every environment variable, external service, route, cache, and known gap.
 
 Do not re-run the seed on a database that already has people in it. The seed resets the admin passwords and rewrites every niche. To reload one path, use the catalog commands below, then set that skill's status and offer directly. The importer does not change status, the cover image, or the flagship flag.
 
@@ -177,7 +179,7 @@ Lighthouse 12 against `next start`, 7 October 2026. Signed-in pages score 63 on 
 
 ## Onboarding
 
-Seven steps after signup: age range (13–17 needs a parent or guardian's consent), current stage, an optional headline, an optional city, up to five of the thirty free paths, goals, experience, pace, weekly time, preferred formats and languages, and an accent. Every chosen path is followed. Settings → Edit profile answers reopens it. The career-fit test is offered on Home, not here.
+Eight steps after signup: a display name (required, never an email address) and a profile photo (upload one, pick a generated avatar, or keep the initial), age range (13–17 needs a parent or guardian's consent), current stage, an optional headline, an optional city, up to five of the thirty free paths, goals, experience, pace, weekly time, preferred formats and languages, and an accent. Every chosen path is followed. Settings → Edit profile answers reopens it. The career-fit test is offered on Home, not here.
 
 ## Home
 
@@ -193,4 +195,4 @@ Your profile and Home show a GitHub-style heatmap of everything you did each day
 
 ## What is still ahead
 
-Integration tests and an end-to-end pass are not written. Deploy, CI, and error monitoring are not started. The case study is not written. Premium niches have no catalogs. `Project-roadmap.md` is the phase list. `AGENTS.md` is the working context for the next session.
+Integration tests and an end-to-end pass are not written. Deploy, CI, and error monitoring are not started; `HANDOFF.md` lists what a deploy needs. The case study is not written. Premium niches have no catalogs. `Project-roadmap.md` is the phase list. `AGENTS.md` is the working context for the next session.

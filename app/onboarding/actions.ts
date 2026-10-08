@@ -3,18 +3,23 @@
 import { cookies } from "next/headers";
 import { auth } from "@/lib/auth";
 import { ACCENT_STORAGE_KEY, isStoredAccent } from "@/lib/accent";
+import { saveProfileIdentity } from "@/lib/data/settings";
 import { isPaceId } from "@/lib/learner";
 import { isFreePath } from "@/lib/niches/tiers";
 import { MAX_HEADLINE, onboardingProblem, type OnboardingAnswers } from "@/lib/onboarding-options";
 import { prisma } from "@/lib/prisma";
+import { displayNameProblem } from "@/lib/profile-identity";
 
 /**
  * Saves the onboarding profile and follows every chosen path. Personal data, so nothing here touches
  * the catalog cache. The city is saved separately through the Settings action, which owns the map cache.
+ * The display name and photo go through the same save as Settings, which drops the caches that show them.
  */
-export async function saveLearnerProfile(input: OnboardingAnswers) {
+export async function saveLearnerProfile(input: OnboardingAnswers & { name: string; photo?: unknown }) {
   const session = await auth();
   if (!session?.user?.id) return { error: "Sign in to continue." };
+  const nameProblem = displayNameProblem(String(input.name ?? ""));
+  if (nameProblem) return { error: nameProblem };
 
   const answers: OnboardingAnswers = {
     ...input,
@@ -64,6 +69,9 @@ export async function saveLearnerProfile(input: OnboardingAnswers) {
       }),
     ),
   ]);
+
+  const identity = await saveProfileIdentity(userId, { name: String(input.name), photo: input.photo });
+  if (!identity.ok) return { error: identity.error };
 
   const jar = await cookies();
   jar.set(ACCENT_STORAGE_KEY, answers.accent, {

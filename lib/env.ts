@@ -67,7 +67,7 @@ const schema = z
 export type Env = z.infer<typeof schema>;
 
 /** Checks process.env once at server start. Prints variable NAMES only, never values. */
-export function validateEnv(source: NodeJS.ProcessEnv = process.env): Env {
+export function validateEnv(source: Record<string, string | undefined> = process.env): Env {
   const result = schema.safeParse(source);
   if (!result.success) {
     const lines = result.error.issues.map((i) => `  - ${i.path.join(".")}: ${i.message}`);

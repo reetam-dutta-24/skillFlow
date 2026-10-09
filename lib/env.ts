@@ -11,6 +11,7 @@ const schema = z
 
     // Core: the app can't run without these.
     DATABASE_URL: z.string().regex(/^postgres(ql)?:\/\//, "must start with postgresql://"),
+    REDIS_URL: opt(z.string().regex(/^rediss?:\/\//, "must start with redis://")),
     AUTH_SECRET: z.string().min(32, "must be at least 32 characters (npx auth secret)"),
 
     // Google sign-in (both or neither).
@@ -48,6 +49,7 @@ const schema = z
     if (!!e.AUTH_GOOGLE_ID !== !!e.AUTH_GOOGLE_SECRET) {
       fail("AUTH_GOOGLE_SECRET", "set both AUTH_GOOGLE_ID and AUTH_GOOGLE_SECRET, or neither");
     }
+    
 
     const stripe = ["STRIPE_SECRET_KEY", "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY", "STRIPE_PRICE_ID", "STRIPE_WEBHOOK_SECRET"] as const;
     const stripeSet = stripe.filter((k) => e[k]);
@@ -58,6 +60,7 @@ const schema = z
     if (e.NODE_ENV === "production") {
       if (!e.CRON_SECRET) fail("CRON_SECRET", "required in production (protects /api/cron/*)");
       if (!e.GEOCODER_USER_AGENT) fail("GEOCODER_USER_AGENT", "required in production (Nominatim policy)");
+      if (!e.REDIS_URL) fail("REDIS_URL", "required in production (rate limits and shared cache)");
     }
   });
 

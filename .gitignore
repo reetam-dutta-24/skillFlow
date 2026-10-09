@@ -50,3 +50,8 @@ next-env.d.ts
 # local database dumps: contain tokens, hashes and personal data
 backup-*.sql
 *.dump
+
+
+# playwright
+/test-results/
+/playwright-report/

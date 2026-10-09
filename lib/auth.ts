@@ -1,12 +1,13 @@
 // auth.ts
-import NextAuth from "next-auth"
-import Google from "next-auth/providers/google"
-import Credentials from "next-auth/providers/credentials"
-import { PrismaAdapter } from "@auth/prisma-adapter"
-import bcrypt from "bcryptjs"
-import { prisma } from "@/lib/prisma"
-import { UserRole } from "@prisma/client"
-import { googleAuthEnabled, normalizeEmail } from "@/lib/google-auth"
+import NextAuth from "next-auth";
+import Google from "next-auth/providers/google";
+import Credentials from "next-auth/providers/credentials";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import bcrypt from "bcryptjs";
+import { prisma } from "@/lib/prisma";
+import { UserRole } from "@prisma/client";
+import { googleAuthEnabled, normalizeEmail } from "@/lib/google-auth";
+import { clientIp, loginAllowed } from "@/lib/limits";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
@@ -28,18 +29,21 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       : []),
     Credentials({
       credentials: { email: {}, password: {} },
-      authorize: async (credentials) => {
-        const email = normalizeEmail(credentials.email)
-        if (!email) return null
-        const user = await prisma.user.findUnique({ where: { email } })
+      authorize: async (credentials, request) => {
+        const email = normalizeEmail(credentials.email);
+        if (!email) return null;
+        // Brute-force guard. A blocked try looks like a wrong password, so attackers learn nothing.
+        if (!(await loginAllowed(email, clientIp(request.headers))))
+          return null;
+        const user = await prisma.user.findUnique({ where: { email } });
         // A Google-only account has no password, so the password form cannot open it.
-        if (!user || !user.password) return null
+        if (!user || !user.password) return null;
 
         const valid = await bcrypt.compare(
           credentials.password as string,
-          user.password
-        )
-        return valid ? user : null
+          user.password,
+        );
+        return valid ? user : null;
       },
     }),
   ],
@@ -50,53 +54,57 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     // connects Google from Settings, which proves they hold both.
     signIn: async ({ account, profile }) => {
       if (account?.provider === "google") {
-        return profile?.email_verified === true && Boolean(profile.email)
+        return profile?.email_verified === true && Boolean(profile.email);
       }
-      return true
+      return true;
     },
     jwt: async ({ token, user }) => {
       if (user) {
-        token.id = user.id
-        token.role = user.role
+        token.id = user.id;
+        token.role = user.role;
       }
-      return token
+      return token;
     },
     session: async ({ session, token }) => {
       if (session.user) {
-        session.user.id = token.id as string
-        session.user.role = token.role as UserRole
+        session.user.id = token.id as string;
+        session.user.role = token.role as UserRole;
       }
-      return session
+      return session;
     },
   },
   events: {
     // Runs when a Google account is attached: on a first Google sign-in, and when a signed-in learner
     // connects Google from Settings.
     linkAccount: async ({ user, account, profile }) => {
-      if (account.provider !== "google" || !user.id) return
-      const googleEmail = normalizeEmail(profile.email)
-      if (!googleEmail) return
+      if (account.provider !== "google" || !user.id) return;
+      const googleEmail = normalizeEmail(profile.email);
+      if (!googleEmail) return;
       const current = await prisma.user.findUnique({
         where: { id: user.id },
         select: { email: true, emailVerified: true, image: true },
-      })
-      if (!current) return
-      const data: { email?: string; emailVerified?: Date; image?: string } = {}
+      });
+      if (!current) return;
+      const data: { email?: string; emailVerified?: Date; image?: string } = {};
       if (current.email === googleEmail) {
-        data.emailVerified = new Date()
+        data.emailVerified = new Date();
       } else if (!current.emailVerified) {
         // The account was made with an address nobody verified. Move it to the verified Gmail,
         // unless another account already uses that address.
-        const taken = await prisma.user.findUnique({ where: { email: googleEmail }, select: { id: true } })
+        const taken = await prisma.user.findUnique({
+          where: { email: googleEmail },
+          select: { id: true },
+        });
         if (!taken) {
-          data.email = googleEmail
-          data.emailVerified = new Date()
+          data.email = googleEmail;
+          data.emailVerified = new Date();
         }
       }
-      if (!current.image && typeof profile.image === "string") data.image = profile.image
+      if (!current.image && typeof profile.image === "string")
+        data.image = profile.image;
       if (Object.keys(data).length > 0) {
-        await prisma.user.update({ where: { id: user.id }, data })
+        await prisma.user.update({ where: { id: user.id }, data });
       }
     },
   },
-})
+});

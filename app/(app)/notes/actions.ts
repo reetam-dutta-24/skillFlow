@@ -9,6 +9,7 @@ import { loadPracticePages } from "@/lib/explain/page-source";
 import { touchLearnerProgress } from "@/lib/progress/stats";
 import { summarizeStageNotes } from "@/lib/explain/summarize";
 import { prisma } from "@/lib/prisma";
+import { aiAllowed } from "@/lib/limits";
 
 export async function summarizeStage(stageId: string): Promise<
   { ok: true; summary: string } | { ok: false; error: "empty" | "unavailable" | "unconnected" }
@@ -17,6 +18,7 @@ export async function summarizeStage(stageId: string): Promise<
   const userId = session?.user?.id;
   if (!userId || !stageId) return { ok: false, error: "unavailable" };
   if (!explainModelConfig()) return { ok: false, error: "unconnected" };
+  if (!(await aiAllowed(userId))) return { ok: false, error: "unavailable" };
 
   const notes = (await listLearnerNotes(userId)).filter((note) => note.stageId === stageId);
   if (notes.length === 0) return { ok: false, error: "empty" };
@@ -39,6 +41,7 @@ export async function reviewPractice(input: {
   const userId = session?.user?.id;
   if (!userId) return { ok: false, error: "unavailable" };
   if (!explainModelConfig()) return { ok: false, error: "unconnected" };
+  if (!(await aiAllowed(userId))) return { ok: false, error: "unavailable" };
 
   const concept = input.concept.trim().slice(0, 200);
   const answer = input.answer.trim().slice(0, 8000);

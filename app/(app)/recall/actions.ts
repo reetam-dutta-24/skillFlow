@@ -6,6 +6,7 @@ import { auth } from "@/lib/auth";
 import { explainModelConfig, judgeRecall } from "@/lib/explain/judge";
 import { EXPLAIN_REVIEW_FAILURE_TEXT } from "@/lib/mock/config";
 import { prisma } from "@/lib/prisma";
+import { aiAllowed } from "@/lib/limits";
 import { touchLearnerProgress } from "@/lib/progress/stats";
 import { qualityLabel, RECALL_HOLD_COOKIE, RECALL_LIMIT, recallDue, retentionFactor, type RecallQuality } from "@/lib/explain/recall";
 
@@ -17,6 +18,7 @@ export async function reviewRecall(noteId: string, answer: string): Promise<
   const userId = session?.user?.id;
   if (!userId || !noteId) return { ok: false, error: "unavailable" };
   if (!explainModelConfig()) return { ok: false, error: "unconnected" };
+  if (!(await aiAllowed(userId))) return { ok: false, error: "unavailable" };
 
   const written = answer.trim().slice(0, 8000);
   if (!written) return { ok: false, error: "empty" };

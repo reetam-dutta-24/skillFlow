@@ -2,12 +2,15 @@
 "use server"
 
 import bcrypt from "bcryptjs"
+import { headers } from "next/headers"
+import { clientIp, signupAllowed } from "@/lib/limits"
 import { prisma } from "@/lib/prisma"
 import { normalizeEmail } from "@/lib/google-auth"
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 
 export async function signUp(formData: FormData) {
+  if (!(await signupAllowed(clientIp(await headers())))) return { error: "Too many sign-ups from this network. Try again later." }
   const email = normalizeEmail(formData.get("email"))
   const password = String(formData.get("password") ?? "")
   const name = String(formData.get("name") ?? "").trim()

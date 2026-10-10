@@ -61,22 +61,40 @@ A dead stored link can be marked unavailable. The lesson keeps the saved title, 
 - PostgreSQL and Prisma 6
 - Auth.js v5 — email and password with bcrypt, plus Google sign-in, JWT sessions
 - Explain-back grading uses Gemini’s free tier when `GEMINI_API_KEY` is set. `OPENAI_API_KEY` is the fallback when that key is empty. With no key, the catalog questions stay and a stage cannot be passed
+- Redis 7 for rate limits only (`ioredis`). Without `REDIS_URL` the limits are off, which is fine on your machine
+- Vitest for unit tests and Playwright for end-to-end tests
 
 ## Getting started
 
 ```bash
 npm install
-docker compose up -d
-npx prisma migrate dev
+docker compose up -d          # Postgres 16 on 5432 and Redis 7 on 6379
+npx prisma migrate deploy
 npx prisma db seed
 npm run dev
 ```
 
-Copy `.env.example` to `.env` and fill in real values before running. Those commands are for a new, empty database on your machine.
+Copy `.env.example` to `.env` and fill in real values before running. Those commands are for a new, empty database on your machine. The server checks the environment when it starts (`lib/env.ts`) and refuses to run with a missing or malformed value, naming the variable but never printing its value. `AUTH_SECRET` must be at least 32 characters (`npx auth secret`).
 
-Production build: `npm run build`, then `npm start` (port 3000). Apply migrations with `npx prisma migrate deploy`, never `migrate dev` or `migrate reset`. Uploaded files (photos, videos, covers) are written to `public/uploads` on the server's disk and served by `app/uploads/[file]/route.ts`; they are not in git. `HANDOFF.md` has the full deployment brief: every environment variable, external service, route, cache, and known gap.
+The seed creates admin accounts only when `SEED_ADMIN_EMAILS` (comma-separated) and `SEED_ADMIN_PASSWORD` (12 characters or more) are set in `.env`. It never resets the password of an account that already exists; it only makes that account an admin.
 
-Do not re-run the seed on a database that already has people in it. The seed resets the admin passwords and rewrites every niche. To reload one path, use the catalog commands below, then set that skill's status and offer directly. The importer does not change status, the cover image, or the flagship flag.
+Production build: `npm run build`, then `npm start` (port 3000). Apply migrations with `npx prisma migrate deploy`, never `migrate dev` or `migrate reset`. Production also needs `REDIS_URL`, `CRON_SECRET`, and `GEOCODER_USER_AGENT`, or the server will not start. Uploaded files (photos, videos, covers) are written to `public/uploads` on the server's disk and served by `app/uploads/[file]/route.ts`; they are not in git. `HANDOFF.md` has the full deployment brief: every environment variable, external service, route, cache, and known gap.
+
+Do not re-run the seed on a database that already has people in it. The seed rewrites every niche, and it refuses to run in production unless `ALLOW_PROD_SEED=yes`. To reload one path, use the catalog commands below, then set that skill's status and offer directly. The importer does not change status, the cover image, or the flagship flag.
+
+## Tests, health, and limits
+
+```bash
+npm test                          # Vitest unit tests (34 files, 136 tests on 10 October 2026)
+npx playwright install chromium   # once
+npm run test:e2e                  # Playwright, reuses the dev server on port 3000 or starts one
+```
+
+The end-to-end tests cover the landing page, the health check, sign-up, a wrong password, logging in and opening the first Full-Stack stage, and the signed-out redirect. They need Postgres running and the catalog seeded, and each run adds one new learner (`e2e+<timestamp>@skillflow.test`) to that database. They do not pass an explain-back yet.
+
+`GET /api/health` returns 200 with `{ "status": "ok", "db": "ok", ... }` when Postgres answers, and 503 when it does not. Point a load balancer or uptime check at it.
+
+Rate limits (all in `lib/limits.ts`): log-in 5 tries per email and 30 per IP every 15 minutes, sign-up 5 per IP an hour, AI calls 10 a minute and 200 a day per learner, and uploads 20 an hour per learner. Every response carries security headers from `next.config.ts`. The Content Security Policy is in report-only mode for now.
 
 ## Catalog
 
@@ -195,4 +213,4 @@ Your profile and Home show a GitHub-style heatmap of everything you did each day
 
 ## What is still ahead
 
-Integration tests and an end-to-end pass are not written. Deploy, CI, and error monitoring are not started; `HANDOFF.md` lists what a deploy needs. The case study is not written. Premium niches have no catalogs. `Project-roadmap.md` is the phase list. `AGENTS.md` is the working context for the next session.
+Integration tests are not written, and the end-to-end tests stop at opening a lesson (explain-back and progress are not covered). The CSP still has to move from report-only to enforced. Deploy, CI, and error monitoring are not started; `HANDOFF.md` lists what a deploy needs. The case study is not written. Premium niches have no catalogs. `Project-roadmap.md` is the phase list. `AGENTS.md` is the working context for the next session.

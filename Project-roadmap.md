@@ -11,7 +11,7 @@ Tick a box only when that exact piece is really finished. A screen that looks do
 
 `AGENTS.md` is the short context a new session should read. This file is the longer record.
 
-Last aligned with the working tree on 8 October 2026.
+Last aligned with the working tree on 10 October 2026.
 
 ---
 
@@ -41,7 +41,8 @@ Last aligned with the working tree on 8 October 2026.
 | Home | Done | Career-fit card, Continue, six figures and a weekly chart, path lanes with stage photos, and six For you panels drawn from Progress, Notes, Nearby, Open Source, and records |
 | Career-fit test | Done | IPIP-NEO-120 and the O*NET Interest Profiler Short Form, 180 items saved as you go, scored in code, a detailed report with the top five free paths and how to approach them, PNG and JPG export, a card on Home |
 | UI polish | Done | Audit in `UI-AUDIT.md`. Contrast-checked tokens, one `Button` with pending, focus-trapped dialogs, a toast, a photo for every stage, a redesigned path and lesson page, explain-back in focus mode, a framed certificate, 44px targets, and no sideways scroll at 375px or 768px. Lighthouse accessibility is 100 on the landing, Home, a path, and a lesson |
-| Tests, deploy, monitoring | Unit tests only | Mastery, streaks, explain-back judging, plans, events, and community rules have unit tests. No end-to-end pass, no production host, no Sentry |
+| Deploy groundwork | Done | Env vars validated at startup, `/api/health` with a database check, security headers, a report-only CSP, Redis rate limits on log-in, sign-up, AI calls, and uploads, seed admins from env, and hero videos compressed from 115 MB to 10.7 MB |
+| Tests, deploy, monitoring | Unit tests and a first end-to-end suite | 136 Vitest unit tests, including env validation and the rate limiter. Playwright covers sign-up, log-in, and opening a lesson, but not explain-back or progress. No production host, no CI, no Sentry |
 
 ---
 
@@ -139,7 +140,7 @@ Roadmap stage status (passed, in progress, ready) stays personal, so the roadmap
 
 Public Open Source data (merged lists, one published post, member counts, gaps, the changelog, contributors, contributor profiles) is cached with the `community` tag. Questions on a post stay on the request. A merge, an unmerge, a resubmission, a role change, a gap change, a join, or a useful mark calls `invalidateCommunity()`. The review queue, the sidebar Review count, the author's own pages, the maintainers panel, and `/admin/community` stay on the request.
 
-There is no Redis layer. The cache is Next's own store. `ioredis` is in the dependencies and is unused.
+Redis is not a cache layer. The cache is Next's own store, in each server process. Redis (`ioredis`, `lib/redis.ts`) holds only rate-limit counters (`lib/rate-limit.ts`, numbers in `lib/limits.ts`). Without `REDIS_URL` the limits are off, which is how local development runs; production requires it.
 
 ---
 
@@ -157,14 +158,13 @@ Content tables:
 - `RoadmapStage` belongs to one skill. `@@unique([skillId, order])`. Optional `image` is the stage photo. `learningObjectives` is a string list. `monetized` defaults to false.
 - `Resource` stores a snapshot (`title`, `description`, `keyPoints`, `transcript`, `provider`, `author`, `videoId`) so a dead URL can still show what the lesson covered. `isFree`, `language`, `needsReview`, `sourceStatus` (`ACTIVE` or `UNAVAILABLE`), and `lastVerifiedAt` are the catalog fields. There is no note column. `@@unique([stageId, url])` and `@@unique([stageId, order])`.
 - `ResourceSubmission` is the waiting room. Approval creates a real `Resource` on that stage. Rejection stores the note.
-- `Quiz`, `QuizQuestion`, `QuizAttempt`. Left in the schema after the quiz feature was dropped. Nothing reads or writes them.
 - `ExplainBackPrompt` is one per stage. The importer writes the question and the rubric. A finished explain-back writes `ExplainBackAttempt`, and a pass sets `StageCompletion.explainBackPassed`.
 - `UserSkillProgress` is one row per user per skill: `masteryPercent`, `currentStageOrder`.
-- `StageCompletion` is one row per user per stage: `explainBackPassed` and `completedAt` (`quizPassed` is unused). A stage counts as passed when the explain-back passed. The free-path lock does not read these flags.
+- `StageCompletion` is one row per user per stage: `explainBackPassed` and `completedAt`. A stage counts as passed when the explain-back passed. The free-path lock does not read these flags.
 
-Migrations are the 24 folders in `prisma/migrations`, from `20260923010253_init` to `20261008190000_contribution_review_unmerge`. That last one adds `ContributionReview.unmerge` with `IF NOT EXISTS`: the column was in the schema and in the development database without a migration file, so a database built from the folder alone lacked it. Checked on 8 October 2026: `prisma migrate deploy` on an empty database, then `prisma migrate diff` against `schema.prisma`, leaves only two harmless differences (a database default on `Event.updatedAt` and `LearnerNote.updatedAt`, which Prisma fills itself). The development database also lists two migrations the repo does not have (`20261003062015_learner_location`, `20261003063619_nearby_events`) and an unused `GeocodeCache` table; a new database does not need them. New migrations are written by hand, only add, and are applied with `prisma migrate deploy`, because a generated diff against the development database would try to drop those extras. Apply with `prisma migrate deploy`, then restart `npm run dev` so it loads the new client. The folder `20260925094514_add_paddword_field` has that spelling. Do not create a migration unless the schema changes. Do not run `prisma migrate reset`.
+Migrations are the 25 folders in `prisma/migrations`, from `20260923010253_init` to `20261008200000_drop_quiz`. The last one drops `Quiz`, `QuizQuestion`, `QuizAttempt`, and `StageCompletion.quizPassed` with `IF EXISTS`; the quiz feature was dropped on 1 October 2026 and nothing read them. `20261008190000_contribution_review_unmerge` adds `ContributionReview.unmerge` with `IF NOT EXISTS`: the column was in the schema and in the development database without a migration file, so a database built from the folder alone lacked it. Checked on 8 October 2026: `prisma migrate deploy` on an empty database, then `prisma migrate diff` against `schema.prisma`, leaves only two harmless differences (a database default on `Event.updatedAt` and `LearnerNote.updatedAt`, which Prisma fills itself). The development database also lists two migrations the repo does not have (`20261003062015_learner_location`, `20261003063619_nearby_events`) and an unused `GeocodeCache` table; a new database does not need them. New migrations are written by hand, only add, and are applied with `prisma migrate deploy`, because a generated diff against the development database would try to drop those extras. Apply with `prisma migrate deploy`, then restart `npm run dev` so it loads the new client. The folder `20260925094514_add_paddword_field` has that spelling. Do not create a migration unless the schema changes. Do not run `prisma migrate reset`.
 
-Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Painting, Photography, and Music Production, then the extra niches. Every skill is available. Offer is free when the slug is one of the thirty free paths, and Premium otherwise. The seed then imports the Full-Stack, Content Creation, Travel Vlogging, Music Production, Self Grooming, Animation, IoT, Screenwriting, Graphic Design, SEO, AI Tools, Cybersecurity, Digital Marketing, Personal Finance, Public Speaking, Sound Design, Nutrition, Psychology, Podcasting, Guitar, Chess, Art & Painting, Photography, Emergency Preparedness, Badminton, Relationships, Socializing, Interior Design, Freelancing, and Travel Planning catalog files. The dead links in Art & Painting, Photography, Emergency Preparedness, and Badminton stay until a working page is chosen. Do not run it against a database that already has accounts. It resets admin passwords.
+Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Painting, Photography, and Music Production, then the extra niches. Every skill is available. Offer is free when the slug is one of the thirty free paths, and Premium otherwise. The seed then imports the Full-Stack, Content Creation, Travel Vlogging, Music Production, Self Grooming, Animation, IoT, Screenwriting, Graphic Design, SEO, AI Tools, Cybersecurity, Digital Marketing, Personal Finance, Public Speaking, Sound Design, Nutrition, Psychology, Podcasting, Guitar, Chess, Art & Painting, Photography, Emergency Preparedness, Badminton, Relationships, Socializing, Interior Design, Freelancing, and Travel Planning catalog files. The dead links in Art & Painting, Photography, Emergency Preparedness, and Badminton stay until a working page is chosen. Admin accounts come from `SEED_ADMIN_EMAILS` and `SEED_ADMIN_PASSWORD` (12 characters or more) in `.env`; without both, no admin is made. An existing account is only promoted, never given a new password. The seed refuses to run in production unless `ALLOW_PROD_SEED=yes`. Do not run it against a database that already has accounts. It rewrites every niche.
 
 ---
 
@@ -261,11 +261,14 @@ Every stage on the thirty free paths has a committed photo under `public/stages/
 - **Shared screens are one cached copy. Personal progress is not.** The niche grid, lessons, clips, and the submit picker use the `catalog` tag. Admin saves expire it at once. Follow marks, mastery, and the account menu stay on the request.
 - **The feed can hold more than one skill.** Onboarding follows up to five free paths, and Follow on Niches, Home, and Paths adds more. Home renders one row per followed skill.
 - **Every stage on a free path is open.** A pass opens the next stage. Passing all of them earns the certificate.
-- **The quiz was dropped.** One explain-back gate per stage is the check, plus a bring-your-own-resource prompt. The quiz tables stay in the schema unused, so the database did not change. Coming-soon and monetized skills open no stages.
+- **The quiz was dropped.** One explain-back gate per stage is the check, plus a bring-your-own-resource prompt. The quiz tables sat unused for a week, then a hand-written migration dropped them on 8 October 2026. Coming-soon and monetized skills open no stages.
 - **Four flagships.** Full-Stack, Travel Vlogging, Content Creation, and Art & Painting are flagships. All four have catalogs. The other twenty-six free paths are not flagships.
 - **The importer must not own availability.** A researched file can say coming soon while the product decision is to open the path. Status is set on the row, and the seed special-cases Art so a later seed does not undo that.
 - **Do not run the full seed to reload one path.** Use the importer, then a targeted update for status and offer.
 - **Open Source is review-gated, not a forum.** Contributions never enter the catalog tables. A review is one decision with a reason, not a thread. Every decision only applies if the status and revision still match what the reviewer opened, so two reviewers cannot both act on one item.
+- **Rate limits fail open, except log-in.** If Redis is down, a learner can still explain back and upload, but nobody can log in with a password, because a brute-force guard that switches off under load is no guard. A blocked log-in looks like a wrong password.
+- **The CSP starts in report-only.** The policy is written, and violations are reported in the console. It is enforced only after a clean pass, so a missed host does not break the app.
+- **Env errors name the variable, never the value.** A bad config stops the server at start instead of failing on the first request.
 - **AniVerse was a structural reference.** The magenta palette, likes, and follower counts were not copied.
 
 ---
@@ -275,7 +278,8 @@ Every stage on the thirty free paths has a committed photo under `public/stages/
 - SkillFlow has a quiz, a score leaderboard, or peer review.
 - A Premium niche has a catalog. It does not. Stripe charges someone when the keys are missing. It does not.
 - A creator has a rating or earnings.
-- The app is deployed, monitored, or covered by an end-to-end test.
+- The app is deployed or monitored. The end-to-end tests cover sign-up, log-in, and opening a lesson. They do not pass an explain-back.
+- The Content Security Policy blocks anything. It is report-only.
 - Every accent was checked for contrast on both themes. The ten presets were measured; Spectrum and custom gradients were not.
 
 ---
@@ -293,9 +297,9 @@ Do not start a later phase's backend until the previous phase's open boxes are d
 - [x] **Idempotent writes** — catalog reimport is idempotent. A passed explain-back writes one attempt. The Stripe webhook upserts one subscription per account.
 - [x] **Version fields on explain-back** — columns exist. No second version has been stored.
 - [x] **Conventional commits** — history uses `feat`, `fix`, and `chore`.
-- [ ] **OWASP baseline** — passwords are hashed, secrets stay in `.env`, admin routes check role. A full threat pass is not done.
+- [ ] **OWASP baseline** — passwords are hashed, secrets stay in `.env` (the seed admin password too), admin routes check role, env vars are validated at startup, log-in, sign-up, AI calls, and uploads are rate limited, and security headers are on. The CSP is report-only, and a full threat pass is not done.
 - [x] **Accessibility** — keyboard, labels, focus traps, 44px targets, and measured contrast on the ten presets in both themes (`UI-AUDIT.md`). Lighthouse accessibility is 100 on the landing, Home, a path, and a lesson. Spectrum and custom gradients are not measured.
-- [ ] **Tests** — unit tests cover mastery, streaks, explain-back judging, plans, events, and community rules. Integration tests and an end-to-end pass are not written.
+- [ ] **Tests** — unit tests cover mastery, streaks, explain-back judging, plans, events, community rules, env validation, and the rate limiter. Playwright covers sign-up, log-in, and opening a lesson. Integration tests and the explain-back part of the end-to-end pass are not written.
 - [x] **README and agent context** — `README.md`, `AGENTS.md`, and this file match the thirty free paths and the shared-content cache. The case study is not written.
 
 ## Non-functional requirements
@@ -331,12 +335,12 @@ Primary buttons keep their gradient on hover and get slightly brighter. They do 
 ## PHASE 2 — Data model and auth
 **Status: ✅ COMPLETE for what Version 1 uses. GitHub login and database sessions were dropped on purpose.**
 
-- [x] Prisma schema for auth, skills, stages, resources, submissions, explain-back, progress, and `LearnerProfile` (the quiz tables are unused)
+- [x] Prisma schema for auth, skills, stages, resources, submissions, explain-back, progress, and `LearnerProfile` (the quiz tables were dropped)
 - [x] Catalog fields: offer, flagship, niche group, resource metadata, source status, stage image
-- [x] Docker Compose Postgres and `DATABASE_URL`
+- [x] Docker Compose Postgres and Redis, `DATABASE_URL` and `REDIS_URL`
 - [x] `prisma.config.ts` imports `dotenv/config`
 - [x] Migrations listed above are applied
-- [x] Seed imports all thirty free catalogs. Art stays a flagship. Do not re-run it casually
+- [x] Seed imports all thirty free catalogs. Art stays a flagship. Admins come from env and keep their passwords. It refuses production without `ALLOW_PROD_SEED`. Do not re-run it casually
 - [x] Email/password sign-in and sign-up
 - [x] `proxy.ts` redirects anonymous visitors
 - [x] JWT session strategy
@@ -429,17 +433,26 @@ The mock catalog in `lib/mock/catalog.ts` is leftover sample data for the screen
 - [ ] Integration tests for review, edit, and hide
 
 ## PHASE 8 — Testing
-**Status: 🔶 MASTERY AND STREAK TESTS EXIST. THE REST DOES NOT**
+**Status: 🔶 UNIT TESTS AND THE FIRST HALF OF THE END-TO-END PASS EXIST**
 
 - [x] Unit tests for the open-stage rule, mastery, and streaks
+- [x] Unit tests for env validation and the rate limiter (136 tests in 34 files on 10 October 2026)
+- [x] Playwright set up (`playwright.config.ts`, `npm run test:e2e`): landing, health, sign-up → onboarding, wrong password, log-in → path → first lesson, signed-out redirect
 - [ ] Integration tests for catalog import and lesson reads
-- [ ] One end-to-end pass: signup → onboarding → lesson → explain-back → progress
+- [ ] One end-to-end pass: signup → onboarding → lesson → explain-back → progress. The part up to the lesson is written; explain-back and progress need the model mocked
 - [ ] Manual pass of empty, error, and loading
 - [ ] Model calls mocked in tests
 
 ## PHASE 9 — Deploy
-**Status: ⬜ NOT STARTED**
+**Status: 🔶 GROUNDWORK DONE. NO HOST YET**
 
+- [x] Env vars validated at startup (`instrumentation.ts`, `lib/env.ts`); production requires `REDIS_URL`, `CRON_SECRET`, and `GEOCODER_USER_AGENT`
+- [x] Health check `GET /api/health`: 200 when Postgres answers, 503 when it does not
+- [x] Security headers and a report-only CSP in `next.config.ts`
+- [x] Redis rate limits on log-in, sign-up, AI calls, and uploads
+- [x] Seed admin credentials moved to env; the seed refuses production without `ALLOW_PROD_SEED`
+- [x] Hero videos compressed from 115 MB to 10.7 MB
+- [ ] Enforce the CSP after a clean report-only pass
 - [ ] App container
 - [ ] GitHub Actions: lint, test, build
 - [ ] Hosted app and hosted Postgres
@@ -530,7 +543,7 @@ Ticketmaster and Google Events (SerpApi) are separate adapters. A missing key tu
 
 ---
 
-**Right now.** Thirty paths are free. Full-Stack, Travel Vlogging, Content Creation, Music Production, Self Grooming, Animation & VFX, IoT & Robot Automation, Screenwriting, Graphic Design, SEO, AI Tools, Cybersecurity, Digital Marketing, Personal Finance, Public Speaking, Sound Design, Nutrition, Psychology, Podcasting, Guitar, Chess, Art & Painting, Photography, Emergency Preparedness, Badminton, Relationships, Socializing, Interior Design, Freelancing, and Travel Planning have catalogs. Every other niche is Premium, with no resources, until a subscription opens it. A pass opens the next stage, and passing every stage earns the certificate. Phases 0, 1, 2, 3, 4, 5, and 7 are done for all thirty free paths, and the Open Source community is complete. The learner map and Nearby events are live. Explain-back asks for every idea written from that stage’s resources and passes the stage only when a model marks each one understood. An accepted idea is kept in Notes, and that notebook can be downloaded or summarized from those notes alone. A transcript lists the stages a learner has passed. A certificate is issued when every stage on a path is passed. `/notes/practice` grades an idea against a public page, a text file, or a pasted passage, and saves it without passing a stage. Every free path can have a personal plan built in code from that learner's preferences, and the roadmap shows that schedule. Mastery, streaks, weak topics, and the progress charts read explain-back attempts. The accent system is complete: ten presets, a custom gradient, and Spectrum. Still open for Version 1: the rest of the test suite and an end-to-end pass (Phase 8), and deploy (Phase 9).
+**Right now.** Thirty paths are free. Full-Stack, Travel Vlogging, Content Creation, Music Production, Self Grooming, Animation & VFX, IoT & Robot Automation, Screenwriting, Graphic Design, SEO, AI Tools, Cybersecurity, Digital Marketing, Personal Finance, Public Speaking, Sound Design, Nutrition, Psychology, Podcasting, Guitar, Chess, Art & Painting, Photography, Emergency Preparedness, Badminton, Relationships, Socializing, Interior Design, Freelancing, and Travel Planning have catalogs. Every other niche is Premium, with no resources, until a subscription opens it. A pass opens the next stage, and passing every stage earns the certificate. Phases 0, 1, 2, 3, 4, 5, and 7 are done for all thirty free paths, and the Open Source community is complete. The learner map and Nearby events are live. Explain-back asks for every idea written from that stage’s resources and passes the stage only when a model marks each one understood. An accepted idea is kept in Notes, and that notebook can be downloaded or summarized from those notes alone. A transcript lists the stages a learner has passed. A certificate is issued when every stage on a path is passed. `/notes/practice` grades an idea against a public page, a text file, or a pasted passage, and saves it without passing a stage. Every free path can have a personal plan built in code from that learner's preferences, and the roadmap shows that schedule. Mastery, streaks, weak topics, and the progress charts read explain-back attempts. The accent system is complete: ten presets, a custom gradient, and Spectrum. The deploy groundwork is in: env validation, a health check, security headers with a report-only CSP, Redis rate limits, and the first Playwright tests. Still open for Version 1: integration tests and the explain-back half of the end-to-end pass (Phase 8), and the deploy itself (Phase 9).
 
 ---
 
@@ -538,7 +551,7 @@ Ticketmaster and Google Events (SerpApi) are separate adapters. A missing key tu
 
 The functional product is in place, including follow, Premium, live event search, event keywords for every free path, and a saved streak reminder. The UI pass is done (October 2026, `UI-AUDIT.md`). What remains is proof, then a host.
 
-- Phase 8. Integration tests for catalog import and lesson reads. One end-to-end pass from signup through onboarding, a lesson, explain-back, and progress. A manual pass of empty, error, and loading states. Model calls mocked in tests.
+- Phase 8. Integration tests for catalog import and lesson reads. Extend the Playwright suite past the lesson through explain-back and progress, with the model mocked. A manual pass of empty, error, and loading states. Model calls mocked in tests.
 - Open Source. Integration tests for review, edit, and hide.
-- Phase 9. A container, GitHub Actions for lint, test, and build, a hosted app and hosted Postgres, error monitoring, env files that stay out of git, and migrate as a deploy step. Stripe keys on that host.
+- Phase 9. A container, GitHub Actions for lint, test, and build, a hosted app with hosted Postgres and Redis, error monitoring, env files that stay out of git, and migrate as a deploy step. Stripe keys on that host. Enforce the CSP, and make the proxy overwrite `X-Forwarded-For` so the per-IP limits cannot be spoofed.
 - Phase 10. A case study, a short recording of the loop, and a diagram of browser to Server Component to `lib/data` to Prisma.

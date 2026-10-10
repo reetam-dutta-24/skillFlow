@@ -253,7 +253,7 @@ Phases 1–5, 7 October 2026. Commits `e936412`, `e1caf49`, `00a55ea`, `739863b`
 | 1 | Key points as one paragraph | Fixed. Each resource is a card with a "What you will learn" list. Clip captions separate points with a middle dot |
 | 2 | Roadmap stage list of identical text cards | Fixed. Cover hero, "Up next" card, photo stage cards with passed / up next / locked states |
 | 3 | 216 stages without a photo | Fixed. 246 photos committed in `public/stages`, credits in `credits.json` |
-| 4 | 111 MB of 4K hero video on phones | Fixed for phones: 49 KB poster, video only at 960px and up. Phone landing is 449 KB. The 4K files still need 1080p encodes (no ffmpeg on this machine) |
+| 4 | 111 MB of 4K hero video on phones | Fixed for phones: 49 KB poster, video only at 960px and up. Phone landing is 449 KB. The 4K files still need 1080p encodes (no ffmpeg on this machine). Follow-up, 8 October 2026: replaced by compressed `hero-1.mp4` to `hero-5.mp4`, 10.7 MB in all (was 115 MB) |
 | 5 | Light-theme contrast | Fixed with measured tokens |
 | 6 | Mobile top bar truncation | Fixed. Icon-only controls, 44px menu button |
 | 7 | Mobile landing header on three rows | Fixed. Brand, Get started, and Menu; log in and theme moved into the menu |

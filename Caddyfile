@@ -1,0 +1,11 @@
+# Caddy gets and renews a free Let's Encrypt certificate for this domain automatically.
+{$DOMAIN} {
+	encode zstd gzip
+
+	# Creator videos are up to 45 MB.
+	request_body {
+		max_size 50MB
+	}
+
+	reverse_proxy app:3000
+}

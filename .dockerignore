@@ -1,0 +1,20 @@
+# Never send secrets, dumps or local state into the image
+.env*
+!.env.example
+backup-*.sql
+*.dump
+public/uploads/*
+
+# Rebuilt inside Docker
+node_modules
+.next
+
+# Not needed to run the app
+.git
+docs
+e2e
+test-results
+playwright-report
+coverage
+*.md
+update.txt

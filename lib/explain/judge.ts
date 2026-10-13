@@ -1,7 +1,8 @@
 import { feedbackForGaps, followUpForGaps } from "@/lib/explain/concepts";
 import { parseRecallReview } from "@/lib/explain/recall";
 
-const TIMEOUT_MS = 25_000;
+// Gemini's free tier sometimes queues requests for 30-40 s; give it room before giving up.
+const TIMEOUT_MS = 50_000;
 
 export type ConceptMark = {
   concept: string;

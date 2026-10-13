@@ -18,9 +18,9 @@ export async function signupAllowed(ip: string): Promise<boolean> {
 
 /** Every AI call (explain-back, practice, recall, summaries): 10 a minute and 200 a day per learner. */
 export async function aiAllowed(userId: string): Promise<boolean> {
-  const minute = await rateLimit({ name: "ai-minute", id: userId, limit: 10, windowSeconds: 60 });
+  const minute = await rateLimit({ name: "ai-minute", id: userId, limit: 20, windowSeconds: 60 });
   if (!minute.ok) return false;
-  return (await rateLimit({ name: "ai-day", id: userId, limit: 200, windowSeconds: 24 * 60 * 60 })).ok;
+  return (await rateLimit({ name: "ai-day", id: userId, limit: 400, windowSeconds: 24 * 60 * 60 })).ok;
 }
 
 /** 20 uploads an hour per learner. */

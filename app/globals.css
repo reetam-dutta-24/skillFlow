@@ -9446,7 +9446,6 @@ a.sf-stagecard-panel:focus-visible {
   height: 100%;
   border-radius: inherit;
   background-image: var(--gradient-brand);
-  transition: width var(--dur-base) var(--ease-out);
 }
 .sf-lwiz-dots {
   display: flex;
@@ -9548,31 +9547,9 @@ a.sf-stagecard-panel:focus-visible {
 .sf-lwiz-nav .sf-btn svg {
   flex: none;
 }
-@keyframes sf-lwiz-in-next {
-  from {
-    opacity: 0;
-    transform: translateX(24px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-@keyframes sf-lwiz-in-back {
-  from {
-    opacity: 0;
-    transform: translateX(-24px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-.sf-lwiz-slide[data-dir="next"] {
-  animation: sf-lwiz-in-next var(--dur-base) var(--ease-out) both;
-}
-.sf-lwiz-slide[data-dir="back"] {
-  animation: sf-lwiz-in-back var(--dur-base) var(--ease-out) both;
+/* The slide change, the bar, the message, and the Next button are animated with framer-motion in LessonWizard. */
+.sf-lwiz-cta {
+  display: inline-flex;
 }
 @media (max-width: 640px) {
   .sf-lwiz-banner {
@@ -9590,15 +9567,15 @@ a.sf-stagecard-panel:focus-visible {
     margin-inline: calc(var(--page-pad-x-xs) * -1);
     padding-inline: var(--page-pad-x-xs);
   }
-  .sf-lwiz-nav .sf-btn {
-    flex: 1;
+  .sf-lwiz-nav > .sf-lwiz-cta {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  .sf-lwiz-cta .sf-btn {
+    width: 100%;
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .sf-lwiz-slide[data-dir] {
-    animation: none;
-  }
-  .sf-lwiz-fill,
   .sf-lwiz-dot span {
     transition: none;
   }

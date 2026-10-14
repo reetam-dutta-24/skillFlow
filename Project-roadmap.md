@@ -7,11 +7,11 @@ This file is two things at once:
 
 Tick a box only when that exact piece is really finished. A screen that looks done on mock data is not the same as the backend for that feature.
 
-**How to talk about it.** The product idea, the database, sign-in, onboarding, the niche list, and thirty free paths are real. All thirty of those paths have catalogs, and lessons on them play the stored resources. Every niche outside that list is Premium and has no resources. Premium is one Stripe subscription: niches outside the thirty, and appearing on the learner map. There is no quiz: the feature was dropped, and the explain-back gate is the only check. A real stage walks one learning objective at a time. Gemini’s free tier writes a review for each answer, and the step stays put until that idea holds. An idea that holds is kept in Notes. The notebook can download those notes as Word or PDF, and a stage can be summarized from those notes alone. The stage is recorded only when every idea has passed. That call needs an API key. Mastery is the share of open stages passed. A streak day is a UTC day with a saved explain-back or a saved note. There is no leaderboard and no peer review. Stripe Checkout is wired. Missing keys do not charge anyone. A creator rating and earnings are not part of the product.
+**How to talk about it.** The product idea, the database, sign-in, onboarding, the niche list, and thirty free paths are real. All thirty of those paths have catalogs, and lessons on them play the stored resources. Every niche outside that list is Premium and has no resources. Premium is one Stripe subscription: niches outside the thirty, and appearing on the learner map. There is no quiz: the feature was dropped, and the explain-back gate is the only check. A real stage walks one learning objective at a time. Gemini’s free tier writes a review for each answer, and the step stays put until that idea holds. An idea that holds is kept in Notes. The notebook can download those notes as Word or PDF, and a stage can be summarized from those notes alone. The stage is recorded only when every idea has passed. That call needs an API key. Mastery is the share of open stages passed. A streak day is a UTC day with a saved explain-back or a saved note. There is no leaderboard and no peer review. Stripe Checkout is wired. Missing keys do not charge anyone. A creator rating and earnings are not part of the product. The app is live on AWS (one EC2 instance running Docker Compose: the app, Postgres, Redis, and Caddy for automatic HTTPS) at `https://app.32-236-251-56.sslip.io`, a temporary domain until the brand name is final.
 
-`AGENTS.md` is the short context a new session should read. This file is the longer record.
+`AGENTS.md` is the short context a new session should read. This file is the longer record. `STUDY-GUIDE.md` explains every concept and feature end to end for revision and interviews.
 
-Last aligned with the working tree on 10 October 2026.
+Last aligned with the working tree and the live server on 15 October 2026. The product is feature-complete and frozen; what remains is operations (backups, CI/CD, monitoring, production keys, the final domain).
 
 ---
 
@@ -49,7 +49,10 @@ Last aligned with the working tree on 10 October 2026.
 | Career-fit test | Done | IPIP-NEO-120 and the O*NET Interest Profiler Short Form, 180 items saved as you go, scored in code, a detailed report with the top five free paths and how to approach them, PNG and JPG export, a card on Home |
 | UI polish | Done | Audit in `UI-AUDIT.md`. Contrast-checked tokens, one `Button` with pending, focus-trapped dialogs, a toast, a photo for every stage, a redesigned path and lesson page, explain-back in focus mode, a framed certificate, 44px targets, and no sideways scroll at 375px or 768px. Lighthouse accessibility is 100 on the landing, Home, a path, and a lesson |
 | Deploy groundwork | Done | Env vars validated at startup, `/api/health` with a database check, security headers, a report-only CSP, Redis rate limits on log-in, sign-up, AI calls, and uploads, seed admins from env, and hero videos compressed from 115 MB to 10.7 MB |
-| Tests, deploy, monitoring | Unit tests and a first end-to-end suite | 136 Vitest unit tests, including env validation and the rate limiter. Playwright covers sign-up, log-in, and opening a lesson, but not explain-back or progress. No production host, no CI, no Sentry |
+| Tests | Unit tests and a first end-to-end suite | 145 Vitest unit tests in 36 files, including env validation and the rate limiter. Playwright covers sign-up, log-in, and opening a lesson, but not explain-back or progress |
+| Docker | Done | Multi-stage `Dockerfile` (Node 22 slim, non-root, health check), `docker-compose.prod.yml` (app, Postgres 16, Redis 7, Caddy 2), BuildKit secret for the build's database URL |
+| Production | Live | AWS EC2 `t3.small` in Sydney with an Elastic IP, HTTPS by Caddy and Let's Encrypt on a temporary sslip.io domain, development data restored and cleaned, AI limits 20 a minute and 400 a day, a 50-second model timeout |
+| Operations | Open | No automated backups, no CI/CD, no uptime or error monitoring yet. Google sign-in, Stripe, and event keys are not set in production yet. The final domain is not chosen |
 
 ---
 
@@ -259,6 +262,20 @@ Every stage on the thirty free paths has a committed photo under `public/stages/
 
 ---
 
+## Revision: production
+
+`STUDY-GUIDE.md` Part C has the full explanation. The short version:
+
+- **Host.** One AWS EC2 `t3.small` (2 vCPU, 2 GiB, Ubuntu, 2 GB swap, 20 GB gp3) in `ap-southeast-2`, with an Elastic IP (`32.236.251.56`). Security group `skillflow-web`: SSH from the owner's IP only, 80 and 443 from anywhere. Free AWS plan; the rule is to spend nothing.
+- **Stack.** `docker-compose.prod.yml`: `app` (built from the `Dockerfile`), `postgres:16` bound to `127.0.0.1`, `redis:7-alpine` with append-only persistence, and `caddy:2`, the only public service. Volumes `pgdata`, `redisdata`, `uploads`, `caddy_data`, `caddy_config`.
+- **Build.** The build prerenders the catalog, so it needs Postgres. `.env.build` (the same settings with `@127.0.0.1:5432`) is mounted as a BuildKit secret only during the build step, with `network: host`. It is never stored in the image. Runtime settings are in `.env` (`@postgres:5432`). Both are `chmod 600` and never committed. `COMPOSE_FILE` in `.env` selects the production file.
+- **HTTPS.** Caddy gets and renews a Let's Encrypt certificate for `DOMAIN` (`app.32-236-251-56.sslip.io` for now) and overwrites `X-Forwarded-For`, so the per-IP limits cannot be spoofed.
+- **Data.** The development database was dumped, copied, and restored. Development and test accounts were deleted, and the admin password was reset.
+- **Redeploy.** Laptop: test, build, commit, push. Server: back up with `pg_dump`, `git pull`, `docker compose build app`, `docker compose run --rm app node_modules/.bin/prisma migrate deploy`, `docker compose up -d`, check `docker compose ps`, then `docker builder prune -af`. Never prune volumes. Git is the only way code reaches the server.
+- **Incidents worth telling.** The build needed the database (solved with the build secret). The explain-back failed in production because the free Gemini tier sometimes takes 30–48 seconds and the timeout was 25 (now 50). The disk filled during a rebuild (pruned; the volume should grow to 30 GB). SSH broke when the home IP changed (security group rule updated; Session Manager is the long-term fix).
+
+---
+
 ## Revision: decisions worth saying out loud
 
 - **JWT sessions, not database sessions.** Auth.js Credentials does not support database sessions. Revoking one session means changing the secret or waiting for expiry.
@@ -277,6 +294,9 @@ Every stage on the thirty free paths has a committed photo under `public/stages/
 - **The CSP starts in report-only.** The policy is written, and violations are reported in the console. It is enforced only after a clean pass, so a missed host does not break the app.
 - **Env errors name the variable, never the value.** A bad config stops the server at start instead of failing on the first request.
 - **AniVerse was a structural reference.** The magenta palette, likes, and follower counts were not copied.
+- **One server, self-hosted Postgres, $0.** RDS, ECR, a load balancer, and ElastiCache were left out on purpose to stay inside the free plan. The upgrade path is RDS for the database, S3 for uploads and backups, and a shared cache handler before a second app instance.
+- **Build on the server.** No registry. CI building images is the next step.
+- **AI limits were raised to 20 a minute and 400 a day.** One stage can have 15 to 20 ideas, so 10 a minute stopped a learner mid-stage.
 
 ---
 
@@ -285,7 +305,8 @@ Every stage on the thirty free paths has a committed photo under `public/stages/
 - SkillFlow has a quiz, a score leaderboard, or peer review.
 - A Premium niche has a catalog. It does not. Stripe charges someone when the keys are missing. It does not.
 - A creator has a rating or earnings.
-- The app is deployed or monitored. The end-to-end tests cover sign-up, log-in, and opening a lesson. They do not pass an explain-back.
+- The app is monitored, backed up automatically, or deployed by CI. It is deployed, by hand. The end-to-end tests cover sign-up, log-in, and opening a lesson. They do not pass an explain-back.
+- Google sign-in or a Stripe charge works in production. The keys are not set there yet.
 - The Content Security Policy blocks anything. It is report-only.
 - Every accent was checked for contrast on both themes. The ten presets were measured; Spectrum and custom gradients were not.
 
@@ -297,7 +318,7 @@ Do not start a later phase's backend until the previous phase's open boxes are d
 
 ## Guiding principles
 
-- [ ] **Twelve-factor** — config in env vars, stateless JWT. Open until deploy and prod parity exist.
+- [x] **Twelve-factor** — config in env vars, stateless JWT, backing services attached by URL, one image built per release, logs to stdout. Development runs Postgres and Redis in Docker too.
 - [x] **Resource-shaped writes** — Server Actions and Zod on catalog, settings, and submission writes. There is no separate REST API.
 - [x] **Separation of page and data** — pages call `lib/data`. Catalog paths do not embed the mock arrays. Milestone and Version 2 still do.
 - [x] **Shared tokens and components** — colors and type come from `globals.css`.
@@ -307,13 +328,13 @@ Do not start a later phase's backend until the previous phase's open boxes are d
 - [ ] **OWASP baseline** — passwords are hashed, secrets stay in `.env` (the seed admin password too), admin routes check role, env vars are validated at startup, log-in, sign-up, AI calls, and uploads are rate limited, and security headers are on. The CSP is report-only, and a full threat pass is not done.
 - [x] **Accessibility** — keyboard, labels, focus traps, 44px targets, and measured contrast on the ten presets in both themes (`UI-AUDIT.md`). Lighthouse accessibility is 100 on the landing, Home, a path, and a lesson. Spectrum and custom gradients are not measured.
 - [ ] **Tests** — unit tests cover mastery, streaks, explain-back judging, plans, events, community rules, env validation, the rate limiter, weak topics, and notification counts. Playwright covers sign-up, log-in, and opening a lesson. Integration tests and the explain-back part of the end-to-end pass are not written.
-- [x] **README and agent context** — `README.md`, `AGENTS.md`, and this file match the thirty free paths and the shared-content cache. The case study is not written.
+- [x] **README and agent context** — `README.md` (with architecture diagrams), `AGENTS.md`, `HANDOFF.md`, `STUDY-GUIDE.md`, and this file match the app and the live deploy. The case study is not written.
 
 ## Non-functional requirements
 
-- [ ] Scalability documented for a real deploy
+- [x] Scalability documented for a real deploy (`STUDY-GUIDE.md` §31: what breaks first and the fix for each stage)
 - [ ] Security: auth works for email/password; a threat pass is still open
-- [x] Performance of shared catalog reads — one cached copy of the niche grid, lessons, clips, and the submit picker. Personal progress stays a small query. A production host and CDN are still open
+- [x] Performance of shared catalog reads — one cached copy of the niche grid, lessons, clips, and the submit picker. Personal progress stays a small query. Production runs on one EC2 instance behind Caddy with compression. A CDN is still open
 - [x] Reliability of a dead link — a stored source can be marked unavailable and the lesson keeps the snapshot
 - [x] Maintainability of the UI layer — tokens, typed view models, `lib/data` boundary
 - [ ] Observability (Sentry or equivalent)
@@ -451,7 +472,7 @@ The mock catalog in `lib/mock/catalog.ts` is leftover sample data for the screen
 - [ ] Model calls mocked in tests
 
 ## PHASE 9 — Deploy
-**Status: 🔶 GROUNDWORK DONE. NO HOST YET**
+**Status: 🔶 LIVE ON AWS. BACKUPS, CI/CD, MONITORING, AND PRODUCTION KEYS ARE OPEN**
 
 - [x] Env vars validated at startup (`instrumentation.ts`, `lib/env.ts`); production requires `REDIS_URL`, `CRON_SECRET`, and `GEOCODER_USER_AGENT`
 - [x] Health check `GET /api/health`: 200 when Postgres answers, 503 when it does not
@@ -459,32 +480,44 @@ The mock catalog in `lib/mock/catalog.ts` is leftover sample data for the screen
 - [x] Redis rate limits on log-in, sign-up, AI calls, and uploads
 - [x] Seed admin credentials moved to env; the seed refuses production without `ALLOW_PROD_SEED`
 - [x] Hero videos compressed from 115 MB to 10.7 MB
-- [ ] Enforce the CSP after a clean report-only pass
-- [ ] App container
-- [ ] GitHub Actions: lint, test, build
-- [ ] Hosted app and hosted Postgres
-- [ ] Error monitoring
-- [ ] Separate env files, no secrets in git
-- [ ] Migrate as a deploy step (`prisma migrate deploy`; a fresh database from the folder matches the schema)
-- [ ] Uploads on lasting storage. Files go to `public/uploads` on the server's disk and `app/uploads/[file]/route.ts` serves them, because `next start` only serves `public` files that existed at build time. One server with a lasting disk works; more than one server, or a container that is replaced on deploy, needs object storage (S3) behind `lib/uploads.ts`
+- [x] AI budget raised to 20 calls a minute and 400 a day per learner; the model timeout raised to 50 seconds for free-tier latency
+- [x] App container: multi-stage `Dockerfile` (Node 22 slim, `npm ci`, BuildKit secret for the build's database URL, `npm prune --omit=dev`, non-root `node` user, `HEALTHCHECK` on `/api/health`, `next start` as PID 1)
+- [x] `docker-compose.prod.yml`: app, Postgres 16 on `127.0.0.1` only, Redis 7 with append-only persistence, Caddy 2 with automatic HTTPS; named volumes for data, uploads, and certificates
+- [x] Hosted app and Postgres: one AWS EC2 `t3.small` in Sydney, Elastic IP, security group with SSH from one IP and 80/443 public; Postgres self-hosted in a container (no RDS, to stay at $0)
+- [x] Separate env files, no secrets in git: `.env` (runtime) and `.env.build` (build only), `chmod 600`, kept out of git and the Docker context
+- [x] Migrate as a deploy step: `docker compose run --rm app node_modules/.bin/prisma migrate deploy` before `up -d`
+- [x] Uploads on lasting storage: the `uploads` volume at `/app/public/uploads`, served by `app/uploads/[file]/route.ts`. More than one server needs S3 behind `lib/uploads.ts`
+- [x] Development data restored to production; test and development accounts removed; admin password reset
+- [x] The proxy overwrites `X-Forwarded-For` (Caddy's default), so per-IP limits cannot be spoofed
 - [x] Stage photos are in git (`public/stages`), so a deploy has them
+- [ ] Daily `pg_dump` to S3 by cron, with a tested restore
+- [ ] Grow the EBS volume from 20 to 30 GB and prune build cache after every deploy
+- [ ] GitHub Actions: type check, test, build, then deploy over SSH or Session Manager; set `GIT_SHA`
+- [ ] Uptime monitoring on `/api/health` and error monitoring (Sentry)
+- [ ] Google sign-in in production (redirect URI, keys in `.env` and `.env.build`, rebuild)
+- [ ] Stripe test keys, webhook URL, and one test charge in production
+- [ ] Rotated Ticketmaster and SerpApi keys, and a cron for `/api/cron/events`
+- [ ] Final brand and domain; `noindex` until then
+- [ ] Enforce the CSP after a clean report-only pass on the live site
+- [ ] Session Manager instead of SSH; a second admin on a personal email
 
 ## PHASE 10 — Documentation and case study
-**Status: 🔶 THE WORKING DOCS MATCH THE APP. THE CASE STUDY IS NOT WRITTEN**
+**Status: ✅ THE DOCS MATCH THE APP AND THE LIVE DEPLOY. THE CASE STUDY AND A RECORDING ARE DEFERRED**
 
-- [x] README aligned with the thirty free paths and the catalog commands
-- [x] `AGENTS.md` aligned so a new chat does not revive the mock-catalog story
+- [x] README rewritten: what the product does, architecture diagrams, stack, local run, production, security, keys, catalog
+- [x] `AGENTS.md` aligned so a new chat does not revive the mock-catalog story, and knows production is live
 - [x] This file aligned
-- [x] `HANDOFF.md`: a self-contained brief for testing and deployment (stack, run commands, every env var, external services, state outside the database, the deploy checklist)
+- [x] `HANDOFF.md`: a self-contained brief for testing and operating the deployment (stack, run commands, every env var, external services, state outside the database, production as deployed, the redeploy runbook, the remaining checklist)
+- [x] `STUDY-GUIDE.md`: every concept and feature end to end, the incident log, and an interview question bank
+- [x] Diagrams (Mermaid): the production system, browser → proxy → Server Component → `lib/data` → Prisma, the explain-back sequence, the deploy pipeline, and the data model
 - [ ] Case study: the problem, what existing products optimize for, and what SkillFlow refused to copy
-- [ ] A short recording of the loop
-- [ ] A diagram of browser → Server Component → `lib/data` → Prisma
+- [ ] A short recording of the loop (not needed for now)
 
 ---
 
 # VERSION 2 — after Version 1
 
-Explain-back, streaks, notes, transcripts, certificates, personal plans, creator studio, the learner map, nearby events, and Stripe Checkout are built. Tests and deploy are still open.
+Explain-back, streaks, notes, transcripts, certificates, personal plans, creator studio, the learner map, nearby events, and Stripe Checkout are built and deployed. Production Stripe keys and more tests are still open.
 
 ## V2 PHASE 1 — Premium and Stripe
 **Status: 🔄 IN PROGRESS. Checkout, the webhook, and the two Premium gates are in the app. A charge starts only when the Stripe keys are set.**
@@ -550,15 +583,15 @@ Ticketmaster and Google Events (SerpApi) are separate adapters. A missing key tu
 
 ---
 
-**Right now.** Thirty paths are free. Full-Stack, Travel Vlogging, Content Creation, Music Production, Self Grooming, Animation & VFX, IoT & Robot Automation, Screenwriting, Graphic Design, SEO, AI Tools, Cybersecurity, Digital Marketing, Personal Finance, Public Speaking, Sound Design, Nutrition, Psychology, Podcasting, Guitar, Chess, Art & Painting, Photography, Emergency Preparedness, Badminton, Relationships, Socializing, Interior Design, Freelancing, and Travel Planning have catalogs. Every other niche is Premium, with no resources, until a subscription opens it. A pass opens the next stage, and passing every stage earns the certificate. Phases 0, 1, 2, 3, 4, 5, and 7 are done for all thirty free paths, and the Open Source community is complete. The learner map and Nearby events are live. Explain-back asks for every idea written from that stage’s resources and passes the stage only when a model marks each one understood. An accepted idea is kept in Notes, and that notebook can be downloaded or summarized from those notes alone. A transcript lists the stages a learner has passed. A certificate is issued when every stage on a path is passed. `/notes/practice` grades an idea against a public page, a text file, or a pasted passage, and saves it without passing a stage. Every free path can have a personal plan built in code from that learner's preferences, and the roadmap shows that schedule. Mastery, streaks, weak topics, and the progress charts read explain-back attempts. The accent system is complete: ten presets, a custom gradient, and Spectrum. The deploy groundwork is in: env validation, a health check, security headers with a report-only CSP, Redis rate limits, and the first Playwright tests. Still open for Version 1: integration tests and the explain-back half of the end-to-end pass (Phase 8), and the deploy itself (Phase 9).
+**Right now.** Thirty paths are free. Full-Stack, Travel Vlogging, Content Creation, Music Production, Self Grooming, Animation & VFX, IoT & Robot Automation, Screenwriting, Graphic Design, SEO, AI Tools, Cybersecurity, Digital Marketing, Personal Finance, Public Speaking, Sound Design, Nutrition, Psychology, Podcasting, Guitar, Chess, Art & Painting, Photography, Emergency Preparedness, Badminton, Relationships, Socializing, Interior Design, Freelancing, and Travel Planning have catalogs. Every other niche is Premium, with no resources, until a subscription opens it. A pass opens the next stage, and passing every stage earns the certificate. Phases 0, 1, 2, 3, 4, 5, and 7 are done for all thirty free paths, and the Open Source community is complete. The learner map and Nearby events are live. Explain-back asks for every idea written from that stage’s resources and passes the stage only when a model marks each one understood. An accepted idea is kept in Notes, and that notebook can be downloaded or summarized from those notes alone. A transcript lists the stages a learner has passed. A certificate is issued when every stage on a path is passed. `/notes/practice` grades an idea against a public page, a text file, or a pasted passage, and saves it without passing a stage. Every free path can have a personal plan built in code from that learner's preferences, and the roadmap shows that schedule. Mastery, streaks, weak topics, and the progress charts read explain-back attempts. The accent system is complete: ten presets, a custom gradient, and Spectrum. The deploy groundwork is in: env validation, a health check, security headers with a report-only CSP, Redis rate limits, and the first Playwright tests. The app is live on AWS in Docker Compose behind Caddy with HTTPS. Still open for Version 1: integration tests and the explain-back half of the end-to-end pass (Phase 8), and the operations items in Phase 9 (backups, CI/CD, monitoring, production keys, the final domain).
 
 ---
 
 ## What's left
 
-The functional product is in place, including follow, Premium, live event search, event keywords for every free path, and a saved streak reminder. The UI pass is done (October 2026, `UI-AUDIT.md`). What remains is proof, then a host.
+The product is feature-complete and frozen as of 15 October 2026. The UI pass is done (October 2026, `UI-AUDIT.md`). The app is live on AWS. What remains is operations, then more proof.
 
-- Phase 8. Integration tests for catalog import and lesson reads. Extend the Playwright suite past the lesson through explain-back and progress, with the model mocked. A manual pass of empty, error, and loading states. Model calls mocked in tests.
+- Operations (Phase 9). Daily `pg_dump` to S3 with a tested restore. Grow the disk to 30 GB. GitHub Actions for type check, test, build, and deploy. Uptime and error monitoring. Google sign-in, Stripe test keys and a test charge, and rotated event keys in production, plus the events cron. The final domain (with `noindex` until then). Enforce the CSP. Session Manager instead of SSH. A second admin on a personal email. Upgrade or move off the AWS free plan before about 13 April 2027.
+- Phase 8. Integration tests for catalog import and lesson reads. Extend the Playwright suite past the lesson through explain-back and progress, with the model stubbed. A manual pass of empty, error, and loading states.
 - Open Source. Integration tests for review, edit, and hide.
-- Phase 9. A container, GitHub Actions for lint, test, and build, a hosted app with hosted Postgres and Redis, error monitoring, env files that stay out of git, and migrate as a deploy step. Stripe keys on that host. Enforce the CSP, and make the proxy overwrite `X-Forwarded-For` so the per-IP limits cannot be spoofed.
-- Phase 10. A case study, a short recording of the loop, and a diagram of browser to Server Component to `lib/data` to Prisma.
+- Phase 10. A case study. A short recording of the loop, when it is needed.

@@ -1,232 +1,258 @@
 # SkillFlow
 
-A mastery-first learning platform. Curated roadmaps, your own resources, and an explain-back check are the product. Version 1 ships the roadmaps, the lessons, and an explain-back that walks one idea at a time. There is no quiz.
+**A mastery-first learning platform.** SkillFlow only counts a stage as learned when you can explain each idea back in your own words and an AI reviewer agrees. There is no quiz, no leaderboard, and no watch-time score.
 
-## Status
+**Live:** https://app.32-236-251-56.sslip.io (temporary domain while the brand name is decided)
 
-Thirty paths are free. All thirty have catalogs, and every stage on them is open; the next one waits until the explain-back on the current one is passed:
+| Doc | What it is for |
+| --- | --- |
+| `README.md` | This file: what SkillFlow is, how it is built, how to run and deploy it |
+| `STUDY-GUIDE.md` | Every concept and feature end to end, for revision and interviews |
+| `HANDOFF.md` | Self-contained brief for testing and operating the deployment |
+| `Project-roadmap.md` | The build record and phase list |
+| `AGENTS.md` | Working context and rules for coding assistants |
+| `UI-AUDIT.md` | The October 2026 design and accessibility audit |
 
-- Full-Stack Web Development — 12 stages, 64 resources.
-- Travel Vlogging — 8 stages, 46 resources.
-- Content Creation — 10 stages, 57 resources.
-- Music Production — 8 stages, 45 resources.
-- Self Grooming — 8 stages, 47 resources.
-- Animation & VFX (`animation`) — 8 stages, 41 resources.
-- IoT & Robot Automation — 8 stages, 46 resources.
-- Screenwriting — 8 stages, 21 resources.
-- Graphic Design — 8 stages, 18 resources.
-- SEO — 8 stages, 15 resources.
-- AI Tools — 8 stages, 15 resources.
-- Cybersecurity — 8 stages, 47 resources.
-- Digital Marketing — 8 stages, 44 resources.
-- Personal Finance — 8 stages, 45 resources.
-- Public Speaking — 8 stages, 44 resources.
-- Sound Design — 8 stages, 24 resources.
-- Nutrition — 8 stages, 22 resources.
-- Psychology — 8 stages, 13 resources.
-- Podcasting — 8 stages, 12 resources.
-- Guitar — 8 stages, 10 resources.
-- Chess — 8 stages, 10 resources.
-- Art & Painting — 8 stages, 43 resources. Two links are marked for review and stay until a working page is chosen.
-- Photography — 8 stages, 41 resources. One link is marked for review and stays until a working page is chosen.
-- Emergency Preparedness — 8 stages, 40 resources. One link is marked for review and stays until a working page is chosen.
-- Badminton — 8 stages, 41 resources. One link is marked for review and stays until a working page is chosen.
-- Relationships — 8 stages, 11 resources.
-- Socializing — 8 stages, 8 resources.
-- Interior Design — 8 stages, 8 resources.
-- Freelancing — 8 stages, 8 resources.
-- Travel Planning — 8 stages, 8 resources.
+---
 
-The next stage on a free path opens after the explain-back. Every stage is open, so finishing the path can earn the certificate. A stage waiting on that pass stays readable, with a lock. Art & Painting stays a flagship. Every other niche is Premium, with no stages and no resources, until a subscription opens it.
+## What it does
 
-The niche list shows 32 cards a page. Home and roadmaps show the first 12, a blurred peek of the next row, and a link to the full list.
+1. **Follow a path.** Thirty free paths (Full-Stack Web Development, Travel Vlogging, Content Creation, Music Production, Cybersecurity, Personal Finance, and 24 more) with 246 stages and about 900 curated free resources: YouTube videos played in-app, docs, and courses.
+2. **Learn a stage.** A step-by-step lesson wizard walks through the clip and each resource.
+3. **Explain it back.** One idea per step. Gemini writes a review of every answer. The step moves on only when the idea holds. If the model is unavailable, nothing is saved: the app never fakes a pass.
+4. **Keep what you learned.** Accepted ideas become notes (exportable as Word or PDF), come back twice for spaced recall 18 hours apart, and feed mastery, streaks, weak topics, and analytics.
+5. **Finish the path.** Each pass opens the next stage. Passing every stage earns a certificate and a transcript.
 
-Signed-in learners can keep a preset accent, turn on Spectrum for a slow dark wash of one color pair, or build their own gradient from a color palette, a hex value, or RGB. Public pages stay on Dusk.
+Around that loop: personal learning plans built in code from your preferences, a 180-item career-fit test, a moderated Open Source community per niche, a creator studio, an opt-in learner map (city counts only), nearby events, notifications, a full analytics page, and self-serve account deletion. **Premium** is one Stripe subscription that opens the niches outside the thirty free paths and appearing on the learner map; everything above stays free.
 
-Open Source is a per-niche community of posts. A learner shares text, an image, and source links. The post stays hidden until a moderator publishes it or rejects it. Signed-in learners can read a published post and ask the author one question. The author writes one answer. There is no comment thread. A moderator can hide a published post. Authors track and edit their work at `/open-source/me`. Reviewers work from `/open-source/review`. Admins manage roles at `/admin/community`. A public profile shows a person's published posts. Community posts never enter the catalog. Each page opens with a cover hero; the feed has a row of community covers, chip filters, and cards that show each contribution's image or a colored panel for its type.
+What SkillFlow refuses on purpose: quizzes, comments, likes, view counts, trending, leaderboards, peer review, and guilt copy when a streak breaks.
 
-Admins edit the catalog in the Catalog CMS: Admin CMS in the account menu opens `/admin/catalog`. Niches, stages, and resources can be created, edited, reordered, and deleted there. A free path, a niche with followers or community content, and a stage a learner has worked on cannot be deleted; set the niche to Coming soon instead.
+---
 
-Creator studio is a signed-in library for a video the learner owns. An admin approves it onto that niche’s clip feed and the creator’s public profile. View counts stay in the studio.
+## Architecture
 
-The learner map counts people who opted in, one number per city. It lives under Nearby → Learners. Settings stores the city, the country, and the city centre. The map does not show names, and it does not use GPS. Set `MAP_MIN_LEARNERS` to hide cities below that count (the default is 5). Use `1` on your machine while you are the only person on the map. City search uses OpenStreetMap Nominatim. A `GEOCODER_USER_AGENT` value with a way to reach you is the polite way to call it.
+### Production system
 
-Nearby → Events lists upcoming events for that saved city. The map opens on the city, and each pin is the venue. Ticketmaster and Google Events are optional. Leave a key empty and that source stays off. Community events need a review. Visitors read a saved copy that refreshes at most every 12 hours. Live search is part of Premium. An admin can use it without a charge. Every free path has its own search words.
+```mermaid
+flowchart TB
+    user["Browser"] -- "HTTPS 443" --> caddy
 
-A dead stored link can be marked unavailable. The lesson keeps the saved title, description, and key points.
+    subgraph ec2["AWS EC2 t3.small · Sydney · Elastic IP · Docker Compose"]
+        caddy["Caddy 2<br/>automatic HTTPS (Let's Encrypt)<br/>gzip/zstd · 50 MB body limit"]
+        app["Next.js 16 app (node, non-root)<br/>Server Components · Server Actions<br/>:3000, internal only"]
+        pg[("PostgreSQL 16<br/>bound to 127.0.0.1")]
+        redis[("Redis 7<br/>rate-limit counters")]
+        vol[["Volumes: pgdata · redisdata ·<br/>uploads · caddy_data · caddy_config"]]
+        caddy -- "reverse_proxy" --> app
+        app -- "Prisma" --> pg
+        app -- "ioredis" --> redis
+        pg -.- vol
+        app -.- vol
+    end
+
+    app -- "explain-back reviews" --> gemini["Gemini API<br/>(OpenAI-compatible)"]
+    app -- "Checkout, portal" --> stripe["Stripe"]
+    stripe -- "signed webhook" --> caddy
+    app -- "city search, events" --> ext["Nominatim · Ticketmaster · SerpApi"]
+    user -. "OAuth" .-> google["Google sign-in"]
+    user -. "tiles, video on play" .-> cdn["OpenStreetMap tiles · YouTube nocookie"]
+```
+
+### Inside the app
+
+```mermaid
+flowchart LR
+    req["Request"] --> proxy["proxy.ts<br/>signed in?"]
+    proxy --> page["Server Component page"]
+    page --> shared["'use cache' loaders<br/>catalog · community · map ·<br/>events · landing stats"]
+    page --> personal["Per-request loaders<br/>session · progress · notes"]
+    shared --> data["lib/data (server-only)"]
+    personal --> data
+    data --> prisma["Prisma"] --> db[("Postgres")]
+    page -- "HTML + RSC stream" --> client["Client components<br/>wizards · charts · map"]
+    client -- "Server Action" --> action["auth() → rate limit →<br/>validate → service"]
+    action --> data
+    action --> ai["lib/explain → Gemini"]
+    action -- "updateTag()" --> shared
+```
+
+### The explain-back loop
+
+```mermaid
+sequenceDiagram
+    actor L as Learner
+    participant W as Wizard (client)
+    participant A as Server Action
+    participant R as Redis
+    participant G as Gemini
+    participant D as Postgres
+    L->>W: Explains one idea
+    W->>A: reviewConcept(stage, idea, answer)
+    A->>A: auth()
+    A->>R: AI limit (20/min, 400/day)
+    A->>G: JSON mode, temperature 0.2, 50 s timeout
+    G-->>A: understood + written review
+    alt idea holds
+        A->>D: save note
+        A-->>W: review, next idea
+    else does not hold
+        A-->>W: review, try again
+    else timeout or bad reply
+        A-->>W: unavailable, nothing saved
+    end
+    W->>A: completeExplainWizard (last idea held)
+    A->>D: attempt + stage completion
+    A-->>W: next stage opens
+```
+
+`STUDY-GUIDE.md` §6 has more diagrams (deploy pipeline, data model).
+
+---
 
 ## Tech stack
 
-- Next.js 16.3.4, React 19, TypeScript, Tailwind CSS v4. Landing and auth pages are static. A signed-in visit to `/` goes to `/dashboard`. Shared catalog screens (niche grid, lessons, clips, submit picker) are cached for every visitor under the `catalog` tag. Public community lists, a published post, and contributor profiles are cached under the `community` tag. The Stripe price label is cached for an hour. Learner-map totals are cached under the `learner-map` tag, city search under `geocode`, and saved nearby events under `nearby-events`. Progress, the account menu, the review queue, and a person's own contributions stay per request
-- PostgreSQL and Prisma 6
-- Auth.js v5 — email and password with bcrypt, plus Google sign-in, JWT sessions
-- Explain-back grading uses Gemini’s free tier when `GEMINI_API_KEY` is set. `OPENAI_API_KEY` is the fallback when that key is empty. With no key, the catalog questions stay and a stage cannot be passed
-- Redis 7 for rate limits only (`ioredis`). Without `REDIS_URL` the limits are off, which is fine on your machine
-- Vitest for unit tests and Playwright for end-to-end tests
+| Layer | Choice |
+| --- | --- |
+| Framework | Next.js 16.3.4 (App Router, Cache Components, `proxy.ts`, `instrumentation.ts`), React 19.2.8, TypeScript |
+| Styling | Tailwind CSS v4 with design tokens in `app/globals.css`; dark/light themes; accent presets, Spectrum, custom gradients |
+| Data | PostgreSQL 16 through Prisma 6.19.3; 26 hand-written, additive migrations |
+| Auth | Auth.js v5 (JWT sessions), email + bcrypt password, Google OAuth (verified email only, no auto-linking) |
+| AI | Gemini free tier (`gemini-flash-lite-latest`) through the OpenAI-compatible endpoint; OpenAI or any compatible endpoint as fallbacks |
+| Rate limits | Redis 7 (`ioredis`), fixed-window counters |
+| Payments | Stripe Checkout, customer portal, signed webhooks |
+| Maps | MapLibre GL + supercluster, OpenStreetMap tiles and Nominatim |
+| Other | framer-motion, Recharts, `docx` and `pdf-lib` exports, Zod, `next/og` images |
+| Tests | Vitest (145 tests in 36 files), Playwright (6 end-to-end tests) |
+| Deploy | Docker (multi-stage, non-root, health check), Docker Compose, Caddy, AWS EC2 |
 
-## Getting started
+**Caching.** Content that is the same for everyone is cached with `"use cache"` and tags (`catalog`, `community`, `learner-map`, `geocode`, `nearby-events`, `practice-source`, `landing-stats`, `account:<id>`), and writes expire them with `updateTag`. Progress, streaks, notes, follow state, and the account menu are read per request. Redis is not a cache; it only holds rate-limit counters.
+
+---
+
+## Run it locally
 
 ```bash
 npm install
-docker compose up -d          # Postgres 16 on 5432 and Redis 7 on 6379
+cp .env.example .env            # fill in DATABASE_URL, AUTH_SECRET (npx auth secret), GEMINI_API_KEY …
+docker compose up -d            # Postgres 16 on 5432 and Redis 7 on 6379
 npx prisma migrate deploy
-npx prisma db seed
-npm run dev
+npx prisma db seed              # only on a new, empty database
+npm run dev                     # http://localhost:3000
 ```
 
-Copy `.env.example` to `.env` and fill in real values before running. Those commands are for a new, empty database on your machine. The server checks the environment when it starts (`lib/env.ts`) and refuses to run with a missing or malformed value, naming the variable but never printing its value. `AUTH_SECRET` must be at least 32 characters (`npx auth secret`).
+- The server validates every environment variable at start (`lib/env.ts`) and refuses to run with a missing or malformed value, naming the variable but never printing its value.
+- The seed creates admins only from `SEED_ADMIN_EMAILS` and `SEED_ADMIN_PASSWORD` (12+ characters), never resets an existing password, rewrites every niche, and refuses production unless `ALLOW_PROD_SEED=yes`. **Never run it on a database that has people in it.**
+- Apply migrations with `prisma migrate deploy`. Never `migrate dev` or `migrate reset` on a database that matters.
+- Without `REDIS_URL` the rate limits are off, which is fine locally. Production requires `REDIS_URL`, `CRON_SECRET`, and `GEOCODER_USER_AGENT`.
 
-The seed creates admin accounts only when `SEED_ADMIN_EMAILS` (comma-separated) and `SEED_ADMIN_PASSWORD` (12 characters or more) are set in `.env`. It never resets the password of an account that already exists; it only makes that account an admin.
-
-Production build: `npm run build`, then `npm start` (port 3000). Apply migrations with `npx prisma migrate deploy`, never `migrate dev` or `migrate reset`. Production also needs `REDIS_URL`, `CRON_SECRET`, and `GEOCODER_USER_AGENT`, or the server will not start. Uploaded files (photos, videos, covers) are written to `public/uploads` on the server's disk and served by `app/uploads/[file]/route.ts`; they are not in git. `HANDOFF.md` has the full deployment brief: every environment variable, external service, route, cache, and known gap.
-
-Do not re-run the seed on a database that already has people in it. The seed rewrites every niche, and it refuses to run in production unless `ALLOW_PROD_SEED=yes`. To reload one path, use the catalog commands below, then set that skill's status and offer directly. The importer does not change status, the cover image, or the flagship flag.
-
-## Tests, health, and limits
+### Tests
 
 ```bash
-npm test                          # Vitest unit tests (36 files, 145 tests on 14 October 2026)
+npm test                          # Vitest unit tests
+npx tsc --noEmit                  # type check
+npm run build                     # production build (needs the database: catalog pages prerender)
 npx playwright install chromium   # once
-npm run test:e2e                  # Playwright, reuses the dev server on port 3000 or starts one
+npm run test:e2e                  # Playwright; needs a seeded database, adds one e2e learner per run
 ```
 
-The end-to-end tests cover the landing page, the health check, sign-up, a wrong password, logging in and opening the first Full-Stack stage, and the signed-out redirect. They need Postgres running and the catalog seeded, and each run adds one new learner (`e2e+<timestamp>@skillflow.test`) to that database. They do not pass an explain-back yet.
+---
 
-`GET /api/health` returns 200 with `{ "status": "ok", "db": "ok", ... }` when Postgres answers, and 503 when it does not. Point a load balancer or uptime check at it.
+## Production
 
-Rate limits (all in `lib/limits.ts`): log-in 5 tries per email and 30 per IP every 15 minutes, sign-up 5 per IP an hour, AI calls 10 a minute and 200 a day per learner, and uploads 20 an hour per learner. Every response carries security headers from `next.config.ts`. The Content Security Policy is in report-only mode for now.
+SkillFlow runs on one AWS EC2 instance (`t3.small`, Ubuntu, Sydney, Elastic IP) with four Compose services from `docker-compose.prod.yml`:
+
+| Service | Image | Notes |
+| --- | --- | --- |
+| `app` | built from `Dockerfile` | Node 22 slim, three stages, runs as `node`, `HEALTHCHECK` on `/api/health`, uploads on a volume |
+| `postgres` | `postgres:16` | Data in the `pgdata` volume; port bound to `127.0.0.1` only |
+| `redis` | `redis:7-alpine` | Append-only persistence; not published |
+| `caddy` | `caddy:2` | The only public service (80, 443); automatic Let's Encrypt certificates for `DOMAIN` |
+
+The build prerenders the catalog, so it needs Postgres: the database URL reaches the build through a BuildKit secret (`.env.build`, mounted only during that step and never stored in the image) with host networking. Runtime settings come from `.env` on the server (`chmod 600`, never committed).
+
+**Redeploy** (after pushing to `main`):
+
+```bash
+cd ~/skillflow
+docker compose exec -T postgres pg_dump -U skillflow -Fc skillflow > ~/backup-$(date +%F-%H%M).dump
+git pull
+docker compose build app
+docker compose run --rm app node_modules/.bin/prisma migrate deploy
+docker compose up -d
+docker compose ps                 # app should be (healthy)
+docker builder prune -af          # reclaim build cache; never prune volumes
+```
+
+`GET /api/health` returns 200 with `{ status, db, latencyMs, uptimeSeconds, commit }` when Postgres answers and 503 when it does not. `HANDOFF.md` has the full operations brief, every environment variable, and the remaining checklist.
+
+---
+
+## Security and limits
+
+- **Rate limits** (`lib/limits.ts`, Redis): log-in 5 per email and 30 per IP every 15 minutes (fails closed; a blocked try looks like a wrong password), sign-up 5 per IP an hour, AI calls **20 a minute and 400 a day** per learner, uploads 20 an hour per learner.
+- **AI calls** time out after 50 seconds (Gemini's free tier sometimes queues requests); a timeout saves nothing.
+- **Headers** on every response: `X-Frame-Options: DENY`, `nosniff`, `Referrer-Policy`, a restrictive `Permissions-Policy`, HSTS in production, no `X-Powered-By`. The Content Security Policy is report-only until a clean pass.
+- **Server-side fetches** of learner-supplied URLs go through an SSRF guard (private, loopback, link-local, metadata, and IPv4-mapped addresses are blocked).
+- **Uploads** are checked by extension, size, and magic bytes, stored under random names, and served by `app/uploads/[file]/route.ts` with byte ranges.
+- **Stripe webhooks** are verified against the raw body before any write.
+
+---
+
+## Service keys
+
+Copy names from `.env.example`. Leave a key blank to turn that feature off.
+
+- **Explain-back model.** `GEMINI_API_KEY` (free, [aistudio.google.com/apikey](https://aistudio.google.com/apikey)); optional `GEMINI_MODEL`. `OPENAI_API_KEY` is used only when the Gemini key is empty. `EXPLAIN_MODEL_KEY`, `EXPLAIN_MODEL_URL`, `EXPLAIN_MODEL_NAME` point at any OpenAI-compatible endpoint and win when set. With no key, no stage can be passed.
+- **Google sign-in.** `AUTH_GOOGLE_ID` and `AUTH_GOOGLE_SECRET` (both or neither). In Google Cloud Console create a Web OAuth client with the origin and the redirect URI `https://<domain>/api/auth/callback/google` (and `http://localhost:3000/...` for development). Login and signup are static pages, so the keys must be present **at build time** for the buttons to render. While the consent screen is in Testing, only listed test users can sign in.
+- **Stripe.** `STRIPE_SECRET_KEY`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`, `STRIPE_PRICE_ID`, `STRIPE_WEBHOOK_SECRET` (all four or none), optional `STRIPE_PRICE_LABEL`. Register `https://<domain>/api/stripe/webhook` for `checkout.session.completed` and `customer.subscription.*`. Without keys, `/upgrade` says Stripe is not configured.
+- **Map and events.** `GEOCODER_USER_AGENT` (a real contact, required in production), `MAP_MIN_LEARNERS` (default 5), `TICKETMASTER_API_KEY` (capped at 5,000 calls a day), `SERPAPI_API_KEY` (capped at 200 searches a month), `EVENTS_TTL_HOURS` (12), `EVENTS_CRON_PAIRS` (20), `CRON_SECRET` (32+ characters; `GET /api/cron/events` with `Authorization: Bearer <secret>`).
+
+---
 
 ## Catalog
 
-Check a researched file. This does not change stored resources. `<slug>` is any of the thirty free paths. The Full-Stack slug is `full-stack-web-dev` and its file is `content/catalog/full-stack-web-development.json`.
+Researched paths live in `content/catalog/*.json`. The importer is server-only, dry-runs by default, and writes one skill in one transaction.
 
 ```bash
-npx tsx scripts/verify-catalog.ts <slug>
+npx tsx scripts/verify-catalog.ts <slug>                                  # link check
+npx tsx --conditions=react-server scripts/import-catalog.ts <slug>        # dry run
+npx tsx --conditions=react-server scripts/import-catalog.ts <slug> --apply
+npx tsx scripts/verify-catalog.ts <slug> --from-db                        # mark dead stored links UNAVAILABLE
 ```
 
-Load a path. The first command prints the plan. The second writes it.
+The Full-Stack slug is `full-stack-web-dev` and its file is `full-stack-web-development.json`; Animation's slug is `animation`. The importer never changes a skill's status, offer, cover, flagship flag, or stage photos. Admins can also edit everything in the Catalog CMS (account menu → Admin CMS → `/admin/catalog`); deletes that would erase learner records are refused.
 
-```bash
-npx tsx --conditions=react-server scripts/import-catalog.ts travel-vlogging
-npx tsx --conditions=react-server scripts/import-catalog.ts travel-vlogging --apply
-```
-
-Check the links already stored for a skill. A removed, private, failed, or non-embeddable source is marked unavailable. A link that only needs a person to look at it is left as it is.
-
-```bash
-npx tsx scripts/verify-catalog.ts full-stack-web-dev --from-db
-```
-
-The Full-Stack file is `content/catalog/full-stack-web-development.json`. The live slug stays `full-stack-web-dev`.
+---
 
 ## Open Source roles
 
-Admins review, moderate, and grant roles in every niche. A maintainer reviews and moderates one niche and can grant reviewers there. A reviewer reviews one niche. Nobody reviews their own contribution or changes their own role.
+Admins review, moderate, and grant roles everywhere. A maintainer reviews and moderates one niche and grants reviewers there. A reviewer reviews one niche. Nobody reviews their own contribution or changes their own role. Grant roles at `/admin/community`. Reviews use compare-and-set on status and revision, so two reviewers cannot both decide the same post.
 
-To make someone a reviewer or maintainer, sign in as an admin, open `/admin/community`, find the person by their exact email, choose the niche and the role, and grant it.
-
-Typing `fail this merge` as review feedback shows the review error state without saving anything.
-
-## Nearby event keys
-
-Copy the names from `.env.example`. Leave a key blank to turn that source off.
-
-- `TICKETMASTER_API_KEY` — a free Consumer Key from [developer.ticketmaster.com](https://developer.ticketmaster.com/). Create an app, then copy the Consumer Key. The free tier is 5,000 calls a day. The app stops at that number.
-- `SERPAPI_API_KEY` — a private key from [serpapi.com](https://serpapi.com/) (Dashboard → Your Private API Key). The free plan includes 250 searches a month. The app stops at 200.
-- `CRON_SECRET` — any long random string. `openssl rand -hex 32` is enough. Call `GET /api/cron/events` with `Authorization: Bearer <that secret>` when you want to refresh the popular city and niche pairs.
-- `EVENTS_TTL_HOURS` — how long a saved city and niche stays fresh. The default is 12.
-- `EVENTS_CRON_PAIRS` — how many city and niche pairs that cron route refreshes. The default is 20.
-- `GEOCODER_USER_AGENT` — already used by city search. Put an email or a site you control in it.
-
-## Google sign-in
-
-1. In Google Cloud Console, open APIs & Services → OAuth consent screen and set it up (External, app name SkillFlow, your support email). Add the scopes `openid`, `email`, and `profile`.
-2. Credentials → Create credentials → OAuth client ID → Web application.
-   - Authorized JavaScript origins: `http://localhost:3000` (and the production origin later).
-   - Authorized redirect URIs: `http://localhost:3000/api/auth/callback/google` (and `https://<your-domain>/api/auth/callback/google`).
-3. Put the client ID and secret in `.env` as `AUTH_GOOGLE_ID` and `AUTH_GOOGLE_SECRET`, then restart `npm run dev`.
-
-Without those two keys the Google buttons do not render and email and password still work. Only Google accounts with a verified email can sign in. A Google account whose email already has a password account must be connected from Settings → Sign-in after logging in with the password; connecting verifies the email and, if the account email was never verified, moves it to that Gmail address. While the consent screen is in Testing, only the test users you add can sign in.
-
-## Stripe
-
-Premium is one subscription. Checkout and the customer portal run on Stripe. The app never collects a card. Leave the keys blank and `/upgrade` says Stripe is not configured.
-
-- `STRIPE_SECRET_KEY` — the secret key from the Stripe dashboard.
-- `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` — the publishable key. Checkout uses it on Stripe's page. The upgrade button sends the browser there.
-- `STRIPE_PRICE_ID` — the price for that subscription.
-- `STRIPE_WEBHOOK_SECRET` — the signing secret for `POST /api/stripe/webhook`.
-- `STRIPE_PRICE_LABEL` — optional fallback if Stripe cannot be read. The upgrade page caches the real price for an hour. Checkout shows that price.
-
-## Explain-back model
-
-The explain-back walks one idea at a time. Set `GEMINI_API_KEY`. Opening a stage writes those ideas from the stage’s resources and keeps every key point. With no key, the questions already in the catalog stay. Each step needs a written review from the model before it moves on. An idea that holds is saved under Notes. A timeout or a reply that is not a review saves nothing, and the stage stays open.
-
-- `GEMINI_API_KEY` — a free key from [aistudio.google.com/apikey](https://aistudio.google.com/apikey). No card. The app calls Gemini’s free tier (`gemini-flash-lite-latest`).
-- `GEMINI_MODEL` — optional. The default is `gemini-flash-lite-latest`.
-- `OPENAI_API_KEY` — a paid key from [platform.openai.com](https://platform.openai.com/). Used only when `GEMINI_API_KEY` is empty.
-- `EXPLAIN_MODEL_KEY`, `EXPLAIN_MODEL_URL`, and `EXPLAIN_MODEL_NAME` — another OpenAI-compatible endpoint. These win when `EXPLAIN_MODEL_KEY` is set.
-
-## Learner map demo
-
-This only runs against a database on this machine, and it refuses to run when `NODE_ENV` is production. It does not run the seed.
-
-```bash
-npx tsx scripts/map-demo.ts add
-npx tsx scripts/map-demo.ts remove
-```
-
-`add` puts six learners in Lisbon, Porto, Tokyo, and Bengaluru, and two in Reykjavik. Reykjavik stays hidden while `MAP_MIN_LEARNERS` is 5. Lisbon and Porto are close enough to form one bubble until you zoom in. In development, refresh `/map` and the new counts are there. In production they refresh when someone saves a city, or within an hour.
-
-## Also live
-
-Passing an explain-back records the stage and opens the next one. Every stage on a free path counts toward mastery and toward the certificate. A streak day is a UTC day with a saved explain-back or a saved note. Notes download as Word or PDF, and a stage summary uses only those notes. Progress links to a transcript of the stages already passed. A certificate is issued only when every stage on the path is passed. A passed idea comes back twice, 18 hours apart, and stays on screen until the learner writes an answer. Retention on Progress is the average of those answers. The stage pass stays. `/notes/practice` reads a public page, a text file, or a pasted passage, reviews an idea against that text, and does not pass a stage. A learner can save preferences for a skill they follow. The roadmap then shows a personal schedule built from the shared stages. Undo shows those shared stages again and leaves the resources in place. Opening a stage uses the same selection while the plan is on. The model does not invent that path. Onboarding asks for an age range, current stage, an optional city, up to five of the thirty free paths, goals, experience, pace, weekly time, formats, languages, and an accent; Settings → Edit profile answers reopens it. Settings can follow any free path, and a Premium niche while the subscription is active. There is no leaderboard and no peer review. Stripe Checkout is at `/upgrade`. Premium is the niches outside the thirty, plus appearing on the learner map. The card form stays on Stripe. Without the keys, the page says Stripe is not configured.
+---
 
 ## UI
 
-The October 2026 polish is written up in `UI-AUDIT.md`, with before and after screenshots in `docs/ui-audit/`. Shared pieces: `Button` with a `pending` state, `useFocusTrap` for dialogs, `useToast` for success notes, `FocusMode` for explain-back, and `EmptyState` with one action. Every stage on the thirty free paths has a photo in `public/stages` (credits in `public/stages/credits.json`, picked by `scripts/fetch-stage-photos.ts`). Visible copy says path, niche, stage, and contribution. `scripts/a11y-scan.js` checks a page for overflow, unnamed controls, missing labels, and small targets. `AGENTS.md` lists the conventions under "UI conventions". `/privacy` and `/terms` are written out; the contact email and date are in `lib/legal.ts`.
+The October 2026 polish is in `UI-AUDIT.md` (screenshots in `docs/ui-audit/`). Lighthouse 12 against `next start` (7 October 2026):
 
 | Page | Performance (mobile / desktop) | Accessibility | Best practices |
 | --- | --- | --- | --- |
 | Landing | 69–75 / 99 | 100 | 100 |
 | Home | 87 / 100 | 100 | 100 |
-| A path (`/roadmap/chess`) | 89 / 100 | 100 | 100 |
+| A path | 89 / 100 | 100 | 100 |
 | A lesson | 78 / 100 | 100 | 100 |
 
-Lighthouse 12 against `next start`, 7 October 2026. Signed-in pages score 63 on SEO because they send `noindex` on purpose.
+Signed-in pages score 63 on SEO because they send `noindex` on purpose.
 
-## Onboarding
+---
 
-Eight steps after signup: a display name (required, never an email address) and a profile photo (upload one, pick a generated avatar, or keep the initial), age range (13–17 needs a parent or guardian's consent), current stage, an optional headline, an optional city, up to five of the thirty free paths, goals, experience, pace, weekly time, preferred formats and languages, and an accent. Every chosen path is followed. Settings → Edit profile answers reopens it. The career-fit test is offered on Home, not here.
+## Status and what is ahead
 
-## Home
+**Done:** the product (frozen as of 15 October 2026), the deploy groundwork, Docker, and the production deployment on AWS with HTTPS.
 
-The career-fit card, the Continue banner, At a glance (six figures and a seven-day chart), Your activity (the contribution heatmap), one lane per followed path with stage photos, For you (mastery by path, stages that need another look, recent notes, events near your saved city, Open Source in your niches, transcripts and certificates), Explore, and the free-plan line.
+**Still ahead:**
+- Daily database backups to S3, CI/CD with GitHub Actions, uptime and error monitoring.
+- Google sign-in and a Stripe test charge in production, rotated event API keys, the cron schedule for events.
+- The final brand and domain, then enforcing the CSP.
+- Integration tests and an end-to-end pass through explain-back with the model stubbed.
+- Catalogs for Premium niches (they have no stages yet).
 
-## Profile and activity
-
-Your profile and Home show a GitHub-style heatmap of everything you did each day: stages passed, ideas explained, notes, recall answers, Open Source contributions, questions, suggested resources, videos, and events. Counts only. Settings → Profile visibility hides it from other learners. The landing page shows Clips, a niche-segmented, moderated reel of real clips.
-
-## Career-fit test
-
-`/career-test` is an optional, 180-question test: the IPIP-NEO-120 personality inventory (public domain) and the O*NET® Interest Profiler Short Form (USDOL/ETA, CC BY 4.0). Answers save after every page. The report shows your Holland interest code, your five traits and thirty facets, your top five of the thirty free paths with how to approach each, likely strengths, things worth watching, and how you learn best, and downloads as PNG or JPG. Scores come from plain code; Gemini only writes the narrative from those scores, with a rules-based report when there is no key. Home invites you to take it.
-
-## Landing totals
-
-Right under the hero, the landing page shows six live numbers: learners (every account), niches, stages, resources, ideas explained, and features you can use. They come from the database through one cached loader (`lib/data/landing-stats.ts`, tag `landing-stats`), so the page stays static. Every sign-up and account deletion drops that tag, so the learner count is current on the next visit. The feature count is the list in `lib/product-features.ts`; add a feature there when it ships. The features section now presents the career-fit test where Nearby events used to be.
-
-## Deleting an account
-
-Settings → Danger zone deletes an account permanently. It asks for `DELETE` and the password, cancels Premium with Stripe first, and refuses to delete the last admin. The account's notes, progress, career-fit results, Open Source contributions, events, requests, videos, and uploaded photos go with it; review decisions made on other people's posts stay without a name. The Privacy Policy and Terms describe the same thing.
-
-## Topics to strengthen, notifications, and analytics
-
-Home lists the ideas you should work on next, picked from what the explain-back reviewer wrote back: an idea it has not accepted yet comes first, then ideas that took several tries or slipped in a recall. Each card shows the stage photo, the review, and one action.
-
-The bell shows how many notifications are new: review results on what you sent (resources, Open Source contributions, videos, events), questions and answers on Open Source posts, and the streak reminder. Mark all as read is saved, so the number stays right after a reload. Settings → Notifications switches each kind on or off and shows how many are new.
-
-Analytics charts everything you did: activity month by month, where your time goes, how your explain-back ideas went, stages passed per path, your weekly rhythm, mastery over time, recall scores, notes by path, and a timeline of recent activity.
-
-## What is still ahead
-
-Integration tests are not written, and the end-to-end tests stop at opening a lesson (explain-back and progress are not covered). The CSP still has to move from report-only to enforced. Deploy, CI, and error monitoring are not started; `HANDOFF.md` lists what a deploy needs. The case study is not written. Premium niches have no catalogs. `Project-roadmap.md` is the phase list. `AGENTS.md` is the working context for the next session.

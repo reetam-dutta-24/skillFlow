@@ -24,11 +24,6 @@ export type LandingFeature = {
   image?: string;
 };
 
-export type LandingFact = {
-  value: string;
-  label: string;
-};
-
 export type LandingProblemPoint = {
   icon: string;
   title: string;
@@ -106,7 +101,6 @@ export type LandingContent = {
     stages: LandingStage[];
   };
   factsCaption: string;
-  facts: LandingFact[];
   problemTitle: string;
   problemBody: string;
   problemPoints: LandingProblemPoint[];
@@ -180,13 +174,7 @@ export function getLandingContent(): LandingContent {
         },
       ],
     },
-    factsCaption: "What the product is, not how many people use it.",
-    facts: [
-      { value: "30", label: "Free paths, every stage, and a certificate when the path is finished" },
-      { value: "1", label: "Idea at a time in the explain-back. There is no quiz." },
-      { value: "Open", label: "Source posts go public only after a moderator publishes them" },
-      { value: "0", label: "Comments, likes, or view counts" },
-    ],
+    factsCaption: "Counted from the live database. The learner count moves the moment someone creates an account.",
     problemTitle: "Watching a tutorial is not the same as learning it.",
     problemBody:
       "Learning a skill today means jumping between video sites, documentation, and random blogs, with no clear order and no check that anything stuck. SkillFlow keeps one path, one order, and a written explain-back before the next stage opens.",
@@ -243,12 +231,12 @@ export function getLandingContent(): LandingContent {
         image: "/landing/shots/notes.jpg",
       },
       {
-        id: "nearby",
-        title: "Nearby events and the learner map",
-        body: "Events near the city you save are free: Ticketmaster, Google, and community submissions. Links only, nothing books a ticket. Appearing on the learner map is Premium. The map shows city counts, never a name or a pin per person.",
+        id: "career-test",
+        title: "Find the niche that fits you",
+        body: "Not sure where to start? The career-fit test pairs two published questionnaires: the IPIP-NEO-120 personality inventory and the O*NET Interest Profiler. Your answers save as you go. The report shows your interest code, your traits, and the five paths that fit you best, with how to approach each one. It is self-discovery, not a clinical assessment.",
         points: [],
-        mediaLabel: "Nearby events",
-        image: "/landing/shots/nearby.jpg",
+        mediaLabel: "The career-fit test report",
+        image: "/landing/shots/career.jpg",
       },
       {
         id: "record",

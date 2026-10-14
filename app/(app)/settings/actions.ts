@@ -1,9 +1,12 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { ACCENT_STORAGE_KEY, isStoredAccent } from "@/lib/accent";
-import { auth } from "@/lib/auth";
+import { auth, signOut } from "@/lib/auth";
+import { invalidateAccount, invalidateCatalog, invalidateCommunity, invalidateEvents, invalidateLandingStats, invalidateMap } from "@/lib/cache/invalidate";
+import { deleteAccountRecord } from "@/lib/data/account-delete";
+import { clientIp, loginAllowed } from "@/lib/limits";
 import { followSkillRecord, saveProfileIdentity, saveStreakReminder, unfollowSkillRecord } from "@/lib/data/settings";
 import { prisma } from "@/lib/prisma";
 
@@ -92,5 +95,32 @@ export async function disconnectGoogle() {
   }
   await prisma.account.deleteMany({ where: { userId, provider: "google" } });
   revalidatePath("/settings");
+  return { ok: true as const };
+}
+
+/**
+ * Permanently delete the signed-in account, then sign out. Password tries share the log-in limit,
+ * so this form cannot be used to guess a password on an open session.
+ */
+export async function deleteAccount(input: { confirm: string; password: string }) {
+  const session = await auth();
+  const userId = session?.user?.id;
+  if (!userId) return { ok: false as const, error: "Sign in again before deleting." };
+  if (input.password && !(await loginAllowed(session.user.email ?? userId, clientIp(await headers())))) {
+    return { ok: false as const, error: "Too many tries. Wait a few minutes, then try again." };
+  }
+
+  const result = await deleteAccountRecord(userId, { confirm: String(input.confirm ?? ""), password: String(input.password ?? "") });
+  if (!result.ok) return result;
+
+  // Shared pages that counted or showed this person.
+  invalidateLandingStats();
+  invalidateAccount(userId);
+  if (result.touched.community) invalidateCommunity();
+  if (result.touched.map) invalidateMap();
+  if (result.touched.liveVideo) invalidateCatalog();
+  if (result.touched.events) invalidateEvents();
+
+  await signOut({ redirectTo: "/" });
   return { ok: true as const };
 }

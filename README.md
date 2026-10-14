@@ -211,6 +211,14 @@ Your profile and Home show a GitHub-style heatmap of everything you did each day
 
 `/career-test` is an optional, 180-question test: the IPIP-NEO-120 personality inventory (public domain) and the O*NET® Interest Profiler Short Form (USDOL/ETA, CC BY 4.0). Answers save after every page. The report shows your Holland interest code, your five traits and thirty facets, your top five of the thirty free paths with how to approach each, likely strengths, things worth watching, and how you learn best, and downloads as PNG or JPG. Scores come from plain code; Gemini only writes the narrative from those scores, with a rules-based report when there is no key. Home invites you to take it.
 
+## Landing totals
+
+Right under the hero, the landing page shows six live numbers: learners (every account), niches, stages, resources, ideas explained, and features you can use. They come from the database through one cached loader (`lib/data/landing-stats.ts`, tag `landing-stats`), so the page stays static. Every sign-up and account deletion drops that tag, so the learner count is current on the next visit. The feature count is the list in `lib/product-features.ts`; add a feature there when it ships. The features section now presents the career-fit test where Nearby events used to be.
+
+## Deleting an account
+
+Settings → Danger zone deletes an account permanently. It asks for `DELETE` and the password, cancels Premium with Stripe first, and refuses to delete the last admin. The account's notes, progress, career-fit results, Open Source contributions, events, requests, videos, and uploaded photos go with it; review decisions made on other people's posts stay without a name. The Privacy Policy and Terms describe the same thing.
+
 ## What is still ahead
 
 Integration tests are not written, and the end-to-end tests stop at opening a lesson (explain-back and progress are not covered). The CSP still has to move from report-only to enforced. Deploy, CI, and error monitoring are not started; `HANDOFF.md` lists what a deploy needs. The case study is not written. Premium niches have no catalogs. `Project-roadmap.md` is the phase list. `AGENTS.md` is the working context for the next session.

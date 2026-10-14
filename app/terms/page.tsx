@@ -163,8 +163,9 @@ const sections: LegalSection[] = [
     title: "Closing your account",
     body: (
       <p>
-        You can stop using SkillFlow at any time. To delete your account, write to {mail}; the{" "}
-        <Link href="/privacy#keep">Privacy Policy</Link> explains what is removed. If you have Premium, cancel it first so it does not renew.
+        You can stop using SkillFlow at any time. Delete your account yourself in Settings, under Danger zone, or write to {mail}; the{" "}
+        <Link href="/privacy#keep">Privacy Policy</Link> explains what is removed. Deleting the account also cancels Premium, so it does
+        not renew.
         We may close an account under the Rules section, or if we stop offering SkillFlow, and will tell you in advance where we reasonably
         can.
       </p>

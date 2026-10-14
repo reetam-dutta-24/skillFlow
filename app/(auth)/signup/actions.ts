@@ -6,6 +6,7 @@ import { headers } from "next/headers"
 import { clientIp, signupAllowed } from "@/lib/limits"
 import { prisma } from "@/lib/prisma"
 import { normalizeEmail } from "@/lib/google-auth"
+import { invalidateLandingStats } from "@/lib/cache/invalidate"
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 
@@ -35,6 +36,8 @@ export async function signUp(formData: FormData) {
   await prisma.user.create({
     data: { email, name, password: hashedPassword },
   })
+  // The landing page counts learners live.
+  invalidateLandingStats()
 
   return { success: true }
 }

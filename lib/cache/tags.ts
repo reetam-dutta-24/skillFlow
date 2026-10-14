@@ -16,6 +16,9 @@ export const EVENTS_TAG = "nearby-events";
 /** Text read from a public page for a practice note. The same page is the same text for every learner. */
 export const PRACTICE_SOURCE_TAG = "practice-source";
 
+/** Landing page totals: learners, niches, stages, resources, ideas explained. Dropped on every sign-up and account deletion. */
+export const LANDING_STATS_TAG = "landing-stats";
+
 export function accountTag(userId: string) {
   return `account:${userId}`;
 }

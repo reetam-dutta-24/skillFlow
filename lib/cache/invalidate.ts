@@ -1,5 +1,10 @@
 import { updateTag } from "next/cache";
-import { accountTag, CATALOG_TAG, COMMUNITY_TAG, EVENTS_TAG, MAP_TAG } from "@/lib/cache/tags";
+import { accountTag, CATALOG_TAG, COMMUNITY_TAG, EVENTS_TAG, LANDING_STATS_TAG, MAP_TAG } from "@/lib/cache/tags";
+
+/** Drop the landing totals after an account is created or deleted, so the learner count is current. */
+export function invalidateLandingStats() {
+  updateTag(LANDING_STATS_TAG);
+}
 
 /** Drop the shared catalog immediately after an admin write. */
 export function invalidateCatalog() {

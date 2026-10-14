@@ -15,9 +15,10 @@ import { ProblemSection } from "@/components/landing/ProblemSection.jsx";
 import { getLandingContent } from "@/lib/mock/landing";
 import { ReelShowcase } from "@/components/landing/ReelShowcase.jsx";
 import { loadLandingReels } from "@/lib/data/landing-reels";
+import { loadLandingStats } from "@/lib/data/landing-stats";
 
 const description =
-  "Thirty free paths. Explain one idea at a time, keep the note, and open the next stage only after it holds. Open Source, nearby events, and the learner map.";
+  "Explain one idea at a time, keep the note, and open the next stage only after it holds. A career-fit test, Open Source, and nearby events.";
 
 export const metadata: Metadata = {
   title: { absolute: "SkillFlow: Learn by proving you understood it" },
@@ -30,8 +31,8 @@ export const metadata: Metadata = {
 
 export default async function Home() {
   const content = getLandingContent();
-  // Real catalog clips, cached under the catalog tag, so the landing page still prerenders.
-  const reels = await loadLandingReels();
+  // Real catalog clips and live totals, both cached by tag, so the landing page still prerenders.
+  const [reels, stats] = await Promise.all([loadLandingReels(), loadLandingStats()]);
 
   return (
     <>
@@ -43,7 +44,7 @@ export default async function Home() {
       />
       <main className="sf-landing">
         <LandingHero content={content} />
-        <LandingFacts caption={content.factsCaption} facts={content.facts} />
+        <LandingFacts caption={content.factsCaption} stats={stats} />
         <ProblemSection title={content.problemTitle} body={content.problemBody} points={content.problemPoints} />
         <ReelShowcase niches={reels} cta={content.startCta} />
         <HowItWorks title={content.stepsTitle} subtitle={content.stepsSubtitle} steps={content.steps} />

@@ -8,7 +8,8 @@ import * as React from "react";
  * @startingPoint section="Primitives" subtitle="Button variants and sizes" viewport="700x150"
  */
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "gradient" | "outline" | "ghost" | "quiet";
+  /** `danger` is for an action that cannot be undone, such as deleting the account. */
+  variant?: "gradient" | "outline" | "ghost" | "quiet" | "danger";
   size?: "sm" | "md" | "lg" | "xl";
   /** Stretch to the container width. */
   full?: boolean;

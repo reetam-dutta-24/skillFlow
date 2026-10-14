@@ -227,9 +227,12 @@ const sections: LegalSection[] = [
     body: (
       <>
         <p>
-          We keep your account data while your account is open. When you ask us to delete your account, we delete it and the data linked to
-          it, including your answers, notes, plan, city, progress, and career-fit results. Retaking or deleting the career-fit test removes
-          its answers and report straight away. Your published contributions and videos are removed with it.
+          We keep your account data while your account is open. When you delete your account in Settings, or ask us to, we delete it and
+          the data linked to it straight away, including your answers, notes, plan, city, progress, and career-fit results. Retaking or
+          deleting the career-fit test removes its answers and report straight away. Your Open Source contributions, the questions on them,
+          the questions you asked, the events you submitted, your requests, your videos, and your uploaded photos are removed with it. If
+          you moderated other people&apos;s posts, those review decisions stay without your name. An active Premium subscription is
+          cancelled with Stripe at the same moment.
         </p>
         <p>
           We may keep a small amount for longer where the law requires it, for example payment records, which Stripe also keeps under its
@@ -253,7 +256,8 @@ const sections: LegalSection[] = [
           <li>Complain to us, and if we do not resolve it, to the Data Protection Board of India.</li>
         </ul>
         <p>
-          Write to {mail}. We will reply within 30 days. There is no self-serve delete button yet, so deletion is done by request.
+          You can delete your account yourself in Settings, under Danger zone. For anything else, write to {mail}. We will reply within 30
+          days.
         </p>
       </>
     ),
@@ -302,7 +306,7 @@ export default function PrivacyPage() {
         "Your explanations are reviewed by an AI model. Your name and email are not sent to it.",
         "No advertising, no tracking cookies, and we never sell your data.",
         "Your city is optional, never your GPS, and the map shows counts, never names.",
-        `Write to ${LEGAL_CONTACT_EMAIL} to see, correct, or delete your data.`,
+        `Delete your account yourself in Settings, or write to ${LEGAL_CONTACT_EMAIL} to see, correct, or delete your data.`,
       ]}
       sections={sections}
       other={{ href: "/terms", label: "Terms of Service" }}

@@ -1,5 +1,5 @@
 import { randomBytes } from "node:crypto";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, unlink, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const IMAGE_BYTES = 6 * 1024 * 1024;
@@ -80,6 +80,25 @@ export async function saveImageBytes(bytes: Buffer, ext: "png" | "jpg" | "webp" 
 }
 
 /** Copy a previously uploaded image onto the skill card path. */
+/**
+ * Remove one uploaded file by its public path, for example after an account is deleted. Only a plain name under
+ * public/uploads is accepted, and a missing file is not an error. Returns true when a file was removed.
+ */
+export async function removeUploadedFile(publicPath: string): Promise<boolean> {
+  const match = /^\/uploads\/([a-z0-9]+)\.(jpe?g|png|webp|gif|pdf|mp4|webm|mov)$/.exec(publicPath);
+  if (!match) return false;
+  const root = path.join(process.cwd(), "public", "uploads");
+  const target = path.resolve(root, `${match[1]}.${match[2]}`);
+  const relative = path.relative(root, target);
+  if (relative.startsWith("..") || path.isAbsolute(relative)) return false;
+  try {
+    await unlink(target);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export async function readUploadedImage(publicPath: string): Promise<{ bytes: Buffer; ext: string } | null> {
   const match = /^\/uploads\/([a-z0-9]+)\.(jpe?g|png|webp|gif)$/.exec(publicPath);
   if (!match) return null;

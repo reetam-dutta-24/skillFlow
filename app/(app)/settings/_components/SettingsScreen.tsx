@@ -13,6 +13,7 @@ import { ProfilePhotoPicker, photoPreview } from "@/components/forms/ProfilePhot
 import { MAX_DISPLAY_NAME, type PhotoChoice } from "@/lib/profile-identity";
 import { UsageCutoffDialog } from "@/components/feedback/UsageCutoffDialog";
 import { saveReminder, saveSettings, saveShowActivity } from "../actions";
+import { DangerZone } from "./DangerZone";
 import { LocationCard } from "./LocationCard";
 import { SignInCard, type SignInState } from "./SignInCard";
 
@@ -200,6 +201,7 @@ export function SettingsScreen({
           <Button type="button" variant="outline" onClick={() => void signOut({ callbackUrl: "/" })}>Log out</Button>
         </div>
       </SettingsSection>
+      <DangerZone email={email} hasPassword={signIn.hasPassword} />
       {showPreview ? (
         <SettingsSection title="Developer previews" subtitle="Hidden in production.">
           <div className="sf-settings-bar">

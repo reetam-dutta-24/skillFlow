@@ -12,7 +12,7 @@ import { LessonCard } from "@/components/learning/LessonCard.jsx";
 import { SkillRow } from "@/components/learning/SkillRow.jsx";
 import { StreakBanner } from "@/components/learning/StreakBanner.jsx";
 import { CareerTestCard } from "@/components/dashboard/CareerTestCard";
-import { HomeActivity, HomeKpis, HomePanels } from "@/components/dashboard/HomeSections";
+import { HomeActivity, HomeKpis, HomePanels, HomeWeakTopics } from "@/components/dashboard/HomeSections";
 import { loadActivity } from "@/lib/activity";
 import { loadHomeExtras } from "@/lib/data/home";
 import { FollowedNicheFrame } from "../skills/_components/FollowedNicheFrame";
@@ -78,6 +78,7 @@ export default async function DashboardPage() {
         />
       ) : null}
       {started ? <HomeKpis data={data} extras={extras} /> : null}
+      {started ? <HomeWeakTopics topics={data.weakTopics} /> : null}
       <HomeActivity activity={activity} userId={session.user.id} />
       <section className="sf-dash-block" aria-labelledby="dash-skills">
         <h2 id="dash-skills">Your paths</h2>

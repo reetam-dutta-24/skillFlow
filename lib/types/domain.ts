@@ -98,11 +98,19 @@ export type MasteryPointView = {
   value: number;
 };
 
+export type NotificationKind = "streak" | "reviews" | "community";
+
 export type NotificationView = {
   id: string;
+  kind: NotificationKind;
+  /** A Lucide icon name for the row. */
+  icon: string;
   title: string;
   message: string;
   timeLabel: string;
+  /** ISO time the thing happened. Newer than "mark all as read" means unread. */
+  at: string;
+  href: string | null;
   read: boolean;
 };
 

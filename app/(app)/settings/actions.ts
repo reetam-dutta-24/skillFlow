@@ -98,6 +98,18 @@ export async function disconnectGoogle() {
   return { ok: true as const };
 }
 
+/** One notification switch. The streak reminder keeps its own column; the others are new kinds of bell notes. */
+export async function saveNotificationPref(kind: "streak" | "reviews" | "community", enabled: boolean) {
+  const session = await auth();
+  if (!session?.user?.id) return { ok: false as const, error: "Sign in again before saving." };
+  if (kind === "streak") return saveReminder(enabled);
+  const data = kind === "reviews" ? { notifyReviews: enabled } : { notifyCommunity: enabled };
+  const updated = await prisma.learnerProfile.updateMany({ where: { userId: session.user.id }, data });
+  if (updated.count === 0) return { ok: false as const, error: "Finish onboarding first, then choose this." };
+  revalidatePath("/settings");
+  return { ok: true as const };
+}
+
 /**
  * Permanently delete the signed-in account, then sign out. Password tries share the log-in limit,
  * so this form cannot be used to guess a password on an open session.

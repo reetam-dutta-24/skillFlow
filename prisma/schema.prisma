@@ -104,6 +104,13 @@ model LearnerProfile {
   showOnMap Boolean  @default(false)
   /// Quiet bell note when yesterday counted and today has not yet.
   streakReminder Boolean @default(true)
+  /// Bell notes when something this learner submitted is decided: a suggested resource, an Open Source
+  /// contribution, a creator video, or a community event.
+  notifyReviews   Boolean   @default(true)
+  /// Bell notes for questions on this learner's published posts and answers to their questions.
+  notifyCommunity Boolean   @default(true)
+  /// "Mark all as read". A bell note newer than this counts as unread.
+  notificationsReadAt DateTime?
   /// Onboarding profile. Ids come from lib/onboarding-options.ts.
   ageRange        String?
   /// A parent or guardian agreed, required for ageRange "13-17".

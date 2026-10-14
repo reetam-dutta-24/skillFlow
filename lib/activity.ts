@@ -16,7 +16,26 @@ export const ACTIVITY_KINDS = [
 ] as const;
 
 export type ActivityKind = (typeof ACTIVITY_KINDS)[number]["id"];
-export type Activity = { heatmap: Heatmap; byKind: { id: ActivityKind; label: string; count: number }[] };
+export type ActivityMonth = { key: string; label: string; counts: Record<ActivityKind, number>; total: number };
+export type Activity = {
+  heatmap: Heatmap;
+  byKind: { id: ActivityKind; label: string; count: number }[];
+  /** The last 12 calendar months (UTC), oldest first, with a count per kind. */
+  byMonth: ActivityMonth[];
+};
+
+const MONTH_LABELS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+function emptyCounts(): Record<ActivityKind, number> {
+  return { stages: 0, ideas: 0, practice: 0, recalls: 0, contributions: 0, questions: 0, resources: 0, videos: 0, events: 0 };
+}
+
+function lastMonths(now: Date): ActivityMonth[] {
+  return Array.from({ length: 12 }, (_, index) => {
+    const date = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - (11 - index), 1));
+    return { key: date.toISOString().slice(0, 7), label: MONTH_LABELS[date.getUTCMonth()], counts: emptyCounts(), total: 0 };
+  });
+}
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 
@@ -44,14 +63,19 @@ export async function loadActivity(userId: string, now = new Date()): Promise<Ac
   ]);
 
   const perDay = new Map<string, number>();
-  const totals: Record<ActivityKind, number> = {
-    stages: 0, ideas: 0, practice: 0, recalls: 0, contributions: 0, questions: 0, resources: 0, videos: 0, events: 0,
-  };
+  const totals = emptyCounts();
+  const months = lastMonths(now);
+  const monthByKey = new Map(months.map((month) => [month.key, month]));
   const add = (kind: ActivityKind, date: Date | null) => {
     if (!date) return;
     const key = dayKey(date);
     perDay.set(key, (perDay.get(key) ?? 0) + 1);
     totals[kind] += 1;
+    const month = monthByKey.get(key.slice(0, 7));
+    if (month) {
+      month.counts[kind] += 1;
+      month.total += 1;
+    }
   };
   stages.forEach((row) => add("stages", row.completedAt));
   notes.forEach((row) => add(row.kind === "practice" ? "practice" : "ideas", row.createdAt));
@@ -70,5 +94,6 @@ export async function loadActivity(userId: string, now = new Date()): Promise<Ac
       label: totals[kind.id] === 1 ? kind.one : kind.many,
       count: totals[kind.id],
     })).filter((kind) => kind.count > 0),
+    byMonth: months,
   };
 }

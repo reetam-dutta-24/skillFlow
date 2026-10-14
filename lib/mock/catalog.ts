@@ -307,6 +307,10 @@ const masteryHistory: { skillSlug: string; points: MasteryPointView[] }[] = [
 const notifications: NotificationView[] = [
   {
     id: "note_approved",
+    kind: "reviews",
+    icon: "circle-check",
+    at: "2026-10-01T09:00:00.000Z",
+    href: null,
     title: "Your suggested resource was approved",
     message: "“Your first component” is on the React Fundamentals stage.",
     timeLabel: "Yesterday",
@@ -314,6 +318,10 @@ const notifications: NotificationView[] = [
   },
   {
     id: "note_changes",
+    kind: "reviews",
+    icon: "circle-alert",
+    at: "2026-09-29T09:00:00.000Z",
+    href: null,
     title: "Your suggested resource needs changes",
     message: "The review note: this link is a news article, not a lesson. Send a documentation page instead.",
     timeLabel: "3 days ago",

@@ -1,3 +1,4 @@
+import type { WeakTopic } from "@/lib/progress/weak-topics";
 import type {
   ExplainBackPromptView,
   MasteryPointView,
@@ -41,8 +42,8 @@ export type DashboardData = {
   explainBacksPassed: number;
   /** Explain-back checks per day for the last seven days, oldest first. */
   week: { day: string; checks: number }[];
-  /** Stages with an attempt that needs another look and no pass yet. */
-  weakTopics: { id: string; topic: string; skillName: string; reason: string; href: string }[];
+  /** Ideas the explain-back model flagged: not passed yet, several tries, or a weak recall. */
+  weakTopics: WeakTopic[];
   nextLesson: { title: string; skillName: string; href: string } | null;
   followed: DashboardSkillRow[];
   catalog: SkillView[];
@@ -164,6 +165,8 @@ export type SettingsData = {
 
 export type NotificationsData = {
   items: NotificationView[];
+  /** Unread notes the bell shows, after the learner's switches. */
+  unread: number;
 };
 
 export type SubmissionsData = {

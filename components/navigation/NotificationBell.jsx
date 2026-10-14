@@ -3,16 +3,18 @@
 import React from "react";
 import { Icon } from "../core/Icon.jsx";
 
-/** Bell with a quiet unread dot — no count badge, no glow. */
+/** Bell with a numeric unread badge. The count is capped at 99+ so the bell keeps its size. */
 export function NotificationBell({ count = 0, onClick, style, ...rest }) {
   const [hover, setHover] = React.useState(false);
+  const label = count > 99 ? "99+" : String(count);
   return (
     <button
       type="button"
-      aria-label={count > 0 ? "Notifications, unread" : "Notifications"}
+      aria-label={count > 0 ? `Notifications, ${count} unread` : "Notifications"}
       onClick={onClick}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
+      className="sf-bell"
       style={{
         position: "relative",
         display: "inline-flex",
@@ -32,7 +34,9 @@ export function NotificationBell({ count = 0, onClick, style, ...rest }) {
     >
       <Icon name="bell" size={17} />
       {count > 0 ? (
-        <span style={{ position: "absolute", top: 7, right: 8, width: 6, height: 6, borderRadius: "var(--radius-full)", background: "var(--accent)" }} />
+        <span className="sf-bell-badge" aria-hidden="true">
+          {label}
+        </span>
       ) : null}
     </button>
   );

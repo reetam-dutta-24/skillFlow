@@ -39,6 +39,9 @@ Last aligned with the working tree on 10 October 2026.
 | Profile and activity | Done | Redesigned profile with totals, a contribution heatmap that counts every kind of action, learning progress with certificates, videos, and Open Source; a Settings switch hides activity from others |
 | Landing Clips | Done | A niche-segmented, moderated reel of real clips on the landing page |
 | Landing totals | Done | Six live numbers under the hero (learners, niches, stages, resources, ideas explained, features), cached under `landing-stats` and dropped on every sign-up and deletion. The career-fit test replaced the Nearby card in Features |
+| Topics to strengthen | Done | Ideas the explain-back model did not accept yet, took several tries, or slipped in a recall, ranked in plain code and shown on Home with the stage photo and the review |
+| Notifications | Done | A numeric unread badge, review results, questions and answers, and the streak reminder; Mark all as read is saved on the profile; one switch per kind in Settings with live counts |
+| Analytics | Done | Totals, insights, nine charts (stacked months, two donuts, paths, rhythm, mastery, recall, notes) on a validated colorblind-safe palette, and a recent-activity timeline |
 | Account deletion | Done | Settings → Danger zone: typed confirmation, password, Stripe cancelled first, last admin refused, created content and uploads removed, Privacy Policy and Terms updated |
 | Home | Done | Career-fit card, Continue, six figures and a weekly chart, path lanes with stage photos, and six For you panels drawn from Progress, Notes, Nearby, Open Source, and records |
 | Career-fit test | Done | IPIP-NEO-120 and the O*NET Interest Profiler Short Form, 180 items saved as you go, scored in code, a detailed report with the top five free paths and how to approach them, PNG and JPG export, a card on Home |
@@ -301,7 +304,7 @@ Do not start a later phase's backend until the previous phase's open boxes are d
 - [x] **Conventional commits** — history uses `feat`, `fix`, and `chore`.
 - [ ] **OWASP baseline** — passwords are hashed, secrets stay in `.env` (the seed admin password too), admin routes check role, env vars are validated at startup, log-in, sign-up, AI calls, and uploads are rate limited, and security headers are on. The CSP is report-only, and a full threat pass is not done.
 - [x] **Accessibility** — keyboard, labels, focus traps, 44px targets, and measured contrast on the ten presets in both themes (`UI-AUDIT.md`). Lighthouse accessibility is 100 on the landing, Home, a path, and a lesson. Spectrum and custom gradients are not measured.
-- [ ] **Tests** — unit tests cover mastery, streaks, explain-back judging, plans, events, community rules, env validation, and the rate limiter. Playwright covers sign-up, log-in, and opening a lesson. Integration tests and the explain-back part of the end-to-end pass are not written.
+- [ ] **Tests** — unit tests cover mastery, streaks, explain-back judging, plans, events, community rules, env validation, the rate limiter, weak topics, and notification counts. Playwright covers sign-up, log-in, and opening a lesson. Integration tests and the explain-back part of the end-to-end pass are not written.
 - [x] **README and agent context** — `README.md`, `AGENTS.md`, and this file match the thirty free paths and the shared-content cache. The case study is not written.
 
 ## Non-functional requirements
@@ -438,7 +441,7 @@ The mock catalog in `lib/mock/catalog.ts` is leftover sample data for the screen
 **Status: 🔶 UNIT TESTS AND THE FIRST HALF OF THE END-TO-END PASS EXIST**
 
 - [x] Unit tests for the open-stage rule, mastery, and streaks
-- [x] Unit tests for env validation and the rate limiter (136 tests in 34 files on 10 October 2026)
+- [x] Unit tests for env validation, the rate limiter, weak topics, and notification counts (145 tests in 36 files on 14 October 2026)
 - [x] Playwright set up (`playwright.config.ts`, `npm run test:e2e`): landing, health, sign-up → onboarding, wrong password, log-in → path → first lesson, signed-out redirect
 - [ ] Integration tests for catalog import and lesson reads
 - [ ] One end-to-end pass: signup → onboarding → lesson → explain-back → progress. The part up to the lesson is written; explain-back and progress need the model mocked

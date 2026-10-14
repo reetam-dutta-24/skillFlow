@@ -12,10 +12,30 @@ import { Button } from "@/components/core/Button.jsx";
 import { ProfilePhotoPicker, photoPreview } from "@/components/forms/ProfilePhotoPicker";
 import { MAX_DISPLAY_NAME, type PhotoChoice } from "@/lib/profile-identity";
 import { UsageCutoffDialog } from "@/components/feedback/UsageCutoffDialog";
-import { saveReminder, saveSettings, saveShowActivity } from "../actions";
+import { saveNotificationPref, saveSettings, saveShowActivity } from "../actions";
 import { DangerZone } from "./DangerZone";
 import { LocationCard } from "./LocationCard";
 import { SignInCard, type SignInState } from "./SignInCard";
+
+type NoteKind = "streak" | "reviews" | "community";
+
+const NOTE_ROWS: { kind: NoteKind; label: string; description: string }[] = [
+  {
+    kind: "reviews",
+    label: "Review results",
+    description: "When a suggested resource, an Open Source contribution, a creator video, or an event you sent is decided.",
+  },
+  {
+    kind: "community",
+    label: "Questions and answers",
+    description: "When someone asks about your published post, or the author answers your question.",
+  },
+  {
+    kind: "streak",
+    label: "Daily streak reminder",
+    description: "A note in the bell when yesterday counted and today has not yet.",
+  },
+];
 
 export function SettingsScreen({
   userId,
@@ -24,7 +44,7 @@ export function SettingsScreen({
   email,
   initial,
   accent,
-  streakReminder,
+  notifications,
   showActivity,
   showPreview,
   map,
@@ -38,6 +58,7 @@ export function SettingsScreen({
   initial: string;
   accent: string;
   streakReminder: boolean;
+  notifications: { prefs: Record<NoteKind, boolean>; unread: Record<NoteKind, number> };
   showActivity: boolean;
   showPreview: boolean;
   map: { hasProfile: boolean; city: string | null; country: string | null; showOnMap: boolean };
@@ -49,13 +70,14 @@ export function SettingsScreen({
   const [photo, setPhoto] = useState<PhotoChoice>({ kind: "keep" });
   const [photoBusy, setPhotoBusy] = useState(false);
   const shownPhoto = photoPreview(photo, image);
-  const [reminder, setReminder] = useState(streakReminder);
+  const [prefs, setPrefs] = useState(notifications.prefs);
   const [activity, setActivity] = useState(showActivity);
   const [pending, setPending] = useState("");
   const [notice, setNotice] = useState("");
   const [error, setError] = useState("");
   const [cutoff, setCutoff] = useState(false);
   const shownInitial = profileName.trim().charAt(0).toUpperCase() || initial;
+  const unreadTotal = NOTE_ROWS.reduce((sum, row) => sum + (prefs[row.kind] ? notifications.unread[row.kind] : 0), 0);
   const status = error || notice;
 
   async function save(label: string) {
@@ -142,22 +164,42 @@ export function SettingsScreen({
       </SettingsSection>
       <SignInCard email={email} signIn={signIn} />
       <LocationCard map={map} canShare={premium} />
-      <SettingsSection title="Notifications" subtitle="One reminder. No badges and no counts.">
-        <SettingsToggle
-          label="Daily streak reminder"
-          description="A quiet note in the bell when yesterday counted and today has not."
-          checked={reminder}
-          onChange={(next) => {
-            setReminder(next);
-            setError("");
-            void saveReminder(next).then((result) => {
-              if (!result.ok) {
-                setReminder(!next);
-                setError(result.error);
-              }
-            });
-          }}
-        />
+      <SettingsSection
+        id="notifications"
+        title="Notifications"
+        subtitle={
+          unreadTotal > 0
+            ? `${unreadTotal} new in the bell right now. The number on the bell counts what is switched on here.`
+            : "Nothing new in the bell. The number on the bell counts what is switched on here."
+        }
+      >
+        {NOTE_ROWS.map((row) => (
+          <SettingsToggle
+            key={row.kind}
+            label={
+              <span className="sf-note-pref">
+                {row.label}
+                <span className="sf-note-pref-count" data-zero={notifications.unread[row.kind] === 0 ? "true" : undefined}>
+                  {notifications.unread[row.kind]} new
+                </span>
+              </span>
+            }
+            description={row.description}
+            checked={prefs[row.kind]}
+            onChange={(next: boolean) => {
+              setPrefs((current) => ({ ...current, [row.kind]: next }));
+              setError("");
+              void saveNotificationPref(row.kind, next).then((result) => {
+                if (!result.ok) {
+                  setPrefs((current) => ({ ...current, [row.kind]: !next }));
+                  setError(result.error);
+                } else {
+                  router.refresh();
+                }
+              });
+            }}
+          />
+        ))}
       </SettingsSection>
       <SettingsSection title="Profile visibility" subtitle="Your public profile is seen by signed-in learners.">
         <SettingsToggle

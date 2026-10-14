@@ -7,6 +7,7 @@ import { userHasPremium } from "@/lib/billing/access";
 import { invalidateAccount, invalidateCatalog, invalidateCommunity } from "@/lib/cache/invalidate";
 import { prisma } from "@/lib/prisma";
 import { googleAuthEnabled } from "@/lib/google-auth";
+import { collectNotifications } from "@/lib/data/notifications";
 import { displayNameProblem, isPhotoChoice } from "@/lib/profile-identity";
 import { readUploadedImage } from "@/lib/uploads";
 
@@ -33,6 +34,7 @@ export async function getSettingsProfile() {
   const email = user?.email ?? session?.user?.email ?? "";
 
   const storedAccent = user?.learnerProfile?.accent;
+  const notes = userId ? await collectNotifications(userId) : null;
 
   return {
     userId: userId ?? "",
@@ -42,6 +44,10 @@ export async function getSettingsProfile() {
     initial: name.charAt(0).toUpperCase() || "?",
     accent: isStoredAccent(storedAccent) ? storedAccent : "tide",
     streakReminder: user?.learnerProfile?.streakReminder ?? true,
+    notifications: {
+      prefs: notes?.prefs ?? { streak: true, reviews: true, community: true },
+      unread: notes?.unreadByKind ?? { streak: 0, reviews: 0, community: 0 },
+    },
     showActivity: user?.learnerProfile?.showActivity ?? true,
     map: {
       hasProfile: Boolean(user?.learnerProfile),

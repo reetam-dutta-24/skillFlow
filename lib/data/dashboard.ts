@@ -68,13 +68,7 @@ export async function getDashboardData(): Promise<DashboardData> {
     milestonesPassedThisWeek: stats?.milestonesPassedThisWeek ?? 0,
     explainBacksPassed: stats?.explainBacksPassed ?? 0,
     week: stats?.week ?? [],
-    weakTopics: (stats?.weakTopics ?? []).slice(0, 4).map((topic) => ({
-      id: topic.id,
-      topic: topic.topic,
-      skillName: topic.skillName,
-      reason: topic.reason,
-      href: topic.href,
-    })),
+    weakTopics: (stats?.weakDetail ?? []).slice(0, 4),
     nextLesson: nextStage
       ? { title: nextStage.stage.title, skillName: nextStage.skillName, href: `/lesson/${nextStage.stage.id}` }
       : null,

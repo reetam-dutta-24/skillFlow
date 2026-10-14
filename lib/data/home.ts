@@ -7,12 +7,12 @@ import { prisma } from "@/lib/prisma";
 
 export type HomeExtras = {
   notesCount: number;
-  recentNotes: { id: string; concept: string; skillName: string; stageTitle: string; when: string }[];
+  recentNotes: { id: string; concept: string; skillName: string; stageTitle: string; when: string; image: string | null }[];
   retention: number | null;
   city: string | null;
-  events: { id: string; title: string; when: string; where: string; url: string }[];
+  events: { id: string; title: string; when: string; where: string; url: string; image: string | null }[];
   communityNew: number;
-  contributions: { id: string; title: string; niche: string; href: string }[];
+  contributions: { id: string; title: string; niche: string; href: string; image: string | null; remote: boolean }[];
 };
 
 function shortDate(date: Date) {
@@ -32,7 +32,13 @@ export async function loadHomeExtras(userId: string, followed: { id: string; slu
       where: { userId },
       orderBy: { updatedAt: "desc" },
       take: 3,
-      select: { id: true, concept: true, updatedAt: true, skill: { select: { name: true } }, stage: { select: { title: true } } },
+      select: {
+        id: true,
+        concept: true,
+        updatedAt: true,
+        skill: { select: { name: true, image: true } },
+        stage: { select: { title: true, image: true } },
+      },
     }),
     retentionFor(userId),
     prisma.learnerProfile.findUnique({ where: { userId }, select: { city: true, country: true, lat: true, lng: true } }),
@@ -42,7 +48,7 @@ export async function loadHomeExtras(userId: string, followed: { id: string; slu
           where: { skillId: { in: skillIds }, status: "MERGED" },
           orderBy: { mergedAt: "desc" },
           take: 3,
-          select: { id: true, title: true, skill: { select: { slug: true, name: true } } },
+          select: { id: true, title: true, imageUrl: true, skill: { select: { slug: true, name: true, image: true } } },
         })
       : Promise.resolve([]),
     loadUpcomingEvents(null),
@@ -62,6 +68,7 @@ export async function loadHomeExtras(userId: string, followed: { id: string; slu
       when: formatEventWhen(event.startsAt),
       where: event.isOnline ? "Online" : [event.venueName, event.city].filter(Boolean).join(", "),
       url: event.url,
+      image: event.imageUrl,
     }));
 
   return {
@@ -72,6 +79,7 @@ export async function loadHomeExtras(userId: string, followed: { id: string; slu
       skillName: note.skill.name,
       stageTitle: note.stage?.title ?? "Practice note",
       when: shortDate(note.updatedAt),
+      image: note.stage?.image ?? note.skill.image,
     })),
     retention,
     city: profile?.city ? [profile.city, profile.country].filter(Boolean).join(", ") : null,
@@ -82,6 +90,9 @@ export async function loadHomeExtras(userId: string, followed: { id: string; slu
       title: row.title,
       niche: row.skill.name,
       href: `/open-source/${row.skill.slug}/c/${row.id}`,
+      // A contribution image can be a link to any host, so it stays a plain <img>; the niche cover is local.
+      image: row.imageUrl ?? row.skill.image,
+      remote: Boolean(row.imageUrl && !row.imageUrl.startsWith("/")),
     })),
   };
 }

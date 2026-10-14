@@ -1,6 +1,8 @@
 import "server-only";
 import type { CatalogEntry } from "@/lib/data/catalog";
 import { prisma } from "@/lib/prisma";
+import { loadWeakTopics } from "@/lib/progress/weak-topics-load";
+import type { WeakTopic } from "@/lib/progress/weak-topics";
 import {
   masteryAt,
   recentMonths,
@@ -23,14 +25,10 @@ export type ProgressStats = {
   history: { month: string; values: Record<string, number> }[];
   series: { key: string; name: string }[];
   weakTopics: (WeakTopicView & { href: string })[];
+  /** The same topics with the stage photo, status, and number of misses, for Home. */
+  weakDetail: WeakTopic[];
   reviewHref: string | null;
 };
-
-function oneLine(text: string, max = 160) {
-  const flat = text.replace(/\s+/g, " ").trim();
-  if (flat.length <= max) return flat;
-  return `${flat.slice(0, max - 1)}…`;
-}
 
 function emptyStats(now: Date): ProgressStats {
   const months = recentMonths(now);
@@ -45,6 +43,7 @@ function emptyStats(now: Date): ProgressStats {
     history: months.map((month) => ({ month: month.label, values: {} })),
     series: [],
     weakTopics: [],
+    weakDetail: [],
     reviewHref: null,
   };
 }
@@ -62,23 +61,7 @@ export async function loadProgressStats(userId: string, catalog: CatalogEntry[],
     prisma.explainBackAttempt.findMany({
       where: { userId },
       orderBy: { createdAt: "desc" },
-      select: {
-        createdAt: true,
-        verdict: true,
-        feedback: true,
-        followUpQuestion: true,
-        prompt: {
-          select: {
-            stage: {
-              select: {
-                id: true,
-                title: true,
-                skill: { select: { slug: true, name: true } },
-              },
-            },
-          },
-        },
-      },
+      select: { createdAt: true, verdict: true },
     }),
     prisma.learnerNote.findMany({
       where: { userId },
@@ -137,7 +120,6 @@ export async function loadProgressStats(userId: string, catalog: CatalogEntry[],
   for (const row of completions) {
     passedAt.set(row.stageId, row.completedAt ?? now);
   }
-  const passedIds = new Set(passedAt.keys());
   const months = recentMonths(now);
   const pointsBySkillId = new Map<string, MasteryPointView[]>();
   const series = followed.map((entry) => ({ key: entry.skill.slug, name: entry.skill.name }));
@@ -153,52 +135,17 @@ export async function loadProgressStats(userId: string, catalog: CatalogEntry[],
     pointsBySkillId.set(entry.skill.id, points);
   }
 
-  const weak = new Map<
-    string,
-    { topic: string; skillSlug: string; skillName: string; stageId: string; passed: number; needs: number; reason: string }
-  >();
-  for (const attempt of attempts) {
-    const stage = attempt.prompt.stage;
-    if (passedIds.has(stage.id)) continue;
-    const bucket = weak.get(stage.id) ?? {
-      topic: stage.title,
-      skillSlug: stage.skill.slug,
-      skillName: stage.skill.name,
-      stageId: stage.id,
-      passed: 0,
-      needs: 0,
-      reason: "",
-    };
-    if (attempt.verdict === "NEEDS_IMPROVEMENT") {
-      bucket.needs += 1;
-      if (!bucket.reason) {
-        const concept = attempt.followUpQuestion?.trim();
-        const review = oneLine(attempt.feedback);
-        bucket.reason = concept ? oneLine(`${concept}. ${review}`, 180) : review;
-      }
-    } else {
-      bucket.passed += 1;
-    }
-    weak.set(stage.id, bucket);
-  }
-
-  const weakTopics = [...weak.values()]
-    .filter((topic) => topic.needs > 0)
-    .map((topic) => {
-      const total = topic.passed + topic.needs;
-      return {
-        id: topic.stageId,
-        topic: topic.topic,
-        skillSlug: topic.skillSlug,
-        skillName: topic.skillName,
-        stageId: topic.stageId,
-        accuracy: total === 0 ? 0 : topic.passed / total,
-        reason: topic.reason,
-        href: `/milestone/${topic.stageId}`,
-      };
-    })
-    .sort((a, b) => a.accuracy - b.accuracy || a.topic.localeCompare(b.topic))
-    .slice(0, 6);
+  const weakDetail = await loadWeakTopics(userId);
+  const weakTopics = weakDetail.map((topic) => ({
+    id: topic.id,
+    topic: topic.concept,
+    skillSlug: topic.skillSlug,
+    skillName: topic.skillName,
+    stageId: topic.stageId,
+    accuracy: topic.accuracy,
+    reason: topic.reason,
+    href: topic.href,
+  }));
 
   const weekStart = now.getTime() - WEEK_MS;
   return {
@@ -212,6 +159,7 @@ export async function loadProgressStats(userId: string, catalog: CatalogEntry[],
     history,
     series,
     weakTopics,
+    weakDetail,
     reviewHref: weakTopics[0]?.href ?? null,
   };
 }

@@ -85,7 +85,7 @@ Do not re-run the seed on a database that already has people in it. The seed rew
 ## Tests, health, and limits
 
 ```bash
-npm test                          # Vitest unit tests (34 files, 136 tests on 10 October 2026)
+npm test                          # Vitest unit tests (36 files, 145 tests on 14 October 2026)
 npx playwright install chromium   # once
 npm run test:e2e                  # Playwright, reuses the dev server on port 3000 or starts one
 ```
@@ -218,6 +218,14 @@ Right under the hero, the landing page shows six live numbers: learners (every a
 ## Deleting an account
 
 Settings → Danger zone deletes an account permanently. It asks for `DELETE` and the password, cancels Premium with Stripe first, and refuses to delete the last admin. The account's notes, progress, career-fit results, Open Source contributions, events, requests, videos, and uploaded photos go with it; review decisions made on other people's posts stay without a name. The Privacy Policy and Terms describe the same thing.
+
+## Topics to strengthen, notifications, and analytics
+
+Home lists the ideas you should work on next, picked from what the explain-back reviewer wrote back: an idea it has not accepted yet comes first, then ideas that took several tries or slipped in a recall. Each card shows the stage photo, the review, and one action.
+
+The bell shows how many notifications are new: review results on what you sent (resources, Open Source contributions, videos, events), questions and answers on Open Source posts, and the streak reminder. Mark all as read is saved, so the number stays right after a reload. Settings → Notifications switches each kind on or off and shows how many are new.
+
+Analytics charts everything you did: activity month by month, where your time goes, how your explain-back ideas went, stages passed per path, your weekly rhythm, mastery over time, recall scores, notes by path, and a timeline of recent activity.
 
 ## What is still ahead
 

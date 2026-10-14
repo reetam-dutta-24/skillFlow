@@ -1,10 +1,12 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { Icon } from "@/components/core/Icon.jsx";
+import { SkillImage } from "@/components/core/SkillImage";
 import { StatCard } from "@/components/core/StatCard.jsx";
 import { ContributionHeatmap } from "@/components/community/ContributionHeatmap";
 import type { Activity } from "@/lib/activity";
 import type { HomeExtras } from "@/lib/data/home";
+import type { WeakTopic } from "@/lib/progress/weak-topics";
 import type { DashboardData } from "@/lib/types/pages";
 
 /** The figures from Progress, Notes, and recall, in one row, plus this week's activity. Personal, read on the request. */
@@ -138,7 +140,101 @@ function Quiet({ children, action }: { children: ReactNode; action?: { href: str
   );
 }
 
-/** One place for what the other sidebar sections hold: mastery, reviews, notes, events, Open Source, and records. */
+/** A small square photo beside a list row. Remote art (events, linked images) stays a plain <img>. */
+function Thumb({ src, remote = false, icon = "image" }: { src: string | null; remote?: boolean; icon?: string }) {
+  return (
+    <span className="sf-home-thumb" aria-hidden="true">
+      {src ? (
+        remote ? (
+          // Event and contribution art come from hosts nobody knows ahead of time.
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={src} alt="" loading="lazy" decoding="async" />
+        ) : (
+          <SkillImage src={src} alt="" fill sizes="48px" />
+        )
+      ) : (
+        <Icon name={icon} size={18} />
+      )}
+    </span>
+  );
+}
+
+const WEAK_STATUS: Record<WeakTopic["status"], string> = {
+  open: "Not passed yet",
+  retried: "Took a few tries",
+  recall: "Recall slipped",
+};
+
+/**
+ * Ideas the explain-back model flagged in this learner's own answers: not passed yet, several tries, or a weak
+ * recall. Personal, read on the request.
+ */
+export function HomeWeakTopics({ topics }: { topics: WeakTopic[] }) {
+  return (
+    <section className="sf-weak" aria-labelledby="home-weak">
+      <header className="sf-weak-head">
+        <div>
+          <h2 id="home-weak">Topics to strengthen</h2>
+          <p>Picked from the reviews on your explain-back and recall answers. Work on these first.</p>
+        </div>
+        <span className="sf-weak-source">
+          <Icon name="sparkles" size={14} />
+          From your reviews
+        </span>
+      </header>
+      {topics.length ? (
+        <ul className="sf-weak-grid">
+          {topics.map((topic) => (
+            <li key={topic.id}>
+              <article className="sf-weak-card" data-severity={topic.severity}>
+                <div className="sf-weak-photo">
+                  {topic.image ? <SkillImage src={topic.image} alt="" fill sizes="(max-width: 640px) 100vw, (max-width: 960px) 50vw, 360px" /> : null}
+                  <span className="sf-weak-status">{WEAK_STATUS[topic.status]}</span>
+                </div>
+                <div className="sf-weak-body">
+                  <p className="sf-weak-path">
+                    {topic.skillName} · {topic.stageTitle}
+                  </p>
+                  <h3>{topic.concept}</h3>
+                  {topic.reason ? <p className="sf-weak-review">{topic.reason}</p> : null}
+                  <div className="sf-weak-foot">
+                    {topic.misses > 0 ? (
+                      <span className="sf-weak-tries" title={`${topic.misses} ${topic.misses === 1 ? "answer" : "answers"} not accepted`}>
+                        <span className="sf-weak-dots" aria-hidden="true">
+                          {Array.from({ length: Math.min(topic.misses, 5) }, (_, index) => (
+                            <span key={index} />
+                          ))}
+                        </span>
+                        {topic.misses} {topic.misses === 1 ? "miss" : "misses"}
+                      </span>
+                    ) : (
+                      <span className="sf-weak-tries">Recall score {Math.round(topic.accuracy * 100)} of 100</span>
+                    )}
+                    <Link className="sf-btn sf-btn--outline sf-btn--sm" href={topic.href}>
+                      {topic.action}
+                    </Link>
+                  </div>
+                </div>
+              </article>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div className="sf-weak-empty">
+          <span className="sf-weak-empty-icon" aria-hidden="true">
+            <Icon name="circle-check" size={22} />
+          </span>
+          <div>
+            <h3>Nothing to strengthen right now</h3>
+            <p>When the reviewer cannot accept an idea yet, or a recall answer slips, that idea shows up here with what to fix.</p>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+
+/** One place for what the other sidebar sections hold: mastery, notes, events, Open Source, and records. */
 export function HomePanels({ data, extras, userId }: { data: DashboardData; extras: HomeExtras; userId: string }) {
   const records = data.followed.filter((row) => row.passed > 0);
   return (
@@ -150,23 +246,26 @@ export function HomePanels({ data, extras, userId }: { data: DashboardData; extr
             <ul className="sf-home-mastery">
               {data.followed.map((row) => (
                 <li key={row.skill.id}>
-                  <div className="sf-home-mastery-top">
-                    <Link href={row.roadmapHref}>{row.skill.name}</Link>
-                    <span>
-                      {row.passed}/{row.total} · {row.skill.masteryPercent}%
+                  <Thumb src={row.skill.image || null} icon="route" />
+                  <div className="sf-home-mastery-copy">
+                    <div className="sf-home-mastery-top">
+                      <Link href={row.roadmapHref}>{row.skill.name}</Link>
+                      <span>
+                        {row.passed}/{row.total} · {row.skill.masteryPercent}%
+                      </span>
+                    </div>
+                    <span
+                      className="sf-home-mastery-track"
+                      role="meter"
+                      aria-label={`${row.skill.name} mastery`}
+                      aria-valuemin={0}
+                      aria-valuemax={100}
+                      aria-valuenow={row.skill.masteryPercent}
+                      title={`${row.skill.name}: ${row.skill.masteryPercent}% mastery, ${row.passed} of ${row.total} stages passed`}
+                    >
+                      <span style={{ width: `${Math.max(row.skill.masteryPercent, 2)}%` }} />
                     </span>
                   </div>
-                  <span
-                    className="sf-home-mastery-track"
-                    role="meter"
-                    aria-label={`${row.skill.name} mastery`}
-                    aria-valuemin={0}
-                    aria-valuemax={100}
-                    aria-valuenow={row.skill.masteryPercent}
-                    title={`${row.skill.name}: ${row.skill.masteryPercent}% mastery, ${row.passed} of ${row.total} stages passed`}
-                  >
-                    <span style={{ width: `${Math.max(row.skill.masteryPercent, 2)}%` }} />
-                  </span>
                 </li>
               ))}
             </ul>
@@ -175,32 +274,18 @@ export function HomePanels({ data, extras, userId }: { data: DashboardData; extr
           )}
         </Panel>
 
-        <Panel id="home-review" icon="rotate-ccw" title="Needs another look" href="/progress" linkLabel="All">
-          {data.weakTopics.length ? (
-            <ul className="sf-home-list">
-              {data.weakTopics.map((topic) => (
-                <li key={topic.id}>
-                  <Link href={topic.href}>{topic.topic}</Link>
-                  <span>
-                    {topic.skillName} · {topic.reason}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <Quiet>Nothing waiting. A stage you tried but did not pass yet shows up here.</Quiet>
-          )}
-        </Panel>
-
         <Panel id="home-notes" icon="notebook-pen" title="Recent notes" href="/notes" linkLabel="Notes">
           {extras.recentNotes.length ? (
             <ul className="sf-home-list">
               {extras.recentNotes.map((note) => (
                 <li key={note.id}>
-                  <Link href="/notes">{note.concept}</Link>
-                  <span>
-                    {note.skillName} · {note.stageTitle} · {note.when}
-                  </span>
+                  <Thumb src={note.image} icon="notebook-pen" />
+                  <div>
+                    <Link href="/notes">{note.concept}</Link>
+                    <span>
+                      {note.skillName} · {note.stageTitle} · {note.when}
+                    </span>
+                  </div>
                 </li>
               ))}
             </ul>
@@ -216,13 +301,16 @@ export function HomePanels({ data, extras, userId }: { data: DashboardData; extr
             <ul className="sf-home-list">
               {extras.events.map((event) => (
                 <li key={event.id}>
-                  <a href={event.url} target="_blank" rel="noreferrer">
-                    {event.title}
-                  </a>
-                  <span>
-                    {event.when}
-                    {event.where ? ` · ${event.where}` : ""}
-                  </span>
+                  <Thumb src={event.image} remote icon="calendar" />
+                  <div>
+                    <a href={event.url} target="_blank" rel="noreferrer">
+                      {event.title}
+                    </a>
+                    <span>
+                      {event.when}
+                      {event.where ? ` · ${event.where}` : ""}
+                    </span>
+                  </div>
                 </li>
               ))}
             </ul>
@@ -244,8 +332,11 @@ export function HomePanels({ data, extras, userId }: { data: DashboardData; extr
               <ul className="sf-home-list">
                 {extras.contributions.map((item) => (
                   <li key={item.id}>
-                    <Link href={item.href}>{item.title}</Link>
-                    <span>{item.niche}</span>
+                    <Thumb src={item.image} remote={item.remote} icon="git-pull-request" />
+                    <div>
+                      <Link href={item.href}>{item.title}</Link>
+                      <span>{item.niche}</span>
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -262,12 +353,15 @@ export function HomePanels({ data, extras, userId }: { data: DashboardData; extr
                 const complete = row.total > 0 && row.passed === row.total;
                 return (
                   <li key={row.skill.id}>
-                    <Link href={`/${complete ? "certificate" : "transcript"}/${userId}/${row.skill.slug}`}>
-                      {complete ? `${row.skill.name} certificate` : `${row.skill.name} transcript`}
-                    </Link>
-                    <span>
-                      {row.passed} of {row.total} stages passed{complete ? " · complete" : ""}
-                    </span>
+                    <Thumb src={row.skill.image || null} icon="award" />
+                    <div>
+                      <Link href={`/${complete ? "certificate" : "transcript"}/${userId}/${row.skill.slug}`}>
+                        {complete ? `${row.skill.name} certificate` : `${row.skill.name} transcript`}
+                      </Link>
+                      <span>
+                        {row.passed} of {row.total} stages passed{complete ? " · complete" : ""}
+                      </span>
+                    </div>
                   </li>
                 );
               })}

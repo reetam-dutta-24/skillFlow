@@ -40,6 +40,8 @@ test("a learner logs in, opens a path and starts the first stage", async ({ page
 
   await expect(page).toHaveURL(/\/lesson\//);
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  // The lesson is a step-by-step wizard; the explain-back link sits on the last step.
+  await page.getByRole("button", { name: /: When you are ready$/ }).click();
   await expect(page.getByRole("link", { name: "Explain it back" })).toBeVisible();
 });
 

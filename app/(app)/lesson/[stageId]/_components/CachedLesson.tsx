@@ -8,6 +8,7 @@ import type { ResourceType, ResourceView } from "@/lib/types/domain";
 import { Icon } from "@/components/core/Icon.jsx";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
 import { LessonScreen } from "./LessonScreen";
+import { LessonWizard, type LessonSlide } from "./LessonWizard";
 
 function hostLabel(url: string) {
   if (url.startsWith("/uploads/")) return "Uploaded file";
@@ -74,37 +75,50 @@ function KeyPoints({ points }: { points: string[] }) {
   );
 }
 
-function ResourceCard({ item, index, optional }: { item: ResourceView; index: number; optional: boolean }) {
+/** One resource as its own wizard slide. The heading is what focus moves to when the slide opens. */
+function ResourceSlide({
+  item,
+  index,
+  count,
+  section,
+  optional,
+}: {
+  item: ResourceView;
+  index: number;
+  count: number;
+  section: string;
+  optional: boolean;
+}) {
   return (
-    <li className="sf-resource" data-unavailable={item.unavailable ? "true" : undefined}>
-      <span className="sf-resource-num" aria-hidden="true">
-        {index}
-      </span>
-      <article className="sf-resource-body">
-        <p className="sf-resource-kind">
-          <Icon name={kindIcon(item.type)} size={14} />
-          <span>{kindLabel(item.type)}</span>
-          <span aria-hidden="true">·</span>
-          <span>{item.unavailable ? "Source unavailable" : hostLabel(item.url)}</span>
-          {optional ? <span className="sf-resource-tag">Optional</span> : null}
-        </p>
-        <h3>{item.title}</h3>
-        {item.description ? <p className="sf-resource-desc">{item.description}</p> : null}
-        {item.keyPoints.length ? (
-          <div className="sf-resource-learn">
-            <p>{item.unavailable ? "What it covered" : "What you will learn"}</p>
-            <KeyPoints points={item.keyPoints} />
-          </div>
-        ) : null}
-        {item.unavailable ? null : (
-          <a className="sf-btn sf-btn--outline sf-btn--sm sf-resource-open" href={item.url} target="_blank" rel="noopener noreferrer">
-            Open {kindLabel(item.type).toLowerCase()}
-            <Icon name="arrow-up-right" size={14} />
-            <span className="sf-sr"> (opens in a new tab)</span>
-          </a>
-        )}
-      </article>
-    </li>
+    <article className="sf-resource-body sf-lwiz-card" data-unavailable={item.unavailable ? "true" : undefined}>
+      <p className="sf-lwiz-eyebrow">
+        {section} · {index} of {count}
+      </p>
+      <p className="sf-resource-kind">
+        <Icon name={kindIcon(item.type)} size={14} />
+        <span>{kindLabel(item.type)}</span>
+        <span aria-hidden="true">·</span>
+        <span>{item.unavailable ? "Source unavailable" : hostLabel(item.url)}</span>
+        {optional ? <span className="sf-resource-tag">Optional</span> : null}
+      </p>
+      <h2 data-slide-heading tabIndex={-1}>
+        {item.title}
+      </h2>
+      {item.description ? <p className="sf-resource-desc">{item.description}</p> : null}
+      {item.keyPoints.length ? (
+        <div className="sf-resource-learn">
+          <p>{item.unavailable ? "What it covered" : "What you will learn"}</p>
+          <KeyPoints points={item.keyPoints} />
+        </div>
+      ) : null}
+      {item.unavailable ? null : (
+        <a className="sf-btn sf-btn--outline sf-btn--sm sf-resource-open" href={item.url} target="_blank" rel="noopener noreferrer">
+          Open {kindLabel(item.type).toLowerCase()}
+          <Icon name="arrow-up-right" size={14} />
+          <span className="sf-sr"> (opens in a new tab)</span>
+        </a>
+      )}
+    </article>
   );
 }
 
@@ -178,76 +192,105 @@ export async function LessonView({ stageId, userId }: { stageId: string; userId:
   const { clip, featured, sources } = arrange(selected.resources, selected.optionalIds, stagePlan != null);
   const reading = [featured, ...sources].filter((item): item is ResourceView => item != null);
   const count = selected.resources.length;
+  const image = data.stage.image ?? data.skill.image ?? null;
+  const section = clip ? "Then read and practice" : "Resources";
+
+  // Same content and order as before, one slide each: intro, the clip, every resource, then the explain-back step.
+  const slides: LessonSlide[] = [
+    {
+      id: "intro",
+      label: "Overview",
+      content: (
+        <header className="sf-lessonx-head sf-lwiz-intro">
+          <h1 data-slide-heading tabIndex={-1}>
+            {data.stage.title}
+          </h1>
+          {data.stage.description ? <p className="sf-lessonx-lede">{data.stage.description}</p> : null}
+          <p className="sf-lessonx-meta">
+            {count} {count === 1 ? "resource" : "resources"}
+            {data.stage.hasExplainBack ? " · Explain-back when you are ready" : ""}
+          </p>
+          {selected.note ? <p className="sf-note-summary">{selected.note}</p> : null}
+        </header>
+      ),
+    },
+  ];
+
+  if (clip) {
+    slides.push({
+      id: `watch-${clip.id}`,
+      label: "Watch first",
+      content: (
+        <section className="sf-lessonx-section" aria-labelledby="lesson-watch">
+          <h2 id="lesson-watch" data-slide-heading tabIndex={-1}>
+            Watch first
+          </h2>
+          <LessonScreen title={clip.title} clipUrl={clip.url} poster={image} />
+          <div className="sf-clip-info">
+            <h3>{clip.title}</h3>
+            <p className="sf-resource-kind">
+              <Icon name="circle-play" size={14} />
+              <span>{kindLabel(clip.type)}</span>
+              <span aria-hidden="true">·</span>
+              <span>{hostLabel(clip.url)}</span>
+            </p>
+            {clip.description ? <p className="sf-resource-desc">{clip.description}</p> : null}
+            <KeyPoints points={clip.keyPoints} />
+          </div>
+        </section>
+      ),
+    });
+  }
+
+  reading.forEach((item, index) => {
+    slides.push({
+      id: item.id,
+      label: item.title,
+      content: (
+        <ResourceSlide
+          item={item}
+          index={index + 1}
+          count={reading.length}
+          section={section}
+          optional={selected.optionalIds.has(item.id)}
+        />
+      ),
+    });
+  });
+
+  slides.push({
+    id: "ready",
+    label: "When you are ready",
+    content: (
+      <div className="sf-lesson-ready sf-lwiz-ready">
+        <Icon name="message-square-quote" size={20} />
+        <h2 data-slide-heading tabIndex={-1}>
+          When you are ready
+        </h2>
+        <p>
+          {data.stage.hasExplainBack
+            ? "Explain each idea from this stage in your own words. A written review comes back for every idea, and the stage is recorded once each one holds."
+            : "This stage has no explain-back yet. Work through the resources at your own pace."}
+        </p>
+        <Link className="sf-ready-back" href={`/roadmap/${data.skill.slug}`}>
+          Back to the path
+        </Link>
+      </div>
+    ),
+  });
 
   return (
     <div className="sf-lessonx">
       <Crumbs slug={data.skill.slug} name={data.skill.name} order={data.stage.order} />
-      <header className="sf-lessonx-head">
-        <p className="sf-lessonx-kicker">
-          {data.skill.name} · Stage {data.stage.order}
-          {total ? ` of ${total}` : ""}
-        </p>
-        <h1>{data.stage.title}</h1>
-        {data.stage.description ? <p className="sf-lessonx-lede">{data.stage.description}</p> : null}
-        <p className="sf-lessonx-meta">
-          {count} {count === 1 ? "resource" : "resources"}
-          {data.stage.hasExplainBack ? " · Explain-back when you are ready" : ""}
-        </p>
-        {selected.note ? <p className="sf-note-summary">{selected.note}</p> : null}
-      </header>
-
-      <div className="sf-lessonx-grid">
-        <div className="sf-lessonx-main">
-          {clip ? (
-            <section className="sf-lessonx-section" aria-labelledby="lesson-watch">
-              <h2 id="lesson-watch">Watch first</h2>
-              <LessonScreen title={clip.title} clipUrl={clip.url} poster={data.stage.image ?? data.skill.image} />
-              <div className="sf-clip-info">
-                <h3>{clip.title}</h3>
-                <p className="sf-resource-kind">
-                  <Icon name="circle-play" size={14} />
-                  <span>{kindLabel(clip.type)}</span>
-                  <span aria-hidden="true">·</span>
-                  <span>{hostLabel(clip.url)}</span>
-                </p>
-                {clip.description ? <p className="sf-resource-desc">{clip.description}</p> : null}
-                <KeyPoints points={clip.keyPoints} />
-              </div>
-            </section>
-          ) : null}
-
-          {reading.length > 0 ? (
-            <section className="sf-lessonx-section" aria-labelledby="lesson-resources">
-              <h2 id="lesson-resources">{clip ? "Then read and practice" : "Resources"}</h2>
-              <ol className="sf-resources">
-                {reading.map((item, index) => (
-                  <ResourceCard key={item.id} item={item} index={index + 1} optional={selected.optionalIds.has(item.id)} />
-                ))}
-              </ol>
-            </section>
-          ) : null}
-        </div>
-
-        <aside className="sf-lessonx-aside" aria-label="Next step">
-          <div className="sf-lesson-ready">
-            <Icon name="message-square-quote" size={20} />
-            <h2>When you are ready</h2>
-            <p>
-              {data.stage.hasExplainBack
-                ? "Explain each idea from this stage in your own words. A written review comes back for every idea, and the stage is recorded once each one holds."
-                : "This stage has no explain-back yet. Work through the resources at your own pace."}
-            </p>
-            {data.stage.hasExplainBack ? (
-              <Link className="sf-btn sf-btn--gradient sf-btn--lg sf-btn--full" href={`/milestone/${data.stage.id}`}>
-                Explain it back
-              </Link>
-            ) : null}
-            <Link className="sf-ready-back" href={`/roadmap/${data.skill.slug}`}>
-              Back to the path
-            </Link>
-          </div>
-        </aside>
-      </div>
+      <LessonWizard
+        stageId={data.stage.id}
+        stageTitle={data.stage.title}
+        kicker={`${data.skill.name} · Stage ${data.stage.order}${total ? ` of ${total}` : ""}`}
+        image={image}
+        slides={slides}
+        hasExplainBack={data.stage.hasExplainBack}
+        explainHref={`/milestone/${data.stage.id}`}
+      />
     </div>
   );
 }

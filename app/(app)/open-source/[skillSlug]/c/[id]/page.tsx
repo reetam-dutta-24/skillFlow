@@ -4,7 +4,10 @@ import { notFound, redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { PersonAvatar } from "@/components/community/PersonAvatar";
 import { COMMUNITY_LABEL, formatWhen, reviewEventLabel, reviewReasonLabel } from "@/lib/community-copy";
-import { loadPublishedContribution, type PublishedPost } from "@/lib/data/community";
+import { loadCommunityNiches, loadPublishedContribution, type PublishedPost } from "@/lib/data/community";
+import { Icon } from "@/components/core/Icon.jsx";
+import { SkillImage } from "@/components/core/SkillImage";
+import { shortDay, typeMeta } from "../../../_components/contribution-meta";
 import { communityActor } from "@/lib/services/community/actor";
 import { getContribution } from "@/lib/services/community/contributions";
 import { canModerate, canReview } from "@/lib/services/community/permissions";
@@ -81,17 +84,47 @@ export default async function ContributionPage({ params, searchParams }: PagePro
   // Per person: only maintainers of this niche and admins see Unmerge.
   const moderator = actor ? canModerate(actor, row.skill.id) : false;
   const done = (await searchParams).done;
+  const niche = (await loadCommunityNiches()).find((item) => item.id === row.skill.id) ?? null;
+  const meta = typeMeta(row.type);
 
   return (
-    <div className="sf-dash">
-      <header className="sf-page-head">
-        <p>
-          <Link className="sf-roadmap-link" href={`/open-source/${row.skill.slug}`}>
-            {row.skill.name}
-          </Link>
-        </p>
+    <div className="sf-dash sf-os-page">
+      <header className="sf-ospost-head" data-slot={meta.slot}>
+        <nav className="sf-oshero-crumb" aria-label="Breadcrumb">
+          <Link href="/open-source">Open Source</Link>
+          <span aria-hidden="true">/</span>
+          <Link href={`/open-source/${row.skill.slug}`}>{row.skill.name}</Link>
+        </nav>
+        <span className="sf-ospost-type">
+          <Icon name={meta.icon} size={14} />
+          {meta.label}
+        </span>
         <h1>{row.title}</h1>
-        <p className="sf-community-label">{COMMUNITY_LABEL}</p>
+        {row.body ? <p className="sf-ospost-lede">{row.summary}</p> : null}
+        <div className="sf-ospost-by">
+          {row.author ? (
+            <Link className="sf-os-person-link" href={`/profile/${row.author.id}`}>
+              <PersonAvatar name={row.author.name} image={row.author.image} size={32} />
+            </Link>
+          ) : (
+            <span className="sf-os-person">Former member</span>
+          )}
+          <span>
+            {row.mergedAt ? (
+              <>
+                Published <time dateTime={row.mergedAt}>{shortDay(row.mergedAt)}</time>
+              </>
+            ) : (
+              <>
+                Sent <time dateTime={row.createdAt}>{shortDay(row.createdAt)}</time>
+              </>
+            )}
+          </span>
+          <span className="sf-ospost-label">
+            <Icon name="shield-check" size={14} />
+            {COMMUNITY_LABEL}
+          </span>
+        </div>
       </header>
 
       <DoneNote done={typeof done === "string" ? done : ""} />
@@ -100,6 +133,17 @@ export default async function ContributionPage({ params, searchParams }: PagePro
         <ContributionBody row={row} />
 
         <aside className="sf-community-side">
+          <Link className="sf-ospost-niche" href={`/open-source/${row.skill.slug}`}>
+            <span className="sf-ospost-niche-photo" aria-hidden="true">
+              {niche?.image ? <SkillImage src={niche.image} alt="" fill sizes="320px" /> : null}
+            </span>
+            <span className="sf-ospost-niche-copy">
+              <strong>{row.skill.name}</strong>
+              <span>
+                {niche ? `${niche.merged} contributions · ${niche.members} members` : "Open the community"}
+              </span>
+            </span>
+          </Link>
           <h2>Created by</h2>
           {row.author ? (
             <Link className="sf-os-person-link" href={`/profile/${row.author.id}`}>
@@ -109,14 +153,13 @@ export default async function ContributionPage({ params, searchParams }: PagePro
             <p>Former member</p>
           )}
           <p>
-            <time dateTime={row.createdAt}>{formatWhen(row.createdAt)}</time>
+            Sent <time dateTime={row.createdAt}>{formatWhen(row.createdAt)}</time>
           </p>
           {row.mergedAt ? (
             <p>
               Published <time dateTime={row.mergedAt}>{formatWhen(row.mergedAt)}</time>
             </p>
           ) : null}
-          <p>{row.skill.name}</p>
           {row.status !== "MERGED" ? <p>This stays hidden until a moderator publishes it.</p> : null}
           {row.status === "OPEN" && reviewer && !isAuthor ? (
             <Link className="sf-community-text-link" href={`/open-source/review/${row.id}`}>

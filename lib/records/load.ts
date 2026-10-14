@@ -24,6 +24,8 @@ export type PathRecord = {
 export type FollowedRecord = {
   slug: string;
   name: string;
+  /** The path cover, for the Progress cards. */
+  image: string | null;
   passed: number;
   total: number;
   complete: boolean;
@@ -84,7 +86,7 @@ export async function loadPathRecord(userId: string, skillSlug: string, sessionU
 export async function followedRecords(userId: string): Promise<FollowedRecord[]> {
   const rows = await prisma.userSkillProgress.findMany({
     where: { userId },
-    select: { skill: { select: { id: true, slug: true, name: true } } },
+    select: { skill: { select: { id: true, slug: true, name: true, image: true } } },
     orderBy: { skill: { name: "asc" } },
   });
   const skillIds = rows.map((row) => row.skill.id);
@@ -107,6 +109,6 @@ export async function followedRecords(userId: string): Promise<FollowedRecord[]>
     const total = totals.get(row.skill.id) ?? 0;
     const done = passes.get(row.skill.id) ?? 0;
     if (done === 0) return [];
-    return [{ slug: row.skill.slug, name: row.skill.name, passed: done, total, complete: pathIsComplete(total, done) }];
+    return [{ slug: row.skill.slug, name: row.skill.name, image: row.skill.image ?? null, passed: done, total, complete: pathIsComplete(total, done) }];
   });
 }

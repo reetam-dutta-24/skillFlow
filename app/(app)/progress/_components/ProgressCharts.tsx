@@ -7,6 +7,7 @@ import { LineChart } from "@/components/data/LineChart.jsx";
 import { ChartPanel } from "@/components/data/ChartPanel.jsx";
 import { WeakTopicList } from "@/components/data/WeakTopicList.jsx";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
+import { SkillImage } from "@/components/core/SkillImage";
 import type { ProgressPayload } from "@/lib/data/progress";
 
 export function ProgressCharts({ data }: { data: ProgressPayload }) {
@@ -41,7 +42,14 @@ export function ProgressCharts({ data }: { data: ProgressPayload }) {
       <div className="sf-progress-donuts">
         {data.skills.map((skill) => (
           <ChartPanel key={skill.skill.id} title={skill.skill.name} subtitle="Open stages passed">
-            <DonutChart value={skill.skill.masteryPercent} label={skill.skill.name} />
+            <div className="sf-progress-path">
+              {skill.skill.image ? (
+                <span className="sf-progress-cover" aria-hidden="true">
+                  <SkillImage src={skill.skill.image} alt="" fill sizes="(max-width: 960px) 100vw, 260px" />
+                </span>
+              ) : null}
+              <DonutChart value={skill.skill.masteryPercent} label={skill.skill.name} />
+            </div>
           </ChartPanel>
         ))}
       </div>

@@ -5,6 +5,8 @@ export type LearnerNoteView = {
   stageId: string;
   stageTitle: string;
   stageOrder: number;
+  /** The stage photo, or the path cover for a practice note. Only for screens; exports ignore it. */
+  stageImage?: string | null;
   concept: string;
   explanation: string;
   review: string;

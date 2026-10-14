@@ -6,7 +6,8 @@ import { Chip } from "@/components/core/Chip.jsx";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
 import { PersonAvatar } from "@/components/community/PersonAvatar";
 import { auth } from "@/lib/auth";
-import { COMMUNITY_LABEL, communityRoleLabel, contributionTypeLabel, disclosureLabel, formatWhen } from "@/lib/community-copy";
+import { Icon } from "@/components/core/Icon.jsx";
+import { COMMUNITY_LABEL, communityRoleLabel, formatWhen } from "@/lib/community-copy";
 import { loadCommunityContributors, loadCommunityNiches, loadMergedPage } from "@/lib/data/community";
 import { loadNicheTeam } from "@/lib/data/community-admin";
 import { loadPublicCatalog } from "@/lib/data/public-catalog";
@@ -17,6 +18,9 @@ import { suggestedReviewers, type SuggestedPerson } from "@/lib/services/communi
 import { joinCommunityAction, leaveCommunityAction } from "../actions";
 import { DoneNote } from "../_components/DoneNote";
 import { RoleButton } from "../_components/RoleButton";
+import { CommunityHero } from "../_components/CommunityHero";
+import { ContributionCard, ContributionGrid } from "../_components/ContributionCard";
+import { TYPE_FILTERS } from "../_components/contribution-meta";
 
 type PageProps = {
   params: Promise<{ skillSlug: string }>;
@@ -86,38 +90,46 @@ export default async function CommunityNichePage({ params, searchParams }: PageP
     niche.status === "available" ? allStages.map((stage) => ({ id: stage.id, order: stage.order, title: stage.title })) : [];
 
   return (
-    <div className="sf-dash">
-      <header className="sf-page-head">
-        <p>
-          <Link className="sf-roadmap-link" href="/open-source">
-            All communities
-          </Link>
-        </p>
-        <h1>{niche.name}</h1>
-        <p className="sf-community-label">{COMMUNITY_LABEL}</p>
-        <p>
-          {niche.status === "available" ? "Available" : "Coming soon"} · {niche.members}{" "}
-          {niche.members === 1 ? "member" : "members"}
-          {visit.joined && visit.count > 0 ? ` · ${visit.count} new since your last visit` : ""}
-        </p>
-        <div className="sf-community-actions">
-          <form action={visit.joined ? leaveCommunityAction : joinCommunityAction}>
-            <input type="hidden" name="skillId" value={niche.id} />
-            <Button type="submit" size="sm" variant={visit.joined ? "outline" : "gradient"}>
-              {visit.joined ? "Leave" : "Join"}
-            </Button>
-          </form>
-          <Link className="sf-community-text-link" href={`/open-source/${niche.slug}/contribute`}>
-            Contribute
-          </Link>
-        </div>
-      </header>
+    <div className="sf-dash sf-os-page">
+      <CommunityHero
+        image={niche.image}
+        crumb={
+          <>
+            <Link href="/open-source">Open Source</Link>
+            <span aria-hidden="true">/</span>
+            <span>{niche.status === "available" ? "Community" : "Coming soon"}</span>
+          </>
+        }
+        title={niche.name}
+        label={COMMUNITY_LABEL}
+        description={visit.joined && visit.count > 0 ? `${visit.count} new since your last visit.` : niche.description || undefined}
+        stats={[
+          { icon: "git-pull-request", value: niche.merged, label: niche.merged === 1 ? "Contribution" : "Contributions" },
+          { icon: "users", value: niche.members, label: niche.members === 1 ? "Member" : "Members" },
+          { icon: "circle-dot", value: niche.openGaps, label: niche.openGaps === 1 ? "Open request" : "Open requests" },
+        ]}
+        actions={
+          <>
+            <Link className="sf-btn sf-btn--gradient sf-btn--md" href={`/open-source/${niche.slug}/contribute`}>
+              <Icon name="plus" size={16} />
+              Contribute
+            </Link>
+            <form action={visit.joined ? leaveCommunityAction : joinCommunityAction}>
+              <input type="hidden" name="skillId" value={niche.id} />
+              <Button type="submit" size="md" variant="outline">
+                {visit.joined ? "Leave community" : "Join community"}
+              </Button>
+            </form>
+          </>
+        }
+      />
 
       <DoneNote done={one(query.done)} />
 
-      <nav className="sf-community-tabs" aria-label="Community sections">
+      <nav className="sf-os-tabs" aria-label="Community sections">
         {TABS.filter((item) => item.id !== "maintainers" || moderator).map((item) => (
           <Link key={item.id} href={hrefFor(niche.slug, { tab: item.id === "contributions" ? "" : item.id })} aria-current={tab === item.id ? "page" : undefined}>
+            <Icon name={item.id === "contributions" ? "git-pull-request" : item.id === "contributors" ? "users" : "shield-check"} size={15} />
             {item.label}
           </Link>
         ))}
@@ -165,81 +177,61 @@ async function Contributions({
       <h2 id="community-contributions" className="sf-sr">
         Contributions
       </h2>
-      <form className="sf-community-filters" method="get" action={`/open-source/${slug}`}>
-        <input type="hidden" name="tab" value="contributions" />
-        <label>
-          Type
-          <select name="type" defaultValue={type}>
-            <option value="">Any</option>
-            <option value="RESOURCE">Resource</option>
-            <option value="CONCEPT_NOTE">Concept note</option>
-            <option value="LEARNING_PATH">Learning path</option>
-            <option value="FOLLOW">Follow</option>
-          </select>
-        </label>
-        {stages.length > 0 ? (
+      <div className="sf-os-filterbar">
+        <nav className="sf-os-chips" aria-label="Contribution type">
+          {TYPE_FILTERS.map((item) => (
+            <Link
+              key={item.id || "all"}
+              href={hrefFor(slug, { type: item.id, stage: stageId, tag })}
+              aria-current={type === item.id ? "page" : undefined}
+            >
+              <Icon name={item.icon} size={14} />
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+        <form className="sf-os-refine" method="get" action={`/open-source/${slug}`}>
+          {type ? <input type="hidden" name="type" value={type} /> : null}
+          {stages.length > 0 ? (
+            <label>
+              <span className="sf-sr">Stage</span>
+              <select name="stage" defaultValue={stageId}>
+                <option value="">Every stage</option>
+                {stages.map((stage) => (
+                  <option key={stage.id} value={stage.id}>
+                    Stage {stage.order}: {stage.title}
+                  </option>
+                ))}
+              </select>
+            </label>
+          ) : null}
           <label>
-            Stage
-            <select name="stage" defaultValue={stageId}>
-              <option value="">Any</option>
-              {stages.map((stage) => (
-                <option key={stage.id} value={stage.id}>
-                  Stage {stage.order}
-                </option>
-              ))}
-            </select>
+            <span className="sf-sr">Tag</span>
+            <input name="tag" defaultValue={tag} maxLength={24} placeholder="Filter by tag" />
           </label>
-        ) : null}
-        <label>
-          Tag
-          <input name="tag" defaultValue={tag} maxLength={24} placeholder="A tag" />
-        </label>
-        <Button type="submit" size="sm" variant="outline">
-          Apply
-        </Button>
-      </form>
+          <Button type="submit" size="md" variant="outline">
+            <Icon name="search" size={15} />
+            Filter
+          </Button>
+        </form>
+      </div>
 
       {page.items.length === 0 ? (
         <EmptyState icon="git-pull-request" title="No contributions yet" description="A published contribution from this niche will show up here." />
       ) : (
-        <ul className="sf-community-feed">
-          {page.items.map((item) => {
-            const disclosure = disclosureLabel(item.disclosure);
-            return (
-              <li key={item.id}>
-                <article className="sf-community-card">
-                  <span className="sf-community-chips">
-                    <Chip tone="neutral">{contributionTypeLabel(item.type)}</Chip>
-                    {item.stage ? <Chip tone="neutral">Relevant to Stage {item.stage.order}</Chip> : null}
-                    {disclosure ? <Chip tone={item.disclosure === "AFFILIATE_OR_SPONSORED" ? "warn" : "accent"}>{disclosure}</Chip> : null}
-                  </span>
-                  <h3>
-                    <Link className="sf-os-card-link" href={`/open-source/${slug}/c/${item.id}`}>
-                      {item.title}
-                    </Link>
-                  </h3>
-                  <p>{item.summary}</p>
-                  <p>
-                    {item.author ? (
-                      <Link className="sf-os-author-link" href={`/profile/${item.author.id}`}>
-                        {item.author.name ?? "Learner"}
-                      </Link>
-                    ) : (
-                      "Former member"
-                    )}
-                    {item.mergedAt ? ` · ${formatWhen(item.mergedAt)}` : ""}
-                  </p>
-                </article>
-              </li>
-            );
-          })}
-        </ul>
+        <ContributionGrid>
+          {page.items.map((item) => (
+            <li key={item.id}>
+              <ContributionCard item={item} slug={slug} />
+            </li>
+          ))}
+        </ContributionGrid>
       )}
 
       {page.nextCursor ? (
         <p className="sf-community-next">
-          <Link className="sf-community-text-link" href={hrefFor(slug, { ...kept, tab: "contributions", cursor: page.nextCursor })}>
-            Next contributions
+          <Link className="sf-btn sf-btn--outline sf-btn--md" href={hrefFor(slug, { ...kept, tab: "contributions", cursor: page.nextCursor })}>
+            More contributions
           </Link>
         </p>
       ) : null}

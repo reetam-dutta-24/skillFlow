@@ -1,6 +1,15 @@
 import { Chip } from "@/components/core/Chip.jsx";
 import { contributionStatusLabel, contributionTypeLabel, disclosureLabel } from "@/lib/community-copy";
 import { CommunityMarkdown } from "./CommunityMarkdown";
+import { Icon } from "@/components/core/Icon.jsx";
+
+function hostOf(url: string) {
+  try {
+    return new URL(url).hostname.replace(/^www\./, "");
+  } catch {
+    return "Link";
+  }
+}
 
 export type ContributionBodyData = {
   type: string;
@@ -70,13 +79,21 @@ export function ContributionBody({ row }: { row: ContributionBodyData }) {
         </ol>
       ) : null}
       {row.sources.length > 0 ? (
-        <section>
+        <section className="sf-ossources">
           <h2>Sources</h2>
           <ul>
             {row.sources.map((source) => (
               <li key={source}>
                 <a href={source} rel="nofollow ugc noopener noreferrer" target="_blank">
-                  {source}
+                  <span className="sf-ossources-icon" aria-hidden="true">
+                    <Icon name="link" size={15} />
+                  </span>
+                  <span className="sf-ossources-copy">
+                    <strong>{hostOf(source)}</strong>
+                    <span>{source}</span>
+                  </span>
+                  <Icon name="external-link" size={14} />
+                  <span className="sf-sr"> (opens in a new tab)</span>
                 </a>
               </li>
             ))}

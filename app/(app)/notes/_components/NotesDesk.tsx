@@ -1,5 +1,6 @@
 "use client";
 
+import { SkillImage } from "@/components/core/SkillImage";
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
@@ -97,7 +98,10 @@ export function NotesDesk({ notes }: { notes: LearnerNoteView[] }) {
             {chapters.map((stage, index) => (
               <li key={stage.stageId}>
                 <button type="button" aria-current={stage.stageId === chapter.stageId ? "true" : undefined} onClick={() => { setStageId(stage.stageId); setSummary(null); setSummaryNote(""); }}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <span className="sf-notebook-thumb" aria-hidden="true">
+                    {stage.notes[0]?.stageImage ? <SkillImage src={stage.notes[0].stageImage} alt="" fill sizes="44px" /> : null}
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                  </span>
                   <strong>{stage.stageTitle}</strong>
                   <em>
                     {stage.notes.length} {stage.notes.length === 1 ? "idea" : "ideas"}
@@ -107,6 +111,11 @@ export function NotesDesk({ notes }: { notes: LearnerNoteView[] }) {
             ))}
           </ol>
           <article className="sf-notebook-page" aria-labelledby="notebook-stage">
+            {chapter.notes[0]?.stageImage ? (
+              <div className="sf-notebook-banner" aria-hidden="true">
+                <SkillImage src={chapter.notes[0].stageImage} alt="" fill sizes="(max-width: 960px) 100vw, 700px" />
+              </div>
+            ) : null}
             <header className="sf-notebook-page-head">
               <p>
                 {chapter.stageId.startsWith("practice:")

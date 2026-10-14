@@ -42,6 +42,8 @@ Last aligned with the working tree on 10 October 2026.
 | Topics to strengthen | Done | Ideas the explain-back model did not accept yet, took several tries, or slipped in a recall, ranked in plain code and shown on Home with the stage photo and the review |
 | Notifications | Done | A numeric unread badge, review results, questions and answers, and the streak reminder; Mark all as read is saved on the profile; one switch per kind in Settings with live counts |
 | Analytics | Done | Totals, insights, nine charts (stacked months, two donuts, paths, rhythm, mastery, recall, notes) on a validated colorblind-safe palette, and a recent-activity timeline |
+| Open Source redesign | Done | Cover heroes, a community strip, chip filters, pill tabs, image cards per contribution type, and a clearer post page |
+| Photos on dashboard pages | Done | Home For you rows, Progress path cards and records, and Notes stages carry the path, stage, event, or contribution photo |
 | Account deletion | Done | Settings → Danger zone: typed confirmation, password, Stripe cancelled first, last admin refused, created content and uploads removed, Privacy Policy and Terms updated |
 | Home | Done | Career-fit card, Continue, six figures and a weekly chart, path lanes with stage photos, and six For you panels drawn from Progress, Notes, Nearby, Open Source, and records |
 | Career-fit test | Done | IPIP-NEO-120 and the O*NET Interest Profiler Short Form, 180 items saved as you go, scored in code, a detailed report with the top five free paths and how to approach them, PNG and JPG export, a card on Home |

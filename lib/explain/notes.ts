@@ -109,8 +109,8 @@ export async function listLearnerNotes(userId: string): Promise<LearnerNoteView[
     where: { userId },
     orderBy: { updatedAt: "desc" },
     include: {
-      skill: { select: { name: true, order: true } },
-      stage: { select: { title: true, order: true } },
+      skill: { select: { name: true, order: true, image: true } },
+      stage: { select: { title: true, order: true, image: true } },
     },
   });
   return rows.map((row) => {
@@ -122,6 +122,7 @@ export async function listLearnerNotes(userId: string): Promise<LearnerNoteView[
       stageId: practice ? practiceStageId(row.skillId) : row.stageId!,
       stageTitle: practice ? "Practice" : row.stage!.title,
       stageOrder: practice ? PRACTICE_STAGE_ORDER : row.stage!.order,
+      stageImage: (practice ? null : row.stage?.image) ?? row.skill.image ?? null,
       concept: row.concept,
       explanation: row.explanation,
       review: row.review,

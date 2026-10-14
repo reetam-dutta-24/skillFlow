@@ -5,6 +5,7 @@ import { auth } from "@/lib/auth";
 import { getProgress } from "@/lib/data/progress";
 import { followedRecords } from "@/lib/records/load";
 import { Icon } from "@/components/core/Icon.jsx";
+import { SkillImage } from "@/components/core/SkillImage";
 import { StatCard } from "@/components/core/StatCard.jsx";
 import { ProgressBoard } from "./_components/ProgressBoard";
 
@@ -38,12 +39,35 @@ export default async function ProgressPage() {
       {records.length > 0 ? (
         <section className="sf-progress-records" aria-labelledby="progress-records">
           <h2 id="progress-records">Records</h2>
-          <ul>
+          <ul className="sf-record-cards">
             {records.map((record) => (
               <li key={record.slug}>
-                <span>{record.name}</span>
-                <Link href={`/transcript/${userId}/${record.slug}`}>Transcript</Link>
-                {record.complete ? <Link href={`/certificate/${userId}/${record.slug}`}>Certificate</Link> : null}
+                <span className="sf-record-photo" aria-hidden="true">
+                  {record.image ? <SkillImage src={record.image} alt="" fill sizes="(max-width: 640px) 100vw, 320px" /> : null}
+                  <span className="sf-record-badge">
+                    <Icon name={record.complete ? "award" : "scroll-text"} size={14} />
+                    {record.complete ? "Certificate earned" : "In progress"}
+                  </span>
+                </span>
+                <span className="sf-record-copy">
+                  <strong>{record.name}</strong>
+                  <span>
+                    {record.passed} of {record.total} stages passed
+                  </span>
+                  <span className="sf-record-track" aria-hidden="true">
+                    <span style={{ width: `${record.total ? Math.round((record.passed / record.total) * 100) : 0}%` }} />
+                  </span>
+                </span>
+                <span className="sf-record-links">
+                  <Link className="sf-btn sf-btn--outline sf-btn--sm" href={`/transcript/${userId}/${record.slug}`}>
+                    Transcript
+                  </Link>
+                  {record.complete ? (
+                    <Link className="sf-btn sf-btn--gradient sf-btn--sm" href={`/certificate/${userId}/${record.slug}`}>
+                      Certificate
+                    </Link>
+                  ) : null}
+                </span>
               </li>
             ))}
           </ul>

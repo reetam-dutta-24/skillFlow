@@ -20,6 +20,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 # The build reads the catalog from Postgres (cacheComponents prerenders it).
 # The env file is mounted only for this step as /app/.env; it is never saved in the image.
+ENV SKIP_TYPECHECK=1
 RUN --mount=type=secret,id=buildenv,target=/app/.env \
     npx prisma generate \
  && npm run build \

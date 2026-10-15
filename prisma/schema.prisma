@@ -71,6 +71,9 @@ model User {
   recallChecks  RecallCheck[]
   subscription  Subscription?
   careerAssessment CareerAssessment?
+  detoxAssessment  DetoxAssessment?
+  detoxCheckIns    DetoxCheckIn[]
+  focusSessions    FocusSession[]
 }
 
 model Subscription {
@@ -126,6 +129,10 @@ model LearnerProfile {
   showActivity    Boolean  @default(true)
   /// The Home product tour was finished or skipped. Null shows the invite card; a date shows "Replay the tour".
   tourCompletedAt DateTime?
+  /// The Detox Score card on the public profile. Off by default: detox data is sensitive.
+  showDetoxOnProfile Boolean @default(false)
+  /// The weekly Detox check-in reminder in the bell.
+  notifyDetox        Boolean @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -837,4 +844,54 @@ model CareerAssessment {
   updatedAt   DateTime  @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+/// The Dopamine Detox baseline self-check. One per learner; Retake and Delete remove it.
+model DetoxAssessment {
+  id            String    @id @default(cuid())
+  userId        String    @unique
+  /// { "<question id>": "<option id>" | ["<option id>", ...] }, ids from lib/detox/questions.ts.
+  answers       Json      @default("{}")
+  /// Worked out in lib/detox/score.ts when every question is answered, -100 to +100.
+  baselineScore Int?
+  version       Int       @default(1)
+  /// The narrative and the three playbook step ids. The number is never stored here.
+  guidance      Json?
+  guidanceAt    DateTime?
+  startedAt     DateTime  @default(now())
+  completedAt   DateTime?
+  updatedAt     DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+/// The one-minute weekly check-in: screen time this week and focus from 1 to 5.
+model DetoxCheckIn {
+  id             String   @id @default(cuid())
+  userId         String
+  /// Monday of the UTC week, YYYY-MM-DD.
+  weekStart      String
+  screenTimeBand String
+  focusRating    Int
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, weekStart])
+}
+
+/// A 25 or 50 minute focus session. Minutes count only while a learning page is open and visible.
+model FocusSession {
+  id             String   @id @default(cuid())
+  userId         String
+  startedAt      DateTime
+  endedAt        DateTime
+  plannedMinutes Int      @default(25)
+  focusedMinutes Int
+  createdAt      DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, endedAt])
 }

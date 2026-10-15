@@ -124,6 +124,8 @@ model LearnerProfile {
   headline        String?
   /// Activity counts (the contribution heatmap and learning totals) on the public profile. Counts only, never content.
   showActivity    Boolean  @default(true)
+  /// The Home product tour was finished or skipped. Null shows the invite card; a date shows "Replay the tour".
+  tourCompletedAt DateTime?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

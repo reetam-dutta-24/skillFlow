@@ -108,7 +108,7 @@ export async function saveProfileIdentity(userId: string, input: { name: string;
 }
 
 /** Same placeholders a city uses when onboarding has not written a path yet. */
-const PLACEHOLDER_PROFILE = {
+export const PLACEHOLDER_PROFILE = {
   skillSlug: "full-stack-web-dev",
   pace: "steady",
   goal: "explore",

@@ -24,4 +24,5 @@ export const PRODUCT_FEATURES = [
   { id: "map", name: "Learner map", href: "/nearby" },
   { id: "profile", name: "Public profile", href: "/settings" },
   { id: "appearance", name: "Themes and accents", href: "/settings" },
+  { id: "tour", name: "Interactive product tour", href: "/dashboard" },
 ] as const;

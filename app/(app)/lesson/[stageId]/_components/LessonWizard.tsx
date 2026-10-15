@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
-import { AnimatePresence, motion, useReducedMotion, type Variants } from "framer-motion";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { Button } from "@/components/core/Button.jsx";
 import { Icon } from "@/components/core/Icon.jsx";
 import { SkillImage } from "@/components/core/SkillImage";
+import { useCalmMotion } from "@/components/feedback/useCalmMotion";
 
 export type LessonSlide = {
   id: string;
@@ -68,18 +69,6 @@ function readStoredStep(key: string, total: number) {
 function subscribeToStorage(onChange: () => void) {
   window.addEventListener("storage", onChange);
   return () => window.removeEventListener("storage", onChange);
-}
-
-const noSubscribe = () => () => {};
-
-/**
- * Reduced motion, but only after hydration. The server cannot read the setting, so the first client render must
- * match it; the setting takes over on the next render.
- */
-function useCalmMotion() {
-  const prefers = useReducedMotion();
-  const hydrated = useSyncExternalStore(noSubscribe, () => true, () => false);
-  return hydrated && Boolean(prefers);
 }
 
 function storeStep(key: string, step: number) {

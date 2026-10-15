@@ -277,7 +277,14 @@ Each feature lists **what** it does, **why** it exists, **how** it works (data a
 - **Ethics.** It is self-discovery, not a clinical assessment, and the copy says so. Retake and Delete remove the row.
 
 ### 5.15 Home (`/dashboard`)
-Career-fit card → streak and Continue banner → At a glance (streak, stages passed, passed this week, average mastery, notes, retention, seven-day chart) → Topics to strengthen → Your activity heatmap → one lane per followed path → For you (mastery by path, recent notes, saved events near your city, Open Source in your niches, transcripts and certificates, each with a photo) → Explore (4×3 grid with a blurred peek) → one quiet free-plan line. All personal and read on the request (`getDashboardData`, `loadHomeExtras` in `lib/data/home.ts`). Home never calls an events API; it reads rows Nearby already saved.
+Tour invite (or Replay the tour) → Career-fit card → streak and Continue banner → At a glance (streak, stages passed, passed this week, average mastery, notes, retention, seven-day chart) → Topics to strengthen → Your activity heatmap → one lane per followed path → For you (mastery by path, recent notes, saved events near your city, Open Source in your niches, transcripts and certificates, each with a photo) → Explore (4×3 grid with a blurred peek) → one quiet free-plan line. All personal and read on the request (`getDashboardData`, `loadHomeExtras` in `lib/data/home.ts`). Home never calls an events API; it reads rows Nearby already saved.
+
+### 5.15.1 The product tour
+- **What.** A "Take the 2-minute tour" card at the top of Home (Start the tour, or a quiet Skip). After it is finished or skipped, only a small "Replay the tour" link stays. It never opens by itself.
+- **The slides.** Nine, as plain data in `lib/tour/slides.ts`: Welcome (an animated hero), Paths and stages, Explain-back, Notes and recall, Progress, Make it yours, Beyond the path, Free and Premium (one honest line), Start (a button to the first open stage of the first followed path, or `/skills`).
+- **Try it.** Each feature slide ends with a small sandboxed demo: tap a three-stage mini path, explain "What is a variable?" to a scripted check, flip a note into its recall question, pass a stage and watch mastery and the streak count up, pick a pace and watch a week rearrange, open three tiles. No database writes, no model or API calls, no navigation. The rules are pure functions in `lib/tour/demos.ts` with unit tests; the practice rule holds an answer only when it has 8+ words and a reason ("because", "so", "when", "used to"), and the copy says it is not the real AI.
+- **How.** `components/tour/HomeTour.tsx` renders the card and portals `TourDialog.tsx` into `document.body`: `useFocusTrap`, `role="dialog"`, `aria-modal`, Escape and Skip tour close it, focus moves to each slide heading, the slide region is `aria-live="polite"`. Same patterns as the lesson wizard (step count, spring progress bar, step dots, sticky Back/Next, ←/→ and swipe, direction-aware framer-motion slides with a 50 ms stagger). `useCalmMotion` makes everything instant under reduced motion, after hydration.
+- **State.** `LearnerProfile.tourCompletedAt` (migration `20261016120000_product_tour`, hand-written, `ADD COLUMN IF NOT EXISTS`). The Server Action `completeTour` checks `auth()` and writes only the signed-in learner's row. Personal, read on the request, never cached, nothing to invalidate. Slide index and demo state live in component state.
 
 ### 5.16 Profile and visibility
 `/profile/[userId]`: cover, avatar, name, headline, member since, paths followed, role chips, six totals, the heatmap, Learning (paths with mastery and certificate links), Videos, Open Source. Settings → Profile visibility hides activity and progress from others; the owner always sees them.
@@ -524,7 +531,7 @@ erDiagram
 | `lib/links/` | URL normalisation, link checking, the SSRF guard |
 | `lib/cache/` | Cache tag names and invalidate helpers |
 | `lib/` (root files) | `auth.ts`, `prisma.ts`, `env.ts`, `redis.ts`, `rate-limit.ts`, `limits.ts`, `uploads.ts`, `activity.ts`, `notifications.ts`, `avatar.ts`, `playable-src.ts`, `require-admin.ts` |
-| `prisma/` | `schema.prisma`, 26 migration folders, `seed.ts` |
+| `prisma/` | `schema.prisma`, 27 migration folders, `seed.ts` |
 | `content/catalog/` | Researched JSON for the thirty free paths; `_review/` holds generated link reports |
 | `scripts/` | Catalog import/verify, stage photos, tag suggestions, map demo, a11y scan |
 | `public/` | Committed images: `stages/`, `skills/`, `landing/`. `uploads/` is runtime-only (gitignored, a Docker volume in production) |
@@ -954,18 +961,18 @@ Pure functions (no database, no network) are where the rules live, which makes t
 
 ### 21.1 The test pyramid
 ```
-        ▲  E2E (Playwright) — few, slow, realistic: 6 tests
+        ▲  E2E (Playwright) — few, slow, realistic: 8 tests
        ▲▲  Integration (real DB) — not written yet
-     ▲▲▲▲  Unit (Vitest) — many, fast: 145 tests in 36 files
+     ▲▲▲▲  Unit (Vitest) — many, fast: 183 tests in 38 files
 ```
-- **Unit tests** cover the pure modules: mastery, streaks, the open-stage rule, explain-back parsing and pass/gap logic, plans, events (quotas, keywords, normalisation, venue queries), community transitions and permissions, career scoring and report schema, display names, avatars, env validation, the rate limiter (with a fake Redis), weak topics, notification counts, SSRF, distance.
-- **E2E (Playwright, `e2e/`):** landing loads, `/api/health` reports the database up, sign-up lands on onboarding, a wrong password shows the error, log-in → path → first lesson, signed-out redirect. Config reuses a server on port 3000 or starts one, keeps a trace and screenshot on failure, retries once in CI.
+- **Unit tests** cover the pure modules: mastery, streaks, the open-stage rule, explain-back parsing and pass/gap logic, plans, events (quotas, keywords, normalisation, venue queries), community transitions and permissions, career scoring and report schema, display names, avatars, env validation, the rate limiter (with a fake Redis), weak topics, notification counts, SSRF, distance, and the product tour (slide data, every demo rule, the invite or replay rule).
+- **E2E (Playwright, `e2e/`):** landing loads, `/api/health` reports the database up, sign-up lands on onboarding, a wrong password shows the error, log-in → path → first lesson, signed-out redirect, the explain-back gate against a stub model (`e2e/model-stub.mjs`), and the Home tour (start, pass the practice, finish, Replay the tour after a reload, arrows and Escape). Config starts the stub and its own dev server, keeps a trace and screenshot on failure, retries once in CI.
 - **Lesson learned:** `getByRole("alert")` matched both the error and Next's hidden route announcer (Playwright strict mode), so the test uses `getByText("Invalid email or password")`.
-- **Not done (be honest):** integration tests against a real test database, E2E through explain-back (needs the model mocked), a live Stripe test charge, load testing.
+- **Not done (be honest):** integration tests against a real test database, a live Stripe test charge, load testing.
 - **How to mock the model for E2E:** point `EXPLAIN_MODEL_URL` at a tiny local stub server that returns fixed JSON, or intercept with Playwright's `page.route` for client calls (here the call is server-side, so a stub endpoint is the right tool).
 - **Built-in failure strings** to see error states without breaking data: `fail this save`, `fail this submit`, `fail this review`, `fail this upload`, `fail this merge`.
 
-> **Say it in one line:** "Business rules live in pure functions with 145 unit tests; Playwright covers the sign-up-to-lesson journey; integration tests and an AI-mocked end-to-end pass are the next layer."
+> **Say it in one line:** "Business rules live in pure functions with 183 unit tests; Playwright covers sign-up to lesson, the explain-back gate against a stub model, and the Home tour; integration tests are the next layer."
 
 
 ---

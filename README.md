@@ -23,7 +23,7 @@
 4. **Keep what you learned.** Accepted ideas become notes (exportable as Word or PDF), come back twice for spaced recall 18 hours apart, and feed mastery, streaks, weak topics, and analytics.
 5. **Finish the path.** Each pass opens the next stage. Passing every stage earns a certificate and a transcript.
 
-Around that loop: personal learning plans built in code from your preferences, a 180-item career-fit test, a moderated Open Source community per niche, a creator studio, an opt-in learner map (city counts only), nearby events, notifications, a full analytics page, and self-serve account deletion. **Premium** is one Stripe subscription that opens the niches outside the thirty free paths and appearing on the learner map; everything above stays free.
+Around that loop: personal learning plans built in code from your preferences, a 180-item career-fit test, a moderated Open Source community per niche, a creator studio, an opt-in learner map (city counts only), nearby events, notifications, a full analytics page, self-serve account deletion, and a two-minute interactive tour on Home with a small hands-on demo for each feature. **Premium** is one Stripe subscription that opens the niches outside the thirty free paths and appearing on the learner map; everything above stays free.
 
 What SkillFlow refuses on purpose: quizzes, comments, likes, view counts, trending, leaderboards, peer review, and guilt copy when a streak breaks.
 
@@ -115,14 +115,14 @@ sequenceDiagram
 | --- | --- |
 | Framework | Next.js 16.3.4 (App Router, Cache Components, `proxy.ts`, `instrumentation.ts`), React 19.2.8, TypeScript |
 | Styling | Tailwind CSS v4 with design tokens in `app/globals.css`; dark/light themes; accent presets, Spectrum, custom gradients |
-| Data | PostgreSQL 16 through Prisma 6.19.3; 26 hand-written, additive migrations |
+| Data | PostgreSQL 16 through Prisma 6.19.3; 27 hand-written, additive migrations |
 | Auth | Auth.js v5 (JWT sessions), email + bcrypt password, Google OAuth (verified email only, no auto-linking) |
 | AI | Gemini free tier (`gemini-flash-lite-latest`) through the OpenAI-compatible endpoint; OpenAI or any compatible endpoint as fallbacks |
 | Rate limits | Redis 7 (`ioredis`), fixed-window counters |
 | Payments | Stripe Checkout, customer portal, signed webhooks |
 | Maps | MapLibre GL + supercluster, OpenStreetMap tiles and Nominatim |
 | Other | framer-motion, Recharts, `docx` and `pdf-lib` exports, Zod, `next/og` images |
-| Tests | Vitest (145 tests in 36 files), Playwright (6 end-to-end tests) |
+| Tests | Vitest (183 tests in 38 files), Playwright (8 end-to-end tests) |
 | Deploy | Docker (multi-stage, non-root, health check), Docker Compose, Caddy, AWS EC2 |
 
 **Caching.** Content that is the same for everyone is cached with `"use cache"` and tags (`catalog`, `community`, `learner-map`, `geocode`, `nearby-events`, `practice-source`, `landing-stats`, `account:<id>`), and writes expire them with `updateTag`. Progress, streaks, notes, follow state, and the account menu are read per request. Redis is not a cache; it only holds rate-limit counters.

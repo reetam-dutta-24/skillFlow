@@ -12,6 +12,9 @@ import { LessonCard } from "@/components/learning/LessonCard.jsx";
 import { SkillRow } from "@/components/learning/SkillRow.jsx";
 import { StreakBanner } from "@/components/learning/StreakBanner.jsx";
 import { CareerTestCard } from "@/components/dashboard/CareerTestCard";
+import { HomeTour } from "@/components/tour/HomeTour";
+import { loadTourCompletedAt } from "@/lib/data/tour";
+import { tourEntry, tourStartTarget } from "@/lib/tour/entry";
 import { HomeActivity, HomeKpis, HomePanels, HomeWeakTopics } from "@/components/dashboard/HomeSections";
 import { loadActivity } from "@/lib/activity";
 import { loadHomeExtras } from "@/lib/data/home";
@@ -49,12 +52,13 @@ export default async function DashboardPage() {
   if (!session?.user?.id) redirect("/login");
 
   const [data, premium] = await Promise.all([getDashboardData(), viewerHasPremium()]);
-  const [extras, activity] = await Promise.all([
+  const [extras, activity, tourCompletedAt] = await Promise.all([
     loadHomeExtras(
       session.user.id,
       data.followed.map((row) => ({ id: row.skill.id, slug: row.skill.slug })),
     ),
     loadActivity(session.user.id),
+    loadTourCompletedAt(session.user.id),
   ]);
   const first = session.user.name?.trim().split(/\s+/)[0];
   // A new learner sees what to do next, not a wall of zeros.
@@ -67,6 +71,7 @@ export default async function DashboardPage() {
         <h1>Home</h1>
         <p>{first ? `Welcome back, ${first}.` : "Welcome back."}</p>
       </header>
+      <HomeTour initiallyDone={tourEntry(tourCompletedAt) === "replay"} start={tourStartTarget(data.followed)} />
       <CareerTestCard userId={session.user.id} />
       {data.currentStreak > 0 || data.nextLesson ? (
         <StreakBanner

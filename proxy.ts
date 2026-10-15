@@ -1,5 +1,6 @@
 import { auth } from "@/lib/auth";
 import { NextResponse } from "next/server";
+import { publicOrigin } from "@/lib/public-origin";
 
 const protectedRoutes = [
   "/dashboard",
@@ -7,7 +8,6 @@ const protectedRoutes = [
   "/onboarding",
   "/roadmap",
   "/lesson",
-  "/quiz",
   "/milestone",
   "/progress",
   "/analytics",
@@ -27,15 +27,16 @@ const protectedRoutes = [
 ];
 
 export const proxy = auth((req) => {
+  const origin = publicOrigin(req.headers, req.url);
   const isProtected = protectedRoutes.some((route) => req.nextUrl.pathname.startsWith(route));
   const isAsset = /\.(?:avif|gif|jpe?g|png|svg|webp|ico)$/i.test(req.nextUrl.pathname);
 
   if (req.nextUrl.pathname === "/" && req.auth) {
-    return NextResponse.redirect(new URL("/dashboard", req.nextUrl.origin));
+    return NextResponse.redirect(new URL("/dashboard", origin));
   }
 
   if (isProtected && !isAsset && !req.auth) {
-    const loginUrl = new URL("/login", req.nextUrl.origin);
+    const loginUrl = new URL("/login", origin);
     return NextResponse.redirect(loginUrl);
   }
 });
@@ -55,8 +56,6 @@ export const config = {
     "/roadmap/:path*",
     "/lesson",
     "/lesson/:path*",
-    "/quiz",
-    "/quiz/:path*",
     "/milestone",
     "/milestone/:path*",
     "/progress",

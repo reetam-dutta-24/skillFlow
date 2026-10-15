@@ -13,6 +13,8 @@ const schema = z
     DATABASE_URL: z.string().regex(/^postgres(ql)?:\/\//, "must start with postgresql://"),
     REDIS_URL: opt(z.string().regex(/^rediss?:\/\//, "must start with redis://")),
     AUTH_SECRET: z.string().min(32, "must be at least 32 characters (npx auth secret)"),
+    // Public address behind a proxy, e.g. https://app.example.com. Redirects and OAuth callbacks use it.
+    AUTH_URL: opt(z.url()),
 
     // Google sign-in (both or neither).
     AUTH_GOOGLE_ID: opt(z.string()),

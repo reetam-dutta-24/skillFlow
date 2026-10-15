@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { getStripe } from "@/lib/billing/stripe";
 import { prisma } from "@/lib/prisma";
+import { publicOrigin } from "@/lib/public-origin";
 
 /** Opens Stripe's customer portal so a subscriber can change or cancel the plan. */
 export async function POST(request: Request) {
@@ -18,7 +19,7 @@ export async function POST(request: Request) {
   });
   if (!row) return NextResponse.json({ error: "This account has no Stripe subscription yet." }, { status: 404 });
 
-  const origin = new URL(request.url).origin;
+  const origin = publicOrigin(request.headers, request.url);
   const portal = await stripe.billingPortal.sessions.create({
     customer: row.stripeCustomerId,
     return_url: `${origin}/upgrade`,

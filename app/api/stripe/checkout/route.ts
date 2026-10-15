@@ -3,6 +3,7 @@ import { auth } from "@/lib/auth";
 import { billingConfig } from "@/lib/billing/config";
 import { getStripe } from "@/lib/billing/stripe";
 import { prisma } from "@/lib/prisma";
+import { publicOrigin } from "@/lib/public-origin";
 
 /** Starts Stripe Checkout. The card form stays on Stripe. */
 export async function POST(request: Request) {
@@ -16,7 +17,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Stripe is not configured yet." }, { status: 503 });
   }
 
-  const origin = new URL(request.url).origin;
+  const origin = publicOrigin(request.headers, request.url);
   const existing = await prisma.subscription.findUnique({
     where: { userId },
     select: { stripeCustomerId: true },

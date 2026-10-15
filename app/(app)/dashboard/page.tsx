@@ -12,6 +12,7 @@ import { LessonCard } from "@/components/learning/LessonCard.jsx";
 import { SkillRow } from "@/components/learning/SkillRow.jsx";
 import { StreakBanner } from "@/components/learning/StreakBanner.jsx";
 import { CareerTestCard } from "@/components/dashboard/CareerTestCard";
+import { DetoxCard } from "@/components/dashboard/DetoxCard";
 import { HomeTour } from "@/components/tour/HomeTour";
 import { loadTourCompletedAt } from "@/lib/data/tour";
 import { tourEntry, tourStartTarget } from "@/lib/tour/entry";
@@ -73,6 +74,7 @@ export default async function DashboardPage() {
       </header>
       <HomeTour initiallyDone={tourEntry(tourCompletedAt) === "replay"} start={tourStartTarget(data.followed)} />
       <CareerTestCard userId={session.user.id} />
+      <DetoxCard userId={session.user.id} />
       {data.currentStreak > 0 || data.nextLesson ? (
         <StreakBanner
           streak={data.currentStreak}

@@ -26,7 +26,7 @@ export async function getSettingsProfile() {
           emailVerified: true,
           password: true,
           accounts: { where: { provider: "google" }, select: { id: true } },
-          learnerProfile: { select: { accent: true, city: true, country: true, showOnMap: true, streakReminder: true, showActivity: true } },
+          learnerProfile: { select: { accent: true, city: true, country: true, showOnMap: true, streakReminder: true, showActivity: true, showDetoxOnProfile: true } },
         },
       })
     : null;
@@ -45,10 +45,11 @@ export async function getSettingsProfile() {
     accent: isStoredAccent(storedAccent) ? storedAccent : "tide",
     streakReminder: user?.learnerProfile?.streakReminder ?? true,
     notifications: {
-      prefs: notes?.prefs ?? { streak: true, reviews: true, community: true },
-      unread: notes?.unreadByKind ?? { streak: 0, reviews: 0, community: 0 },
+      prefs: notes?.prefs ?? { streak: true, reviews: true, community: true, detox: true },
+      unread: notes?.unreadByKind ?? { streak: 0, reviews: 0, community: 0, detox: 0 },
     },
     showActivity: user?.learnerProfile?.showActivity ?? true,
+    showDetox: user?.learnerProfile?.showDetoxOnProfile ?? false,
     map: {
       hasProfile: Boolean(user?.learnerProfile),
       city: user?.learnerProfile?.city ?? null,

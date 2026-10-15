@@ -1,4 +1,5 @@
 import { SkillImage } from "@/components/core/SkillImage";
+import { DetoxIllustration } from "@/components/detox/DetoxIllustration";
 import { SectionHeader } from "../core/SectionHeader.jsx";
 
 /** Split feature rows. Each media frame is an empty slot for a later image or video. */
@@ -17,8 +18,10 @@ export function FeatureGrid({ title, subtitle, features }) {
       <div className="sf-feature-rows">
         {features.map((feature, index) => (
           <article key={feature.id} className={index % 2 === 1 ? "sf-feature-row is-flip" : "sf-feature-row"}>
-            <div className="sf-feature-media">
-              {feature.image ? (
+            <div className={feature.illustration ? "sf-feature-media is-illustration" : "sf-feature-media"}>
+              {feature.illustration === "detox" ? (
+                <DetoxIllustration label={feature.mediaLabel} />
+              ) : feature.image ? (
                 <SkillImage
                   src={feature.image}
                   alt={feature.mediaLabel}

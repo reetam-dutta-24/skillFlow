@@ -42,7 +42,7 @@ SkillFlow is a learning app built on mastery. A learner follows a skill, called 
 - **Tailwind v4** plus one large `app/globals.css`.
 - Other notable packages: `stripe`, `maplibre-gl` with `supercluster` (maps), `recharts`, `framer-motion`, `docx` and `pdf-lib` (exports), `zod`, and `ioredis` (Redis, used only for rate limits).
 - **Node.** Developed on Node 20.17; the production image uses Node 22 (`node:22-bookworm-slim`). Next 16 needs Node 20.9 or later.
-- Scripts: `npm run dev`, `npm run build`, `npm start` (port 3000, or `-p`), `npm run lint`, `npm test` (Vitest, 38 files and 183 tests on 16 October 2026), `npm run test:e2e` (Playwright). `npx tsc --noEmit` is the type check. Full-repo ESLint still fails on some older files.
+- Scripts: `npm run dev`, `npm run build`, `npm start` (port 3000, or `-p`), `npm run lint`, `npm test` (Vitest, 39 files and 212 tests on 16 October 2026), `npm run test:e2e` (Playwright). `npx tsc --noEmit` is the type check. Full-repo ESLint still fails on some older files.
 
 ---
 
@@ -78,7 +78,7 @@ The app is a long-running Node server (`next start`). It is not built with `outp
 ### Database rules
 
 - Apply migrations with `prisma migrate deploy`. Never run `prisma migrate dev` or `prisma migrate reset` against a database that matters.
-- On 8 October 2026 a fresh, empty database was built from the repository's migrations and compared with `schema.prisma`. They match, apart from a default on two `updatedAt` columns, which Prisma fills itself. There are 27 migrations. `20261008200000_drop_quiz` drops the unused quiz tables and `StageCompletion.quizPassed`; `20261014120000_notification_settings` adds the notification switches and the read time on `LearnerProfile`; the last, `20261016120000_product_tour`, adds `LearnerProfile.tourCompletedAt`.
+- On 8 October 2026 a fresh, empty database was built from the repository's migrations and compared with `schema.prisma`. They match, apart from a default on two `updatedAt` columns, which Prisma fills itself. There are 28 migrations. `20261008200000_drop_quiz` drops the unused quiz tables and `StageCompletion.quizPassed`; `20261014120000_notification_settings` adds the notification switches and the read time on `LearnerProfile`; `20261016120000_product_tour` adds `LearnerProfile.tourCompletedAt`; the last, `20261016140000_dopamine_detox`, adds the Detox tables and two profile switches.
 - New migrations are written by hand, only add things, and are applied with `migrate deploy`. The original development database has two extra migration rows and an unused `GeocodeCache` table, so a generated diff against it would try to drop them.
 
 ### Filling a new database
@@ -172,7 +172,7 @@ All of these are read on the server unless the name starts with `NEXT_PUBLIC_`. 
 
 ## 8. Testing status
 
-- **Done.** 183 unit tests in 38 files (Vitest): mastery, streaks, the open-stage rule, explain-back judging, plans, events, community permissions, career scoring, the report schema, display names, avatars, env validation, the rate limiter, weak topics, notification counts, and the product tour. `next build` and `tsc` pass.
+- **Done.** 212 unit tests in 39 files (Vitest): mastery, streaks, the open-stage rule, explain-back judging, plans, events, community permissions, career scoring, the report schema, display names, avatars, env validation, the rate limiter, weak topics, notification counts, the product tour, and the Detox Score. `next build` and `tsc` pass.
 - **End-to-end (Playwright, `e2e/`, `npm run test:e2e`).** Six tests in Chromium: the landing page, `/api/health` reporting the database up, sign-up landing on onboarding, a wrong password, logging in and opening the first Full-Stack stage, and the signed-out redirect. The config reuses a server on port 3000 or starts `npm run dev`, keeps a trace and a screenshot on failure, and retries once when `CI` is set. They need a seeded database, and each run adds one learner (`e2e+<timestamp>@skillflow.test`). Run `npx playwright install chromium` once first.
 - **Checked by hand in a headless browser on production builds.** Onboarding, the Catalog CMS (create, edit, and delete for niches, stages, and resources), profile photos, and the UI audit pages at 375px and desktop.
 - **Not done.** Integration tests (catalog import, lesson reads, Open Source review, edit and hide), the end-to-end steps after opening a lesson (explain-back → progress, which needs the model mocked), a live Stripe test charge, a load test, and model calls mocked in tests.

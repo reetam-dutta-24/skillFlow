@@ -98,7 +98,7 @@ export type MasteryPointView = {
   value: number;
 };
 
-export type NotificationKind = "streak" | "reviews" | "community";
+export type NotificationKind = "streak" | "reviews" | "community" | "detox";
 
 export type NotificationView = {
   id: string;

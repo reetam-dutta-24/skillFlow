@@ -63,6 +63,13 @@ const sections: LegalSection[] = [
             If you take the career-fit test: your answers to its 180 questions, the personality and interest scores worked out from them,
             and your written report. The test is optional, and you can delete it at any time from the report.
           </li>
+          <li>
+            If you use Dopamine Detox: your answers to its self-check (screen time, short video and social habits, focus, sleep and
+            routine, offline interests, and how your focus and mood have been), the starting score worked out from them, your weekly
+            check-ins (screen time and a focus rating), and your focus sessions (start, end, and minutes counted). We use them only to
+            work out your Detox Score and suggest next steps. It is optional, it is a self-improvement score and not a medical test, and
+            Retake or Delete my results on the Detox page removes all of it straight away.
+          </li>
           <li>Your theme and accent color.</li>
         </ul>
         <h3>Your city, only if you add it</h3>
@@ -133,7 +140,9 @@ const sections: LegalSection[] = [
             <strong>Google (Gemini) or OpenAI.</strong> Your explanation, the idea it is about, and that stage&apos;s title and notes are sent
             to an AI model, which writes the review. The same goes for recall answers, practice answers, note summaries, and a plan
             description you write. For the career-fit report, only your scores, your onboarding goals and stage, and the names and first
-            stages of your top paths are sent, never your 180 answers. Your name and email are not sent.
+            stages of your top paths are sent, never your 180 answers. For Dopamine Detox next steps, only your scores, the ids of the
+            answers you picked (never your mood answers), and counts of this week&apos;s learning are sent; if your answers show you
+            are having a hard time, nothing is sent at all. Your name and email are not sent.
           </li>
           <li>
             <strong>Google sign-in.</strong> If you choose Continue with Google, Google confirms who you are and shares the details listed
@@ -187,6 +196,10 @@ const sections: LegalSection[] = [
           never your answers or notes. Turn off &ldquo;Show my activity on my profile&rdquo; in Settings to keep them to yourself.
         </li>
         <li>Your explanations, notes, recall answers, plan, city, and career-fit test results are private to you.</li>
+        <li>
+          Your Dopamine Detox answers, check-ins, and focus sessions are private to you. Your Detox Score and its band appear on your
+          profile only if you turn on &ldquo;Show my Detox Score on my profile&rdquo; in Settings; it is off unless you do.
+        </li>
         <li>A career-fit image leaves SkillFlow only when you download it and share it yourself.</li>
       </ul>
     ),
@@ -228,8 +241,9 @@ const sections: LegalSection[] = [
       <>
         <p>
           We keep your account data while your account is open. When you delete your account in Settings, or ask us to, we delete it and
-          the data linked to it straight away, including your answers, notes, plan, city, progress, and career-fit results. Retaking or
-          deleting the career-fit test removes its answers and report straight away. Your Open Source contributions, the questions on them,
+          the data linked to it straight away, including your answers, notes, plan, city, progress, career-fit results, and Dopamine
+          Detox data. Retaking or deleting the career-fit test removes its answers and report straight away, and Retake or Delete my
+          results on the Detox page removes your self-check answers, score, check-ins, and focus sessions straight away. Your Open Source contributions, the questions on them,
           the questions you asked, the events you submitted, your requests, your videos, and your uploaded photos are removed with it. If
           you moderated other people&apos;s posts, those review decisions stay without your name. An active Premium subscription is
           cancelled with Stripe at the same moment.

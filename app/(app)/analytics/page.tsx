@@ -6,6 +6,8 @@ import { StatCard } from "@/components/core/StatCard.jsx";
 import { auth } from "@/lib/auth";
 import type { ActivityKind } from "@/lib/activity";
 import { getAnalytics } from "@/lib/data/analytics";
+import { loadDetoxOverview } from "@/lib/data/detox";
+import { DetoxScoreBoard } from "../detox/_components/DetoxBoard";
 import { AnalyticsBoard } from "./_components/AnalyticsBoard";
 
 export const metadata: Metadata = { title: "Analytics" };
@@ -29,7 +31,7 @@ function when(iso: string) {
 export default async function AnalyticsPage() {
   const session = await auth();
   if (!session?.user?.id) redirect("/login");
-  const data = await getAnalytics();
+  const [data, detox] = await Promise.all([getAnalytics(), loadDetoxOverview(session.user.id)]);
 
   return (
     <div className="sf-analytics">
@@ -82,6 +84,25 @@ export default async function AnalyticsPage() {
       ) : null}
 
       <AnalyticsBoard data={data} />
+
+      <section className="sf-analytics-detox" aria-labelledby="analytics-detox">
+        <header>
+          <h2 id="analytics-detox">
+            <Icon name="leaf" size={18} /> Dopamine Detox
+          </h2>
+          {detox.ready ? (
+            <p>
+              Your Detox Score is {detox.ready.score > 0 ? `+${detox.ready.score}` : detox.ready.score} ({detox.ready.band.label}). {detox.ready.breakdown.summary.replace(/\.$/, "")}.{" "}
+              <Link href="/detox">Open Detox</Link>
+            </p>
+          ) : (
+            <p>
+              A three-minute self-check gives you a Detox Score that only real learning moves. <Link href="/detox">Start it on the Detox page</Link>
+            </p>
+          )}
+        </header>
+        {detox.ready ? <DetoxScoreBoard weeks={detox.ready.weeks} baseline={detox.ready.baseline} score={detox.ready.score} /> : null}
+      </section>
 
       <section className="sf-timeline" aria-labelledby="analytics-timeline">
         <header>

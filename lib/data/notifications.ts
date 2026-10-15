@@ -2,6 +2,7 @@ import "server-only";
 import { auth } from "@/lib/auth";
 import { forBell, markRead, unreadByKind, type NotificationPrefs } from "@/lib/notifications";
 import { prisma } from "@/lib/prisma";
+import { checkInDue, weekStartOf } from "@/lib/detox/score";
 import { streakReminderDue, utcDay } from "@/lib/progress/formula";
 import type { NotificationKind, NotificationView } from "@/lib/types/domain";
 import type { NotificationsData } from "@/lib/types/pages";
@@ -38,12 +39,12 @@ function quoted(text: string, max = 80) {
  */
 export async function collectNotifications(userId: string, now = new Date()) {
   const since = new Date(now.getTime() - WINDOW_DAYS * DAY_MS);
-  const [user, submissions, reviews, works, events, asked, answered] = await Promise.all([
+  const [user, submissions, reviews, works, events, asked, answered, detox] = await Promise.all([
     prisma.user.findUnique({
       where: { id: userId },
       select: {
         lastActivityDate: true,
-        learnerProfile: { select: { streakReminder: true, notifyReviews: true, notifyCommunity: true, notificationsReadAt: true } },
+        learnerProfile: { select: { streakReminder: true, notifyReviews: true, notifyCommunity: true, notifyDetox: true, notificationsReadAt: true } },
       },
     }),
     prisma.resourceSubmission.findMany({
@@ -94,6 +95,10 @@ export async function collectNotifications(userId: string, now = new Date()) {
       orderBy: { answeredAt: "desc" },
       take: 20,
       select: { id: true, answeredAt: true, contribution: { select: { id: true, title: true, skill: { select: { slug: true } } } } },
+    }),
+    prisma.detoxAssessment.findUnique({
+      where: { userId },
+      select: { completedAt: true, user: { select: { detoxCheckIns: { where: { createdAt: { gte: since } }, select: { weekStart: true } } } } },
     }),
   ]);
 
@@ -176,6 +181,14 @@ export async function collectNotifications(userId: string, now = new Date()) {
     );
   }
 
+  // The weekly Detox check-in: once the self-check is six days old and this week has none.
+  const detoxDone = detox?.completedAt ?? null;
+  if (detoxDone && checkInDue({ completedAt: detoxDone, checkInWeeks: detox?.user.detoxCheckIns.map((row) => row.weekStart) ?? [], now })) {
+    const week = weekStartOf(now);
+    const at = new Date(Math.max(Date.parse(`${week}T00:00:00.000Z`), detoxDone.getTime() + 6 * DAY_MS));
+    drafts.push(note("detox", "leaf", `detox-${week}`, at, "Your weekly Detox check-in", "One minute: your screen time and focus this week.", "/detox#checkin"));
+  }
+
   const profile = user?.learnerProfile;
   const today = utcDay(now);
   const lastDay = user?.lastActivityDate ? utcDay(user.lastActivityDate) : null;
@@ -189,6 +202,7 @@ export async function collectNotifications(userId: string, now = new Date()) {
     streak: profile?.streakReminder ?? true,
     reviews: profile?.notifyReviews ?? true,
     community: profile?.notifyCommunity ?? true,
+    detox: profile?.notifyDetox ?? true,
   };
   const items = markRead(drafts, profile?.notificationsReadAt ?? null);
   return { items, prefs, unreadByKind: unreadByKind(items) };

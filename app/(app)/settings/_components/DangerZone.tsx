@@ -72,7 +72,7 @@ export function DangerZone({ email, hasPassword }: { email: string; hasPassword:
                 <li>Your profile, display name, photo, and city</li>
                 <li>Followed paths, passed stages, transcripts, and certificates</li>
                 <li>Explain-back history, notes, recall answers, and plans</li>
-                <li>Career-fit results and uploaded videos</li>
+                <li>Career-fit and Detox results, and uploaded videos</li>
                 <li>Premium, cancelled with Stripe straight away</li>
               </ul>
             </div>

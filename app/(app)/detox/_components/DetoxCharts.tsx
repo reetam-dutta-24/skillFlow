@@ -69,27 +69,10 @@ function Card({ id, title, note, wide = false, children }: { id: string; title: 
   );
 }
 
-export function DetoxCharts({
-  weeks,
-  baseline,
-  score,
-  mix,
-}: {
-  weeks: DetoxWeek[];
-  baseline: number;
-  score: number;
-  mix: { kind: string; label: string; count: number }[];
-}) {
-  const animate = !useReducedMotion();
-  const checkIns = weeks.filter((week) => week.selfFocus !== null).length;
-  const focusTotal = weeks.reduce((sum, week) => sum + week.focusMinutes, 0);
-  const learningTotal = weeks.reduce((sum, week) => sum + week.learning, 0);
-  const mixTotal = mix.reduce((sum, row) => sum + row.count, 0);
-  const mixRows = mix.slice(0, 4);
-
+/** Score over time. Also shown on its own in the Analytics Detox section. */
+function ScoreCard({ weeks, baseline, score, animate }: { weeks: DetoxWeek[]; baseline: number; score: number; animate: boolean }) {
   return (
-    <div className="sf-analytics-grid sf-dtx-charts">
-      <Card
+    <Card
         id="dtx-chart-score"
         wide
         title="Your Detox Score over time"
@@ -114,6 +97,39 @@ export function DetoxCharts({
           ]}
         />
       </Card>
+  );
+}
+
+export function DetoxScoreChart({ weeks, baseline, score }: { weeks: DetoxWeek[]; baseline: number; score: number }) {
+  const animate = !useReducedMotion();
+  return (
+    <div className="sf-analytics-grid sf-dtx-charts">
+      <ScoreCard weeks={weeks} baseline={baseline} score={score} animate={animate} />
+    </div>
+  );
+}
+
+export function DetoxCharts({
+  weeks,
+  baseline,
+  score,
+  mix,
+}: {
+  weeks: DetoxWeek[];
+  baseline: number;
+  score: number;
+  mix: { kind: string; label: string; count: number }[];
+}) {
+  const animate = !useReducedMotion();
+  const checkIns = weeks.filter((week) => week.selfFocus !== null).length;
+  const focusTotal = weeks.reduce((sum, week) => sum + week.focusMinutes, 0);
+  const learningTotal = weeks.reduce((sum, week) => sum + week.learning, 0);
+  const mixTotal = mix.reduce((sum, row) => sum + row.count, 0);
+  const mixRows = mix.slice(0, 4);
+
+  return (
+    <div className="sf-analytics-grid sf-dtx-charts">
+      <ScoreCard weeks={weeks} baseline={baseline} score={score} animate={animate} />
 
       <Card
         id="dtx-chart-focus"

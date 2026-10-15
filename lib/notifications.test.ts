@@ -21,12 +21,12 @@ describe("notifications", () => {
   it("marks notes up to and including the read time", () => {
     const items = markRead(drafts, new Date("2026-10-09T10:00:00.000Z"));
     expect(items.filter((item) => !item.read).map((item) => item.id)).toEqual(["new-review", "streak"]);
-    expect(unreadByKind(items)).toEqual({ streak: 1, reviews: 1, community: 0 });
+    expect(unreadByKind(items)).toEqual({ streak: 1, reviews: 1, community: 0, detox: 0 });
   });
 
   it("keeps only the kinds that are switched on, newest first, and counts them", () => {
     const items = markRead(drafts, null);
-    const bell = forBell(items, { streak: false, reviews: true, community: true });
+    const bell = forBell(items, { streak: false, reviews: true, community: true, detox: true });
     expect(bell.items.map((item) => item.id)).toEqual(["new-review", "answer", "old-review"]);
     expect(bell.unread).toBe(3);
   });

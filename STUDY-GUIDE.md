@@ -276,8 +276,15 @@ Each feature lists **what** it does, **why** it exists, **how** it works (data a
   - The PNG is drawn server-side with `next/og` and sent `private, no-store`; the JPG is converted in the browser on a canvas, so no image library is needed.
 - **Ethics.** It is self-discovery, not a clinical assessment, and the copy says so. Retake and Delete remove the row.
 
+### 5.14.1 Dopamine Detox
+- **What.** "Your dopamine detox, with proof." A three-minute self-check (`/detox/check`, 20 of SkillFlow's own questions) gives a starting Detox Score from −100 to +100. After that only verified learning moves it. `/detox` shows a gauge, the band (Overstimulated, Rebalancing, Steady, Deep focus), this week's change, "why it moved" in words, the next 3 steps, totals, a weekly check-in, focus sessions, charts, and a before/after report card.
+- **The rule that matters.** The score is plain deterministic code (`lib/detox/score.ts`), the same inputs always give the same number, and no model ever produces or adjusts it. Earned points come only from records the app already verifies (passed ideas, stages, recalls weighted by quality, practice notes, Open Source, focused minutes, active days), capped at 5 a UTC day so grinding does not inflate it. Idle weeks ease earned progress back by 10%. The latest weekly check-in nudges at most ±10.
+- **Guidance.** A fixed 20-step playbook in code. The model (`askModelJson`, only after `aiAllowed()`) receives scores, band, answer option ids, and counts (never names, emails, free text, or mood answers) and returns a short narrative plus three playbook ids; invalid replies fall back to a rules pick. Very low mood or overwhelm shows a support card with Tele-MANAS (14416 or 1-800-891-4416) and makes no model call.
+- **Around the app.** Swap a scroll (3 minutes on one due recall or the next idea, through the real recall and explain-back actions), focus sessions that count only on a visible lesson, explain-back, Notes, or recall card (a pill in the top bar), a Home card, an Analytics section, a profile line that is off by default, and a weekly check-in reminder in the bell.
+- **Privacy.** Personal and sensitive: read on the request, never cached, optional, deletable (Retake and Delete my results), and "a self-improvement score from your own answers and your learning activity, not a medical test."
+
 ### 5.15 Home (`/dashboard`)
-Tour invite (or Replay the tour) → Career-fit card → streak and Continue banner → At a glance (streak, stages passed, passed this week, average mastery, notes, retention, seven-day chart) → Topics to strengthen → Your activity heatmap → one lane per followed path → For you (mastery by path, recent notes, saved events near your city, Open Source in your niches, transcripts and certificates, each with a photo) → Explore (4×3 grid with a blurred peek) → one quiet free-plan line. All personal and read on the request (`getDashboardData`, `loadHomeExtras` in `lib/data/home.ts`). Home never calls an events API; it reads rows Nearby already saved.
+Tour invite (or Replay the tour) → Career-fit card → Detox card (invite, resume, support, or the score with one next step and Swap a scroll) → streak and Continue banner → At a glance (streak, stages passed, passed this week, average mastery, notes, retention, seven-day chart) → Topics to strengthen → Your activity heatmap → one lane per followed path → For you (mastery by path, recent notes, saved events near your city, Open Source in your niches, transcripts and certificates, each with a photo) → Explore (4×3 grid with a blurred peek) → one quiet free-plan line. All personal and read on the request (`getDashboardData`, `loadHomeExtras` in `lib/data/home.ts`). Home never calls an events API; it reads rows Nearby already saved.
 
 ### 5.15.1 The product tour
 - **What.** A "Take the 2-minute tour" card at the top of Home (Start the tour, or a quiet Skip). After it is finished or skipped, only a small "Replay the tour" link stays. It never opens by itself.
@@ -531,7 +538,7 @@ erDiagram
 | `lib/links/` | URL normalisation, link checking, the SSRF guard |
 | `lib/cache/` | Cache tag names and invalidate helpers |
 | `lib/` (root files) | `auth.ts`, `prisma.ts`, `env.ts`, `redis.ts`, `rate-limit.ts`, `limits.ts`, `uploads.ts`, `activity.ts`, `notifications.ts`, `avatar.ts`, `playable-src.ts`, `require-admin.ts` |
-| `prisma/` | `schema.prisma`, 27 migration folders, `seed.ts` |
+| `prisma/` | `schema.prisma`, 28 migration folders, `seed.ts` |
 | `content/catalog/` | Researched JSON for the thirty free paths; `_review/` holds generated link reports |
 | `scripts/` | Catalog import/verify, stage photos, tag suggestions, map demo, a11y scan |
 | `public/` | Committed images: `stages/`, `skills/`, `landing/`. `uploads/` is runtime-only (gitignored, a Docker volume in production) |
@@ -961,18 +968,18 @@ Pure functions (no database, no network) are where the rules live, which makes t
 
 ### 21.1 The test pyramid
 ```
-        ▲  E2E (Playwright) — few, slow, realistic: 8 tests
+        ▲  E2E (Playwright) — few, slow, realistic: 9 tests
        ▲▲  Integration (real DB) — not written yet
-     ▲▲▲▲  Unit (Vitest) — many, fast: 183 tests in 38 files
+     ▲▲▲▲  Unit (Vitest) — many, fast: 212 tests in 39 files
 ```
-- **Unit tests** cover the pure modules: mastery, streaks, the open-stage rule, explain-back parsing and pass/gap logic, plans, events (quotas, keywords, normalisation, venue queries), community transitions and permissions, career scoring and report schema, display names, avatars, env validation, the rate limiter (with a fake Redis), weak topics, notification counts, SSRF, distance, and the product tour (slide data, every demo rule, the invite or replay rule).
-- **E2E (Playwright, `e2e/`):** landing loads, `/api/health` reports the database up, sign-up lands on onboarding, a wrong password shows the error, log-in → path → first lesson, signed-out redirect, the explain-back gate against a stub model (`e2e/model-stub.mjs`), and the Home tour (start, pass the practice, finish, Replay the tour after a reload, arrows and Escape). Config starts the stub and its own dev server, keeps a trace and screenshot on failure, retries once in CI.
+- **Unit tests** cover the pure modules: mastery, streaks, the open-stage rule, explain-back parsing and pass/gap logic, plans, events (quotas, keywords, normalisation, venue queries), community transitions and permissions, career scoring and report schema, display names, avatars, env validation, the rate limiter (with a fake Redis), weak topics, notification counts, SSRF, distance, the product tour (slide data, every demo rule, the invite or replay rule), and the Detox Score (baseline, daily cap, decay, check-ins, breakdown, guidance fallback, distress branch).
+- **E2E (Playwright, `e2e/`):** landing loads, `/api/health` reports the database up, sign-up lands on onboarding, a wrong password shows the error, log-in → path → first lesson, signed-out redirect, the explain-back gate against a stub model (`e2e/model-stub.mjs`), the Home tour (start, pass the practice, finish, Replay the tour after a reload, arrows and Escape), and Dopamine Detox (self-check, score, one explained idea, the breakdown changes). Config starts the stub and its own dev server, keeps a trace and screenshot on failure, retries once in CI.
 - **Lesson learned:** `getByRole("alert")` matched both the error and Next's hidden route announcer (Playwright strict mode), so the test uses `getByText("Invalid email or password")`.
 - **Not done (be honest):** integration tests against a real test database, a live Stripe test charge, load testing.
 - **How to mock the model for E2E:** point `EXPLAIN_MODEL_URL` at a tiny local stub server that returns fixed JSON, or intercept with Playwright's `page.route` for client calls (here the call is server-side, so a stub endpoint is the right tool).
 - **Built-in failure strings** to see error states without breaking data: `fail this save`, `fail this submit`, `fail this review`, `fail this upload`, `fail this merge`.
 
-> **Say it in one line:** "Business rules live in pure functions with 183 unit tests; Playwright covers sign-up to lesson, the explain-back gate against a stub model, and the Home tour; integration tests are the next layer."
+> **Say it in one line:** "Business rules live in pure functions with 212 unit tests; Playwright covers sign-up to lesson, the explain-back gate against a stub model, and the Home tour; integration tests are the next layer."
 
 
 ---

@@ -22,6 +22,8 @@ export type LandingFeature = {
   points: string[];
   mediaLabel: string;
   image?: string;
+  /** A drawn illustration instead of a screenshot. Never real learner data. */
+  illustration?: "detox";
 };
 
 export type LandingProblemPoint = {
@@ -237,6 +239,14 @@ export function getLandingContent(): LandingContent {
         points: [],
         mediaLabel: "The career-fit test report",
         image: "/landing/shots/career.jpg",
+      },
+      {
+        id: "detox",
+        title: "Your dopamine detox, with proof",
+        body: "Most detox apps count the hours you stayed away. SkillFlow counts what you did instead. A three-minute self-check gives you a starting Detox Score; after that, only verified learning moves it: ideas you explain, recalls you answer, and focused minutes, with a daily limit so hours alone never inflate it. A weekly check-in, a fixed playbook of small steps, and a before-and-after card show the change. It is a self-improvement score, not a medical test.",
+        points: [],
+        mediaLabel: "An illustration of the Detox Score rising with learning",
+        illustration: "detox",
       },
       {
         id: "record",

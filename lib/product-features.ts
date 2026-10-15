@@ -11,6 +11,7 @@ export const PRODUCT_FEATURES = [
   { id: "recall", name: "Recall checks on passed ideas", href: "/notes" },
   { id: "plan", name: "A personal learning plan", href: "/roadmap" },
   { id: "career-test", name: "Career-fit test", href: "/career-test" },
+  { id: "detox", name: "Dopamine Detox with a verified Detox Score", href: "/detox" },
   { id: "weak-topics", name: "Topics to strengthen", href: "/dashboard" },
   { id: "progress", name: "Progress and analytics", href: "/analytics" },
   { id: "activity", name: "Activity heatmap", href: "/dashboard" },

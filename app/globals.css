@@ -17647,3 +17647,189 @@ html {
 .light .sf-gauge-fill {
   filter: none;
 }
+
+/* A drawn illustration in a landing feature row: normal text, room around the drawing. */
+.sf-feature-media.is-illustration {
+  padding: clamp(20px, 4vw, 40px);
+  background:
+    radial-gradient(80% 90% at 50% 100%, rgb(from var(--preset-mid) r g b / 0.14), transparent 70%),
+    var(--surface-card);
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+/* Detox on Home, the profile, and Analytics. */
+.sf-home-detox {
+  --band-tone: var(--viz-1);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 18px 22px;
+  padding: 18px 22px;
+  border: 1px solid var(--border-default);
+  border-radius: 20px;
+  background:
+    radial-gradient(420px 200px at 0% 100%, rgb(from var(--band-tone) r g b / 0.16), transparent 70%),
+    var(--surface-card);
+}
+.sf-home-detox[data-band="overstimulated"] {
+  --band-tone: var(--viz-2);
+}
+.sf-home-detox[data-band="rebalancing"] {
+  --band-tone: var(--viz-4);
+}
+.sf-home-detox[data-band="steady"] {
+  --band-tone: var(--viz-3);
+}
+.sf-home-detox-dial {
+  width: 168px;
+}
+.sf-home-detox-dial .sf-gauge-end {
+  display: none;
+}
+.sf-home-detox-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: var(--accent-quiet);
+  color: var(--text-accent);
+}
+.sf-home-detox-body {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.sf-home-detox h2 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+  margin: 0;
+  color: var(--text-primary);
+  font-size: var(--text-subtitle);
+}
+.sf-home-detox-body > p:not(.sf-dtx-kicker) {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+.sf-home-detox-change {
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+  background: var(--surface-hover);
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+.sf-home-detox-change[data-direction="up"] {
+  background: var(--state-pass-bg);
+  color: var(--state-pass);
+}
+.sf-home-detox-step svg,
+.sf-home-detox-due svg {
+  flex: none;
+  color: var(--text-accent);
+}
+.sf-home-detox-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.sf-prof-detox {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-tile);
+  background: var(--surface-card);
+}
+.sf-prof-detox-icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: var(--accent-quiet);
+  color: var(--text-accent);
+}
+.sf-prof-detox h2 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  margin: 0 0 4px;
+  color: var(--text-primary);
+  font-size: var(--text-subtitle);
+}
+.sf-prof-detox h2 strong {
+  font-variant-numeric: tabular-nums;
+}
+.sf-prof-detox p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
+.sf-analytics-detox {
+  display: grid;
+  gap: 14px;
+}
+.sf-analytics-detox header h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 6px;
+  font-size: var(--text-heading);
+}
+.sf-analytics-detox header h2 svg {
+  color: var(--text-accent);
+}
+.sf-analytics-detox header p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+}
+@media (max-width: 960px) {
+  .sf-home-detox {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+  .sf-home-detox-actions {
+    grid-column: 1 / -1;
+  }
+}
+@media (max-width: 640px) {
+  .sf-home-detox {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: start;
+    padding: 16px;
+  }
+  .sf-home-detox-dial {
+    justify-self: center;
+    width: 200px;
+  }
+  .sf-home-detox-actions {
+    width: 100%;
+  }
+  .sf-home-detox-actions .sf-btn {
+    flex: 1 1 auto;
+  }
+  .sf-home-detox.is-invite > .sf-btn {
+    width: 100%;
+  }
+}
+/* The small dial carries only the number; the card around it names the score. */
+.sf-gauge[data-size="sm"] .sf-gauge-center {
+  bottom: 6%;
+}
+.sf-gauge[data-size="sm"] .sf-gauge-center span {
+  display: none;
+}

@@ -12,12 +12,12 @@ import { Button } from "@/components/core/Button.jsx";
 import { ProfilePhotoPicker, photoPreview } from "@/components/forms/ProfilePhotoPicker";
 import { MAX_DISPLAY_NAME, type PhotoChoice } from "@/lib/profile-identity";
 import { UsageCutoffDialog } from "@/components/feedback/UsageCutoffDialog";
-import { saveNotificationPref, saveSettings, saveShowActivity } from "../actions";
+import { saveNotificationPref, saveSettings, saveShowActivity, saveShowDetox } from "../actions";
 import { DangerZone } from "./DangerZone";
 import { LocationCard } from "./LocationCard";
 import { SignInCard, type SignInState } from "./SignInCard";
 
-type NoteKind = "streak" | "reviews" | "community";
+type NoteKind = "streak" | "reviews" | "community" | "detox";
 
 const NOTE_ROWS: { kind: NoteKind; label: string; description: string }[] = [
   {
@@ -35,6 +35,11 @@ const NOTE_ROWS: { kind: NoteKind; label: string; description: string }[] = [
     label: "Daily streak reminder",
     description: "A note in the bell when yesterday counted and today has not yet.",
   },
+  {
+    kind: "detox",
+    label: "Weekly Detox check-in",
+    description: "Once a week after your Detox self-check: one minute for your screen time and focus.",
+  },
 ];
 
 export function SettingsScreen({
@@ -46,6 +51,7 @@ export function SettingsScreen({
   accent,
   notifications,
   showActivity,
+  showDetox,
   showPreview,
   map,
   premium,
@@ -60,6 +66,7 @@ export function SettingsScreen({
   streakReminder: boolean;
   notifications: { prefs: Record<NoteKind, boolean>; unread: Record<NoteKind, number> };
   showActivity: boolean;
+  showDetox: boolean;
   showPreview: boolean;
   map: { hasProfile: boolean; city: string | null; country: string | null; showOnMap: boolean };
   premium: boolean;
@@ -72,6 +79,7 @@ export function SettingsScreen({
   const shownPhoto = photoPreview(photo, image);
   const [prefs, setPrefs] = useState(notifications.prefs);
   const [activity, setActivity] = useState(showActivity);
+  const [detox, setDetox] = useState(showDetox);
   const [pending, setPending] = useState("");
   const [notice, setNotice] = useState("");
   const [error, setError] = useState("");
@@ -212,6 +220,21 @@ export function SettingsScreen({
             void saveShowActivity(next).then((result) => {
               if (!result.ok) {
                 setActivity(!next);
+                setError(result.error);
+              }
+            });
+          }}
+        />
+        <SettingsToggle
+          label="Show my Detox Score on my profile"
+          description="Only the score and its band, never your answers, check-ins, or focus sessions. Off unless you turn it on."
+          checked={detox}
+          onChange={(next) => {
+            setDetox(next);
+            setError("");
+            void saveShowDetox(next).then((result) => {
+              if (!result.ok) {
+                setDetox(!next);
                 setError(result.error);
               }
             });

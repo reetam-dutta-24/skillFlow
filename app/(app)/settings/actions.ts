@@ -68,6 +68,17 @@ export async function saveShowActivity(enabled: boolean) {
   return { ok: true as const };
 }
 
+/** Shows or hides the Detox Score on the public profile. Off by default; detox data is sensitive. Nothing shared is cached. */
+export async function saveShowDetox(enabled: boolean) {
+  const session = await auth();
+  if (!session?.user?.id) return { ok: false as const, error: "Sign in again before saving." };
+  const updated = await prisma.learnerProfile.updateMany({ where: { userId: session.user.id }, data: { showDetoxOnProfile: enabled } });
+  if (updated.count === 0) return { ok: false as const, error: "Finish onboarding first, then choose this." };
+  revalidatePath("/settings");
+  revalidatePath(`/profile/${session.user.id}`);
+  return { ok: true as const };
+}
+
 export async function followSkill(skillId: string) {
   const session = await auth();
   if (!session?.user?.id) return { ok: false as const, error: "Sign in again before saving." };
@@ -99,11 +110,11 @@ export async function disconnectGoogle() {
 }
 
 /** One notification switch. The streak reminder keeps its own column; the others are new kinds of bell notes. */
-export async function saveNotificationPref(kind: "streak" | "reviews" | "community", enabled: boolean) {
+export async function saveNotificationPref(kind: "streak" | "reviews" | "community" | "detox", enabled: boolean) {
   const session = await auth();
   if (!session?.user?.id) return { ok: false as const, error: "Sign in again before saving." };
   if (kind === "streak") return saveReminder(enabled);
-  const data = kind === "reviews" ? { notifyReviews: enabled } : { notifyCommunity: enabled };
+  const data = kind === "reviews" ? { notifyReviews: enabled } : kind === "community" ? { notifyCommunity: enabled } : { notifyDetox: enabled };
   const updated = await prisma.learnerProfile.updateMany({ where: { userId: session.user.id }, data });
   if (updated.count === 0) return { ok: false as const, error: "Finish onboarding first, then choose this." };
   revalidatePath("/settings");

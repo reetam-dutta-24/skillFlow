@@ -100,6 +100,25 @@ export default async function ProfilePage({ params }: { params: Promise<{ userId
         </ul>
       ) : null}
 
+      {overview.detox ? (
+        <section className="sf-prof-detox" aria-labelledby="prof-detox" data-band={overview.detox.band.id}>
+          <span className="sf-prof-detox-icon" aria-hidden="true">
+            <Icon name="leaf" size={20} />
+          </span>
+          <div>
+            <h2 id="prof-detox">
+              Detox Score <strong>{overview.detox.score > 0 ? `+${overview.detox.score}` : overview.detox.score}</strong>
+              <span className="sf-prof-chip is-accent">{overview.detox.band.label}</span>
+            </h2>
+            <p>
+              {mine && !overview.detoxPublic
+                ? "Only you can see this. Turn on Show my Detox Score in Settings to share it."
+                : `Earned from verified learning, starting at ${overview.detox.baseline}. A self-improvement score, not a medical test.`}
+            </p>
+          </div>
+        </section>
+      ) : null}
+
       {overview.showActivity && overview.activity ? (
         <Card id="prof-activity" title="Contribution activity" note={mine && !overview.activityPublic ? "Only you can see this. Turn on Show my activity in Settings to share it." : undefined}>
           <ContributionHeatmap heatmap={overview.activity.heatmap} headingId="prof-heatmap-total" noun="contribution" />

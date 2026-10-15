@@ -1,5 +1,6 @@
 import "server-only";
 import { loadActivity, type Activity } from "@/lib/activity";
+import { loadPublicDetox } from "@/lib/data/detox";
 import { prisma } from "@/lib/prisma";
 
 export type ProfilePath = {
@@ -28,6 +29,9 @@ export type ProfileOverview = {
   currentStreak: number;
   longestStreak: number;
   activity: Activity | null;
+  /** The Detox Score and band: shown to others only when the owner turned it on (off by default). */
+  detox: { score: number; band: { id: string; label: string }; baseline: number } | null;
+  detoxPublic: boolean;
 };
 
 /**
@@ -45,7 +49,7 @@ export async function loadProfileOverview(userId: string, viewerId: string): Pro
       createdAt: true,
       currentStreak: true,
       longestStreak: true,
-      learnerProfile: { select: { headline: true, showActivity: true } },
+      learnerProfile: { select: { headline: true, showActivity: true, showDetoxOnProfile: true } },
       skillProgress: {
         select: {
           skill: { select: { id: true, slug: true, name: true, image: true, order: true, _count: { select: { stages: true } } } },
@@ -58,6 +62,7 @@ export async function loadProfileOverview(userId: string, viewerId: string): Pro
   const mine = userId === viewerId;
   const activityPublic = user.learnerProfile?.showActivity ?? true;
   const showActivity = mine || activityPublic;
+  const detoxPublic = user.learnerProfile?.showDetoxOnProfile ?? false;
 
   const skills = user.skillProgress.map((row) => row.skill).sort((a, b) => a.order - b.order || a.name.localeCompare(b.name));
   const passedRows = showActivity
@@ -101,5 +106,7 @@ export async function loadProfileOverview(userId: string, viewerId: string): Pro
     currentStreak: user.currentStreak,
     longestStreak: user.longestStreak,
     activity: showActivity ? await loadActivity(userId) : null,
+    detox: mine || detoxPublic ? await loadPublicDetox(userId) : null,
+    detoxPublic,
   };
 }

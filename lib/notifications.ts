@@ -9,7 +9,7 @@ export function markRead(items: Omit<NotificationView, "read">[], readAt: Date |
 
 /** Unread notes per kind, for the switches in Settings. */
 export function unreadByKind(items: NotificationView[]): Record<NotificationKind, number> {
-  const counts: Record<NotificationKind, number> = { streak: 0, reviews: 0, community: 0 };
+  const counts: Record<NotificationKind, number> = { streak: 0, reviews: 0, community: 0, detox: 0 };
   for (const item of items) if (!item.read) counts[item.kind] += 1;
   return counts;
 }

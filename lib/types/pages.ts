@@ -44,7 +44,7 @@ export type DashboardData = {
   week: { day: string; checks: number }[];
   /** Ideas the explain-back model flagged: not passed yet, several tries, or a weak recall. */
   weakTopics: WeakTopic[];
-  nextLesson: { title: string; skillName: string; href: string } | null;
+  nextLesson: { title: string; skillName: string; href: string; stageId: string } | null;
   followed: DashboardSkillRow[];
   catalog: SkillView[];
 };

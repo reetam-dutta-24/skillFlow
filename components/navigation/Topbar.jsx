@@ -6,8 +6,8 @@ import { ThemeToggle } from "../forms/ThemeToggle.jsx";
 import { NotificationBell } from "./NotificationBell.jsx";
 import { UserProfileMenu } from "./UserProfileMenu.jsx";
 
-/** Sticky page header: title, search, notifications, theme, account. */
-export function Topbar({ title, user, theme = "dark", onThemeChange, themeTarget, notifications = 0, onNotificationsClick, searchValue, onSearchChange, showSearch = true, leading = null, notificationSlot = null, accountSlot = null, titleAs = "h1", menuItems, onMenuSelect, className, style, ...rest }) {
+/** Sticky page header: title, search, notifications, theme, account. `toolsStart` sits before them (the focus session). */
+export function Topbar({ title, user, theme = "dark", onThemeChange, themeTarget, notifications = 0, onNotificationsClick, searchValue, onSearchChange, showSearch = true, leading = null, toolsStart = null, notificationSlot = null, accountSlot = null, titleAs = "h1", menuItems, onMenuSelect, className, style, ...rest }) {
   return (
     <header
       className={["sf-topbar", className].filter(Boolean).join(" ")}
@@ -21,6 +21,7 @@ export function Topbar({ title, user, theme = "dark", onThemeChange, themeTarget
         <h1 className="sf-topbar-title">{title}</h1>
       )}
       <div className="sf-topbar-tools">
+        {toolsStart}
         {showSearch ? (
           <div className="sf-topbar-search">
             <SearchPill value={searchValue} onChange={onSearchChange} />

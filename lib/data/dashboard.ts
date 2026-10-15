@@ -70,7 +70,7 @@ export async function getDashboardData(): Promise<DashboardData> {
     week: stats?.week ?? [],
     weakTopics: (stats?.weakDetail ?? []).slice(0, 4),
     nextLesson: nextStage
-      ? { title: nextStage.stage.title, skillName: nextStage.skillName, href: `/lesson/${nextStage.stage.id}` }
+      ? { title: nextStage.stage.title, skillName: nextStage.skillName, href: `/lesson/${nextStage.stage.id}`, stageId: nextStage.stage.id }
       : null,
     followed,
     catalog: catalog.map((entry) => entry.skill),

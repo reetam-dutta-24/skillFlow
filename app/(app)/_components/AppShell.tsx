@@ -4,6 +4,7 @@ import { Suspense, useEffect, useId, useRef, useState, type ReactNode } from "re
 import { usePathname } from "next/navigation";
 import { Icon } from "@/components/core/Icon.jsx";
 import { ToastProvider } from "@/components/feedback/Toast";
+import { FocusPill, FocusSessionProvider } from "@/components/detox/FocusSession";
 import { Sidebar, type SidebarItem } from "@/components/navigation/Sidebar.jsx";
 import { Topbar } from "@/components/navigation/Topbar.jsx";
 import { ShellRoleProvider, useShellReview, useShellRole } from "./shell-role";
@@ -19,6 +20,7 @@ const NAV: SidebarItem[] = [
   { id: "progress", label: "Progress", icon: "chart-line", href: "/progress" },
   { id: "notes", label: "Notes", icon: "notebook-pen", href: "/notes" },
   { id: "analytics", label: "Analytics", icon: "chart-pie", href: "/analytics" },
+  { id: "detox", label: "Detox", icon: "leaf", href: "/detox" },
   { id: "submit", label: "Submit a resource", icon: "file-plus", href: "/submit" },
   { id: "settings", label: "Settings", icon: "settings", href: "/settings" },
 ];
@@ -51,6 +53,7 @@ function activeId(pathname: string) {
   if (pathname.startsWith("/nearby") || pathname.startsWith("/map")) return "nearby";
   if (pathname.startsWith("/roadmap") || pathname.startsWith("/lesson") || pathname.startsWith("/milestone")) return "roadmaps";
   if (pathname.startsWith("/analytics")) return "analytics";
+  if (pathname.startsWith("/detox")) return "detox";
   if (pathname.startsWith("/progress")) return "progress";
   if (pathname.startsWith("/notes")) return "notes";
   if (pathname.startsWith("/settings")) return "settings";
@@ -71,6 +74,7 @@ function titleFor(pathname: string) {
   if (pathname.startsWith("/nearby") || pathname.startsWith("/map")) return "Nearby";
   if (pathname.startsWith("/roadmap")) return "Paths";
   if (pathname.startsWith("/analytics")) return "Analytics";
+  if (pathname.startsWith("/detox")) return "Dopamine Detox";
   if (pathname.startsWith("/progress")) return "Progress";
   if (pathname.startsWith("/upgrade")) return "Upgrade";
   if (pathname.startsWith("/notes")) return "Notes";
@@ -121,9 +125,11 @@ export function AppShell({ account, notifications, review, children }: ShellProp
     <ShellRoleProvider>
       <ToastProvider>
         {review}
-        <AppShellFrame account={account} notifications={notifications}>
-          {children}
-        </AppShellFrame>
+        <FocusSessionProvider>
+          <AppShellFrame account={account} notifications={notifications}>
+            {children}
+          </AppShellFrame>
+        </FocusSessionProvider>
       </ToastProvider>
     </ShellRoleProvider>
   );
@@ -222,6 +228,7 @@ function AppShellFrame({ account, notifications, children }: Omit<ShellProps, "r
           titleAs="p"
           showSearch={false}
           leading={menuButton}
+          toolsStart={<FocusPill />}
           notificationSlot={notifications}
           accountSlot={account}
         />

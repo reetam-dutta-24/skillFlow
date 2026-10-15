@@ -19,6 +19,8 @@ export interface TopbarProps extends React.HTMLAttributes<HTMLElement> {
   showSearch?: boolean;
   /** Slot before the title, used for the mobile menu button. */
   leading?: React.ReactNode;
+  /** Slot at the start of the tools: the running focus session. */
+  toolsStart?: React.ReactNode;
   /** Replaces the bell when the shell supplies its own menu. */
   notificationSlot?: React.ReactNode;
   /** Replaces the account menu when the shell streams the signed-in person. */

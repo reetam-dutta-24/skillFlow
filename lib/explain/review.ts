@@ -66,6 +66,13 @@ async function loadOpenExplainStage(stageId: string, userId: string) {
   return { stage, prompt, stageCount, concepts, notes };
 }
 
+/** The ideas a learner explains for one open stage, in order. Null when the stage is not open to them. */
+export async function openStageIdeas(stageId: string, userId: string) {
+  const loaded = await loadOpenExplainStage(stageId, userId);
+  if (!loaded) return null;
+  return { stageId: loaded.stage.id, title: loaded.stage.title, concepts: loaded.concepts };
+}
+
 export async function reviewStoredExplanation(input: {
   userId: string;
   stageId: string;

@@ -360,6 +360,8 @@ Hero (date, greeting, streak, Replay the tour once done, one Up next card with t
 ### 5.24 Settings, theme, and accent
 Plan; Profile (name, photo); email (read-only); Sign-in (Google connect/disconnect, password state); city and map toggle; notifications; profile visibility; streak reminder; theme (dark/light as a class on `<html>`, cookie `skillflow-theme`); accent (ten presets, Spectrum — one hue pair drifting on a 96-second loop — or a custom two-stop gradient stored as `custom:#start:#end` in the profile and cookie, painted before load); Danger zone.
 
+- **Light mode.** Light mode has its own rules (end of `globals.css`): photos are never faded into a white surface, niche cards keep a crisp photo band above a solid text panel, chips on photos are solid, and small labels meet 4.5:1. Every screen is checked in both themes.
+
 ### 5.25 Account deletion
 Settings → Danger zone. Type `DELETE` and the password (tries share the log-in limit). Refuses the last admin. Cancels any live Stripe subscription **first** (if Stripe is unreachable, nothing is deleted). One transaction removes stage completions (no FK to `User`), the person's contributions, submitted events, gap requests, and the `User` row (cascading the rest); reviews they made on others' posts stay with the reviewer set to null. Then uploaded files are deleted (`removeUploadedFile` only accepts a plain name under `public/uploads`, preventing path traversal). Caches are dropped and the session ends. The Privacy Policy describes exactly this (DPDP right to erasure).
 

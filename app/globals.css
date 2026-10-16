@@ -19058,3 +19058,96 @@ html {
     display: none;
   }
 }
+
+/* ───────────── Light mode readability ───────────── */
+/* Dark mode leans on dark shades over photos; in light mode the same shades turned photos into milky glass and left
+   small text near the 4.5:1 line. These rules give light mode its own, solid treatment. */
+
+/* Labels that sit just under 4.5:1 on light surfaces: the lock state, and small kickers. */
+.light {
+  --state-lock: #4e5a6c;
+}
+.sf-kicker {
+  color: var(--text-muted);
+}
+
+/* Niche cards: a crisp photo band on top and a solid panel for the words, instead of a white wash over the photo. */
+.light .sf-skill-tile,
+.light .sf-skill-tile-hit {
+  flex-direction: column;
+}
+.light .sf-skill-tile {
+  border-color: var(--border-default);
+  background: var(--bg-elevated);
+  box-shadow: 0 1px 2px rgb(15 23 42 / 0.05), 0 10px 24px -14px rgb(15 23 42 / 0.18);
+}
+.light .sf-skill-tile-photo {
+  position: relative;
+  inset: auto;
+  flex: none;
+  height: 148px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.light .sf-skill-tile-shade {
+  inset: 0 0 auto 0;
+  height: 148px;
+  background: linear-gradient(to top, rgb(15 23 42 / 0.22), transparent 55%);
+  box-shadow: none;
+}
+.light .sf-skill-tile-copy {
+  flex: 1;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 14px 16px 18px;
+}
+.light .sf-skill-tile-copy strong,
+.light .sf-skill-tile-kicker {
+  text-shadow: none;
+}
+.light .sf-skill-tile-copy span {
+  color: var(--text-secondary);
+}
+.light .sf-skill-tile-fallback::after {
+  font-size: 7rem;
+  opacity: 0.22;
+}
+/* The Follow chip sits on the photo: solid, so it reads on any picture. */
+.light .sf-follow-btn {
+  border-color: rgb(15 23 42 / 0.14);
+  background: rgb(255 255 255 / 0.94);
+  box-shadow: 0 2px 8px rgb(15 23 42 / 0.18);
+  color: var(--text-primary);
+  backdrop-filter: none;
+}
+.light .sf-follow-btn.is-on {
+  border-color: transparent;
+  background-image: var(--gradient-brand);
+  color: #fff;
+}
+.sf-follow-btn.is-on {
+  background-color: var(--bg-elevated);
+}
+/* In light mode the link takes part in the layout, so a long description grows the card instead of being cut. */
+.light .sf-skill-tile-hit {
+  position: relative;
+  inset: auto;
+  flex: 1;
+}
+.light .sf-skill-tile-copy > span:not(.sf-skill-tile-kicker):not(.sf-skill-upgrade) {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+/* The Open Source watermark sits behind the stats; in light mode it is fainter, and on a phone it steps aside. */
+.light .sf-oshero-wash svg {
+  opacity: 0.09;
+}
+/* The Icon component sets display inline, so the phone rule hides it with opacity. */
+@media (max-width: 640px) {
+  .sf-oshero-wash svg,
+  .light .sf-oshero-wash svg {
+    opacity: 0;
+  }
+}

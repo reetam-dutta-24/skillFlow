@@ -19151,3 +19151,164 @@ html {
     opacity: 0;
   }
 }
+
+/* ───────────── Home tiles with photos, and a slimmer hero ───────────── */
+/* Each "Get to know SkillFlow" tile opens with a photo banner, its icon resting on the lower edge. */
+.sf-home-tile {
+  min-height: 0;
+  padding: 0 0 20px;
+}
+.sf-home-tile > :not(.sf-home-tile-art) {
+  margin-inline: 20px;
+}
+.sf-home-tile-art {
+  position: relative;
+  align-self: stretch;
+  height: 148px;
+  margin-bottom: 26px;
+  overflow: visible;
+  background: var(--bg-sunken);
+}
+.sf-home-tile-art > img {
+  object-fit: cover;
+}
+.sf-home-tile-art-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgb(2 6 23 / 0.45), rgb(2 6 23 / 0.05) 60%);
+}
+.sf-home-tile-art .sf-home-tile-icon {
+  position: absolute;
+  bottom: -22px;
+  left: 20px;
+  z-index: 1;
+  width: 46px;
+  height: 46px;
+  margin: 0;
+  border: 3px solid var(--bg-elevated);
+  border-radius: 14px;
+  background: var(--bg-elevated);
+  color: var(--tone);
+  box-shadow: 0 6px 16px rgb(0 0 0 / 0.22);
+}
+.sf-home-tile-art .sf-home-tile-icon::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 11px;
+  background: rgb(from var(--tone) r g b / 0.16);
+}
+.sf-home-tile-art .sf-home-tile-icon svg {
+  position: relative;
+}
+.sf-home-tile-art .sf-home-tile-badge {
+  top: 14px;
+  right: 14px;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.25);
+}
+/* The tile clips the photo to its rounded top; the banner itself stays unclipped so the icon can hang below it. */
+.sf-home-tile {
+  overflow: hidden;
+}
+.sf-home-tile-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 2px solid rgb(255 255 255 / 0.9);
+  border-radius: var(--radius-full);
+  background: rgb(2 6 23 / 0.35);
+  backdrop-filter: blur(4px);
+  color: #fff;
+  translate: -50% -55%;
+}
+.sf-home-tile.is-tour.is-done {
+  border-color: var(--border-subtle);
+  box-shadow: none;
+  background:
+    radial-gradient(90% 70% at 100% 0%, rgb(from var(--tone) r g b / 0.12), transparent 70%),
+    var(--surface-card);
+}
+.sf-home-tile.is-tour {
+  --tone: var(--accent);
+}
+.sf-home-tile.has-dial {
+  align-items: stretch;
+}
+.sf-home-detox-row {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  margin-top: 4px;
+}
+.sf-home-tile.has-dial .sf-home-detox-dial {
+  align-self: center;
+  width: 112px;
+  margin: 0;
+}
+.sf-home-detox-row .sf-gauge-center strong {
+  font-size: 1.5rem;
+}
+.sf-home-detox-step,
+.sf-home-detox-due {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+.sf-home-detox-step svg,
+.sf-home-detox-due svg {
+  flex: none;
+  margin-top: 3px;
+  color: var(--text-accent);
+}
+
+/* The welcome hero, a little more compact. */
+.sf-home-hero {
+  gap: var(--space-4);
+  padding: clamp(16px, 2.4vw, 24px);
+}
+.sf-home-hero h1 {
+  font-size: clamp(1.5rem, 1.15rem + 1.2vw, 2.125rem);
+}
+.sf-home-sub {
+  font-size: var(--text-body);
+}
+.sf-home-next {
+  grid-template-columns: 168px minmax(0, 1fr) auto;
+  gap: 18px;
+  padding: 10px 18px 10px 10px;
+}
+.sf-home-next h2 {
+  font-size: 1.25rem;
+}
+@media (max-width: 960px) {
+  .sf-home-next {
+    grid-template-columns: 132px minmax(0, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .sf-home-next {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 10px 10px 14px;
+  }
+  .sf-home-next-art {
+    aspect-ratio: 16 / 7;
+  }
+  .sf-home-tile-art {
+    height: 132px;
+  }
+  .sf-home-tile {
+    padding: 0 0 18px;
+  }
+  .sf-home-tile > :not(.sf-home-tile-art) {
+    margin-inline: 18px;
+  }
+}

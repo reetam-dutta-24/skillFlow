@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Icon } from "@/components/core/Icon.jsx";
 import { SkillImage } from "@/components/core/SkillImage";
-import { ReplayTourButton } from "@/components/tour/HomeTour";
 
 type NextLesson = { title: string; skillName: string; href: string; image: string | null } | null;
 
@@ -47,7 +46,6 @@ export function HomeHero({
             <Icon name="flame" size={16} />
             {streak > 0 ? `${streak}-day streak` : "No streak yet"}
           </p>
-          <ReplayTourButton />
         </div>
       </div>
 

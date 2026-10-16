@@ -7,14 +7,15 @@ import { AnimatePresence } from "framer-motion";
 import { completeTour } from "@/app/(app)/dashboard/actions";
 import { Button } from "@/components/core/Button.jsx";
 import { Icon } from "@/components/core/Icon.jsx";
-import { SkillImage } from "@/components/core/SkillImage";
+import { HomeTileArt } from "@/components/dashboard/HomeTileArt";
 import { useCalmMotion, useHydrated } from "@/components/feedback/useCalmMotion";
 import type { TourStart } from "@/lib/tour/entry";
 import { TOUR_SLIDES } from "@/lib/tour/slides";
 import { OPEN_TOUR_EVENT } from "@/components/navigation/GlobalSearch";
 import { TourDialog, type TourCloseReason } from "./TourDialog";
 
-const INVITE_THUMBS = ["/stages/full-stack-web-dev/2.jpg", "/stages/full-stack-web-dev/1.jpg", "/stages/full-stack-web-dev/3.jpg"];
+/** A road trip: the tour is a journey through the app. */
+const TOUR_ART = "/skills/travel-vlogging.jpg";
 
 type TourContextValue = { done: boolean; open: () => void; skip: () => void; error: string | null };
 
@@ -78,7 +79,7 @@ export function TourProvider({ initiallyDone, start, children }: { initiallyDone
     router.push(start.href);
   }
 
-  /** Focus returns to whichever entry is on Home now: the replay link, or the tile's start button. */
+  /** Focus returns to the tour tile's button: Start the tour, or Replay the tour once it is done. */
   function restoreFocus() {
     rootRef.current?.querySelector<HTMLElement>("[data-tour-entry]")?.focus();
   }
@@ -89,7 +90,7 @@ export function TourProvider({ initiallyDone, start, children }: { initiallyDone
     open: () => setOpened(true),
     skip: () => {
       markDone();
-      // The tile goes away under the pointer; keep the keyboard on the replay link that takes its place.
+      // Start turns into Replay under the pointer; keep the keyboard on the new button.
       requestAnimationFrame(restoreFocus);
     },
   };
@@ -117,51 +118,42 @@ function useTour() {
   return value;
 }
 
-/** The small link in the Home hero once the tour is finished or skipped. */
-export function ReplayTourButton() {
-  const tour = useTour();
-  if (!tour.done) return null;
-  return (
-    <button type="button" className="sf-home-replay sf-hit" data-tour-entry onClick={tour.open}>
-      <Icon name="rotate-ccw" size={14} />
-      Replay the tour
-    </button>
-  );
-}
-
-/** The tour tile in "Get to know SkillFlow", until the tour is finished or skipped. */
+/**
+ * The tour tile in "Get to know SkillFlow". It always stays: an invite until the tour is finished or skipped, then a
+ * quiet replay tile in the same place.
+ */
 export function TourTile() {
   const tour = useTour();
-  if (tour.done) {
-    return tour.error ? (
-      <p className="sf-tour-error" role="alert">
-        {tour.error}
-      </p>
-    ) : null;
-  }
   return (
-    <section className="sf-home-tile is-tour" aria-labelledby="sf-tour-invite-title">
-      <span className="sf-home-tile-badge">Start here</span>
-      <span className="sf-tour-invite-art" aria-hidden="true">
-        {INVITE_THUMBS.map((src) => (
-          <span key={src} className="sf-tour-invite-thumb">
-            <SkillImage src={src} alt="" fill sizes="88px" />
-          </span>
-        ))}
-        <span className="sf-tour-invite-play">
-          <Icon name="play" size={14} />
+    <section className={tour.done ? "sf-home-tile is-tour is-done" : "sf-home-tile is-tour"} aria-labelledby="sf-tour-invite-title">
+      <HomeTileArt src={TOUR_ART} icon="compass" badge={tour.done ? null : "Start here"}>
+        <span className="sf-home-tile-play">
+          <Icon name={tour.done ? "rotate-ccw" : "play"} size={18} />
         </span>
-      </span>
+      </HomeTileArt>
       <p className="sf-home-tile-kicker">Guided tour · {TOUR_SLIDES.length} stops</p>
-      <h2 id="sf-tour-invite-title">New here? Take the guided tour</h2>
-      <p className="sf-home-tile-text">Every feature, with something small to try on each. Nothing you do in it is saved.</p>
+      <h2 id="sf-tour-invite-title">{tour.done ? "Replay the guided tour" : "New here? Take the guided tour"}</h2>
+      <p className="sf-home-tile-text">
+        {tour.done
+          ? "Every feature, hands-on, whenever you want a refresher."
+          : "Every feature, with something small to try on each. Nothing you do in it is saved."}
+      </p>
       <div className="sf-home-tile-actions">
-        <Button variant="gradient" size="md" data-tour-entry onClick={tour.open}>
-          Start the tour
-        </Button>
-        <button type="button" className="sf-tour-quiet sf-hit" onClick={tour.skip}>
-          Skip
-        </button>
+        {tour.done ? (
+          <Button variant="outline" size="md" data-tour-entry onClick={tour.open}>
+            <Icon name="rotate-ccw" size={15} />
+            Replay the tour
+          </Button>
+        ) : (
+          <>
+            <Button variant="gradient" size="md" data-tour-entry onClick={tour.open}>
+              Start the tour
+            </Button>
+            <button type="button" className="sf-tour-quiet sf-hit" onClick={tour.skip}>
+              Skip
+            </button>
+          </>
+        )}
       </div>
       {tour.error ? (
         <p className="sf-tour-error" role="alert">

@@ -12,6 +12,7 @@ export function HomeHero({
   followedCount,
   fallbackHref,
   returning,
+  premium,
 }: {
   firstName: string | null;
   streak: number;
@@ -20,6 +21,8 @@ export function HomeHero({
   fallbackHref: string;
   /** Has started learning before. A brand-new learner is welcomed, not welcomed back. */
   returning: boolean;
+  /** Premium (or an admin). A free account gets a quiet way to see what Premium adds. */
+  premium: boolean;
 }) {
   const today = new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" });
   const hello = returning ? "Welcome back" : "Welcome";
@@ -46,6 +49,25 @@ export function HomeHero({
             <Icon name="flame" size={16} />
             {streak > 0 ? `${streak}-day streak` : "No streak yet"}
           </p>
+          {premium ? (
+            <p className="sf-home-plan is-premium">
+              <Icon name="sparkles" size={14} />
+              You&apos;re on Premium
+            </p>
+          ) : (
+            <Link
+              className="sf-home-plan"
+              href="/upgrade"
+              title="Thirty paths, every stage, and certificates stay free. Premium opens the other niches and the learner map."
+            >
+              <span className="sf-home-plan-tag">Free plan</span>
+              <span className="sf-home-plan-cta">
+                <Icon name="sparkles" size={14} />
+                Go Premium
+              </span>
+              <span className="sf-sr">: Premium opens the other niches and a place on the learner map</span>
+            </Link>
+          )}
         </div>
       </div>
 

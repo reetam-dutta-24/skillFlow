@@ -4,7 +4,6 @@ import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { viewerHasPremium } from "@/lib/billing/access";
 import { auth } from "@/lib/auth";
-import { FreePlanNotice } from "../_components/FreePlanNotice";
 import { getDashboardData } from "@/lib/data/dashboard";
 import type { LessonLaneStatus } from "@/lib/types/pages";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
@@ -77,6 +76,7 @@ export default async function DashboardPage() {
           followedCount={data.followed.length}
           fallbackHref={start.href}
           returning={started}
+          premium={premium}
         />
         <section className="sf-home-discover" aria-labelledby="home-discover-title">
           <h2 id="home-discover-title" className="sf-home-discover-title">
@@ -149,7 +149,6 @@ export default async function DashboardPage() {
           <NicheGrid mode="teaser" />
         </Suspense>
       </section>
-      {premium ? null : <FreePlanNotice compact />}
     </div>
     </FollowedNicheFrame>
   );

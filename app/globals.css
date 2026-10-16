@@ -19650,3 +19650,59 @@ select optgroup {
     border-radius: var(--radius-full);
   }
 }
+
+/* ───────────── Home hero: the plan pill ───────────── */
+/* Beside the streak: a free account sees a quiet way to Premium; a Premium account sees that it has it. */
+.sf-home-hero-meta {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.sf-home-plan {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 3px 3px 3px 12px;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  background: var(--surface-card);
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+a.sf-home-plan:hover {
+  border-color: var(--border-accent);
+  color: var(--text-primary);
+}
+.sf-home-plan-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: var(--radius-full);
+  background-image: var(--gradient-brand);
+  color: #fff;
+}
+.sf-home-plan.is-premium {
+  gap: 6px;
+  padding: 6px 12px;
+  border-color: transparent;
+  background:
+    linear-gradient(var(--bg-elevated), var(--bg-elevated)) padding-box,
+    var(--gradient-brand) border-box;
+  color: var(--text-primary);
+}
+.sf-home-plan.is-premium svg {
+  color: var(--text-accent);
+}
+@media (max-width: 640px) {
+  .sf-home-hero-meta {
+    justify-content: flex-start;
+  }
+}

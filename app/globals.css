@@ -448,11 +448,11 @@ html[data-accent="spectrum"] .sf-browse-tools {
   --sidebar-w-mobile: min(280px, 85vw);
   --topbar-h: 72px;
   --topbar-h-mobile: 56px;
-  --page-pad-x: 32px;
+  --page-pad-x: 24px;
   --page-pad-x-sm: 24px;
   --page-pad-x-xs: 16px;
   --card-slot-w: 160px;
-  --content-max: 1100px;
+  --content-max: 1200px;
   --z-drawer: 60;
 }
 
@@ -2803,7 +2803,7 @@ a.sf-path-card:hover {
 @media (min-width: 640px) {
   .sf-topbar {
     gap: 16px;
-    padding-inline: 32px;
+    padding-inline: var(--page-pad-x);
   }
   .sf-topbar-tools {
     gap: 12px;
@@ -5917,7 +5917,7 @@ html:has(.sf-browse) {
 .sf-browse {
   display: grid;
   gap: 18px;
-  width: min(100%, 1040px);
+  width: 100%;
 }
 .sf-browse-body {
   display: grid;
@@ -12911,7 +12911,7 @@ html {
 .sf-prof {
   display: grid;
   gap: var(--space-5);
-  width: min(100%, 1040px);
+  width: 100%;
   margin: 0 auto;
   min-width: 0;
 }

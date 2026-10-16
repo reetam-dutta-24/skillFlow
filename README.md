@@ -243,16 +243,18 @@ The October 2026 polish is in `UI-AUDIT.md` (screenshots in `docs/ui-audit/`). L
 
 Signed-in pages score 63 on SEO because they send `noindex` on purpose.
 
+The signed-in shell: a sidebar ordered by importance (Learn, Track, Community, Account), a top bar with global search (Ctrl or Cmd + K), Create content and Submit a resource, a running focus session, the theme switch, the bell, and the account menu. Home opens with a compact hero and three photo tiles that fit the first screen on a laptop. Every dropdown opens a themed picker, and light mode has its own readable treatment.
+
 ---
 
 ## Status and what is ahead
 
-**Done:** the product (frozen as of 15 October 2026), the deploy groundwork, Docker, and the production deployment on AWS with HTTPS.
+**Done:** the product. It is feature-complete and the feature list closed on 16 October 2026, ending with Dopamine Detox, global search, the sixteen-stop guided tour, and the Home redesign. Also done: the deploy groundwork, Docker, and the production deployment on AWS with HTTPS (the 16 October work needs `prisma migrate deploy` for two new migrations when it is deployed).
 
 **Still ahead:**
 - Daily database backups to S3, CI/CD with GitHub Actions, uptime and error monitoring.
 - Google sign-in and a Stripe test charge in production, rotated event API keys, the cron schedule for events.
 - The final brand and domain, then enforcing the CSP.
-- Integration tests and an end-to-end pass through explain-back with the model stubbed.
+- Integration tests, and end-to-end tests for progress, transcripts, and certificates (explain-back, the tour, Detox, and search are already covered).
 - Catalogs for Premium niches (they have no stages yet).
 

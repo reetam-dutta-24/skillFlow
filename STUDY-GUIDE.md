@@ -4,7 +4,7 @@
 >
 > This file is for learning. It is not a to-do list. `Project-roadmap.md` is the build record, `HANDOFF.md` is the deploy brief, `AGENTS.md` is the context for coding assistants, and `README.md` is the front door.
 >
-> Last aligned with the code and the live server on **15 October 2026**.
+> Last aligned with the code on **16 October 2026**, the day the feature list closed. The product is feature-complete: what follows describes the finished feature set.
 
 ---
 
@@ -288,8 +288,15 @@ Each feature lists **what** it does, **why** it exists, **how** it works (data a
 - **How.** Static entries (`lib/search/static.ts`) are searched in the browser for instant results; catalog and community entries come from `/api/search`, which ranks a `use cache` index tagged `catalog` and `community` (`lib/data/search.ts`), so it refreshes whenever the catalog or a published post changes. One ranking function (`lib/search/score.ts`, unit-tested) scores both: all words must match, title beats keywords beats description, word starts beat the middle, one typo is forgiven in longer words.
 - **Accessibility.** Combobox and listbox with `aria-activedescendant`, arrow keys, Enter, Esc, a focus trap, a live result count, and full screen on a phone.
 
+### 5.14.3 Navigation and layout
+- **Sidebar, by importance.** Small groups in the order a learner needs them: Learn (Home, Paths, Niches, Notes, Detox), Track (Progress, Analytics), Community (Clips, Open Source, Nearby), Account (Settings). The group labels are visual only; a screen reader hears one list.
+- **Create in the top bar.** Create content (primary, to the Creator studio) and Submit a resource (secondary), as on other platforms. Labels shorten on smaller screens; a phone keeps a round Create button, and Submit a resource sits in the account menu.
+- **Dropdowns.** Every native `<select>` opens a themed picker through CSS `appearance: base-select`; browsers without it still get themed option colours.
+- **Width.** Content up to 1200px with 24px side padding (16px on a phone); reading pages keep a narrower measure.
+- **Say it in one line:** "The shell puts the learning loop first, creation one click away in the top bar, and every control in the app's own theme."
+
 ### 5.15 Home (`/dashboard`)
-Hero (date, greeting, streak, one Up next card with the stage photo) → "Get to know SkillFlow" tiles with photo banners: guided tour (Replay once done), career-fit test, Dopamine Detox (invite, resume, support, or the score with one next step and Swap a scroll) → At a glance (streak, stages passed, passed this week, average mastery, notes, retention, seven-day chart) → Topics to strengthen → Your activity heatmap → one lane per followed path → For you (mastery by path, recent notes, saved events near your city, Open Source in your niches, transcripts and certificates, each with a photo) → Explore (4×3 grid with a blurred peek) (the plan pill sits in the hero: Free plan · Go Premium, or You're on Premium). All personal and read on the request (`getDashboardData`, `loadHomeExtras` in `lib/data/home.ts`). Home never calls an events API; it reads rows Nearby already saved.
+Compact hero (date, greeting, streak, the plan pill: Free plan · Go Premium or You're on Premium, and one Up next card with the stage photo) → "Get to know SkillFlow" tiles with photo banners: guided tour (Replay once done), career-fit test, Dopamine Detox (invite, resume, support, or the score with one next step and Swap a scroll) → At a glance (streak, stages passed, passed this week, average mastery, notes, retention, seven-day chart) → Topics to strengthen → Your activity heatmap → one lane per followed path → For you (mastery by path, recent notes, saved events near your city, Open Source in your niches, transcripts and certificates, each with a photo) → Explore (4×3 grid with a blurred peek) (the plan pill sits in the hero: Free plan · Go Premium, or You're on Premium). All personal and read on the request (`getDashboardData`, `loadHomeExtras` in `lib/data/home.ts`). Home never calls an events API; it reads rows Nearby already saved.
 
 ### 5.15.1 The product tour
 - **What.** A "New here? Take the guided tour" tile at the top of Home (Start the tour, or a quiet Skip). After it is finished or skipped, the same tile stays as "Replay the guided tour". It never opens by itself.

@@ -1,8 +1,8 @@
 # SkillFlow — handoff for testing and deployment
 
-This brief is for someone (a person or a chat assistant) who will help test and operate SkillFlow without reading the code. It says what the app is, how it runs, what it needs from the outside world, how it is deployed today, and what is known to be missing. It is accurate as of 15 October 2026.
+This brief is for someone (a person or a chat assistant) who will help test and operate SkillFlow without reading the code. It says what the app is, how it runs, what it needs from the outside world, how it is deployed today, and what is known to be missing. It is accurate as of 16 October 2026.
 
-**SkillFlow is live** at `https://app.32-236-251-56.sslip.io` (a temporary domain) on one AWS EC2 instance running Docker Compose. Section 10 describes the deployment as it is, and section 11 is the redeploy runbook. The product is feature-complete and frozen; the open work is operations (section 9).
+**SkillFlow is live** at `https://app.32-236-251-56.sslip.io` (a temporary domain) on one AWS EC2 instance running Docker Compose. Section 10 describes the deployment as it is, and section 11 is the redeploy runbook. The product is feature-complete and frozen (the feature list closed on 16 October 2026); deploying the 16 October work needs `prisma migrate deploy` for its two new migrations; the open work is operations (section 9).
 
 The other documents go deeper: `AGENTS.md` (working rules and every wired feature), `Project-roadmap.md` (the full record and the phase list), `README.md` (overview, architecture diagrams, setup, and service keys), `STUDY-GUIDE.md` (every concept end to end, including the incident log), and `UI-AUDIT.md` (a dated design audit).
 
@@ -24,6 +24,8 @@ SkillFlow is a learning app built on mastery. A learner follows a skill, called 
 | Onboarding | `/onboarding` (`?edit=1` to reopen) | Eight steps: display name and photo, age range (under 13 is refused; 13–17 needs a parent's consent), current stage, city, up to five paths, goals, time and formats, accent |
 | Learning | `/dashboard` (Home), `/skills` (Niches), `/roadmap`, `/roadmap/[slug]`, `/lesson/[stageId]`, `/milestone/[stageId]` (explain-back), `/clips` | |
 | Records | `/progress`, `/analytics`, `/notes`, `/notes/practice`, `/transcript/[userId]/[skill]`, `/certificate/[userId]/[skill]` | Notes export as Word or PDF; the transcript and certificate as PDF |
+| Wellbeing | `/detox`, `/detox/check`, `/detox/report/image` | Dopamine Detox: an original 20-question self-check, a Detox Score worked out in code that only verified learning moves, weekly check-ins, focus sessions (a pill in the top bar), Swap a scroll, a before/after PNG. Off the public profile unless switched on |
+| Search and help | Top bar (Ctrl or Cmd + K), `/api/search`; the guided tour on Home | Search covers pages, features, settings, niches, stages, resources, and published posts. The tour has sixteen stops with sandboxed demos |
 | Self-discovery | `/career-test`, `/career-test/report` | 180 published questionnaire items, scored in code; Gemini writes the report text; PNG and JPG export |
 | Community | `/open-source/...`, `/profile/[userId]` | Moderated posts, one question per learner, contributor profiles, a 12-month activity heatmap |
 | Creators | `/creator` | Upload your own video; an admin approves it onto the clip feed |

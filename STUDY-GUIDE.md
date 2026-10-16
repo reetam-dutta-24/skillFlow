@@ -283,6 +283,11 @@ Each feature lists **what** it does, **why** it exists, **how** it works (data a
 - **Around the app.** Swap a scroll (3 minutes on one due recall or the next idea, through the real recall and explain-back actions), focus sessions that count only on a visible lesson, explain-back, Notes, or recall card (a pill in the top bar), a Home card, an Analytics section, a profile line that is off by default, and a weekly check-in reminder in the bell.
 - **Privacy.** Personal and sensitive: read on the request, never cached, optional, deletable (Retake and Delete my results), and "a self-improvement score from your own answers and your learning activity, not a medical test."
 
+### 5.14.2 Global search
+- **What.** A "Search SkillFlow" pill in the top bar (Ctrl or Cmd + K, or "/") opens a command palette for anything in the app: pages, features, settings, quick actions (switch the theme, replay the tour, start a focus session), help answers, every niche, stage, and resource, and published Open Source posts.
+- **How.** Static entries (`lib/search/static.ts`) are searched in the browser for instant results; catalog and community entries come from `/api/search`, which ranks a `use cache` index tagged `catalog` and `community` (`lib/data/search.ts`), so it refreshes whenever the catalog or a published post changes. One ranking function (`lib/search/score.ts`, unit-tested) scores both: all words must match, title beats keywords beats description, word starts beat the middle, one typo is forgiven in longer words.
+- **Accessibility.** Combobox and listbox with `aria-activedescendant`, arrow keys, Enter, Esc, a focus trap, a live result count, and full screen on a phone.
+
 ### 5.15 Home (`/dashboard`)
 Hero (date, greeting, streak, Replay the tour once done, one Up next card with the stage photo) → "Get to know SkillFlow" tiles: guided tour (until done), career-fit test, Dopamine Detox (invite, resume, support, or the score with one next step and Swap a scroll) → At a glance (streak, stages passed, passed this week, average mastery, notes, retention, seven-day chart) → Topics to strengthen → Your activity heatmap → one lane per followed path → For you (mastery by path, recent notes, saved events near your city, Open Source in your niches, transcripts and certificates, each with a photo) → Explore (4×3 grid with a blurred peek) → one quiet free-plan line. All personal and read on the request (`getDashboardData`, `loadHomeExtras` in `lib/data/home.ts`). Home never calls an events API; it reads rows Nearby already saved.
 
@@ -968,9 +973,9 @@ Pure functions (no database, no network) are where the rules live, which makes t
 
 ### 21.1 The test pyramid
 ```
-        ▲  E2E (Playwright) — few, slow, realistic: 9 tests
+        ▲  E2E (Playwright) — few, slow, realistic: 10 tests
        ▲▲  Integration (real DB) — not written yet
-     ▲▲▲▲  Unit (Vitest) — many, fast: 218 tests in 39 files
+     ▲▲▲▲  Unit (Vitest) — many, fast: 236 tests in 40 files
 ```
 - **Unit tests** cover the pure modules: mastery, streaks, the open-stage rule, explain-back parsing and pass/gap logic, plans, events (quotas, keywords, normalisation, venue queries), community transitions and permissions, career scoring and report schema, display names, avatars, env validation, the rate limiter (with a fake Redis), weak topics, notification counts, SSRF, distance, the product tour (slide data, every demo rule, the invite or replay rule), and the Detox Score (baseline, daily cap, decay, check-ins, breakdown, guidance fallback, distress branch).
 - **E2E (Playwright, `e2e/`):** landing loads, `/api/health` reports the database up, sign-up lands on onboarding, a wrong password shows the error, log-in → path → first lesson, signed-out redirect, the explain-back gate against a stub model (`e2e/model-stub.mjs`), the Home tour (start, pass the practice, finish, Replay the tour after a reload, arrows and Escape), and Dopamine Detox (self-check, score, one explained idea, the breakdown changes). Config starts the stub and its own dev server, keeps a trace and screenshot on failure, retries once in CI.
@@ -979,7 +984,7 @@ Pure functions (no database, no network) are where the rules live, which makes t
 - **How to mock the model for E2E:** point `EXPLAIN_MODEL_URL` at a tiny local stub server that returns fixed JSON, or intercept with Playwright's `page.route` for client calls (here the call is server-side, so a stub endpoint is the right tool).
 - **Built-in failure strings** to see error states without breaking data: `fail this save`, `fail this submit`, `fail this review`, `fail this upload`, `fail this merge`.
 
-> **Say it in one line:** "Business rules live in pure functions with 218 unit tests; Playwright covers sign-up to lesson, the explain-back gate against a stub model, and the Home tour; integration tests are the next layer."
+> **Say it in one line:** "Business rules live in pure functions with 236 unit tests; Playwright covers sign-up to lesson, the explain-back gate against a stub model, and the Home tour; integration tests are the next layer."
 
 
 ---

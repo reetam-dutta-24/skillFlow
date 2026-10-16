@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Icon } from "@/components/core/Icon.jsx";
 import { ToastProvider } from "@/components/feedback/Toast";
 import { FocusPill, FocusSessionProvider } from "@/components/detox/FocusSession";
+import { GlobalSearch } from "@/components/navigation/GlobalSearch";
 import { Sidebar, type SidebarItem } from "@/components/navigation/Sidebar.jsx";
 import { Topbar } from "@/components/navigation/Topbar.jsx";
 import { ShellRoleProvider, useShellReview, useShellRole } from "./shell-role";
@@ -227,7 +228,12 @@ function AppShellFrame({ account, notifications, children }: Omit<ShellProps, "r
           }
           titleAs="p"
           showSearch={false}
-          leading={menuButton}
+          leading={
+            <>
+              {menuButton}
+              <GlobalSearch />
+            </>
+          }
           toolsStart={<FocusPill />}
           notificationSlot={notifications}
           accountSlot={account}

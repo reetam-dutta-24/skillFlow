@@ -42,7 +42,7 @@ SkillFlow is a learning app built on mastery. A learner follows a skill, called 
 - **Tailwind v4** plus one large `app/globals.css`.
 - Other notable packages: `stripe`, `maplibre-gl` with `supercluster` (maps), `recharts`, `framer-motion`, `docx` and `pdf-lib` (exports), `zod`, and `ioredis` (Redis, used only for rate limits).
 - **Node.** Developed on Node 20.17; the production image uses Node 22 (`node:22-bookworm-slim`). Next 16 needs Node 20.9 or later.
-- Scripts: `npm run dev`, `npm run build`, `npm start` (port 3000, or `-p`), `npm run lint`, `npm test` (Vitest, 39 files and 218 tests on 16 October 2026), `npm run test:e2e` (Playwright). `npx tsc --noEmit` is the type check. Full-repo ESLint still fails on some older files.
+- Scripts: `npm run dev`, `npm run build`, `npm start` (port 3000, or `-p`), `npm run lint`, `npm test` (Vitest, 40 files and 236 tests on 16 October 2026), `npm run test:e2e` (Playwright). `npx tsc --noEmit` is the type check. Full-repo ESLint still fails on some older files.
 
 ---
 
@@ -172,7 +172,7 @@ All of these are read on the server unless the name starts with `NEXT_PUBLIC_`. 
 
 ## 8. Testing status
 
-- **Done.** 218 unit tests in 39 files (Vitest): mastery, streaks, the open-stage rule, explain-back judging, plans, events, community permissions, career scoring, the report schema, display names, avatars, env validation, the rate limiter, weak topics, notification counts, the product tour, and the Detox Score. `next build` and `tsc` pass.
+- **Done.** 236 unit tests in 40 files (Vitest): mastery, streaks, the open-stage rule, explain-back judging, plans, events, community permissions, career scoring, the report schema, display names, avatars, env validation, the rate limiter, weak topics, notification counts, the product tour, and the Detox Score. `next build` and `tsc` pass.
 - **End-to-end (Playwright, `e2e/`, `npm run test:e2e`).** Six tests in Chromium: the landing page, `/api/health` reporting the database up, sign-up landing on onboarding, a wrong password, logging in and opening the first Full-Stack stage, and the signed-out redirect. The config reuses a server on port 3000 or starts `npm run dev`, keeps a trace and a screenshot on failure, and retries once when `CI` is set. They need a seeded database, and each run adds one learner (`e2e+<timestamp>@skillflow.test`). Run `npx playwright install chromium` once first.
 - **Checked by hand in a headless browser on production builds.** Onboarding, the Catalog CMS (create, edit, and delete for niches, stages, and resources), profile photos, and the UI audit pages at 375px and desktop.
 - **Not done.** Integration tests (catalog import, lesson reads, Open Source review, edit and hide), the end-to-end steps after opening a lesson (explain-back → progress, which needs the model mocked), a live Stripe test charge, a load test, and model calls mocked in tests.

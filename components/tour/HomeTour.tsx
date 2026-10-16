@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useRef, useState, useTransition, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useRef, useState, useTransition, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { AnimatePresence } from "framer-motion";
@@ -11,6 +11,7 @@ import { SkillImage } from "@/components/core/SkillImage";
 import { useCalmMotion, useHydrated } from "@/components/feedback/useCalmMotion";
 import type { TourStart } from "@/lib/tour/entry";
 import { TOUR_SLIDES } from "@/lib/tour/slides";
+import { OPEN_TOUR_EVENT } from "@/components/navigation/GlobalSearch";
 import { TourDialog, type TourCloseReason } from "./TourDialog";
 
 const INVITE_THUMBS = ["/stages/full-stack-web-dev/2.jpg", "/stages/full-stack-web-dev/1.jpg", "/stages/full-stack-web-dev/3.jpg"];
@@ -25,7 +26,9 @@ const TourContext = createContext<TourContextValue | null>(null);
  */
 export function TourProvider({ initiallyDone, start, children }: { initiallyDone: boolean; start: TourStart; children: ReactNode }) {
   const [done, setDone] = useState(initiallyDone);
-  const [opened, setOpened] = useState(false);
+  // "Replay the guided tour" from search lands on /dashboard?tour=1. Only the browser can see that, and the dialog
+  // renders after hydration, so reading it here never changes the server markup.
+  const [opened, setOpened] = useState(() => typeof window !== "undefined" && new URLSearchParams(window.location.search).get("tour") === "1");
   const [error, setError] = useState<string | null>(null);
   const [starting, setStarting] = useState(false);
   const [, startTransition] = useTransition();
@@ -33,6 +36,18 @@ export function TourProvider({ initiallyDone, start, children }: { initiallyDone
   const hydrated = useHydrated();
   const router = useRouter();
   const rootRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("tour") === "1") {
+      params.delete("tour");
+      const rest = params.toString();
+      window.history.replaceState(null, "", `${window.location.pathname}${rest ? `?${rest}` : ""}${window.location.hash}`);
+    }
+    const onOpen = () => setOpened(true);
+    window.addEventListener(OPEN_TOUR_EVENT, onOpen);
+    return () => window.removeEventListener(OPEN_TOUR_EVENT, onOpen);
+  }, []);
 
   /** Finish or Skip, saved once. Shows the replay link straight away and brings the tile back if the save fails. */
   function markDone() {

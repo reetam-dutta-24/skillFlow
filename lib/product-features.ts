@@ -26,4 +26,5 @@ export const PRODUCT_FEATURES = [
   { id: "profile", name: "Public profile", href: "/settings" },
   { id: "appearance", name: "Themes and accents", href: "/settings" },
   { id: "tour", name: "Interactive product tour", href: "/dashboard" },
+  { id: "search", name: "Global search across niches, stages, and features", href: "/dashboard" },
 ] as const;

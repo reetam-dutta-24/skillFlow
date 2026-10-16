@@ -23,7 +23,7 @@
 4. **Keep what you learned.** Accepted ideas become notes (exportable as Word or PDF), come back twice for spaced recall 18 hours apart, and feed mastery, streaks, weak topics, and analytics.
 5. **Finish the path.** Each pass opens the next stage. Passing every stage earns a certificate and a transcript.
 
-Around that loop: personal learning plans built in code from your preferences, a 180-item career-fit test, Dopamine Detox (an original self-check and a Detox Score that only verified learning moves, with focus sessions and a weekly check-in), a moderated Open Source community per niche, a creator studio, an opt-in learner map (city counts only), nearby events, notifications, a full analytics page, self-serve account deletion, and a guided tour on Home that walks through every feature, from niches to themes and accents, with a small hands-on demo on each. **Premium** is one Stripe subscription that opens the niches outside the thirty free paths and appearing on the learner map; everything above stays free.
+Around that loop: personal learning plans built in code from your preferences, a 180-item career-fit test, Dopamine Detox (an original self-check and a Detox Score that only verified learning moves, with focus sessions and a weekly check-in), global search in the top bar (Ctrl+K: niches, stages, resources, Open Source posts, features, and settings), a moderated Open Source community per niche, a creator studio, an opt-in learner map (city counts only), nearby events, notifications, a full analytics page, self-serve account deletion, and a guided tour on Home that walks through every feature, from niches to themes and accents, with a small hands-on demo on each. **Premium** is one Stripe subscription that opens the niches outside the thirty free paths and appearing on the learner map; everything above stays free.
 
 What SkillFlow refuses on purpose: quizzes, comments, likes, view counts, trending, leaderboards, peer review, and guilt copy when a streak breaks.
 
@@ -122,7 +122,7 @@ sequenceDiagram
 | Payments | Stripe Checkout, customer portal, signed webhooks |
 | Maps | MapLibre GL + supercluster, OpenStreetMap tiles and Nominatim |
 | Other | framer-motion, Recharts, `docx` and `pdf-lib` exports, Zod, `next/og` images |
-| Tests | Vitest (218 tests in 39 files), Playwright (9 end-to-end tests) |
+| Tests | Vitest (236 tests in 40 files), Playwright (10 end-to-end tests) |
 | Deploy | Docker (multi-stage, non-root, health check), Docker Compose, Caddy, AWS EC2 |
 
 **Caching.** Content that is the same for everyone is cached with `"use cache"` and tags (`catalog`, `community`, `learner-map`, `geocode`, `nearby-events`, `practice-source`, `landing-stats`, `account:<id>`), and writes expire them with `updateTag`. Progress, streaks, notes, follow state, and the account menu are read per request. Redis is not a cache; it only holds rate-limit counters.

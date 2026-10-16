@@ -14,6 +14,8 @@ export interface SidebarItem {
   href?: string;
   /** Small count after the label. Hidden at 0. */
   badge?: number;
+  /** Starts a small group label above this item, e.g. "Learn". */
+  section?: string;
 }
 export interface SidebarProps extends React.HTMLAttributes<HTMLElement> {
   items?: SidebarItem[];

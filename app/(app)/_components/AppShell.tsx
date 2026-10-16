@@ -10,20 +10,24 @@ import { Sidebar, type SidebarItem } from "@/components/navigation/Sidebar.jsx";
 import { Topbar } from "@/components/navigation/Topbar.jsx";
 import { ShellRoleProvider, useShellReview, useShellRole } from "./shell-role";
 
+/**
+ * The sidebar, most important first: the learning loop (Paths, Notes) and what is unique to SkillFlow (Detox) lead;
+ * tracking, community, and creating follow; Settings is last. `section` starts a small group label.
+ */
 const NAV: SidebarItem[] = [
-  { id: "home", label: "Home", icon: "house", href: "/dashboard" },
-  { id: "niches", label: "Niches", icon: "library", href: "/skills" },
-  { id: "clips", label: "Clips", icon: "clapperboard", href: "/clips" },
-  { id: "creator", label: "Creator studio", icon: "video", href: "/creator" },
+  { id: "home", label: "Home", icon: "house", href: "/dashboard", section: "Learn" },
   { id: "roadmaps", label: "Paths", icon: "route", href: "/roadmap" },
-  { id: "nearby", label: "Nearby", icon: "map-pin", href: "/nearby" },
-  { id: "open-source", label: "Open Source", icon: "git-pull-request", href: "/open-source" },
-  { id: "progress", label: "Progress", icon: "chart-line", href: "/progress" },
+  { id: "niches", label: "Niches", icon: "library", href: "/skills" },
   { id: "notes", label: "Notes", icon: "notebook-pen", href: "/notes" },
-  { id: "analytics", label: "Analytics", icon: "chart-pie", href: "/analytics" },
   { id: "detox", label: "Detox", icon: "leaf", href: "/detox" },
+  { id: "progress", label: "Progress", icon: "chart-line", href: "/progress", section: "Track" },
+  { id: "analytics", label: "Analytics", icon: "chart-pie", href: "/analytics" },
+  { id: "clips", label: "Clips", icon: "clapperboard", href: "/clips", section: "Community" },
+  { id: "open-source", label: "Open Source", icon: "git-pull-request", href: "/open-source" },
+  { id: "nearby", label: "Nearby", icon: "map-pin", href: "/nearby" },
+  { id: "creator", label: "Creator studio", icon: "video", href: "/creator", section: "Create" },
   { id: "submit", label: "Submit a resource", icon: "file-plus", href: "/submit" },
-  { id: "settings", label: "Settings", icon: "settings", href: "/settings" },
+  { id: "settings", label: "Settings", icon: "settings", href: "/settings", section: "Account" },
 ];
 
 /** Shown to admins and niche reviewers only, right after Open Source. */

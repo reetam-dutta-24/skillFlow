@@ -3,9 +3,38 @@
  * order; the visual and the "Try it" demo for each slide are picked by id. Keep body copy under 40 words.
  */
 
-export type TourVisualId = "welcome" | "path" | "explain" | "notes" | "progress" | "plan" | "beyond" | "premium" | "start";
+export type TourVisualId =
+  | "welcome"
+  | "niches"
+  | "path"
+  | "lesson"
+  | "explain"
+  | "notes"
+  | "practice"
+  | "progress"
+  | "activity"
+  | "plan"
+  | "detox"
+  | "theme"
+  | "beyond"
+  | "inbox"
+  | "premium"
+  | "start";
 
-export type TourDemoId = "path" | "explain" | "notes" | "progress" | "plan" | "beyond";
+export type TourDemoId =
+  | "niches"
+  | "path"
+  | "lesson"
+  | "explain"
+  | "notes"
+  | "practice"
+  | "progress"
+  | "activity"
+  | "plan"
+  | "detox"
+  | "theme"
+  | "beyond"
+  | "inbox";
 
 export type TourSlide = {
   id: string;
@@ -30,9 +59,19 @@ export const TOUR_SLIDES: readonly TourSlide[] = [
     kicker: "Welcome to SkillFlow",
     emoji: "👋",
     heading: "Understanding counts here, not watch time",
-    body: "Anyone can play a video to the end. SkillFlow asks you to explain what you learned, in your own words. The next two minutes show how that works, with a few small things to try.",
+    body: "Anyone can play a video to the end. SkillFlow asks you to explain what you learned, in your own words. The next few minutes show every part of the app, with something small to try on each.",
     visual: "welcome",
     demo: null,
+  },
+  {
+    id: "niches",
+    label: "Niches",
+    kicker: "Niches and following",
+    emoji: "📚",
+    heading: "Pick what you want to learn",
+    body: "A niche is a subject, from web development to chess. Thirty paths are free, every stage included. Follow the ones you care about and they show up on Home, each as its own lane.",
+    visual: "niches",
+    demo: { id: "niches", prompt: "Follow a niche or two. You can stop following any time." },
   },
   {
     id: "paths",
@@ -43,6 +82,16 @@ export const TOUR_SLIDES: readonly TourSlide[] = [
     body: "A path is an ordered list of stages. Each stage gathers real videos, docs and courses from around the web. A stage opens once you have shown you understand the one before it.",
     visual: "path",
     demo: { id: "path", prompt: "Tap each stage. The first one opens; the others tell you why they wait." },
+  },
+  {
+    id: "lessons",
+    label: "Lessons and Clips",
+    kicker: "Lessons and Clips",
+    emoji: "🎬",
+    heading: "A stage is a calm, step-by-step lesson",
+    body: "Each stage walks you through its clip and resources one at a time: videos play right here, docs and courses open beside you. Clips gives you a feed of short lessons from every niche.",
+    visual: "lesson",
+    demo: { id: "lesson", prompt: "Step through a sample stage, the way a real lesson works." },
   },
   {
     id: "explain-back",
@@ -68,6 +117,16 @@ export const TOUR_SLIDES: readonly TourSlide[] = [
     demo: { id: "notes", prompt: "Tap the card to turn your note into its recall question, and back." },
   },
   {
+    id: "practice",
+    label: "Practice",
+    kicker: "Practice on anything",
+    emoji: "🧪",
+    heading: "Bring your own material",
+    body: "Found a great article or have your own notes? Practise explaining it from a link, a file, or pasted text, and keep the note. You can also suggest a resource for a stage.",
+    visual: "practice",
+    demo: { id: "practice", prompt: "Pick where your practice text comes from." },
+  },
+  {
     id: "progress",
     label: "Progress",
     kicker: "Progress",
@@ -76,6 +135,16 @@ export const TOUR_SLIDES: readonly TourSlide[] = [
     body: "Mastery is the share of stages you have passed. A streak counts the days you explain or save a note. Home shows topics to strengthen; Progress keeps analytics, transcripts and certificates.",
     visual: "progress",
     demo: { id: "progress", prompt: "Tap “Pass a stage” and watch the numbers move." },
+  },
+  {
+    id: "activity",
+    label: "Activity and records",
+    kicker: "Activity and records",
+    emoji: "🗓️",
+    heading: "Every real step leaves a mark",
+    body: "Your activity heatmap fills in as you explain, recall, and contribute. Transcripts list every stage you passed with its date, and a certificate appears when a whole path is done.",
+    visual: "activity",
+    demo: { id: "activity", prompt: "Tap a few days to fill in a sample week." },
   },
   {
     id: "make-it-yours",
@@ -88,6 +157,26 @@ export const TOUR_SLIDES: readonly TourSlide[] = [
     demo: { id: "plan", prompt: "Pick a pace and watch the week rearrange itself." },
   },
   {
+    id: "detox",
+    label: "Dopamine Detox",
+    kicker: "Dopamine Detox",
+    emoji: "🌿",
+    heading: "Your dopamine detox, with proof",
+    body: "A three-minute self-check gives you a Detox Score. Only real learning moves it, with a daily limit, so hours alone never inflate it. Swap a scroll for one idea, or start a focus session.",
+    visual: "detox",
+    demo: { id: "detox", prompt: "Add some learning and watch the score, and its daily limit, work." },
+  },
+  {
+    id: "themes",
+    label: "Themes and accents",
+    kicker: "Look and feel",
+    emoji: "🎨",
+    heading: "Make it look like yours",
+    body: "Light or dark, ten accent presets, Spectrum that drifts slowly around the colour wheel, or your own gradient. Every screen follows your choice, and it is saved to your account.",
+    visual: "theme",
+    demo: { id: "theme", prompt: "Try a theme and an accent on this preview. Nothing changes until you choose in Settings." },
+  },
+  {
     id: "beyond",
     label: "Beyond the path",
     kicker: "Beyond the path",
@@ -96,6 +185,16 @@ export const TOUR_SLIDES: readonly TourSlide[] = [
     body: "Share what you know with your niche, find learners and events near you, and publish videos you made. All of it sits one tap away from your path.",
     visual: "beyond",
     demo: { id: "beyond", prompt: "Tap each tile to see what it is for." },
+  },
+  {
+    id: "inbox",
+    label: "Notifications and profile",
+    kicker: "Notifications and your profile",
+    emoji: "🔔",
+    heading: "Stay in the loop, on your terms",
+    body: "The bell tells you when a review is decided, someone asks about your post, or your streak or weekly check-in is waiting. Your public profile shows only what you choose to share.",
+    visual: "inbox",
+    demo: { id: "inbox", prompt: "Open a notification, then mark them all as read." },
   },
   {
     id: "premium",

@@ -10,10 +10,10 @@ import type { LessonLaneStatus } from "@/lib/types/pages";
 import { EmptyState } from "@/components/feedback/EmptyState.jsx";
 import { LessonCard } from "@/components/learning/LessonCard.jsx";
 import { SkillRow } from "@/components/learning/SkillRow.jsx";
-import { StreakBanner } from "@/components/learning/StreakBanner.jsx";
 import { CareerTestCard } from "@/components/dashboard/CareerTestCard";
 import { DetoxCard } from "@/components/dashboard/DetoxCard";
-import { HomeTour } from "@/components/tour/HomeTour";
+import { HomeHero } from "@/components/dashboard/HomeHero";
+import { TourProvider, TourTile } from "@/components/tour/HomeTour";
 import { loadTourCompletedAt } from "@/lib/data/tour";
 import { tourEntry, tourStartTarget } from "@/lib/tour/entry";
 import { HomeActivity, HomeKpis, HomePanels, HomeWeakTopics } from "@/components/dashboard/HomeSections";
@@ -64,26 +64,31 @@ export default async function DashboardPage() {
   const first = session.user.name?.trim().split(/\s+/)[0];
   // A new learner sees what to do next, not a wall of zeros.
   const started = data.followed.length > 0 || data.explainBacksPassed > 0 || data.longestStreak > 0;
+  const start = tourStartTarget(data.followed);
 
   return (
     <FollowedNicheFrame>
     <div className="sf-dash">
-      <header className="sf-page-head">
-        <h1>Home</h1>
-        <p>{first ? `Welcome back, ${first}.` : "Welcome back."}</p>
-      </header>
-      <HomeTour initiallyDone={tourEntry(tourCompletedAt) === "replay"} start={tourStartTarget(data.followed)} />
-      <CareerTestCard userId={session.user.id} />
-      <DetoxCard userId={session.user.id} />
-      {data.currentStreak > 0 || data.nextLesson ? (
-        <StreakBanner
+      <TourProvider initiallyDone={tourEntry(tourCompletedAt) === "replay"} start={start}>
+        <HomeHero
+          firstName={first ?? null}
           streak={data.currentStreak}
-          nextLabel={data.nextLesson?.title}
-          nextSkill={data.nextLesson?.skillName}
-          continueHref={data.nextLesson?.href}
-          style={{ flexWrap: "wrap" }}
+          nextLesson={data.nextLesson}
+          followedCount={data.followed.length}
+          fallbackHref={start.href}
+          returning={started}
         />
-      ) : null}
+        <section className="sf-home-discover" aria-labelledby="home-discover-title">
+          <h2 id="home-discover-title" className="sf-home-discover-title">
+            Get to know SkillFlow
+          </h2>
+          <div className="sf-home-tiles">
+            <TourTile />
+            <CareerTestCard userId={session.user.id} />
+            <DetoxCard userId={session.user.id} />
+          </div>
+        </section>
+      </TourProvider>
       {started ? <HomeKpis data={data} extras={extras} /> : null}
       {started ? <HomeWeakTopics topics={data.weakTopics} /> : null}
       <HomeActivity activity={activity} userId={session.user.id} />

@@ -9,6 +9,7 @@ import { reviewPracticeAnswer, type PracticeReview } from "@/lib/tour/demos";
 import { tourStartLabel, type TourStart } from "@/lib/tour/entry";
 import { START_ON_PATH, START_WITHOUT_PATH, TOUR_SLIDES, type TourSlide } from "@/lib/tour/slides";
 import { BeyondDemo, ExplainDemo, NotesDemo, PathDemo, PlanDemo, ProgressDemo } from "./TourDemos";
+import { ActivityDemo, DetoxDemo, InboxDemo, LessonDemo, NichesDemo, PracticeDemo, ThemeDemo } from "./TourDemosMore";
 import { PremiumVisual, StartVisual, WelcomeVisual } from "./TourVisuals";
 import { EASE_IN, EASE_OUT, ITEM, SLIDE, SOFT_SPRING, STILL, calm } from "./tour-motion";
 
@@ -146,8 +147,12 @@ export function TourDialog({
     switch (item.visual) {
       case "welcome":
         return <WelcomeVisual reduce={reduce} />;
+      case "niches":
+        return <NichesDemo reduce={reduce} />;
       case "path":
         return <PathDemo reduce={reduce} />;
+      case "lesson":
+        return <LessonDemo reduce={reduce} />;
       case "explain":
         return (
           <ExplainDemo
@@ -160,12 +165,22 @@ export function TourDialog({
         );
       case "notes":
         return <NotesDemo reduce={reduce} answer={heldAnswer} />;
+      case "practice":
+        return <PracticeDemo reduce={reduce} />;
       case "progress":
         return <ProgressDemo reduce={reduce} />;
+      case "activity":
+        return <ActivityDemo reduce={reduce} />;
       case "plan":
         return <PlanDemo reduce={reduce} />;
+      case "detox":
+        return <DetoxDemo reduce={reduce} />;
+      case "theme":
+        return <ThemeDemo reduce={reduce} />;
       case "beyond":
         return <BeyondDemo reduce={reduce} />;
+      case "inbox":
+        return <InboxDemo reduce={reduce} />;
       case "premium":
         return <PremiumVisual reduce={reduce} />;
       case "start":
@@ -200,7 +215,7 @@ export function TourDialog({
                 <Icon name="compass" size={16} />
               </span>
               SkillFlow tour
-              <span className="sf-tour-brand-meta">about 2 minutes</span>
+              <span className="sf-tour-brand-meta">every feature, hands-on</span>
             </p>
             <Button variant="ghost" size="sm" onClick={skip}>
               Skip tour

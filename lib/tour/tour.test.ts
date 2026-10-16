@@ -1,5 +1,20 @@
 import { describe, expect, it } from "vitest";
 import {
+  DETOX_DEMO_BASE,
+  HEAT_DAYS,
+  INBOX_DEMO,
+  LESSON_DEMO_STEPS,
+  NICHE_DEMO,
+  THEME_DEMO_PRESETS,
+  bumpDay,
+  detoxDemo,
+  heatTotals,
+  lessonStep,
+  readAllNotes,
+  readNote,
+  themeDemoVars,
+  toggleFollow,
+  unreadCount,
   BEYOND_START,
   BEYOND_TILES,
   PROGRESS_START,
@@ -16,18 +31,27 @@ import {
   weeklyMinutes,
 } from "@/lib/tour/demos";
 import { tourEntry, tourStartLabel, tourStartTarget } from "@/lib/tour/entry";
+import { ACCENTS } from "@/lib/accent";
+import { DAILY_CAP } from "@/lib/detox/score";
 import { START_ON_PATH, START_WITHOUT_PATH, TOUR_BODY_MAX_WORDS, TOUR_SLIDES, wordCount } from "@/lib/tour/slides";
 
 describe("tour slides", () => {
-  it("has nine slides in the agreed order", () => {
+  it("covers every part of the app, in the agreed order", () => {
     expect(TOUR_SLIDES.map((slide) => slide.id)).toEqual([
       "welcome",
+      "niches",
       "paths",
+      "lessons",
       "explain-back",
       "notes",
+      "practice",
       "progress",
+      "activity",
       "make-it-yours",
+      "detox",
+      "themes",
       "beyond",
+      "inbox",
       "premium",
       "start",
     ]);
@@ -51,7 +75,21 @@ describe("tour slides", () => {
 
   it("puts a demo on every feature slide and none on welcome, premium or start", () => {
     const withDemo = TOUR_SLIDES.filter((slide) => slide.demo).map((slide) => slide.id);
-    expect(withDemo).toEqual(["paths", "explain-back", "notes", "progress", "make-it-yours", "beyond"]);
+    expect(withDemo).toEqual([
+      "niches",
+      "paths",
+      "lessons",
+      "explain-back",
+      "notes",
+      "practice",
+      "progress",
+      "activity",
+      "make-it-yours",
+      "detox",
+      "themes",
+      "beyond",
+      "inbox",
+    ]);
     for (const slide of TOUR_SLIDES) if (slide.demo) expect(slide.demo.prompt.trim(), slide.id).not.toBe("");
   });
 
@@ -237,3 +275,57 @@ describe("tour entry on Home", () => {
     expect(tourStartLabel({ href: "/skills", stageTitle: null, pathName: null, image: null })).toBe("Browse niches");
   });
 });
+
+describe("more tour demos", () => {
+  it("follows and unfollows sample niches only", () => {
+    let followed = toggleFollow([], NICHE_DEMO[0].slug);
+    followed = toggleFollow(followed, NICHE_DEMO[2].slug);
+    expect(followed).toEqual([NICHE_DEMO[0].slug, NICHE_DEMO[2].slug]);
+    expect(toggleFollow(followed, NICHE_DEMO[0].slug)).toEqual([NICHE_DEMO[2].slug]);
+    expect(toggleFollow(followed, "not-a-niche")).toEqual(followed);
+  });
+
+  it("steps through the sample lesson without leaving it", () => {
+    expect(lessonStep(0, -1)).toBe(0);
+    expect(lessonStep(0, 1)).toBe(1);
+    expect(lessonStep(LESSON_DEMO_STEPS.length - 1, 1)).toBe(LESSON_DEMO_STEPS.length - 1);
+    expect(LESSON_DEMO_STEPS.at(-1)?.kind).toBe("When you are ready");
+  });
+
+  it("cycles a heatmap day through five shades and counts it", () => {
+    let levels = Array.from({ length: HEAT_DAYS }, () => 0);
+    levels = bumpDay(bumpDay(levels, 3), 3);
+    levels = bumpDay(levels, 9);
+    expect(heatTotals(levels)).toEqual({ total: 3, activeDays: 2 });
+    for (let i = 0; i < 3; i += 1) levels = bumpDay(levels, 3);
+    expect(levels[3]).toBe(0);
+  });
+
+  it("scores the Detox demo with the real rule and its daily limit", () => {
+    expect(detoxDemo([]).score).toBe(DETOX_DEMO_BASE);
+    expect(detoxDemo(["idea"]).earned).toBe(1.5);
+    const many = detoxDemo(["idea", "idea", "recall", "focus", "idea", "idea"]);
+    expect(many.capped).toBe(true);
+    expect(many.earned).toBe(DAILY_CAP);
+    expect(many.score).toBe(DETOX_DEMO_BASE + DAILY_CAP);
+  });
+
+  it("previews only real accent presets, with every colour the preview needs", () => {
+    const ids = new Set(ACCENTS.map((accent) => accent.id));
+    for (const preset of THEME_DEMO_PRESETS) {
+      expect(ids.has(preset.id)).toBe(true);
+      const vars = themeDemoVars(preset);
+      expect(Object.values(vars).every((value) => value.length > 0)).toBe(true);
+      expect(vars["--gradient-brand"]).toContain("linear-gradient");
+    }
+  });
+
+  it("reads notifications one at a time or all at once", () => {
+    expect(unreadCount([])).toBe(INBOX_DEMO.length);
+    const one = readNote([], INBOX_DEMO[1].id);
+    expect(unreadCount(one)).toBe(INBOX_DEMO.length - 1);
+    expect(readNote(one, INBOX_DEMO[1].id)).toEqual(one);
+    expect(unreadCount(readAllNotes())).toBe(0);
+  });
+});
+

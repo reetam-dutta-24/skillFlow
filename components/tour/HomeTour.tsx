@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useTransition } from "react";
+import { createContext, useContext, useRef, useState, useTransition, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { AnimatePresence } from "framer-motion";
@@ -10,26 +10,31 @@ import { Icon } from "@/components/core/Icon.jsx";
 import { SkillImage } from "@/components/core/SkillImage";
 import { useCalmMotion, useHydrated } from "@/components/feedback/useCalmMotion";
 import type { TourStart } from "@/lib/tour/entry";
+import { TOUR_SLIDES } from "@/lib/tour/slides";
 import { TourDialog, type TourCloseReason } from "./TourDialog";
 
 const INVITE_THUMBS = ["/stages/full-stack-web-dev/2.jpg", "/stages/full-stack-web-dev/1.jpg", "/stages/full-stack-web-dev/3.jpg"];
 
+type TourContextValue = { done: boolean; open: () => void; skip: () => void; error: string | null };
+
+const TourContext = createContext<TourContextValue | null>(null);
+
 /**
- * The tour's place on Home: an invite card until the tour is finished or skipped, then one quiet "Replay the tour"
- * link. The tour never opens by itself. The finished state is personal and comes from the request.
+ * The tour's state on Home: finished or not, and the dialog. The tile and the replay link read it, so they can sit in
+ * different places on the page. The tour never opens by itself; the finished state comes from the request.
  */
-export function HomeTour({ initiallyDone, start }: { initiallyDone: boolean; start: TourStart }) {
+export function TourProvider({ initiallyDone, start, children }: { initiallyDone: boolean; start: TourStart; children: ReactNode }) {
   const [done, setDone] = useState(initiallyDone);
-  const [open, setOpen] = useState(false);
+  const [opened, setOpened] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [starting, setStarting] = useState(false);
   const [, startTransition] = useTransition();
   const reduce = useCalmMotion();
   const hydrated = useHydrated();
   const router = useRouter();
-  const entryRef = useRef<HTMLDivElement>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
 
-  /** Finish or Skip, saved once. Shows the replay link straight away and puts the card back if the save fails. */
+  /** Finish or Skip, saved once. Shows the replay link straight away and brings the tile back if the save fails. */
   function markDone() {
     if (done) return;
     setDone(true);
@@ -45,7 +50,7 @@ export function HomeTour({ initiallyDone, start }: { initiallyDone: boolean; sta
 
   function close(reason: TourCloseReason) {
     if (reason === "skip" || reason === "finish") markDone();
-    setOpen(false);
+    setOpened(false);
   }
 
   async function goToStart() {
@@ -58,70 +63,96 @@ export function HomeTour({ initiallyDone, start }: { initiallyDone: boolean; sta
     router.push(start.href);
   }
 
-  /** Focus returns to whichever entry is on Home now: the replay link, or the card's start button. */
+  /** Focus returns to whichever entry is on Home now: the replay link, or the tile's start button. */
   function restoreFocus() {
-    entryRef.current?.querySelector<HTMLElement>("[data-tour-entry]")?.focus();
+    rootRef.current?.querySelector<HTMLElement>("[data-tour-entry]")?.focus();
   }
 
+  const value: TourContextValue = {
+    done,
+    error,
+    open: () => setOpened(true),
+    skip: () => {
+      markDone();
+      // The tile goes away under the pointer; keep the keyboard on the replay link that takes its place.
+      requestAnimationFrame(restoreFocus);
+    },
+  };
+
   return (
-    <div ref={entryRef} className="sf-tour-entry">
-      {done ? (
-        <p className="sf-tour-replay">
-          <button type="button" className="sf-tour-quiet sf-hit" data-tour-entry onClick={() => setOpen(true)}>
-            <Icon name="rotate-ccw" size={14} />
-            Replay the tour
-          </button>
-        </p>
-      ) : (
-        <section className="sf-tour-invite" aria-labelledby="sf-tour-invite-title">
-          <span className="sf-tour-invite-art" aria-hidden="true">
-            {INVITE_THUMBS.map((src) => (
-              <span key={src} className="sf-tour-invite-thumb">
-                <SkillImage src={src} alt="" fill sizes="88px" />
-              </span>
-            ))}
-            <span className="sf-tour-invite-play">
-              <Icon name="play" size={14} />
-            </span>
-          </span>
-          <div className="sf-tour-invite-body">
-            <p className="sf-tour-invite-kicker">New here · 2 minutes</p>
-            <h2 id="sf-tour-invite-title">Take the 2-minute tour</h2>
-            <p>See how SkillFlow works, and try each part as you go.</p>
-          </div>
-          <div className="sf-tour-invite-actions">
-            <Button variant="gradient" size="md" data-tour-entry onClick={() => setOpen(true)}>
-              Start the tour
-            </Button>
-            <button
-              type="button"
-              className="sf-tour-quiet sf-hit"
-              onClick={() => {
-                markDone();
-                // The card goes away under the pointer; keep the keyboard on the replay link that takes its place.
-                requestAnimationFrame(restoreFocus);
-              }}
-            >
-              Skip
-            </button>
-          </div>
-        </section>
-      )}
-      {error ? (
-        <p className="sf-tour-error" role="alert">
-          {error}
-        </p>
-      ) : null}
+    <TourContext.Provider value={value}>
+      <div ref={rootRef} className="sf-home-top">
+        {children}
+      </div>
       {hydrated
         ? createPortal(
             <AnimatePresence onExitComplete={restoreFocus}>
-              {open ? (
-                <TourDialog key="tour" reduce={reduce} start={start} starting={starting} onClose={close} onStart={goToStart} />
-              ) : null}
+              {opened ? <TourDialog key="tour" reduce={reduce} start={start} starting={starting} onClose={close} onStart={goToStart} /> : null}
             </AnimatePresence>,
             document.body,
           )
         : null}
-    </div>
+    </TourContext.Provider>
+  );
+}
+
+function useTour() {
+  const value = useContext(TourContext);
+  if (!value) throw new Error("useTour needs TourProvider");
+  return value;
+}
+
+/** The small link in the Home hero once the tour is finished or skipped. */
+export function ReplayTourButton() {
+  const tour = useTour();
+  if (!tour.done) return null;
+  return (
+    <button type="button" className="sf-home-replay sf-hit" data-tour-entry onClick={tour.open}>
+      <Icon name="rotate-ccw" size={14} />
+      Replay the tour
+    </button>
+  );
+}
+
+/** The tour tile in "Get to know SkillFlow", until the tour is finished or skipped. */
+export function TourTile() {
+  const tour = useTour();
+  if (tour.done) {
+    return tour.error ? (
+      <p className="sf-tour-error" role="alert">
+        {tour.error}
+      </p>
+    ) : null;
+  }
+  return (
+    <section className="sf-home-tile is-tour" aria-labelledby="sf-tour-invite-title">
+      <span className="sf-home-tile-badge">Start here</span>
+      <span className="sf-tour-invite-art" aria-hidden="true">
+        {INVITE_THUMBS.map((src) => (
+          <span key={src} className="sf-tour-invite-thumb">
+            <SkillImage src={src} alt="" fill sizes="88px" />
+          </span>
+        ))}
+        <span className="sf-tour-invite-play">
+          <Icon name="play" size={14} />
+        </span>
+      </span>
+      <p className="sf-home-tile-kicker">Guided tour · {TOUR_SLIDES.length} stops</p>
+      <h2 id="sf-tour-invite-title">New here? Take the guided tour</h2>
+      <p className="sf-home-tile-text">Every feature, with something small to try on each. Nothing you do in it is saved.</p>
+      <div className="sf-home-tile-actions">
+        <Button variant="gradient" size="md" data-tour-entry onClick={tour.open}>
+          Start the tour
+        </Button>
+        <button type="button" className="sf-tour-quiet sf-hit" onClick={tour.skip}>
+          Skip
+        </button>
+      </div>
+      {tour.error ? (
+        <p className="sf-tour-error" role="alert">
+          {tour.error}
+        </p>
+      ) : null}
+    </section>
   );
 }

@@ -14,17 +14,16 @@ test("a new learner takes the tour and Home then offers a replay", async ({ page
 
   // The tour never opens by itself; Home shows the invite.
   await page.goto("/dashboard");
-  await expect(page.getByRole("heading", { name: "Take the 2-minute tour" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "New here? Take the guided tour" })).toBeVisible();
   await expect(page.getByRole("dialog")).toHaveCount(0);
   await page.getByRole("button", { name: "Start the tour" }).click();
 
   const dialog = page.getByRole("dialog");
   await expect(dialog).toBeVisible();
-  await expect(dialog.getByText("Step 1 of 9")).toBeVisible();
+  await expect(dialog.getByText("Step 1 of 16")).toBeVisible();
 
-  // Next twice, to the explain-back slide.
-  await dialog.getByRole("button", { name: "Next", exact: true }).click();
-  await dialog.getByRole("button", { name: "Next", exact: true }).click();
+  // Next four times, to the explain-back slide: niches, paths, lessons, then explain-back.
+  for (let i = 0; i < 4; i += 1) await dialog.getByRole("button", { name: "Next", exact: true }).click();
   await expect(dialog.getByRole("heading", { name: "Explain each idea in your own words" })).toBeVisible();
 
   // A thin answer stays on the idea; one with a reason holds and opens the next stage.
@@ -38,7 +37,7 @@ test("a new learner takes the tour and Home then offers a replay", async ({ page
   await expect(dialog.getByText("Open", { exact: true })).toBeVisible();
 
   // Jump to the last step and finish without leaving Home.
-  await dialog.getByRole("button", { name: "Step 9 of 9: Start" }).click();
+  await dialog.getByRole("button", { name: "Step 16 of 16: Start" }).click();
   await dialog.getByRole("button", { name: "Finish and stay on Home" }).click();
   await expect(page.getByRole("dialog")).toHaveCount(0);
   await expect(page.getByRole("button", { name: "Replay the tour" })).toBeVisible();
@@ -51,9 +50,9 @@ test("a new learner takes the tour and Home then offers a replay", async ({ page
   // The replay works by keyboard: arrows move, Escape closes, focus comes back to the link.
   const replay = page.getByRole("button", { name: "Replay the tour" });
   await replay.click();
-  await expect(page.getByRole("dialog").getByText("Step 1 of 9")).toBeVisible();
+  await expect(page.getByRole("dialog").getByText("Step 1 of 16")).toBeVisible();
   await page.keyboard.press("ArrowRight");
-  await expect(page.getByRole("dialog").getByText("Step 2 of 9")).toBeVisible();
+  await expect(page.getByRole("dialog").getByText("Step 2 of 16")).toBeVisible();
   await page.keyboard.press("Escape");
   await expect(page.getByRole("dialog")).toHaveCount(0);
   await expect(replay).toBeFocused();

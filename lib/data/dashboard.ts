@@ -55,7 +55,7 @@ export async function getDashboardData(): Promise<DashboardData> {
   const nextStage = followedEntries
     .map((entry) => {
       const stage = entry.stages.find((item) => item.status === "in_progress");
-      return stage ? { stage, skillName: entry.skill.name } : null;
+      return stage ? { stage, skillName: entry.skill.name, skillImage: entry.skill.image } : null;
     })
     .find((item) => item !== null);
 
@@ -70,7 +70,7 @@ export async function getDashboardData(): Promise<DashboardData> {
     week: stats?.week ?? [],
     weakTopics: (stats?.weakDetail ?? []).slice(0, 4),
     nextLesson: nextStage
-      ? { title: nextStage.stage.title, skillName: nextStage.skillName, href: `/lesson/${nextStage.stage.id}`, stageId: nextStage.stage.id }
+      ? { title: nextStage.stage.title, skillName: nextStage.skillName, href: `/lesson/${nextStage.stage.id}`, stageId: nextStage.stage.id, image: nextStage.stage.image ?? nextStage.skillImage ?? null }
       : null,
     followed,
     catalog: catalog.map((entry) => entry.skill),

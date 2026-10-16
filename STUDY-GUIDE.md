@@ -1277,16 +1277,41 @@ docker builder prune -af                                  # reclaim build cache
 | 15 | Deleting old accounts failed / hung | `ResourceSubmission.reviewedById` is a `Restrict` FK; an open transaction held a lock | Null the FK first, delete in one transaction, close the stuck session | Know your FK delete rules; long transactions hold locks |
 | 16 | Build died: "no space left on device" | Build cache and old images filled 20 GB | Prune build cache and images; plan EBS → 30 GB | Prune after each deploy; monitor disk |
 | 17 | "no configuration file provided" | Ran Compose from `~` | `cd ~/skillflow` | Compose reads the YAML in the current folder |
-| 18 | Google button missing in production | Google keys not set (and they are needed at **build** time for static pages) | Pending: set keys in `.env` and `.env.build`, add redirect URI, rebuild | Static pages bake env-dependent UI at build time |
+| 18 | Google button missing in production | Google keys not set (and they are needed at **build** time for static pages) | Keys in `.env` **and** `.env.build`, redirect URI added, rebuilt | Static pages bake env-dependent UI at build time |
+| 19 | Server build hung at "Running TypeScript" for 45 minutes, then exited | Type-checking needs more than the 2 GiB RAM; the OOM killer killed the TypeScript worker and the parent waited forever (CPU 100% idle, swap full) | `SKIP_TYPECHECK=1` in the Dockerfile build stage; types are still checked on the laptop and in CI | Read `vmstat` and `dmesg`: idle CPU during a "slow" build means it is dead, not slow |
+| 20 | Google said `redirect_uri_mismatch` with `https://localhost:3000/...` | Behind Caddy the app sees itself as `localhost:3000`, and Auth.js built the callback from that | `AUTH_URL` set to the public address | OAuth behind a reverse proxy needs the public URL stated explicitly |
+| 21 | After Google sign-in, the browser landed on `localhost:3000/dashboard`; Stripe return URLs had the same bug | Four places built redirects from `new URL(request.url).origin` | `lib/public-origin.ts` (`AUTH_URL` → forwarded headers → request), used by `/auth/continue`, both Stripe routes and `proxy.ts`, with unit tests | Never build absolute URLs from the request inside a container; centralise "what is my public address" |
+| 22 | Admin could not sign in with Google | The college email has a password account, and Google is never linked by email match alone (by design) | None needed: admins use the password; linking is done from Settings | A security rule that blocks you is still the right rule |
+| 23 | Logout seemed to fail during rapid account switching | The browser's router cache showed a stale signed-in page for a few seconds, and repeated log-ins hit the 5-per-15-minutes limit | Nothing to fix | Know your caches and your rate limits before calling something a bug |
 
 **The debugging method that worked (say this in interviews):** reproduce → read the actual error and logs → form one hypothesis → test it with the smallest command (curl, a timing loop, `docker compose logs`) → change one thing → verify → write it down.
 
 ---
 
-## 30. What is not done yet, and how it would be done
+## 30. What is done in operations, and what is not
+
+**Finished on 15–17 October 2026:**
+- **Backups:** `~/backup.sh` by cron at 03:00 IST: `pg_dump -Fc` → `~/backups` (7 days) and `aws s3 cp` to a private bucket with a 30-day lifecycle rule. The server uploads through an IAM role with **upload and list only** (least privilege: a compromised server cannot delete backups). The script uses `set -euo pipefail` and `umask 077`, and sets `PATH` because cron starts with an almost empty environment. A restore into a temporary database was tested (37 users came back). "A backup you have never restored is not a backup."
+- **Disk:** EBS grown from 20 to 30 GB with no downtime (`growpart` + `resize2fs`).
+- **CI:** GitHub Actions on every push: `npm ci` → `tsc --noEmit` → `npm test` → `prisma migrate deploy` and the seed on a throwaway Postgres service → `npm run build` with `GIT_SHA`. Only dummy values, no real secrets in GitHub.
+- **Monitoring:** UptimeRobot checks `/api/health` every 5 minutes and emails on failure.
+- **Production keys:** Google sign-in (same OAuth client as localhost, plus `AUTH_URL`), Stripe test mode with its own webhook destination and signing secret (the local CLI secret does not work for a real endpoint), and event keys.
+- **SSH kept on purpose:** key-only login, allowed only from the owner's IP. Session Manager was evaluated and works through the same role, but SSH was the owner's choice.
+
+**Still open, and how it would be done:**
 
 | Item | How | Why it matters |
 | --- | --- | --- |
+| **Auto-deploy (CD)** | SSH allows only the owner's IP, so GitHub cannot SSH in. Use GitHub OIDC → an IAM role allowed `ssm:SendCommand` on this instance → run the redeploy script through the SSM agent | No manual deploys, no stored AWS keys |
+| **Error monitoring** | Sentry for server and browser errors | See failures users do not report |
+| **Events cron** | A crontab line calling `GET /api/cron/events` with the bearer secret | Popular city and niche pairs stay fresh |
+| **Final brand and domain** | Register, `A` record, `DOMAIN` and `AUTH_URL`, Google and Stripe URLs, then Cloudflare in front (free CDN, DDoS protection, hidden origin IP) | Professional URL, global speed |
+| **Enforce the CSP** | Watch the console on production, add missing hosts, rename the header | Blocks XSS payloads from unknown hosts |
+| **`noindex` until launch** | Robots meta or header on the temporary domain | Avoid search engines indexing a temporary URL |
+| **Admin on a personal email** | Promote a second account; the college email will expire | Avoid lock-out |
+| **Integration tests** | A test database in CI | Confidence in the riskiest writes |
+
+--- | --- | --- |
 | **Daily database backups to S3** | `crontab` on the server: `pg_dump -Fc` → `aws s3 cp` to a private bucket with lifecycle expiry (e.g., 14 days); an IAM role on the instance (no keys on disk); test a restore | A single EBS volume is a single point of failure |
 | **CI/CD** | GitHub Actions: on push run `npm ci`, `tsc --noEmit`, `npm test`, `npm run build` (with a service Postgres), Playwright; on `main`, SSH (or SSM) to the server and run the redeploy script; set `GIT_SHA` so `/api/health` shows the commit | Removes manual mistakes; tests guard every change |
 | **Monitoring** | UptimeRobot (free) on `/api/health`; Sentry for errors; `docker compose logs` shipped to CloudWatch later | Know about failures before users do |
@@ -1450,8 +1475,8 @@ docker builder prune -af                                  # reclaim build cache
 | Upload limit | 20 / hour; images 6 MB, PDFs 12 MB, videos 40 MB; body limit 45–50 MB |
 | Map privacy threshold | 5 learners per city (default) |
 | Events | refresh every 12 h; Ticketmaster cap 5,000/day; SerpApi cap 200/month; community 3/day |
-| Unit tests | 145 in 36 files |
-| E2E tests | 6 |
+| Unit tests | 236 in 40 files |
+| E2E tests | 10 |
 | Migrations | 26 |
 | Hero video | 115 MB → 10.7 MB |
 | Lighthouse accessibility | 100 on four key pages |
@@ -1515,17 +1540,18 @@ docker builder prune -af                                  # reclaim build cache
 - Thirty free paths with full catalogs; explain-back with AI reviews; notes, recall, mastery, streaks, weak topics, analytics, transcripts, certificates, personal plans, a career-fit test, an Open Source community, a creator studio, a learner map, and nearby events are built and wired to the database.
 - Stripe Checkout, webhooks, and the portal are implemented in code; Premium is gated on the server.
 - Environment validation, health checks, security headers, Redis rate limits, an SSRF guard, magic-byte upload checks.
-- 145 unit tests and 6 Playwright end-to-end tests.
+- Google sign-in and Stripe (test mode, a test charge passed) work in production.
+- Nightly backups to S3 with a tested restore, CI on every push, and uptime monitoring.
+- 236 unit tests and 10 Playwright end-to-end tests, including the explain-back gate against a stubbed model.
 
 **Do not claim (yet):**
 - A quiz, a leaderboard, peer review, creator ratings, or earnings (they do not exist).
 - That Premium niches have content (they have no stages).
-- A live Stripe charge in production (not run yet), or Google sign-in in production (keys not set yet).
-- CI/CD, automated backups, or error monitoring (not set up yet).
+- Real money through Stripe (it is in test mode).
+- Automatic deploys or error monitoring (CI checks every push; deploys are manual; no Sentry).
 - That the CSP blocks anything (report-only).
-- End-to-end tests through explain-back or integration tests (not written).
+- Integration tests (not written).
 - Real user numbers you have not measured.
 
 ---
 
-*If something in the app changes, update this guide in the same commit. A study guide that drifts from the code teaches the wrong answers.*

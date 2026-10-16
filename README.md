@@ -249,12 +249,10 @@ The signed-in shell: a sidebar ordered by importance (Learn, Track, Community, A
 
 ## Status and what is ahead
 
-**Done:** the product. It is feature-complete and the feature list closed on 16 October 2026, ending with Dopamine Detox, global search, the sixteen-stop guided tour, and the Home redesign. Also done: the deploy groundwork, Docker, and the production deployment on AWS with HTTPS (the 16 October work needs `prisma migrate deploy` for two new migrations when it is deployed).
+**Done:** the product. It is feature-complete and the feature list closed on 16 October 2026, ending with Dopamine Detox, global search, the sixteen-stop guided tour, and the Home redesign. Also done (17 October 2026): the production deployment on AWS with HTTPS and every feature live; Google sign-in and Stripe (test mode, a test charge passed) in production; nightly database backups to S3 with a tested restore; the disk grown to 30 GB; CI on GitHub Actions (type check, unit tests, build) on every push; and uptime monitoring with UptimeRobot.
 
 **Still ahead:**
-- Daily database backups to S3, CI/CD with GitHub Actions, uptime and error monitoring.
-- Google sign-in and a Stripe test charge in production, rotated event API keys, the cron schedule for events.
-- The final brand and domain, then enforcing the CSP.
+- Automatic deploy from CI, error monitoring (Sentry), and the cron schedule for events.
+- The final brand and domain, Cloudflare in front as a free CDN, then enforcing the CSP.
 - Integration tests, and end-to-end tests for progress, transcripts, and certificates (explain-back, the tour, Detox, and search are already covered).
 - Catalogs for Premium niches (they have no stages yet).
-

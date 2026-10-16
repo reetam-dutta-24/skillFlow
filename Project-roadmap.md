@@ -56,7 +56,7 @@ Last aligned with the working tree on 16 October 2026. The product is feature-co
 | Tests | Unit tests and a first end-to-end suite | 236 Vitest unit tests in 40 files, including env validation, the rate limiter, the product tour demos, the Detox Score, and search ranking. Playwright covers sign-up, log-in, opening a lesson, the explain-back gate against a stub model, the Home tour, Dopamine Detox, and global search, but not progress |
 | Docker | Done | Multi-stage `Dockerfile` (Node 22 slim, non-root, health check), `docker-compose.prod.yml` (app, Postgres 16, Redis 7, Caddy 2), BuildKit secret for the build's database URL |
 | Production | Live | AWS EC2 `t3.small` in Sydney with an Elastic IP, HTTPS by Caddy and Let's Encrypt on a temporary sslip.io domain, development data restored and cleaned, AI limits 20 a minute and 400 a day, a 50-second model timeout |
-| Operations | Open | No automated backups, no CI/CD, no uptime or error monitoring yet. Google sign-in, Stripe, and event keys are not set in production yet. The final domain is not chosen |
+| Operations | Done | Nightly backups to S3 with a tested restore, a 30 GB disk, CI on every push, UptimeRobot, and Google, Stripe and event keys in production. Open: auto-deploy, Sentry, and the final domain |
 
 ---
 
@@ -309,8 +309,8 @@ Every stage on the thirty free paths has a committed photo under `public/stages/
 - SkillFlow has a quiz, a score leaderboard, or peer review.
 - A Premium niche has a catalog. It does not. Stripe charges someone when the keys are missing. It does not.
 - A creator has a rating or earnings.
-- The app is monitored, backed up automatically, or deployed by CI. It is deployed, by hand. The end-to-end tests cover sign-up, log-in, and opening a lesson. They do not pass an explain-back.
-- Google sign-in or a Stripe charge works in production. The keys are not set there yet.
+- The app is deployed by CI or has error monitoring. CI checks every push; deploys are still run by hand over SSH. Uptime is monitored and backups are automatic.
+- Stripe takes real money. It runs in test mode.
 - The Content Security Policy blocks anything. It is report-only.
 - Every accent was checked for contrast on both themes. The ten presets were measured; Spectrum and custom gradients were not.
 
@@ -478,7 +478,7 @@ The mock catalog in `lib/mock/catalog.ts` is leftover sample data for the screen
 - [ ] Model calls mocked in tests
 
 ## PHASE 9 — Deploy
-**Status: 🔶 LIVE ON AWS. BACKUPS, CI/CD, MONITORING, AND PRODUCTION KEYS ARE OPEN**
+**Status: ✅ LIVE ON AWS WITH BACKUPS, CI, MONITORING, AND PRODUCTION KEYS. AUTO-DEPLOY, SENTRY, AND THE FINAL DOMAIN ARE OPEN**
 
 - [x] Env vars validated at startup (`instrumentation.ts`, `lib/env.ts`); production requires `REDIS_URL`, `CRON_SECRET`, and `GEOCODER_USER_AGENT`
 - [x] Health check `GET /api/health`: 200 when Postgres answers, 503 when it does not
@@ -496,16 +496,20 @@ The mock catalog in `lib/mock/catalog.ts` is leftover sample data for the screen
 - [x] Development data restored to production; test and development accounts removed; admin password reset
 - [x] The proxy overwrites `X-Forwarded-For` (Caddy's default), so per-IP limits cannot be spoofed
 - [x] Stage photos are in git (`public/stages`), so a deploy has them
-- [ ] Daily `pg_dump` to S3 by cron, with a tested restore
-- [ ] Grow the EBS volume from 20 to 30 GB and prune build cache after every deploy
-- [ ] GitHub Actions: type check, test, build, then deploy over SSH or Session Manager; set `GIT_SHA`
-- [ ] Uptime monitoring on `/api/health` and error monitoring (Sentry)
-- [ ] Google sign-in in production (redirect URI, keys in `.env` and `.env.build`, rebuild)
-- [ ] Stripe test keys, webhook URL, and one test charge in production
-- [ ] Rotated Ticketmaster and SerpApi keys, and a cron for `/api/cron/events`
-- [ ] Final brand and domain; `noindex` until then
+- [x] Nightly `pg_dump` (`~/backup.sh`, cron 03:00 IST): 7 days on disk, 30 days in a private S3 bucket through an upload-only IAM role; restore tested
+- [x] EBS volume grown from 20 to 30 GB; build cache pruned after every deploy
+- [x] The server build skips the TypeScript check (`SKIP_TYPECHECK=1`); type-checking ran out of memory on 2 GiB. The laptop and CI still check types
+- [x] GitHub Actions CI (`.github/workflows/ci.yml`): type check, unit tests, migrations and seed on a throwaway Postgres, production build, with `GIT_SHA`
+- [x] Uptime monitoring: UptimeRobot on `/api/health` every 5 minutes
+- [x] Google sign-in in production, with `AUTH_URL` and `lib/public-origin.ts` so redirects and OAuth callbacks use the public address instead of the proxied `localhost:3000`
+- [x] Stripe test keys, the production webhook destination, and a successful test charge
+- [x] Ticketmaster and SerpApi keys in production
+- [x] SSH kept, restricted to the owner's IP with key-only login (a deliberate choice over Session Manager)
+- [ ] Automatic deploy from CI (through the SSM agent with GitHub OIDC, since SSH allows only the owner's IP)
+- [ ] Error monitoring (Sentry) and a cron for `/api/cron/events`
+- [ ] Final brand and domain, Cloudflare as a free CDN; `noindex` until then
 - [ ] Enforce the CSP after a clean report-only pass on the live site
-- [ ] Session Manager instead of SSH; a second admin on a personal email
+- [ ] A second admin on a personal email
 
 ## PHASE 10 — Documentation and case study
 **Status: ✅ THE DOCS MATCH THE APP AND THE LIVE DEPLOY. THE CASE STUDY AND A RECORDING ARE DEFERRED**
@@ -597,7 +601,8 @@ Ticketmaster and Google Events (SerpApi) are separate adapters. A missing key tu
 
 **Feature work is closed.** The product is feature-complete and frozen as of 16 October 2026: the last additions were Dopamine Detox, global search, the sixteen-stop guided tour, and the Home redesign (with light-mode readability, the sidebar by importance, themed dropdowns, and the top-bar create buttons). The UI pass is done (`UI-AUDIT.md`). The app is live on AWS; deploying the 16 October work needs `prisma migrate deploy` for its two new migrations (`20261016120000_product_tour`, `20261016140000_dopamine_detox`). What remains is operations, then more proof. A new feature needs an explicit decision to reopen the list.
 
-- Operations (Phase 9). Daily `pg_dump` to S3 with a tested restore. Grow the disk to 30 GB. GitHub Actions for type check, test, build, and deploy. Uptime and error monitoring. Google sign-in, Stripe test keys and a test charge, and rotated event keys in production, plus the events cron. The final domain (with `noindex` until then). Enforce the CSP. Session Manager instead of SSH. A second admin on a personal email. Upgrade or move off the AWS free plan before about 13 April 2027.
+- Operations (Phase 9), what is left: automatic deploy from CI, Sentry, the events cron, the final domain with Cloudflare as a CDN (`noindex` until then), enforcing the CSP, a second admin on a personal email, and upgrading or leaving the AWS free plan before about 13 April 2027. Backups, the 30 GB disk, CI, uptime monitoring, and production keys were finished on 15–17 October 2026.
 - Phase 8. Integration tests for catalog import and lesson reads. Extend the Playwright suite to progress, transcripts, and certificates (explain-back, the tour, Detox, and search are covered). A manual pass of empty, error, and loading states.
 - Open Source. Integration tests for review, edit, and hide.
 - Phase 10. A case study. A short recording of the loop, when it is needed.
+

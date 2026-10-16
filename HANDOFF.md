@@ -1,6 +1,6 @@
 # SkillFlow — handoff for testing and deployment
 
-This brief is for someone (a person or a chat assistant) who will help test and operate SkillFlow without reading the code. It says what the app is, how it runs, what it needs from the outside world, how it is deployed today, and what is known to be missing. It is accurate as of 16 October 2026.
+This brief is for someone (a person or a chat assistant) who will help test and operate SkillFlow without reading the code. It says what the app is, how it runs, what it needs from the outside world, how it is deployed today, and what is known to be missing. It is accurate as of 17 October 2026.
 
 **SkillFlow is live** at `https://app.32-236-251-56.sslip.io` (a temporary domain) on one AWS EC2 instance running Docker Compose. Section 10 describes the deployment as it is, and section 11 is the redeploy runbook. The product is feature-complete and frozen (the feature list closed on 16 October 2026); deploying the 16 October work needs `prisma migrate deploy` for its two new migrations; the open work is operations (section 9).
 
@@ -102,6 +102,7 @@ All of these are read on the server unless the name starts with `NEXT_PUBLIC_`. 
 | --- | --- | --- |
 | `DATABASE_URL` | Yes | Postgres connection string. Must start with `postgresql://` |
 | `AUTH_SECRET` | Yes | Signs the session JWTs. At least 32 characters; generate with `npx auth secret`. Changing it signs everyone out |
+| `AUTH_URL` | Yes, in production | The public address, e.g. `https://app.example.com`. Behind a reverse proxy the app sees itself as `localhost:3000`; OAuth callbacks, the post-sign-in redirect and Stripe return URLs use this instead (`lib/public-origin.ts`). Leave it unset locally |
 | `REDIS_URL` | Yes, in production | `redis://` or `rediss://`. Holds the rate-limit counters. Without it locally, the limits are off |
 | `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET` | For Google sign-in | Set both or neither. Without them the Google buttons are hidden. **Needed at build time too**: login and signup are static pages, so the buttons are decided when you build |
 | `GEMINI_API_KEY` | For explain-back | Free tier, model `gemini-flash-lite-latest`. Without any model key, no stage can be passed |
@@ -198,20 +199,22 @@ Done:
 - [x] The proxy overwrites `X-Forwarded-For` (Caddy's default)
 - [x] Container health check on `GET /api/health`
 - [x] The real admin promoted and the password reset
+- [x] Daily `pg_dump` at 03:00 IST by cron (`~/backup.sh`): 7 days on the server, 30 days in the private S3 bucket `skillflow-backups-reetam` (lifecycle rule). The instance uploads through the IAM role `skillflow-ec2-backup` (upload and list only, no stored keys). A restore into a temporary database was tested on 15 October 2026
+- [x] EBS volume grown from 20 to 30 GB (`growpart` and `resize2fs`); the build cache is pruned after every deploy
+- [x] Google OAuth in production: origin and redirect URI registered on the same client as localhost, keys in `.env` and `.env.build`, `AUTH_URL` set to the public address
+- [x] Stripe test mode in production: keys, the `skillflow-prod` webhook destination with its own signing secret, and a successful test charge
+- [x] Ticketmaster and SerpApi keys set
+- [x] CI on GitHub Actions (`.github/workflows/ci.yml`): type check, unit tests, migrations and seed on a throwaway Postgres, production build, on every push and pull request
+- [x] Uptime monitoring: UptimeRobot checks `/api/health` every 5 minutes and emails on failure
 
 Open:
 
-- [ ] Daily `pg_dump` to a private S3 bucket by cron, with a tested restore
-- [ ] Grow the EBS volume from 20 to 30 GB (`growpart` and `resize2fs`), and prune the build cache after every deploy
-- [ ] Google OAuth: add the production origin and redirect URI, put the keys in `.env` **and** `.env.build` (login and signup are static, so the buttons are decided at build time), rebuild. Google may refuse an sslip.io domain; the final domain fixes that
-- [ ] Stripe: test keys, register the webhook URL and secret, run one test charge
-- [ ] Rotated Ticketmaster and SerpApi keys, then schedule `GET /api/cron/events` with the bearer secret
-- [ ] Set `GIT_SHA` at build time so `/api/health` reports the live commit
-- [ ] Uptime monitoring on `/api/health` and error monitoring (Sentry); nothing is set up
-- [ ] CI: install, `tsc --noEmit`, `npm test`, `npm run build`, and `npm run test:e2e` against a seeded database, then deploy
+- [ ] Automatic deploy from CI (the server allows SSH only from the owner's IP, so a deploy would go through the SSM agent with GitHub OIDC)
+- [ ] Error monitoring (Sentry)
+- [ ] Schedule `GET /api/cron/events` with the bearer secret (crontab plus curl)
 - [ ] Check the browser console on the live site for CSP reports, then switch `Content-Security-Policy-Report-Only` to `Content-Security-Policy`
-- [ ] The final domain: an `A` record to the Elastic IP, `DOMAIN` in `.env`, then the Google and Stripe URLs. `noindex` until then
-- [ ] Session Manager instead of SSH, and a second admin on a personal email
+- [ ] The final domain: an `A` record to the Elastic IP, `DOMAIN` and `AUTH_URL` in `.env`, then the Google and Stripe URLs, then Cloudflare in front as a free CDN. `noindex` until then
+- [ ] A second admin on a personal email
 - [ ] Upgrade or leave the AWS free plan before about 13 April 2027
 
 ---
@@ -222,23 +225,26 @@ Open:
 | --- | --- |
 | URL | `https://app.32-236-251-56.sslip.io` (sslip.io resolves the name to the IP inside it) |
 | Cloud | AWS, region `ap-southeast-2` (Sydney), free plan; the rule is to spend nothing |
-| Server | EC2 `t3.small` (2 vCPU, 2 GiB), Ubuntu, 20 GB gp3, 2 GB swap (`vm.swappiness=10`), default VPC |
+| Server | EC2 `t3.small` (2 vCPU, 2 GiB), Ubuntu, 30 GB gp3, 2 GB swap (`vm.swappiness=10`), default VPC |
+| IAM role | `skillflow-ec2-backup` on the instance: an inline policy allowing only `s3:PutObject` and `s3:ListBucket` on the backup bucket, plus `AmazonSSMManagedInstanceCore` for the SSM agent |
+| Backups | `~/backup.sh` by cron at 21:30 UTC (03:00 IST): `pg_dump -Fc` to `~/backups` (kept 7 days) and to `s3://skillflow-backups-reetam/db/` (kept 30 days). Log in `~/backups/backup.log` |
 | Public IP | Elastic IP `32.236.251.56` |
-| Firewall | Security group `skillflow-web`: 22 from the owner's IP only, 80 and 443 from anywhere. Nothing else is open |
+| Firewall | Security group `skillflow-web`: 22 from the owner's IP only (key-only login, kept on purpose), 80 and 443 from anywhere. Nothing else is open |
 | Software | Docker 29, Compose v2.40, Buildx 0.30, git |
 | Code | `~/skillflow`, a clone of the public GitHub repository. Git is the only way code reaches the server; nothing is edited there |
 | Compose | `docker-compose.prod.yml`, selected by `COMPOSE_FILE` in `.env`, so plain `docker compose` uses it |
 | Services | `app` (built from `Dockerfile`, port 3000 internal only), `postgres:16` (`127.0.0.1:5432`), `redis:7-alpine` (append-only), `caddy:2` (80 and 443) |
 | Volumes | `pgdata`, `redisdata`, `uploads`, `caddy_data` (certificates), `caddy_config` |
+| Public URL setting | `AUTH_URL=https://app.32-236-251-56.sslip.io`. Behind Caddy the app sees itself as `localhost:3000`, so OAuth callbacks and redirects (`lib/public-origin.ts`) use this value |
 | Settings | `.env` (runtime; `DATABASE_URL` uses host `postgres`, `REDIS_URL=redis://redis:6379`) and `.env.build` (the same values with host `127.0.0.1`, used only by the build). Both `chmod 600` |
 
 **Why two env files.** The build prerenders the catalog, so it queries Postgres. `docker compose build` runs with `network: host` and mounts `.env.build` as a BuildKit secret at `/app/.env` for that one `RUN` step only. The secret never lands in an image layer. At runtime the app is on the Compose network, where the database host is the service name `postgres`.
 
 **HTTPS.** `Caddyfile` serves `{$DOMAIN}`, compresses responses, allows bodies up to 50 MB, and proxies to `app:3000`. Caddy obtains and renews a Let's Encrypt certificate on its own. Changing the domain is an `A` record plus `DOMAIN` in `.env` and `docker compose up -d caddy`.
 
-**Not used, on purpose.** RDS, ElastiCache, ECR, a load balancer, S3, and EventBridge. Each one costs money or adds parts that one server does not need yet. `STUDY-GUIDE.md` §25 and §31 explain when each one becomes worth it.
+**Not used, on purpose.** RDS, ElastiCache, ECR, a load balancer, and EventBridge. S3 is used only for backups. Each one costs money or adds parts that one server does not need yet. `STUDY-GUIDE.md` §25 and §31 explain when each one becomes worth it.
 
-**Known operational lessons.** A home IP change breaks SSH until the security group rule is updated. A rebuild can fill the 20 GB disk ("no space left on device"): prune the build cache after every deploy, and never prune volumes. Run Compose from `~/skillflow`, or it says "no configuration file provided".
+**Known operational lessons.** The server build skips the TypeScript check (`SKIP_TYPECHECK=1` in the Dockerfile) because type-checking on 2 GiB ran out of memory and hung; the laptop build and CI still check types. A home IP change breaks SSH until the security group rule is updated. A rebuild once filled the old 20 GB disk ("no space left on device"): prune the build cache after every deploy, and never prune volumes. Run Compose from `~/skillflow`, or it says "no configuration file provided".
 
 ---
 
@@ -256,7 +262,7 @@ On the server:
 
 ```bash
 cd ~/skillflow
-docker compose exec -T postgres pg_dump -U skillflow -Fc skillflow > ~/backup-$(date +%F-%H%M).dump
+~/backup.sh                                                # fresh backup to disk and S3 first
 df -h /                                                    # several GB free before building
 git pull
 docker compose build app
@@ -265,10 +271,10 @@ docker compose up -d
 docker compose ps                                          # app becomes (healthy)
 curl -s https://app.32-236-251-56.sslip.io/api/health
 docker builder prune -af                                   # build cache only
+docker image prune -f
 ```
 
 - Never run `docker volume prune`, `docker system prune --volumes`, `prisma migrate reset`, `prisma migrate dev`, or the seed on the server.
 - A new environment variable goes into `lib/env.ts` in the code, into `.env` on the server, and into `.env.build` too if the build needs it (the Google keys do). Then rebuild and `up -d`.
 - Rollback: check out the previous commit, rebuild, `up -d`. Migrations are additive, so the previous code still runs on the newer schema. Restoring a dump (`pg_restore --clean`) is the last resort.
 - Logs: `docker compose logs -f app --tail 100`. Database shell: `docker compose exec postgres psql -U skillflow -d skillflow`.
-

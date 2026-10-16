@@ -15,8 +15,6 @@ export const SKILLFLOW_NAV = [
   { id: "clips", label: "Clips", icon: "clapperboard", href: "/clips", section: "Community" },
   { id: "open-source", label: "Open Source", icon: "git-pull-request", href: "/open-source" },
   { id: "nearby", label: "Nearby", icon: "map-pin", href: "/nearby" },
-  { id: "creator", label: "Creator studio", icon: "video", href: "/creator", section: "Create" },
-  { id: "submit", label: "Submit a resource", icon: "file-plus", href: "/submit" },
   { id: "settings", label: "Settings", icon: "settings", href: "/settings", section: "Account" },
 ];
 

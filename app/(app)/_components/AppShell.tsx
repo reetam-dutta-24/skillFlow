@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { Icon } from "@/components/core/Icon.jsx";
 import { ToastProvider } from "@/components/feedback/Toast";
 import { FocusPill, FocusSessionProvider } from "@/components/detox/FocusSession";
+import { CreateActions } from "@/components/navigation/CreateActions";
 import { GlobalSearch } from "@/components/navigation/GlobalSearch";
 import { Sidebar, type SidebarItem } from "@/components/navigation/Sidebar.jsx";
 import { Topbar } from "@/components/navigation/Topbar.jsx";
@@ -12,7 +13,8 @@ import { ShellRoleProvider, useShellReview, useShellRole } from "./shell-role";
 
 /**
  * The sidebar, most important first: the learning loop (Paths, Notes) and what is unique to SkillFlow (Detox) lead;
- * tracking, community, and creating follow; Settings is last. `section` starts a small group label.
+ * tracking and community follow; Settings is last. `section` starts a small group label. Creating lives in the top
+ * bar (Create content, Submit a resource), so the whole sidebar fits on a laptop screen without scrolling.
  */
 const NAV: SidebarItem[] = [
   { id: "home", label: "Home", icon: "house", href: "/dashboard", section: "Learn" },
@@ -25,8 +27,6 @@ const NAV: SidebarItem[] = [
   { id: "clips", label: "Clips", icon: "clapperboard", href: "/clips", section: "Community" },
   { id: "open-source", label: "Open Source", icon: "git-pull-request", href: "/open-source" },
   { id: "nearby", label: "Nearby", icon: "map-pin", href: "/nearby" },
-  { id: "creator", label: "Creator studio", icon: "video", href: "/creator", section: "Create" },
-  { id: "submit", label: "Submit a resource", icon: "file-plus", href: "/submit" },
   { id: "settings", label: "Settings", icon: "settings", href: "/settings", section: "Account" },
 ];
 
@@ -238,7 +238,12 @@ function AppShellFrame({ account, notifications, children }: Omit<ShellProps, "r
               <GlobalSearch />
             </>
           }
-          toolsStart={<FocusPill />}
+          toolsStart={
+            <>
+              <CreateActions />
+              <FocusPill />
+            </>
+          }
           notificationSlot={notifications}
           accountSlot={account}
         />

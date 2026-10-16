@@ -19606,3 +19606,47 @@ select optgroup {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* ───────────── Top bar: create buttons ───────────── */
+/* Create content (primary) and Submit a resource (secondary) sit in the top bar, as on other platforms. */
+.sf-create-actions {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 8px;
+}
+.sf-create-actions .sf-btn {
+  gap: 5px;
+  height: 34px;
+  padding: 0 12px;
+  font-size: var(--text-xs);
+}
+.sf-create-short {
+  display: none;
+}
+@media (max-width: 1279px) {
+  .sf-create-full {
+    display: none;
+  }
+  .sf-create-short {
+    display: inline;
+  }
+  .sf-create-actions .sf-btn {
+    padding: 0 10px;
+  }
+}
+@media (max-width: 640px) {
+  /* A phone keeps one round Create button; Submit a resource is in the account menu. */
+  .sf-create-secondary {
+    display: none;
+  }
+  .sf-create-short {
+    display: none;
+  }
+  .sf-create-actions .sf-create-primary {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: var(--radius-full);
+  }
+}

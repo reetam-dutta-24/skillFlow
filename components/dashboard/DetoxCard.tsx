@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Icon } from "@/components/core/Icon.jsx";
 import { SwapButton } from "@/app/(app)/detox/_components/SwapDialog";
-import { DetoxSupport } from "@/app/(app)/detox/_components/DetoxSupport";
 import { loadDetoxCard } from "@/lib/data/detox";
 import { playbookStep } from "@/lib/detox/playbook";
 import { DETOX_QUESTION_COUNT } from "@/lib/detox/questions";
@@ -17,11 +16,22 @@ export async function DetoxCard({ userId }: { userId: string }) {
   const ready = card.ready;
   const view = detoxCardState({ status: card.state.status, distress: ready?.distress ?? false });
 
+  // Support is a tile like the others, so the row of three stays whole; no detox tips here, just a number to call.
   if (view === "support") {
     return (
-      <div className="sf-home-tile-wide">
-        <DetoxSupport compact />
-      </div>
+      <section className="sf-home-tile is-detox is-support" aria-labelledby="home-detox-title">
+        <HomeTileArt src={DETOX_ART} icon="heart-handshake" />
+        <p className="sf-home-tile-kicker">Dopamine Detox</p>
+        <h2 id="home-detox-title">Look after yourself first</h2>
+        <p className="sf-home-tile-text">
+          Talking to someone can help. Tele-MANAS is free, 24 hours: <a href="tel:14416">14416</a> or <a href="tel:18008914416">1-800-891-4416</a>.
+        </p>
+        <div className="sf-home-tile-actions">
+          <Link className="sf-btn sf-btn--outline sf-btn--md" href="/detox">
+            Open Detox
+          </Link>
+        </div>
+      </section>
     );
   }
 

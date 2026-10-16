@@ -19416,3 +19416,193 @@ select optgroup {
     transition: none;
   }
 }
+
+/* ───────────── Home: the opening fits one screen ───────────── */
+/* The hero and the three "Get to know SkillFlow" tiles fit in the first viewport on a laptop, without scrolling.
+   Photo banners scale with the screen's height, so short screens give up photo, not words. */
+.sf-home-top {
+  gap: 18px;
+}
+.sf-home-hero {
+  gap: 12px;
+  padding: 16px 20px;
+  border-radius: 22px;
+}
+.sf-home-hero-top {
+  align-items: center;
+  gap: 10px 20px;
+}
+.sf-home-hero-copy {
+  gap: 2px;
+}
+.sf-home-date {
+  font-size: var(--text-3xs);
+}
+.sf-home-hero h1 {
+  font-size: clamp(1.375rem, 1.1rem + 0.8vw, 1.75rem);
+  line-height: 1.15;
+}
+.sf-home-sub {
+  font-size: var(--text-sm);
+}
+.sf-home-streak {
+  padding: 6px 12px;
+  font-size: var(--text-xs);
+}
+.sf-home-next {
+  grid-template-columns: 128px minmax(0, 1fr) auto;
+  gap: 16px;
+  padding: 8px 16px 8px 8px;
+  border-radius: 16px;
+}
+.sf-home-next-art {
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+}
+.sf-home-next-glyph {
+  width: 40px;
+  height: 40px;
+}
+.sf-home-next-glyph svg {
+  width: 20px;
+  height: 20px;
+}
+.sf-home-next-kicker {
+  font-size: var(--text-3xs);
+}
+.sf-home-next h2 {
+  font-size: var(--text-subtitle);
+  line-height: 1.3;
+}
+.sf-home-next-copy > p:last-child {
+  font-size: var(--text-xs);
+}
+.sf-home-next-cta.sf-btn {
+  height: 40px;
+  padding: 0 18px;
+}
+.sf-home-discover {
+  gap: 10px;
+}
+.sf-home-discover-title {
+  font-size: var(--text-body);
+}
+.sf-home-tiles {
+  gap: 14px;
+}
+.sf-home-tile {
+  gap: 6px;
+  padding: 0 0 16px;
+  border-radius: 18px;
+}
+.sf-home-tile > :not(.sf-home-tile-art) {
+  margin-inline: 16px;
+}
+.sf-home-tile-art {
+  height: clamp(68px, 10vh, 120px);
+  margin-bottom: 20px;
+}
+.sf-home-tile-art .sf-home-tile-icon {
+  bottom: -17px;
+  left: 16px;
+  width: 38px;
+  height: 38px;
+  border-width: 2px;
+  border-radius: 12px;
+}
+.sf-home-tile-art .sf-home-tile-icon::before {
+  border-radius: 10px;
+}
+.sf-home-tile-art .sf-home-tile-icon svg {
+  width: 18px;
+  height: 18px;
+}
+.sf-home-tile-art .sf-home-tile-badge {
+  top: 10px;
+  right: 10px;
+}
+.sf-home-tile-play {
+  width: 38px;
+  height: 38px;
+}
+.sf-home-tile-play svg {
+  width: 16px;
+  height: 16px;
+}
+.sf-home-tile-kicker {
+  font-size: var(--text-3xs);
+}
+.sf-home-tile h2 {
+  font-size: 1rem;
+  line-height: 1.3;
+}
+.sf-home-tile-text {
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: var(--text-xs);
+  line-height: 1.5;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.sf-home-tile.is-support .sf-home-tile-text {
+  -webkit-line-clamp: 3;
+}
+.sf-home-tile-text a {
+  font-weight: var(--weight-semibold);
+  white-space: nowrap;
+}
+.sf-home-tile-actions {
+  padding-top: 4px;
+  gap: 6px 14px;
+}
+.sf-home-tile-actions .sf-btn {
+  height: 36px;
+  padding: 0 14px;
+  font-size: var(--text-xs);
+}
+.sf-home-detox-row {
+  grid-template-columns: 84px minmax(0, 1fr);
+  gap: 12px;
+  margin-top: 0;
+}
+.sf-home-tile.has-dial .sf-home-detox-dial {
+  width: 84px;
+}
+.sf-home-detox-row .sf-gauge-center strong {
+  font-size: 1.125rem;
+}
+.sf-home-detox-row h2 {
+  font-size: 1rem;
+}
+.sf-home-detox-step,
+.sf-home-detox-due {
+  font-size: var(--text-xs);
+}
+@media (max-width: 960px) {
+  .sf-home-next {
+    grid-template-columns: 112px minmax(0, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .sf-home-next {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sf-home-next-art {
+    aspect-ratio: 16 / 7;
+  }
+  .sf-home-tile-art {
+    height: 110px;
+  }
+  .sf-home-tile > :not(.sf-home-tile-art) {
+    margin-inline: 16px;
+  }
+}
+/* Always three across, so the row stays whole on a small laptop; phones stack. */
+.sf-home-tiles {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+@media (max-width: 640px) {
+  .sf-home-tiles {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

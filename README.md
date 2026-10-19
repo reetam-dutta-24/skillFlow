@@ -1,4 +1,6 @@
-# SkillFlow
+# SkillFlow    
+
+
 
 **A mastery-first learning platform.** SkillFlow only counts a stage as learned when you can explain each idea back in your own words and an AI reviewer agrees. There is no quiz, no leaderboard, and no watch-time score.
 

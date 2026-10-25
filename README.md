@@ -207,6 +207,9 @@ npm run assistant:eval            # retrieval eval: Recall@5, MRR, not-sure and 
 
 SkillFlow runs on one AWS EC2 instance (`t3.small`, Ubuntu, Sydney, Elastic IP) with four Compose services from `docker-compose.prod.yml`:
 
+## Deployment in EC2 Instance (t3.small) in AWS
+<img width="2868" height="1528" alt="image" src="https://github.com/user-attachments/assets/ca182eb8-ae1c-4b38-a16c-5d934f9c4817" />
+
 | Service | Image | Notes |
 | --- | --- | --- |
 | `app` | built from `Dockerfile` | Node 22 slim, three stages, runs as `node`, `HEALTHCHECK` on `/api/health`, uploads on a volume |

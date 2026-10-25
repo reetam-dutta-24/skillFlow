@@ -9,6 +9,7 @@ import { CreateActions } from "@/components/navigation/CreateActions";
 import { GlobalSearch } from "@/components/navigation/GlobalSearch";
 import { Sidebar, type SidebarItem } from "@/components/navigation/Sidebar.jsx";
 import { Topbar } from "@/components/navigation/Topbar.jsx";
+import { Assistant } from "./Assistant";
 import { ShellRoleProvider, useShellReview, useShellRole } from "./shell-role";
 
 /**
@@ -236,6 +237,7 @@ function AppShellFrame({ account, notifications, children }: Omit<ShellProps, "r
             <>
               {menuButton}
               <GlobalSearch />
+              <Assistant />
             </>
           }
           toolsStart={

@@ -105,7 +105,8 @@ All of these are read on the server unless the name starts with `NEXT_PUBLIC_`. 
 | `AUTH_URL` | Yes, in production | The public address, e.g. `https://app.example.com`. Behind a reverse proxy the app sees itself as `localhost:3000`; OAuth callbacks, the post-sign-in redirect and Stripe return URLs use this instead (`lib/public-origin.ts`). Leave it unset locally |
 | `REDIS_URL` | Yes, in production | `redis://` or `rediss://`. Holds the rate-limit counters. Without it locally, the limits are off |
 | `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET` | For Google sign-in | Set both or neither. Without them the Google buttons are hidden. **Needed at build time too**: login and signup are static pages, so the buttons are decided when you build |
-| `GEMINI_API_KEY` | For explain-back | Free tier, model `gemini-flash-lite-latest`. Without any model key, no stage can be passed |
+| `GEMINI_API_KEY` | For explain-back and the assistant | Free tier, model `gemini-flash-lite-latest`. Also embeds the SkillFlow Assistant's index and questions (`gemini-embedding-001`, 768 dimensions). Without any model key, no stage can be passed and the assistant cannot answer |
+| `ASSISTANT_EMBED_URL` | No, never in production | An OpenAI-compatible `/embeddings` URL. Only the end-to-end tests set it (the stub in `e2e/model-stub.mjs`) |
 | `GEMINI_MODEL` | No | Overrides the Gemini model |
 | `OPENAI_API_KEY` | No | Used only when the Gemini key is empty |
 | `EXPLAIN_MODEL_KEY`, `EXPLAIN_MODEL_URL`, `EXPLAIN_MODEL_NAME` | No | Any OpenAI-compatible endpoint. These win when `EXPLAIN_MODEL_KEY` is set |
@@ -233,7 +234,7 @@ Open:
 | Software | Docker 29, Compose v2.40, Buildx 0.30, git |
 | Code | `~/skillflow`, a clone of the public GitHub repository. Git is the only way code reaches the server; nothing is edited there |
 | Compose | `docker-compose.prod.yml`, selected by `COMPOSE_FILE` in `.env`, so plain `docker compose` uses it |
-| Services | `app` (built from `Dockerfile`, port 3000 internal only), `postgres:16` (`127.0.0.1:5432`), `redis:7-alpine` (append-only), `caddy:2` (80 and 443) |
+| Services | `app` (built from `Dockerfile`, port 3000 internal only), `postgres:16` (`127.0.0.1:5432`; becomes `pgvector/pgvector:pg16-trixie` with the assistant deploy, section 12), `redis:7-alpine` (append-only), `caddy:2` (80 and 443) |
 | Volumes | `pgdata`, `redisdata`, `uploads`, `caddy_data` (certificates), `caddy_config` |
 | Public URL setting | `AUTH_URL=https://app.32-236-251-56.sslip.io`. Behind Caddy the app sees itself as `localhost:3000`, so OAuth callbacks and redirects (`lib/public-origin.ts`) use this value |
 | Settings | `.env` (runtime; `DATABASE_URL` uses host `postgres`, `REDIS_URL=redis://redis:6379`) and `.env.build` (the same values with host `127.0.0.1`, used only by the build). Both `chmod 600` |
@@ -278,3 +279,61 @@ docker image prune -f
 - A new environment variable goes into `lib/env.ts` in the code, into `.env` on the server, and into `.env.build` too if the build needs it (the Google keys do). Then rebuild and `up -d`.
 - Rollback: check out the previous commit, rebuild, `up -d`. Migrations are additive, so the previous code still runs on the newer schema. Restoring a dump (`pg_restore --clean`) is the last resort.
 - Logs: `docker compose logs -f app --tail 100`. Database shell: `docker compose exec postgres psql -U skillflow -d skillflow`.
+
+---
+
+## 12. SkillFlow Assistant: deploy and reindex (25 October 2026)
+
+The assistant is a retrieval-augmented chatbot (`lib/assistant/`, `app/api/assistant/route.ts`). Its knowledge lives in one new table, `KnowledgeChunk`, which needs the **pgvector** extension. This deploy therefore has an image change and a migration. Do it in this order. These steps were written for a human and were not run on the server.
+
+**What changes on the server.** Postgres moves from `postgres:16` to `pgvector/pgvector:pg16-trixie`: the official Postgres 16 build plus the extension, on the same Debian trixie (glibc 2.41) as current `postgres:16` images, so the `pgdata` volume is reused as it is. Do not rename or recreate the volume. A new one-off Compose service, `assistant-index` (profile `tools`, built from the Dockerfile's `tools` stage), builds the index; `docker compose up` never starts it.
+
+1. **Back up first.**
+   ```bash
+   cd ~/skillflow
+   ~/backup.sh
+   df -h /                                   # several GB free before building
+   ```
+2. **Check the C library of the running Postgres image** (collations depend on it):
+   ```bash
+   docker compose exec postgres sh -c 'ldd --version | head -1'
+   ```
+   `2.41` (trixie): continue. `2.36` (bookworm, an image pulled before August 2025): stop, change the tag to `pgvector/pgvector:pg16-bookworm` in the repository, push, and start again. A mismatch makes Postgres warn "collation version mismatch" and can mis-order text indexes.
+3. **Pull the code and switch only the Postgres container.** The volume is reused.
+   ```bash
+   git pull
+   docker compose pull postgres && docker compose up -d postgres
+   docker compose exec postgres psql -U skillflow -d skillflow -c 'select count(*) from "User";'
+   ```
+   The count must match what you expect, and there must be **no** `collation version mismatch` warning. If there is one, put the old image back (`postgres:16`), `up -d postgres`, and stop.
+4. **Build, migrate, start.**
+   ```bash
+   docker compose build app
+   docker compose run --rm app node_modules/.bin/prisma migrate deploy   # applies 20261025120000_assistant_knowledge
+   docker compose up -d app
+   docker compose ps                                                      # app becomes (healthy)
+   curl -s https://app.32-236-251-56.sslip.io/api/health
+   ```
+5. **Build the index once** (and again after catalog changes or help edits):
+   ```bash
+   docker compose --profile tools build assistant-index
+   docker compose --profile tools run --rm assistant-index
+   ```
+   It prints `embedded / unchanged / deleted / skipped`. On Gemini's free tier it pauses 30 seconds between batches of 50, so the first run takes about 15 minutes for about 1,400 chunks. A batch the quota still refuses is stored text-only (keyword search finds it) and counted as `skipped`; run it again later and only those are embedded. Reruns are cheap: unchanged chunks are not embedded again.
+6. **Check it in the browser.** Sign in, press Ctrl + J, ask "How does explain-back decide I passed?", and look for a numbered source chip and the Sources list. Then ask "Explain how the knight moves in chess" with an account that has not passed Chess stage 1, and look for "Hint mode".
+7. **Clean up.**
+   ```bash
+   docker builder prune -af
+   docker image prune -f
+   ```
+
+Never run `docker volume prune`, `docker system prune --volumes`, `prisma migrate reset`, or `prisma migrate dev` on production.
+
+**Reindexing later.** An approved resource suggestion is indexed on its own in the background (`reindexResource`; a failure is logged and never blocks the approval). Catalog CMS edits, a catalog import, and help article edits need `docker compose --profile tools run --rm assistant-index` (rebuild the tools image first when the code changed). Locally: `npm run assistant:index`.
+
+**Rollback.** The migration is additive, so the previous app version runs unchanged on the new schema and the pgvector image. To remove the feature's data, nothing is needed beyond leaving the table; do not drop the extension while the table exists.
+
+**Streaming behind Caddy.** The answer streams as newline-delimited JSON. Caddy's `encode zstd gzip` may hold small chunks back, so the answer can arrive in one piece in production. It is still correct, because the last event carries the full verified text. If you want word-by-word streaming, the change is in the `Caddyfile` (skip `encode` for `/api/assistant*`, or add `flush_interval -1` to `reverse_proxy`). It was left alone on purpose.
+
+**Limits and privacy.** Every question counts against `aiAllowed()` (20 a minute, 400 a day per learner). Chats are kept only in the browser tab; the only write per question is a daily count in `ApiUsage` (`provider = 'assistant'`), with no message text. `EXPLAIN_MODEL_*` and `ASSISTANT_EMBED_URL` stay unset in production.
+

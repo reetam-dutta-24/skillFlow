@@ -17,4 +17,6 @@ test-results
 playwright-report
 coverage
 *.md
+# ...except the help articles the SkillFlow Assistant indexes (tools stage only).
+!content/help/*.md
 update.txt

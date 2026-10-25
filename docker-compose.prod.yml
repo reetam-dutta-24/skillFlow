@@ -20,7 +20,7 @@ services:
     expose: ["3000"]                  # reachable only inside Docker; Caddy is the front door
 
   postgres:
-    image: postgres:16
+    image: pgvector/pgvector:pg16-trixie   # Postgres 16 plus pgvector; the pgdata volume is reused unchanged
     restart: unless-stopped
     environment:
       POSTGRES_USER: skillflow
@@ -42,6 +42,19 @@ services:
     command: ["redis-server", "--appendonly", "yes"]
     volumes:
       - redisdata:/data
+
+  # One-off: builds the SkillFlow Assistant's retrieval index. Never started by `up`; run it with
+  #   docker compose --profile tools run --rm assistant-index
+  assistant-index:
+    build:
+      context: .
+      target: tools
+    image: skillflow-tools:latest
+    profiles: ["tools"]
+    env_file: .env
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   caddy:
     image: caddy:2

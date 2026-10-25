@@ -52,6 +52,7 @@ describe("tour slides", () => {
       "themes",
       "beyond",
       "inbox",
+      "assistant",
       "premium",
       "start",
     ]);
@@ -89,6 +90,7 @@ describe("tour slides", () => {
       "themes",
       "beyond",
       "inbox",
+      "assistant",
     ]);
     for (const slide of TOUR_SLIDES) if (slide.demo) expect(slide.demo.prompt.trim(), slide.id).not.toBe("");
   });

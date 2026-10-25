@@ -9,7 +9,7 @@ import { reviewPracticeAnswer, type PracticeReview } from "@/lib/tour/demos";
 import { tourStartLabel, type TourStart } from "@/lib/tour/entry";
 import { START_ON_PATH, START_WITHOUT_PATH, TOUR_SLIDES, type TourSlide } from "@/lib/tour/slides";
 import { BeyondDemo, ExplainDemo, NotesDemo, PathDemo, PlanDemo, ProgressDemo } from "./TourDemos";
-import { ActivityDemo, DetoxDemo, InboxDemo, LessonDemo, NichesDemo, PracticeDemo, ThemeDemo } from "./TourDemosMore";
+import { ActivityDemo, AssistantDemo, DetoxDemo, InboxDemo, LessonDemo, NichesDemo, PracticeDemo, ThemeDemo } from "./TourDemosMore";
 import { PremiumVisual, StartVisual, WelcomeVisual } from "./TourVisuals";
 import { EASE_IN, EASE_OUT, ITEM, SLIDE, SOFT_SPRING, STILL, calm } from "./tour-motion";
 
@@ -181,6 +181,8 @@ export function TourDialog({
         return <BeyondDemo reduce={reduce} />;
       case "inbox":
         return <InboxDemo reduce={reduce} />;
+      case "assistant":
+        return <AssistantDemo reduce={reduce} />;
       case "premium":
         return <PremiumVisual reduce={reduce} />;
       case "start":

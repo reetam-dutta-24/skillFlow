@@ -329,3 +329,54 @@ export function readAllNotes(): string[] {
 export function unreadCount(read: readonly string[]) {
   return INBOX_DEMO.filter((note) => !read.includes(note.id)).length;
 }
+
+/* ── SkillFlow Assistant ──────────────────────────────────────────────────── */
+
+export type AssistantDemoSource = { n: number; kind: "help" | "stage" | "learner"; title: string };
+
+/**
+ * Three scripted exchanges for the tour. No model is called: the answers are fixed text with the same [n] citations
+ * the real assistant returns, and the hint one shows what happens with an explain-back idea not passed yet.
+ */
+export const ASSISTANT_DEMO = [
+  {
+    id: "next",
+    question: "What should I do next?",
+    mode: "answer",
+    answer: "Your next stage is CSS Layout & Responsive Design on Full-Stack Web Development [1]. Work through its resources, then explain it back to open the stage after it [2].",
+    sources: [
+      { n: 1, kind: "learner", title: "Your SkillFlow data (sample)" },
+      { n: 2, kind: "help", title: "Explain-back" },
+    ],
+  },
+  {
+    id: "detox",
+    question: "How is my Detox Score calculated?",
+    mode: "answer",
+    answer: "Your self-check sets the starting score. After that only verified learning moves it, such as ideas and stages you pass, and one day can add at most 5 points [1].",
+    sources: [{ n: 1, kind: "help", title: "Dopamine Detox and the Detox Score" }],
+  },
+  {
+    id: "hint",
+    question: "Explain what a variable is",
+    mode: "hint",
+    answer: "That idea belongs to a stage you have not passed, so you will explain it yourself. The JavaScript Fundamentals resources cover it [1]. Ask yourself: what would you lose if a value had no name? Hint: think about using the same value twice.",
+    sources: [{ n: 1, kind: "stage", title: "Full-Stack Web Development, stage 3: JavaScript Fundamentals" }],
+  },
+] as const satisfies readonly { id: string; question: string; mode: "answer" | "hint"; answer: string; sources: readonly AssistantDemoSource[] }[];
+
+export type AssistantDemoId = (typeof ASSISTANT_DEMO)[number]["id"];
+
+export function assistantDemo(id: string) {
+  return ASSISTANT_DEMO.find((item) => item.id === id) ?? null;
+}
+
+/** The first `count` words of a scripted answer, so the demo can show it arriving the way a real answer streams. */
+export function revealWords(text: string, count: number) {
+  const words = text.split(/(\s+)/);
+  return words.slice(0, Math.max(0, count) * 2).join("").trimEnd();
+}
+
+export function wordTotal(text: string) {
+  return text.split(/\s+/).filter(Boolean).length;
+}

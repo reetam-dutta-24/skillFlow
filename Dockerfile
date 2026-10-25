@@ -26,6 +26,15 @@ RUN --mount=type=secret,id=buildenv,target=/app/.env \
  && npm run build \
  && npm prune --omit=dev
 
+# ── tools: source plus every package, for one-off scripts (never the app image) ─
+# `docker compose --profile tools run --rm assistant-index` builds the SkillFlow Assistant's index with it.
+FROM base AS tools
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+RUN npx prisma generate
+USER node
+CMD ["npm", "run", "assistant:index"]
+
 # ── 3. runner: only what is needed to run, as a non-root user ─────────
 FROM base AS runner
 ENV NODE_ENV=production \

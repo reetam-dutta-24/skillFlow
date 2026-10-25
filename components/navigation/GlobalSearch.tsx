@@ -19,6 +19,8 @@ import { applyTheme, readTheme } from "@/lib/theme";
 
 const RECENT_KEY = "skillflow-recent-search";
 export const OPEN_TOUR_EVENT = "skillflow-open-tour";
+/** Opens the SkillFlow Assistant (app/(app)/_components/Assistant.tsx). `detail.question` prefills the box. */
+export const OPEN_ASSISTANT_EVENT = "skillflow-open-assistant";
 
 type Recent = Pick<SearchEntry, "id" | "kind" | "title" | "description" | "href" | "icon" | "action" | "badge">;
 
@@ -193,9 +195,15 @@ function SearchDialog({ onClose }: { onClose: () => void }) {
         else router.push("/dashboard?tour=1");
         return;
       }
+      if (hit.action === "assistant") {
+        // A typed question (three words or more) carries over into the assistant's box.
+        const question = trimmed.split(/\s+/).length >= 3 ? trimmed : "";
+        window.dispatchEvent(new CustomEvent(OPEN_ASSISTANT_EVENT, { detail: { question } }));
+        return;
+      }
       if (hit.href) router.push(hit.href);
     },
-    [onClose, router],
+    [onClose, router, trimmed],
   );
 
   function onKeyDown(event: React.KeyboardEvent) {

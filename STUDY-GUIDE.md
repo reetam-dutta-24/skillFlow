@@ -61,6 +61,9 @@
 35. Technical glossary
 36. Honest claims
 
+**Part E — The SkillFlow Assistant**
+37. The SkillFlow Assistant (RAG), end to end, with interview questions
+
 ---
 
 # PART A — THE PRODUCT
@@ -1542,7 +1545,8 @@ docker builder prune -af                                  # reclaim build cache
 - Environment validation, health checks, security headers, Redis rate limits, an SSRF guard, magic-byte upload checks.
 - Google sign-in and Stripe (test mode, a test charge passed) work in production.
 - Nightly backups to S3 with a tested restore, CI on every push, and uptime monitoring.
-- 236 unit tests and 10 Playwright end-to-end tests, including the explain-back gate against a stubbed model.
+- 283 unit tests and 12 Playwright end-to-end tests, including the explain-back gate and the assistant against a stubbed model.
+- A RAG assistant over SkillFlow's own help and catalog: pgvector with HNSW, hybrid retrieval with RRF, the Premium filter in SQL, a server-side hint mode for un-passed explain-back ideas, server-verified citations, and a retrieval eval with recorded numbers (section 37).
 
 **Do not claim (yet):**
 - A quiz, a leaderboard, peer review, creator ratings, or earnings (they do not exist).
@@ -1555,3 +1559,116 @@ docker builder prune -af                                  # reclaim build cache
 
 ---
 
+# PART E — THE SKILLFLOW ASSISTANT (RAG)
+
+## 37. The SkillFlow Assistant, end to end
+
+Added on 25 October 2026 as the last feature. "Ask SkillFlow" in the top bar (Ctrl or Cmd + J, or "Ask the assistant" in Ctrl + K) answers questions about SkillFlow using only SkillFlow's own knowledge, streams the answer, and cites its sources. The code is in `lib/assistant/`, the endpoint is `app/api/assistant/route.ts`, and the panel is `app/(app)/_components/Assistant*.tsx`.
+
+### 37.1 What RAG is, and why here
+
+A language model only knows what it was trained on. It does not know SkillFlow's lock rule, its Detox Score formula, or which stage of the Chess path covers castling, and if you ask it anyway it will make something up. **Retrieval-augmented generation** fixes that in two steps: first *retrieve* the few passages of your own content that answer the question, then *generate* an answer that may only use those passages. The model becomes a writer over evidence you chose, not an oracle.
+
+For SkillFlow this matters twice. Wrong help text erodes trust ("it said my certificate needs Premium" — it does not). And the product's thesis is "prove you understood it", so the assistant must never become a way to skip the explain-back.
+
+### 37.2 Embeddings
+
+An **embedding** is a list of numbers (a vector) that places a piece of text in a space where similar meanings sit close together. "How do I get a certificate?" and "A certificate appears only when every stage on a path is passed" land near each other even though they share few words.
+
+- Model: Gemini `gemini-embedding-001`, reduced to **768 dimensions** (the model's native size is 3072; Matryoshka training lets you keep the first 768 with little loss and a quarter of the storage).
+- **Task types:** chunks are embedded as `RETRIEVAL_DOCUMENT` (with their title), questions as `RETRIEVAL_QUERY`. The model shapes the two sides differently so a question matches its answer, not other questions.
+- **Normalisation:** a truncated `gemini-embedding-001` vector is not unit length, so `l2Normalize` (`lib/assistant/vector.ts`) divides by its length before it is stored or compared. With unit vectors, cosine similarity is just a dot product.
+- **Why the native endpoint:** Gemini's OpenAI-compatible `/embeddings` endpoint does not document `dimensions` or task types, so `lib/assistant/embed.ts` calls `batchEmbedContents` with `taskType` and `outputDimensionality`. No SDK; plain `fetch`, a timeout, batches of 50, and retries on 429 that honour Gemini's own `retryDelay` hint.
+- Each chunk stores the `model` that embedded it. A query is only compared with chunks embedded by the same model, so switching models can never compare incompatible vectors.
+
+### 37.3 Chunking
+
+Retrieval returns chunks, not documents, so chunk boundaries decide answer quality (`lib/assistant/chunk.ts`, plain code with tests).
+
+- **Help articles** are split at `##` headings, each chunk prefixed with the article title so it stands alone. A section under about 60 tokens joins the next one; one over 500 is split again.
+- **Catalog:** one chunk per niche, per stage (title, level, description, learning objectives), and per resource (title, kind, provider, length, description, key points).
+- **Transcripts** are split into windows of about 400 tokens that **overlap by about 60**, cut at a sentence end when one is near. Overlap means a sentence on a boundary appears whole in at least one window.
+- Tokens are estimated at four characters each, which is close enough for English and avoids a tokenizer dependency.
+- Every chunk has a `sourceKey` such as `stage:chess/3` that is the same on every database (ids are not), which is what the eval file refers to.
+
+### 37.4 Indexing, and why it is idempotent
+
+`npm run assistant:index` builds the whole corpus, computes a SHA-256 `textHash` of each chunk's title and text, and compares with what is stored. Only new or changed chunks (or chunks missing a vector, or embedded by another model) are embedded; chunks whose source disappeared are deleted. A rerun after a small catalog edit costs a handful of embedding calls. When the embedding call fails (the free tier's per-minute quota, for example), the chunk is still stored without a vector, so keyword search finds it, and the next run embeds it. When an admin approves a suggested resource, `reindexResource` indexes just that resource after the response (`after()`), and a failure never blocks the approval.
+
+### 37.5 pgvector and HNSW
+
+**pgvector** adds a `vector` type and distance operators to Postgres (`<=>` is cosine distance). Keeping vectors in the same database as the catalog means one backup, one connection pool, transactional writes, and access rules expressed in the same SQL — and no extra service on a 2 GB server. Holding a few thousand 768-number vectors in Node memory would waste RAM in every process and vanish on restart.
+
+An exact nearest-neighbour search compares the question with every row. **HNSW** (Hierarchical Navigable Small World) is an approximate index: a layered graph where each vector links to its near neighbours; a search starts at the sparse top layer and greedily walks down toward the closest nodes. It answers in roughly logarithmic time with very high recall. The index is `USING hnsw (vector vector_cosine_ops)`. Trade-off: approximate means it can occasionally miss a true neighbour, and a `WHERE` filter is applied while walking, so a very selective filter can return fewer rows than asked. At a few thousand rows neither matters.
+
+The image is `pgvector/pgvector:pg16-trixie`: official Postgres 16 plus the extension. The tag matters: the plain `pg16` tag is built on Debian bookworm (glibc 2.36) while current `postgres:16` is trixie (glibc 2.41). Text collation comes from glibc, and Postgres warned "collation version mismatch" when the volume was opened under the other one. Matching the base keeps text indexes correct.
+
+### 37.6 Hybrid retrieval: full text plus vectors, fused with RRF
+
+Vectors are good at meaning and bad at exact names ("CIBIL", "box-sizing", "STEP"). Keyword search is the opposite. SkillFlow runs both and fuses them (`lib/assistant/retrieval.ts`, `lib/assistant/rank.ts`):
+
+1. Embed the question (cached in Redis for an hour by a hash of the text).
+2. Top 20 chunks by cosine distance (HNSW).
+3. Top 20 chunks by `ts_rank_cd` against a generated `tsvector` column (title weighted A, text B; GIN index). The question becomes an OR query of its sanitised words, so a natural question still matches; only letters and digits reach `to_tsquery`.
+4. **Reciprocal Rank Fusion:** each list gives a chunk `1 / (k + rank)`, k = 60, and the scores add up. RRF only uses ranks, so it needs no calibration between a cosine of 0.7 and a text rank of 0.05, and a chunk both lists agree on rises to the top.
+5. A small boost: +0.002 for a chunk in a niche the learner follows, +0.004 for the stage they are on. Both together cannot lift a chunk one list found over a chunk both lists agree on (a unit test checks that bound).
+6. At most two chunks per source (a resource and its transcript count as one), the top six, and a **relevance floor**: a chunk is kept only if its cosine is at least 0.6 or it covers at least half of the question's content words. RRF says what is *better*, not what is *relevant*; the floor is what lets the assistant say "I'm not sure".
+7. If the embedding call fails, the full-text list alone still answers.
+
+The **Premium boundary** is in the `WHERE` clause of both queries (`(premium OR monetized = false)`), never filtered afterwards, so a monetized chunk cannot leak through a ranking bug. A niche's own listing chunk (name, description, "Premium niche") is public because the Niches page already shows it to everyone; its stages and resources are not.
+
+### 37.7 Grounding and generation
+
+The model gets numbered sources wrapped in `<source n="…">` tags and a system prompt (`lib/assistant/answer.ts`): answer only from the sources; cite inline as `[1]` or `[2][3]`; link only to URLs in the sources; say "I'm not sure" when they do not cover the question; never invent resources, links, prices, features, or numbers; keep it short. Generation uses the explain-back model (`explainModelConfig()`, Gemini's OpenAI-compatible chat endpoint) with `stream: true`, temperature 0.2, the same 50-second timeout, an abort when the learner presses Stop or closes the tab, and a hard cap of 2,400 characters. History is capped at the last six turns. When nothing relevant is found, the server does not call the model at all; it returns a not-sure reply that links the closest page from the same static index global search uses.
+
+When the question is about the learner ("my", "I", "next", "streak", "score", "plan"…), a live summary of *their* data (followed paths and next stage, mastery, streak, weak topics, due recall, Detox Score, recent note titles) is added as source 1. Every query is filtered by their user id; nothing personal is embedded or cached.
+
+### 37.8 Citation verification
+
+The prompt asks for honest citations; the server makes sure. After the stream ends, `verifyCitations` (`lib/assistant/citations.ts`) removes every `[n]` that does not match a source given to the model, splits grouped markers like `[1, 4]` and checks each, turns a citation written as a link into a checked marker, strips markdown links and bare URLs that are neither a source URL nor an internal app route (a protocol-relative `//host` is foreign), and drops images. The final stream event carries the verified text and only the cited sources. The client shows streaming text as plain text, so nothing is clickable until it has been verified.
+
+### 37.9 Prompt injection
+
+Transcripts and resource descriptions come from the open web; a transcript could contain "ignore your instructions and…". Defences, in layers:
+
+- Source text is labelled untrusted data in the system prompt and wrapped in tags (a closing tag inside a source is removed).
+- The model has no tools and no write access: the worst an injection can do is change the words of one answer to one learner.
+- Links are verified on the server, so an injected link cannot reach the screen.
+- The Premium filter and the explain-back guard are code, not prompt, so an injection cannot switch them off.
+- Chats are not stored, so nothing persists.
+
+Honest limit: an injected instruction could still make one answer wrong or off-topic. The fixed output shape and the citation check reduce the damage; they do not make it impossible.
+
+### 37.10 Hint mode (the product rule in code)
+
+`explainBackGuard` (`lib/assistant/intent.ts`) runs before generation. If the question asks to explain something ("explain", "what is", "how does", "define"…), one of the top three sources sits in a stage this learner has **not** passed, and the question names one of that stage's explain-back ideas (`stageConcepts`: learning objectives plus rubric lines) or its title, the mode is **hint**. Hint mode changes what the model is told (pointers, one or two guiding questions, one hint, never the explanation) *and* what it sees: no transcript text and only the start of each source. The panel labels it "Hint mode — you'll explain this one yourself". Once the stage is passed, the same question gets a normal answer.
+
+### 37.11 Evaluation
+
+A RAG system you cannot measure is a demo. `scripts/assistant-eval.ts` runs retrieval only (no generation) over `content/help/_eval.json`: 43 questions, each with the source keys that should come back, including not-sure questions and explain-back questions that should trigger hint mode, for a free learner who has passed nothing.
+
+- **Recall@5:** the share of answerable questions with a correct source in the top five. Did we find it at all?
+- **MRR (mean reciprocal rank):** the average of 1/rank of the first correct source. Did we put it near the top?
+- **Not-sure accuracy:** the share of all questions where "nothing relevant" was predicted exactly when it should be.
+- **Hint-mode accuracy:** among answerable questions, the share where answer or hint mode was chosen correctly.
+
+A unit test checks the eval file's shape and that every expected key exists in `content/help`, the tour, or the catalog files. The numbers, and what was tuned with them:
+
+<!-- EVAL_NUMBERS -->
+
+### 37.12 Interview questions on the assistant
+
+1. **Why RAG instead of fine-tuning?** The knowledge changes every time an admin edits the catalog. RAG picks that up with a reindex in minutes, cites where each answer came from, and costs nothing to train. Fine-tuning teaches style, not fresh facts, and cannot cite.
+2. **Why pgvector and not a vector database?** A few thousand chunks, one 2 GB server, and access rules that already live in Postgres. One database means one backup and filters in the same SQL. A dedicated vector store becomes worth it at millions of vectors or when the vector workload must scale separately.
+3. **What does HNSW trade away?** Exactness: it is approximate, so it can miss a true nearest neighbour, and filters are applied during the walk, so a selective filter can return fewer rows. In exchange, search is roughly logarithmic instead of a full scan. It also costs memory and slower inserts than IVFFlat.
+4. **Why hybrid search?** Embeddings miss exact terms and rare names; keyword search misses paraphrases. Fusing both gives better recall than either alone. RRF fuses by rank, so no score calibration is needed.
+5. **Why RRF with k = 60?** It is the value from the original paper and is robust. Smaller k rewards the very top ranks more; larger k flattens the difference. The eval script takes `--k=` to compare.
+6. **How do you stop hallucination?** Grounding in numbered sources, a relevance floor that leads to "I'm not sure" without calling the model, low temperature, and a server-side citation check that removes unknown markers and links. Honest limit: the model can still phrase a sourced fact slightly wrong; citations let the learner check.
+7. **How do you enforce the Premium boundary?** In the SQL WHERE clause of both retrievers, so monetized chunks never leave the database for a free learner. Filtering after retrieval would leak through any ranking bug and would also waste the top-K slots.
+8. **How is the learner's private data protected?** It is never embedded or indexed. It is read live with queries filtered by the asking user's id, only when the question is about them, and never cached. Chats are not stored; the only write is a daily usage count.
+9. **What stops the assistant from doing the explain-back for a learner?** A server-side guard decides hint mode from the learner's real pass records and the stage's own explain-back ideas, and hint mode also trims what the model sees. A prompt rule alone could be argued around; this cannot. Honest limit: a cleverly reworded question that names no idea of the stage could still get a normal answer from the catalog.
+10. **How do you handle prompt injection in transcripts?** Sources are marked untrusted, the model has no tools, links are verified server-side, and access and hint mode are code. The residual risk is one wrong answer to one learner.
+11. **What happens when the embedding API is down or rate-limited?** Retrieval falls back to full text and still answers; indexing stores the chunk without a vector and a rerun embeds it later. 429s back off using Gemini's `retryDelay`.
+12. **How did you measure it, and what are the limits of your eval?** Recall@5, MRR, not-sure accuracy, and hint-mode accuracy on 43 hand-written questions. Limits: the set is small and written by the builder, it measures retrieval not answer quality, and it assumes a learner who passed nothing. A next step would be a judged answer-quality set and questions from real (anonymised) usage.
+13. **Why stream, and how do you verify citations if text is already on screen?** Streaming makes a 5–10 second answer feel immediate. Streamed text is shown as plain text, nothing clickable; the final event replaces it with the verified version and the cited sources.
+14. **What would you change at scale?** Move indexing to a queue triggered by catalog writes, add a reranker (a cross-encoder) over the fused top 20, cache answers to frequent help questions, use pgvector's iterative index scans for filtered queries, and evaluate on real questions.

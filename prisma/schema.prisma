@@ -895,3 +895,35 @@ model FocusSession {
 
   @@index([userId, endedAt])
 }
+
+// ── SKILLFLOW ASSISTANT (RAG) ──────────────────────
+// Retrieval chunks built by scripts/assistant-index.ts from content/help, the tour, the feature list, and the catalog.
+// Nothing personal is stored here: a learner's own data is read live for that learner only, and chats are never saved.
+// The vector, the HNSW index, the generated tsvector column, and its GIN index are created in raw SQL by the migration
+// 20261025120000_assistant_knowledge; reads and writes of `vector` and `tsv` go through $queryRaw.
+
+/// One retrieval chunk. `monetized` is resolved from the niche, the stage, and the resource; the SQL WHERE clause hides it without Premium.
+model KnowledgeChunk {
+  id         String   @id @default(cuid())
+  kind       String
+  refId      String
+  chunkIndex Int      @default(0)
+  /// Stable across databases: help:<slug>, skill:<slug>, stage:<slug>/<order>, resource:<slug>/<order>/<order>.
+  sourceKey  String
+  skillId    String?
+  stageId    String?
+  monetized  Boolean  @default(false)
+  title      String
+  url        String
+  lessonUrl  String?
+  text       String   @db.Text
+  textHash   String
+  model      String?
+  vector     Unsupported("vector(768)")?
+  tsv        Unsupported("tsvector")?
+  updatedAt  DateTime @updatedAt
+
+  @@unique([kind, refId, chunkIndex])
+  @@index([textHash])
+  @@index([sourceKey])
+}

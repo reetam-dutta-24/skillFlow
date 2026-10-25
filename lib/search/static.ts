@@ -44,6 +44,7 @@ export const STATIC_SEARCH: readonly SearchEntry[] = [
   { id: "f-checkin", kind: "feature", title: "Weekly Detox check-in", description: "Screen time and focus, once a week", href: "/detox#checkin", icon: "calendar-check", keywords: ["check in", "screen time", "weekly"] },
   { id: "f-map", kind: "feature", title: "Learner map", description: "How many learners study near each city", href: "/nearby", icon: "map", keywords: ["map", "city", "people"] },
   { id: "f-profile", kind: "feature", title: "Public profile", description: "What other learners see about you", href: "/settings", icon: "user", keywords: ["profile", "public", "avatar", "headline"] },
+  { id: "f-assistant", kind: "feature", title: "SkillFlow Assistant", description: "Ask about SkillFlow; answers cite their sources (Ctrl or Cmd + J)", action: "assistant", icon: "sparkles", keywords: ["assistant", "chatbot", "ask", "ai help", "rag", "questions"] },
   { id: "f-tour", kind: "feature", title: "Guided tour", description: "Every feature, hands-on, from Home", href: "/dashboard?tour=1", icon: "compass", keywords: ["tour", "tutorial", "help", "how to", "getting started", "walkthrough", "onboarding"] },
 
   // Settings
@@ -58,6 +59,7 @@ export const STATIC_SEARCH: readonly SearchEntry[] = [
 
   // Quick actions
   { id: "a-theme", kind: "action", title: "Switch light or dark theme", description: "Changes the theme right away", action: "theme", icon: "sun-moon", keywords: ["dark mode", "light mode", "theme", "toggle"] },
+  { id: "a-assistant", kind: "action", title: "Ask the assistant", description: "Questions about SkillFlow, answered from its help and catalog with sources", action: "assistant", icon: "sparkles", keywords: ["ask", "assistant", "chat", "question", "ai", "help me", "how do i", "chatbot"] },
   { id: "a-tour", kind: "action", title: "Replay the guided tour", description: "Opens the tour on Home", action: "tour", icon: "compass", keywords: ["tour", "tutorial", "help", "walkthrough"] },
   { id: "a-focus", kind: "action", title: "Start a focus session", description: "Opens Detox · Focus session", href: "/detox#focus", icon: "timer", keywords: ["focus", "timer", "pomodoro"] },
   { id: "a-swap", kind: "action", title: "Swap a scroll now", description: "One recall or one idea in three minutes", href: "/detox?swap=1", icon: "repeat-2", keywords: ["swap", "quick"] },
@@ -71,4 +73,4 @@ export const STATIC_SEARCH: readonly SearchEntry[] = [
 ];
 
 /** Shown before anything is typed. */
-export const SEARCH_SUGGESTIONS = ["p-niches", "f-explain", "p-detox", "a-theme", "f-tour", "p-notes"];
+export const SEARCH_SUGGESTIONS = ["p-niches", "f-explain", "a-assistant", "p-detox", "a-theme", "f-tour", "p-notes"];

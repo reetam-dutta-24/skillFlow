@@ -1,12 +1,13 @@
 "use client";
 
-import { useId, useState, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useId, useState, type CSSProperties, type ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/core/Button.jsx";
 import { Icon } from "@/components/core/Icon.jsx";
 import { SkillImage } from "@/components/core/SkillImage";
 import { DetoxGauge } from "@/components/detox/DetoxGauge";
 import {
+  ASSISTANT_DEMO,
   DETOX_DEMO_ACTIONS,
   DETOX_DEMO_BASE,
   HEAT_DAYS,
@@ -15,15 +16,18 @@ import {
   NICHE_DEMO,
   PRACTICE_SOURCES,
   THEME_DEMO_PRESETS,
+  assistantDemo,
   bumpDay,
   detoxDemo,
   heatTotals,
   lessonStep,
   readAllNotes,
   readNote,
+  revealWords,
   themeDemoVars,
   toggleFollow,
   unreadCount,
+  wordTotal,
   type PracticeSource,
 } from "@/lib/tour/demos";
 import { DemoSuccess, EASE_OUT, SOFT_SPRING, calm } from "./tour-motion";
@@ -408,6 +412,95 @@ export function InboxDemo({ reduce }: { reduce: boolean }) {
       </ul>
       <div role="status">
         {unread === 0 ? <DemoSuccess reduce={reduce}>All caught up. Every kind has its own switch in Settings.</DemoSuccess> : null}
+      </div>
+    </Frame>
+  );
+}
+
+/* ── SkillFlow Assistant ──────────────────────────────────────────────────── */
+
+const DEMO_ICON = { help: "circle-help", stage: "flag", learner: "user" } as const;
+
+/** The answer with each [n] as a small numbered chip, the way the real panel shows citations. */
+function CitedText({ text }: { text: string }) {
+  const parts = text.split(/(\[\d\])/g);
+  return (
+    <>
+      {parts.map((part, index) =>
+        /^\[\d\]$/.test(part) ? (
+          <span key={index} className="sf-assist-cite" aria-label={`source ${part.slice(1, -1)}`}>
+            {part.slice(1, -1)}
+          </span>
+        ) : (
+          <span key={index}>{part}</span>
+        ),
+      )}
+    </>
+  );
+}
+
+export function AssistantDemo({ reduce }: { reduce: boolean }) {
+  const [picked, setPicked] = useState<string | null>(null);
+  const [shown, setShown] = useState(0);
+  const item = picked ? assistantDemo(picked) : null;
+  const total = item ? wordTotal(item.answer) : 0;
+  const done = Boolean(item) && (reduce || shown >= total);
+
+  // A scripted "stream": a few words at a time. Nothing is sent anywhere.
+  useEffect(() => {
+    if (!item || reduce || shown >= total) return undefined;
+    const timer = window.setTimeout(() => setShown((count) => count + 3), 70);
+    return () => window.clearTimeout(timer);
+  }, [item, reduce, shown, total]);
+
+  return (
+    <Frame label="ask the assistant a sample question">
+      <div className="sf-tour-assist-questions" role="group" aria-label="Sample questions">
+        {ASSISTANT_DEMO.map((entry) => (
+          <button
+            key={entry.id}
+            type="button"
+            className="sf-tour-assist-q"
+            aria-pressed={picked === entry.id}
+            onClick={() => {
+              setPicked(entry.id);
+              setShown(0);
+            }}
+          >
+            <Icon name="message-circle-question" size={15} />
+            {entry.question}
+          </button>
+        ))}
+      </div>
+      {item ? (
+        <div className="sf-tour-assist-answer" aria-live="polite">
+          {item.mode === "hint" ? (
+            <p className="sf-assist-label" data-mode="hint">
+              <Icon name="lightbulb" size={14} /> Hint mode — you&rsquo;ll explain this one yourself
+            </p>
+          ) : null}
+          <p className="sf-tour-assist-text">
+            {done ? <CitedText text={item.answer} /> : revealWords(item.answer, shown)}
+          </p>
+          {done ? (
+            <ul className="sf-tour-assist-sources" aria-label="Sources">
+              {item.sources.map((source) => (
+                <li key={source.n}>
+                  <span className="sf-assist-source-n">{source.n}</span>
+                  <Icon name={DEMO_ICON[source.kind]} size={14} />
+                  <span>{source.title}</span>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </div>
+      ) : null}
+      <div role="status">
+        {done ? (
+          <DemoSuccess reduce={reduce}>
+            {item?.mode === "hint" ? "Hints, not answers, until you pass the stage yourself." : "Every answer shows the sources it came from."}
+          </DemoSuccess>
+        ) : null}
       </div>
     </Frame>
   );

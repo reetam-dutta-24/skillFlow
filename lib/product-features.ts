@@ -27,4 +27,5 @@ export const PRODUCT_FEATURES = [
   { id: "appearance", name: "Themes and accents", href: "/settings" },
   { id: "tour", name: "Interactive product tour", href: "/dashboard" },
   { id: "search", name: "Global search across niches, stages, and features", href: "/dashboard" },
+  { id: "assistant", name: "SkillFlow Assistant: answers with cited sources", href: "/dashboard" },
 ] as const;

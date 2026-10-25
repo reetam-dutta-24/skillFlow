@@ -23,7 +23,7 @@
 4. **Keep what you learned.** Accepted ideas become notes (exportable as Word or PDF), come back twice for spaced recall 18 hours apart, and feed mastery, streaks, weak topics, and analytics.
 5. **Finish the path.** Each pass opens the next stage. Passing every stage earns a certificate and a transcript.
 
-Around that loop: personal learning plans built in code from your preferences, a 180-item career-fit test, Dopamine Detox (an original self-check and a Detox Score that only verified learning moves, with focus sessions and a weekly check-in), global search in the top bar (Ctrl+K: niches, stages, resources, Open Source posts, features, and settings), a moderated Open Source community per niche, a creator studio, an opt-in learner map (city counts only), nearby events, notifications, a full analytics page, self-serve account deletion, and a guided tour on Home that walks through every feature, from niches to themes and accents, with a small hands-on demo on each. **Premium** is one Stripe subscription that opens the niches outside the thirty free paths and appearing on the learner map; everything above stays free.
+Around that loop: personal learning plans built in code from your preferences, a 180-item career-fit test, Dopamine Detox (an original self-check and a Detox Score that only verified learning moves, with focus sessions and a weekly check-in), global search in the top bar (Ctrl+K: niches, stages, resources, Open Source posts, features, and settings), the SkillFlow Assistant (Ctrl+J: a RAG chatbot that answers from SkillFlow's own help and catalog with cited sources, and gives hints instead of answers for an explain-back you have not passed), a moderated Open Source community per niche, a creator studio, an opt-in learner map (city counts only), nearby events, notifications, a full analytics page, self-serve account deletion, and a guided tour on Home that walks through every feature, from niches to themes and accents, with a small hands-on demo on each. **Premium** is one Stripe subscription that opens the niches outside the thirty free paths and appearing on the learner map; everything above stays free.
 
 What SkillFlow refuses on purpose: quizzes, comments, likes, view counts, trending, leaderboards, peer review, and guilt copy when a streak breaks.
 
@@ -109,20 +109,62 @@ sequenceDiagram
 
 ---
 
+## SkillFlow Assistant (RAG)
+
+**Ask SkillFlow** (top bar, Ctrl or Cmd + J, or "Ask the assistant" in Ctrl + K) answers questions about SkillFlow from SkillFlow's own knowledge only, streams the answer, and cites its sources. It is retrieval-augmented generation with real parts: embeddings, a vector index, hybrid retrieval, grounded generation with server-verified citations, and a retrieval eval.
+
+```mermaid
+flowchart LR
+    subgraph Index["npm run assistant:index (idempotent)"]
+        H["content/help/*.md<br/>tour slides, feature list"] --> C["Chunker<br/>by heading, 400-token windows<br/>with 60-token overlap"]
+        K["Skill, RoadmapStage,<br/>Resource, transcripts"] --> C
+        C -->|"new or changed textHash"| E["gemini-embedding-001<br/>768-d, RETRIEVAL_DOCUMENT,<br/>L2-normalised"]
+        E --> P[("Postgres + pgvector<br/>KnowledgeChunk<br/>HNSW cosine + GIN tsvector")]
+    end
+    Q["Question<br/>(aiAllowed, Zod)"] --> QE["Query embedding<br/>RETRIEVAL_QUERY<br/>cached 1 h in Redis"]
+    QE --> V["Top 20 by cosine"]
+    Q --> F["Top 20 by ts_rank_cd"]
+    P --- V
+    P --- F
+    V --> R["Reciprocal Rank Fusion k=60<br/>+ followed niche / current stage boost<br/>max 2 per source, relevance floor"]
+    F --> R
+    L["Learner's own data<br/>(live, only for 'my' questions)"] --> G
+    R --> X{"Explain-back guard<br/>un-passed stage idea?"}
+    X -->|"no"| G["Grounded answer<br/>numbered sources, streamed"]
+    X -->|"yes"| HM["Hint mode<br/>pointers, questions, a hint"]
+    R -->|"nothing relevant"| NS["Not sure + closest page<br/>(no model call)"]
+    G --> V2["Citation check<br/>drop unknown [n] and foreign links"]
+    HM --> V2
+    V2 --> U["Panel: chips + Sources"]
+```
+
+- **Knowledge.** 19 short help articles in `content/help/` written from the code, the guided tour's slides, the feature list, and every niche, stage, active resource, and transcript. About 1,400 chunks. The learner's own progress, plan, weak topics, due recall, and Detox Score are never embedded; they are read live, for that learner only, when the question is about them.
+- **Storage.** pgvector in the same Postgres (`pgvector/pgvector:pg16-trixie`), a `vector(768)` column with an HNSW index on cosine distance, and a generated `tsvector` column with a GIN index. All SQL is tagged-template `$queryRaw` with bound values.
+- **Retrieval.** Hybrid: vector and full-text lists fused with Reciprocal Rank Fusion. The Premium boundary is in the SQL `WHERE` clause of both searches. If the embedding call fails, full-text alone still answers.
+- **It never does your explain-back.** A question that asks to explain an idea from a stage you have not passed switches to hint mode on the server: the model sees less of the sources and is told to give pointers, one or two guiding questions, and a hint. After you pass the stage, it explains normally.
+- **Grounded or silent.** When nothing relevant is found, it says it is not sure and links the closest page, without calling the model. Source text is untrusted data in the prompt. After the stream, every `[n]` that matches no source and every link that is neither a source nor an app route is removed.
+- **No endless chat, no stored chat.** Each question counts against the AI limits (20 a minute, 400 a day). History is capped at six turns and answers at 2,400 characters. Chats live in the page's React state only.
+
+**Evaluation** (`npm run assistant:eval`, retrieval only, 43 questions in `content/help/_eval.json`, a free learner who has passed nothing):
+
+<!-- EVAL_TABLE -->
+
+---
+
 ## Tech stack
 
 | Layer | Choice |
 | --- | --- |
 | Framework | Next.js 16.3.4 (App Router, Cache Components, `proxy.ts`, `instrumentation.ts`), React 19.2.8, TypeScript |
 | Styling | Tailwind CSS v4 with design tokens in `app/globals.css`; dark/light themes; accent presets, Spectrum, custom gradients |
-| Data | PostgreSQL 16 through Prisma 6.19.3; 28 hand-written, additive migrations |
+| Data | PostgreSQL 16 (with pgvector) through Prisma 6.19.3; 29 hand-written, additive migrations |
 | Auth | Auth.js v5 (JWT sessions), email + bcrypt password, Google OAuth (verified email only, no auto-linking) |
-| AI | Gemini free tier (`gemini-flash-lite-latest`) through the OpenAI-compatible endpoint; OpenAI or any compatible endpoint as fallbacks |
+| AI | Gemini free tier (`gemini-flash-lite-latest`) through the OpenAI-compatible endpoint; OpenAI or any compatible endpoint as fallbacks. Assistant embeddings: `gemini-embedding-001` at 768 dimensions through the native `batchEmbedContents` |
 | Rate limits | Redis 7 (`ioredis`), fixed-window counters |
 | Payments | Stripe Checkout, customer portal, signed webhooks |
 | Maps | MapLibre GL + supercluster, OpenStreetMap tiles and Nominatim |
 | Other | framer-motion, Recharts, `docx` and `pdf-lib` exports, Zod, `next/og` images |
-| Tests | Vitest (236 tests in 40 files), Playwright (10 end-to-end tests) |
+| Tests | Vitest (283 tests in 41 files), Playwright (12 end-to-end tests) |
 | Deploy | Docker (multi-stage, non-root, health check), Docker Compose, Caddy, AWS EC2 |
 
 **Caching.** Content that is the same for everyone is cached with `"use cache"` and tags (`catalog`, `community`, `learner-map`, `geocode`, `nearby-events`, `practice-source`, `landing-stats`, `account:<id>`), and writes expire them with `updateTag`. Progress, streaks, notes, follow state, and the account menu are read per request. Redis is not a cache; it only holds rate-limit counters.
@@ -153,6 +195,8 @@ npx tsc --noEmit                  # type check
 npm run build                     # production build (needs the database: catalog pages prerender)
 npx playwright install chromium   # once
 npm run test:e2e                  # Playwright; needs a seeded database, adds one e2e learner per run
+npm run assistant:index           # build or refresh the assistant's index (pgvector; needs the migration)
+npm run assistant:eval            # retrieval eval: Recall@5, MRR, not-sure and hint-mode accuracy
 ```
 
 ---
@@ -164,7 +208,7 @@ SkillFlow runs on one AWS EC2 instance (`t3.small`, Ubuntu, Sydney, Elastic IP) 
 | Service | Image | Notes |
 | --- | --- | --- |
 | `app` | built from `Dockerfile` | Node 22 slim, three stages, runs as `node`, `HEALTHCHECK` on `/api/health`, uploads on a volume |
-| `postgres` | `postgres:16` | Data in the `pgdata` volume; port bound to `127.0.0.1` only |
+| `postgres` | `pgvector/pgvector:pg16-trixie` | Postgres 16 plus pgvector (the assistant's index). Data in the `pgdata` volume; port bound to `127.0.0.1` only |
 | `redis` | `redis:7-alpine` | Append-only persistence; not published |
 | `caddy` | `caddy:2` | The only public service (80, 443); automatic Let's Encrypt certificates for `DOMAIN` |
 

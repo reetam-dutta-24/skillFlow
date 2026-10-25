@@ -83,13 +83,13 @@ export async function reviewSubmissionRecord(input: {
   const url = storedSource(submission.url);
   if (!url) return { ok: false as const, error: "Upload a file, or use an https link." };
 
-  await prisma.$transaction(async (tx) => {
+  const created = await prisma.$transaction(async (tx) => {
     const last = await tx.resource.findFirst({
       where: { stageId: submission.stageId },
       orderBy: { order: "desc" },
       select: { order: true },
     });
-    await tx.resource.create({
+    const resource = await tx.resource.create({
       data: {
         stageId: submission.stageId,
         type: submission.type,
@@ -98,6 +98,7 @@ export async function reviewSubmissionRecord(input: {
         description: submission.description,
         order: (last?.order ?? 0) + 1,
       },
+      select: { id: true },
     });
     await tx.resourceSubmission.update({
       where: { id: submission.id },
@@ -108,7 +109,8 @@ export async function reviewSubmissionRecord(input: {
         reviewedById: input.reviewerId,
       },
     });
+    return resource;
   });
 
-  return { ok: true as const, ...paths };
+  return { ok: true as const, ...paths, resourceId: created.id };
 }

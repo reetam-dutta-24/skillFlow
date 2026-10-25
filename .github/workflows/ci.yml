@@ -19,7 +19,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:16
+        image: pgvector/pgvector:pg16-trixie   # Postgres 16 plus pgvector, for the assistant migration
         env:
           POSTGRES_USER: skillflow
           POSTGRES_PASSWORD: skillflow

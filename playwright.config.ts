@@ -37,6 +37,8 @@ export default defineConfig({
         EXPLAIN_MODEL_KEY: "e2e-stub",
         EXPLAIN_MODEL_URL: `http://localhost:${STUB_PORT}/v1/chat/completions`,
         EXPLAIN_MODEL_NAME: "stub",
+        // The assistant's embeddings come from the same stub (OpenAI-compatible /v1/embeddings).
+        ASSISTANT_EMBED_URL: `http://localhost:${STUB_PORT}/v1/embeddings`,
         // No Redis during tests, so the AI and sign-up limits never cut a run short.
         REDIS_URL: "",
       },

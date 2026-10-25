@@ -18,6 +18,7 @@ export type TourVisualId =
   | "theme"
   | "beyond"
   | "inbox"
+  | "assistant"
   | "premium"
   | "start";
 
@@ -34,7 +35,8 @@ export type TourDemoId =
   | "detox"
   | "theme"
   | "beyond"
-  | "inbox";
+  | "inbox"
+  | "assistant";
 
 export type TourSlide = {
   id: string;
@@ -195,6 +197,16 @@ export const TOUR_SLIDES: readonly TourSlide[] = [
     body: "The bell tells you when a review is decided, someone asks about your post, or your streak or weekly check-in is waiting. Your public profile shows only what you choose to share.",
     visual: "inbox",
     demo: { id: "inbox", prompt: "Open a notification, then mark them all as read." },
+  },
+  {
+    id: "assistant",
+    label: "Ask SkillFlow",
+    kicker: "SkillFlow Assistant",
+    emoji: "💬",
+    heading: "Ask, and see where every answer comes from",
+    body: "Ask SkillFlow answers from the app's own help and catalog, and cites each source. Ask about a stage you have not passed and you get pointers and a hint, never the answer. Press Ctrl or Cmd + J.",
+    visual: "assistant",
+    demo: { id: "assistant", prompt: "Pick a question and watch a scripted answer arrive with its sources." },
   },
   {
     id: "premium",

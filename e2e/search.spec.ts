@@ -27,7 +27,7 @@ test("global search finds features, settings, and niches, and opens one", async 
   await box.fill("replay tour");
   await expect(dialog.getByRole("option", { name: /Replay the guided tour/ })).toBeVisible();
   await box.press("Enter");
-  await expect(page.getByRole("dialog").getByText("Step 1 of 16")).toBeVisible();
+  await expect(page.getByRole("dialog").getByText("Step 1 of 17")).toBeVisible();
   await page.keyboard.press("Escape");
   await expect(page.getByRole("dialog")).toHaveCount(0);
 

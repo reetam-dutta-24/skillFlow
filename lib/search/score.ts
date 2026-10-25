@@ -16,7 +16,7 @@ export type SearchEntry = {
   keywords?: readonly string[];
   /** Where it goes. Actions without an href run in the browser (for example, switching the theme). */
   href?: string;
-  action?: "theme" | "tour";
+  action?: "theme" | "tour" | "assistant";
   icon?: string;
   badge?: string;
   /** Breaks near ties in a natural order, such as a path's stages from first to last. */

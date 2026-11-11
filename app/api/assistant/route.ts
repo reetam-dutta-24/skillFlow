@@ -24,6 +24,7 @@ import { prisma } from "@/lib/prisma";
  */
 
 const RETRIEVAL_BUDGET_MS = 5000;
+const MAX_BODY_BYTES = 64_000;
 /** A short question is treated as a follow-up, so the previous question joins the search. */
 const FOLLOW_UP_WORDS = 7;
 
@@ -62,7 +63,17 @@ export async function POST(request: Request) {
   const userId = session?.user?.id;
   if (!userId) return fail("signed-out", 401);
 
-  const body = await request.json().catch(() => null);
+  // The largest valid body (a 1,000-character question and six 4,000-character turns) is well under this. Anything
+  // bigger is refused before it is parsed, so a huge body cannot tie up the server.
+  if (Number(request.headers.get("content-length") ?? 0) > MAX_BODY_BYTES) return fail("invalid", 413);
+  const rawBody = await request.text().catch(() => "");
+  if (rawBody.length > MAX_BODY_BYTES) return fail("invalid", 413);
+  let body: unknown = null;
+  try {
+    body = JSON.parse(rawBody);
+  } catch {
+    body = null;
+  }
   const parsed = assistantRequestSchema.safeParse(body);
   if (!parsed.success) return fail("invalid", 400);
   if (!(await aiAllowed(userId))) return fail("rate-limit", 429);

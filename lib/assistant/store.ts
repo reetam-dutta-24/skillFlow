@@ -17,11 +17,19 @@ type ExistingRow = { id: string; kind: string; refId: string; chunkIndex: number
 
 export type SyncCounts = { embedded: number; unchanged: number; deleted: number; skipped: number };
 
-async function existingRows(scope?: { refId: string }): Promise<ExistingRow[]> {
-  if (scope) {
+/** One resource (with its transcript windows), or one whole niche (its card, stages, resources, and transcripts). */
+export type SyncScope = { refId: string } | { skillId: string };
+
+async function existingRows(scope?: SyncScope): Promise<ExistingRow[]> {
+  if (scope && "refId" in scope) {
     return prisma.$queryRaw<ExistingRow[]>`
       SELECT id, kind, "refId", "chunkIndex", "textHash", model, (vector IS NOT NULL) AS "hasVector"
       FROM "KnowledgeChunk" WHERE "refId" = ${scope.refId} AND kind IN ('resource', 'transcript')`;
+  }
+  if (scope) {
+    return prisma.$queryRaw<ExistingRow[]>`
+      SELECT id, kind, "refId", "chunkIndex", "textHash", model, (vector IS NOT NULL) AS "hasVector"
+      FROM "KnowledgeChunk" WHERE "skillId" = ${scope.skillId} AND kind IN ('skill', 'stage', 'resource', 'transcript')`;
   }
   return prisma.$queryRaw<ExistingRow[]>`
     SELECT id, kind, "refId", "chunkIndex", "textHash", model, (vector IS NOT NULL) AS "hasVector" FROM "KnowledgeChunk"`;
@@ -55,7 +63,7 @@ async function refreshMetadata(chunk: KnowledgeChunkInput) {
 
 export async function syncChunks(
   chunks: readonly KnowledgeChunkInput[],
-  options: { embedder?: Embedder | null; delayMs?: number; scope?: { refId: string }; log?: (line: string) => void } = {},
+  options: { embedder?: Embedder | null; delayMs?: number; scope?: SyncScope; log?: (line: string) => void } = {},
 ): Promise<SyncCounts> {
   const embedder = options.embedder === undefined ? embedderConfig() : options.embedder;
   const existing = new Map((await existingRows(options.scope)).map((row) => [chunkKey(row), row]));
@@ -133,6 +141,32 @@ export async function reindexResource(resourceId: string): Promise<SyncCounts | 
     return await syncChunks(chunks ?? [], { scope: { refId: resourceId }, log: (line) => console.warn("[assistant]", line) });
   } catch (error) {
     console.error("[assistant] reindex failed", resourceId, error instanceof Error ? error.message.slice(0, 180) : "error");
+    return null;
+  }
+}
+
+/**
+ * Re-index one niche after a Catalog CMS write: new, edited, moved, and deleted stages and resources, and a changed
+ * Premium flag, reach the assistant without a full `npm run assistant:index`. Only changed chunks are embedded. A
+ * deleted niche loads no chunks, so its rows are removed. Never throws, so the CMS save is never blocked.
+ */
+export async function reindexSkill(skillId: string): Promise<SyncCounts | null> {
+  try {
+    const chunks = await loadCatalogChunks(skillId);
+    return await syncChunks(chunks, { scope: { skillId }, log: (line) => console.warn("[assistant]", line) });
+  } catch (error) {
+    console.error("[assistant] niche reindex failed", skillId, error instanceof Error ? error.message.slice(0, 180) : "error");
+    return null;
+  }
+}
+
+/** Re-index the niche a stage belongs to. Never throws. */
+export async function reindexStageSkill(stageId: string): Promise<SyncCounts | null> {
+  try {
+    const stage = await prisma.roadmapStage.findUnique({ where: { id: stageId }, select: { skillId: true } });
+    return stage ? await reindexSkill(stage.skillId) : null;
+  } catch (error) {
+    console.error("[assistant] stage reindex failed", stageId, error instanceof Error ? error.message.slice(0, 180) : "error");
     return null;
   }
 }

@@ -89,9 +89,13 @@ function asSkill(skill: { id: string; slug: string; name: string; description: s
   return { ...skill, free: isFreePath(skill.slug), stageCount };
 }
 
-/** Every niche, stage, and active resource (with transcript windows). An unavailable resource is not indexed. */
-export async function loadCatalogChunks(): Promise<KnowledgeChunkInput[]> {
+/**
+ * Every niche, stage, and active resource (with transcript windows). An unavailable resource is not indexed. With a
+ * `skillId`, only that niche: an empty list when it was deleted, so a scoped sync removes its chunks.
+ */
+export async function loadCatalogChunks(skillId?: string): Promise<KnowledgeChunkInput[]> {
   const skills = await prisma.skill.findMany({
+    where: skillId ? { id: skillId } : undefined,
     orderBy: { order: "asc" },
     select: {
       id: true,

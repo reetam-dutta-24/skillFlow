@@ -1,6 +1,8 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { after } from "next/server";
+import { reindexSkill, reindexStageSkill } from "@/lib/assistant/store";
 import { invalidateCatalog } from "@/lib/cache/invalidate";
 import { prepareCatalogSkill, storeSkillImage, type CatalogSkillInput } from "@/lib/catalog-skill";
 import { isFreePath } from "@/lib/niches/tiers";
@@ -26,6 +28,8 @@ async function revalidateStage(stageId: string) {
   revalidatePath(`/lesson/${stageId}`);
   if (stage) revalidatePath(`/roadmap/${stage.skill.slug}`);
   invalidateCatalog();
+  // The assistant's index follows the catalog, in the background, so the save never waits on embeddings.
+  after(() => reindexStageSkill(stageId));
 }
 
 async function revalidateSkill(skillId: string) {
@@ -37,6 +41,7 @@ async function revalidateSkill(skillId: string) {
   revalidatePath("/roadmap");
   if (skill) revalidatePath(`/roadmap/${skill.slug}`);
   invalidateCatalog();
+  after(() => reindexSkill(skillId));
 }
 
 export async function saveResource(input: CatalogSaveInput) {
@@ -48,6 +53,7 @@ export async function saveResource(input: CatalogSaveInput) {
     revalidatePath(result.lessonHref);
     revalidatePath("/admin/catalog");
     invalidateCatalog();
+    after(() => reindexStageSkill(input.stageId));
   }
   return result;
 }
@@ -64,6 +70,7 @@ export async function createSkill(input: CatalogSkillInput) {
   revalidatePath("/dashboard");
   revalidatePath("/roadmap");
   invalidateCatalog();
+  after(() => reindexSkill(saved.data.id));
   return { ok: true as const, id: saved.data.id, slug: saved.data.slug };
 }
 
@@ -201,6 +208,8 @@ export async function deleteNiche(input: { id: string }) {
   revalidatePath("/dashboard");
   revalidatePath("/roadmap");
   invalidateCatalog();
+  // A deleted niche loads no chunks, so the scoped sync removes what the assistant still held for it.
+  after(() => reindexSkill(input.id));
   return { ok: true as const };
 }
 

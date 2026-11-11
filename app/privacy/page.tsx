@@ -60,6 +60,16 @@ const sections: LegalSection[] = [
           </li>
           <li>Practice notes, and the link, file, or passage you practised against.</li>
           <li>
+            On practical paths, the hands-on work you show for a stage: a link, or a photo, video, or PDF you upload, and your
+            write-up of what you did, with the review that came back. It is private to you. Deleting your account removes it and
+            the files.
+          </li>
+          <li>
+            For explain-back answers: how each was given (typed, spoken, or both), and a count per stage of answers that read as
+            AI-written or pasted. To work that out, your browser counts characters typed and pasted and how long the box was in
+            use. We never record keystrokes or keep the flagged text.
+          </li>
+          <li>
             If you take the career-fit test: your answers to its 180 questions, the personality and interest scores worked out from them,
             and your written report. The test is optional, and you can delete it at any time from the report.
           </li>
@@ -138,7 +148,8 @@ const sections: LegalSection[] = [
         <ul>
           <li>
             <strong>Google (Gemini) or OpenAI.</strong> Your explanation, the idea it is about, and that stage&apos;s title and notes are sent
-            to an AI model, which writes the review. The same goes for recall answers, practice answers, note summaries, and a plan
+            to an AI model, which writes the review. For hands-on work, your write-up, the link or file name, and the text of a linked
+            page are sent; uploaded photos and videos are not. The same goes for recall answers, practice answers, note summaries, and a plan
             description you write. For the career-fit report, only your scores, your onboarding goals and stage, and the names and first
             stages of your top paths are sent, never your 180 answers. For Dopamine Detox next steps, only your scores, the ids of the
             answers you picked (never your mood answers), and counts of this week&apos;s learning are sent; if your answers show you

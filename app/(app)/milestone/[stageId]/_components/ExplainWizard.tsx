@@ -13,7 +13,7 @@ import { completeExplainWizard, reviewConcept } from "../actions";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-type StepError = "unavailable" | "unconnected" | "empty";
+type StepError = "unavailable" | "unconnected" | "empty" | "proof";
 
 export function ExplainWizard({
   stageId,
@@ -326,6 +326,8 @@ export function ExplainWizard({
               ? "The explain-back model is not connected yet."
               : error === "empty"
                 ? "This idea still needs an explanation."
+                : error === "proof"
+                  ? "This stage also needs your hands-on work."
                 : "We could not review this idea."
           }
           description="Nothing was saved, and this step stays where it is."

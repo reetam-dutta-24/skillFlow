@@ -35,6 +35,7 @@ export async function deleteAccountRecord(
       learnerProfile: { select: { showOnMap: true } },
       creatorWorks: { select: { status: true, mediaUrl: true } },
       communityContributions: { select: { imageUrl: true } },
+      practicalProofs: { select: { url: true } },
       _count: { select: { communityContributions: true, communityMemberships: true, contributionQuestions: true, gapReports: true, submittedEvents: true } },
     },
   });
@@ -71,7 +72,7 @@ export async function deleteAccountRecord(
   ]);
 
   // Files on disk are not in the database. A failure here leaves an orphaned file, never a half-deleted account.
-  const files = [user.image, ...user.creatorWorks.map((work) => work.mediaUrl), ...user.communityContributions.map((post) => post.imageUrl)].filter(
+  const files = [user.image, ...user.creatorWorks.map((work) => work.mediaUrl), ...user.communityContributions.map((post) => post.imageUrl), ...user.practicalProofs.map((proof) => proof.url)].filter(
     (file): file is string => typeof file === "string" && file.startsWith("/uploads/"),
   );
   await Promise.all(files.map((file) => removeUploadedFile(file)));

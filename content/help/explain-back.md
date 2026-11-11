@@ -20,7 +20,10 @@ Explain-back only works if the words are yours. Each answer is checked for signs
 An empty answer stays on the step. A wrong or thin answer also stays on the step and shows a written review that says what is missing. You can try that idea again as many times as you like. Nothing lets you skip an idea.
 
 ## What happens when every idea holds
-Each idea that holds is saved to Notes with your explanation and its review. When the last idea holds, the stage is recorded as passed and the next stage on the path opens.
+Each idea that holds is saved to Notes with your explanation and its review. When the last idea holds, the stage is recorded as passed and the next stage on the path opens, unless the path is a practical one.
+
+## Hands-on work on practical paths
+On paths where the skill is something you make or perform (Full-Stack Web Development, IoT and Robot Automation, Music Production, Animation, Graphic Design, Photography, Art and Painting, Guitar, Badminton, Sound Design, Content Creation, Travel Vlogging, Podcasting, Cybersecurity, Interior Design, Public Speaking, Chess, Screenwriting, SEO, Digital Marketing, AI Tools, and Freelancing), explaining is half of it. After the last idea holds, the stage asks you to show one small piece of real work that uses it: a link, a photo or screenshot, a short video, or a PDF, whichever that path offers, and at least 40 words on what you did, how, and one thing you changed or fixed. The reviewer cannot see photos or videos, so it reads your write-up, and the text of a linked page such as a repository when it can. The write-up goes through the same own-words check as your answers. Once the work is accepted, the stage is recorded. Paths about knowledge or personal life, such as Psychology, Nutrition, or Personal Finance, stay explain-back only. Stages you passed before this was added stay passed.
 
 ## Where the ideas come from
 The ideas are written from the stage's own resources the first time the gate opens, and again when those resources change. Every key point from the resources is kept. Explain-back runs in focus mode, which hides the sidebar, and your draft is kept in this browser until the stage is saved.

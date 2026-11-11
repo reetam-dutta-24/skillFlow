@@ -75,6 +75,7 @@ model User {
   detoxCheckIns    DetoxCheckIn[]
   focusSessions    FocusSession[]
   explainIntegrity ExplainBackIntegrity[]
+  practicalProofs  PracticalProof[]
 }
 
 model Subscription {
@@ -257,6 +258,7 @@ model RoadmapStage {
   gapReports             GapReport[]
   learnerNotes           LearnerNote[]
   explainIntegrity       ExplainBackIntegrity[]
+  practicalProofs        PracticalProof[]
 
   @@unique([skillId, order])
 }
@@ -398,6 +400,30 @@ model ExplainBackIntegrity {
   lastFlaggedAt DateTime?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+
+  user  User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  stage RoadmapStage @relation(fields: [stageId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, stageId])
+}
+
+/// Hands-on proof for one stage of a practical path (lib/explain/hands-on.ts): a link or an uploaded file, and the
+/// learner's write-up of what they did. On those paths a stage is recorded only once every idea holds and this is
+/// accepted. One row per learner per stage; a new submission replaces the last.
+model PracticalProof {
+  id          String   @id @default(cuid())
+  userId      String
+  stageId     String
+  /// "link", "image", "video", or "doc".
+  kind        String
+  /// An https link, or a /uploads/... path for a file.
+  url         String
+  writeUp     String   @db.Text
+  review      String   @db.Text
+  accepted    Boolean  @default(false)
+  inputMethod String   @default("text")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   user  User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   stage RoadmapStage @relation(fields: [stageId], references: [id], onDelete: Cascade)

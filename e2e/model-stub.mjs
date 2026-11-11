@@ -96,6 +96,23 @@ createServer((req, res) => {
       );
     }
 
+    // Hands-on proof on a practical path: the same rule, applied to the write-up.
+    if (system.startsWith("You review one piece of hands-on work")) {
+      const writeUp = user.split("Their write-up of what they did:\n")[1] ?? "";
+      const understood = /\bbecause\b/i.test(writeUp);
+      return reply(
+        res,
+        200,
+        completion({
+          understood,
+          generated: false,
+          review: understood
+            ? "That is real work. You said what you built, how, and what you changed when it did not work the first time."
+            : "This describes the stage, not what you did. Say what you made, the steps you took, and one thing you fixed.",
+        }),
+      );
+    }
+
     // The SkillFlow Assistant: hint mode never explains; an answer cites the first source.
     if (system.startsWith("You are the SkillFlow Assistant")) {
       const hint = system.includes("you must not do it for them");

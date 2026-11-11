@@ -21,6 +21,9 @@ import {
   type TypingTrace,
 } from "@/lib/explain/authenticity";
 import { addStrike, stageStrikes } from "@/lib/explain/integrity-store";
+import { KIND_LABEL, checkProof, handsOnSpec, handsOnTask, linkWorthReading } from "@/lib/explain/hands-on";
+import { judgeProof } from "@/lib/explain/judge";
+import { loadPracticePages } from "@/lib/explain/page-source";
 
 const MAX_CHARS = 8000;
 const NOTE_LIMIT = 24;
@@ -30,7 +33,7 @@ async function loadOpenExplainStage(stageId: string, userId: string) {
   const stage = await prisma.roadmapStage.findUnique({
     where: { id: stageId },
     include: {
-      skill: { select: { id: true, status: true, offer: true } },
+      skill: { select: { id: true, slug: true, name: true, status: true, offer: true } },
       explainBackPrompt: true,
       resources: { orderBy: { order: "asc" }, select: { keyPoints: true } },
     },
@@ -256,7 +259,7 @@ export async function finishExplainWizard(input: {
   userId: string;
   stageId: string;
   method?: InputMethod;
-}): Promise<{ ok: true } | { ok: false; error: "empty" | "unavailable" | "unconnected" }> {
+}): Promise<{ ok: true } | { ok: false; error: "empty" | "unavailable" | "unconnected" | "proof" }> {
   const loaded = await loadOpenExplainStage(input.stageId, input.userId);
   if (!loaded) return { ok: false, error: "unavailable" };
   const { stage, prompt, stageCount, concepts } = loaded;
@@ -268,6 +271,15 @@ export async function finishExplainWizard(input: {
   });
   const steps = stepsFromNotes(concepts, accepted);
   if (!steps) return { ok: false, error: "empty" };
+
+  // On a practical path, explaining is half of it: the stage also needs one accepted piece of hands-on work.
+  if (handsOnSpec(stage.skill.slug)) {
+    const proof = await prisma.practicalProof.findUnique({
+      where: { userId_stageId: { userId: input.userId, stageId: stage.id } },
+      select: { accepted: true },
+    });
+    if (!proof?.accepted) return { ok: false, error: "proof" };
+  }
 
   const answer = steps.map((step) => `${step.concept}\n${step.answer}`).join("\n\n").slice(0, 24_000);
   const feedback = steps.map((step) => `${step.concept}\n${step.review}`).join("\n\n").slice(0, 12_000);
@@ -286,4 +298,80 @@ export async function finishExplainWizard(input: {
     inputMethod: input.method,
   });
   return { ok: true };
+}
+
+export type HandsOnResult =
+  | { ok: true; accepted: boolean; review: string; integrity: IntegrityView }
+  | { ok: false; error: "unavailable" | "unconnected" | "invalid"; message?: string };
+
+/**
+ * Review one piece of hands-on work for a stage on a practical path. The form is checked in plain code first, the
+ * write-up goes through the same own-words check as an explain-back answer (strikes are shared with the stage), a
+ * linked page's text is read when it could help, and the model judges the write-up. The latest submission replaces
+ * the last; it only counts once accepted.
+ */
+export async function reviewHandsOnStep(input: {
+  userId: string;
+  stageId: string;
+  kind: unknown;
+  url: unknown;
+  writeUp: unknown;
+  method?: InputMethod;
+  trace?: TypingTrace | null;
+}): Promise<HandsOnResult> {
+  const loaded = await loadOpenExplainStage(input.stageId, input.userId);
+  if (!loaded) return { ok: false, error: "unavailable" };
+  const { stage } = loaded;
+  const spec = handsOnSpec(stage.skill.slug);
+  if (!spec) return { ok: false, error: "unavailable" };
+  if (!explainModelConfig()) return { ok: false, error: "unconnected" };
+
+  const checked = checkProof(spec, { kind: input.kind, url: input.url, writeUp: input.writeUp });
+  if (!checked.ok) return { ok: false, error: "invalid", message: checked.error };
+  const { proof } = checked;
+  if (proof.writeUp.toLowerCase() === EXPLAIN_REVIEW_FAILURE_TEXT.toLowerCase()) return { ok: false, error: "unavailable" };
+
+  const method = input.method ?? "text";
+  const trace = input.trace ?? null;
+  const strikesBefore = await stageStrikes(input.userId, stage.id);
+  const precheck = assessAuthenticity({ answer: proof.writeUp, method, trace, modelSaysGenerated: null });
+  if (precheck.flagged && nextFlagBlocks(strikesBefore)) {
+    const strikes = await addStrike(input.userId, stage.id);
+    return { ok: true, accepted: false, review: BLOCKED_REVIEW, integrity: { status: "blocked", strikes, warningsLeft: 0, reasons: precheck.reasons } };
+  }
+
+  // A repository or a write-up page can say what was built; a video player or a drive link says nothing, so it is
+  // not fetched. The fetch goes through the same public-https guard as practice notes.
+  let pageText: string | null = null;
+  if (proof.kind === "link" && linkWorthReading(proof.url)) {
+    const pages = await loadPracticePages([proof.url]).catch(() => ({ texts: [] as string[], blocked: false, missed: true }));
+    pageText = pages.texts[0] ?? null;
+  }
+
+  const review = await judgeProof({
+    skillName: stage.skill.name,
+    stageTitle: stage.title,
+    objectives: stage.learningObjectives,
+    task: handsOnTask(spec, stage.title),
+    kindLabel: KIND_LABEL[proof.kind],
+    url: proof.url,
+    pageText,
+    writeUp: proof.writeUp,
+  });
+  if (!review) return { ok: false, error: "unavailable" };
+
+  const check = assessAuthenticity({ answer: proof.writeUp, method, trace, modelSaysGenerated: review.generated });
+  const outcome = integrityOutcome(strikesBefore, check.flagged);
+  const strikes = check.flagged ? await addStrike(input.userId, stage.id) : outcome.strikes;
+  const integrity: IntegrityView = { ...outcome, strikes, reasons: check.reasons };
+  const blocked = integrity.status === "blocked";
+  const accepted = review.understood && !blocked;
+  const shown = blocked ? BLOCKED_REVIEW : review.review;
+
+  await prisma.practicalProof.upsert({
+    where: { userId_stageId: { userId: input.userId, stageId: stage.id } },
+    create: { userId: input.userId, stageId: stage.id, kind: proof.kind, url: proof.url, writeUp: proof.writeUp, review: shown, accepted, inputMethod: method },
+    update: { kind: proof.kind, url: proof.url, writeUp: proof.writeUp, review: shown, accepted, inputMethod: method },
+  });
+  return { ok: true, accepted, review: shown, integrity };
 }

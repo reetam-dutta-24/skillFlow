@@ -136,7 +136,17 @@ export type MilestoneData =
       continueHref: string;
       continueLabel: string;
       concepts: string[];
+      /** Set on a practical path: the stage also needs one accepted piece of hands-on work. */
+      handsOn: HandsOnView | null;
     };
+
+export type HandsOnView = {
+  task: string;
+  examples: string[];
+  kinds: { kind: "link" | "image" | "video" | "doc"; label: string }[];
+  /** The learner's latest submission for this stage, if any. */
+  proof: { kind: string; url: string; writeUp: string; review: string; accepted: boolean } | null;
+};
 
 export type ExplainReview =
   | { ok: true; kind: "follow-up"; question: string; quote: string }

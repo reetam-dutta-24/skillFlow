@@ -10,7 +10,8 @@ import { reviewStoredExplanation } from "@/lib/explain/review";
 import { prisma } from "@/lib/prisma";
 import { openStageLimit } from "@/lib/progress/formula";
 import type { RoadmapStageView, SkillView } from "@/lib/types/domain";
-import type { ExplainReview, MilestoneData } from "@/lib/types/pages";
+import type { ExplainReview, HandsOnView, MilestoneData } from "@/lib/types/pages";
+import { KIND_LABEL, handsOnSpec, handsOnTask } from "@/lib/explain/hands-on";
 
 const REVIEW_MS = 600;
 
@@ -46,6 +47,7 @@ function openMilestone(stageId: string): MilestoneData | null {
     continueHref: next.continueHref,
     continueLabel: next.continueLabel,
     concepts: [],
+    handsOn: null,
   };
 }
 
@@ -181,6 +183,7 @@ async function loadStoredMilestone(stageId: string, userId?: string): Promise<Mi
     continueHref,
     continueLabel,
     concepts,
+    handsOn: await loadHandsOn(skill.slug, stage.id, stage.title, userId),
   };
 }
 
@@ -243,3 +246,21 @@ export const getMilestone = cache(async (stageId: string, userId?: string): Prom
   }
   return openMilestone(stage.id);
 });
+
+/** The hands-on task for a stage on a practical path, with this learner's latest proof. Personal: read on the request. */
+async function loadHandsOn(slug: string, stageId: string, stageTitle: string, userId?: string): Promise<HandsOnView | null> {
+  const spec = handsOnSpec(slug);
+  if (!spec) return null;
+  const proof = userId
+    ? await prisma.practicalProof.findUnique({
+        where: { userId_stageId: { userId, stageId } },
+        select: { kind: true, url: true, writeUp: true, review: true, accepted: true },
+      })
+    : null;
+  return {
+    task: handsOnTask(spec, stageTitle),
+    examples: spec.examples,
+    kinds: spec.kinds.map((kind) => ({ kind, label: KIND_LABEL[kind] })),
+    proof,
+  };
+}

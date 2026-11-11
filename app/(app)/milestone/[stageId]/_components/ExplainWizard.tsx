@@ -79,6 +79,10 @@ export function ExplainWizard({
 
   const concept = concepts[index] ?? "";
   const last = index === concepts.length - 1;
+  // Steps that hold so far: each idea, then the hands-on work on a practical path.
+  const totalSteps = concepts.length + (handsOn ? 1 : 0);
+  const heldSteps = held.filter(Boolean).length + (handsOn && proofAccepted ? 1 : 0);
+  const percent = totalSteps ? Math.round((heldSteps / totalSteps) * 100) : 0;
   const busy = phase === "reading" || phase === "saving";
 
   function edit(value: string) {
@@ -257,6 +261,27 @@ export function ExplainWizard({
           </li>
         ) : null}
       </ol>
+      <div className="sf-explain-progress">
+        <div
+          className="sf-explain-progress-track"
+          role="progressbar"
+          aria-label="Steps that hold on this stage"
+          aria-valuemin={0}
+          aria-valuemax={totalSteps}
+          aria-valuenow={heldSteps}
+        >
+          <motion.span
+            className="sf-explain-progress-fill"
+            initial={false}
+            animate={{ width: `${percent}%` }}
+            transition={{ duration: reduce ? 0 : 0.45, ease: EASE }}
+          />
+        </div>
+        <p>
+          {held.filter(Boolean).length} of {concepts.length} ideas hold
+          {handsOn ? (proofAccepted ? " · your work is accepted" : " · then show your work") : ""}
+        </p>
+      </div>
       {showProof && handsOn ? (
         <>
           <HandsOnStep stageId={stageId} handsOn={handsOn} onAccepted={() => setProofAccepted(true)} />

@@ -6,6 +6,7 @@ import { auth } from "@/lib/auth";
 import { getMilestone } from "@/lib/data/milestone";
 import { ExplainBackForm } from "./_components/ExplainBackForm";
 import { ExplainWizard } from "./_components/ExplainWizard";
+import { GateBackdrop } from "./_components/GateBackdrop";
 
 type PageProps = {
   params: Promise<{ stageId: string }>;
@@ -43,26 +44,32 @@ export default async function MilestonePage({ params }: PageProps) {
 
   if (data.kind === "locked") redirect(`/roadmap/${data.skillSlug}`);
 
+  // The stage photo, or the path cover, blurred behind the gate. Same for every learner; the page itself is personal.
+  const backdrop = data.stage.image ?? data.skill.image ?? null;
+
   if (data.kind === "passed") {
     return (
       <div className="sf-milestone">
         <FocusMode />
-        <Crumbs slug={data.skill.slug} name={data.skill.name} order={data.stage.order} stageId={data.stage.id} />
-        <header className="sf-milestone-head">
-          <p>{data.skill.name}</p>
-          <h1>{data.stage.title}</h1>
-        </header>
-        <p className="sf-explain-checkin">There is no timer and no score. This is a check-in.</p>
-        <section className="sf-explain-saved" aria-labelledby="saved-question">
-          <h2 id="saved-question">{data.prompt.question}</h2>
-          <p>{data.acceptedExplanation}</p>
-        </section>
-        <Link className="sf-milestone-cta" href={data.continueHref}>
-          Continue
-        </Link>
-        <p>
-          <Link href={`/transcript/${session.user.id}/${data.skill.slug}`}>Transcript for this path</Link>
-        </p>
+        <GateBackdrop src={backdrop} />
+        <div className="sf-gate-panel">
+          <Crumbs slug={data.skill.slug} name={data.skill.name} order={data.stage.order} stageId={data.stage.id} />
+          <header className="sf-milestone-head">
+            <p>{data.skill.name}</p>
+            <h1>{data.stage.title}</h1>
+          </header>
+          <p className="sf-explain-checkin">There is no timer and no score. This is a check-in.</p>
+          <section className="sf-explain-saved" aria-labelledby="saved-question">
+            <h2 id="saved-question">{data.prompt.question}</h2>
+            <p>{data.acceptedExplanation}</p>
+          </section>
+          <Link className="sf-milestone-cta" href={data.continueHref}>
+            Continue
+          </Link>
+          <p>
+            <Link href={`/transcript/${session.user.id}/${data.skill.slug}`}>Transcript for this path</Link>
+          </p>
+        </div>
       </div>
     );
   }
@@ -70,26 +77,29 @@ export default async function MilestonePage({ params }: PageProps) {
   return (
     <div className="sf-milestone">
       <FocusMode />
-      <Crumbs slug={data.skill.slug} name={data.skill.name} order={data.stage.order} stageId={data.stage.id} />
-      {data.concepts.length > 0 ? (
-        <ExplainWizard
-          stageId={data.stage.id}
-          stageLabel={`${data.skill.name} · ${data.stage.title}`}
-          concepts={data.concepts}
-          continueHref={data.continueHref}
-          continueLabel={data.continueLabel}
-          handsOn={data.handsOn}
-        />
-      ) : (
-        <ExplainBackForm
-          stageId={data.stage.id}
-          stageLabel={`${data.skill.name} · ${data.stage.title}`}
-          question={data.prompt.question}
-          concepts={data.concepts}
-          continueHref={data.continueHref}
-          continueLabel={data.continueLabel}
-        />
-      )}
+      <GateBackdrop src={backdrop} />
+      <div className="sf-gate-panel">
+        <Crumbs slug={data.skill.slug} name={data.skill.name} order={data.stage.order} stageId={data.stage.id} />
+        {data.concepts.length > 0 ? (
+          <ExplainWizard
+            stageId={data.stage.id}
+            stageLabel={`${data.skill.name} · ${data.stage.title}`}
+            concepts={data.concepts}
+            continueHref={data.continueHref}
+            continueLabel={data.continueLabel}
+            handsOn={data.handsOn}
+          />
+        ) : (
+          <ExplainBackForm
+            stageId={data.stage.id}
+            stageLabel={`${data.skill.name} · ${data.stage.title}`}
+            question={data.prompt.question}
+            concepts={data.concepts}
+            continueHref={data.continueHref}
+            continueLabel={data.continueLabel}
+          />
+        )}
+      </div>
     </div>
   );
 }

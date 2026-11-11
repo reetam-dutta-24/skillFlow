@@ -11,6 +11,7 @@ import { saveLearnerNotes } from "@/lib/explain/notes";
 import { notesFromPassedAttempt } from "@/lib/explain/notes-view";
 import { openStageLimit } from "@/lib/progress/formula";
 import { stepsFromNotes } from "@/lib/explain/wizard";
+import type { InputMethod } from "@/lib/explain/dictation";
 
 const MAX_CHARS = 8000;
 const NOTE_LIMIT = 24;
@@ -153,6 +154,7 @@ export async function reviewConceptStep(input: {
   stageId: string;
   concept: string;
   answer: string;
+  method?: InputMethod;
 }): Promise<ConceptStepResult> {
   const loaded = await loadOpenExplainStage(input.stageId, input.userId);
   if (!loaded) return { ok: false, error: "unavailable" };
@@ -188,6 +190,7 @@ export async function reviewConceptStep(input: {
         followUpAnswer: null,
         verdict: "NEEDS_IMPROVEMENT",
         feedback: review.review,
+        inputMethod: input.method,
       });
     } catch (error) {
       const message = error instanceof Error ? error.message : "miss save failed";
@@ -213,6 +216,7 @@ export async function reviewConceptStep(input: {
 export async function finishExplainWizard(input: {
   userId: string;
   stageId: string;
+  method?: InputMethod;
 }): Promise<{ ok: true } | { ok: false; error: "empty" | "unavailable" | "unconnected" }> {
   const loaded = await loadOpenExplainStage(input.stageId, input.userId);
   if (!loaded) return { ok: false, error: "unavailable" };
@@ -240,6 +244,7 @@ export async function finishExplainWizard(input: {
     followUpAnswer: null,
     verdict: "PASSED",
     feedback,
+    inputMethod: input.method,
   });
   return { ok: true };
 }

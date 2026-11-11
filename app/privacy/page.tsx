@@ -165,6 +165,13 @@ const sections: LegalSection[] = [
           <li>
             <strong>Pages you practise against.</strong> When you give a link, our server fetches that page to read its text.
           </li>
+          <li>
+            <strong>Your browser&apos;s speech recognition.</strong> If you press Speak instead on an explain-back, your browser turns
+            your voice into text. Chrome and Edge send the audio to Google&apos;s or Microsoft&apos;s speech service to do this, and
+            Safari to Apple&apos;s; their own policies apply. SkillFlow never receives, records, or stores your audio: only the words
+            that appear in the box are sent, exactly as if you had typed them, and we note whether an answer was typed or spoken.
+            The microphone is used only while the button says Stop listening.
+          </li>
         </ul>
         <p>
           Lessons link to websites run by other people. When you open one, that site&apos;s own policy applies. Some of these services may

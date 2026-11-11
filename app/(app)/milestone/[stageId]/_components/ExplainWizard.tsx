@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ErrorState } from "@/components/feedback/ErrorState.jsx";
+import { DictationButton } from "@/components/learning/DictationButton";
+import { answerMethod, appendSpoken, stageMethod } from "@/lib/explain/dictation";
 import { completeExplainWizard, reviewConcept } from "../actions";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -29,6 +31,8 @@ export function ExplainWizard({
   const fieldRef = useRef<HTMLTextAreaElement>(null);
   const [index, setIndex] = useState(0);
   const [drafts, setDrafts] = useState<string[]>(() => concepts.map(() => ""));
+  // Characters that arrived by voice, per idea, so the attempt records how the answer was given.
+  const [spoken, setSpoken] = useState<number[]>(() => concepts.map(() => 0));
   const [reviews, setReviews] = useState<string[]>(() => concepts.map(() => ""));
   const [held, setHeld] = useState<boolean[]>(() => concepts.map(() => false));
   const [review, setReview] = useState<{ understood: boolean; review: string; noted: boolean } | null>(null);
@@ -69,6 +73,23 @@ export function ExplainWizard({
       keepDrafts(next);
       return next;
     });
+    reopenStep();
+  }
+
+  /** A spoken phrase joins the draft like typed words, so it can be read and fixed before it is checked. */
+  function speak(text: string) {
+    const phrase = text.trim();
+    if (!phrase) return;
+    setDrafts((current) => {
+      const next = current.map((item, itemIndex) => (itemIndex === index ? appendSpoken(item, phrase) : item));
+      keepDrafts(next);
+      return next;
+    });
+    setSpoken((current) => current.map((count, itemIndex) => (itemIndex === index ? count + phrase.length + 1 : count)));
+    reopenStep();
+  }
+
+  function reopenStep() {
     setNotice(null);
     if (review) {
       setReview(null);
@@ -88,7 +109,7 @@ export function ExplainWizard({
     setError(null);
     setReview(null);
     setPhase("reading");
-    const result = await reviewConcept({ stageId, concept, answer });
+    const result = await reviewConcept({ stageId, concept, answer, method: answerMethod(answer, spoken[index] ?? 0) });
     if (!result.ok) {
       setError(result.error === "empty" ? "empty" : result.error);
       setPhase("write");
@@ -112,7 +133,8 @@ export function ExplainWizard({
     setPhase("saving");
     setError(null);
     // The server records the stage from the ideas it accepted; nothing typed here is trusted for the pass.
-    const saved = await completeExplainWizard({ stageId });
+    const method = stageMethod(concepts.map((_, itemIndex) => answerMethod(drafts[itemIndex] ?? "", spoken[itemIndex] ?? 0)));
+    const saved = await completeExplainWizard({ stageId, method });
     if (!saved.ok) {
       setError(saved.error);
       setPhase("reviewed");
@@ -193,9 +215,12 @@ export function ExplainWizard({
           </p>
           <h2>{concept}</h2>
           <p className="sf-explain-hint">Say what it is, and why it matters or when you would use it. A name on its own will not move this step.</p>
-          <label className="sf-explain-label" htmlFor="explain-step">
-            Your explanation
-          </label>
+          <div className="sf-explain-field-head">
+            <label className="sf-explain-label" htmlFor="explain-step">
+              Your explanation
+            </label>
+            <DictationButton onPhrase={speak} disabled={busy} controls="explain-step" />
+          </div>
           <textarea
             id="explain-step"
             ref={fieldRef}
@@ -203,7 +228,7 @@ export function ExplainWizard({
             value={drafts[index] ?? ""}
             disabled={busy}
             onChange={(event) => edit(event.target.value)}
-            placeholder="Write it the way you would tell someone who is one step behind you."
+            placeholder="Write it, or speak it, the way you would tell someone who is one step behind you."
             aria-describedby="explain-step-hint"
           />
           <p className="sf-explain-draft" id="explain-step-hint">

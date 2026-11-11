@@ -10,6 +10,9 @@ Explain-back is the only mastery check in SkillFlow. There is no quiz. After you
 ## How an idea passes
 Each idea is sent to the review model on its own. An idea holds when you explain what it is, and why it matters or when you would use it, in your own words. Naming the idea, a single clause, or a wrong or confused explanation does not pass. Every answer gets a written review back, whether it holds or not.
 
+## Speaking instead of typing
+Press Speak instead above the answer box and explain the idea out loud. Your browser turns your voice into text and adds it to the box as you talk, so you can read it, fix a word, or add to it before you press Check my explanation. Press Stop listening when you are done. Spoken answers are judged exactly like typed ones. Speaking works in Chrome, Edge, and Safari; the microphone needs your permission the first time. SkillFlow never receives or stores your audio, only the words in the box.
+
 ## When an answer is thin
 An empty answer stays on the step. A wrong or thin answer also stays on the step and shows a written review that says what is missing. You can try that idea again as many times as you like. Nothing lets you skip an idea.
 

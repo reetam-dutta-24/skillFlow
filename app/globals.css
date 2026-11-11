@@ -3473,6 +3473,101 @@ a.sf-note-row:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
+/* Speak instead: the label and the mic button share one row; the live words and errors sit under it. */
+.sf-explain-field-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+  min-width: 0;
+}
+.sf-dictate {
+  display: grid;
+  justify-items: end;
+  gap: 6px;
+  min-width: 0;
+  max-width: 100%;
+}
+.sf-dictate-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 0 14px 0 6px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-default);
+  background: var(--surface-card);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
+}
+.sf-dictate-btn:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+.sf-dictate-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.sf-dictate-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.sf-dictate-dot {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-full);
+  background: var(--gradient-brand);
+  color: var(--text-on-accent);
+}
+.sf-dictate-btn[data-listening="true"] {
+  border-color: color-mix(in srgb, var(--state-fail) 60%, var(--border-default));
+}
+.sf-dictate-btn[data-listening="true"] .sf-dictate-dot {
+  background: var(--state-fail);
+  animation: sf-dictate-pulse 1.4s var(--ease-out) infinite;
+}
+@keyframes sf-dictate-pulse {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--state-fail) 55%, transparent); }
+  100% { box-shadow: 0 0 0 10px transparent; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sf-dictate-btn[data-listening="true"] .sf-dictate-dot {
+    animation: none;
+  }
+}
+.sf-dictate-live,
+.sf-dictate-note,
+.sf-dictate-error {
+  margin: 0;
+  font-size: var(--text-xs);
+  line-height: 1.45;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+.sf-dictate-live {
+  color: var(--text-secondary);
+}
+.sf-dictate-note {
+  color: var(--text-muted);
+}
+.sf-dictate-error {
+  color: var(--state-warn);
+}
+@media (max-width: 639px) {
+  .sf-dictate,
+  .sf-dictate-live,
+  .sf-dictate-note,
+  .sf-dictate-error {
+    justify-items: start;
+    text-align: left;
+  }
+}
 .sf-explain-notice {
   margin: 0;
   font-size: var(--text-sm);

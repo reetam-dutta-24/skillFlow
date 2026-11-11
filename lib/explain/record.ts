@@ -2,6 +2,7 @@ import "server-only";
 import { prisma } from "@/lib/prisma";
 import { openStageLimit } from "@/lib/progress/formula";
 import { touchLearnerProgress } from "@/lib/progress/stats";
+import type { InputMethod } from "@/lib/explain/dictation";
 
 export async function recordExplainBack(input: {
   userId: string;
@@ -15,6 +16,8 @@ export async function recordExplainBack(input: {
   followUpAnswer: string | null;
   verdict: "PASSED" | "NEEDS_IMPROVEMENT";
   feedback: string;
+  /** "text", "voice", or "mixed". */
+  inputMethod?: InputMethod;
 }) {
   const limit = openStageLimit(input.stageCount);
   await prisma.$transaction(async (tx) => {
@@ -23,7 +26,7 @@ export async function recordExplainBack(input: {
         userId: input.userId,
         promptId: input.promptId,
         initialExplanation: input.answer,
-        inputMethod: "text",
+        inputMethod: input.inputMethod ?? "text",
         followUpQuestion: input.followUpQuestion,
         followUpResponse: input.followUpAnswer,
         verdict: input.verdict,

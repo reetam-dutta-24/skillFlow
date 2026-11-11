@@ -78,6 +78,7 @@ export default async function MilestonePage({ params }: PageProps) {
           concepts={data.concepts}
           continueHref={data.continueHref}
           continueLabel={data.continueLabel}
+          handsOn={data.handsOn}
         />
       ) : (
         <ExplainBackForm

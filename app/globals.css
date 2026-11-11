@@ -3473,6 +3473,106 @@ a.sf-note-row:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
+/* Hands-on step on practical paths: what to show, the link or file, and the write-up. */
+.sf-handson h2:focus {
+  outline: none;
+}
+.sf-handson-examples {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: var(--text-sm-lh);
+  color: var(--text-secondary);
+  overflow-wrap: anywhere;
+}
+.sf-handson-examples span {
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+}
+.sf-handson-kinds {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+.sf-handson-kinds legend {
+  margin-bottom: 8px;
+  padding: 0;
+}
+.sf-handson-kind {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 14px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-default);
+  background: var(--surface-card);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+.sf-handson-kind[data-on="true"] {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 14%, var(--surface-card));
+}
+.sf-handson-kind input {
+  accent-color: var(--accent);
+}
+.sf-handson-kind:focus-within {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.sf-handson-field {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+.sf-handson-field input[type="url"],
+.sf-handson-field input[type="file"],
+.sf-handson-field textarea {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border-radius: var(--radius-panel);
+  border: 1px solid var(--border-default);
+  background: var(--surface-card);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: 1.6;
+}
+.sf-handson-field textarea {
+  resize: vertical;
+}
+.sf-handson-field input:focus-visible,
+.sf-handson-field textarea:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.sf-handson-preview {
+  max-width: 100%;
+}
+.sf-handson-preview img,
+.sf-handson-preview video {
+  display: block;
+  width: min(100%, 360px);
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: var(--radius-panel);
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-card);
+}
+.sf-explain-draft[data-enough="true"] {
+  color: var(--state-pass);
+}
+.sf-explain-rail li svg {
+  display: block;
+}
 /* Own-words check: a warning or a refusal under the review, and the stage's warning count above the rail. */
 .sf-explain-integrity {
   display: grid;

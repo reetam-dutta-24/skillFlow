@@ -8,6 +8,10 @@ import { ErrorState } from "@/components/feedback/ErrorState.jsx";
 import { DictationButton } from "@/components/learning/DictationButton";
 import { useTypingTrace } from "@/components/learning/useTypingTrace";
 import { WARNING_STRIKES, type IntegrityView } from "@/lib/explain/authenticity";
+import { IntegrityNotice } from "./IntegrityNotice";
+import { HandsOnStep } from "./HandsOnStep";
+import { Icon } from "@/components/core/Icon.jsx";
+import type { HandsOnView } from "@/lib/types/pages";
 import { answerMethod, appendSpoken, stageMethod } from "@/lib/explain/dictation";
 import { completeExplainWizard, reviewConcept } from "../actions";
 
@@ -21,12 +25,15 @@ export function ExplainWizard({
   concepts,
   continueHref,
   continueLabel,
+  handsOn = null,
 }: {
   stageId: string;
   stageLabel: string;
   concepts: string[];
   continueHref: string;
   continueLabel: string;
+  /** Set on a practical path: after the last idea, one piece of hands-on work must be accepted. */
+  handsOn?: HandsOnView | null;
 }) {
   const router = useRouter();
   const reduce = useReducedMotion();
@@ -41,6 +48,8 @@ export function ExplainWizard({
   // The latest own-words state for this stage, so the warning count stays visible between ideas.
   const [standing, setStanding] = useState<IntegrityView | null>(null);
   const trace = useTypingTrace();
+  const [proofAccepted, setProofAccepted] = useState(Boolean(handsOn?.proof?.accepted));
+  const [showProof, setShowProof] = useState(false);
   const [phase, setPhase] = useState<"write" | "reading" | "reviewed" | "saving" | "done">("write");
   const [notice, setNotice] = useState<string | null>(null);
   const [error, setError] = useState<StepError | null>(null);
@@ -142,6 +151,16 @@ export function ExplainWizard({
       setPhase("write");
       return;
     }
+    // On a practical path, the last idea leads to the hands-on step, not straight to the save.
+    if (handsOn && !proofAccepted) {
+      setShowProof(true);
+      setError(null);
+      return;
+    }
+    await finishStage();
+  }
+
+  async function finishStage() {
     setPhase("saving");
     setError(null);
     // The server records the stage from the ideas it accepted; nothing typed here is trusted for the pass.
@@ -176,7 +195,9 @@ export function ExplainWizard({
           <p>{stageLabel}</p>
           <h1>You explained this stage</h1>
         </header>
-        <p className="sf-explain-hint">Each idea is in Notes, with the review that came back.</p>
+        <p className="sf-explain-hint">
+          Each idea is in Notes, with the review that came back.{handsOn ? " Your hands-on work was accepted too." : ""}
+        </p>
         <ol className="sf-explain-recap">
           {concepts.map((item, itemIndex) => (
             <li key={item}>
@@ -225,7 +246,29 @@ export function ExplainWizard({
             </li>
           );
         })}
+        {handsOn ? (
+          <li
+            data-state={showProof ? "current" : proofAccepted ? "done" : "ahead"}
+            aria-current={showProof ? "step" : undefined}
+            title="Show your work"
+            aria-label="Show your work"
+          >
+            <Icon name="wrench" size={13} />
+          </li>
+        ) : null}
       </ol>
+      {showProof && handsOn ? (
+        <>
+          <HandsOnStep stageId={stageId} handsOn={handsOn} onAccepted={() => setProofAccepted(true)} />
+          {proofAccepted ? (
+            <div className="sf-explain-actions">
+              <button type="button" className="sf-milestone-cta" disabled={busy} onClick={() => void finishStage()}>
+                {phase === "saving" ? "Saving this stage" : "Finish this stage"}
+              </button>
+            </div>
+          ) : null}
+        </>
+      ) : (
       <AnimatePresence mode="wait">
         <motion.section key={index} className="sf-explain-step" {...stepMotion} onAnimationComplete={() => fieldRef.current?.focus()}>
           <p className="sf-explain-kicker">
@@ -307,7 +350,7 @@ export function ExplainWizard({
           <div className="sf-explain-actions">
             {review?.understood ? (
               <button type="button" className="sf-milestone-cta" disabled={busy} onClick={() => void advance()}>
-                {phase === "saving" ? "Saving this stage" : last ? "Finish this stage" : "Next idea"}
+                {phase === "saving" ? "Saving this stage" : !last ? "Next idea" : handsOn && !proofAccepted ? "Next: show your work" : "Finish this stage"}
               </button>
             ) : (
               <button type="button" className="sf-milestone-cta" disabled={busy} onClick={() => void checkIdea()}>
@@ -317,6 +360,7 @@ export function ExplainWizard({
           </div>
         </motion.section>
       </AnimatePresence>
+      )}
       {error ? (
         <ErrorState
           compact
@@ -335,32 +379,6 @@ export function ExplainWizard({
           onRetry={() => setError(null)}
         />
       ) : null}
-    </div>
-  );
-}
-
-/** Why an answer was flagged, and what that means for the next one. Plain words, no accusation. */
-function IntegrityNotice({ integrity }: { integrity: IntegrityView }) {
-  const blocked = integrity.status === "blocked";
-  return (
-    <div className={blocked ? "sf-explain-integrity is-blocked" : "sf-explain-integrity"} role="status">
-      <p className="sf-explain-kicker">
-        {blocked ? "Not accepted: this one needs your own words" : `Own-words warning ${integrity.strikes} of ${WARNING_STRIKES}`}
-      </p>
-      {integrity.reasons.length ? (
-        <ul>
-          {integrity.reasons.map((reason) => (
-            <li key={reason}>{reason}</li>
-          ))}
-        </ul>
-      ) : null}
-      <p>
-        {blocked
-          ? "After two warnings, answers that read like this stop counting on this stage. Write it plainly, the way you would tell a friend, or press Speak instead and say it out loud."
-          : integrity.warningsLeft > 0
-            ? `Your answer was still reviewed. ${integrity.warningsLeft === 1 ? "One more warning" : `${integrity.warningsLeft} more warnings`} on this stage, and then answers like this will not be accepted.`
-            : "Your answer was still reviewed, but that was the last warning on this stage. From now on, answers like this will not be accepted."}
-      </p>
     </div>
   );
 }

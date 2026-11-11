@@ -46,16 +46,35 @@ test("a learner explains every idea, a weak answer is held back, and the stage i
     await check.click();
     await expect(page.getByText("This idea holds")).toBeVisible();
 
-    const finish = page.getByRole("button", { name: "Finish this stage" });
-    if (await finish.isVisible()) {
-      await finish.click();
+    // Full-Stack is a practical path, so the last idea leads to the hands-on step.
+    const toWork = page.getByRole("button", { name: "Next: show your work" });
+    if (await toWork.isVisible()) {
+      await toWork.click();
       break;
     }
     await page.getByRole("button", { name: "Next idea" }).click();
     await expect(idea).not.toHaveText(current);
   }
 
-  // 3. The stage is recorded, and the accepted ideas are in Notes.
+  // 3. Hands-on work: a write-up that is too short is held back in the browser; a real one is reviewed and accepted.
+  await expect(page.getByRole("heading", { name: "Show one small piece of real work" })).toBeVisible();
+  await page.getByLabel("A link").check();
+  // A video link is not fetched, so the test never depends on an outside site.
+  await page.locator("#proof-link").fill("https://youtu.be/e2e-skillflow-demo");
+  const writeUp = page.locator("#proof-writeup");
+  await writeUp.fill("I built a page.");
+  await page.getByRole("button", { name: "Check my work" }).click();
+  await expect(page.getByText(/at least 40 words/)).toBeVisible();
+  await writeUp.fill(
+    "I built a tiny page with a heading, a list of three links, and a button that changes the background colour. " +
+      "The button did nothing at first because I loaded the script before the button existed, so I moved the script tag " +
+      "to the end of the body and it worked. Then I checked it on my phone and fixed the font size.",
+  );
+  await page.getByRole("button", { name: "Check my work" }).click();
+  await expect(page.getByText("Your work holds")).toBeVisible();
+  await page.getByRole("button", { name: "Finish this stage" }).click();
+
+  // 4. The stage is recorded, and the accepted ideas are in Notes.
   await expect(page.getByRole("heading", { name: "You explained this stage" })).toBeVisible();
   await page.goto("/notes");
   await expect(page.getByText(firstIdea).first()).toBeVisible();

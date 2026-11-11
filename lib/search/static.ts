@@ -33,6 +33,8 @@ export const STATIC_SEARCH: readonly SearchEntry[] = [
 
   // Features (what something is, and where to find it)
   { id: "f-explain", kind: "feature", title: "Explain-back", description: "Explain each idea in your own words to open the next stage", href: "/roadmap", icon: "message-square-quote", keywords: ["explain", "mastery check", "gate", "review", "ai review", "test my understanding"] },
+  { id: "f-voice", kind: "feature", title: "Speak instead of typing", description: "Say your explain-back out loud; your browser writes it into the box", href: "/roadmap", icon: "mic", keywords: ["voice", "speak", "dictation", "microphone", "talk", "speech to text"] },
+  { id: "f-hands-on", kind: "feature", title: "Show your work", description: "On practical paths, a stage also needs one small piece of real work", href: "/roadmap", icon: "wrench", keywords: ["hands-on", "project", "proof", "upload", "video", "practical", "portfolio"] },
   { id: "f-recall", kind: "feature", title: "Recall", description: "Passed ideas come back twice, 18 hours apart", href: "/notes", icon: "brain", keywords: ["spaced repetition", "memory", "remember", "retention"] },
   { id: "f-plan", kind: "feature", title: "Personal learning plan", description: "A weekly schedule from your pace and goals, on any path", href: "/roadmap", icon: "calendar-days", keywords: ["plan", "schedule", "pace", "deadline", "weekly"] },
   { id: "f-weak", kind: "feature", title: "Topics to strengthen", description: "Ideas that need another look, on Home", href: "/dashboard#home-weak", icon: "target", keywords: ["weak topics", "mistakes", "retry", "struggling"] },
@@ -67,6 +69,7 @@ export const STATIC_SEARCH: readonly SearchEntry[] = [
 
   // Help
   { id: "h-free", kind: "help", title: "What is free, and what is Premium?", description: "Thirty paths, every stage, explain-back, and certificates are free", href: "/upgrade", icon: "circle-help", keywords: ["free", "cost", "price", "premium", "paid"] },
+  { id: "h-own-words", kind: "help", title: "Why was my answer flagged as AI-written?", description: "Pasted or chatbot-style answers get two warnings, then stop counting on that stage", href: "/roadmap", icon: "circle-help", keywords: ["flagged", "ai written", "chatgpt", "pasted", "warning", "own words", "not accepted"] },
   { id: "h-locked", kind: "help", title: "Why is a stage locked?", description: "The next stage opens after the explain-back on the one before it", href: "/roadmap", icon: "lock", keywords: ["locked", "cannot open", "next stage"] },
   { id: "h-score", kind: "help", title: "How is the Detox Score worked out?", description: "Your self-check, then only verified learning, with a daily limit", href: "/detox", icon: "circle-help", keywords: ["detox score", "how", "calculated", "points"] },
   { id: "h-mastery", kind: "help", title: "How is mastery measured?", description: "The share of a path's stages with a passed explain-back", href: "/progress", icon: "circle-help", keywords: ["mastery", "percent", "progress"] },

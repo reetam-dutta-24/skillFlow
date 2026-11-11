@@ -21,9 +21,10 @@
 
 1. **Follow a path.** Thirty free paths (Full-Stack Web Development, Travel Vlogging, Content Creation, Music Production, Cybersecurity, Personal Finance, and 24 more) with 246 stages and about 900 curated free resources: YouTube videos played in-app, docs, and courses.
 2. **Learn a stage.** A step-by-step lesson wizard walks through the clip and each resource.
-3. **Explain it back.** One idea per step. Gemini writes a review of every answer. The step moves on only when the idea holds. If the model is unavailable, nothing is saved: the app never fakes a pass.
-4. **Keep what you learned.** Accepted ideas become notes (exportable as Word or PDF), come back twice for spaced recall 18 hours apart, and feed mastery, streaks, weak topics, and analytics.
-5. **Finish the path.** Each pass opens the next stage. Passing every stage earns a certificate and a transcript.
+3. **Explain it back.** One idea per step, typed or spoken (Speak instead uses the browser's own speech recognition; no audio reaches SkillFlow). Gemini writes a review of every answer. The step moves on only when the idea holds. Answers that read as AI-written or pasted get two warnings on a stage, then stop counting until the learner uses their own words. If the model is unavailable, nothing is saved: the app never fakes a pass.
+4. **Show your work (practical paths).** On the 22 paths where the skill is made or performed, a stage also needs one small piece of real work: a link, a photo, a short video, or a PDF, with a write-up the model reviews. Knowledge and personal-life paths stay explain-back only.
+5. **Keep what you learned.** Accepted ideas become notes (exportable as Word or PDF), come back twice for spaced recall 18 hours apart, and feed mastery, streaks, weak topics, and analytics.
+6. **Finish the path.** Each pass opens the next stage. Passing every stage earns a certificate and a transcript.
 
 Around that loop: personal learning plans built in code from your preferences, a 180-item career-fit test, Dopamine Detox (an original self-check and a Detox Score that only verified learning moves, with focus sessions and a weekly check-in), global search in the top bar (Ctrl+K: niches, stages, resources, Open Source posts, features, and settings), the SkillFlow Assistant (Ctrl+J: a RAG chatbot that answers from SkillFlow's own help and catalog with cited sources, and gives hints instead of answers for an explain-back you have not passed), a moderated Open Source community per niche, a creator studio, an opt-in learner map (city counts only), nearby events, notifications, a full analytics page, self-serve account deletion, and a guided tour on Home that walks through every feature, from niches to themes and accents, with a small hands-on demo on each. **Premium** is one Stripe subscription that opens the niches outside the thirty free paths and appearing on the learner map; everything above stays free.
 
@@ -143,7 +144,8 @@ flowchart LR
 - **Knowledge.** 19 short help articles in `content/help/` written from the code, the guided tour's slides, the feature list, and every niche, stage, active resource, and transcript. About 1,400 chunks. The learner's own progress, plan, weak topics, due recall, and Detox Score are never embedded; they are read live, for that learner only, when the question is about them.
 - **Storage.** pgvector in the same Postgres (`pgvector/pgvector:pg16-trixie`), a `vector(768)` column with an HNSW index on cosine distance, and a generated `tsvector` column with a GIN index. All SQL is tagged-template `$queryRaw` with bound values.
 - **Retrieval.** Hybrid: vector and full-text lists fused with Reciprocal Rank Fusion. The Premium boundary is in the SQL `WHERE` clause of both searches. If the embedding call fails, full-text alone still answers.
-- **It never does your explain-back.** A question that asks to explain an idea from a stage you have not passed switches to hint mode on the server: the model sees less of the sources and is told to give pointers, one or two guiding questions, and a hint. After you pass the stage, it explains normally.
+- **It never does your explain-back.** A question that names an idea from a stage you have not passed switches to hint mode on the server, however it is worded and whichever source it ranks: the model sees less of the sources and none of the chat history, and is told to give pointers, one or two guiding questions, and a hint. After you pass the stage, it explains normally.
+- **It follows the catalog.** Every Catalog CMS write re-indexes that niche in the background (only changed chunks are embedded), so edited, deleted, or newly Premium content never lingers in answers.
 - **Grounded or silent.** When nothing relevant is found, it says it is not sure and links the closest page, without calling the model. Source text is untrusted data in the prompt. After the stream, every `[n]` that matches no source and every link that is neither a source nor an app route is removed.
 - **No endless chat, no stored chat.** Each question counts against the AI limits (20 a minute, 400 a day). History is capped at six turns and answers at 2,400 characters. Chats live in the page's React state only.
 
@@ -159,14 +161,14 @@ flowchart LR
 | --- | --- |
 | Framework | Next.js 16.3.4 (App Router, Cache Components, `proxy.ts`, `instrumentation.ts`), React 19.2.8, TypeScript |
 | Styling | Tailwind CSS v4 with design tokens in `app/globals.css`; dark/light themes; accent presets, Spectrum, custom gradients |
-| Data | PostgreSQL 16 (with pgvector) through Prisma 6.19.3; 29 hand-written, additive migrations |
+| Data | PostgreSQL 16 (with pgvector) through Prisma 6.19.3; 31 hand-written, additive migrations |
 | Auth | Auth.js v5 (JWT sessions), email + bcrypt password, Google OAuth (verified email only, no auto-linking) |
 | AI | Gemini free tier (`gemini-flash-lite-latest`) through the OpenAI-compatible endpoint; OpenAI or any compatible endpoint as fallbacks. Assistant embeddings: `gemini-embedding-001` at 768 dimensions through the native `batchEmbedContents` |
 | Rate limits | Redis 7 (`ioredis`), fixed-window counters |
 | Payments | Stripe Checkout, customer portal, signed webhooks |
 | Maps | MapLibre GL + supercluster, OpenStreetMap tiles and Nominatim |
 | Other | framer-motion, Recharts, `docx` and `pdf-lib` exports, Zod, `next/og` images |
-| Tests | Vitest (283 tests in 41 files), Playwright (12 end-to-end tests) |
+| Tests | Vitest (314 tests in 44 files), Playwright (12 end-to-end tests) |
 | Deploy | Docker (multi-stage, non-root, health check), Docker Compose, Caddy, AWS EC2 |
 
 **Caching.** Content that is the same for everyone is cached with `"use cache"` and tags (`catalog`, `community`, `learner-map`, `geocode`, `nearby-events`, `practice-source`, `landing-stats`, `account:<id>`), and writes expire them with `updateTag`. Progress, streaks, notes, follow state, and the account menu are read per request. Redis is not a cache; it only holds rate-limit counters.
@@ -240,10 +242,11 @@ docker builder prune -af          # reclaim build cache; never prune volumes
 
 - **Rate limits** (`lib/limits.ts`, Redis): log-in 5 per email and 30 per IP every 15 minutes (fails closed; a blocked try looks like a wrong password), sign-up 5 per IP an hour, AI calls **20 a minute and 400 a day** per learner, uploads 20 an hour per learner.
 - **AI calls** time out after 50 seconds (Gemini's free tier sometimes queues requests); a timeout saves nothing.
-- **Headers** on every response: `X-Frame-Options: DENY`, `nosniff`, `Referrer-Policy`, a restrictive `Permissions-Policy`, HSTS in production, no `X-Powered-By`. The Content Security Policy is report-only until a clean pass.
+- **Headers** on every response: `X-Frame-Options: DENY`, `nosniff`, `Referrer-Policy`, a restrictive `Permissions-Policy` (the microphone only for this site, for Speak instead), HSTS in production, no `X-Powered-By`. The Content Security Policy is report-only until a clean pass.
 - **Server-side fetches** of learner-supplied URLs go through an SSRF guard (private, loopback, link-local, metadata, and IPv4-mapped addresses are blocked).
 - **Uploads** are checked by extension, size, and magic bytes, stored under random names, and served by `app/uploads/[file]/route.ts` with byte ranges.
 - **Stripe webhooks** are verified against the raw body before any write.
+- **The explain-back gate trusts only the server.** A stage is recorded from the ideas the server accepted (and, on a practical path, an accepted hands-on proof), never from answers or reviews the browser sends.
 
 ---
 

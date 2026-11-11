@@ -6,6 +6,8 @@ export const PRODUCT_FEATURES = [
   { id: "paths", name: "Paths of ordered stages", href: "/roadmap" },
   { id: "lessons", name: "Lessons with real resources and in-app video", href: "/roadmap" },
   { id: "explain-back", name: "Explain-back, one idea at a time", href: "/roadmap" },
+  { id: "voice-explain", name: "Speak your explanation instead of typing", href: "/roadmap" },
+  { id: "hands-on", name: "Hands-on proof on practical paths", href: "/roadmap" },
   { id: "notes", name: "Notes with Word and PDF export", href: "/notes" },
   { id: "practice", name: "Practice notes from your own text", href: "/notes/practice" },
   { id: "recall", name: "Recall checks on passed ideas", href: "/notes" },

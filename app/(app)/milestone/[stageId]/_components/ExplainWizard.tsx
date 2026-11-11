@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ErrorState } from "@/components/feedback/ErrorState.jsx";
 import { DictationButton } from "@/components/learning/DictationButton";
+import { useTypingTrace } from "@/components/learning/useTypingTrace";
+import { WARNING_STRIKES, type IntegrityView } from "@/lib/explain/authenticity";
 import { answerMethod, appendSpoken, stageMethod } from "@/lib/explain/dictation";
 import { completeExplainWizard, reviewConcept } from "../actions";
 
@@ -35,7 +37,10 @@ export function ExplainWizard({
   const [spoken, setSpoken] = useState<number[]>(() => concepts.map(() => 0));
   const [reviews, setReviews] = useState<string[]>(() => concepts.map(() => ""));
   const [held, setHeld] = useState<boolean[]>(() => concepts.map(() => false));
-  const [review, setReview] = useState<{ understood: boolean; review: string; noted: boolean } | null>(null);
+  const [review, setReview] = useState<{ understood: boolean; review: string; noted: boolean; integrity: IntegrityView } | null>(null);
+  // The latest own-words state for this stage, so the warning count stays visible between ideas.
+  const [standing, setStanding] = useState<IntegrityView | null>(null);
+  const trace = useTypingTrace();
   const [phase, setPhase] = useState<"write" | "reading" | "reviewed" | "saving" | "done">("write");
   const [notice, setNotice] = useState<string | null>(null);
   const [error, setError] = useState<StepError | null>(null);
@@ -109,13 +114,20 @@ export function ExplainWizard({
     setError(null);
     setReview(null);
     setPhase("reading");
-    const result = await reviewConcept({ stageId, concept, answer, method: answerMethod(answer, spoken[index] ?? 0) });
+    const result = await reviewConcept({
+      stageId,
+      concept,
+      answer,
+      method: answerMethod(answer, spoken[index] ?? 0),
+      trace: trace.snapshot(String(index)),
+    });
     if (!result.ok) {
       setError(result.error === "empty" ? "empty" : result.error);
       setPhase("write");
       return;
     }
-    setReview({ understood: result.understood, review: result.review, noted: result.noted });
+    setReview({ understood: result.understood, review: result.review, noted: result.noted, integrity: result.integrity });
+    if (result.integrity.strikes > 0) setStanding(result.integrity);
     setReviews((current) => current.map((item, itemIndex) => (itemIndex === index ? result.review : item)));
     setHeld((current) => current.map((item, itemIndex) => (itemIndex === index ? result.understood : item)));
     setPhase("reviewed");
@@ -198,6 +210,12 @@ export function ExplainWizard({
         <p>{stageLabel} · Explain-back</p>
         <h1>Explain one idea at a time</h1>
       </header>
+      {standing && standing.strikes > 0 ? (
+        <p className={standing.status === "blocked" ? "sf-explain-standing is-blocked" : "sf-explain-standing"}>
+          Own-words check: {Math.min(standing.strikes, WARNING_STRIKES)} of {WARNING_STRIKES} warnings used on this stage
+          {standing.strikes >= WARNING_STRIKES ? ". Answers that read as AI-written or pasted are no longer accepted here." : "."}
+        </p>
+      ) : null}
       <ol className="sf-explain-rail" aria-label="Ideas in this stage">
         {concepts.map((item, itemIndex) => {
           const state = itemIndex === index ? "current" : held[itemIndex] ? "done" : "ahead";
@@ -227,7 +245,12 @@ export function ExplainWizard({
             rows={6}
             value={drafts[index] ?? ""}
             disabled={busy}
-            onChange={(event) => edit(event.target.value)}
+            onChange={(event) => {
+              trace.change(String(index), drafts[index] ?? "", event.target.value, (event.nativeEvent as InputEvent).inputType);
+              edit(event.target.value);
+            }}
+            onFocus={() => trace.focus(String(index))}
+            onBlur={() => trace.blur(String(index))}
             placeholder="Write it, or speak it, the way you would tell someone who is one step behind you."
             aria-describedby="explain-step-hint"
           />
@@ -268,7 +291,9 @@ export function ExplainWizard({
                 exit={reduce ? undefined : { opacity: 0, y: 8 }}
                 transition={{ duration: reduce ? 0 : 0.32, ease: EASE }}
               >
-                <p className="sf-explain-kicker">{review.understood ? "This idea holds" : "Stay with this idea"}</p>
+                <p className="sf-explain-kicker">
+                  {review.integrity.status === "blocked" ? "Use your own words" : review.understood ? "This idea holds" : "Stay with this idea"}
+                </p>
                 <p>{review.review}</p>
                 {review.understood && review.noted ? (
                   <p className="sf-explain-kept">
@@ -278,6 +303,7 @@ export function ExplainWizard({
               </motion.div>
             ) : null}
           </AnimatePresence>
+          {review && review.integrity.status !== "clear" ? <IntegrityNotice integrity={review.integrity} /> : null}
           <div className="sf-explain-actions">
             {review?.understood ? (
               <button type="button" className="sf-milestone-cta" disabled={busy} onClick={() => void advance()}>
@@ -307,6 +333,32 @@ export function ExplainWizard({
           onRetry={() => setError(null)}
         />
       ) : null}
+    </div>
+  );
+}
+
+/** Why an answer was flagged, and what that means for the next one. Plain words, no accusation. */
+function IntegrityNotice({ integrity }: { integrity: IntegrityView }) {
+  const blocked = integrity.status === "blocked";
+  return (
+    <div className={blocked ? "sf-explain-integrity is-blocked" : "sf-explain-integrity"} role="status">
+      <p className="sf-explain-kicker">
+        {blocked ? "Not accepted: this one needs your own words" : `Own-words warning ${integrity.strikes} of ${WARNING_STRIKES}`}
+      </p>
+      {integrity.reasons.length ? (
+        <ul>
+          {integrity.reasons.map((reason) => (
+            <li key={reason}>{reason}</li>
+          ))}
+        </ul>
+      ) : null}
+      <p>
+        {blocked
+          ? "After two warnings, answers that read like this stop counting on this stage. Write it plainly, the way you would tell a friend, or press Speak instead and say it out loud."
+          : integrity.warningsLeft > 0
+            ? `Your answer was still reviewed. ${integrity.warningsLeft === 1 ? "One more warning" : `${integrity.warningsLeft} more warnings`} on this stage, and then answers like this will not be accepted.`
+            : "Your answer was still reviewed, but that was the last warning on this stage. From now on, answers like this will not be accepted."}
+      </p>
     </div>
   );
 }

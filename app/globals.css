@@ -3473,6 +3473,61 @@ a.sf-note-row:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
+/* Own-words check: a warning or a refusal under the review, and the stage's warning count above the rail. */
+.sf-explain-integrity {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  padding: 14px 16px;
+  border-radius: var(--radius-card);
+  border: 1px solid color-mix(in srgb, var(--state-warn) 50%, var(--border-subtle));
+  background: color-mix(in srgb, var(--state-warn) 9%, var(--surface-card));
+}
+.sf-explain-integrity.is-blocked {
+  border-color: color-mix(in srgb, var(--state-fail) 55%, var(--border-subtle));
+  background: color-mix(in srgb, var(--state-fail) 9%, var(--surface-card));
+}
+.sf-explain-integrity .sf-explain-kicker {
+  color: var(--state-warn);
+}
+.sf-explain-integrity.is-blocked .sf-explain-kicker {
+  color: var(--state-fail);
+}
+.sf-explain-integrity ul {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding-left: 1.1rem;
+}
+.sf-explain-integrity li,
+.sf-explain-integrity p:last-child {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: var(--text-sm-lh);
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+}
+.sf-explain-standing {
+  justify-self: start;
+  max-width: 100%;
+  margin: 0;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  border: 1px solid color-mix(in srgb, var(--state-warn) 45%, var(--border-subtle));
+  background: color-mix(in srgb, var(--state-warn) 8%, var(--surface-card));
+  font-size: var(--text-xs);
+  line-height: 1.45;
+  color: var(--text-primary);
+}
+.sf-explain-standing.is-blocked {
+  border-color: color-mix(in srgb, var(--state-fail) 50%, var(--border-subtle));
+  background: color-mix(in srgb, var(--state-fail) 8%, var(--surface-card));
+}
+@media (max-width: 639px) {
+  .sf-explain-standing {
+    border-radius: var(--radius-card);
+  }
+}
 /* Speak instead: the label and the mic button share one row; the live words and errors sit under it. */
 .sf-explain-field-head {
   display: flex;

@@ -17,7 +17,7 @@ import {
   assessAuthenticity,
   integrityOutcome,
   nextFlagBlocks,
-  type IntegrityStatus,
+  type IntegrityView,
   type TypingTrace,
 } from "@/lib/explain/authenticity";
 import { addStrike, stageStrikes } from "@/lib/explain/integrity-store";
@@ -152,15 +152,6 @@ export async function reviewStoredExplanation(input: {
     ? { ok: true, kind: "pass", feedback: decision.feedback }
     : { ok: true, kind: "needs-improvement", feedback: decision.feedback };
 }
-
-/** Whether this answer read as the learner's own words, and how many warnings are left on the stage. */
-export type IntegrityView = {
-  status: IntegrityStatus;
-  strikes: number;
-  warningsLeft: number;
-  /** Up to three plain reasons, only when the answer was flagged. */
-  reasons: string[];
-};
 
 export type ConceptStepResult =
   | { ok: true; understood: boolean; review: string; noted: boolean; integrity: IntegrityView }

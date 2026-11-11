@@ -195,6 +195,12 @@ export function integrityOutcome(strikesBefore: number, flagged: boolean): Integ
   return { status: "warning", strikes, warningsLeft: WARNING_STRIKES - strikes };
 }
 
+/** Whether one answer read as the learner's own words, and how many warnings are left on the stage. */
+export type IntegrityView = IntegrityOutcome & {
+  /** Up to three plain reasons, only when the answer was flagged. */
+  reasons: string[];
+};
+
 /** True when the next flagged answer would not be accepted, so a clear-cut one can be refused before a model call. */
 export function nextFlagBlocks(strikesBefore: number) {
   return strikesBefore >= WARNING_STRIKES;

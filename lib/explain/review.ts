@@ -10,7 +10,7 @@ import { recordExplainBack } from "@/lib/explain/record";
 import { saveLearnerNotes } from "@/lib/explain/notes";
 import { notesFromPassedAttempt } from "@/lib/explain/notes-view";
 import { openStageLimit } from "@/lib/progress/formula";
-import { readyWizardSteps, type WizardStep } from "@/lib/explain/wizard";
+import { stepsFromNotes } from "@/lib/explain/wizard";
 
 const MAX_CHARS = 8000;
 const NOTE_LIMIT = 24;
@@ -201,24 +201,30 @@ export async function reviewConceptStep(input: {
     stageId: stage.id,
     steps: [{ concept, explanation: answer, review: review.review, position: concepts.indexOf(concept) }],
   });
+  // The note is what lets the stage be recorded later, so an idea that could not be stored has not moved on.
+  if (!noted) return { ok: false, error: "unavailable" };
   return { ok: true, understood: review.understood, review: review.review, noted };
 }
 
-/** Record the stage once every idea has a real answer and a written review, in order. */
+/**
+ * Record the stage once every idea has been accepted by the server, in order. The answers and reviews come from the
+ * stage notes `reviewConceptStep` wrote after the model marked each idea understood, never from the browser.
+ */
 export async function finishExplainWizard(input: {
   userId: string;
   stageId: string;
-  steps: WizardStep[];
 }): Promise<{ ok: true } | { ok: false; error: "empty" | "unavailable" | "unconnected" }> {
   const loaded = await loadOpenExplainStage(input.stageId, input.userId);
   if (!loaded) return { ok: false, error: "unavailable" };
   const { stage, prompt, stageCount, concepts } = loaded;
   if (concepts.length === 0 || !explainModelConfig()) return { ok: false, error: "unconnected" };
 
-  const steps = readyWizardSteps(concepts, input.steps);
+  const accepted = await prisma.learnerNote.findMany({
+    where: { userId: input.userId, stageId: stage.id, kind: "stage", concept: { in: concepts } },
+    select: { concept: true, explanation: true, review: true },
+  });
+  const steps = stepsFromNotes(concepts, accepted);
   if (!steps) return { ok: false, error: "empty" };
-  const failure = EXPLAIN_REVIEW_FAILURE_TEXT.toLowerCase();
-  if (steps.some((step) => step.answer.toLowerCase() === failure)) return { ok: false, error: "unavailable" };
 
   const answer = steps.map((step) => `${step.concept}\n${step.answer}`).join("\n\n").slice(0, 24_000);
   const feedback = steps.map((step) => `${step.concept}\n${step.review}`).join("\n\n").slice(0, 12_000);
@@ -234,17 +240,6 @@ export async function finishExplainWizard(input: {
     followUpAnswer: null,
     verdict: "PASSED",
     feedback,
-  });
-  await saveLearnerNotes({
-    userId: input.userId,
-    skillId: stage.skillId,
-    stageId: stage.id,
-    steps: steps.map((step, position) => ({
-      concept: step.concept,
-      explanation: step.answer,
-      review: step.review,
-      position,
-    })),
   });
   return { ok: true };
 }

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { feedbackForGaps, followUpForGaps, stageConcepts } from "@/lib/explain/concepts";
 import { decideExplainBack, explainModelConfig, parseConceptReview, parseJudgeReply } from "@/lib/explain/judge";
-import { readyWizardSteps } from "@/lib/explain/wizard";
+import { stepsFromNotes } from "@/lib/explain/wizard";
 
 const CONCEPTS = [
   "Box model and box-sizing",
@@ -112,26 +112,25 @@ describe("concept review", () => {
     expect(parseConceptReview({ understood: "false", review: "You named the idea and stopped. Say what a value is, and what a type changes about how you use it." })?.understood).toBe(false);
   });
 
-  it("records the stage only when every idea is present, in order, with a written review", () => {
+  it("records the stage only from ideas the server accepted, every one of them, in stage order", () => {
     const concepts = ["Values", "Functions"];
     const review = "You explained what a value is and why the type changes what you can do with it.";
+    // One idea has no accepted note yet: the stage cannot be recorded.
+    expect(stepsFromNotes(concepts, [{ concept: "Values", explanation: "A value is data.", review }])).toBeNull();
+    // An accepted note with no real review does not count.
     expect(
-      readyWizardSteps(concepts, [
-        { concept: "Values", answer: "A value is data.", review },
-        { concept: "Functions", answer: "", review },
+      stepsFromNotes(concepts, [
+        { concept: "Values", explanation: "A value is data.", review },
+        { concept: "Functions", explanation: "A function is a reusable step.", review: "ok" },
       ]),
     ).toBeNull();
-    expect(
-      readyWizardSteps(concepts, [
-        { concept: "Functions", answer: "A function is a reusable step.", review },
-        { concept: "Values", answer: "A value is data.", review },
-      ]),
-    ).toBeNull();
-    expect(
-      readyWizardSteps(concepts, [
-        { concept: "Values", answer: "A value is data the program holds.", review },
-        { concept: "Functions", answer: "A function groups steps you can run again.", review },
-      ]),
-    ).toHaveLength(2);
+    // Notes come back in any order; the steps follow the stage.
+    const steps = stepsFromNotes(concepts, [
+      { concept: "Functions", explanation: "A function groups steps you can run again.", review },
+      { concept: "Values", explanation: "A value is data the program holds.", review },
+      { concept: "Something else", explanation: "Not part of this stage.", review },
+    ]);
+    expect(steps?.map((step) => step.concept)).toEqual(["Values", "Functions"]);
+    expect(stepsFromNotes([], [])).toBeNull();
   });
 });

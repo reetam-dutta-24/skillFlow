@@ -3,7 +3,6 @@
 import { auth } from "@/lib/auth";
 import { reviewMilestone } from "@/lib/data/milestone";
 import { finishExplainWizard, reviewConceptStep } from "@/lib/explain/review";
-import type { WizardStep } from "@/lib/explain/wizard";
 import type { ExplainReview } from "@/lib/types/pages";
 import { aiAllowed } from "@/lib/limits";
 
@@ -30,8 +29,9 @@ export async function reviewConcept(input: {
   return reviewConceptStep({ ...input, userId: session.user.id });
 }
 
-export async function completeExplainWizard(input: { stageId: string; steps: WizardStep[] }) {
+/** Records the stage from the ideas the server already accepted. The browser sends only which stage. */
+export async function completeExplainWizard(input: { stageId: string }) {
   const session = await auth();
   if (!session?.user?.id) return { ok: false as const, error: "unavailable" as const };
-  return finishExplainWizard({ ...input, userId: session.user.id });
+  return finishExplainWizard({ stageId: String(input.stageId), userId: session.user.id });
 }

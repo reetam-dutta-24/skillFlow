@@ -111,12 +111,8 @@ export function ExplainWizard({
     }
     setPhase("saving");
     setError(null);
-    const steps = concepts.map((item, itemIndex) => ({
-      concept: item,
-      answer: drafts[itemIndex]?.trim() ?? "",
-      review: reviews[itemIndex] ?? "",
-    }));
-    const saved = await completeExplainWizard({ stageId, steps });
+    // The server records the stage from the ideas it accepted; nothing typed here is trusted for the pass.
+    const saved = await completeExplainWizard({ stageId });
     if (!saved.ok) {
       setError(saved.error);
       setPhase("reviewed");

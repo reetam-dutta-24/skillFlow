@@ -4,17 +4,28 @@ export type WizardStep = {
   review: string;
 };
 
-/** Keep a step only when it is the next idea, in order, with an answer and a written review. */
-export function readyWizardSteps(concepts: string[], steps: WizardStep[]): WizardStep[] | null {
-  if (steps.length !== concepts.length || concepts.length === 0) return null;
-  const cleaned = steps.map((step) => ({
-    concept: step.concept.trim(),
-    answer: step.answer.trim().slice(0, 4000),
-    review: step.review.trim().slice(0, 900),
-  }));
-  const ready = concepts.every((concept, index) => {
-    const step = cleaned[index];
-    return step.concept === concept && step.answer.length > 0 && step.review.length >= 40;
-  });
-  return ready ? cleaned : null;
+/** One idea the server already accepted: a stage `LearnerNote`, written only after the model marked it understood. */
+export type AcceptedIdea = {
+  concept: string;
+  explanation: string;
+  review: string;
+};
+
+/**
+ * The stage's steps, in order, built only from ideas the server accepted. Null while any idea has no accepted note.
+ * The browser never supplies the answer or the review that records a stage, so a stage cannot be passed by posting
+ * made-up reviews to the finish action.
+ */
+export function stepsFromNotes(concepts: string[], accepted: AcceptedIdea[]): WizardStep[] | null {
+  if (concepts.length === 0) return null;
+  const byConcept = new Map(accepted.map((note) => [note.concept.trim(), note]));
+  const steps: WizardStep[] = [];
+  for (const concept of concepts) {
+    const note = byConcept.get(concept.trim());
+    const answer = note?.explanation.trim().slice(0, 4000) ?? "";
+    const review = note?.review.trim().slice(0, 900) ?? "";
+    if (!answer || review.length < 20) return null;
+    steps.push({ concept, answer, review });
+  }
+  return steps;
 }

@@ -41,29 +41,38 @@ export type GuardDecision =
   | { mode: "answer" }
   | { mode: "hint"; stageId: string; concept: string };
 
-/** How many of the top sources the guard looks at. */
-export const GUARD_TOP = 3;
-
 /**
- * Hint mode when the question asks to explain an idea, the best source is not a help article, one of the top sources sits in a stage this learner has not
- * passed, and the question names one of that stage's explain-back ideas (or the stage itself). The learner then gets
- * pointers, guiding questions, and a hint, never a model answer they could paste into the gate.
+ * Hint mode decides on every source the model would see (not only the first few), for a stage this learner has not
+ * passed:
+ *
+ * - The question names one of that stage's explain-back ideas: hint, however it is phrased ("the knight moves how?",
+ *   "write a paragraph on knight moves"), because the wording of a request is easy to change and the idea is not. The
+ *   one exception is a question that does not ask for an explanation while a help article ranks first: that is a
+ *   question about SkillFlow that happens to share words with a stage.
+ * - The question names only the stage title: hint when it also asks for an explanation and the best source is not a
+ *   help article, because a title is broad.
+ *
+ * The learner then gets pointers, guiding questions, and a hint, never a model answer they could paste into the gate.
  */
 export function explainBackGuard(input: {
-  question: string;
+  /** Every source the model would be given, best first. */
   topStageIds: readonly (string | null)[];
+  question: string;
   stages: ReadonlyMap<string, GuardStage>;
-  /** The kind of the best source. When it is a help article, the question is about SkillFlow, not a stage idea. */
+  /** The kind of the best source. A help article first means the question is probably about SkillFlow itself. */
   firstKind?: string;
 }): GuardDecision {
-  if (!explainIntent(input.question) || input.firstKind === "help") return { mode: "answer" };
-  for (const stageId of input.topStageIds.slice(0, GUARD_TOP)) {
+  const asksToExplain = explainIntent(input.question);
+  const aboutSkillFlow = input.firstKind === "help";
+  for (const stageId of input.topStageIds) {
     if (!stageId) continue;
     const stage = input.stages.get(stageId);
     if (!stage || stage.passed) continue;
     const concept = stage.concepts.find((item) => mentions(input.question, item));
-    if (concept) return { mode: "hint", stageId, concept };
-    if (mentions(input.question, stage.title)) return { mode: "hint", stageId, concept: stage.title };
+    if (concept && (asksToExplain || !aboutSkillFlow)) return { mode: "hint", stageId, concept };
+    if (asksToExplain && !aboutSkillFlow && mentions(input.question, stage.title)) {
+      return { mode: "hint", stageId, concept: stage.title };
+    }
   }
   return { mode: "answer" };
 }

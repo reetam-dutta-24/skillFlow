@@ -297,18 +297,33 @@ describe("explain-back guard", () => {
     });
   });
 
-  it("answers normally when the best source is a help article", () => {
-    expect(explainBackGuard({ question: "Explain how the knight moves", topStageIds: [null, "s1"], stages, firstKind: "help" })).toEqual({ mode: "answer" });
+  const knight = { mode: "hint", stageId: "s1", concept: "Move the king, queen, rook, bishop, knight, and pawn" };
+
+  it("cannot be talked out of hint mode by rewording the request", () => {
+    expect(explainBackGuard({ question: "The knight moves how?", topStageIds: ["s1"], stages })).toEqual(knight);
+    expect(explainBackGuard({ question: "Write a paragraph about knight moves", topStageIds: ["s1"], stages })).toEqual(knight);
+  });
+
+  it("stays in hint mode when help words push an article to the top of an explain request", () => {
+    expect(explainBackGuard({ question: "Explain how the knight moves", topStageIds: [null, "s1"], stages, firstKind: "help" })).toEqual(knight);
+  });
+
+  it("checks every source the model would see, not only the first three", () => {
+    expect(explainBackGuard({ question: "Explain how the knight moves", topStageIds: [null, null, null, null, "s1"], stages })).toEqual(knight);
   });
 
   it("answers normally once the stage is passed", () => {
     expect(explainBackGuard({ question: "What is the box model?", topStageIds: ["s2"], stages })).toEqual({ mode: "answer" });
   });
 
-  it("answers normally when the question does not ask for an explanation, or names no idea", () => {
+  it("answers normally for a question about SkillFlow, or one that names no idea", () => {
+    // Shares a word with the idea, but a help article leads and nothing asks for an explanation.
+    expect(explainBackGuard({ question: "Where do knight moves show up in my notes?", topStageIds: [null, "s1"], stages, firstKind: "help" })).toEqual({ mode: "answer" });
     expect(explainBackGuard({ question: "Where is the knight stage?", topStageIds: ["s1"], stages })).toEqual({ mode: "answer" });
     expect(explainBackGuard({ question: "What is Premium?", topStageIds: ["s1"], stages })).toEqual({ mode: "answer" });
-    expect(explainBackGuard({ question: "Explain the knight", topStageIds: [null, null, null, "s1"], stages })).toEqual({ mode: "answer" });
+    // A title on its own needs an explain request.
+    expect(explainBackGuard({ question: "Where do I find The Board and the Pieces?", topStageIds: ["s1"], stages })).toEqual({ mode: "answer" });
+    expect(explainBackGuard({ question: "Explain the board and the pieces", topStageIds: ["s1"], stages })).toEqual({ mode: "hint", stageId: "s1", concept: "The Board and the Pieces" });
   });
 });
 

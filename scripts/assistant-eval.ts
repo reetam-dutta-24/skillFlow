@@ -42,7 +42,7 @@ async function main() {
     const keys = result.sources.map((row) => row.sourceKey);
     let predicted: EvalOutcome["predicted"] = "not-sure";
     if (result.sources.length) {
-      const topStageIds = result.sources.slice(0, 3).map((row) => row.stageId);
+      const topStageIds = result.sources.map((row) => row.stageId);
       const stages = await loadGuardStages(NOBODY, topStageIds.filter((id): id is string => Boolean(id)));
       predicted = explainBackGuard({ question: question.question, topStageIds, stages, firstKind: result.sources[0]?.kind }).mode;
     }

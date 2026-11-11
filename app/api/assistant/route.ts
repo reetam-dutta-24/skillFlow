@@ -92,7 +92,8 @@ export async function POST(request: Request) {
               retrieve(searchText, { premium, followedSkillIds: basics.followedSkillIds, currentStageIds: basics.currentStageIds, signal: abort.signal }, message),
               learnerIntent(message) ? loadLearnerContext(userId, basics) : Promise.resolve<LearnerContext | null>(null),
             ]);
-            const topStageIds = result.sources.slice(0, 3).map((row) => row.stageId);
+            // Every source the model would see goes through the guard, not only the first few.
+            const topStageIds = result.sources.map((row) => row.stageId);
             const guard: GuardDecision = explainBackGuard({
               question: message,
               topStageIds,
@@ -119,7 +120,9 @@ export async function POST(request: Request) {
           mode,
           concept: guard.mode === "hint" ? guard.concept : undefined,
           question: message,
-          history,
+          // History comes from the browser. In hint mode it is left out, so made-up earlier turns cannot argue the
+          // model out of its rules.
+          history: mode === "hint" ? [] : history,
           sources: numbered,
           signal: abort.signal,
           onDelta: (text) => send({ t: "delta", text }),

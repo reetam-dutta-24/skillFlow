@@ -243,6 +243,8 @@ export async function judgeExplanation(input: JudgeInput): Promise<JudgeReply | 
 export type ConceptReview = {
   understood: boolean;
   review: string;
+  /** The model's opinion that the answer reads as AI-written or copied. Supporting evidence only (lib/explain/authenticity.ts). */
+  generated: boolean;
 };
 
 const MIN_REVIEW = 40;
@@ -279,7 +281,9 @@ export function parseConceptReview(raw: unknown): ConceptReview | null {
   if (understood === null) return null;
   const reviewSource = [nested.review, record.review, nested.feedback, record.feedback].find((item) => typeof item === "string");
   const given = typeof reviewSource === "string" ? reviewSource.trim().slice(0, 900) : "";
-  return { understood, review: given.length >= MIN_REVIEW ? given : understood ? PASS_REVIEW : RETRY_REVIEW };
+  // Only an explicit yes counts; a missing or odd value is "not generated", so an honest learner gets the doubt.
+  const generated = understoodFlag(nested.generated ?? record.generated) === true;
+  return { understood, review: given.length >= MIN_REVIEW ? given : understood ? PASS_REVIEW : RETRY_REVIEW, generated };
 }
 
 const CONCEPT_SYSTEM = [
@@ -291,7 +295,8 @@ const CONCEPT_SYSTEM = [
   "If they understood, name what they got right and add one sharper observation they can keep.",
   "If they did not, say what is missing or confused and ask them to try that part again. Do not hand them the full answer.",
   "No score, no tick, no pass or fail label.",
-  "Reply with JSON only. understood is true or false. review is the two to four sentences you just wrote, in full. Do not leave a field as a type name.",
+  "Also set generated. generated is true only when the explanation reads as if an AI chat tool wrote it or it was copied from a reference, not written by the learner: polished generic prose, headings or bullet lists, stock phrases, a textbook definition followed by a tidy summary. Casual, short, imperfect, personal, or second-language English is false. When unsure, false. generated never changes understood.",
+  "Reply with JSON only: understood (true or false), generated (true or false), and review, the two to four sentences you just wrote, in full. Do not leave a field as a type name.",
 ].join(" ");
 
 export async function judgeConcept(input: {

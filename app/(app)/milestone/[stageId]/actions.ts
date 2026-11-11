@@ -6,6 +6,7 @@ import { finishExplainWizard, reviewConceptStep } from "@/lib/explain/review";
 import type { ExplainReview } from "@/lib/types/pages";
 import { aiAllowed } from "@/lib/limits";
 import { cleanMethod } from "@/lib/explain/dictation";
+import { cleanTrace } from "@/lib/explain/authenticity";
 
 export async function reviewExplanation(input: {
   stageId: string;
@@ -25,6 +26,8 @@ export async function reviewConcept(input: {
   answer: string;
   /** How the answer was given: typed, spoken, or both. A label only; it never changes how the answer is judged. */
   method?: string;
+  /** Paste and typing counts for this answer. Checked and bounded on the server; never trusted on its own. */
+  trace?: unknown;
 }) {
   const session = await auth();
   if (!session?.user?.id) return { ok: false as const, error: "unavailable" as const };
@@ -34,6 +37,7 @@ export async function reviewConcept(input: {
     concept: String(input.concept),
     answer: String(input.answer),
     method: cleanMethod(input.method),
+    trace: cleanTrace(input.trace),
     userId: session.user.id,
   });
 }

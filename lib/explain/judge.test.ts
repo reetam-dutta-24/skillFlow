@@ -112,6 +112,14 @@ describe("concept review", () => {
     expect(parseConceptReview({ understood: "false", review: "You named the idea and stopped. Say what a value is, and what a type changes about how you use it." })?.understood).toBe(false);
   });
 
+  it("reads the model's generated opinion only when it says yes outright", () => {
+    const review = "You explained what a value is and why the type changes what you can do with it.";
+    expect(parseConceptReview({ understood: true, review, generated: true })?.generated).toBe(true);
+    expect(parseConceptReview({ understood: true, review, generated: "yes" })?.generated).toBe(true);
+    expect(parseConceptReview({ understood: true, review })?.generated).toBe(false);
+    expect(parseConceptReview({ understood: true, review, generated: "maybe" })?.generated).toBe(false);
+  });
+
   it("records the stage only from ideas the server accepted, every one of them, in stage order", () => {
     const concepts = ["Values", "Functions"];
     const review = "You explained what a value is and why the type changes what you can do with it.";

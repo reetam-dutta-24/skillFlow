@@ -12,6 +12,15 @@ import { notesFromPassedAttempt } from "@/lib/explain/notes-view";
 import { openStageLimit } from "@/lib/progress/formula";
 import { stepsFromNotes } from "@/lib/explain/wizard";
 import type { InputMethod } from "@/lib/explain/dictation";
+import {
+  BLOCKED_REVIEW,
+  assessAuthenticity,
+  integrityOutcome,
+  nextFlagBlocks,
+  type IntegrityStatus,
+  type TypingTrace,
+} from "@/lib/explain/authenticity";
+import { addStrike, stageStrikes } from "@/lib/explain/integrity-store";
 
 const MAX_CHARS = 8000;
 const NOTE_LIMIT = 24;
@@ -144,8 +153,17 @@ export async function reviewStoredExplanation(input: {
     : { ok: true, kind: "needs-improvement", feedback: decision.feedback };
 }
 
+/** Whether this answer read as the learner's own words, and how many warnings are left on the stage. */
+export type IntegrityView = {
+  status: IntegrityStatus;
+  strikes: number;
+  warningsLeft: number;
+  /** Up to three plain reasons, only when the answer was flagged. */
+  reasons: string[];
+};
+
 export type ConceptStepResult =
-  | { ok: true; understood: boolean; review: string; noted: boolean }
+  | { ok: true; understood: boolean; review: string; noted: boolean; integrity: IntegrityView }
   | { ok: false; error: "empty" | "unavailable" | "unconnected" };
 
 /** Grade one idea. An accepted idea is stored as a note. The stage is recorded only after every idea has passed. */
@@ -155,6 +173,8 @@ export async function reviewConceptStep(input: {
   concept: string;
   answer: string;
   method?: InputMethod;
+  /** Paste and typing counts from the browser. Supporting evidence only. */
+  trace?: TypingTrace | null;
 }): Promise<ConceptStepResult> {
   const loaded = await loadOpenExplainStage(input.stageId, input.userId);
   if (!loaded) return { ok: false, error: "unavailable" };
@@ -167,6 +187,23 @@ export async function reviewConceptStep(input: {
   if (!answer) return { ok: false, error: "empty" };
   if (answer.toLowerCase() === EXPLAIN_REVIEW_FAILURE_TEXT.toLowerCase()) return { ok: false, error: "unavailable" };
 
+  const method = input.method ?? "text";
+  const trace = input.trace ?? null;
+  const strikesBefore = await stageStrikes(input.userId, stage.id);
+  // Warnings used up and the answer is clearly not the learner's own (a chatbot phrase, or pasted in): refuse it
+  // before spending a model call. Nothing is saved apart from the strike.
+  const precheck = assessAuthenticity({ answer, method, trace, modelSaysGenerated: null });
+  if (precheck.flagged && nextFlagBlocks(strikesBefore)) {
+    const strikes = await addStrike(input.userId, stage.id);
+    return {
+      ok: true,
+      understood: false,
+      review: BLOCKED_REVIEW,
+      noted: false,
+      integrity: { status: "blocked", strikes, warningsLeft: 0, reasons: precheck.reasons },
+    };
+  }
+
   const review = await judgeConcept({
     title: stage.title,
     description: stage.description,
@@ -176,6 +213,17 @@ export async function reviewConceptStep(input: {
     answer,
   });
   if (!review) return { ok: false, error: "unavailable" };
+
+  const check = assessAuthenticity({ answer, method, trace, modelSaysGenerated: review.generated });
+  const outcome = integrityOutcome(strikesBefore, check.flagged);
+  const strikes = check.flagged ? await addStrike(input.userId, stage.id) : outcome.strikes;
+  const integrity: IntegrityView = { ...outcome, strikes, reasons: check.reasons };
+  // A flagged answer after the warnings is not accepted, even when it is right. It is not a learning miss either, so
+  // no attempt is recorded and weak topics stay true to what the learner actually got wrong.
+  if (integrity.status === "blocked") {
+    return { ok: true, understood: false, review: BLOCKED_REVIEW, noted: false, integrity };
+  }
+
   if (!review.understood) {
     try {
       await recordExplainBack({
@@ -196,7 +244,7 @@ export async function reviewConceptStep(input: {
       const message = error instanceof Error ? error.message : "miss save failed";
       console.error("explain-back miss save failed", message.slice(0, 180));
     }
-    return { ok: true, understood: false, review: review.review, noted: false };
+    return { ok: true, understood: false, review: review.review, noted: false, integrity };
   }
   const noted = await saveLearnerNotes({
     userId: input.userId,
@@ -206,7 +254,7 @@ export async function reviewConceptStep(input: {
   });
   // The note is what lets the stage be recorded later, so an idea that could not be stored has not moved on.
   if (!noted) return { ok: false, error: "unavailable" };
-  return { ok: true, understood: review.understood, review: review.review, noted };
+  return { ok: true, understood: review.understood, review: review.review, noted, integrity };
 }
 
 /**

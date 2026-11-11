@@ -74,6 +74,7 @@ model User {
   detoxAssessment  DetoxAssessment?
   detoxCheckIns    DetoxCheckIn[]
   focusSessions    FocusSession[]
+  explainIntegrity ExplainBackIntegrity[]
 }
 
 model Subscription {
@@ -255,6 +256,7 @@ model RoadmapStage {
   communityContributions CommunityContribution[]
   gapReports             GapReport[]
   learnerNotes           LearnerNote[]
+  explainIntegrity       ExplainBackIntegrity[]
 
   @@unique([skillId, order])
 }
@@ -383,6 +385,24 @@ model ExplainBackAttempt {
 
   user   User              @relation(fields: [userId], references: [id], onDelete: Cascade)
   prompt ExplainBackPrompt @relation(fields: [promptId], references: [id], onDelete: Cascade)
+}
+
+/// Explain-back answers on one stage that read as AI-written or pasted (lib/explain/authenticity.ts). The first two are
+/// warnings; from the third, a flagged answer is not accepted until the learner gives one in their own words. Counts
+/// only: the flagged text is never stored here.
+model ExplainBackIntegrity {
+  id            String    @id @default(cuid())
+  userId        String
+  stageId       String
+  strikes       Int       @default(0)
+  lastFlaggedAt DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  user  User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  stage RoadmapStage @relation(fields: [stageId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, stageId])
 }
 
 /// One accepted idea: an explain-back on a stage, or a practice note the learner brought themselves.

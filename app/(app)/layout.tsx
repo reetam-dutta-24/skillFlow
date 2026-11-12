@@ -14,8 +14,8 @@ import { ShellReview } from "./_components/ShellReview";
 
 export const metadata: Metadata = {
   title: {
-    default: "SkillFlow",
-    template: "%s | SkillFlow",
+    default: "LearnProof",
+    template: "%s | LearnProof",
   },
   robots: {
     index: false,

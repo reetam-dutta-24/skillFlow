@@ -5,7 +5,7 @@ import { LEGAL_CONTACT_EMAIL } from "@/lib/legal";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description: "What SkillFlow collects, why, who else handles it, and how to see, change, or delete it.",
+  description: "What LearnProof collects, why, who else handles it, and how to see, change, or delete it.",
 };
 
 const mail = <a href={`mailto:${LEGAL_CONTACT_EMAIL}`}>{LEGAL_CONTACT_EMAIL}</a>;
@@ -17,8 +17,8 @@ const sections: LegalSection[] = [
     body: (
       <>
         <p>
-          SkillFlow is a learning app. You follow a path, open a stage of real resources, and explain each idea back in your own words before
-          the stage is recorded. This policy covers the SkillFlow website and app. SkillFlow decides why and how your personal data is used, so
+          LearnProof is a learning app. You follow a path, open a stage of real resources, and explain each idea back in your own words before
+          the stage is recorded. This policy covers the LearnProof website and app. LearnProof decides why and how your personal data is used, so
           it is the Data Fiduciary for that data under India&apos;s Digital Personal Data Protection Act, 2023.
         </p>
         <p>Questions and requests go to {mail}.</p>
@@ -179,7 +179,7 @@ const sections: LegalSection[] = [
           <li>
             <strong>Your browser&apos;s speech recognition.</strong> If you press Speak instead on an explain-back, your browser turns
             your voice into text. Chrome and Edge send the audio to Google&apos;s or Microsoft&apos;s speech service to do this, and
-            Safari to Apple&apos;s; their own policies apply. SkillFlow never receives, records, or stores your audio: only the words
+            Safari to Apple&apos;s; their own policies apply. LearnProof never receives, records, or stores your audio: only the words
             that appear in the box are sent, exactly as if you had typed them, and we note whether an answer was typed or spoken.
             The microphone is used only while the button says Stop listening.
           </li>
@@ -218,7 +218,7 @@ const sections: LegalSection[] = [
           Your Dopamine Detox answers, check-ins, and focus sessions are private to you. Your Detox Score and its band appear on your
           profile only if you turn on &ldquo;Show my Detox Score on my profile&rdquo; in Settings; it is off unless you do.
         </li>
-        <li>A career-fit image leaves SkillFlow only when you download it and share it yourself.</li>
+        <li>A career-fit image leaves LearnProof only when you download it and share it yourself.</li>
       </ul>
     ),
   },
@@ -227,7 +227,7 @@ const sections: LegalSection[] = [
     title: "Cookies and storage on your device",
     body: (
       <>
-        <p>SkillFlow uses only what it needs to work. There are no advertising or tracking cookies and no third-party analytics.</p>
+        <p>LearnProof uses only what it needs to work. There are no advertising or tracking cookies and no third-party analytics.</p>
         <ul>
           <li>
             <strong>Sign-in cookie.</strong> Keeps you signed in. It is required.
@@ -299,9 +299,9 @@ const sections: LegalSection[] = [
     title: "Children",
     body: (
       <p>
-        You must be 18 to use SkillFlow on your own. Learners aged 13 to 17 may use it only with the consent of a parent or guardian, who
-        agrees to this policy for them. SkillFlow is not for children under 13. We do not track children or show them targeted advertising.
-        If you believe a child is using SkillFlow without that consent, write to {mail} and we will delete the account.
+        You must be 18 to use LearnProof on your own. Learners aged 13 to 17 may use it only with the consent of a parent or guardian, who
+        agrees to this policy for them. LearnProof is not for children under 13. We do not track children or show them targeted advertising.
+        If you believe a child is using LearnProof without that consent, write to {mail} and we will delete the account.
       </p>
     ),
   },
@@ -322,7 +322,7 @@ const sections: LegalSection[] = [
     body: (
       <p>
         When we change this policy, we update the date at the top. If a change affects how we use data you have already given us, we will tell
-        you in the app or by email before it applies. The <Link href="/terms">Terms of Service</Link> cover the rest of how SkillFlow works.
+        you in the app or by email before it applies. The <Link href="/terms">Terms of Service</Link> cover the rest of how LearnProof works.
       </p>
     ),
   },
@@ -332,7 +332,7 @@ export default function PrivacyPage() {
   return (
     <LegalDocument
       title="Privacy Policy"
-      lede="What SkillFlow collects, why, who else handles it, and how to see, change, or delete it."
+      lede="What LearnProof collects, why, who else handles it, and how to see, change, or delete it."
       summary={[
         "We collect what the app needs: your account, your learning, and what you choose to share.",
         "Your explanations are reviewed by an AI model. Your name and email are not sent to it.",

@@ -15,7 +15,7 @@ export default function AppError({
       retry={retry}
       placement="content"
       homeHref="/dashboard"
-      documentTitle="Something went wrong | SkillFlow"
+      documentTitle="Something went wrong | LearnProof"
     />
   );
 }

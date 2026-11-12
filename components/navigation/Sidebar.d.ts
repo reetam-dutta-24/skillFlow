@@ -3,7 +3,7 @@ import * as React from "react";
 /**
  * Left navigation rail, inherited from the AniVerse dashboard shell
  * (168px desktop width, capsule nav items, 15% white active fill).
- * The item list is SkillFlow's, not AniVerse's.
+ * The item list is LearnProof's, not AniVerse's.
  *
  * @startingPoint section="Navigation" subtitle="App navigation rail" viewport="700x400"
  */
@@ -28,4 +28,4 @@ export interface SidebarProps extends React.HTMLAttributes<HTMLElement> {
   footer?: React.ReactNode;
 }
 export function Sidebar(props: SidebarProps): React.JSX.Element;
-export const SKILLFLOW_NAV: SidebarItem[];
+export const LEARNPROOF_NAV: SidebarItem[];

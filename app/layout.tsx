@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "SkillFlow",
-    template: "%s · SkillFlow",
+    default: "LearnProof",
+    template: "%s · LearnProof",
   },
   description:
     "A mastery-first learning system with curated roadmaps, bring-your-own resources, and a Socratic explain-back gate.",

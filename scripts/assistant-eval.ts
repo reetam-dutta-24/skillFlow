@@ -10,7 +10,7 @@ import { prisma } from "@/lib/prisma";
 import { getRedis } from "@/lib/redis";
 
 /**
- * Retrieval-only evaluation of the SkillFlow Assistant against content/help/_eval.json. No generation, no model call
+ * Retrieval-only evaluation of the LearnProof Assistant against content/help/_eval.json. No generation, no model call
  * except the query embeddings. Prints Recall@5, MRR, not-sure accuracy, and hint-mode accuracy for a free learner who
  * has passed nothing yet.
  *

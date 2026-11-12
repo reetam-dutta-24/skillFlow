@@ -53,7 +53,7 @@ export function AssistantAnswer({ turn, reduce }: { turn: AnswerTurn; reduce: bo
   if (turn.status === "streaming") {
     return (
       <div className="sf-assist-body" aria-busy="true">
-        {turn.text ? <p className="sf-assist-stream">{turn.text}</p> : <p className="sf-assist-thinking">Looking through SkillFlow…</p>}
+        {turn.text ? <p className="sf-assist-stream">{turn.text}</p> : <p className="sf-assist-thinking">Looking through LearnProof…</p>}
         <span className="sf-assist-cursor" data-still={reduce ? "true" : undefined} aria-hidden="true" />
       </div>
     );

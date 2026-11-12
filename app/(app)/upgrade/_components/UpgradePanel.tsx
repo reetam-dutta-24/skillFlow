@@ -71,7 +71,7 @@ export function UpgradePanel({
       <section className="sf-billing-card" aria-labelledby="premium-offer">
         <p className="sf-path-kicker">Premium</p>
         <h2 id="premium-offer">{priceLabel}</h2>
-        <p>One subscription. The card form opens on Stripe, and SkillFlow never sees the card.</p>
+        <p>One subscription. The card form opens on Stripe, and LearnProof never sees the card.</p>
         <ul>
           {PREMIUM.map((item) => (
             <li key={item}>{item}</li>

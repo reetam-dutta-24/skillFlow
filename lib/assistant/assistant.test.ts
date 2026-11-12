@@ -316,7 +316,7 @@ describe("explain-back guard", () => {
     expect(explainBackGuard({ question: "What is the box model?", topStageIds: ["s2"], stages })).toEqual({ mode: "answer" });
   });
 
-  it("answers normally for a question about SkillFlow, or one that names no idea", () => {
+  it("answers normally for a question about LearnProof, or one that names no idea", () => {
     // Shares a word with the idea, but a help article leads and nothing asks for an explanation.
     expect(explainBackGuard({ question: "Where do knight moves show up in my notes?", topStageIds: [null, "s1"], stages, firstKind: "help" })).toEqual({ mode: "answer" });
     expect(explainBackGuard({ question: "Where is the knight stage?", topStageIds: ["s1"], stages })).toEqual({ mode: "answer" });

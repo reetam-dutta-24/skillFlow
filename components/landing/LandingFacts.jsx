@@ -19,7 +19,7 @@ export function LandingFacts({ caption, stats }) {
   return (
     <section className="sf-section sf-facts-band sf-band-raise" aria-labelledby="landing-facts-title">
       <h2 id="landing-facts-title" className="sf-sr">
-        SkillFlow in numbers
+        LearnProof in numbers
       </h2>
       <dl className="sf-facts sf-facts--live">
         {facts.map((fact) => (

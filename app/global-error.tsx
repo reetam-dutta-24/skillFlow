@@ -31,7 +31,7 @@ export default function GlobalError({
       suppressHydrationWarning
     >
       <head>
-        <title>Something went wrong · SkillFlow</title>
+        <title>Something went wrong · LearnProof</title>
         <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
         <script dangerouslySetInnerHTML={{ __html: accentBootScript }} />
       </head>

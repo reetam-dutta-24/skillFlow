@@ -1,7 +1,7 @@
 import type { SearchEntry } from "./score";
 
 /**
- * Everything in SkillFlow that is not catalog content: pages, features, settings, quick actions, and help. Searched in
+ * Everything in LearnProof that is not catalog content: pages, features, settings, quick actions, and help. Searched in
  * the browser, so these results appear instantly. Add an entry when a page or a feature ships.
  */
 export const STATIC_SEARCH: readonly SearchEntry[] = [
@@ -28,8 +28,8 @@ export const STATIC_SEARCH: readonly SearchEntry[] = [
   { id: "p-upgrade", kind: "page", title: "Premium", description: "What Premium adds, and how to upgrade", href: "/upgrade", icon: "sparkles", keywords: ["upgrade", "pricing", "subscription", "pay", "plan", "stripe", "billing"] },
   { id: "p-settings", kind: "page", title: "Settings", description: "Profile, appearance, notifications, and your account", href: "/settings", icon: "settings", keywords: ["preferences", "account", "options"] },
   { id: "p-onboarding", kind: "page", title: "Edit profile answers", description: "Your age range, goals, pace, and chosen paths", href: "/onboarding?edit=1", icon: "user-pen", keywords: ["onboarding", "goals", "pace", "about me"] },
-  { id: "p-privacy", kind: "page", title: "Privacy Policy", description: "What SkillFlow collects and why", href: "/privacy", icon: "shield", keywords: ["privacy", "data", "gdpr", "dpdp"] },
-  { id: "p-terms", kind: "page", title: "Terms of Service", description: "The rules for using SkillFlow", href: "/terms", icon: "file-text", keywords: ["terms", "conditions", "legal"] },
+  { id: "p-privacy", kind: "page", title: "Privacy Policy", description: "What LearnProof collects and why", href: "/privacy", icon: "shield", keywords: ["privacy", "data", "gdpr", "dpdp"] },
+  { id: "p-terms", kind: "page", title: "Terms of Service", description: "The rules for using LearnProof", href: "/terms", icon: "file-text", keywords: ["terms", "conditions", "legal"] },
 
   // Features (what something is, and where to find it)
   { id: "f-explain", kind: "feature", title: "Explain-back", description: "Explain each idea in your own words to open the next stage", href: "/roadmap", icon: "message-square-quote", keywords: ["explain", "mastery check", "gate", "review", "ai review", "test my understanding"] },
@@ -46,7 +46,7 @@ export const STATIC_SEARCH: readonly SearchEntry[] = [
   { id: "f-checkin", kind: "feature", title: "Weekly Detox check-in", description: "Screen time and focus, once a week", href: "/detox#checkin", icon: "calendar-check", keywords: ["check in", "screen time", "weekly"] },
   { id: "f-map", kind: "feature", title: "Learner map", description: "How many learners study near each city", href: "/nearby", icon: "map", keywords: ["map", "city", "people"] },
   { id: "f-profile", kind: "feature", title: "Public profile", description: "What other learners see about you", href: "/settings", icon: "user", keywords: ["profile", "public", "avatar", "headline"] },
-  { id: "f-assistant", kind: "feature", title: "SkillFlow Assistant", description: "Ask about SkillFlow; answers cite their sources (Ctrl or Cmd + J)", action: "assistant", icon: "sparkles", keywords: ["assistant", "chatbot", "ask", "ai help", "rag", "questions"] },
+  { id: "f-assistant", kind: "feature", title: "LearnProof Assistant", description: "Ask about LearnProof; answers cite their sources (Ctrl or Cmd + J)", action: "assistant", icon: "sparkles", keywords: ["assistant", "chatbot", "ask", "ai help", "rag", "questions"] },
   { id: "f-tour", kind: "feature", title: "Guided tour", description: "Every feature, hands-on, from Home", href: "/dashboard?tour=1", icon: "compass", keywords: ["tour", "tutorial", "help", "how to", "getting started", "walkthrough", "onboarding"] },
 
   // Settings
@@ -61,7 +61,7 @@ export const STATIC_SEARCH: readonly SearchEntry[] = [
 
   // Quick actions
   { id: "a-theme", kind: "action", title: "Switch light or dark theme", description: "Changes the theme right away", action: "theme", icon: "sun-moon", keywords: ["dark mode", "light mode", "theme", "toggle"] },
-  { id: "a-assistant", kind: "action", title: "Ask the assistant", description: "Questions about SkillFlow, answered from its help and catalog with sources", action: "assistant", icon: "sparkles", keywords: ["ask", "assistant", "chat", "question", "ai", "help me", "how do i", "chatbot"] },
+  { id: "a-assistant", kind: "action", title: "Ask the assistant", description: "Questions about LearnProof, answered from its help and catalog with sources", action: "assistant", icon: "sparkles", keywords: ["ask", "assistant", "chat", "question", "ai", "help me", "how do i", "chatbot"] },
   { id: "a-tour", kind: "action", title: "Replay the guided tour", description: "Opens the tour on Home", action: "tour", icon: "compass", keywords: ["tour", "tutorial", "help", "walkthrough"] },
   { id: "a-focus", kind: "action", title: "Start a focus session", description: "Opens Detox · Focus session", href: "/detox#focus", icon: "timer", keywords: ["focus", "timer", "pomodoro"] },
   { id: "a-swap", kind: "action", title: "Swap a scroll now", description: "One recall or one idea in three minutes", href: "/detox?swap=1", icon: "repeat-2", keywords: ["swap", "quick"] },

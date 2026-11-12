@@ -58,7 +58,7 @@ export type Ranked = Candidate & {
 };
 
 const STOP = new Set(
-  "a an the and or but if then so to of in on at by for with from as is are was were be been being do does did doing have has had having i me my mine we our you your it its this that these those there here what which who whom whose when where why how can could should would will shall may might must not no yes am about into over under again more most some any each other than too very just also only own same such get got give tell show explain define describe mean means meaning skillflow please myself yourself like want need good best really thing things something anything way ways".split(" "),
+  "a an the and or but if then so to of in on at by for with from as is are was were be been being do does did doing have has had having i me my mine we our you your it its this that these those there here what which who whom whose when where why how can could should would will shall may might must not no yes am about into over under again more most some any each other than too very just also only own same such get got give tell show explain define describe mean means meaning learnproof please myself yourself like want need good best really thing things something anything way ways".split(" "),
 );
 
 /** Crude stemming, good enough to match "promotes" with "promotion" and "passed" with "pass". */

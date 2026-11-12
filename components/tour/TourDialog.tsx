@@ -216,7 +216,7 @@ export function TourDialog({
               <span className="sf-tour-brand-mark" aria-hidden="true">
                 <Icon name="compass" size={16} />
               </span>
-              SkillFlow tour
+              LearnProof tour
               <span className="sf-tour-brand-meta">every feature, hands-on</span>
             </p>
             <Button variant="ghost" size="sm" onClick={skip}>

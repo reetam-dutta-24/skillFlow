@@ -188,7 +188,7 @@ async function ReportContent() {
         <p>{SOURCES.ipip}</p>
         <p>{SOURCES.onet}</p>
         <p>
-          Path matches use SkillFlow&apos;s own map of each path to interest areas and traits.{" "}
+          Path matches use LearnProof&apos;s own map of each path to interest areas and traits.{" "}
           {report.source === "model"
             ? "The written sections were drafted by an AI model from your scores only; it never saw your answers, name, or email."
             : "The written sections come from fixed rules applied to your scores."}

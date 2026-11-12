@@ -5,7 +5,7 @@ import { dictationErrorText, dictationLang } from "@/lib/explain/dictation";
 
 /**
  * Speech to text with the browser's own speech recognition (the Web Speech API). Chrome and Edge send the audio to
- * their speech service; Safari uses Apple's. SkillFlow never receives or stores audio: final phrases are handed to
+ * their speech service; Safari uses Apple's. LearnProof never receives or stores audio: final phrases are handed to
  * `onPhrase` and land in the text box, and only that text is sent, exactly like typed text.
  */
 

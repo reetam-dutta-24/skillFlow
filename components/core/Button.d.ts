@@ -1,7 +1,7 @@
 import * as React from "react";
 
 /**
- * SkillFlow action button. `gradient` is the primary CTA and the only
+ * LearnProof action button. `gradient` is the primary CTA and the only
  * gradient-filled surface in the system; on hover it de-fills to an
  * accent outline (behaviour inherited from AniVerse).
  *

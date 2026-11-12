@@ -188,7 +188,7 @@ export function OnboardingWizard({ name = "", image = null, paths, editing = fal
     <div className="sf-wizard">
       <div className="sf-wizard-bar">
         <Link className="sf-wordmark" href="/">
-          SkillFlow
+          LearnProof
         </Link>
         <ThemeToggle quiet />
       </div>
@@ -391,7 +391,7 @@ function AboutStep({ ageRange, setAgeRange, consent, setConsent, stage, setStage
         </div>
         {ageRange === "under-13" ? (
           <p className="sf-onboard-warn" role="alert">
-            SkillFlow is for people 13 and older. Come back when you are 13.
+            LearnProof is for people 13 and older. Come back when you are 13.
           </p>
         ) : null}
         {ageRange === "13-17" ? (
@@ -399,7 +399,7 @@ function AboutStep({ ageRange, setAgeRange, consent, setConsent, stage, setStage
             <input type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} />
             <span>
               A parent or guardian has read the <a href="/terms" target="_blank" rel="noreferrer">Terms</a> and{" "}
-              <a href="/privacy" target="_blank" rel="noreferrer">Privacy Policy</a> and agrees that I use SkillFlow.
+              <a href="/privacy" target="_blank" rel="noreferrer">Privacy Policy</a> and agrees that I use LearnProof.
             </span>
           </label>
         ) : null}

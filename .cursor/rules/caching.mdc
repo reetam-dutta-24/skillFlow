@@ -1,5 +1,5 @@
 ---
-description: Cache shared SkillFlow content; keep personal data on the request
+description: Cache shared LearnProof content; keep personal data on the request
 alwaysApply: true
 ---
 

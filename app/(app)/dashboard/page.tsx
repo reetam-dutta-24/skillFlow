@@ -80,7 +80,7 @@ export default async function DashboardPage() {
         />
         <section className="sf-home-discover" aria-labelledby="home-discover-title">
           <h2 id="home-discover-title" className="sf-home-discover-title">
-            Get to know SkillFlow
+            Get to know LearnProof
           </h2>
           <div className="sf-home-tiles">
             <TourTile />

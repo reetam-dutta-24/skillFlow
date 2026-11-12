@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 // The explain-back gate, end to end, against the fake model in e2e/model-stub.mjs:
 // an answer with "because" holds, anything else does not.
-const email = `e2e+explain${Date.now()}@skillflow.test`;
+const email = `e2e+explain${Date.now()}@learnproof.test`;
 const password = "e2e-password-123";
 const PATH_SLUG = "full-stack-web-dev";
 
@@ -60,7 +60,7 @@ test("a learner explains every idea, a weak answer is held back, and the stage i
   await expect(page.getByRole("heading", { name: "Show one small piece of real work" })).toBeVisible();
   await page.getByLabel("A link").check();
   // A video link is not fetched, so the test never depends on an outside site.
-  await page.locator("#proof-link").fill("https://youtu.be/e2e-skillflow-demo");
+  await page.locator("#proof-link").fill("https://youtu.be/e2e-learnproof-demo");
   const writeUp = page.locator("#proof-writeup");
   await writeUp.fill("I built a page.");
   await page.getByRole("button", { name: "Check my work" }).click();

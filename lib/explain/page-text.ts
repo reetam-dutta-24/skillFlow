@@ -6,7 +6,7 @@ const URL_IN_TEXT = /https?:\/\/[^\s<>"']+/gi;
 const TRACKING = /^(?:utm_.+|gad_.+|fbclid|gclid|gclsrc|dclid|mc_cid|mc_eid|igshid|si|ref_src|_ga|yclid|msclkid|gbraid|wbraid)$/i;
 const MAX_PAGES = 3;
 
-/** A pasted address SkillFlow can try to read, or a reason to refuse it. */
+/** A pasted address LearnProof can try to read, or a reason to refuse it. */
 export function classifyPracticeUrl(raw: string): { kind: "page"; url: string } | { kind: "blocked" } | { kind: "skip" } {
   const trimmed = raw.trim().replace(/[),.;]+$/, "");
   if (!/^https?:\/\//i.test(trimmed)) return { kind: "skip" };

@@ -1,7 +1,7 @@
 import * as React from "react";
 
 /**
- * Weak-topic flags on the Progress dashboard. New in SkillFlow — the closest
+ * Weak-topic flags on the Progress dashboard. New in LearnProof — the closest
  * AniVerse analogue was the taste-breakdown panel, which ranked preferences
  * rather than flagging gaps.
  */

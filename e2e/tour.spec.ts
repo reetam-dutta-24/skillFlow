@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 // The Home product tour: a new learner opens it, passes the explain-back practice, finishes, and Home remembers.
-const email = `e2e+tour${Date.now()}@skillflow.test`;
+const email = `e2e+tour${Date.now()}@learnproof.test`;
 const password = "e2e-password-123";
 
 test("a new learner takes the tour and Home then offers a replay", async ({ page }) => {

@@ -52,7 +52,7 @@ export async function GET() {
     (
       <div style={{ display: "flex", flexDirection: "column", width: "100%", height: "100%", padding: "64px 72px", background: C.bg, fontFamily: "sans-serif" }}>
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: 22, color: C.accent, letterSpacing: 2 }}>
-          <span>SKILLFLOW · DOPAMINE DETOX</span>
+          <span>LEARNPROOF · DOPAMINE DETOX</span>
           <span style={{ color: C.muted, letterSpacing: 0 }}>since {since}</span>
         </div>
         <div style={{ display: "flex", marginTop: 22, fontSize: 54, fontWeight: 700, color: C.text }}>
@@ -89,7 +89,7 @@ export async function GET() {
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", marginTop: "auto", paddingTop: 28, borderTop: `2px solid ${C.line}`, fontSize: 18, lineHeight: 1.5, color: C.muted }}>
-          <span>The Detox Score is worked out by SkillFlow from self-check answers and verified learning: passed ideas, recalls, focus sessions.</span>
+          <span>The Detox Score is worked out by LearnProof from self-check answers and verified learning: passed ideas, recalls, focus sessions.</span>
           <span>{NOT_MEDICAL}</span>
         </div>
       </div>
@@ -97,6 +97,6 @@ export async function GET() {
     { width: WIDTH, height: HEIGHT },
   );
   image.headers.set("cache-control", "private, no-store");
-  image.headers.set("content-disposition", 'inline; filename="skillflow-detox.png"');
+  image.headers.set("content-disposition", 'inline; filename="learnproof-detox.png"');
   return image;
 }

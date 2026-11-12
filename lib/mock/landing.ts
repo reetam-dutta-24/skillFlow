@@ -137,7 +137,7 @@ export type LandingContent = {
 /** Placeholder landing copy. Swap this function when the page reads real content. */
 export function getLandingContent(): LandingContent {
   return {
-    wordmark: "SkillFlow",
+    wordmark: "LearnProof",
     nav: [
       { href: "#home", label: "Home" },
       { href: "#how-it-works", label: "How it works" },
@@ -179,7 +179,7 @@ export function getLandingContent(): LandingContent {
     factsCaption: "Counted from the live database. The learner count moves the moment someone creates an account.",
     problemTitle: "Watching a tutorial is not the same as learning it.",
     problemBody:
-      "Learning a skill today means jumping between video sites, documentation, and random blogs, with no clear order and no check that anything stuck. SkillFlow keeps one path, one order, and a written explain-back before the next stage opens.",
+      "Learning a skill today means jumping between video sites, documentation, and random blogs, with no clear order and no check that anything stuck. LearnProof keeps one path, one order, and a written explain-back before the next stage opens.",
     problemPoints: [
       {
         icon: "route",
@@ -243,7 +243,7 @@ export function getLandingContent(): LandingContent {
       {
         id: "detox",
         title: "Your dopamine detox, with proof",
-        body: "Most detox apps count the hours you stayed away. SkillFlow counts what you did instead. A three-minute self-check gives you a starting Detox Score; after that, only verified learning moves it: ideas you explain, recalls you answer, and focused minutes, with a daily limit so hours alone never inflate it. A weekly check-in, a fixed playbook of small steps, and a before-and-after card show the change. It is a self-improvement score, not a medical test.",
+        body: "Most detox apps count the hours you stayed away. LearnProof counts what you did instead. A three-minute self-check gives you a starting Detox Score; after that, only verified learning moves it: ideas you explain, recalls you answer, and focused minutes, with a daily limit so hours alone never inflate it. A weekly check-in, a fixed playbook of small steps, and a before-and-after card show the change. It is a self-improvement score, not a medical test.",
         points: [],
         mediaLabel: "An illustration of the Detox Score rising with learning",
         illustration: "detox",
@@ -251,7 +251,7 @@ export function getLandingContent(): LandingContent {
       {
         id: "record",
         title: "A record of what you passed",
-        body: "Progress is the share of stages with a passed explain-back. A transcript lists those stages and their dates. A certificate appears when every stage on the path is passed. It is SkillFlow’s own record, not a license or a degree.",
+        body: "Progress is the share of stages with a passed explain-back. A transcript lists those stages and their dates. A certificate appears when every stage on the path is passed. It is LearnProof’s own record, not a license or a degree.",
         points: [],
         mediaLabel: "Progress across followed paths",
         image: "/landing/shots/progress.jpg",
@@ -315,9 +315,9 @@ export function getLandingContent(): LandingContent {
       { title: "Photography", body: "Exposure, focus, light, and a finished photograph.", available: true, image: "/skills/photo.jpg" },
       { title: "Music Production", body: "A track, a mix, and a master you can explain.", available: true, image: "/skills/music.jpg" },
     ],
-    aboutTitle: "Why SkillFlow exists.",
+    aboutTitle: "Why LearnProof exists.",
     aboutBody:
-      "SkillFlow is an independent project by Reetam Dutta, built around one belief: watching something is not the same as understanding it. It does not replace the docs, courses, and videos it links. It puts them in order and asks you to explain each stage before the next one opens.",
+      "LearnProof is an independent project by Reetam Dutta, built around one belief: watching something is not the same as understanding it. It does not replace the docs, courses, and videos it links. It puts them in order and asks you to explain each stage before the next one opens.",
     aboutStack: "Built with Next.js, TypeScript, PostgreSQL, and Prisma.",
     aboutGithubLabel: "View the project on GitHub",
     aboutGithubUrl: "https://github.com/reetam-dutta-24/skillFlow",
@@ -390,14 +390,14 @@ export function getLandingContent(): LandingContent {
     faqTitle: "FAQ",
     faq: [
       {
-        question: "Is SkillFlow free?",
+        question: "Is LearnProof free?",
         answer:
           "Thirty paths are free, including every stage, the explain-back, notes, nearby events, and Open Source. Premium is one subscription. It opens the niches outside those thirty and lets you appear on the learner map. The card form stays on Stripe.",
       },
       {
         question: "How is this different from YouTube or a course site?",
         answer:
-          "SkillFlow does not host a replacement course. It orders real resources into a path and asks you to explain each stage before the next one opens.",
+          "LearnProof does not host a replacement course. It orders real resources into a path and asks you to explain each stage before the next one opens.",
       },
       {
         question: "What happens if an explanation is thin?",

@@ -2,13 +2,13 @@
 
 
 
-**A mastery-first learning platform.** SkillFlow only counts a stage as learned when you can explain each idea back in your own words and an AI reviewer agrees. There is no quiz, no leaderboard, and no watch-time score.
+**A mastery-first learning platform.** LearnProof only counts a stage as learned when you can explain each idea back in your own words and an AI reviewer agrees. There is no quiz, no leaderboard, and no watch-time score.
 
 **Live:** https://app.32-236-251-56.sslip.io (temporary domain while the brand name is decided)
 
 | Doc | What it is for |
 | --- | --- |
-| `README.md` | This file: what SkillFlow is, how it is built, how to run and deploy it |
+| `README.md` | This file: what LearnProof is, how it is built, how to run and deploy it |
 | `STUDY-GUIDE.md` | Every concept and feature end to end, for revision and interviews |
 | `HANDOFF.md` | Self-contained brief for testing and operating the deployment |
 | `Project-roadmap.md` | The build record and phase list |
@@ -21,14 +21,14 @@
 
 1. **Follow a path.** Thirty free paths (Full-Stack Web Development, Travel Vlogging, Content Creation, Music Production, Cybersecurity, Personal Finance, and 24 more) with 246 stages and about 900 curated free resources: YouTube videos played in-app, docs, and courses.
 2. **Learn a stage.** A step-by-step lesson wizard walks through the clip and each resource.
-3. **Explain it back.** One idea per step, typed or spoken (Speak instead uses the browser's own speech recognition; no audio reaches SkillFlow). Gemini writes a review of every answer. The step moves on only when the idea holds. Answers that read as AI-written or pasted get two warnings on a stage, then stop counting until the learner uses their own words. If the model is unavailable, nothing is saved: the app never fakes a pass.
+3. **Explain it back.** One idea per step, typed or spoken (Speak instead uses the browser's own speech recognition; no audio reaches LearnProof). Gemini writes a review of every answer. The step moves on only when the idea holds. Answers that read as AI-written or pasted get two warnings on a stage, then stop counting until the learner uses their own words. If the model is unavailable, nothing is saved: the app never fakes a pass.
 4. **Show your work (practical paths).** On the 22 paths where the skill is made or performed, a stage also needs one small piece of real work: a link, a photo, a short video, or a PDF, with a write-up the model reviews. Knowledge and personal-life paths stay explain-back only.
 5. **Keep what you learned.** Accepted ideas become notes (exportable as Word or PDF), come back twice for spaced recall 18 hours apart, and feed mastery, streaks, weak topics, and analytics.
 6. **Finish the path.** Each pass opens the next stage. Passing every stage earns a certificate and a transcript.
 
-Around that loop: personal learning plans built in code from your preferences, a 180-item career-fit test, Dopamine Detox (an original self-check and a Detox Score that only verified learning moves, with focus sessions and a weekly check-in), global search in the top bar (Ctrl+K: niches, stages, resources, Open Source posts, features, and settings), the SkillFlow Assistant (Ctrl+J: a RAG chatbot that answers from SkillFlow's own help and catalog with cited sources, and gives hints instead of answers for an explain-back you have not passed), a moderated Open Source community per niche, a creator studio, an opt-in learner map (city counts only), nearby events, notifications, a full analytics page, self-serve account deletion, and a guided tour on Home that walks through every feature, from niches to themes and accents, with a small hands-on demo on each. **Premium** is one Stripe subscription that opens the niches outside the thirty free paths and appearing on the learner map; everything above stays free.
+Around that loop: personal learning plans built in code from your preferences, a 180-item career-fit test, Dopamine Detox (an original self-check and a Detox Score that only verified learning moves, with focus sessions and a weekly check-in), global search in the top bar (Ctrl+K: niches, stages, resources, Open Source posts, features, and settings), the LearnProof Assistant (Ctrl+J: a RAG chatbot that answers from LearnProof's own help and catalog with cited sources, and gives hints instead of answers for an explain-back you have not passed), a moderated Open Source community per niche, a creator studio, an opt-in learner map (city counts only), nearby events, notifications, a full analytics page, self-serve account deletion, and a guided tour on Home that walks through every feature, from niches to themes and accents, with a small hands-on demo on each. **Premium** is one Stripe subscription that opens the niches outside the thirty free paths and appearing on the learner map; everything above stays free.
 
-What SkillFlow refuses on purpose: quizzes, comments, likes, view counts, trending, leaderboards, peer review, and guilt copy when a streak breaks.
+What LearnProof refuses on purpose: quizzes, comments, likes, view counts, trending, leaderboards, peer review, and guilt copy when a streak breaks.
 
 ---
 
@@ -112,9 +112,9 @@ sequenceDiagram
 
 ---
 
-## SkillFlow Assistant (RAG)
+## LearnProof Assistant (RAG)
 
-**Ask SkillFlow** (top bar, Ctrl or Cmd + J, or "Ask the assistant" in Ctrl + K) answers questions about SkillFlow from SkillFlow's own knowledge only, streams the answer, and cites its sources. It is retrieval-augmented generation with real parts: embeddings, a vector index, hybrid retrieval, grounded generation with server-verified citations, and a retrieval eval.
+**Ask LearnProof** (top bar, Ctrl or Cmd + J, or "Ask the assistant" in Ctrl + K) answers questions about LearnProof from LearnProof's own knowledge only, streams the answer, and cites its sources. It is retrieval-augmented generation with real parts: embeddings, a vector index, hybrid retrieval, grounded generation with server-verified citations, and a retrieval eval.
 
 ```mermaid
 flowchart LR
@@ -207,7 +207,7 @@ npm run assistant:eval            # retrieval eval: Recall@5, MRR, not-sure and 
 
 ## Production
 
-SkillFlow runs on one AWS EC2 instance (`t3.small`, Ubuntu, Sydney, Elastic IP) with four Compose services from `docker-compose.prod.yml`:
+LearnProof runs on one AWS EC2 instance (`t3.small`, Ubuntu, Sydney, Elastic IP) with four Compose services from `docker-compose.prod.yml`:
 
 ## Deployment in EC2 Instance (t3.small) in AWS
 <img width="2868" height="1528" alt="image" src="https://github.com/user-attachments/assets/ca182eb8-ae1c-4b38-a16c-5d934f9c4817" />

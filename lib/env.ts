@@ -37,7 +37,7 @@ const schema = z
     EXPLAIN_MODEL_URL: opt(z.url()),
     EXPLAIN_MODEL_KEY: opt(z.string()),
     EXPLAIN_MODEL_NAME: opt(z.string()),
-    // SkillFlow Assistant embeddings: an OpenAI-compatible /embeddings URL for the end-to-end stub only.
+    // LearnProof Assistant embeddings: an OpenAI-compatible /embeddings URL for the end-to-end stub only.
     // Unset in production, where GEMINI_API_KEY embeds with gemini-embedding-001.
     ASSISTANT_EMBED_URL: opt(z.url()),
 

@@ -51,7 +51,7 @@ async function fetchPracticePage(href: string, hops: number): Promise<string | n
       signal: AbortSignal.timeout(TIMEOUT_MS),
       headers: {
         Accept: "text/html,application/xhtml+xml,text/plain;q=0.8",
-        "User-Agent": "SkillFlowPractice/1.0",
+        "User-Agent": "LearnProofPractice/1.0",
       },
     });
   } catch {

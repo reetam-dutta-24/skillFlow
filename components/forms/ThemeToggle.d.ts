@@ -1,7 +1,7 @@
 import * as React from "react";
 
 /**
- * Dark/light theme switch. New in SkillFlow — AniVerse was dark-only.
+ * Dark/light theme switch. New in LearnProof — AniVerse was dark-only.
  * Adds `dark` or `light` on `target` (default `document.documentElement`)
  * and persists the choice in a cookie.
  */

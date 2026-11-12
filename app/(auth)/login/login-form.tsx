@@ -11,7 +11,7 @@ import { GoogleButton } from "@/components/forms/GoogleButton";
 /** What each Auth.js error in ?error= means for the learner. */
 const AUTH_ERRORS: Record<string, string> = {
   OAuthAccountNotLinked:
-    "That Google account could not be connected. If this email already has a SkillFlow password, log in with it, then connect Google from Settings. If you were connecting from Settings, that Google account already belongs to another SkillFlow account.",
+    "That Google account could not be connected. If this email already has a LearnProof password, log in with it, then connect Google from Settings. If you were connecting from Settings, that Google account already belongs to another LearnProof account.",
   AccessDenied: "Google did not confirm a verified email for that account, so it cannot sign in here.",
   OAuthCallbackError: "Google sign-in was cancelled or did not finish. Try again.",
   Configuration: "Sign-in is not set up correctly right now. Try again, or use your email and password.",

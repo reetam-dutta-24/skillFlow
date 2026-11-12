@@ -14,7 +14,7 @@ export async function GET(request: Request) {
     return new Response(Buffer.from(bytes), {
       headers: {
         "content-type": "application/pdf",
-        "content-disposition": 'attachment; filename="skillflow-notes.pdf"',
+        "content-disposition": 'attachment; filename="learnproof-notes.pdf"',
       },
     });
   }
@@ -23,7 +23,7 @@ export async function GET(request: Request) {
     return new Response(new Uint8Array(bytes), {
       headers: {
         "content-type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        "content-disposition": 'attachment; filename="skillflow-notes.docx"',
+        "content-disposition": 'attachment; filename="learnproof-notes.docx"',
       },
     });
   }

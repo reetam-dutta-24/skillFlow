@@ -2,7 +2,7 @@ import * as React from "react";
 
 /**
  * Linear progress track. Intentional addition — AniVerse only had the
- * segmented onboarding step bar; SkillFlow needs a continuous mastery track.
+ * segmented onboarding step bar; LearnProof needs a continuous mastery track.
  */
 export interface ProgressBarProps extends React.HTMLAttributes<HTMLDivElement> {
   value?: number;

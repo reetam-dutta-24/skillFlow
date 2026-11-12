@@ -24,7 +24,7 @@ export function transcriptBlocks(input: {
 }): string[] {
   const passed = input.stages.filter((stage) => stage.passed);
   const lines = [
-    "SkillFlow transcript",
+    "LearnProof transcript",
     input.learnerName,
     input.skillName,
     `${input.passedCount} of ${input.stageCount} stages passed`,
@@ -46,15 +46,15 @@ export function certificateBlocks(input: {
   stages: RecordedStage[];
 }): string[] {
   return [
-    "SkillFlow",
+    "LearnProof",
     "Certificate of completion",
     "This records that",
     input.learnerName,
     "passed every explain-back on",
     input.skillName,
-    input.issuedOn ? `Issued ${input.issuedOn}` : "Issued by SkillFlow",
+    input.issuedOn ? `Issued ${input.issuedOn}` : "Issued by LearnProof",
     "Stages",
     ...input.stages.map((stage) => `Stage ${stage.order}. ${stage.title} — ${stage.when}`),
-    "Copyright SkillFlow. This record is issued by SkillFlow. It covers explain-back passes on this path. It is not a license or a degree.",
+    "Copyright LearnProof. This record is issued by LearnProof. It covers explain-back passes on this path. It is not a license or a degree.",
   ];
 }

@@ -58,7 +58,7 @@ export async function GET() {
     (
       <div style={{ display: "flex", flexDirection: "column", width: "100%", height: "100%", padding: "64px 72px", background: C.bg, fontFamily: "sans-serif" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 22, color: C.accent, letterSpacing: 2 }}>
-          <span>SKILLFLOW · CAREER-FIT REPORT</span>
+          <span>LEARNPROOF · CAREER-FIT REPORT</span>
           <span style={{ color: C.muted, letterSpacing: 0 }}>{date}</span>
         </div>
         <div style={{ display: "flex", marginTop: 18, fontSize: 52, fontWeight: 700, color: C.text }}>
@@ -123,6 +123,6 @@ export async function GET() {
     { width: WIDTH, height: HEIGHT },
   );
   image.headers.set("cache-control", "private, no-store");
-  image.headers.set("content-disposition", 'inline; filename="skillflow-career-fit.png"');
+  image.headers.set("content-disposition", 'inline; filename="learnproof-career-fit.png"');
   return image;
 }

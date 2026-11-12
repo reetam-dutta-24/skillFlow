@@ -3,7 +3,7 @@ import { Icon } from "@/components/core/Icon.jsx";
 import { SkillImage } from "@/components/core/SkillImage";
 
 /**
- * The photo banner at the top of a "Get to know SkillFlow" tile, with the tile's icon resting on its lower edge.
+ * The photo banner at the top of a "Get to know LearnProof" tile, with the tile's icon resting on its lower edge.
  * Decorative: the tile's heading carries the meaning. No hooks, so client tiles can use it too.
  */
 export function HomeTileArt({ src, icon, badge, children }: { src: string; icon: string; badge?: string | null; children?: ReactNode }) {

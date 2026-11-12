@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { Icon } from "../core/Icon.jsx";
 
-export const SKILLFLOW_NAV = [
+export const LEARNPROOF_NAV = [
   { id: "home", label: "Home", icon: "house", href: "/dashboard", section: "Learn" },
   { id: "roadmaps", label: "Paths", icon: "route", href: "/roadmap" },
   { id: "niches", label: "Niches", icon: "library", href: "/skills" },
@@ -19,7 +19,7 @@ export const SKILLFLOW_NAV = [
 ];
 
 /** Fixed left rail — 168px on desktop, drawer on mobile. */
-export function Sidebar({ items = SKILLFLOW_NAV, active = "home", onNavigate, brand = "SkillFlow", footer, navLabel = "Main", style, ...rest }) {
+export function Sidebar({ items = LEARNPROOF_NAV, active = "home", onNavigate, brand = "LearnProof", footer, navLabel = "Main", style, ...rest }) {
   return (
     <aside
       style={{

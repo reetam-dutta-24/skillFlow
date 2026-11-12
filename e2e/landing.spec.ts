@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 test("landing page loads with the hero and a way to sign up", async ({ page }) => {
   await page.goto("/");
-  await expect(page).toHaveTitle(/SkillFlow/);
+  await expect(page).toHaveTitle(/LearnProof/);
   await expect(page.locator("#landing-hero-title")).toBeVisible();
   await expect(page.locator('a[href="/signup"]').first()).toBeVisible();
 });

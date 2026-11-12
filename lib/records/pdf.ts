@@ -33,7 +33,7 @@ function wrap(text: string, width: number) {
   return lines.length > 0 ? lines : [""];
 }
 
-/** A plain SkillFlow record. Framed pages are the certificate. */
+/** A plain LearnProof record. Framed pages are the certificate. */
 export async function linesToPdf(lines: string[], framed = false): Promise<Uint8Array> {
   const pdf = await PDFDocument.create();
   const font = await pdf.embedFont(StandardFonts.Helvetica);

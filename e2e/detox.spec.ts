@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 // Dopamine Detox end to end: a new learner takes the self-check, sees a Detox Score, explains one idea against the
 // fake model in e2e/model-stub.mjs ("because" holds), and the "why it moved" breakdown changes.
-const email = `e2e+detox${Date.now()}@skillflow.test`;
+const email = `e2e+detox${Date.now()}@learnproof.test`;
 const password = "e2e-password-123";
 const PATH_SLUG = "full-stack-web-dev";
 

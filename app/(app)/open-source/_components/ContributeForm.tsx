@@ -249,7 +249,7 @@ export function ContributeForm({
               Sources
               <textarea value={sources} rows={4} onChange={(event) => setSources(event.target.value)} placeholder="One https link per line" />
             </label>
-            <p className="sf-fill-hint">A resource or a follow needs at least one link. SkillFlow checks each link before saving.</p>
+            <p className="sf-fill-hint">A resource or a follow needs at least one link. LearnProof checks each link before saving.</p>
             {stages.length > 0 ? (
               <label>
                 Relevant stage

@@ -2,10 +2,10 @@ import { execSync } from "node:child_process";
 import { expect, test } from "@playwright/test";
 import { pressUntilOpen } from "./shortcut";
 
-// The SkillFlow Assistant, end to end, against the fake model and embedder in e2e/model-stub.mjs: Ctrl+J opens it,
+// The LearnProof Assistant, end to end, against the fake model and embedder in e2e/model-stub.mjs: Ctrl+J opens it,
 // a help question streams an answer with a source chip, an un-passed explain-back idea gets hint mode, and a rate
 // limit shows its calm message.
-const email = `e2e+assistant${Date.now()}@skillflow.test`;
+const email = `e2e+assistant${Date.now()}@learnproof.test`;
 
 test.describe.configure({ mode: "serial" });
 test.setTimeout(180_000);
@@ -27,8 +27,8 @@ test("the assistant answers with sources, gives hints for an un-passed idea, and
   await expect(page).toHaveURL(/\/onboarding/);
 
   await page.goto("/dashboard");
-  await expect(page.getByRole("button", { name: /Ask SkillFlow/ })).toBeVisible();
-  const dialog = page.getByRole("dialog", { name: "Ask SkillFlow" });
+  await expect(page.getByRole("button", { name: /Ask LearnProof/ })).toBeVisible();
+  const dialog = page.getByRole("dialog", { name: "Ask LearnProof" });
   await pressUntilOpen(page, "Control+J", dialog);
   const box = dialog.getByLabel("Your question");
   await expect(box).toBeFocused();
@@ -52,8 +52,8 @@ test("the assistant answers with sources, gives hints for an un-passed idea, and
   // 3. Escape closes and the chat survives for the session; Clear chat empties it.
   await page.keyboard.press("Escape");
   await expect(dialog).toHaveCount(0);
-  await page.getByRole("button", { name: /Ask SkillFlow/ }).click();
-  await expect(page.getByRole("dialog", { name: "Ask SkillFlow" }).getByText("Hint mode — you’ll explain this one yourself")).toBeVisible();
+  await page.getByRole("button", { name: /Ask LearnProof/ }).click();
+  await expect(page.getByRole("dialog", { name: "Ask LearnProof" }).getByText("Hint mode — you’ll explain this one yourself")).toBeVisible();
   await page.getByRole("button", { name: "Clear chat" }).click();
   await expect(page.getByRole("button", { name: "What should I do next?" })).toBeVisible();
 
@@ -61,7 +61,7 @@ test("the assistant answers with sources, gives hints for an un-passed idea, and
   await page.route("**/api/assistant", (route) =>
     route.fulfill({ status: 429, contentType: "application/json", body: JSON.stringify({ t: "error", code: "rate-limit", message: "" }) }),
   );
-  const again = page.getByRole("dialog", { name: "Ask SkillFlow" }).getByLabel("Your question");
+  const again = page.getByRole("dialog", { name: "Ask LearnProof" }).getByLabel("Your question");
   await again.fill("What should I do next?");
   await again.press("Enter");
   await expect(page.getByRole("alert").filter({ hasText: "You have asked a lot in a short time" })).toBeVisible();
@@ -74,10 +74,10 @@ test("Ask the assistant opens from the Ctrl+K palette", async ({ page }) => {
   await page.getByRole("button", { name: /^Log in$/ }).click();
   await page.waitForURL(/\/(dashboard|onboarding)/);
   await page.goto("/dashboard");
-  const search = page.getByRole("dialog", { name: "Search SkillFlow" });
+  const search = page.getByRole("dialog", { name: "Search LearnProof" });
   await pressUntilOpen(page, "Control+K", search);
   await search.getByRole("combobox").fill("ask assistant");
   await expect(search.getByRole("option", { name: /Ask the assistant/ })).toBeVisible();
   await search.getByRole("combobox").press("Enter");
-  await expect(page.getByRole("dialog", { name: "Ask SkillFlow" })).toBeVisible();
+  await expect(page.getByRole("dialog", { name: "Ask LearnProof" })).toBeVisible();
 });

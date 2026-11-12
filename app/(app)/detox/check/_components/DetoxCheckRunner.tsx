@@ -141,7 +141,7 @@ export function DetoxCheckRunner({ initialAnswers, startAt, started }: { initial
                 <Icon name="lock" size={16} /> Private to you. Delete it whenever you like
               </li>
             </ul>
-            <p className="sf-dtx-note">{NOT_MEDICAL} The questions are SkillFlow&apos;s own and are not a clinical questionnaire.</p>
+            <p className="sf-dtx-note">{NOT_MEDICAL} The questions are LearnProof&apos;s own and are not a clinical questionnaire.</p>
             <Button variant="gradient" size="xl" onClick={() => setPhase("question")}>
               {started ? `Continue (${count} of ${TOTAL} answered)` : "Start the self-check"}
               <Icon name="arrow-right" size={18} />

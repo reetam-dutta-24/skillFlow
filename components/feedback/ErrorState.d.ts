@@ -2,7 +2,7 @@ import * as React from "react";
 
 /**
  * Recoverable error panel. Intentional addition — AniVerse rendered errors as
- * a bare red paragraph; SkillFlow needs a consistent error state per screen.
+ * a bare red paragraph; LearnProof needs a consistent error state per screen.
  */
 export interface ErrorStateProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "title"> {
   title?: React.ReactNode;

@@ -942,7 +942,7 @@ model FocusSession {
   @@index([userId, endedAt])
 }
 
-// ── SKILLFLOW ASSISTANT (RAG) ──────────────────────
+// ── LEARNPROOF ASSISTANT (RAG) ──────────────────────
 // Retrieval chunks built by scripts/assistant-index.ts from content/help, the tour, the feature list, and the catalog.
 // Nothing personal is stored here: a learner's own data is read live for that learner only, and chats are never saved.
 // The vector, the HNSW index, the generated tsvector column, and its GIN index are created in raw SQL by the migration

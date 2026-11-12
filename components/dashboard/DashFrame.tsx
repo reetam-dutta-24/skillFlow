@@ -9,7 +9,7 @@ export function DashFrame({ accent, children }: { accent: string; children: Reac
       <AccentSync accent={accent} />
       <header className="sf-dash-bar">
         <a className="sf-wordmark" href="/dashboard">
-          SkillFlow
+          LearnProof
         </a>
         <div className="sf-dash-actions">
           <ThemeToggle quiet />

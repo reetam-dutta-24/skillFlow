@@ -21,10 +21,10 @@ const description =
   "Explain one idea at a time, keep the note, and open the next stage only after it holds. A career-fit test, Open Source, and nearby events.";
 
 export const metadata: Metadata = {
-  title: { absolute: "SkillFlow: Learn by proving you understood it" },
+  title: { absolute: "LearnProof: Learn by proving you understood it" },
   description,
   openGraph: {
-    title: "SkillFlow: Learn by proving you understood it",
+    title: "LearnProof: Learn by proving you understood it",
     description,
   },
 };

@@ -3,5 +3,5 @@ import { notFound } from "next/navigation";
 /** Development preview of the public error screen. Production returns 404 instead of throwing. */
 export default function DevRootError() {
   if (process.env.NODE_ENV !== "development") notFound();
-  throw new Error("SkillFlow development error boundary");
+  throw new Error("LearnProof development error boundary");
 }

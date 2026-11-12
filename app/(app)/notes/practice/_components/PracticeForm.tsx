@@ -78,7 +78,7 @@ export function PracticeForm({ skills }: { skills: SkillChoice[] }) {
           : result.error === "unconnected"
             ? "A model key is needed before this idea can be reviewed."
             : result.error === "blocked"
-              ? "That link cannot be opened from SkillFlow."
+              ? "That link cannot be opened from LearnProof."
               : result.error === "unreadable"
                 ? "That page did not return enough text. Paste the passage, or try another link."
                 : "The review did not come back. Try again.",
@@ -129,7 +129,7 @@ export function PracticeForm({ skills }: { skills: SkillChoice[] }) {
             Link
             <input type="url" inputMode="url" value={pageUrl} onChange={(event) => setPageUrl(event.target.value)} maxLength={2000} placeholder="https://…" />
           </label>
-          <p className="sf-fill-hint">SkillFlow reads the page and reviews your explanation against that text.</p>
+          <p className="sf-fill-hint">LearnProof reads the page and reviews your explanation against that text.</p>
           <label>
             Text, if you already have it
             <textarea

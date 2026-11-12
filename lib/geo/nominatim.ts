@@ -75,7 +75,7 @@ async function searchCitiesCached(query: string): Promise<CityHit[]> {
   url.searchParams.set("limit", "8");
   url.searchParams.set("q", query);
 
-  const userAgent = process.env.GEOCODER_USER_AGENT?.trim() || "SkillFlow/1.0 (learner map)";
+  const userAgent = process.env.GEOCODER_USER_AGENT?.trim() || "LearnProof/1.0 (learner map)";
   const response = await fetch(url, {
     headers: {
       Accept: "application/json",

@@ -417,7 +417,7 @@ export function InboxDemo({ reduce }: { reduce: boolean }) {
   );
 }
 
-/* ── SkillFlow Assistant ──────────────────────────────────────────────────── */
+/* ── LearnProof Assistant ──────────────────────────────────────────────────── */
 
 const DEMO_ICON = { help: "circle-help", stage: "flag", learner: "user" } as const;
 

@@ -16,7 +16,7 @@ import {
 import { AssistantPanel } from "./AssistantPanel";
 
 /**
- * The SkillFlow Assistant: a button in the top bar ("Ask SkillFlow"), Ctrl or Cmd + J, and "Ask the assistant" in the
+ * The LearnProof Assistant: a button in the top bar ("Ask LearnProof"), Ctrl or Cmd + J, and "Ask the assistant" in the
  * Ctrl + K palette open it. It lives in the app shell, so the chat survives moving between pages, and it is kept in
  * React state only: nothing is saved, and a reload or "Clear chat" ends it.
  */
@@ -168,7 +168,7 @@ export function Assistant() {
         }}
       >
         <Icon name="sparkles" size={16} />
-        <span className="sf-assist-trigger-text">Ask SkillFlow</span>
+        <span className="sf-assist-trigger-text">Ask LearnProof</span>
         <kbd className="sf-assist-trigger-kbd" aria-hidden="true">
           {mac ? "⌘J" : "Ctrl J"}
         </kbd>

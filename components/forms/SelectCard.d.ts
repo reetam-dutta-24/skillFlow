@@ -2,7 +2,7 @@ import * as React from "react";
 
 /**
  * Selectable option tile for the onboarding card grid.
- * AniVerse used an emoji + label tile; SkillFlow uses a Lucide glyph, a
+ * AniVerse used an emoji + label tile; LearnProof uses a Lucide glyph, a
  * one-line description, and a disabled "coming soon" state.
  *
  * @startingPoint section="Forms" subtitle="Onboarding selection grid tile" viewport="700x220"

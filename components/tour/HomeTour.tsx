@@ -119,7 +119,7 @@ function useTour() {
 }
 
 /**
- * The tour tile in "Get to know SkillFlow". It always stays: an invite until the tour is finished or skipped, then a
+ * The tour tile in "Get to know LearnProof". It always stays: an invite until the tour is finished or skipped, then a
  * quiet replay tile in the same place.
  */
 export function TourTile() {

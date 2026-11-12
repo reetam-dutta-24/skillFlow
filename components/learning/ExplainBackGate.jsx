@@ -31,7 +31,7 @@ function Field({ id, value, onChange, placeholder, voice, onVoice, rows = 5, dis
   );
 }
 
-/** The explain-back milestone gate — SkillFlow's core differentiator. */
+/** The explain-back milestone gate — LearnProof's core differentiator. */
 export function ExplainBackGate({
   stage, concept, concepts, prompt,
   answer = "", onAnswerChange, onSubmitAnswer,

@@ -97,7 +97,7 @@ export type OnboardingAnswers = {
 /** Returns the first problem in plain words, or null when the answers can be saved. */
 export function onboardingProblem(input: OnboardingAnswers, isPath: (slug: string) => boolean): string | null {
   if (!AGE_IDS.has(input.ageRange)) return "Choose your age range.";
-  if (input.ageRange === "under-13") return "SkillFlow is for people 13 and older.";
+  if (input.ageRange === "under-13") return "LearnProof is for people 13 and older.";
   if (input.ageRange === "13-17" && !input.guardianConsent) return "A parent or guardian needs to agree before you continue.";
   if (!STAGE_IDS.has(input.stage)) return "Choose what you are doing right now.";
   if (input.headline.length > MAX_HEADLINE) return `Keep the headline under ${MAX_HEADLINE} characters.`;

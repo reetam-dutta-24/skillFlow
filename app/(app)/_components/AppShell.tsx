@@ -13,7 +13,7 @@ import { Assistant } from "./Assistant";
 import { ShellRoleProvider, useShellReview, useShellRole } from "./shell-role";
 
 /**
- * The sidebar, most important first: the learning loop (Paths, Notes) and what is unique to SkillFlow (Detox) lead;
+ * The sidebar, most important first: the learning loop (Paths, Notes) and what is unique to LearnProof (Detox) lead;
  * tracking and community follow; Settings is last. `section` starts a small group label. Creating lives in the top
  * bar (Create content, Submit a resource), so the whole sidebar fits on a laptop screen without scrolling.
  */
@@ -227,7 +227,7 @@ function AppShellFrame({ account, notifications, children }: Omit<ShellProps, "r
         </a>
         <Topbar
           title={
-            <Suspense fallback="SkillFlow">
+            <Suspense fallback="LearnProof">
               <PathTitle />
             </Suspense>
           }

@@ -39,7 +39,7 @@ export function LegalDocument({
     <div className="sf-doc-page">
       <header className="sf-doc-bar">
         <Link className="sf-doc-brand" href="/">
-          SkillFlow
+          LearnProof
         </Link>
         <nav aria-label="Legal">
           <Link href={other.href}>{other.label}</Link>
@@ -95,11 +95,11 @@ export function LegalDocument({
         </div>
       </main>
       <footer className="sf-doc-foot">
-        <p>© 2026 SkillFlow</p>
+        <p>© 2026 LearnProof</p>
         <nav aria-label="Legal pages">
           <Link href="/privacy">Privacy Policy</Link>
           <Link href="/terms">Terms of Service</Link>
-          <Link href="/">Back to SkillFlow</Link>
+          <Link href="/">Back to LearnProof</Link>
         </nav>
       </footer>
     </div>

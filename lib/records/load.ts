@@ -71,7 +71,7 @@ export async function loadPathRecord(userId: string, skillSlug: string, sessionU
   const passedCount = stages.filter((stage) => stage.passed).length;
   return {
     userId: user.id,
-    learnerName: user.name?.trim() || "A SkillFlow learner",
+    learnerName: user.name?.trim() || "A LearnProof learner",
     skillName: skill.name,
     skillSlug: skill.slug,
     stages,

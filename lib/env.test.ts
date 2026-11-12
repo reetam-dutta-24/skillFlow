@@ -6,7 +6,7 @@ const prod = {
   ...base,
   NODE_ENV: "production",
   CRON_SECRET: "c".repeat(64),
-  GEOCODER_USER_AGENT: "SkillFlow/1.0 (a@b.c)",
+  GEOCODER_USER_AGENT: "LearnProof/1.0 (a@b.c)",
   REDIS_URL: "redis://localhost:6379",
   GEMINI_API_KEY: "k",
 };

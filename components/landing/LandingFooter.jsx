@@ -34,7 +34,7 @@ export function LandingFooter({ wordmark, blurb, columns, credit }) {
       </div>
       <div className="sf-footer-bar">
         <p>
-          © 2026 SkillFlow. {credit}
+          © 2026 LearnProof. {credit}
         </p>
         <ThemeToggle quiet />
       </div>

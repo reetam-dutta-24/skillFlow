@@ -15,7 +15,7 @@ export default function OpenSourceError({
       retry={retry}
       placement="content"
       homeHref="/open-source"
-      documentTitle="Something went wrong | SkillFlow"
+      documentTitle="Something went wrong | LearnProof"
     />
   );
 }

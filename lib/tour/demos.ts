@@ -229,7 +229,7 @@ export function lessonStep(current: number, delta: number) {
 /* ── Practice on anything ─────────────────────────────────────────────────── */
 
 export const PRACTICE_SOURCES = [
-  { id: "link", label: "A link", icon: "link", detail: "Paste a public page. SkillFlow reads its text, then you explain one idea from it." },
+  { id: "link", label: "A link", icon: "link", detail: "Paste a public page. LearnProof reads its text, then you explain one idea from it." },
   { id: "file", label: "A file", icon: "file-up", detail: "Drop a text file, like your own lecture notes, and practise on it." },
   { id: "text", label: "Pasted text", icon: "clipboard-paste", detail: "Paste a passage straight in. The note it makes is yours alone." },
 ] as const;
@@ -330,7 +330,7 @@ export function unreadCount(read: readonly string[]) {
   return INBOX_DEMO.filter((note) => !read.includes(note.id)).length;
 }
 
-/* ── SkillFlow Assistant ──────────────────────────────────────────────────── */
+/* ── LearnProof Assistant ──────────────────────────────────────────────────── */
 
 export type AssistantDemoSource = { n: number; kind: "help" | "stage" | "learner"; title: string };
 
@@ -345,7 +345,7 @@ export const ASSISTANT_DEMO = [
     mode: "answer",
     answer: "Your next stage is CSS Layout & Responsive Design on Full-Stack Web Development [1]. Work through its resources, then explain it back to open the stage after it [2].",
     sources: [
-      { n: 1, kind: "learner", title: "Your SkillFlow data (sample)" },
+      { n: 1, kind: "learner", title: "Your LearnProof data (sample)" },
       { n: 2, kind: "help", title: "Explain-back" },
     ],
   },

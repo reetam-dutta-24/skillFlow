@@ -1,7 +1,7 @@
 /**
  * Plain helpers for speaking an explanation instead of typing it. The browser's own speech recognition turns speech
  * into text (components/learning/useDictation.ts); these decide how that text joins the draft and how the answer is
- * labelled. No audio ever reaches SkillFlow: only the words that land in the box are sent, like typed text.
+ * labelled. No audio ever reaches LearnProof: only the words that land in the box are sent, like typed text.
  */
 
 export type InputMethod = "text" | "voice" | "mixed";
@@ -51,7 +51,7 @@ export function dictationLang(browserLang: string | undefined): string {
 export function dictationErrorText(code: string): string | null {
   if (code === "no-speech" || code === "aborted") return null;
   if (code === "not-allowed" || code === "service-not-allowed") {
-    return "The microphone is blocked for SkillFlow. Allow it in the browser's site settings, or type instead.";
+    return "The microphone is blocked for LearnProof. Allow it in the browser's site settings, or type instead.";
   }
   if (code === "audio-capture") return "No microphone was found. Plug one in, or type instead.";
   if (code === "network") return "Voice needs an internet connection in this browser. Type instead, or try again.";

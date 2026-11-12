@@ -49,10 +49,10 @@ export async function loadHelpChunks(dir = HELP_DIR): Promise<KnowledgeChunkInpu
     skillId: null,
     stageId: null,
     monetized: false,
-    title: "Everything you can use in SkillFlow",
+    title: "Everything you can use in LearnProof",
     url: "/dashboard",
     lessonUrl: null,
-    text: `SkillFlow features (${PRODUCT_FEATURES.length}):\n${PRODUCT_FEATURES.map((feature) => `- ${feature.name} (${feature.href})`).join("\n")}`,
+    text: `LearnProof features (${PRODUCT_FEATURES.length}):\n${PRODUCT_FEATURES.map((feature) => `- ${feature.name} (${feature.href})`).join("\n")}`,
   });
   return chunks;
 }

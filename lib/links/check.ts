@@ -14,7 +14,7 @@ export type CommunityLinkVerdict =
   | { outcome: "unreachable"; status: number | null; reason: string }
   | { outcome: "reject"; status: number | null; reason: string };
 
-const UNSAFE = "That link cannot be checked from SkillFlow.";
+const UNSAFE = "That link cannot be checked from LearnProof.";
 
 async function readLimited(response: Response): Promise<string> {
   const reader = response.body?.getReader();
@@ -66,7 +66,7 @@ async function follow(href: string, hops: number): Promise<CommunityLinkVerdict>
       signal: AbortSignal.timeout(TIMEOUT_MS),
       headers: {
         Accept: "text/html,application/xhtml+xml;q=0.9,*/*;q=0.8",
-        "User-Agent": "SkillFlowCommunityLink/1.0",
+        "User-Agent": "LearnProofCommunityLink/1.0",
       },
     });
   } catch (error) {
@@ -85,10 +85,10 @@ async function follow(href: string, hops: number): Promise<CommunityLinkVerdict>
     try {
       next = new URL(location, href).toString();
     } catch {
-      return { outcome: "reject", status: response.status, reason: "That link redirected to an address SkillFlow will not open." };
+      return { outcome: "reject", status: response.status, reason: "That link redirected to an address LearnProof will not open." };
     }
     const normalized = normalizeCommunityUrl(next);
-    if (!normalized) return { outcome: "reject", status: response.status, reason: "That link redirected to an address SkillFlow will not open." };
+    if (!normalized) return { outcome: "reject", status: response.status, reason: "That link redirected to an address LearnProof will not open." };
     return follow(normalized, hops + 1);
   }
 

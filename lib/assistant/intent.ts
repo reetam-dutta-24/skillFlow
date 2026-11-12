@@ -48,7 +48,7 @@ export type GuardDecision =
  * - The question names one of that stage's explain-back ideas: hint, however it is phrased ("the knight moves how?",
  *   "write a paragraph on knight moves"), because the wording of a request is easy to change and the idea is not. The
  *   one exception is a question that does not ask for an explanation while a help article ranks first: that is a
- *   question about SkillFlow that happens to share words with a stage.
+ *   question about LearnProof that happens to share words with a stage.
  * - The question names only the stage title: hint when it also asks for an explanation and the best source is not a
  *   help article, because a title is broad.
  *
@@ -59,18 +59,18 @@ export function explainBackGuard(input: {
   topStageIds: readonly (string | null)[];
   question: string;
   stages: ReadonlyMap<string, GuardStage>;
-  /** The kind of the best source. A help article first means the question is probably about SkillFlow itself. */
+  /** The kind of the best source. A help article first means the question is probably about LearnProof itself. */
   firstKind?: string;
 }): GuardDecision {
   const asksToExplain = explainIntent(input.question);
-  const aboutSkillFlow = input.firstKind === "help";
+  const aboutLearnProof = input.firstKind === "help";
   for (const stageId of input.topStageIds) {
     if (!stageId) continue;
     const stage = input.stages.get(stageId);
     if (!stage || stage.passed) continue;
     const concept = stage.concepts.find((item) => mentions(input.question, item));
-    if (concept && (asksToExplain || !aboutSkillFlow)) return { mode: "hint", stageId, concept };
-    if (asksToExplain && !aboutSkillFlow && mentions(input.question, stage.title)) {
+    if (concept && (asksToExplain || !aboutLearnProof)) return { mode: "hint", stageId, concept };
+    if (asksToExplain && !aboutLearnProof && mentions(input.question, stage.title)) {
       return { mode: "hint", stageId, concept: stage.title };
     }
   }

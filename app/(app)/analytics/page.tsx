@@ -37,7 +37,7 @@ export default async function AnalyticsPage() {
     <div className="sf-analytics">
       <header className="sf-page-head">
         <h1>Analytics</h1>
-        <p>Everything you did on SkillFlow, in charts. Mastery is the share of a path&apos;s stages with a passed explain-back.</p>
+        <p>Everything you did on LearnProof, in charts. Mastery is the share of a path&apos;s stages with a passed explain-back.</p>
       </header>
 
       <ul className="sf-analytics-kpis" aria-label="Totals">
@@ -107,7 +107,7 @@ export default async function AnalyticsPage() {
       <section className="sf-timeline" aria-labelledby="analytics-timeline">
         <header>
           <h2 id="analytics-timeline">Recent activity</h2>
-          <p>Your latest actions across every part of SkillFlow, newest first.</p>
+          <p>Your latest actions across every part of LearnProof, newest first.</p>
         </header>
         {data.timeline.length ? (
           <ol className="sf-timeline-list">

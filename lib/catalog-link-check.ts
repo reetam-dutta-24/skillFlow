@@ -62,7 +62,7 @@ async function request(url: string) {
     signal: AbortSignal.timeout(TIMEOUT_MS),
     headers: {
       Accept: "text/html,application/xhtml+xml,application/json;q=0.9,*/*;q=0.8",
-      "User-Agent": "SkillFlowCatalogCheck/1.0",
+      "User-Agent": "LearnProofCatalogCheck/1.0",
     },
   });
 }

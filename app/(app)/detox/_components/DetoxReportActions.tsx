@@ -35,7 +35,7 @@ export function DetoxReportActions() {
       if (!response.ok) throw new Error("image");
       const png = await response.blob();
       if (format === "png") {
-        save(png, "skillflow-detox.png");
+        save(png, "learnproof-detox.png");
         return;
       }
       const bitmap = await createImageBitmap(png);
@@ -47,7 +47,7 @@ export function DetoxReportActions() {
       context.drawImage(bitmap, 0, 0);
       const jpg = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.92));
       if (!jpg) throw new Error("jpeg");
-      save(jpg, "skillflow-detox.jpg");
+      save(jpg, "learnproof-detox.jpg");
     } catch {
       setError("The image could not be made. Try again.");
     } finally {

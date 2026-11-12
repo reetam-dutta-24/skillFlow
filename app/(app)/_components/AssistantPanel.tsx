@@ -109,8 +109,8 @@ export function AssistantPanel({
             <Icon name="sparkles" size={18} />
           </span>
           <div className="sf-assist-head-text">
-            <h2 id={titleId}>Ask SkillFlow</h2>
-            <p>Answers from SkillFlow&rsquo;s help and catalog, with sources</p>
+            <h2 id={titleId}>Ask LearnProof</h2>
+            <p>Answers from LearnProof&rsquo;s help and catalog, with sources</p>
           </div>
           {turns.length ? (
             <button type="button" className="sf-assist-head-btn" onClick={onClear}>
@@ -127,7 +127,7 @@ export function AssistantPanel({
           {turns.length === 0 ? (
             <div className="sf-assist-empty">
               <p>
-                Ask about how SkillFlow works, what a path covers, or what to do next. Answers cite their sources, and you
+                Ask about how LearnProof works, what a path covers, or what to do next. Answers cite their sources, and you
                 explain each stage&rsquo;s ideas yourself.
               </p>
               <ul className="sf-assist-suggest" aria-label="Suggested questions">
@@ -158,7 +158,7 @@ export function AssistantPanel({
                       </p>
                     ) : turn.mode === "not-sure" && turn.status === "done" ? (
                       <p className="sf-assist-label" data-mode="not-sure">
-                        <Icon name="circle-help" size={14} /> Not covered by SkillFlow&rsquo;s sources
+                        <Icon name="circle-help" size={14} /> Not covered by LearnProof&rsquo;s sources
                       </p>
                     ) : null}
                     {turn.status === "error" ? (
@@ -196,7 +196,7 @@ export function AssistantPanel({
             rows={2}
             value={draft}
             maxLength={MAX_MESSAGE}
-            placeholder="Ask a question about SkillFlow…"
+            placeholder="Ask a question about LearnProof…"
             onChange={(event) => onDraft(event.target.value)}
             onKeyDown={(event) => {
               if (event.key === "Enter" && !event.shiftKey && !event.nativeEvent.isComposing) {

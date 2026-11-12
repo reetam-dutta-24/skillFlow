@@ -34,7 +34,7 @@ export function ReportActions() {
       if (!response.ok) throw new Error("image");
       const png = await response.blob();
       if (format === "png") {
-        save(png, "skillflow-career-fit.png");
+        save(png, "learnproof-career-fit.png");
         return;
       }
       const bitmap = await createImageBitmap(png);
@@ -46,7 +46,7 @@ export function ReportActions() {
       context.drawImage(bitmap, 0, 0);
       const jpg = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.92));
       if (!jpg) throw new Error("jpeg");
-      save(jpg, "skillflow-career-fit.jpg");
+      save(jpg, "learnproof-career-fit.jpg");
     } catch {
       setError("The image could not be made. Try again.");
     } finally {

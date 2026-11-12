@@ -3,7 +3,7 @@ import { pressUntilOpen } from "./shortcut";
 
 // Global search: Ctrl+K opens it, a feature and a setting answer at once, a niche comes from the catalog index,
 // and Enter opens the highlighted result.
-const email = `e2e+search${Date.now()}@skillflow.test`;
+const email = `e2e+search${Date.now()}@learnproof.test`;
 
 test("global search finds features, settings, and niches, and opens one", async ({ page }) => {
   await page.goto("/signup");
@@ -14,8 +14,8 @@ test("global search finds features, settings, and niches, and opens one", async 
   await expect(page).toHaveURL(/\/onboarding/);
 
   await page.goto("/dashboard");
-  await expect(page.getByRole("button", { name: "Search SkillFlow" })).toBeVisible();
-  const dialog = page.getByRole("dialog", { name: "Search SkillFlow" });
+  await expect(page.getByRole("button", { name: "Search LearnProof" })).toBeVisible();
+  const dialog = page.getByRole("dialog", { name: "Search LearnProof" });
   await pressUntilOpen(page, "Control+K", dialog);
   const box = dialog.getByRole("combobox");
   await expect(box).toBeFocused();
@@ -39,5 +39,5 @@ test("global search finds features, settings, and niches, and opens one", async 
   await niche.hover();
   await box.press("Enter");
   await expect(page).toHaveURL(/\/roadmap\/chess$/);
-  await expect(page.getByRole("dialog", { name: "Search SkillFlow" })).toHaveCount(0);
+  await expect(page.getByRole("dialog", { name: "Search LearnProof" })).toHaveCount(0);
 });

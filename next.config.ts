@@ -37,7 +37,7 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   typescript: { ignoreBuildErrors: process.env.SKIP_TYPECHECK === "1" },
   poweredByHeader: false, // stop advertising "X-Powered-By: Next.js"
-  // Dev only. Keeps the Next.js "N" badge off the SkillFlow wordmark and the mobile menu button.
+  // Dev only. Keeps the Next.js "N" badge off the LearnProof wordmark and the mobile menu button.
   devIndicators: { position: "bottom-right" },
   images: {
     formats: ["image/avif", "image/webp"],

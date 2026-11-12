@@ -17,7 +17,7 @@ export function RecoverableError({
   retry,
   placement = "screen",
   homeHref = "/",
-  documentTitle = "Something went wrong · SkillFlow",
+  documentTitle = "Something went wrong · LearnProof",
 }: {
   error: Error & { digest?: string };
   retry: () => void;

@@ -4,7 +4,7 @@ import { indexEverything } from "@/lib/assistant/store";
 import { prisma } from "@/lib/prisma";
 
 /**
- * Builds the SkillFlow Assistant's retrieval index: content/help, the tour, the feature list, and the catalog.
+ * Builds the LearnProof Assistant's retrieval index: content/help, the tour, the feature list, and the catalog.
  * Idempotent and safe to rerun: only new or changed chunks are embedded, and chunks whose source is gone are deleted.
  *
  *   npm run assistant:index                      # everything

@@ -117,7 +117,7 @@ export async function loadLearnerContext(userId: string, basics: LearnerBasics):
     lines.push("Detox Score: not taken yet (/detox).");
   }
   if (notes.length) lines.push(`Recent notes: ${notes.map((note) => `${note.concept} (${note.skill.name})`).join("; ")}.`);
-  return { title: "Your SkillFlow data (live)", href: "/progress", text: lines.join("\n").slice(0, 3000) };
+  return { title: "Your LearnProof data (live)", href: "/progress", text: lines.join("\n").slice(0, 3000) };
 }
 
 /** For the explain-back guard: each candidate stage's ideas and whether this learner passed it. */

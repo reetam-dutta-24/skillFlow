@@ -1,4 +1,4 @@
-export const COMMUNITY_LABEL = "Community contributed · Reviewed, not verified by SkillFlow";
+export const COMMUNITY_LABEL = "Community contributed · Reviewed, not verified by LearnProof";
 
 export const CONTRIBUTION_TYPES = [
   { id: "RESOURCE", label: "Resource" },

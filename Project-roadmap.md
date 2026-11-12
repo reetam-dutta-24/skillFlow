@@ -1,4 +1,4 @@
-# SkillFlow — Master Project Roadmap
+# LearnProof — Master Project Roadmap
 
 This file is two things at once:
 
@@ -47,8 +47,8 @@ Last aligned with the working tree on 16 October 2026. The product is feature-co
 | Account deletion | Done | Settings → Danger zone: typed confirmation, password, Stripe cancelled first, last admin refused, created content and uploads removed, Privacy Policy and Terms updated |
 | Home | Done | A compact hero (greeting, streak, a plan pill: Free plan · Go Premium or You're on Premium, and one Up next card), then three photo tiles (guided tour, career-fit test, Dopamine Detox) that fit the first screen on a laptop; below them six figures and a weekly chart, path lanes with stage photos, and six For you panels drawn from Progress, Notes, Nearby, Open Source, and records |
 | Product tour | Done | A "New here? Take the guided tour" tile on Home opens a full-screen focus dialog: seventeen slides covering every feature (niches, paths, lessons and Clips, explain-back, notes, practice, progress, activity and records, plans, Detox, themes and accents, community, notifications, the assistant, Premium), fourteen with a sandboxed Try it demo (scripted, no writes, no model). Finish or Skip saves `LearnerProfile.tourCompletedAt`; afterwards the same tile offers Replay the guided tour |
-| Global search | Done | A Search SkillFlow pill in the top bar (Ctrl or Cmd + K, or /) opens a command palette over pages, features, settings, quick actions, help, niches, stages, resources, and published Open Source posts; ranking is plain unit-tested code with typo tolerance, and the catalog index is cached under the catalog and community tags |
-| SkillFlow Assistant | Done (25 October 2026, the last feature) | A RAG chatbot in the top bar (Ctrl or Cmd + J): 19 help articles, the tour, and the whole catalog chunked into pgvector with an HNSW index and a full-text index, hybrid retrieval fused with RRF, the Premium filter in SQL, the learner's own data read live, a server-side hint mode for un-passed explain-back ideas, streamed answers with verified citations, no stored chats, and a retrieval eval (`npm run assistant:eval`) |
+| Global search | Done | A Search LearnProof pill in the top bar (Ctrl or Cmd + K, or /) opens a command palette over pages, features, settings, quick actions, help, niches, stages, resources, and published Open Source posts; ranking is plain unit-tested code with typo tolerance, and the catalog index is cached under the catalog and community tags |
+| LearnProof Assistant | Done (25 October 2026, the last feature) | A RAG chatbot in the top bar (Ctrl or Cmd + J): 19 help articles, the tour, and the whole catalog chunked into pgvector with an HNSW index and a full-text index, hybrid retrieval fused with RRF, the Premium filter in SQL, the learner's own data read live, a server-side hint mode for un-passed explain-back ideas, streamed answers with verified citations, no stored chats, and a retrieval eval (`npm run assistant:eval`) |
 | Dopamine Detox | Done | A 20-question original self-check, a deterministic Detox Score that only verified learning moves (daily cap, gentle ease-back, weekly check-in), a fixed playbook with model-picked steps and a rules fallback, a support card for distress, Swap a scroll, focus sessions, charts, a before/after PNG, and cards on Home, Analytics, and the profile (off by default) |
 | Career-fit test | Done | IPIP-NEO-120 and the O*NET Interest Profiler Short Form, 180 items saved as you go, scored in code, a detailed report with the top five free paths and how to approach them, PNG and JPG export, a card on Home |
 | Navigation and layout | Done | The sidebar ordered by importance in groups (Learn, Track, Community, Account); Create content and Submit a resource in the top bar; every dropdown opens a themed picker; content up to 1200px with 24px side padding |
@@ -63,7 +63,7 @@ Last aligned with the working tree on 16 October 2026. The product is feature-co
 
 ## Revision: explain the product first
 
-SkillFlow is a learning app that checks whether someone understood a lesson, instead of counting how long they watched.
+LearnProof is a learning app that checks whether someone understood a lesson, instead of counting how long they watched.
 
 The loop, as designed:
 
@@ -193,7 +193,7 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 
 **Niches (`/skills`).** Search and group filters, then 32 cards a page (4 columns by 8 rows). A free skill with stages is a link to its roadmap. Open means the thirty free paths. Every free path has stages, so the card says "Free · N stages". Every other niche shows "Premium". A free account opens `/upgrade` from that card. A subscriber opens the roadmap. A free account also sees what Premium adds. Narrow screens stack the same 32 cards into fewer columns.
 
-**Home.** One compact hero (the date, a greeting, the streak, and one Up next card with the stage photo and Continue), then "Get to know SkillFlow" tiles, each with a photo banner: the guided tour (Start or Skip, then the same tile offers Replay; it never opens by itself), the career-fit test (take, continue, or view the report), and Dopamine Detox (take or continue the self-check, or the Detox Score with one next step and Swap a scroll); then At a glance (current streak, stages passed, passed this week, average mastery, notes saved, retention, and a seven-day chart), Your activity (the contribution heatmap), one lane per followed path with stage photos, For you (mastery by path, stages that need another look, recent notes, saved events near the learner's city, Open Source in followed niches, transcripts and certificates), Explore (4 columns by 3 rows, a blurred peek, and Explore all the niches). The plan sits in the hero as a pill beside the streak: "Free plan · Go Premium", or "You're on Premium". Open stages link to the lesson; locked stages do not.
+**Home.** One compact hero (the date, a greeting, the streak, and one Up next card with the stage photo and Continue), then "Get to know LearnProof" tiles, each with a photo banner: the guided tour (Start or Skip, then the same tile offers Replay; it never opens by itself), the career-fit test (take, continue, or view the report), and Dopamine Detox (take or continue the self-check, or the Detox Score with one next step and Swap a scroll); then At a glance (current streak, stages passed, passed this week, average mastery, notes saved, retention, and a seven-day chart), Your activity (the contribution heatmap), one lane per followed path with stage photos, For you (mastery by path, stages that need another look, recent notes, saved events near the learner's city, Open Source in followed niches, transcripts and certificates), Explore (4 columns by 3 rows, a blurred peek, and Explore all the niches). The plan sits in the hero as a pill beside the streak: "Free plan · Go Premium", or "You're on Premium". Open stages link to the lesson; locked stages do not.
 
 **Profile (`/profile/[userId]`).** Cover and avatar, name, headline, member since, paths followed, published contributions, role chips, six totals, the contribution heatmap with a breakdown by kind, Learning (each followed path with its photo, stages passed, mastery, and a certificate link), Videos, and Open Source. Others see activity and progress only while the owner leaves Settings → Profile visibility on.
 
@@ -227,7 +227,7 @@ Seed: base skills are Full-Stack, Travel Vlogging, Content Creation, Art & Paint
 
 - `/upgrade` — Free and Premium, side by side. A free account continues to Stripe Checkout. The card form stays on Stripe. Without keys, the page says Stripe is not configured. Home, the Paths index, Settings, and the account menu point a free account here. An admin already has Premium, so those prompts stay off.
 - `/transcript/[userId]/[skillSlug]` — the stages this learner has passed, with the real dates. PDF download. `noindex`.
-- `/certificate/[userId]/[skillSlug]` — issued only when every stage on that path is passed. SkillFlow’s own record. `noindex`.
+- `/certificate/[userId]/[skillSlug]` — issued only when every stage on that path is passed. LearnProof’s own record. `noindex`.
 - `/notes` — in the main nav. An accepted explain-back idea is stored with its review. The notebook downloads as Word or PDF, and each stage can be summarized from those notes only.
 - `/submit/byor` — bring your own resource and get a sample explain-back gate prompt.
 - Usage-cutoff dialog — a soft stop. Not stored.
@@ -307,7 +307,7 @@ Every stage on the thirty free paths has a committed photo under `public/stages/
 
 ## Do not claim these in an interview yet
 
-- SkillFlow has a quiz, a score leaderboard, or peer review.
+- LearnProof has a quiz, a score leaderboard, or peer review.
 - A Premium niche has a catalog. It does not. Stripe charges someone when the keys are missing. It does not.
 - A creator has a rating or earnings.
 - The app is deployed by CI or has error monitoring. CI checks every push; deploys are still run by hand over SSH. Uptime is monitored and backups are automatic.
@@ -521,7 +521,7 @@ The mock catalog in `lib/mock/catalog.ts` is leftover sample data for the screen
 - [x] `HANDOFF.md`: a self-contained brief for testing and operating the deployment (stack, run commands, every env var, external services, state outside the database, production as deployed, the redeploy runbook, the remaining checklist)
 - [x] `STUDY-GUIDE.md`: every concept and feature end to end, the incident log, and an interview question bank
 - [x] Diagrams (Mermaid): the production system, browser → proxy → Server Component → `lib/data` → Prisma, the explain-back sequence, the deploy pipeline, and the data model
-- [ ] Case study: the problem, what existing products optimize for, and what SkillFlow refused to copy
+- [ ] Case study: the problem, what existing products optimize for, and what LearnProof refused to copy
 - [ ] A short recording of the loop (not needed for now)
 
 ---
@@ -549,7 +549,7 @@ Premium is the niches outside the thirty free paths, and appearing on the learne
 ## V2 PHASE 5 — Notes
 **Status: ✅ STORED, EXPORTABLE, AND SUMMARIZED. PRACTICE NOTES STAY OFF THE PATH.**
 
-`/notes` is in the sidebar. When an idea holds, `LearnerNote` keeps the explanation and the written review. A pass recorded before that still becomes notes the next time the page is opened. The page is a notebook: one skill, its stages in path order, and every idea on that stage with the review under it. Practice notes sit in a Practice chapter after the stages. Download Word and Download PDF save that notebook. Summarize this stage asks the same model for a short restatement of that stage’s notes and nothing outside them. `/notes/practice` lets a learner start from a link. SkillFlow reads that public page, and the review uses the page text. A dropped text file or a pasted passage works the same way. An idea that holds is saved. It does not pass a stage or enter the catalog. Notes are personal and are read on the request. The fetched page is shared for an hour.
+`/notes` is in the sidebar. When an idea holds, `LearnerNote` keeps the explanation and the written review. A pass recorded before that still becomes notes the next time the page is opened. The page is a notebook: one skill, its stages in path order, and every idea on that stage with the review under it. Practice notes sit in a Practice chapter after the stages. Download Word and Download PDF save that notebook. Summarize this stage asks the same model for a short restatement of that stage’s notes and nothing outside them. `/notes/practice` lets a learner start from a link. LearnProof reads that public page, and the review uses the page text. A dropped text file or a pasted passage works the same way. An idea that holds is saved. It does not pass a stage or enter the catalog. Notes are personal and are read on the request. The fetched page is shared for an hour.
 
 ## V2 PHASE 7 — Creators
 **Status: ✅ STUDIO IS LIVE. A RATING AND EARNINGS ARE NOT PART OF THE PRODUCT.**
@@ -574,7 +574,7 @@ Every slug in `FREE_PATH_SLUGS` has a researched JSON file and is imported. A ni
 - [x] Usage-cutoff dialog (soft: take a break, or continue)
 - [x] Bring-your-own-resource page that turns a resource into a sample explain-back gate prompt
 - [x] Spaced repetition: each passed idea comes back twice, 18 hours apart. A card locks the app until any written answer. Retention on Progress is the average of those answers. The stage pass stays.
-- [x] A certificate when every stage on a path is passed. It is SkillFlow’s own record of those explain-backs, and it is not a license or a degree.
+- [x] A certificate when every stage on a path is passed. It is LearnProof’s own record of those explain-backs, and it is not a license or a degree.
 
 ---
 
@@ -603,7 +603,7 @@ Ticketmaster and Google Events (SerpApi) are separate adapters. A missing key tu
 **Feature work is closed.** The product is feature-complete and frozen as of 16 October 2026: the last additions were Dopamine Detox, global search, the sixteen-stop guided tour, and the Home redesign (with light-mode readability, the sidebar by importance, themed dropdowns, and the top-bar create buttons). The UI pass is done (`UI-AUDIT.md`). The app is live on AWS; deploying the 16 October work needs `prisma migrate deploy` for its two new migrations (`20261016120000_product_tour`, `20261016140000_dopamine_detox`). What remains is operations, then more proof. A new feature needs an explicit decision to reopen the list.
 
 - **Explain-back additions: done (12 November 2026).** The list was reopened once more, by explicit decision, and is closed again. Speak instead (browser speech recognition, no audio stored), the own-words check (`lib/explain/authenticity.ts`: two warnings per stage, then flagged answers stop counting; counts only in `ExplainBackIntegrity`), hands-on proof on the 22 practical paths (`lib/explain/hands-on.ts`, `PracticalProof`), and a blurred stage-photo backdrop for the gate. With them: the finish action now records a stage only from server-accepted notes (it used to take reviews from the browser), the assistant's hint mode can no longer be dodged by rewording or by ranking, and Catalog CMS writes re-index the niche. Deploying needs `prisma migrate deploy` for `20261112120000_explain_integrity` and `20261112130000_practical_proof`, then `npm run assistant:index` for the changed help articles.
-- **SkillFlow Assistant: done (25 October 2026).** The list was reopened once, by explicit decision, for this last feature and is closed again. Deploying it needs the Postgres image switch to `pgvector/pgvector:pg16-trixie`, `prisma migrate deploy` for `20261025120000_assistant_knowledge`, and `npm run assistant:index` (steps in `HANDOFF.md` §12). Tests: 283 unit tests in 41 files (47 new for the assistant and its tour stop) and 12 Playwright tests (two new in `e2e/assistant.spec.ts`). Eval numbers are in `README.md`.
+- **LearnProof Assistant: done (25 October 2026).** The list was reopened once, by explicit decision, for this last feature and is closed again. Deploying it needs the Postgres image switch to `pgvector/pgvector:pg16-trixie`, `prisma migrate deploy` for `20261025120000_assistant_knowledge`, and `npm run assistant:index` (steps in `HANDOFF.md` §12). Tests: 283 unit tests in 41 files (47 new for the assistant and its tour stop) and 12 Playwright tests (two new in `e2e/assistant.spec.ts`). Eval numbers are in `README.md`.
 - Operations (Phase 9), what is left: automatic deploy from CI, Sentry, the events cron, the final domain with Cloudflare as a CDN (`noindex` until then), enforcing the CSP, a second admin on a personal email, and upgrading or leaving the AWS free plan before about 13 April 2027. Backups, the 30 GB disk, CI, uptime monitoring, and production keys were finished on 15–17 October 2026.
 - Phase 8. Integration tests for catalog import and lesson reads. Extend the Playwright suite to progress, transcripts, and certificates (explain-back, the tour, Detox, and search are covered). A manual pass of empty, error, and loading states.
 - Open Source. Integration tests for review, edit, and hide.

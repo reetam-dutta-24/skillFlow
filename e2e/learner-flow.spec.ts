@@ -1,7 +1,7 @@
 import { expect, test, type Page } from "@playwright/test";
 
 // One new learner per run. The tests run in order and share these details.
-const email = `e2e+${Date.now()}@skillflow.test`;
+const email = `e2e+${Date.now()}@learnproof.test`;
 const password = "e2e-password-123";
 const PATH_SLUG = "full-stack-web-dev";
 

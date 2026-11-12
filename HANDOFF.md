@@ -1,8 +1,8 @@
-# SkillFlow — handoff for testing and deployment
+# LearnProof — handoff for testing and deployment
 
-This brief is for someone (a person or a chat assistant) who will help test and operate SkillFlow without reading the code. It says what the app is, how it runs, what it needs from the outside world, how it is deployed today, and what is known to be missing. It is accurate as of 17 October 2026.
+This brief is for someone (a person or a chat assistant) who will help test and operate LearnProof without reading the code. It says what the app is, how it runs, what it needs from the outside world, how it is deployed today, and what is known to be missing. It is accurate as of 17 October 2026.
 
-**SkillFlow is live** at `https://app.32-236-251-56.sslip.io` (a temporary domain) on one AWS EC2 instance running Docker Compose. Section 10 describes the deployment as it is, and section 11 is the redeploy runbook. The product is feature-complete and frozen (the feature list closed on 16 October 2026); deploying the 16 October work needs `prisma migrate deploy` for its two new migrations; the open work is operations (section 9).
+**LearnProof is live** at `https://app.32-236-251-56.sslip.io` (a temporary domain) on one AWS EC2 instance running Docker Compose. Section 10 describes the deployment as it is, and section 11 is the redeploy runbook. The product is feature-complete and frozen (the feature list closed on 16 October 2026); deploying the 16 October work needs `prisma migrate deploy` for its two new migrations; the open work is operations (section 9).
 
 The other documents go deeper: `AGENTS.md` (working rules and every wired feature), `Project-roadmap.md` (the full record and the phase list), `README.md` (overview, architecture diagrams, setup, and service keys), `STUDY-GUIDE.md` (every concept end to end, including the incident log), and `UI-AUDIT.md` (a dated design audit).
 
@@ -10,7 +10,7 @@ The other documents go deeper: `AGENTS.md` (working rules and every wired featur
 
 ## 1. The product in one minute
 
-SkillFlow is a learning app built on mastery. A learner follows a skill, called a **path**. A path is an ordered list of **stages**. Each stage is a set of real external resources: YouTube videos played inside the app, articles, docs, and courses. A stage counts as passed only after an **explain-back**: the learner explains each idea in their own words, an AI model (Gemini) reviews it, and the step moves on only when the idea holds. The next stage opens after the current one is passed. There is no quiz, no comments, no likes, no view counts, and no leaderboard.
+LearnProof is a learning app built on mastery. A learner follows a skill, called a **path**. A path is an ordered list of **stages**. Each stage is a set of real external resources: YouTube videos played inside the app, articles, docs, and courses. A stage counts as passed only after an **explain-back**: the learner explains each idea in their own words, an AI model (Gemini) reviews it, and the step moves on only when the idea holds. The next stage opens after the current one is passed. There is no quiz, no comments, no likes, no view counts, and no leaderboard.
 
 - **Free.** Thirty paths with full catalogs, every stage, explain-back, notes, transcripts, certificates, Nearby events, and the learner map.
 - **Premium.** One Stripe subscription. It opens the other niches (there are about 145, none with stages yet) and lets the learner appear on the learner map.
@@ -105,7 +105,7 @@ All of these are read on the server unless the name starts with `NEXT_PUBLIC_`. 
 | `AUTH_URL` | Yes, in production | The public address, e.g. `https://app.example.com`. Behind a reverse proxy the app sees itself as `localhost:3000`; OAuth callbacks, the post-sign-in redirect and Stripe return URLs use this instead (`lib/public-origin.ts`). Leave it unset locally |
 | `REDIS_URL` | Yes, in production | `redis://` or `rediss://`. Holds the rate-limit counters. Without it locally, the limits are off |
 | `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET` | For Google sign-in | Set both or neither. Without them the Google buttons are hidden. **Needed at build time too**: login and signup are static pages, so the buttons are decided when you build |
-| `GEMINI_API_KEY` | For explain-back and the assistant | Free tier, model `gemini-flash-lite-latest`. Also embeds the SkillFlow Assistant's index and questions (`gemini-embedding-001`, 768 dimensions). Without any model key, no stage can be passed and the assistant cannot answer |
+| `GEMINI_API_KEY` | For explain-back and the assistant | Free tier, model `gemini-flash-lite-latest`. Also embeds the LearnProof Assistant's index and questions (`gemini-embedding-001`, 768 dimensions). Without any model key, no stage can be passed and the assistant cannot answer |
 | `ASSISTANT_EMBED_URL` | No, never in production | An OpenAI-compatible `/embeddings` URL. Only the end-to-end tests set it (the stub in `e2e/model-stub.mjs`) |
 | `GEMINI_MODEL` | No | Overrides the Gemini model |
 | `OPENAI_API_KEY` | No | Used only when the Gemini key is empty |
@@ -177,7 +177,7 @@ All of these are read on the server unless the name starts with `NEXT_PUBLIC_`. 
 ## 8. Testing status
 
 - **Done.** 314 unit tests in 44 files on 12 November 2026 (Vitest), including the explain-back finish rule, dictation, the own-words check, and hands-on proof rules; mastery, streaks, the open-stage rule, explain-back judging, plans, events, community permissions, career scoring, the report schema, display names, avatars, env validation, the rate limiter, weak topics, notification counts, the product tour, and the Detox Score. `next build` and `tsc` pass.
-- **End-to-end (Playwright, `e2e/`, `npm run test:e2e`).** Six tests in Chromium: the landing page, `/api/health` reporting the database up, sign-up landing on onboarding, a wrong password, logging in and opening the first Full-Stack stage, and the signed-out redirect. The config reuses a server on port 3000 or starts `npm run dev`, keeps a trace and a screenshot on failure, and retries once when `CI` is set. They need a seeded database, and each run adds one learner (`e2e+<timestamp>@skillflow.test`). Run `npx playwright install chromium` once first.
+- **End-to-end (Playwright, `e2e/`, `npm run test:e2e`).** Six tests in Chromium: the landing page, `/api/health` reporting the database up, sign-up landing on onboarding, a wrong password, logging in and opening the first Full-Stack stage, and the signed-out redirect. The config reuses a server on port 3000 or starts `npm run dev`, keeps a trace and a screenshot on failure, and retries once when `CI` is set. They need a seeded database, and each run adds one learner (`e2e+<timestamp>@learnproof.test`). Run `npx playwright install chromium` once first.
 - **Checked by hand in a headless browser on production builds.** Onboarding, the Catalog CMS (create, edit, and delete for niches, stages, and resources), profile photos, and the UI audit pages at 375px and desktop.
 - **Not done.** Integration tests (catalog import, lesson reads, Open Source review, edit and hide), the end-to-end steps after opening a lesson (explain-back → progress, which needs the model mocked), a live Stripe test charge, a load test, and model calls mocked in tests.
 - **Built-in failure strings** that show error states without saving: catalog or settings name `fail this save`, submit title `fail this submit`, review notes `fail this review`, creator title `fail this upload`, and Open Source review feedback `fail this merge`.
@@ -282,7 +282,7 @@ docker image prune -f
 
 ---
 
-## 12. SkillFlow Assistant: deploy and reindex (25 October 2026)
+## 12. LearnProof Assistant: deploy and reindex (25 October 2026)
 
 The assistant is a retrieval-augmented chatbot (`lib/assistant/`, `app/api/assistant/route.ts`). Its knowledge lives in one new table, `KnowledgeChunk`, which needs the **pgvector** extension. This deploy therefore has an image change and a migration. Do it in this order. These steps were written for a human and were not run on the server.
 

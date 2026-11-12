@@ -79,7 +79,7 @@ async function DetoxContent({ searchParams }: { searchParams: Promise<{ swap?: s
             </p>
             <h1 id="dtx-welcome-title">Your dopamine detox, with proof</h1>
             <p className="sf-dtx-lede">
-              Most detox apps count the hours you stayed away. SkillFlow counts what you did instead: ideas you explained, recalls you
+              Most detox apps count the hours you stayed away. LearnProof counts what you did instead: ideas you explained, recalls you
               answered, and focused minutes. Start with a three-minute self-check.
             </p>
             <ol className="sf-dtx-how">
@@ -213,7 +213,7 @@ async function DetoxContent({ searchParams }: { searchParams: Promise<{ swap?: s
               </li>
             ))}
           </ol>
-          <p className="sf-dtx-quiet">These steps come from SkillFlow&apos;s fixed playbook. {guidance?.source === "model" ? "An AI picked them from your scores; it never sets the number." : ""}</p>
+          <p className="sf-dtx-quiet">These steps come from LearnProof&apos;s fixed playbook. {guidance?.source === "model" ? "An AI picked them from your scores; it never sets the number." : ""}</p>
         </section>
       )}
 
@@ -272,7 +272,7 @@ async function DetoxContent({ searchParams }: { searchParams: Promise<{ swap?: s
       </section>
 
       <p className="sf-dtx-footnote">
-        <Icon name="info" size={14} /> {NOT_MEDICAL} The self-check uses SkillFlow&apos;s own questions; it is not a clinical questionnaire.
+        <Icon name="info" size={14} /> {NOT_MEDICAL} The self-check uses LearnProof&apos;s own questions; it is not a clinical questionnaire.
       </p>
     </div>
   );

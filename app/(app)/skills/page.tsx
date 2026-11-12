@@ -10,7 +10,7 @@ export default function SkillsPage() {
       <div className="sf-browse">
         <header className="sf-page-head">
           <h1>Niches</h1>
-          <p>Every niche on SkillFlow. Thirty paths are free, every stage included. Follow one from its card. A Premium niche opens once this account has Premium.</p>
+          <p>Every niche on LearnProof. Thirty paths are free, every stage included. Follow one from its card. A Premium niche opens once this account has Premium.</p>
         </header>
         <NicheGrid />
       </div>

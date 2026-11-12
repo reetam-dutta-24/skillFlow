@@ -23,7 +23,7 @@ const continueStyle = {
 };
 
 /** Home banner. AniVerse ran a gradient greeting with emoji FOMO lines;
- *  SkillFlow states the streak and the single next action. */
+ *  LearnProof states the streak and the single next action. */
 export function StreakBanner({ streak = 0, nextLabel, nextSkill, continueHref, onContinue, style, ...rest }) {
   return (
     <section

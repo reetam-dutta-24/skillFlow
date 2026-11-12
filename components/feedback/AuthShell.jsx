@@ -2,7 +2,7 @@ import { ThemeToggle } from "../forms/ThemeToggle.jsx";
 import { AuthNicheCarousel } from "./AuthNicheCarousel.jsx";
 
 /** Split auth layout. Copy and the skill carousel sit on the left, the form on the right. */
-export function AuthShell({ headline, sub, brand = "SkillFlow", children }) {
+export function AuthShell({ headline, sub, brand = "LearnProof", children }) {
   return (
     <div className="sf-auth">
       <aside className="sf-auth-aside">

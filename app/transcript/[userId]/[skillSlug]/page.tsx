@@ -62,7 +62,7 @@ async function TranscriptContent({ params }: PageProps) {
       </ul>
       <p className="sf-record-actions">
         <a className="sf-btn sf-btn--gradient sf-btn--md" href={`/transcript/${data.userId}/${data.skillSlug}/pdf`}>Download PDF</a>
-        <Link className="sf-btn sf-btn--outline sf-btn--md" href={session?.user?.id ? "/progress" : "/"}>Back to SkillFlow</Link>
+        <Link className="sf-btn sf-btn--outline sf-btn--md" href={session?.user?.id ? "/progress" : "/"}>Back to LearnProof</Link>
       </p>
     </main>
   );

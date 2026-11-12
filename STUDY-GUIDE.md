@@ -1,6 +1,6 @@
-# SkillFlow — The Complete Study Guide
+# LearnProof — The Complete Study Guide
 
-> Everything about SkillFlow in one place, from the product idea down to the Linux commands that keep it running, written so the founder can revise, explain, and defend every part of it.
+> Everything about LearnProof in one place, from the product idea down to the Linux commands that keep it running, written so the founder can revise, explain, and defend every part of it.
 >
 > This file is for learning. It is not a to-do list. `Project-roadmap.md` is the build record, `HANDOFF.md` is the deploy brief, `AGENTS.md` is the context for coding assistants, and `README.md` is the front door.
 >
@@ -11,9 +11,9 @@
 ## How to use this guide
 
 - **Before an interview:** read Part A (the product), the diagrams in Part B §6, all of Part D, and the incident log (§29). That is roughly an hour.
-- **To learn a concept properly:** each section explains what the thing is, why it is a problem worth solving, how SkillFlow solves it, and where the code lives. File paths are written like `lib/explain/judge.ts`.
+- **To learn a concept properly:** each section explains what the thing is, why it is a problem worth solving, how LearnProof solves it, and where the code lives. File paths are written like `lib/explain/judge.ts`.
 - **Each section ends with "Say it in one line".** Those lines are your interview answers. Learn them by heart.
-- **The honest-claims rule:** never say SkillFlow does something it does not do. §36 lists what you can and cannot claim.
+- **The honest-claims rule:** never say LearnProof does something it does not do. §36 lists what you can and cannot claim.
 
 ### Contents
 
@@ -54,15 +54,15 @@
 30. What is not done yet, and how it would be done
 
 **Part D — Interview preparation**
-31. System design: scaling SkillFlow
+31. System design: scaling LearnProof
 32. Trade-off decisions
 33. The question bank (with answers)
 34. Numbers to remember
 35. Technical glossary
 36. Honest claims
 
-**Part E — The SkillFlow Assistant**
-37. The SkillFlow Assistant (RAG), end to end, with interview questions
+**Part E — The LearnProof Assistant**
+37. The LearnProof Assistant (RAG), end to end, with interview questions
 
 ---
 
@@ -70,9 +70,9 @@
 
 ## 1. The pitch at three lengths
 
-**One sentence.** SkillFlow is a learning platform that only counts a lesson as learned when you can explain it back in your own words, and an AI reviewer agrees.
+**One sentence.** LearnProof is a learning platform that only counts a lesson as learned when you can explain it back in your own words, and an AI reviewer agrees.
 
-**Thirty seconds.** Most learning apps measure watch time, streaks, and completion ticks, which reward clicking "next" rather than understanding. SkillFlow curates real free resources (YouTube videos, docs, courses) into ordered paths of stages. After each stage, the learner explains every key idea back in their own words. An AI reviewer (Gemini) writes a review for each idea, and the next stage only opens when every idea holds. Accepted ideas become the learner's personal notes, which come back later for spaced recall. Thirty paths are completely free; Premium is one Stripe subscription.
+**Thirty seconds.** Most learning apps measure watch time, streaks, and completion ticks, which reward clicking "next" rather than understanding. LearnProof curates real free resources (YouTube videos, docs, courses) into ordered paths of stages. After each stage, the learner explains every key idea back in their own words. An AI reviewer (Gemini) writes a review for each idea, and the next stage only opens when every idea holds. Accepted ideas become the learner's personal notes, which come back later for spaced recall. Thirty paths are completely free; Premium is one Stripe subscription.
 
 **Two minutes (for "tell me about your project").**
 1. *Problem.* Online learners confuse exposure with understanding. Apps reinforce it with streaks, view counts, and quizzes that can be guessed.
@@ -81,7 +81,7 @@
 4. *Production.* It runs in Docker Compose on an AWS EC2 instance (app, Postgres, Redis, and Caddy for automatic HTTPS), deployed for $0 on the AWS free plan, with environment validation at startup, a health check, security headers, and rate limits.
 5. *What I learned.* Designing for honesty (the app never fakes a pass when the AI is down), caching shared content while keeping personal data per request, and debugging production problems end to end (an AI timeout that only showed up on the free tier, a full disk, a build that needed the database).
 
-> **Say it in one line:** "SkillFlow checks understanding instead of watch time: you explain each idea back, an AI reviews it, and only then does the next stage open."
+> **Say it in one line:** "LearnProof checks understanding instead of watch time: you explain each idea back, an AI reviews it, and only then does the next stage open."
 
 ---
 
@@ -93,7 +93,7 @@
 - **Quizzes are weak checks.** Multiple choice can be guessed and rewards recognition over recall.
 - **Good free content exists but is scattered.** The problem is choosing, ordering, and verifying, not producing more content.
 
-### The philosophy (what SkillFlow refuses)
+### The philosophy (what LearnProof refuses)
 | Refused | Why |
 | --- | --- |
 | Quizzes | Dropped on 1 October 2026. Recognition is not understanding; the explain-back is the only check |
@@ -255,7 +255,7 @@ Each feature lists **what** it does, **why** it exists, **how** it works (data a
 
 ### 5.12 Transcript and certificate
 - `/transcript/[userId]/[skillSlug]`: passed stages with real dates, PDF download, `noindex`.
-- `/certificate/[userId]/[skillSlug]`: only when every stage on the path is passed. It is SkillFlow's own record of the explain-backs, not a license or degree, and the copy says so.
+- `/certificate/[userId]/[skillSlug]`: only when every stage on the path is passed. It is LearnProof's own record of the explain-backs, not a license or degree, and the copy says so.
 
 ### 5.13 Personal learning plans
 - **What.** Per learner, per path: level, weekly time, deadline, resource types, language, goal, low data, captions, topics already known. The roadmap then shows a week-by-week schedule.
@@ -274,20 +274,20 @@ Each feature lists **what** it does, **why** it exists, **how** it works (data a
 - **How.**
   - Item text is copied word for word (`lib/career/items.ts`, generated; never reworded).
   - Scoring is plain, unit-tested code (`lib/career/score.ts`): facet 4–20, domain 24–120, interest area 0–40; bands at 35% and 65% of the scale; never called percentiles (no population norms).
-  - Path fit = 80% interest + 20% traits, using SkillFlow's own map (`PATH_FIT` in `lib/career/meta.ts`).
+  - Path fit = 80% interest + 20% traits, using LearnProof's own map (`PATH_FIT` in `lib/career/meta.ts`).
   - Gemini writes only the narrative, from **scores only** (never answers, names, or emails), parsed leniently (`report-schema.ts`), with a rules-based fallback (`rulesReport`).
   - The PNG is drawn server-side with `next/og` and sent `private, no-store`; the JPG is converted in the browser on a canvas, so no image library is needed.
 - **Ethics.** It is self-discovery, not a clinical assessment, and the copy says so. Retake and Delete remove the row.
 
 ### 5.14.1 Dopamine Detox
-- **What.** "Your dopamine detox, with proof." A three-minute self-check (`/detox/check`, 20 of SkillFlow's own questions) gives a starting Detox Score from −100 to +100. After that only verified learning moves it. `/detox` shows a gauge, the band (Overstimulated, Rebalancing, Steady, Deep focus), this week's change, "why it moved" in words, the next 3 steps, totals, a weekly check-in, focus sessions, charts, and a before/after report card.
+- **What.** "Your dopamine detox, with proof." A three-minute self-check (`/detox/check`, 20 of LearnProof's own questions) gives a starting Detox Score from −100 to +100. After that only verified learning moves it. `/detox` shows a gauge, the band (Overstimulated, Rebalancing, Steady, Deep focus), this week's change, "why it moved" in words, the next 3 steps, totals, a weekly check-in, focus sessions, charts, and a before/after report card.
 - **The rule that matters.** The score is plain deterministic code (`lib/detox/score.ts`), the same inputs always give the same number, and no model ever produces or adjusts it. Earned points come only from records the app already verifies (passed ideas, stages, recalls weighted by quality, practice notes, Open Source, focused minutes, active days), capped at 5 a UTC day so grinding does not inflate it. Idle weeks ease earned progress back by 10%. The latest weekly check-in nudges at most ±10.
 - **Guidance.** A fixed 20-step playbook in code. The model (`askModelJson`, only after `aiAllowed()`) receives scores, band, answer option ids, and counts (never names, emails, free text, or mood answers) and returns a short narrative plus three playbook ids; invalid replies fall back to a rules pick. Very low mood or overwhelm shows a support card with Tele-MANAS (14416 or 1-800-891-4416) and makes no model call.
 - **Around the app.** Swap a scroll (3 minutes on one due recall or the next idea, through the real recall and explain-back actions), focus sessions that count only on a visible lesson, explain-back, Notes, or recall card (a pill in the top bar), a Home card, an Analytics section, a profile line that is off by default, and a weekly check-in reminder in the bell.
 - **Privacy.** Personal and sensitive: read on the request, never cached, optional, deletable (Retake and Delete my results), and "a self-improvement score from your own answers and your learning activity, not a medical test."
 
 ### 5.14.2 Global search
-- **What.** A "Search SkillFlow" pill in the top bar (Ctrl or Cmd + K, or "/") opens a command palette for anything in the app: pages, features, settings, quick actions (switch the theme, replay the tour, start a focus session), help answers, every niche, stage, and resource, and published Open Source posts.
+- **What.** A "Search LearnProof" pill in the top bar (Ctrl or Cmd + K, or "/") opens a command palette for anything in the app: pages, features, settings, quick actions (switch the theme, replay the tour, start a focus session), help answers, every niche, stage, and resource, and published Open Source posts.
 - **How.** Static entries (`lib/search/static.ts`) are searched in the browser for instant results; catalog and community entries come from `/api/search`, which ranks a `use cache` index tagged `catalog` and `community` (`lib/data/search.ts`), so it refreshes whenever the catalog or a published post changes. One ranking function (`lib/search/score.ts`, unit-tested) scores both: all words must match, title beats keywords beats description, word starts beat the middle, one typo is forgiven in longer words.
 - **Accessibility.** Combobox and listbox with `aria-activedescendant`, arrow keys, Enter, Esc, a focus trap, a live result count, and full screen on a phone.
 
@@ -299,7 +299,7 @@ Each feature lists **what** it does, **why** it exists, **how** it works (data a
 - **Say it in one line:** "The shell puts the learning loop first, creation one click away in the top bar, and every control in the app's own theme."
 
 ### 5.15 Home (`/dashboard`)
-Compact hero (date, greeting, streak, the plan pill: Free plan · Go Premium or You're on Premium, and one Up next card with the stage photo) → "Get to know SkillFlow" tiles with photo banners: guided tour (Replay once done), career-fit test, Dopamine Detox (invite, resume, support, or the score with one next step and Swap a scroll) → At a glance (streak, stages passed, passed this week, average mastery, notes, retention, seven-day chart) → Topics to strengthen → Your activity heatmap → one lane per followed path → For you (mastery by path, recent notes, saved events near your city, Open Source in your niches, transcripts and certificates, each with a photo) → Explore (4×3 grid with a blurred peek) (the plan pill sits in the hero: Free plan · Go Premium, or You're on Premium). All personal and read on the request (`getDashboardData`, `loadHomeExtras` in `lib/data/home.ts`). Home never calls an events API; it reads rows Nearby already saved.
+Compact hero (date, greeting, streak, the plan pill: Free plan · Go Premium or You're on Premium, and one Up next card with the stage photo) → "Get to know LearnProof" tiles with photo banners: guided tour (Replay once done), career-fit test, Dopamine Detox (invite, resume, support, or the score with one next step and Swap a scroll) → At a glance (streak, stages passed, passed this week, average mastery, notes, retention, seven-day chart) → Topics to strengthen → Your activity heatmap → one lane per followed path → For you (mastery by path, recent notes, saved events near your city, Open Source in your niches, transcripts and certificates, each with a photo) → Explore (4×3 grid with a blurred peek) (the plan pill sits in the hero: Free plan · Go Premium, or You're on Premium). All personal and read on the request (`getDashboardData`, `loadHomeExtras` in `lib/data/home.ts`). Home never calls an events API; it reads rows Nearby already saved.
 
 ### 5.15.1 The product tour
 - **What.** A "New here? Take the guided tour" tile at the top of Home (Start the tour, or a quiet Skip). After it is finished or skipped, the same tile stays as "Replay the guided tour". It never opens by itself.
@@ -360,7 +360,7 @@ Compact hero (date, greeting, streak, the plan pill: Free plan · Go Premium or 
 ### 5.23 Premium and Stripe
 - **What.** One subscription that opens the niches outside the thirty and appearing on the learner map. `/upgrade` compares Free and Premium.
 - **How.**
-  - `POST /api/stripe/checkout` creates a Checkout Session; the card form lives on stripe.com, so card data never touches SkillFlow (PCI scope stays minimal).
+  - `POST /api/stripe/checkout` creates a Checkout Session; the card form lives on stripe.com, so card data never touches LearnProof (PCI scope stays minimal).
   - `POST /api/stripe/webhook`: reads the **raw** body, verifies `stripe-signature` with `constructEvent` and the webhook secret, then handles `checkout.session.completed` and `customer.subscription.created/updated/deleted` by upserting one `Subscription` per user (idempotent: replaying an event gives the same row).
   - `POST /api/stripe/portal` opens Stripe's customer portal.
   - `billingGrantsPremium`: only `ACTIVE` or `TRIALING`, and only while the period has not ended. Admins count as Premium.
@@ -575,7 +575,7 @@ erDiagram
 ### 8.2 Server Components vs Client Components
 - **Server Components (default)** run only on the server. They can `await` the database directly, ship **zero JavaScript** for themselves, and keep secrets on the server.
 - **Client Components (`"use client"`)** are needed for state, effects, event handlers, browser APIs (localStorage, canvas), and libraries like Recharts, MapLibre, and framer-motion.
-- **Rule used in SkillFlow:** a file is a client component only when it needs a click, a form, or a chart. Data loading stays on the server.
+- **Rule used in LearnProof:** a file is a client component only when it needs a click, a form, or a chart. Data loading stays on the server.
 - **The boundary.** Props passed from server to client must be serialisable (no functions, no class instances, no Dates unless handled).
 - `import "server-only"` makes the build fail if a server file is imported into client code, so a Prisma call or secret can never leak into the browser bundle.
 
@@ -602,12 +602,12 @@ erDiagram
 - **Build-time consequence:** prerendering cached catalog pages means `next build` **needs the database**. This shaped the Docker build design (build secrets + `network: host`; see §22).
 
 ### 8.6 `proxy.ts` (formerly `middleware.ts`)
-- Runs before routes. In Next 16 the file is `proxy.ts` and exports `proxy`. SkillFlow wraps it with Auth.js: `export const proxy = auth((req) => …)`.
+- Runs before routes. In Next 16 the file is `proxy.ts` and exports `proxy`. LearnProof wraps it with Auth.js: `export const proxy = auth((req) => …)`.
 - It does two things only: a signed-in visit to `/` redirects to `/dashboard`, and an anonymous visit to a protected route redirects to `/login`.
 - **It is not the authorization layer.** Role checks happen in pages and actions (`requireAdmin()` → anonymous to `/login`, anyone else gets a 404, which hides that the admin page exists). Defence in depth: never rely on one gate.
 
 ### 8.7 `instrumentation.ts`
-- `register()` runs once when the server process starts. SkillFlow uses it to call `validateEnv()` on the Node runtime only, and **skips it during `next build`** (`NEXT_PHASE === "phase-production-build"`), because a Docker build should not need runtime secrets.
+- `register()` runs once when the server process starts. LearnProof uses it to call `validateEnv()` on the Node runtime only, and **skips it during `next build`** (`NEXT_PHASE === "phase-production-build"`), because a Docker build should not need runtime secrets.
 
 ### 8.8 Route handlers worth knowing
 - `/api/health`: `SELECT 1` with a 2-second timeout; 200 or 503; `Cache-Control: no-store`; `await connection()` opts it out of prerendering (otherwise Next would bake a single answer at build time).
@@ -628,7 +628,7 @@ erDiagram
 
 ## 9. React 19 and client-side concepts
 
-- **Hydration.** The server sends HTML; React attaches event handlers in the browser. If the first client render differs from the server HTML (e.g., reading `localStorage` or `prefers-reduced-motion` during render), React reports a **hydration mismatch**. SkillFlow avoids it by:
+- **Hydration.** The server sends HTML; React attaches event handlers in the browser. If the first client render differs from the server HTML (e.g., reading `localStorage` or `prefers-reduced-motion` during render), React reports a **hydration mismatch**. LearnProof avoids it by:
   - reading `localStorage` with **`useSyncExternalStore`**, which takes a separate `getServerSnapshot` (the server renders the intro slide);
   - applying reduced motion only after hydration (`useCalmMotion`).
 - **`useTransition` / pending UI.** `Button` takes `pending` and shows a spinner, keeps its width, and sets `aria-busy`, so a slow AI call does not look frozen.
@@ -831,7 +831,7 @@ The cache is Next's own store, in the server process and `.next/cache`. **Redis 
 ## 15. Rate limiting and Redis
 
 ### 15.1 What Redis is and why here
-Redis is an in-memory key-value store with atomic operations and expiry. SkillFlow uses it **only for rate-limit counters**, because counters must be shared across processes and survive app restarts, and they need atomic increments.
+Redis is an in-memory key-value store with atomic operations and expiry. LearnProof uses it **only for rate-limit counters**, because counters must be shared across processes and survive app restarts, and they need atomic increments.
 
 ### 15.2 The algorithm: fixed window counter (`lib/rate-limit.ts`)
 ```
@@ -868,7 +868,7 @@ ok     = count <= limit
 
 ## 16. Security, mapped to OWASP
 
-| OWASP Top 10 (2021) | SkillFlow's answer |
+| OWASP Top 10 (2021) | LearnProof's answer |
 | --- | --- |
 | A01 Broken access control | Proxy for sign-in, `requireAdmin()` with 404, permission checks again in every action and service, queries scoped to the session user, personal lock enforced on the write |
 | A02 Cryptographic failures | bcrypt hashes, signed/encrypted JWT, HTTPS everywhere (Caddy + HSTS in production), secrets only in env files with `chmod 600` |
@@ -1104,7 +1104,7 @@ During `docker build`, the container cannot see the Compose network (Postgres is
 - `sslip.io` is a public DNS service where any name containing an IP resolves to that IP: `app.32-236-251-56.sslip.io` → `32.236.251.56`. Free, instant, no registrar.
 - **Live URL:** `https://app.32-236-251-56.sslip.io`.
 - **Switching to the real brand domain later:** add a DNS `A` record pointing at the Elastic IP, change `DOMAIN` in `.env`, `docker compose up -d caddy` (Caddy fetches a new certificate), then update the Google OAuth redirect URI and the Stripe webhook URL.
-- **Brand note:** "SkillFlow" is undecided as the final brand because an existing product uses a similar name, so the domain was deliberately kept temporary.
+- **Brand note:** "LearnProof" is undecided as the final brand because an existing product uses a similar name, so the domain was deliberately kept temporary.
 
 ---
 
@@ -1334,7 +1334,7 @@ docker builder prune -af                                  # reclaim build cache
 
 # PART D — INTERVIEW PREPARATION
 
-## 31. System design: scaling SkillFlow
+## 31. System design: scaling LearnProof
 
 **Today:** one EC2 instance, everything in Docker Compose. Good for hundreds of concurrent users. What breaks first, and the fix, in order:
 
@@ -1383,7 +1383,7 @@ docker builder prune -af                                  # reclaim build cache
 ## 33. The question bank
 
 ### Product
-1. **What problem does SkillFlow solve?** Learners mistake watching for understanding; SkillFlow only records progress after you explain each idea back and an AI review agrees.
+1. **What problem does LearnProof solve?** Learners mistake watching for understanding; LearnProof only records progress after you explain each idea back and an AI review agrees.
 2. **Why no quiz?** Multiple choice tests recognition and can be guessed. Explaining tests recall and understanding. I built a quiz, then dropped it on 1 October 2026 and removed its tables with a migration.
 3. **Isn't AI grading unreliable?** It can be wrong, so I constrain it: one idea at a time, a rubric from the stage's own resources, low temperature, JSON-only output, a written review every time so the learner can see the reasoning, and no pass at all if the model fails. The stakes are personal progress, not a credential.
 4. **What stops someone from pasting the answer?** Nothing technical, the same as with a notebook. It is a self-improvement tool; the review asks "in your own words". Copying only cheats yourself, and there is no leaderboard to cheat for.
@@ -1539,14 +1539,14 @@ docker builder prune -af                                  # reclaim build cache
 ## 36. Honest claims
 
 **You can say:**
-- SkillFlow is live in production on AWS (EC2, Docker Compose, Caddy with automatic HTTPS), deployed and operated by me.
+- LearnProof is live in production on AWS (EC2, Docker Compose, Caddy with automatic HTTPS), deployed and operated by me.
 - Thirty free paths with full catalogs; explain-back with AI reviews; notes, recall, mastery, streaks, weak topics, analytics, transcripts, certificates, personal plans, a career-fit test, an Open Source community, a creator studio, a learner map, and nearby events are built and wired to the database.
 - Stripe Checkout, webhooks, and the portal are implemented in code; Premium is gated on the server.
 - Environment validation, health checks, security headers, Redis rate limits, an SSRF guard, magic-byte upload checks.
 - Google sign-in and Stripe (test mode, a test charge passed) work in production.
 - Nightly backups to S3 with a tested restore, CI on every push, and uptime monitoring.
 - 283 unit tests and 12 Playwright end-to-end tests, including the explain-back gate and the assistant against a stubbed model.
-- A RAG assistant over SkillFlow's own help and catalog: pgvector with HNSW, hybrid retrieval with RRF, the Premium filter in SQL, a server-side hint mode for un-passed explain-back ideas, server-verified citations, and a retrieval eval with recorded numbers (section 37).
+- A RAG assistant over LearnProof's own help and catalog: pgvector with HNSW, hybrid retrieval with RRF, the Premium filter in SQL, a server-side hint mode for un-passed explain-back ideas, server-verified citations, and a retrieval eval with recorded numbers (section 37).
 
 **Do not claim (yet):**
 - A quiz, a leaderboard, peer review, creator ratings, or earnings (they do not exist).
@@ -1559,17 +1559,17 @@ docker builder prune -af                                  # reclaim build cache
 
 ---
 
-# PART E — THE SKILLFLOW ASSISTANT (RAG)
+# PART E — THE LEARNPROOF ASSISTANT (RAG)
 
-## 37. The SkillFlow Assistant, end to end
+## 37. The LearnProof Assistant, end to end
 
-Added on 25 October 2026 as the last feature. "Ask SkillFlow" in the top bar (Ctrl or Cmd + J, or "Ask the assistant" in Ctrl + K) answers questions about SkillFlow using only SkillFlow's own knowledge, streams the answer, and cites its sources. The code is in `lib/assistant/`, the endpoint is `app/api/assistant/route.ts`, and the panel is `app/(app)/_components/Assistant*.tsx`.
+Added on 25 October 2026 as the last feature. "Ask LearnProof" in the top bar (Ctrl or Cmd + J, or "Ask the assistant" in Ctrl + K) answers questions about LearnProof using only LearnProof's own knowledge, streams the answer, and cites its sources. The code is in `lib/assistant/`, the endpoint is `app/api/assistant/route.ts`, and the panel is `app/(app)/_components/Assistant*.tsx`.
 
 ### 37.1 What RAG is, and why here
 
-A language model only knows what it was trained on. It does not know SkillFlow's lock rule, its Detox Score formula, or which stage of the Chess path covers castling, and if you ask it anyway it will make something up. **Retrieval-augmented generation** fixes that in two steps: first *retrieve* the few passages of your own content that answer the question, then *generate* an answer that may only use those passages. The model becomes a writer over evidence you chose, not an oracle.
+A language model only knows what it was trained on. It does not know LearnProof's lock rule, its Detox Score formula, or which stage of the Chess path covers castling, and if you ask it anyway it will make something up. **Retrieval-augmented generation** fixes that in two steps: first *retrieve* the few passages of your own content that answer the question, then *generate* an answer that may only use those passages. The model becomes a writer over evidence you chose, not an oracle.
 
-For SkillFlow this matters twice. Wrong help text erodes trust ("it said my certificate needs Premium" — it does not). And the product's thesis is "prove you understood it", so the assistant must never become a way to skip the explain-back.
+For LearnProof this matters twice. Wrong help text erodes trust ("it said my certificate needs Premium" — it does not). And the product's thesis is "prove you understood it", so the assistant must never become a way to skip the explain-back.
 
 ### 37.2 Embeddings
 
@@ -1605,7 +1605,7 @@ The image is `pgvector/pgvector:pg16-trixie`: official Postgres 16 plus the exte
 
 ### 37.6 Hybrid retrieval: full text plus vectors, fused with RRF
 
-Vectors are good at meaning and bad at exact names ("CIBIL", "box-sizing", "STEP"). Keyword search is the opposite. SkillFlow runs both and fuses them (`lib/assistant/retrieval.ts`, `lib/assistant/rank.ts`):
+Vectors are good at meaning and bad at exact names ("CIBIL", "box-sizing", "STEP"). Keyword search is the opposite. LearnProof runs both and fuses them (`lib/assistant/retrieval.ts`, `lib/assistant/rank.ts`):
 
 1. Embed the question (cached in Redis for an hour by a hash of the text).
 2. Top 20 chunks by cosine distance (HNSW).
@@ -1641,7 +1641,7 @@ Honest limit: an injected instruction could still make one answer wrong or off-t
 
 ### 37.10 Hint mode (the product rule in code)
 
-`explainBackGuard` (`lib/assistant/intent.ts`) runs before generation, over **every** source the model would see. If the question names one of the explain-back ideas (`stageConcepts`: learning objectives plus rubric lines) of a stage this learner has **not** passed, the mode is **hint**, however the question is worded: "the knight moves how?" and "write a paragraph on knight moves" are caught as well as "explain how the knight moves". The one exception is a question that does not ask for an explanation while a help article ranks first, which is a question about SkillFlow itself. Naming only the stage title still needs an explain request and a non-help top source, because a title is broad. Hint mode changes what the model is told (pointers, one or two guiding questions, one hint, never the explanation) *and* what it sees: no transcript text, only the start of each source, and none of the browser-supplied chat history, so made-up earlier turns cannot argue it out of its rules. The panel labels it "Hint mode — you'll explain this one yourself". Once the stage is passed, the same question gets a normal answer. (Until 12 November 2026 the guard needed explain wording, read only the top three sources, and stood down whenever a help article ranked first; each of those was a way around it.)
+`explainBackGuard` (`lib/assistant/intent.ts`) runs before generation, over **every** source the model would see. If the question names one of the explain-back ideas (`stageConcepts`: learning objectives plus rubric lines) of a stage this learner has **not** passed, the mode is **hint**, however the question is worded: "the knight moves how?" and "write a paragraph on knight moves" are caught as well as "explain how the knight moves". The one exception is a question that does not ask for an explanation while a help article ranks first, which is a question about LearnProof itself. Naming only the stage title still needs an explain request and a non-help top source, because a title is broad. Hint mode changes what the model is told (pointers, one or two guiding questions, one hint, never the explanation) *and* what it sees: no transcript text, only the start of each source, and none of the browser-supplied chat history, so made-up earlier turns cannot argue it out of its rules. The panel labels it "Hint mode — you'll explain this one yourself". Once the stage is passed, the same question gets a normal answer. (Until 12 November 2026 the guard needed explain wording, read only the top three sources, and stood down whenever a help article ranked first; each of those was a way around it.)
 
 ### 37.11 Evaluation
 

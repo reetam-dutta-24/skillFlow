@@ -5,7 +5,7 @@ import { LEGAL_CONTACT_EMAIL } from "@/lib/legal";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
-  description: "The rules for using SkillFlow: your account, Premium, what you share, and what SkillFlow can and cannot promise.",
+  description: "The rules for using LearnProof: your account, Premium, what you share, and what LearnProof can and cannot promise.",
 };
 
 const mail = <a href={`mailto:${LEGAL_CONTACT_EMAIL}`}>{LEGAL_CONTACT_EMAIL}</a>;
@@ -17,19 +17,19 @@ const sections: LegalSection[] = [
     body: (
       <>
         <p>
-          These terms are an agreement between you and SkillFlow. By creating an account or using SkillFlow you accept them, and the{" "}
-          <Link href="/privacy">Privacy Policy</Link>, which explains how your data is used. If you do not agree, do not use SkillFlow.
+          These terms are an agreement between you and LearnProof. By creating an account or using LearnProof you accept them, and the{" "}
+          <Link href="/privacy">Privacy Policy</Link>, which explains how your data is used. If you do not agree, do not use LearnProof.
         </p>
       </>
     ),
   },
   {
     id: "age",
-    title: "Who can use SkillFlow",
+    title: "Who can use LearnProof",
     body: (
       <p>
-        You must be 18 or older to use SkillFlow on your own. If you are 13 to 17, a parent or guardian must agree to these terms and the
-        Privacy Policy for you, and is responsible for your use of SkillFlow. SkillFlow is not for anyone under 13.
+        You must be 18 or older to use LearnProof on your own. If you are 13 to 17, a parent or guardian must agree to these terms and the
+        Privacy Policy for you, and is responsible for your use of LearnProof. LearnProof is not for anyone under 13.
       </p>
     ),
   },
@@ -47,7 +47,7 @@ const sections: LegalSection[] = [
   },
   {
     id: "service",
-    title: "What SkillFlow is",
+    title: "What LearnProof is",
     body: (
       <>
         <p>
@@ -55,7 +55,7 @@ const sections: LegalSection[] = [
           websites, and the next stage opens after you pass the explain-back on this one.
         </p>
         <p>
-          A transcript lists the stages you passed. A certificate appears when every stage on a path is passed. Both are SkillFlow&apos;s own
+          A transcript lists the stages you passed. A certificate appears when every stage on a path is passed. Both are LearnProof&apos;s own
           record of your explain-backs. They are not a degree, a license, or an accredited qualification, and you must not present them as
           one.
         </p>
@@ -107,7 +107,7 @@ const sections: LegalSection[] = [
       <>
         <p>
           You keep ownership of what you write and upload: explanations, notes, Open Source contributions, suggested resources, events, and
-          videos. You give SkillFlow a non-exclusive, worldwide, royalty-free permission to store, display, and adapt it as needed to run the
+          videos. You give LearnProof a non-exclusive, worldwide, royalty-free permission to store, display, and adapt it as needed to run the
           app, for example to show a published contribution to other learners or a live video in a niche&apos;s clip feed. That permission
           ends when you delete the item or your account, except for copies already shared under these terms.
         </p>
@@ -123,7 +123,7 @@ const sections: LegalSection[] = [
     title: "Rules",
     body: (
       <>
-        <p>Do not use SkillFlow to:</p>
+        <p>Do not use LearnProof to:</p>
         <ul>
           <li>break the law, or help someone else break it;</li>
           <li>harass, threaten, or impersonate anyone, or share someone else&apos;s personal data;</li>
@@ -144,16 +144,16 @@ const sections: LegalSection[] = [
       <p>
         Lessons link to videos, articles, and courses on websites we do not run. They belong to their owners, can change or disappear, and
         have their own terms. We check the links we publish but cannot promise every one stays available or accurate. Events on Nearby come
-        from Ticketmaster, Google, and other learners; SkillFlow does not organise them or sell tickets.
+        from Ticketmaster, Google, and other learners; LearnProof does not organise them or sell tickets.
       </p>
     ),
   },
   {
     id: "ours",
-    title: "SkillFlow's own material",
+    title: "LearnProof's own material",
     body: (
       <p>
-        The SkillFlow name, design, code, and the way paths are put together belong to SkillFlow. You may use them to learn on SkillFlow. You
+        The LearnProof name, design, code, and the way paths are put together belong to LearnProof. You may use them to learn on LearnProof. You
         may not copy, resell, or build a competing service from them.
       </p>
     ),
@@ -163,10 +163,10 @@ const sections: LegalSection[] = [
     title: "Closing your account",
     body: (
       <p>
-        You can stop using SkillFlow at any time. Delete your account yourself in Settings, under Danger zone, or write to {mail}; the{" "}
+        You can stop using LearnProof at any time. Delete your account yourself in Settings, under Danger zone, or write to {mail}; the{" "}
         <Link href="/privacy#keep">Privacy Policy</Link> explains what is removed. Deleting the account also cancels Premium, so it does
         not renew.
-        We may close an account under the Rules section, or if we stop offering SkillFlow, and will tell you in advance where we reasonably
+        We may close an account under the Rules section, or if we stop offering LearnProof, and will tell you in advance where we reasonably
         can.
       </p>
     ),
@@ -176,7 +176,7 @@ const sections: LegalSection[] = [
     title: "No guarantees",
     body: (
       <p>
-        We work to keep SkillFlow running and correct, but it is provided as it is and as available. We do not promise it will always be
+        We work to keep LearnProof running and correct, but it is provided as it is and as available. We do not promise it will always be
         available, free of errors, or that passing a path will lead to a job, a grade, or any other result.
       </p>
     ),
@@ -186,8 +186,8 @@ const sections: LegalSection[] = [
     title: "Limits on liability",
     body: (
       <p>
-        To the extent the law allows, SkillFlow is not liable for indirect or consequential losses, such as lost opportunities or lost data,
-        arising from your use of the service. Our total liability for any claim is limited to the amount you paid SkillFlow in the twelve
+        To the extent the law allows, LearnProof is not liable for indirect or consequential losses, such as lost opportunities or lost data,
+        arising from your use of the service. Our total liability for any claim is limited to the amount you paid LearnProof in the twelve
         months before the claim, or ₹1,000 if you paid nothing. Nothing in these terms limits a liability that the law does not allow to be
         limited.
       </p>
@@ -208,8 +208,8 @@ const sections: LegalSection[] = [
     title: "Changes to these terms",
     body: (
       <p>
-        We may update these terms as SkillFlow changes. We will change the date at the top, and tell you in the app or by email before a
-        change that affects your rights or your payments applies. Using SkillFlow after that means you accept the new terms.
+        We may update these terms as LearnProof changes. We will change the date at the top, and tell you in the app or by email before a
+        change that affects your rights or your payments applies. Using LearnProof after that means you accept the new terms.
       </p>
     ),
   },
@@ -219,11 +219,11 @@ export default function TermsPage() {
   return (
     <LegalDocument
       title="Terms of Service"
-      lede="The rules for using SkillFlow: your account, Premium, what you share, and what SkillFlow can and cannot promise."
+      lede="The rules for using LearnProof: your account, Premium, what you share, and what LearnProof can and cannot promise."
       summary={[
         "18 or older, or 13 to 17 with a parent or guardian's consent.",
         "Thirty paths are free. Premium is optional and can be cancelled any time.",
-        "AI reviews can be wrong, and a SkillFlow certificate is not a degree or a license.",
+        "AI reviews can be wrong, and a LearnProof certificate is not a degree or a license.",
         "You own what you share; moderators review it before it is public.",
         "Indian law applies.",
       ]}

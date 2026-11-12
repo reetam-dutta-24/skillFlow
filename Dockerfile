@@ -27,7 +27,7 @@ RUN --mount=type=secret,id=buildenv,target=/app/.env \
  && npm prune --omit=dev
 
 # ── tools: source plus every package, for one-off scripts (never the app image) ─
-# `docker compose --profile tools run --rm assistant-index` builds the SkillFlow Assistant's index with it.
+# `docker compose --profile tools run --rm assistant-index` builds the LearnProof Assistant's index with it.
 FROM base AS tools
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .

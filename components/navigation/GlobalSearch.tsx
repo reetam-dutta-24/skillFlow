@@ -19,7 +19,7 @@ import { applyTheme, readTheme } from "@/lib/theme";
 
 const RECENT_KEY = "skillflow-recent-search";
 export const OPEN_TOUR_EVENT = "skillflow-open-tour";
-/** Opens the SkillFlow Assistant (app/(app)/_components/Assistant.tsx). `detail.question` prefills the box. */
+/** Opens the LearnProof Assistant (app/(app)/_components/Assistant.tsx). `detail.question` prefills the box. */
 export const OPEN_ASSISTANT_EVENT = "skillflow-open-assistant";
 
 type Recent = Pick<SearchEntry, "id" | "kind" | "title" | "description" | "href" | "icon" | "action" | "badge">;
@@ -96,7 +96,7 @@ export function GlobalSearch() {
         type="button"
         className="sf-search-trigger"
         aria-haspopup="dialog"
-        aria-label="Search SkillFlow"
+        aria-label="Search LearnProof"
         aria-keyshortcuts="Control+K Meta+K /"
         onClick={() => {
           setMac(/Mac|iPhone|iPad/.test(navigator.platform));
@@ -104,7 +104,7 @@ export function GlobalSearch() {
         }}
       >
         <Icon name="search" size={16} />
-        <span className="sf-search-trigger-text" aria-hidden="true">Search SkillFlow</span>
+        <span className="sf-search-trigger-text" aria-hidden="true">Search LearnProof</span>
         <kbd className="sf-search-trigger-kbd" aria-hidden="true">
           {mac ? "⌘K" : "Ctrl K"}
         </kbd>
@@ -242,7 +242,7 @@ function SearchDialog({ onClose }: { onClose: () => void }) {
         className="sf-search-panel"
         role="dialog"
         aria-modal="true"
-        aria-label="Search SkillFlow"
+        aria-label="Search LearnProof"
         initial={reduce ? false : { y: -10, scale: 0.98 }}
         animate={{ y: 0, scale: 1 }}
         transition={reduce ? { duration: 0 } : { duration: 0.2, ease: [0.16, 1, 0.3, 1] }}

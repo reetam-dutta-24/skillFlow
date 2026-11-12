@@ -1,7 +1,7 @@
 import * as React from "react";
 
 /**
- * The explain-back milestone gate — SkillFlow's core differentiator and
+ * The explain-back milestone gate — LearnProof's core differentiator and
  * entirely new (no AniVerse equivalent). A calm, single-column check-in:
  * the user explains a concept, the AI asks one targeted follow-up in a
  * distinct callout, the user responds, and the result is a written pass or

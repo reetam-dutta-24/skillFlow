@@ -16,7 +16,7 @@ function completion(content) {
   return { choices: [{ message: { role: "assistant", content: JSON.stringify(content) } }] };
 }
 
-// Embeddings for the SkillFlow Assistant: a deterministic hashed bag of words in 16 slots, padded with zeros to the
+// Embeddings for the LearnProof Assistant: a deterministic hashed bag of words in 16 slots, padded with zeros to the
 // 768 dimensions the app stores, then normalised. Repeatable, and texts that share words come out close.
 const DIMENSIONS = 768;
 const SLOTS = 16;
@@ -113,14 +113,14 @@ createServer((req, res) => {
       );
     }
 
-    // The SkillFlow Assistant: hint mode never explains; an answer cites the first source.
-    if (system.startsWith("You are the SkillFlow Assistant")) {
+    // The LearnProof Assistant: hint mode never explains; an answer cites the first source.
+    if (system.startsWith("You are the LearnProof Assistant")) {
       const hint = system.includes("you must not do it for them");
       return streamReply(
         res,
         hint
           ? "The resources for this stage cover it [1]. What would you look for first? Hint: start from what the stage title promises."
-          : "Here is how it works, from SkillFlow's own help [1]. Each idea is reviewed on its own, and the stage is recorded once every idea holds.",
+          : "Here is how it works, from LearnProof's own help [1]. Each idea is reviewed on its own, and the stage is recorded once every idea holds.",
       );
     }
 

@@ -11,7 +11,7 @@ const MAX_BYTES = 6 * 1024 * 1024;
 
 /** Seeds that are the same on the server and in the browser, so the first paint hydrates cleanly. */
 function startingSeeds(name: string) {
-  const base = name.toLowerCase().replace(/[^a-z0-9]/g, "").slice(0, 12) || "skillflow";
+  const base = name.toLowerCase().replace(/[^a-z0-9]/g, "").slice(0, 12) || "learnproof";
   return Array.from({ length: TILES }, (_, index) => `${base}${index}`);
 }
 

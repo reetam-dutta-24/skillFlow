@@ -33,7 +33,7 @@ function displayKind(row: Pick<Ranked, "kind" | "url">): SourceKind {
 }
 
 const DETAIL: Record<SourceKind, string> = {
-  help: "SkillFlow help",
+  help: "LearnProof help",
   skill: "Niche",
   stage: "Stage",
   resource: "Resource",
@@ -72,7 +72,7 @@ export function numberSources(rows: readonly Ranked[], learner: LearnerContext |
 }
 
 const RULES = [
-  "You are the SkillFlow Assistant, a calm help guide inside the SkillFlow learning app.",
+  "You are the LearnProof Assistant, a calm help guide inside the LearnProof learning app.",
   "Answer only from the numbered sources in the learner's message. If they do not cover the question, say \"I'm not sure\" and point to the closest page among the sources.",
   "Cite inline with the source numbers in square brackets, like [1] or [2][3], right after the sentence they support.",
   "Link only to URLs that appear in the sources, as markdown links. Never invent a resource, link, price, feature, or number.",
@@ -109,12 +109,12 @@ export function notSureReply(question: string): { text: string; sources: Assista
   const hit = searchEntries(STATIC_SEARCH, question, 1)[0] ?? searchEntries(STATIC_SEARCH, question.split(/\s+/).slice(-3).join(" "), 1)[0];
   if (hit?.href) {
     return {
-      text: `I'm not sure. SkillFlow's help and catalog don't cover that question. The closest page is **${hit.title}** [1]: ${hit.description ?? ""}`.trim(),
-      sources: [{ n: 1, kind: "help", title: hit.title, href: hit.href, external: null, detail: hit.description ?? "SkillFlow page" }],
+      text: `I'm not sure. LearnProof's help and catalog don't cover that question. The closest page is **${hit.title}** [1]: ${hit.description ?? ""}`.trim(),
+      sources: [{ n: 1, kind: "help", title: hit.title, href: hit.href, external: null, detail: hit.description ?? "LearnProof page" }],
     };
   }
   return {
-    text: "I'm not sure. SkillFlow's help and catalog don't cover that question. Try search (Ctrl or Cmd + K), or replay the guided tour from Home [1].",
+    text: "I'm not sure. LearnProof's help and catalog don't cover that question. Try search (Ctrl or Cmd + K), or replay the guided tour from Home [1].",
     sources: [{ n: 1, kind: "help", title: "Guided tour", href: "/dashboard?tour=1", external: null, detail: "Every feature, hands-on, from Home" }],
   };
 }

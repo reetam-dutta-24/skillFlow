@@ -104,7 +104,7 @@ export const AREA_ORDER: Area[] = ["R", "I", "A", "S", "E", "C"];
 export const DOMAIN_ORDER: Domain[] = ["O", "C", "E", "A", "N"];
 
 /**
- * SkillFlow's own map from each free path to Holland areas (strongest first) and the traits that help on it.
+ * LearnProof's own map from each free path to Holland areas (strongest first) and the traits that help on it.
  * Informed by the O*NET interest profiles of related occupations; it is a guide for recommendations, not an
  * O*NET product. `traits` are Big Five domains whose higher scores make the path easier to sustain.
  */

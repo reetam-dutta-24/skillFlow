@@ -17,7 +17,7 @@ import { aiAllowed } from "@/lib/limits";
 import { prisma } from "@/lib/prisma";
 
 /**
- * The SkillFlow Assistant. Signed-in learners only; every question counts against aiAllowed(). Retrieval has five
+ * The LearnProof Assistant. Signed-in learners only; every question counts against aiAllowed(). Retrieval has five
  * seconds, generation the explain-back model's 50, and a client disconnect aborts both. The reply is newline-delimited
  * JSON (lib/assistant/protocol.ts). Nothing the learner types is stored: chats live in the browser tab only, and the
  * usage counter below records a count per day, never the message.

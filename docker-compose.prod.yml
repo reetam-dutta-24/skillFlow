@@ -43,7 +43,7 @@ services:
     volumes:
       - redisdata:/data
 
-  # One-off: builds the SkillFlow Assistant's retrieval index. Never started by `up`; run it with
+  # One-off: builds the LearnProof Assistant's retrieval index. Never started by `up`; run it with
   #   docker compose --profile tools run --rm assistant-index
   assistant-index:
     build:

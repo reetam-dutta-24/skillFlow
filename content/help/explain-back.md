@@ -5,13 +5,13 @@ url: /roadmap
 # Explain-back
 
 ## What explain-back is
-Explain-back is the only mastery check in SkillFlow. There is no quiz. After you work through a stage's resources, you explain the stage's ideas in your own words, one idea at a time. A stage is recorded only after every idea has passed.
+Explain-back is the only mastery check in LearnProof. There is no quiz. After you work through a stage's resources, you explain the stage's ideas in your own words, one idea at a time. A stage is recorded only after every idea has passed.
 
 ## How an idea passes
 Each idea is sent to the review model on its own. An idea holds when you explain what it is, and why it matters or when you would use it, in your own words. Naming the idea, a single clause, or a wrong or confused explanation does not pass. Every answer gets a written review back, whether it holds or not.
 
 ## Speaking instead of typing
-Press Speak instead above the answer box and explain the idea out loud. Your browser turns your voice into text and adds it to the box as you talk, so you can read it, fix a word, or add to it before you press Check my explanation. Press Stop listening when you are done. Spoken answers are judged exactly like typed ones. Speaking works in Chrome, Edge, and Safari; the microphone needs your permission the first time. SkillFlow never receives or stores your audio, only the words in the box.
+Press Speak instead above the answer box and explain the idea out loud. Your browser turns your voice into text and adds it to the box as you talk, so you can read it, fix a word, or add to it before you press Check my explanation. Press Stop listening when you are done. Spoken answers are judged exactly like typed ones. Speaking works in Chrome, Edge, and Safari; the microphone needs your permission the first time. LearnProof never receives or stores your audio, only the words in the box.
 
 ## Your own words, not an AI tool's
 Explain-back only works if the words are yours. Each answer is checked for signs that an AI chat tool wrote it or that it was pasted in: chatbot phrases such as "I hope this helps", headings and bullet lists, stock essay phrases, most of the answer arriving by paste, or text arriving faster than anyone types. The review model gives its opinion too, but its opinion alone never flags an answer, and casual, short, imperfect, or second-language English is fine. The first two flagged answers on a stage are warnings, and the answer is still reviewed. From the third, a flagged answer is not accepted, even if it is correct, until you explain that idea in your own words. Only a count of flagged answers is kept, never the flagged text.

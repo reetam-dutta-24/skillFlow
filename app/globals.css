@@ -10,7 +10,7 @@
   --font-sans: "Segoe UI", var(--font-geist-sans), system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
-  /* SkillFlow design system — semantic colors. Values are theme-dependent;
+  /* LearnProof design system — semantic colors. Values are theme-dependent;
      see the :root/.dark and .light blocks below. */
   --color-bg-app: var(--bg-app);
   --color-bg-sidebar: var(--bg-sidebar);
@@ -53,7 +53,7 @@
   --color-skeleton-base: var(--skeleton-base);
   --color-skeleton-sheen: var(--skeleton-sheen);
 
-  /* SkillFlow design system — radius (theme-invariant, defined directly here) */
+  /* LearnProof design system — radius (theme-invariant, defined directly here) */
   --radius-btn: 10px;
   --radius-btn-sm: 8px;
   --radius-card: 24px;
@@ -67,7 +67,7 @@
 }
 
 /* ==========================================================================
-   SkillFlow design system tokens
+   LearnProof design system tokens
    Merged from the Claude Design export's tokens/*.css. Semantic colors use
    .dark/.light classes on the root element (dark is the default when neither
    is present) instead of the source's [data-theme] attribute, so theming
@@ -18638,7 +18638,7 @@ html {
   }
 }
 
-/* ───────────── Home: hero and "Get to know SkillFlow" ───────────── */
+/* ───────────── Home: hero and "Get to know LearnProof" ───────────── */
 /* One opening card (greeting, streak, the single next step), then a row of distinct tiles: the tour until it is done,
    the career-fit test, and Dopamine Detox. */
 
@@ -19403,7 +19403,7 @@ html {
 }
 
 /* ───────────── Home tiles with photos, and a slimmer hero ───────────── */
-/* Each "Get to know SkillFlow" tile opens with a photo banner, its icon resting on the lower edge. */
+/* Each "Get to know LearnProof" tile opens with a photo banner, its icon resting on the lower edge. */
 .sf-home-tile {
   min-height: 0;
   padding: 0 0 20px;
@@ -19668,7 +19668,7 @@ select optgroup {
 }
 
 /* ───────────── Home: the opening fits one screen ───────────── */
-/* The hero and the three "Get to know SkillFlow" tiles fit in the first viewport on a laptop, without scrolling.
+/* The hero and the three "Get to know LearnProof" tiles fit in the first viewport on a laptop, without scrolling.
    Photo banners scale with the screen's height, so short screens give up photo, not words. */
 .sf-home-top {
   gap: 18px;
@@ -19957,8 +19957,8 @@ a.sf-home-plan:hover {
   }
 }
 
-/* ───────────── SkillFlow Assistant ───────────── */
-/* "Ask SkillFlow" in the top bar opens a right-side panel on desktop and a bottom sheet on a phone (under 640px).
+/* ───────────── LearnProof Assistant ───────────── */
+/* "Ask LearnProof" in the top bar opens a right-side panel on desktop and a bottom sheet on a phone (under 640px).
    It sits above the tour (75) and below global search (78). */
 
 .sf-assist-trigger {
@@ -20474,7 +20474,7 @@ a.sf-home-plan:hover {
   }
 }
 
-/* Tour: the scripted SkillFlow Assistant demo. Reuses the panel's chip and label styles. */
+/* Tour: the scripted LearnProof Assistant demo. Reuses the panel's chip and label styles. */
 .sf-tour-assist-questions {
   display: grid;
   gap: 8px;

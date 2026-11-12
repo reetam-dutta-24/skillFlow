@@ -24,7 +24,7 @@ const APPLY = process.argv.includes("--apply");
 const ROOT = join(process.cwd(), "public", "stages");
 const CREDITS = join(ROOT, "credits.json");
 const QUERIES: Record<string, [string, string][]> = JSON.parse(readFileSync(join(process.cwd(), "scripts", "stage-photo-queries.json"), "utf8"));
-const UA = "SkillFlow-stage-photos/1.0 (https://github.com/reetam-dutta-24/skillFlow)";
+const UA = "LearnProof-stage-photos/1.0 (https://github.com/reetam-dutta-24/skillFlow)";
 const PEXELS = process.env.PEXELS_API_KEY?.trim();
 
 type Credit = { slug: string; order: number; source: string; license: string; page: string; creator: string | null };

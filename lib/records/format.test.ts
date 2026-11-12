@@ -19,6 +19,6 @@ describe("path records", () => {
           { order: 2, title: "Audio", passed: false, when: "" },
         ],
       }),
-    ).toEqual(["SkillFlow transcript", "Ava", "Content Creation", "1 of 10 stages passed", "Stage 1. Lighting", "Oct 6, 2026"]);
+    ).toEqual(["LearnProof transcript", "Ava", "Content Creation", "1 of 10 stages passed", "Stage 1. Lighting", "Oct 6, 2026"]);
   });
 });

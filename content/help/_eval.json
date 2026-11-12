@@ -1,5 +1,5 @@
 {
-  "about": "Retrieval eval for the SkillFlow Assistant (scripts/assistant-eval.ts). expect lists the source keys that answer the question; any one in the top 5 counts. mode is what the assistant should do for a learner who has passed nothing yet: answer, hint (an un-passed explain-back idea), or not-sure (nothing relevant). A stage key also matches the resources in that stage.",
+  "about": "Retrieval eval for the LearnProof Assistant (scripts/assistant-eval.ts). expect lists the source keys that answer the question; any one in the top 5 counts. mode is what the assistant should do for a learner who has passed nothing yet: answer, hint (an un-passed explain-back idea), or not-sure (nothing relevant). A stage key also matches the resources in that stage.",
   "questions": [
     { "id": "help-explain-pass", "question": "How does explain-back decide I passed?", "expect": ["help:explain-back"], "mode": "answer" },
     { "id": "help-explain-thin", "question": "What happens if my explanation is too short?", "expect": ["help:explain-back"], "mode": "answer" },

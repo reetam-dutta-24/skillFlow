@@ -2,7 +2,7 @@ import * as React from "react";
 
 /**
  * Loading placeholders. Intentional addition — AniVerse used Suspense
- * fallbacks with ad-hoc divs; SkillFlow standardises the shimmer.
+ * fallbacks with ad-hoc divs; LearnProof standardises the shimmer.
  */
 export interface SkeletonProps extends React.HTMLAttributes<HTMLSpanElement> {
   width?: number | string;

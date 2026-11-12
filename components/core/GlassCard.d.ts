@@ -1,6 +1,6 @@
 import * as React from "react";
 
-/** Translucent tinted panel — the base surface for every SkillFlow card and section. */
+/** Translucent tinted panel — the base surface for every LearnProof card and section. */
 export interface GlassCardProps extends React.HTMLAttributes<HTMLDivElement> {
   tint?: "neutral" | "accent" | "sunken";
   bordered?: boolean;

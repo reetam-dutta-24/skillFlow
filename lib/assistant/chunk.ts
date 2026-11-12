@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 
 /**
- * Turns SkillFlow's own knowledge into retrieval chunks. Plain code with unit tests: no database, no network.
+ * Turns LearnProof's own knowledge into retrieval chunks. Plain code with unit tests: no database, no network.
  * Sizes are in estimated tokens (about four characters each), which is close enough for English prose and keeps
  * the chunker free of a tokenizer dependency.
  */

@@ -1,5 +1,5 @@
 /**
- * The Dopamine Detox baseline self-check. SkillFlow's own wording, written for this app; not taken from any published
+ * The Dopamine Detox baseline self-check. LearnProof's own wording, written for this app; not taken from any published
  * questionnaire and not clinically validated. Every option carries the points it adds to the raw baseline, so the score
  * is plain arithmetic (lib/detox/score.ts). Change a question or a point value only together with DETOX_VERSION.
  */

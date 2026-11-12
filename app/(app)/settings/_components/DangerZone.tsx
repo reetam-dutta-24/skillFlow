@@ -63,7 +63,7 @@ export function DangerZone({ email, hasPassword }: { email: string; hasPassword:
         <div className="sf-danger-dialog">
           <p className="sf-danger-warning">
             <Icon name="shield-alert" size={16} />
-            This cannot be undone. SkillFlow cannot restore a deleted account.
+            This cannot be undone. LearnProof cannot restore a deleted account.
           </p>
           <div className="sf-danger-lists">
             <div>

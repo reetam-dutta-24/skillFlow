@@ -12,12 +12,14 @@ import type { InputMethod } from "@/lib/explain/dictation";
  *    browser, so it is supporting evidence only; a direct call can lie about it, and the text and model checks still run.
  * 3. The review model's own opinion (`generated` in its reply), which counts only together with another signal.
  *
- * A flagged answer is a strike on that stage. The first two are warnings and the answer is still judged; from the
- * third, a flagged answer is not accepted until the learner gives one in their own words (`integrityOutcome`).
+ * A flagged answer is never refused: it is judged like any other, and a right one still passes the idea. It is a
+ * strike on that stage instead, and every strike lowers the learner's Retention score (`retentionPenalty`). Refusing
+ * flagged answers outright is a proposed rule for later, not part of the gate today.
  */
 
-/** Flagged answers on one stage that only warn. The next flagged answer is not accepted. */
-export const WARNING_STRIKES = 2;
+/** Retention points one flagged answer costs, and the most that flagged answers can take off in total. */
+export const RETENTION_PENALTY_PER_FLAG = 5;
+export const RETENTION_PENALTY_CAP = 40;
 
 /** Shorter answers carry too little text to judge style, so only a chatbot phrase can flag them. */
 const MIN_STYLE_CHARS = 160;
@@ -176,36 +178,28 @@ export function assessAuthenticity(input: {
   return { flagged, reasons: flagged ? [...new Set(reasons)].slice(0, 3) : [] };
 }
 
-export type IntegrityStatus = "clear" | "warning" | "blocked";
+export type IntegrityStatus = "clear" | "warning";
 
 export type IntegrityOutcome = {
   status: IntegrityStatus;
-  /** Strikes on this stage after this answer. */
+  /** Flagged answers on this stage after this answer. */
   strikes: number;
-  /** Warnings left before a flagged answer stops being accepted. */
-  warningsLeft: number;
 };
 
-/** What a flagged (or clean) answer does, given the strikes this learner already has on the stage. */
+/** What one answer adds to the stage's count. A flagged answer is a warning, never a refusal. */
 export function integrityOutcome(strikesBefore: number, flagged: boolean): IntegrityOutcome {
   const before = Math.max(0, Math.floor(strikesBefore));
-  if (!flagged) return { status: "clear", strikes: before, warningsLeft: Math.max(0, WARNING_STRIKES - before) };
-  const strikes = before + 1;
-  if (strikes > WARNING_STRIKES) return { status: "blocked", strikes, warningsLeft: 0 };
-  return { status: "warning", strikes, warningsLeft: WARNING_STRIKES - strikes };
+  return flagged ? { status: "warning", strikes: before + 1 } : { status: "clear", strikes: before };
 }
 
-/** Whether one answer read as the learner's own words, and how many warnings are left on the stage. */
+/** Whether one answer read as the learner's own words, and how many on the stage did not. */
 export type IntegrityView = IntegrityOutcome & {
   /** Up to three plain reasons, only when the answer was flagged. */
   reasons: string[];
 };
 
-/** True when the next flagged answer would not be accepted, so a clear-cut one can be refused before a model call. */
-export function nextFlagBlocks(strikesBefore: number) {
-  return strikesBefore >= WARNING_STRIKES;
+/** Retention points that flagged answers take off, across every stage: 5 each, 40 at most. */
+export function retentionPenalty(flaggedAnswers: number) {
+  const flags = Math.max(0, Math.floor(flaggedAnswers));
+  return Math.min(RETENTION_PENALTY_CAP, flags * RETENTION_PENALTY_PER_FLAG);
 }
-
-/** What the learner reads on a blocked answer, in place of a review that would sound like a pass. */
-export const BLOCKED_REVIEW =
-  "This answer reads like it was written by an AI tool or pasted in, so it cannot count for this idea. Explain it the way you would to a friend, in your own words. Short and plain is fine, and so is imperfect English.";

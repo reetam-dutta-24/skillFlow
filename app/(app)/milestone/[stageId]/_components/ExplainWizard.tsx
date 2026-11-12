@@ -7,7 +7,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ErrorState } from "@/components/feedback/ErrorState.jsx";
 import { DictationButton } from "@/components/learning/DictationButton";
 import { useTypingTrace } from "@/components/learning/useTypingTrace";
-import { WARNING_STRIKES, type IntegrityView } from "@/lib/explain/authenticity";
+import { RETENTION_PENALTY_PER_FLAG, type IntegrityView } from "@/lib/explain/authenticity";
 import { IntegrityNotice } from "./IntegrityNotice";
 import { HandsOnStep } from "./HandsOnStep";
 import { Icon } from "@/components/core/Icon.jsx";
@@ -236,9 +236,9 @@ export function ExplainWizard({
         <h1>Explain one idea at a time</h1>
       </header>
       {standing && standing.strikes > 0 ? (
-        <p className={standing.status === "blocked" ? "sf-explain-standing is-blocked" : "sf-explain-standing"}>
-          Own-words check: {Math.min(standing.strikes, WARNING_STRIKES)} of {WARNING_STRIKES} warnings used on this stage
-          {standing.strikes >= WARNING_STRIKES ? ". Answers that read as AI-written or pasted are no longer accepted here." : "."}
+        <p className="sf-explain-standing">
+          Own-words check: {standing.strikes} {standing.strikes === 1 ? "answer" : "answers"} on this stage read as AI-written
+          or pasted. They still count; each one takes {RETENTION_PENALTY_PER_FLAG} points off Retention.
         </p>
       ) : null}
       <ol className="sf-explain-rail" aria-label="Ideas in this stage">
@@ -360,7 +360,7 @@ export function ExplainWizard({
                 transition={{ duration: reduce ? 0 : 0.32, ease: EASE }}
               >
                 <p className="sf-explain-kicker">
-                  {review.integrity.status === "blocked" ? "Use your own words" : review.understood ? "This idea holds" : "Stay with this idea"}
+                  {review.understood ? "This idea holds" : "Stay with this idea"}
                 </p>
                 <p>{review.review}</p>
                 {review.understood && review.noted ? (

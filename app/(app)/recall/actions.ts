@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { auth } from "@/lib/auth";
+import { flaggedAnswersFor } from "@/lib/explain/integrity-store";
 import { explainModelConfig, judgeRecall } from "@/lib/explain/judge";
 import { EXPLAIN_REVIEW_FAILURE_TEXT } from "@/lib/mock/config";
 import { prisma } from "@/lib/prisma";
@@ -75,8 +76,15 @@ export async function reviewRecall(noteId: string, answer: string): Promise<
   if (!saved) return { ok: false, error: "unavailable" };
 
   const scores = await prisma.recallCheck.findMany({ where: { userId }, select: { id: true, score: true } });
-  const retention = retentionFactor(scores.map((row) => row.score)) ?? review.score;
-  const previous = retentionFactor(scores.filter((row) => row.id !== saved.id).map((row) => row.score));
+  const flags = await flaggedAnswersFor(userId);
+  const retention = retentionFactor(
+    scores.map((row) => row.score),
+    flags,
+  ) ?? review.score;
+  const previous = retentionFactor(
+    scores.filter((row) => row.id !== saved.id).map((row) => row.score),
+    flags,
+  );
 
   try {
     await touchLearnerProgress(userId);

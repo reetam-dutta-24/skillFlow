@@ -286,7 +286,7 @@ export function HandsOnStep({
       {result ? (
         <div className={result.accepted ? "sf-explain-review is-pass" : "sf-explain-review is-retry"} role="status">
           <p className="sf-explain-kicker">
-            {result.integrity?.status === "blocked" ? "Use your own words" : result.accepted ? "Your work holds" : "Not yet"}
+            {result.accepted ? "Your work holds" : "Not yet"}
           </p>
           <p>{result.review}</p>
         </div>

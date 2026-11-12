@@ -3573,7 +3573,7 @@ a.sf-note-row:focus-visible {
 .sf-explain-rail li svg {
   display: block;
 }
-/* Own-words check: a warning or a refusal under the review, and the stage's warning count above the rail. */
+/* Own-words check: a warning under the review (it still counts, and costs Retention), and the stage's count above the rail. */
 .sf-explain-integrity {
   display: grid;
   gap: 8px;
@@ -3583,15 +3583,8 @@ a.sf-note-row:focus-visible {
   border: 1px solid color-mix(in srgb, var(--state-warn) 50%, var(--border-subtle));
   background: color-mix(in srgb, var(--state-warn) 9%, var(--surface-card));
 }
-.sf-explain-integrity.is-blocked {
-  border-color: color-mix(in srgb, var(--state-fail) 55%, var(--border-subtle));
-  background: color-mix(in srgb, var(--state-fail) 9%, var(--surface-card));
-}
 .sf-explain-integrity .sf-explain-kicker {
   color: var(--state-warn);
-}
-.sf-explain-integrity.is-blocked .sf-explain-kicker {
-  color: var(--state-fail);
 }
 .sf-explain-integrity ul {
   display: grid;
@@ -3618,10 +3611,6 @@ a.sf-note-row:focus-visible {
   font-size: var(--text-xs);
   line-height: 1.45;
   color: var(--text-primary);
-}
-.sf-explain-standing.is-blocked {
-  border-color: color-mix(in srgb, var(--state-fail) 50%, var(--border-subtle));
-  background: color-mix(in srgb, var(--state-fail) 8%, var(--surface-card));
 }
 @media (max-width: 639px) {
   .sf-explain-standing {

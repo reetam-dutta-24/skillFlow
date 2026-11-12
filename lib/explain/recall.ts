@@ -1,3 +1,5 @@
+import { retentionPenalty } from "@/lib/explain/authenticity";
+
 /** Hours between a passed idea and its first recall, and between the two recalls. */
 export const RECALL_GAP_MS = 18 * 60 * 60 * 1000;
 
@@ -24,11 +26,14 @@ export function recallDue(input: { passedAt: Date; answeredAt: Date[]; now: Date
   return input.now.getTime() - from.getTime() >= RECALL_GAP_MS;
 }
 
-/** Average of recall scores, from 0 to 100. No answers yet means no factor. */
-export function retentionFactor(scores: number[]): number | null {
+/**
+ * Average of recall scores, from 0 to 100, less 5 points for every explain-back answer that read as AI-written or
+ * pasted (40 at most; `retentionPenalty`). No recall answers yet means no factor, whatever the flags.
+ */
+export function retentionFactor(scores: number[], flaggedAnswers = 0): number | null {
   if (scores.length === 0) return null;
   const total = scores.reduce((sum, score) => sum + score, 0);
-  return Math.round(total / scores.length);
+  return Math.max(0, Math.round(total / scores.length) - retentionPenalty(flaggedAnswers));
 }
 
 export function qualityLabel(quality: RecallQuality): string {

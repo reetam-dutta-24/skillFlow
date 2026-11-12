@@ -1,6 +1,7 @@
 import "server-only";
 import { prisma } from "@/lib/prisma";
 import { explainModelConfig } from "@/lib/explain/judge";
+import { flaggedAnswersFor } from "@/lib/explain/integrity-store";
 import { recallDue, retentionFactor } from "@/lib/explain/recall";
 
 export type DueRecall = {
@@ -38,6 +39,12 @@ export async function findDueRecall(userId: string, now = new Date()): Promise<D
 }
 
 export async function retentionFor(userId: string): Promise<number | null> {
-  const rows = await prisma.recallCheck.findMany({ where: { userId }, select: { score: true } });
-  return retentionFactor(rows.map((row) => row.score));
+  const [rows, flags] = await Promise.all([
+    prisma.recallCheck.findMany({ where: { userId }, select: { score: true } }),
+    flaggedAnswersFor(userId),
+  ]);
+  return retentionFactor(
+    rows.map((row) => row.score),
+    flags,
+  );
 }

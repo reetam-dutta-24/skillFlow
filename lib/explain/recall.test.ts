@@ -32,6 +32,12 @@ describe("retention factor", () => {
     expect(retentionFactor([100, 20])).toBe(60);
     expect(retentionFactor([55, 55, 20])).toBe(43);
   });
+
+  it("takes points off for answers that read as AI-written, never below zero", () => {
+    expect(retentionFactor([80, 60], 2)).toBe(60);
+    expect(retentionFactor([30], 20)).toBe(0);
+    expect(retentionFactor([], 4)).toBeNull();
+  });
 });
 
 describe("recall review parse", () => {

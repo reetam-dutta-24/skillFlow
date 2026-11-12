@@ -21,7 +21,7 @@
 
 1. **Follow a path.** Thirty free paths (Full-Stack Web Development, Travel Vlogging, Content Creation, Music Production, Cybersecurity, Personal Finance, and 24 more) with 246 stages and about 900 curated free resources: YouTube videos played in-app, docs, and courses.
 2. **Learn a stage.** A step-by-step lesson wizard walks through the clip and each resource.
-3. **Explain it back.** One idea per step, typed or spoken (Speak instead uses the browser's own speech recognition; no audio reaches LearnProof). Gemini writes a review of every answer. The step moves on only when the idea holds. Answers that read as AI-written or pasted get two warnings on a stage, then stop counting until the learner uses their own words. If the model is unavailable, nothing is saved: the app never fakes a pass.
+3. **Explain it back.** One idea per step, typed or spoken (Speak instead uses the browser's own speech recognition; no audio reaches LearnProof). Gemini writes a review of every answer. The step moves on only when the idea holds. Answers that read as AI-written or pasted still count when they are right, but each one shows a warning and takes 5 points off Retention. If the model is unavailable, nothing is saved: the app never fakes a pass.
 4. **Show your work (practical paths).** On the 22 paths where the skill is made or performed, a stage also needs one small piece of real work: a link, a photo, a short video, or a PDF, with a write-up the model reviews. Knowledge and personal-life paths stay explain-back only.
 5. **Keep what you learned.** Accepted ideas become notes (exportable as Word or PDF), come back twice for spaced recall 18 hours apart, and feed mastery, streaks, weak topics, and analytics.
 6. **Finish the path.** Each pass opens the next stage. Passing every stage earns a certificate and a transcript.
@@ -168,7 +168,7 @@ flowchart LR
 | Payments | Stripe Checkout, customer portal, signed webhooks |
 | Maps | MapLibre GL + supercluster, OpenStreetMap tiles and Nominatim |
 | Other | framer-motion, Recharts, `docx` and `pdf-lib` exports, Zod, `next/og` images |
-| Tests | Vitest (314 tests in 44 files), Playwright (12 end-to-end tests) |
+| Tests | Vitest (315 tests in 44 files), Playwright (12 end-to-end tests) |
 | Deploy | Docker (multi-stage, non-root, health check), Docker Compose, Caddy, AWS EC2 |
 
 **Caching.** Content that is the same for everyone is cached with `"use cache"` and tags (`catalog`, `community`, `learner-map`, `geocode`, `nearby-events`, `practice-source`, `landing-stats`, `account:<id>`), and writes expire them with `updateTag`. Progress, streaks, notes, follow state, and the account menu are read per request. Redis is not a cache; it only holds rate-limit counters.

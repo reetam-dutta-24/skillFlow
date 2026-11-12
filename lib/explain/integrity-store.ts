@@ -14,6 +14,12 @@ export async function stageStrikes(userId: string, stageId: string): Promise<num
   return row?.strikes ?? 0;
 }
 
+/** Every flagged answer this learner has given, across all stages. Each one lowers Retention (`retentionPenalty`). */
+export async function flaggedAnswersFor(userId: string): Promise<number> {
+  const total = await prisma.explainBackIntegrity.aggregate({ where: { userId }, _sum: { strikes: true } });
+  return total._sum.strikes ?? 0;
+}
+
 /** Adds one strike and returns the new total. An atomic increment, so two quick answers cannot both read the old count. */
 export async function addStrike(userId: string, stageId: string): Promise<number> {
   const row = await prisma.explainBackIntegrity.upsert({

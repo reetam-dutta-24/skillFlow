@@ -1,10 +1,11 @@
 import { describe, expect, it } from "vitest";
 import {
-  WARNING_STRIKES,
+  RETENTION_PENALTY_CAP,
+  RETENTION_PENALTY_PER_FLAG,
   assessAuthenticity,
   cleanTrace,
   integrityOutcome,
-  nextFlagBlocks,
+  retentionPenalty,
   textSignals,
   traceSignals,
 } from "@/lib/explain/authenticity";
@@ -94,21 +95,27 @@ describe("one decision", () => {
 });
 
 describe("strikes on a stage", () => {
-  it("warns twice, then stops accepting flagged answers", () => {
-    expect(WARNING_STRIKES).toBe(2);
-    expect(integrityOutcome(0, false)).toEqual({ status: "clear", strikes: 0, warningsLeft: 2 });
-    expect(integrityOutcome(0, true)).toEqual({ status: "warning", strikes: 1, warningsLeft: 1 });
-    expect(integrityOutcome(1, true)).toEqual({ status: "warning", strikes: 2, warningsLeft: 0 });
-    expect(integrityOutcome(2, true)).toEqual({ status: "blocked", strikes: 3, warningsLeft: 0 });
-    expect(integrityOutcome(5, true).status).toBe("blocked");
+  it("counts every flagged answer as a warning and never refuses one", () => {
+    expect(integrityOutcome(0, false)).toEqual({ status: "clear", strikes: 0 });
+    expect(integrityOutcome(0, true)).toEqual({ status: "warning", strikes: 1 });
+    expect(integrityOutcome(2, true)).toEqual({ status: "warning", strikes: 3 });
+    expect(integrityOutcome(9, true).status).toBe("warning");
   });
 
-  it("lets an answer in the learner's own words through even after the warnings are used up", () => {
-    expect(integrityOutcome(3, false).status).toBe("clear");
+  it("leaves the count alone for an answer in the learner's own words", () => {
+    expect(integrityOutcome(3, false)).toEqual({ status: "clear", strikes: 3 });
   });
+});
 
-  it("knows when a clear-cut flag can be refused before any model call", () => {
-    expect(nextFlagBlocks(1)).toBe(false);
-    expect(nextFlagBlocks(2)).toBe(true);
+describe("retention penalty", () => {
+  it("takes 5 points per flagged answer, 40 at most", () => {
+    expect(RETENTION_PENALTY_PER_FLAG).toBe(5);
+    expect(RETENTION_PENALTY_CAP).toBe(40);
+    expect(retentionPenalty(0)).toBe(0);
+    expect(retentionPenalty(1)).toBe(5);
+    expect(retentionPenalty(3)).toBe(15);
+    expect(retentionPenalty(8)).toBe(40);
+    expect(retentionPenalty(50)).toBe(40);
+    expect(retentionPenalty(-2)).toBe(0);
   });
 });

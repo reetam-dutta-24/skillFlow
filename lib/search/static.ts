@@ -69,7 +69,7 @@ export const STATIC_SEARCH: readonly SearchEntry[] = [
 
   // Help
   { id: "h-free", kind: "help", title: "What is free, and what is Premium?", description: "Thirty paths, every stage, explain-back, and certificates are free", href: "/upgrade", icon: "circle-help", keywords: ["free", "cost", "price", "premium", "paid"] },
-  { id: "h-own-words", kind: "help", title: "Why was my answer flagged as AI-written?", description: "Pasted or chatbot-style answers get two warnings, then stop counting on that stage", href: "/roadmap", icon: "circle-help", keywords: ["flagged", "ai written", "chatgpt", "pasted", "warning", "own words", "not accepted"] },
+  { id: "h-own-words", kind: "help", title: "Why was my answer flagged as AI-written?", description: "Pasted or chatbot-style answers still count, but each one lowers your Retention score", href: "/roadmap", icon: "circle-help", keywords: ["flagged", "ai written", "chatgpt", "pasted", "warning", "own words", "not accepted"] },
   { id: "h-locked", kind: "help", title: "Why is a stage locked?", description: "The next stage opens after the explain-back on the one before it", href: "/roadmap", icon: "lock", keywords: ["locked", "cannot open", "next stage"] },
   { id: "h-score", kind: "help", title: "How is the Detox Score worked out?", description: "Your self-check, then only verified learning, with a daily limit", href: "/detox", icon: "circle-help", keywords: ["detox score", "how", "calculated", "points"] },
   { id: "h-mastery", kind: "help", title: "How is mastery measured?", description: "The share of a path's stages with a passed explain-back", href: "/progress", icon: "circle-help", keywords: ["mastery", "percent", "progress"] },

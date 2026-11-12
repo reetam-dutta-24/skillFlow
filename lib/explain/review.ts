@@ -12,14 +12,7 @@ import { notesFromPassedAttempt } from "@/lib/explain/notes-view";
 import { openStageLimit } from "@/lib/progress/formula";
 import { stepsFromNotes } from "@/lib/explain/wizard";
 import type { InputMethod } from "@/lib/explain/dictation";
-import {
-  BLOCKED_REVIEW,
-  assessAuthenticity,
-  integrityOutcome,
-  nextFlagBlocks,
-  type IntegrityView,
-  type TypingTrace,
-} from "@/lib/explain/authenticity";
+import { assessAuthenticity, integrityOutcome, type IntegrityView, type TypingTrace } from "@/lib/explain/authenticity";
 import { addStrike, stageStrikes } from "@/lib/explain/integrity-store";
 import { KIND_LABEL, checkProof, handsOnSpec, handsOnTask, linkWorthReading } from "@/lib/explain/hands-on";
 import { judgeProof } from "@/lib/explain/judge";
@@ -184,19 +177,6 @@ export async function reviewConceptStep(input: {
   const method = input.method ?? "text";
   const trace = input.trace ?? null;
   const strikesBefore = await stageStrikes(input.userId, stage.id);
-  // Warnings used up and the answer is clearly not the learner's own (a chatbot phrase, or pasted in): refuse it
-  // before spending a model call. Nothing is saved apart from the strike.
-  const precheck = assessAuthenticity({ answer, method, trace, modelSaysGenerated: null });
-  if (precheck.flagged && nextFlagBlocks(strikesBefore)) {
-    const strikes = await addStrike(input.userId, stage.id);
-    return {
-      ok: true,
-      understood: false,
-      review: BLOCKED_REVIEW,
-      noted: false,
-      integrity: { status: "blocked", strikes, warningsLeft: 0, reasons: precheck.reasons },
-    };
-  }
 
   const review = await judgeConcept({
     title: stage.title,
@@ -211,12 +191,9 @@ export async function reviewConceptStep(input: {
   const check = assessAuthenticity({ answer, method, trace, modelSaysGenerated: review.generated });
   const outcome = integrityOutcome(strikesBefore, check.flagged);
   const strikes = check.flagged ? await addStrike(input.userId, stage.id) : outcome.strikes;
+  // A flagged answer is judged like any other, so a right one still passes the idea. The flag is a strike on the
+  // stage, and every strike lowers Retention (`retentionPenalty`); it never holds the learner back.
   const integrity: IntegrityView = { ...outcome, strikes, reasons: check.reasons };
-  // A flagged answer after the warnings is not accepted, even when it is right. It is not a learning miss either, so
-  // no attempt is recorded and weak topics stay true to what the learner actually got wrong.
-  if (integrity.status === "blocked") {
-    return { ok: true, understood: false, review: BLOCKED_REVIEW, noted: false, integrity };
-  }
 
   if (!review.understood) {
     try {
@@ -334,11 +311,6 @@ export async function reviewHandsOnStep(input: {
   const method = input.method ?? "text";
   const trace = input.trace ?? null;
   const strikesBefore = await stageStrikes(input.userId, stage.id);
-  const precheck = assessAuthenticity({ answer: proof.writeUp, method, trace, modelSaysGenerated: null });
-  if (precheck.flagged && nextFlagBlocks(strikesBefore)) {
-    const strikes = await addStrike(input.userId, stage.id);
-    return { ok: true, accepted: false, review: BLOCKED_REVIEW, integrity: { status: "blocked", strikes, warningsLeft: 0, reasons: precheck.reasons } };
-  }
 
   // A repository or a write-up page can say what was built; a video player or a drive link says nothing, so it is
   // not fetched. The fetch goes through the same public-https guard as practice notes.
@@ -363,10 +335,10 @@ export async function reviewHandsOnStep(input: {
   const check = assessAuthenticity({ answer: proof.writeUp, method, trace, modelSaysGenerated: review.generated });
   const outcome = integrityOutcome(strikesBefore, check.flagged);
   const strikes = check.flagged ? await addStrike(input.userId, stage.id) : outcome.strikes;
+  // As with the ideas, a flagged write-up is still judged on what it says; the flag only lowers Retention.
   const integrity: IntegrityView = { ...outcome, strikes, reasons: check.reasons };
-  const blocked = integrity.status === "blocked";
-  const accepted = review.understood && !blocked;
-  const shown = blocked ? BLOCKED_REVIEW : review.review;
+  const accepted = review.understood;
+  const shown = review.review;
 
   await prisma.practicalProof.upsert({
     where: { userId_stageId: { userId: input.userId, stageId: stage.id } },

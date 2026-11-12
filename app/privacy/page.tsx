@@ -66,7 +66,7 @@ const sections: LegalSection[] = [
           </li>
           <li>
             For explain-back answers: how each was given (typed, spoken, or both), and a count per stage of answers that read as
-            AI-written or pasted. To work that out, your browser counts characters typed and pasted and how long the box was in
+            AI-written or pasted, which lowers your Retention score. To work that out, your browser counts characters typed and pasted and how long the box was in
             use. We never record keystrokes or keep the flagged text.
           </li>
           <li>

@@ -1,5 +1,6 @@
 import { execSync } from "node:child_process";
 import { expect, test } from "@playwright/test";
+import { pressUntilOpen } from "./shortcut";
 
 // The SkillFlow Assistant, end to end, against the fake model and embedder in e2e/model-stub.mjs: Ctrl+J opens it,
 // a help question streams an answer with a source chip, an un-passed explain-back idea gets hint mode, and a rate
@@ -27,9 +28,8 @@ test("the assistant answers with sources, gives hints for an un-passed idea, and
 
   await page.goto("/dashboard");
   await expect(page.getByRole("button", { name: /Ask SkillFlow/ })).toBeVisible();
-  await page.keyboard.press("Control+J");
   const dialog = page.getByRole("dialog", { name: "Ask SkillFlow" });
-  await expect(dialog).toBeVisible();
+  await pressUntilOpen(page, "Control+J", dialog);
   const box = dialog.getByLabel("Your question");
   await expect(box).toBeFocused();
   await expect(dialog.getByRole("button", { name: "How does explain-back decide I passed?" })).toBeVisible();
@@ -74,8 +74,8 @@ test("Ask the assistant opens from the Ctrl+K palette", async ({ page }) => {
   await page.getByRole("button", { name: /^Log in$/ }).click();
   await page.waitForURL(/\/(dashboard|onboarding)/);
   await page.goto("/dashboard");
-  await page.keyboard.press("Control+K");
   const search = page.getByRole("dialog", { name: "Search SkillFlow" });
+  await pressUntilOpen(page, "Control+K", search);
   await search.getByRole("combobox").fill("ask assistant");
   await expect(search.getByRole("option", { name: /Ask the assistant/ })).toBeVisible();
   await search.getByRole("combobox").press("Enter");

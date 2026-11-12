@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { pressUntilOpen } from "./shortcut";
 
 // Global search: Ctrl+K opens it, a feature and a setting answer at once, a niche comes from the catalog index,
 // and Enter opens the highlighted result.
@@ -14,9 +15,8 @@ test("global search finds features, settings, and niches, and opens one", async 
 
   await page.goto("/dashboard");
   await expect(page.getByRole("button", { name: "Search SkillFlow" })).toBeVisible();
-  await page.keyboard.press("Control+K");
   const dialog = page.getByRole("dialog", { name: "Search SkillFlow" });
-  await expect(dialog).toBeVisible();
+  await pressUntilOpen(page, "Control+K", dialog);
   const box = dialog.getByRole("combobox");
   await expect(box).toBeFocused();
 

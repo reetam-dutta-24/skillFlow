@@ -1,10 +1,10 @@
-# LearnProof
+# LearnProof 
 
 
 
 **A mastery-first learning platform.** LearnProof only counts a stage as learned when you can explain each idea back in your own words and an AI reviewer agrees. There is no quiz, no leaderboard, and no watch-time score.
 
-**Live:** https://app.32-236-251-56.sslip.io (temporary domain while the brand name is decided)
+**Live:** https://app.32-236-251-56.sslip.io (temporary domain while the brand name is decided) current public url deployed in aws ec2 sydney server
 
 | Doc | What it is for |
 | --- | --- |
